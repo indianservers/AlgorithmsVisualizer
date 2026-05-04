@@ -126,10 +126,12 @@ function App() {
     (completed.filter((id) => allModules.find((module) => module.id === id)?.category === activeCategory).length / Math.max(1, filteredModules.length)) * 100,
   )
   const difficulty =
-    activeModule.complexity.average.includes('log n') || activeModule.flags?.includes('Recursive')
-      ? 'Intermediate'
-      : activeModule.complexity.average.includes('n²') || activeModule.complexity.average.includes('n^2')
-        ? 'Beginner'
+    activeModule.complexity.average === 'O(n)' ||
+    activeModule.complexity.average.includes('n²') ||
+    activeModule.complexity.average.includes('n^2')
+      ? 'Beginner'
+      : activeModule.complexity.average.includes('log n') || activeModule.complexity.average.includes('n log n')
+        ? 'Intermediate'
         : 'Advanced'
   const correctnessText =
     activeModule.category === 'Sorting' && steps.length
@@ -291,6 +293,8 @@ function App() {
       }
       if (event.key === 'ArrowRight') setStepIndex((index) => Math.min(steps.length - 1, index + 1))
       if (event.key === 'ArrowLeft') setStepIndex((index) => Math.max(0, index - 1))
+      if (event.key === 'Home') setStepIndex(0)
+      if (event.key === 'End') setStepIndex(steps.length - 1)
       if (event.key.toLowerCase() === 'r') {
         setStepIndex(0)
         setPlaying(false)
@@ -341,8 +345,16 @@ function App() {
   }
 
   const toggleComplete = (id: string) => {
-    setCompleted((ids) => (ids.includes(id) ? ids.filter((item) => item !== id) : [...ids, id]))
-    setReviewDueDates((dates) => ({ ...dates, [id]: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() }))
+    setCompleted((ids) => {
+      const isCompleting = !ids.includes(id)
+      if (isCompleting) {
+        setReviewDueDates((dates) => ({
+          ...dates,
+          [id]: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+        }))
+      }
+      return isCompleting ? [...ids, id] : ids.filter((item) => item !== id)
+    })
   }
 
   const resetFilters = () => {
@@ -540,6 +552,8 @@ function App() {
           exportPng={exportPng}
           exportSvg={exportSvg}
           exportsOpen={exportsOpen}
+          focusMode={focusMode}
+          fullCanvas={fullCanvas}
           notes={notes}
           onFileLoad={onFileLoad}
           openCommandPalette={() => setCommandOpen(true)}
@@ -665,7 +679,6 @@ function App() {
                 disabledReason={disabledReason}
                 pauseOn={pauseOn}
                 playing={playing}
-                pushToast={pushToast}
                 resetAll={resetAll}
                 resetPlayback={resetPlayback}
                 setPauseOn={setPauseOn}

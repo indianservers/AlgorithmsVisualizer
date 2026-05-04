@@ -30,6 +30,8 @@ type TopBarProps = {
   exportPng: () => void
   exportSvg: () => void
   exportsOpen: boolean
+  focusMode: boolean
+  fullCanvas: boolean
   notes: Record<string, string>
   onFileLoad: (file?: File) => Promise<void>
   openCommandPalette: () => void
@@ -67,6 +69,8 @@ export function TopBar({
   exportPng,
   exportSvg,
   exportsOpen,
+  focusMode,
+  fullCanvas,
   notes,
   onFileLoad,
   openCommandPalette,
@@ -134,6 +138,7 @@ export function TopBar({
           onClick={() => setSidebarCollapsed((value) => !value)}
           title="Collapse or expand category sidebar"
           aria-label="Collapse or expand category sidebar"
+          aria-pressed={sidebarCollapsed}
         >
           {sidebarCollapsed ? <Menu size={16} /> : <PanelLeft size={16} />}
         </button>
@@ -143,6 +148,7 @@ export function TopBar({
           onClick={() => setFullCanvas((value) => !value)}
           title="Toggle full canvas"
           aria-label="Toggle full canvas"
+          aria-pressed={fullCanvas}
         >
           <Maximize2 size={16} />
         </button>
@@ -152,6 +158,7 @@ export function TopBar({
           onClick={() => setFocusMode((value) => !value)}
           title="Focus mode: canvas and controls only"
           aria-label="Toggle focus mode"
+          aria-pressed={focusMode}
         >
           <Square size={16} />
         </button>
@@ -180,7 +187,7 @@ export function TopBar({
           <Download size={16} />
           Export
         </button>
-        <span className="pwa-status">Offline-ready shell</span>
+        <span className="pwa-status">Offline ready</span>
         <button className="btn-save" type="button" onClick={saveExperiment} disabled={saving || !stepsLength}>
           <Save size={16} />
           {saving ? 'Saving...' : 'Save'}

@@ -59,7 +59,7 @@ export function CompareView({
       <div className="compare-header">
         <div>
           <span className="eyebrow">Algorithm Comparison</span>
-          <h1>Compare Searching and Sorting</h1>
+          <h1>Compare {compareCategory} Algorithms</h1>
           <p>Run multiple algorithms on the same local input and compare steps, comparisons, swaps, reads, writes, and final output.</p>
         </div>
         <div className="compare-tabs">
@@ -110,6 +110,7 @@ export function CompareView({
             ))}
           </div>
           <h2>Algorithms</h2>
+          <span className="selection-summary">{comparedIds.length} selected</span>
           <div className="compare-checks">
             {comparableModules.map((module) => (
               <button
@@ -160,7 +161,7 @@ export function CompareView({
               <article key={row.module.id}>
                 <div>
                   <strong>{row.module.name}</strong>
-                  <span>{row.module.complexity.average}</span>
+                  <span>{row.steps === Math.min(...comparisonRows.map((item) => item.steps)) ? 'Best on this input' : row.module.complexity.average}</span>
                 </div>
                 <label>Steps</label>
                 <span className="bar-track">

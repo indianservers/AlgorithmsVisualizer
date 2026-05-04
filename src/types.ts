@@ -80,3 +80,8 @@ export type QuizScore = {
 }
 
 export type AnimationQuality = 'off' | 'simple' | 'detailed'
+
+export type InputDiagnostics = {
+  clipped: boolean
+  invalid: string[]
+}

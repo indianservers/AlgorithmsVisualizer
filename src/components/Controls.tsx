@@ -7,7 +7,6 @@ type ControlsProps = {
   disabledReason: string
   pauseOn: string
   playing: boolean
-  pushToast: (message: string) => void
   resetAll: () => void
   resetPlayback: () => void
   setPauseOn: (type: string) => void
@@ -23,7 +22,6 @@ export function Controls({
   disabledReason,
   pauseOn,
   playing,
-  pushToast,
   resetAll,
   resetPlayback,
   setPauseOn,
@@ -59,17 +57,6 @@ export function Controls({
       </button>
       <button className="btn-stop" type="button" onClick={() => setPlaying(false)} title="Stop" aria-label="Stop">
         <Square size={18} />
-      </button>
-      <button
-        className="btn-stop"
-        type="button"
-        onClick={() => {
-          setPlaying(false)
-          pushToast('Run cancelled')
-        }}
-        title="Cancel long run playback"
-      >
-        Cancel
       </button>
       <button
         className="btn-nav"

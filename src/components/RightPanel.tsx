@@ -109,7 +109,7 @@ export function RightPanel({
         {correctnessText && (
           <div className={`result-banner ${correctnessText.includes('not') || correctnessText.includes('required') ? 'miss' : 'hit'}`}>{correctnessText}</div>
         )}
-        <p>{currentStep?.description ?? 'Choose a live algorithm and press Start to generate timeline events.'}</p>
+        <p>{currentStep?.description ?? 'Choose a live algorithm and press Run to generate timeline events.'}</p>
         <div className="reason-card">{stepReason(currentStep)}</div>
         <div className="step-meter">
           <span>
@@ -141,10 +141,10 @@ export function RightPanel({
           <h2>Study Guide</h2>
           <div className="study-meta">
             <span>
-              <strong>{difficulty}</strong>difficulty
+              <strong>{difficulty}</strong> difficulty
             </span>
             <span>
-              <strong>{activeModule.visualMode}</strong>visual mode
+              <strong>{activeModule.visualMode}</strong> visual mode
             </span>
           </div>
           <p>{guide.concept}</p>
@@ -326,7 +326,7 @@ export function RightPanel({
         <pre>{JSON.stringify(currentStep?.highlights.variables ?? { mode: activeModule.visualMode }, null, 2)}</pre>
         {currentStep?.assertion && <div className="quiz-card">Assertion: {currentStep.assertion}</div>}
         <details className="json-inspector">
-          <summary>Current step JSON</summary>
+          <summary>Current step data</summary>
           <pre>{JSON.stringify(currentStep ?? {}, null, 2)}</pre>
         </details>
       </section>

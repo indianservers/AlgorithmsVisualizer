@@ -17,6 +17,8 @@ type BottomPanelProps = {
   steps: AlgorithmStep[]
 }
 
+const metricLabel = (value: string) => value.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()
+
 export function BottomPanel({
   activeModuleId,
   copyText,
@@ -40,11 +42,11 @@ export function BottomPanel({
           {Object.entries(finalMetrics).map(([key, value]) => (
             <span key={key}>
               <strong>{value ?? 0}</strong>
-              {key}
+              {metricLabel(key)}
             </span>
           ))}
           <span>
-            <strong>{steps.length}</strong>steps
+            <strong>{steps.length}</strong> steps
           </span>
         </div>
       </section>

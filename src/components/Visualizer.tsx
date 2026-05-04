@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
-import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality } from '../types'
+import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics } from '../types'
 import { allModules } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
-
-type InputDiagnostics = {
-  clipped: boolean
-  invalid: string[]
-}
 
 type VisualItem = {
   id: string
@@ -390,26 +385,7 @@ export function Visualizer({
           <div className="ds-input-panel">
             <div>
               <h2>Graph Input Editor</h2>
-              <p>Use numeric values to seed traversal demos; custom edge editing can build on this panel.</p>
-            </div>
-            <label>
-              Node seed values
-              <textarea
-                value={inputText}
-                onChange={(event) => {
-                  setInputText(event.target.value)
-                  resetPlayback()
-                }}
-                rows={2}
-              />
-            </label>
-            <div className="preset-row">
-              <button type="button" onClick={() => setInputText('1, 2, 3, 4, 5, 6, 7')}>
-                Seven nodes
-              </button>
-              <button type="button" onClick={() => setInputText('10, 20, 30, 40')}>
-                Small graph
-              </button>
+              <p>Graph topology is fixed for BFS/DFS demos. Custom edge editing is planned.</p>
             </div>
           </div>
         )}
@@ -531,7 +507,7 @@ export function Visualizer({
               {hasNegativeValues && <div className="baseline-axis">0 baseline</div>}
               {currentStep?.type === 'swap' && (
                 <div className="swap-arrow" aria-label="Swap direction">
-                  ?
+                  ⇌
                 </div>
               )}
               {sortedBoundary > 0 && <div className="sorted-region-label">sorted region</div>}
