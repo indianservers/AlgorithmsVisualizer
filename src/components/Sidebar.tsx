@@ -10,11 +10,12 @@ type SidebarProps = {
   chooseAlgorithm: (id: string) => void
   chooseCategory: (category: AlgorithmCategory) => void
   iconStyle: string
+  onNavigate?: () => void
   recentIds: string[]
   setIconStyle: (style: string) => void
 }
 
-export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCategory, iconStyle, recentIds, setIconStyle }: SidebarProps) {
+export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCategory, iconStyle, onNavigate, recentIds, setIconStyle }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brand">
@@ -27,7 +28,14 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCateg
       <nav className="category-list" aria-label="Algorithm categories">
         {categories.map((category) => (
           <div className="menu-group" key={category}>
-            <button className={category === activeCategory ? 'active' : ''} onClick={() => chooseCategory(category)} type="button">
+            <button
+              className={category === activeCategory ? 'active' : ''}
+              onClick={() => {
+                chooseCategory(category)
+                onNavigate?.()
+              }}
+              type="button"
+            >
               <span className={`category-icon ${iconStyle}`}>{categoryIcon(category)}</span>
               <span>{category}</span>
             </button>
@@ -40,7 +48,15 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCateg
                       {group.label}
                     </h3>
                     {group.items.map((module) => (
-                      <button className={module.id === activeId ? 'active' : ''} key={module.id} onClick={() => chooseAlgorithm(module.id)} type="button">
+                      <button
+                        className={module.id === activeId ? 'active' : ''}
+                        key={module.id}
+                        onClick={() => {
+                          chooseAlgorithm(module.id)
+                          onNavigate?.()
+                        }}
+                        type="button"
+                      >
                         <span>{moduleIcon(module)}</span>
                         {module.name}
                       </button>
@@ -66,7 +82,14 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCateg
         {recentIds.slice(0, 5).map((id) => {
           const module = allModules.find((item) => item.id === id)
           return module ? (
-            <button key={id} type="button" onClick={() => chooseAlgorithm(id)}>
+            <button
+              key={id}
+              type="button"
+              onClick={() => {
+                chooseAlgorithm(id)
+                onNavigate?.()
+              }}
+            >
               {module.name}
             </button>
           ) : null

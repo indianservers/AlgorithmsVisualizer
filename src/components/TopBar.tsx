@@ -133,7 +133,7 @@ export function TopBar({
       </div>
       <div className="top-actions">
         <button
-          className="icon-button btn-data"
+          className="icon-button btn-data desktop-sidebar-toggle"
           type="button"
           onClick={() => setSidebarCollapsed((value) => !value)}
           title="Collapse or expand category sidebar"
@@ -143,7 +143,7 @@ export function TopBar({
           {sidebarCollapsed ? <Menu size={16} /> : <PanelLeft size={16} />}
         </button>
         <button
-          className="icon-button btn-export"
+          className="icon-button btn-export mobile-low-priority"
           type="button"
           onClick={() => setFullCanvas((value) => !value)}
           title="Toggle full canvas"
@@ -153,7 +153,7 @@ export function TopBar({
           <Maximize2 size={16} />
         </button>
         <button
-          className="icon-button btn-export"
+          className="icon-button btn-export mobile-low-priority"
           type="button"
           onClick={() => setFocusMode((value) => !value)}
           title="Focus mode: canvas and controls only"
@@ -163,7 +163,7 @@ export function TopBar({
           <Square size={16} />
         </button>
         <button
-          className="icon-button btn-data"
+          className="icon-button btn-data mobile-low-priority"
           type="button"
           onClick={() => copyText('Algorithm link', window.location.href)}
           title="Copy link"

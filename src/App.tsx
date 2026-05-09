@@ -33,7 +33,7 @@ function AimerSiteFooter() {
         <strong>www.AimerSociety.com</strong>
         <span>AI Learning Tools</span>
       </div>
-      <p>Artificial Intelligence Medical &amp; Engineering Researchers Society</p>
+      <p>Artificial Intelligence Medical &amp; Engineering Researchers Society Tools</p>
       <small>All rights reserved.</small>
     </footer>
   )
@@ -65,6 +65,7 @@ function App() {
   const [density, setDensity] = usePersistentState('algodrishti-density', 'comfortable', persistentString)
   const [classroomMode, setClassroomMode] = usePersistentState('algodrishti-classroom', false, persistentBoolean)
   const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState('algodrishti-sidebar-collapsed', false, persistentBoolean)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [rightPanelWidth, setRightPanelWidth] = usePersistentState('algodrishti-right-panel-width', 360, persistentNumber)
   const [reducedMotion, setReducedMotion] = usePersistentState('algodrishti-reduced-motion', false, persistentBoolean)
   const [showValues, setShowValues] = usePersistentState('algodrishti-show-values', true, persistentBoolean)
@@ -505,7 +506,13 @@ function App() {
     const text = await file.text()
     setInputText(parseInput(text).join(', '))
     resetPlayback()
+    setViewMode('visualize')
     pushToast('Loaded data locally with the Browser File API')
+    window.requestAnimationFrame(() => document.querySelector('.input-strip, .ds-input-panel, .visual-canvas')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+  }
+
+  const scrollToSection = (selector: string) => {
+    window.requestAnimationFrame(() => document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
 
   const sidebar = (
@@ -515,6 +522,7 @@ function App() {
       chooseAlgorithm={chooseAlgorithm}
       chooseCategory={chooseCategory}
       iconStyle={iconStyle}
+      onNavigate={() => setMobileMenuOpen(false)}
       recentIds={recentIds}
       setIconStyle={setIconStyle}
     />
@@ -531,7 +539,16 @@ function App() {
 
   if (routeState.notFound) {
     return (
-      <Layout focusMode={false} fullCanvas={false} rightPanelWidth={rightPanelWidth} sidebar={sidebar} sidebarCollapsed={sidebarCollapsed} toasts={toastStack}>
+      <Layout
+        focusMode={false}
+        fullCanvas={false}
+        mobileMenuOpen={mobileMenuOpen}
+        rightPanelWidth={rightPanelWidth}
+        setMobileMenuOpen={setMobileMenuOpen}
+        sidebar={sidebar}
+        sidebarCollapsed={sidebarCollapsed}
+        toasts={toastStack}
+      >
         <section className={`workspace category-page page-${activePage.slug}`} style={{ '--page-accent': activePage.accent } as CSSProperties}>
           <RouteFallback
             algorithmSlug={routeState.notFound.algorithmSlug}
@@ -549,7 +566,9 @@ function App() {
     <Layout
       focusMode={focusMode}
       fullCanvas={fullCanvas}
+      mobileMenuOpen={mobileMenuOpen}
       rightPanelWidth={rightPanelWidth}
+      setMobileMenuOpen={setMobileMenuOpen}
       sidebar={sidebar}
       sidebarCollapsed={sidebarCollapsed}
       toasts={toastStack}
@@ -808,7 +827,23 @@ function App() {
             chooseAlgorithm(item.algorithmId)
             setInputText(item.input.join(', '))
             setTarget(item.target)
+            setViewMode('visualize')
             resetPlayback()
+            pushToast(`${item.algorithmName} loaded`)
+            scrollToSection('.visual-canvas')
+          }}
+          openDashboard={() => {
+            setViewMode('visualize')
+            scrollToSection('.page-ribbon')
+          }}
+          openDataGrid={() => {
+            setViewMode('visualize')
+            scrollToSection('.input-strip, .ds-input-panel')
+          }}
+          openStatistics={() => scrollToSection('.metrics-panel')}
+          openVisualizer={() => {
+            setViewMode('visualize')
+            scrollToSection('.visual-canvas')
           }}
           saved={saved}
           setStepIndex={setStepIndex}

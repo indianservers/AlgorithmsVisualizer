@@ -10,6 +10,10 @@ type BottomPanelProps = {
   finalMetrics: AlgorithmStep['metrics']
   loadingSaved: boolean
   onLoadSaved: (item: SavedExperiment) => void
+  openDashboard: () => void
+  openDataGrid: () => void
+  openStatistics: () => void
+  openVisualizer: () => void
   saved: SavedExperiment[]
   setStepIndex: Dispatch<SetStateAction<number>>
   stepIndex: number
@@ -26,6 +30,10 @@ export function BottomPanel({
   finalMetrics,
   loadingSaved,
   onLoadSaved,
+  openDashboard,
+  openDataGrid,
+  openStatistics,
+  openVisualizer,
   saved,
   setStepIndex,
   stepIndex,
@@ -34,7 +42,7 @@ export function BottomPanel({
 }: BottomPanelProps) {
   return (
     <footer className="bottom-panel">
-      <section>
+      <section className="metrics-panel">
         <h2>
           <FlaskConical size={18} /> Experiment Metrics
         </h2>
@@ -85,20 +93,42 @@ export function BottomPanel({
         ) : (
           <div className="saved-list">
             {saved.length ? (
-              saved.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    onLoadSaved(item)
-                  }}
-                  type="button"
-                >
-                  <strong>{item.algorithmName}</strong>
-                  <span>{item.stepCount} steps</span>
-                </button>
-              ))
+              <>
+                <div className="saved-next-steps" aria-label="Quick next steps">
+                  <button type="button" onClick={openVisualizer}>
+                    Visualize
+                  </button>
+                  <button type="button" onClick={openDashboard}>
+                    Dashboard
+                  </button>
+                  <button type="button" onClick={openStatistics}>
+                    Statistics
+                  </button>
+                  <button type="button" onClick={openDataGrid}>
+                    Data Grid
+                  </button>
+                </div>
+                {saved.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      onLoadSaved(item)
+                    }}
+                    type="button"
+                  >
+                    <strong>{item.algorithmName}</strong>
+                    <span>{item.stepCount} steps. Tap to load and visualize.</span>
+                  </button>
+                ))}
+              </>
             ) : (
-              <p>No saved experiments yet.</p>
+              <div className="empty-state saved-empty-state">
+                <strong>No saved experiments yet.</strong>
+                <span>Run an algorithm, then tap Save to keep it here for quick mobile access.</span>
+                <button type="button" onClick={openVisualizer}>
+                  Go to visualizer
+                </button>
+              </div>
             )}
           </div>
         )}
