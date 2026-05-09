@@ -142,6 +142,12 @@ export function Visualizer({
   visualFilter,
   visualItems,
 }: VisualizerProps) {
+  const matrixData = currentStep?.dataState?.length ? currentStep.dataState : input
+  const tableShape = String(currentStep?.highlights.variables?.tableShape ?? '')
+  const tableColumns = Number(tableShape.split('x')[1])
+  const matrixColumns = Number.isFinite(tableColumns) && tableColumns > 0 ? tableColumns : Math.max(2, Math.ceil(Math.sqrt(Math.max(matrixData.length, 1))))
+  const matrixRows = Math.max(1, Math.ceil(matrixData.length / matrixColumns))
+
   return (
     <section className="lab-grid">
       <section className="canvas-zone">
@@ -489,6 +495,47 @@ export function Visualizer({
               >
                 Open an interactive {activeCategory.toLowerCase()} module
               </button>
+            </div>
+          ) : activeModule.visualMode === 'Matrix' ? (
+            <div
+              className="matrix-stage"
+              aria-label="Matrix visualization"
+              style={
+                {
+                  '--matrix-columns': matrixColumns,
+                  minWidth: `${canvasZoom}%`,
+                } as CSSProperties
+              }
+            >
+              <div className="matrix-meta">
+                <span>
+                  {matrixRows} x {matrixColumns}
+                </span>
+                <strong>{String(currentStep?.highlights.variables?.problem ?? activeModule.subcategory ?? 'Matrix state')}</strong>
+                <em>{currentStep?.type ?? 'ready'}</em>
+              </div>
+              <div className="matrix-grid-view">
+                {matrixData.map((value, index) => {
+                  const active = currentStep?.highlights.indices?.includes(index)
+                  return (
+                    <motion.div
+                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''}`}
+                      key={`${index}-${value}`}
+                      layout
+                      transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
+                    >
+                      {showIndices && <small>{index}</small>}
+                      {showValues && <strong>{value}</strong>}
+                    </motion.div>
+                  )
+                })}
+              </div>
+              {showStateComparison && currentStep && (
+                <div className="state-comparison matrix-comparison">
+                  <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
+                  <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
+                </div>
+              )}
             </div>
           ) : (
             <div

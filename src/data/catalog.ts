@@ -31,16 +31,16 @@ export const categoryPages: Record<AlgorithmCategory, { slug: string; title: str
   'Data Structures': {
     slug: 'data-structures',
     title: 'Data Structure Visualizations',
-    subtitle: 'Inspect stacks, queues, tree traversal, node states, and structural operations.',
+    subtitle: 'Inspect linear structures, hash tables, trees, heaps, tries, range-query structures, memory, and learning tools.',
     accent: '#22a06b',
-    sections: ['Linear structures', 'Trees', 'Traversal', 'Hash structures'],
+    sections: ['Linear structures', 'Trees', 'Hash structures', 'Range queries', 'Learning tools'],
   },
   Graphs: {
     slug: 'graphs',
     title: 'Graph Algorithms',
-    subtitle: 'Explore node-edge diagrams, traversal order, shortest paths, and spanning trees.',
+    subtitle: 'Explore traversal, shortest paths, spanning trees, topological order, and strongly connected components.',
     accent: '#5865f2',
-    sections: ['Traversal', 'Shortest paths', 'Minimum spanning tree', 'Graph generators'],
+    sections: ['Traversal', 'Shortest paths', 'Minimum spanning tree', 'Ordering', 'Components'],
   },
   'Dynamic Programming': {
     slug: 'dynamic-programming',

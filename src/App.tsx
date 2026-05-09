@@ -26,6 +26,19 @@ import { buildStepLogCsv, downloadBlob, downloadText as saveText, exportPngFrame
 
 const MAX_VISUAL_STEPS = 1000
 
+function AimerSiteFooter() {
+  return (
+    <footer className="aimer-site-footer">
+      <div>
+        <strong>www.AimerSociety.com</strong>
+        <span>AI Learning Tools</span>
+      </div>
+      <p>Artificial Intelligence Medical &amp; Engineering Researchers Society</p>
+      <small>All rights reserved.</small>
+    </footer>
+  )
+}
+
 function App() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -526,6 +539,7 @@ function App() {
             fallbackModule={activeModule}
             openFallback={() => chooseAlgorithm(activeModule.id)}
           />
+          <AimerSiteFooter />
         </section>
       </Layout>
     )
@@ -802,6 +816,7 @@ function App() {
           stepLogCsv={stepLogCsv}
           steps={steps}
         />
+        <AimerSiteFooter />
       </section>
     </Layout>
   )

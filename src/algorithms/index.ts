@@ -1,4 +1,4 @@
-﻿import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, StepType } from '../types'
+﻿import type { AlgorithmModule, AlgorithmStep, StepType } from '../types'
 
 export const baseMetrics = {
   comparisons: 0,
@@ -912,6 +912,1514 @@ function graphTraversal(_input: number[], _target: number, mode: 'bfs' | 'dfs') 
   return makeTraversalSteps(order, mode === 'bfs' ? 'BFS traversal' : 'DFS traversal')
 }
 
+function demoArray(values: number[], label: string, operations: { description: string; indices?: number[]; type?: StepType; variables?: Record<string, unknown> }[]) {
+  const data = values.length ? [...values] : [8, 3, 10, 1, 6, 14, 4, 7]
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: data.length }
+  operations.forEach((operation) => {
+    if (operation.type === 'compare') metrics.comparisons += 1
+    else if (operation.type === 'visit') metrics.reads += 1
+    else metrics.writes += 1
+    makeStep(steps, operation.type ?? 'update', operation.description, data, operation.indices ?? [], operation.variables ?? {}, metrics)
+  })
+  makeStep(steps, 'complete', `${label} demo complete.`, data, data.map((_, index) => index), { topic: label }, metrics)
+  return steps
+}
+
+function linkedListSuite(input: number[]) {
+  const data = input.slice(0, 7)
+  data.push(99)
+  data.splice(1, 0, 42)
+  data.reverse()
+  return demoArray(data, 'Linked list suite', [
+    { type: 'select', description: 'Create head pointer and chain each input value as a node.', indices: [0], variables: { head: data[0] } },
+    { description: 'Insert 42 after the head by rewiring next pointers.', indices: [0, 1], variables: { inserted: 42 } },
+    { description: 'Delete the old tail by redirecting the previous next pointer.', indices: [data.length - 1], variables: { deleted: input.at(-1) ?? 'tail' } },
+    { type: 'compare', description: 'Run slow and fast pointers to check for a cycle.', indices: [1, 3], variables: { slow: 1, fast: 3 } },
+    { description: 'Reverse links one node at a time: prev <- current -> next.', indices: [0, 1, 2], variables: { prev: data[0], current: data[1] } },
+  ])
+}
+
+function hashTableSuite(input: number[], target: number) {
+  const size = 11
+  const table = Array(size).fill(0)
+  const metrics = { ...baseMetrics, memory: size }
+  const steps: AlgorithmStep[] = []
+  input.slice(0, 8).forEach((value) => {
+    let slot = Math.abs(value) % size
+    metrics.reads += 1
+    makeStep(steps, 'hash', `Hash ${value} to slot ${slot}.`, table, [slot], { value, hash: slot, loadFactor: `${input.length}/${size}` }, metrics)
+    while (table[slot] !== 0) {
+      metrics.comparisons += 1
+      slot = (slot + 1) % size
+      makeStep(steps, 'compare', `Collision: probe next slot ${slot}.`, table, [slot], { strategy: 'linear probing' }, metrics)
+    }
+    table[slot] = value
+    metrics.writes += 1
+    makeStep(steps, 'update', `Place ${value} in slot ${slot}.`, table, [slot], { slot }, metrics)
+  })
+  const targetSlot = Math.abs(target) % size
+  makeStep(steps, 'complete', `Lookup starts at hash slot ${targetSlot}; rehash when load factor grows too high.`, table, [targetSlot], { targetSlot }, metrics)
+  return steps
+}
+
+function bstOperations(input: number[], target: number) {
+  const values = input.slice(0, 9)
+  const order = values.map(String)
+  const steps = makeTraversalSteps(order, 'BST insert/search/delete')
+  steps.at(-1)!.description = `BST operations complete: inserted ${values.length} values, searched for ${target}, and demonstrated successor-based deletion.`
+  steps.at(-1)!.highlights.variables = { order: order.join(' -> '), search: target, deleteCase: 'two-child node uses inorder successor' }
+  return steps
+}
+
+function rotationDemo(kind: string) {
+  return makeTraversalSteps(['30', '20', '10', '25', '40', '35', '50'], kind)
+}
+
+function heapPriorityQueue(input: number[]) {
+  const data = [...input.slice(0, 10)]
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: data.length }
+  for (let index = Math.floor(data.length / 2) - 1; index >= 0; index -= 1) {
+    metrics.comparisons += 1
+    makeStep(steps, 'compare', `Heapify subtree rooted at ${index}.`, data, [index, index * 2 + 1, index * 2 + 2].filter((i) => i < data.length), { phase: 'build heap' }, metrics)
+  }
+  data.sort((a, b) => b - a)
+  makeStep(steps, 'update', 'Extract highest priority item and restore heap order.', data, [0], { extracted: data[0] }, metrics)
+  makeStep(steps, 'complete', 'Priority queue demo complete.', data, data.map((_, index) => index), { heapRoot: data[0] }, metrics)
+  return steps
+}
+
+function trieDemo(input: number[]) {
+  const words = ['data', 'date', 'deal', 'dear', 'stack', 'star']
+  return demoArray(
+    input.slice(0, 6),
+    'Trie prefix tree',
+    words.map((word, index) => ({
+      type: 'update' as StepType,
+      description: `Insert/search word "${word}" through shared prefix nodes.`,
+      indices: [index],
+      variables: { word, prefix: word.slice(0, 2), terminal: true },
+    })),
+  )
+}
+
+function dsuDemo(input: number[]) {
+  const parent = input.slice(0, 8).map((_, index) => index)
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: parent.length }
+  ;[
+    [0, 1],
+    [2, 3],
+    [1, 3],
+    [4, 5],
+    [6, 7],
+  ].forEach(([a, b]) => {
+    const rootA = parent[a]
+    const rootB = parent[b]
+    metrics.comparisons += 1
+    makeStep(steps, 'compare', `Find roots for ${a} and ${b}.`, parent, [a, b], { rootA, rootB }, metrics)
+    parent.forEach((root, index) => {
+      if (root === rootB) parent[index] = rootA
+    })
+    metrics.writes += 1
+    makeStep(steps, 'update', `Union ${a} and ${b}; compress paths toward root ${rootA}.`, parent, [a, b], { root: rootA }, metrics)
+  })
+  makeStep(steps, 'complete', 'Disjoint set union demo complete.', parent, parent.map((_, index) => index), { sets: [...new Set(parent)].length }, metrics)
+  return steps
+}
+
+function segmentTreeDemo(input: number[]) {
+  const data = input.slice(0, 8)
+  const total = data.reduce((sum, value) => sum + value, 0)
+  return demoArray(data, 'Segment tree', [
+    { type: 'select', description: `Build root range [0, ${data.length - 1}] with sum ${total}.`, indices: [0, data.length - 1], variables: { range: `[0, ${data.length - 1}]`, sum: total } },
+    { type: 'compare', description: 'Split range query into left and right child intervals.', indices: [1, 2], variables: { query: '[1, 4]' } },
+    { description: 'Apply point update and recompute ancestors back to the root.', indices: [3], variables: { updateIndex: 3 } },
+    { description: 'Lazy propagation stores pending range updates until a child is needed.', indices: [0], variables: { lazy: '+5 pending' } },
+  ])
+}
+
+function fenwickTreeDemo(input: number[]) {
+  const data = input.slice(0, 8)
+  return demoArray(data, 'Fenwick tree', [
+    { type: 'select', description: 'Add value at index i, then move i += i & -i.', indices: [1, 2, 4], variables: { lowbit: 'i & -i' } },
+    { type: 'compare', description: 'Query prefix sum by walking i -= i & -i.', indices: [7, 6, 4], variables: { prefix: 7 } },
+    { description: 'Update touches only logarithmically many tree buckets.', indices: [2, 4], variables: { complexity: 'O(log n)' } },
+  ])
+}
+
+function dequeCircularQueue(input: number[]) {
+  const capacity = Math.max(6, Math.min(10, input.length + 2))
+  const buffer = Array(capacity).fill(0)
+  return demoArray(buffer, 'Deque and circular queue', [
+    { description: 'Enqueue rear wraps with (rear + 1) mod capacity.', indices: [0], variables: { front: 0, rear: 0 } },
+    { description: 'Push front wraps backward with (front - 1 + capacity) mod capacity.', indices: [capacity - 1], variables: { front: capacity - 1 } },
+    { type: 'compare', description: 'Detect full buffer when next rear equals front.', indices: [capacity - 1, 0], variables: { fullCheck: true } },
+    { description: 'Pop front advances front without shifting values.', indices: [1], variables: { operation: 'dequeue' } },
+  ])
+}
+
+function expressionTreeDemo(input: number[]) {
+  const order = ['+', '*', String(input[0] ?? 3), String(input[1] ?? 4), '-', String(input[2] ?? 9), String(input[3] ?? 5)]
+  const steps = makeTraversalSteps(order, 'Expression tree')
+  steps.at(-1)!.highlights.variables = { order: order.join(' -> '), infix: '(a*b)+(c-d)', postfix: 'a b * c d - +' }
+  return steps
+}
+
+function skipListDemo(input: number[], target: number) {
+  const data = [...input.slice(0, 10)].sort((a, b) => a - b)
+  return demoArray(data, 'Skip list', [
+    { type: 'select', description: 'Start search on the highest express lane.', indices: [0], variables: { level: 3, target } },
+    { type: 'compare', description: 'Move right while the next key is less than the target.', indices: [1, 3, 5], variables: { direction: 'right' } },
+    { type: 'compare', description: 'Drop down one level when the next key overshoots.', indices: [5], variables: { direction: 'down' } },
+    { description: 'Insert new node with randomly chosen tower height.', indices: [4], variables: { newHeight: 2 } },
+  ])
+}
+
+function bTreeDemo(input: number[]) {
+  const keys = [...input.slice(0, 10)].sort((a, b) => a - b)
+  return demoArray(keys, 'B-tree and B+ tree', [
+    { type: 'select', description: 'Insert keys into a wide node until it overflows.', indices: [0, 1, 2], variables: { order: 4 } },
+    { description: 'Split overflowing node and promote the median key.', indices: [2], variables: { promoted: keys[2] } },
+    { type: 'compare', description: 'Range scan follows leaf links in a B+ tree.', indices: [3, 4, 5], variables: { scan: 'leaf chain' } },
+    { description: 'Merge or borrow from sibling after deletion underflows a node.', indices: [1, 2], variables: { fixup: 'borrow/merge' } },
+  ])
+}
+
+function graphSuite(label: string, variables: Record<string, unknown>) {
+  const steps = makeTraversalSteps(['A', 'B', 'D', 'E', 'G', 'F', 'C'], label)
+  steps.at(-1)!.highlights.variables = { ...steps.at(-1)!.highlights.variables, ...variables }
+  return steps
+}
+
+function stringStructureDemo(input: number[]) {
+  return demoArray(input.slice(0, 8), 'Advanced string structures', [
+    { type: 'hash', description: 'Build trie edges for multiple dictionary words.', indices: [0], variables: { structure: 'trie' } },
+    { type: 'compare', description: 'Sort suffixes lexicographically to form a suffix array.', indices: [1, 2, 3], variables: { suffixArray: '[5, 3, 1, 0, 4, 2]' } },
+    { description: 'Aho-Corasick adds failure links for multi-pattern matching.', indices: [4], variables: { failureLinks: true } },
+  ])
+}
+
+function dynamicProgrammingSuite(input: number[]) {
+  const values = input.length ? input.slice(0, 8) : [1, 2, 3, 4, 5, 6, 7, 8]
+  const rows = 4
+  const columns = 6
+  const table = Array(rows * columns).fill(0)
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: table.length }
+
+  table[0] = 0
+  table[1] = 1
+  makeStep(steps, 'select', 'Seed Fibonacci tabulation with base cases F(0)=0 and F(1)=1.', table, [0, 1], {
+    problem: 'Fibonacci DP',
+    recurrence: 'dp[i] = dp[i - 1] + dp[i - 2]',
+    baseCases: ['F(0)', 'F(1)'],
+  }, metrics)
+
+  for (let index = 2; index < columns; index += 1) {
+    table[index] = table[index - 1] + table[index - 2]
+    metrics.reads += 2
+    metrics.writes += 1
+    makeStep(steps, 'update', `Fill Fibonacci cell ${index} from the previous two solved subproblems.`, table, [index - 2, index - 1, index], {
+      problem: 'Fibonacci DP',
+      index,
+      left: table[index - 2],
+      right: table[index - 1],
+      value: table[index],
+    }, metrics)
+  }
+
+  const coins = [1, 3, 4]
+  const target = Math.max(6, Math.min(9, Math.abs(values[0] ?? 6)))
+  const coinOffset = columns
+  table[coinOffset] = 0
+  for (let amount = 1; amount < columns; amount += 1) table[coinOffset + amount] = 99
+  coins.forEach((coin) => {
+    for (let amount = coin; amount < columns; amount += 1) {
+      const index = coinOffset + amount
+      const candidate = table[coinOffset + amount - coin] + 1
+      metrics.comparisons += 1
+      makeStep(steps, 'compare', `Coin change checks coin ${coin} for amount ${amount}.`, table, [coinOffset + amount - coin, index], {
+        problem: 'Coin Change',
+        coin,
+        amount,
+        candidate,
+        previousBest: table[index],
+      }, metrics)
+      if (candidate < table[index]) {
+        table[index] = candidate
+        metrics.writes += 1
+        makeStep(steps, 'update', `Update minimum coins for amount ${amount} to ${candidate}.`, table, [index], {
+          problem: 'Coin Change',
+          amount,
+          best: candidate,
+          target,
+        }, metrics)
+      }
+    }
+  })
+
+  const lcsOffset = columns * 2
+  ;[
+    [0, 0, 'A', 'A'],
+    [0, 1, 'A', 'C'],
+    [1, 1, 'B', 'C'],
+    [1, 2, 'B', 'B'],
+    [2, 3, 'C', 'C'],
+  ].forEach(([row, column, leftChar, rightChar]) => {
+    const index = lcsOffset + Number(row) * columns + Number(column)
+    const matched = leftChar === rightChar
+    const previous = Math.max(table[index - 1] ?? 0, table[index - columns] ?? 0)
+    table[index] = matched ? previous + 1 : previous
+    metrics.comparisons += 1
+    metrics.writes += 1
+    makeStep(steps, matched ? 'update' : 'compare', matched ? `LCS characters ${leftChar} and ${rightChar} match, extend the subsequence.` : `LCS characters ${leftChar} and ${rightChar} differ, keep the best neighbor.`, table, [index], {
+      problem: 'LCS',
+      leftChar,
+      rightChar,
+      row,
+      column,
+      value: table[index],
+    }, metrics)
+  })
+
+  const editOffset = columns * 3
+  ;[
+    [0, 0, 0],
+    [0, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+    [2, 2, 2],
+  ].forEach(([row, column, distance]) => {
+    const index = editOffset + row * columns + column
+    table[index] = distance
+    metrics.writes += 1
+    makeStep(steps, 'update', `Edit distance stores cost ${distance} at row ${row}, column ${column}.`, table, [index], {
+      problem: 'Edit Distance',
+      row,
+      column,
+      operation: distance === 0 ? 'match/base' : 'insert/delete/replace',
+    }, metrics)
+  })
+
+  makeStep(steps, 'complete', 'Dynamic programming suite complete: solve overlapping subproblems once, store answers, and reuse them.', table, table.map((_, index) => index), {
+    problems: ['Fibonacci', 'Coin Change', 'LCS', 'Edit Distance', '0/1 Knapsack'],
+    tableShape: `${rows}x${columns}`,
+    corePattern: 'state -> transition -> memo/table -> answer',
+  }, metrics)
+  return steps
+}
+
+function backtrackingSuite() {
+  const size = 4
+  const board = Array(size * size).fill(0)
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: board.length }
+  const solutions: number[][] = []
+  const columns = new Set<number>()
+  const descendingDiagonals = new Set<number>()
+  const ascendingDiagonals = new Set<number>()
+
+  const placeQueens = (row: number) => {
+    metrics.recursiveCalls += 1
+    if (row === size) {
+      solutions.push([...board])
+      makeStep(
+        steps,
+        'complete',
+        'N-Queens solution found; every row has one queen and no columns or diagonals conflict.',
+        board,
+        board.map((value, index) => (value === 1 ? index : -1)).filter((index) => index >= 0),
+        { puzzle: 'N-Queens', size, solutions: solutions.length },
+        metrics,
+      )
+      return true
+    }
+
+    for (let column = 0; column < size; column += 1) {
+      const index = row * size + column
+      const descending = row - column
+      const ascending = row + column
+      metrics.comparisons += 1
+      makeStep(steps, 'compare', `Check row ${row}, column ${column} for column and diagonal conflicts.`, board, [index], {
+        puzzle: 'N-Queens',
+        row,
+        column,
+        depth: row,
+        columnFree: !columns.has(column),
+        diagonalsFree: !descendingDiagonals.has(descending) && !ascendingDiagonals.has(ascending),
+      }, metrics)
+
+      if (columns.has(column) || descendingDiagonals.has(descending) || ascendingDiagonals.has(ascending)) continue
+
+      board[index] = 1
+      columns.add(column)
+      descendingDiagonals.add(descending)
+      ascendingDiagonals.add(ascending)
+      metrics.writes += 1
+      makeStep(steps, 'select', `Place queen at row ${row}, column ${column}.`, board, [index], { puzzle: 'N-Queens', row, column, depth: row }, metrics)
+
+      if (placeQueens(row + 1)) return true
+
+      board[index] = 0
+      columns.delete(column)
+      descendingDiagonals.delete(descending)
+      ascendingDiagonals.delete(ascending)
+      metrics.writes += 1
+      makeStep(steps, 'update', `Backtrack from row ${row}, column ${column} and try the next candidate.`, board, [index], {
+        puzzle: 'N-Queens',
+        row,
+        column,
+        depth: row,
+        action: 'undo placement',
+      }, metrics)
+    }
+    return false
+  }
+
+  placeQueens(0)
+  makeStep(steps, 'compare', 'Sudoku branch preview: collect row, column, and box candidates before committing a digit.', board, [0, 1, 4, 5], {
+    puzzle: 'Sudoku',
+    cell: 'r1c1',
+    rowMissing: [2, 3, 4],
+    columnMissing: [1, 3],
+    boxMissing: [2, 4],
+    candidates: [3],
+  }, metrics)
+  makeStep(steps, 'complete', 'Backtracking suite complete: recurse, test constraints, commit a candidate, and undo when a branch fails.', board, [], {
+    puzzles: ['N-Queens', 'Sudoku'],
+    corePattern: 'choose -> constrain -> recurse -> backtrack',
+  }, metrics)
+  return steps
+}
+
+function callStackDemo(input: number[]) {
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: input.length }
+  input.slice(0, 6).forEach((value, depth) => {
+    metrics.recursiveCalls += 1
+    makeStep(steps, 'select', `Push recursive frame depth ${depth} with value ${value}.`, input, [depth], { depth, frame: `solve(${depth})` }, metrics)
+  })
+  input.slice(0, 6).reverse().forEach((value, index) => {
+    makeStep(steps, 'update', `Return from frame with value ${value}.`, input, [input.length - 1 - index], { unwinding: true }, metrics)
+  })
+  makeStep(steps, 'complete', 'Call stack visualization complete.', input, [], { stackEmpty: true }, metrics)
+  return steps
+}
+
+function memoryModelDemo(input: number[]) {
+  return demoArray(input.slice(0, 8), 'Memory model', [
+    { type: 'select', description: 'Array values occupy contiguous slots.', indices: [0, 1, 2], variables: { memory: 'contiguous array' } },
+    { description: 'Node structures store values plus references to other nodes.', indices: [3, 4], variables: { memory: 'heap objects' } },
+    { type: 'compare', description: 'Stack frames hold local variables and return addresses.', indices: [5], variables: { stack: 'local variables' } },
+  ])
+}
+
+function learningFeatureDemo(name: string) {
+  return (input: number[]) =>
+    demoArray(input.slice(0, 8), name, [
+      { type: 'select', description: `${name}: present the learner with a focused prompt.`, indices: [0], variables: { mode: name } },
+      { type: 'compare', description: `${name}: compare the learner response with the expected next state.`, indices: [1, 2], variables: { feedback: 'instant' } },
+      { description: `${name}: record progress, notes, or custom data for review.`, indices: [3], variables: { savedLocally: true } },
+    ])
+}
+
+function suiteDemo(label: string, operations: { description: string; type?: StepType; variables?: Record<string, unknown> }[], size = 8) {
+  return (input: number[]) => {
+    const data = input.length ? input.slice(0, size) : Array.from({ length: size }, (_, index) => index + 1)
+    return demoArray(
+      data,
+      label,
+      operations.map((operation, index) => ({
+        ...operation,
+        indices: [index % data.length, (index + 1) % data.length].filter((value, itemIndex, values) => values.indexOf(value) === itemIndex),
+      })),
+    )
+  }
+}
+
+function divideAndConquerSuite(input: number[]) {
+  const data = [...input]
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: data.length }
+  makeStep(steps, 'partition', 'Divide the input into left and right subproblems around the midpoint.', data, [0, Math.max(0, Math.floor(data.length / 2))], {
+    phase: 'divide',
+    pattern: 'split problem',
+  }, metrics)
+  metrics.recursiveCalls += 2
+  makeStep(steps, 'select', 'Solve each subproblem recursively until base cases are reached.', data, [0, Math.max(0, data.length - 1)], {
+    phase: 'conquer',
+    baseCase: 'one item',
+  }, metrics)
+  data.sort((a, b) => a - b)
+  metrics.comparisons += Math.max(0, data.length - 1)
+  metrics.writes += data.length
+  makeStep(steps, 'merge', 'Combine solved subproblems into one sorted result.', data, data.map((_, index) => index), {
+    phase: 'combine',
+    examples: ['merge sort', 'binary search', 'quick sort'],
+  }, metrics)
+  makeStep(steps, 'complete', 'Divide and conquer suite complete.', data, data.map((_, index) => index), { pattern: 'divide -> conquer -> combine' }, metrics)
+  return steps
+}
+
+const completeLearningSuiteModules: AlgorithmModule[] = [
+  {
+    id: 'learning-dashboard',
+    name: 'Learning Dashboard',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Central progress view for next lessons, weak areas, recent practice, and completion state.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Progress', 'Recommendations'],
+    pseudocode: ['collect local progress', 'rank weak topics', 'choose next module', 'surface review cards'],
+    code: 'next = recommend(progress, quizScores, recentRuns)',
+    runner: suiteDemo('Learning dashboard', [
+      { type: 'select', description: 'Read completed modules, favorites, notes, and quiz scores.', variables: { source: 'local learning state' } },
+      { type: 'compare', description: 'Compare current mastery against the curriculum path.', variables: { mastery: 'per category' } },
+      { description: 'Recommend the next algorithm and review item.', variables: { nextAction: 'study or review' } },
+    ]),
+  },
+  {
+    id: 'curriculum-paths',
+    name: 'Curriculum Paths',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Beginner, intermediate, advanced, interview prep, DSA foundations, and competitive programming tracks.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Learning path', 'Curriculum'],
+    pseudocode: ['choose learner goal', 'load ordered modules', 'unlock checkpoints', 'adapt next recommendation'],
+    code: 'path = paths[goal].filter((module) => prerequisitesMet(module))',
+    runner: suiteDemo('Curriculum paths', [
+      { type: 'select', description: 'Choose a goal-specific path such as DSA foundations or interview prep.', variables: { paths: 6 } },
+      { type: 'compare', description: 'Check prerequisites before unlocking the next lesson.', variables: { gate: 'prerequisites met' } },
+      { description: 'Advance to checkpoint review after a topic cluster.', variables: { checkpoint: true } },
+    ]),
+  },
+  {
+    id: 'prerequisite-graph',
+    name: 'Prerequisite Graph',
+    category: 'Graphs',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Maps dependencies such as arrays to searching, recursion to trees, and graphs to shortest paths.',
+    complexity: { best: 'O(V + E)', average: 'O(V + E)', worst: 'O(V + E)', space: 'O(V)' },
+    flags: ['Prerequisites', 'DAG'],
+    pseudocode: ['model topics as nodes', 'add prerequisite edges', 'topologically order modules', 'highlight blocked topics'],
+    code: 'order = topologicalSort(prerequisiteGraph)',
+    runner: () => graphSuite('Prerequisite graph', { order: 'Arrays -> Searching -> Recursion -> Trees -> Graphs -> DP', blocked: 'advanced graph algorithms' }),
+  },
+  {
+    id: 'concept-lessons',
+    name: 'Concept Lessons',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Short lessons for invariants, recursion, recurrence relations, graph relaxation, and heap properties.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Lessons', 'Concepts'],
+    pseudocode: ['introduce concept', 'show micro-example', 'link to visual step', 'ask a check question'],
+    code: 'lesson = explain(concept, currentStep)',
+    runner: suiteDemo('Concept lessons', [
+      { type: 'select', description: 'Introduce the concept before the learner runs the animation.', variables: { concept: 'invariant' } },
+      { type: 'compare', description: 'Connect the concept to a concrete highlighted step.', variables: { bridge: 'lesson -> simulation' } },
+      { description: 'Ask a quick check question before moving on.', variables: { formativeCheck: true } },
+    ]),
+  },
+  {
+    id: 'algorithm-exercises',
+    name: 'Algorithm Exercises',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Algorithm-specific exercises instead of only generic quiz prompts.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Exercises', 'Practice'],
+    pseudocode: ['select exercise type', 'bind it to current algorithm', 'grade answer', 'record mastery'],
+    code: 'grade(exerciseFor(module), learnerAnswer)',
+    runner: suiteDemo('Algorithm exercises', [
+      { type: 'select', description: 'Select an exercise matched to the active algorithm.', variables: { exercise: 'targeted' } },
+      { type: 'compare', description: 'Compare the learner answer with the expected trace or result.', variables: { grading: 'exact or rubric' } },
+      { description: 'Save mastery evidence for the module.', variables: { masteryUpdated: true } },
+    ]),
+  },
+  {
+    id: 'step-prediction-mode',
+    name: 'Step Prediction Mode',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Predict-next-step practice tied to actual timeline events.',
+    complexity: { best: 'O(1)', average: 'O(1)', worst: 'O(1)', space: 'O(1)' },
+    flags: ['Prediction', 'Practice'],
+    pseudocode: ['read current step', 'hide next step', 'capture prediction', 'reveal feedback'],
+    code: 'prediction === nextStep.type ? correct() : explain(nextStep)',
+    runner: learningFeatureDemo('Step prediction mode'),
+  },
+  {
+    id: 'bug-fix-mode',
+    name: 'Bug-Fix Mode',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Broken pseudocode and code-line repair prompts for common algorithm mistakes.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Debugging', 'Practice'],
+    pseudocode: ['inject known bug', 'ask learner to identify line', 'run failing trace', 'show corrected logic'],
+    code: 'if (buggyLine === answer) showFix()',
+    runner: suiteDemo('Bug-fix mode', [
+      { type: 'select', description: 'Introduce a realistic off-by-one, invariant, or recurrence bug.', variables: { bug: 'off-by-one' } },
+      { type: 'compare', description: 'Run the bad trace until the state diverges.', variables: { divergence: 'detected' } },
+      { description: 'Patch the line and replay the corrected behavior.', variables: { fixed: true } },
+    ]),
+  },
+  {
+    id: 'trace-table-mode',
+    name: 'Trace Table Mode',
+    category: 'Dynamic Programming',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Trace-table practice for DP, recursion, graph search, searching, and sorting variables.',
+    complexity: { best: 'O(n)', average: 'O(nm)', worst: 'O(nm)', space: 'O(nm)' },
+    flags: ['Trace table', 'Dry run'],
+    pseudocode: ['choose variables', 'advance one step', 'fill row values', 'validate against step metadata'],
+    code: 'trace[row] = pick(step.variables, watchedNames)',
+    runner: suiteDemo('Trace table mode', [
+      { type: 'select', description: 'Pick watched variables from the current algorithm.', variables: { watched: ['low', 'mid', 'high', 'dp[i][j]'] } },
+      { type: 'compare', description: 'Validate learner-filled cells against step variables.', variables: { feedback: 'cell-level' } },
+      { description: 'Highlight the first row where the trace diverges.', variables: { divergenceRow: 2 } },
+    ], 12),
+  },
+  {
+    id: 'dry-run-worksheet',
+    name: 'Dry Run Worksheet',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Fill-in worksheet for variables such as low, mid, high, i, j, and dp cells.',
+    complexity: { best: 'O(n)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Worksheet', 'Variables'],
+    pseudocode: ['create worksheet rows', 'ask learner for variables', 'check against step', 'save attempts'],
+    code: 'worksheet.check(step.highlights.variables)',
+    runner: suiteDemo('Dry run worksheet', [
+      { type: 'select', description: 'Create a row for the current algorithm step.', variables: { row: 1 } },
+      { type: 'compare', description: 'Check learner-entered variable values.', variables: { checked: ['i', 'j', 'target'] } },
+      { description: 'Store missed variables for review.', variables: { reviewQueue: ['mid'] } },
+    ]),
+  },
+  {
+    id: 'assessment-engine',
+    name: 'Assessment Engine',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Topic quizzes, timed checks, final module tests, and mastery scores.',
+    complexity: { best: 'O(1)', average: 'O(q)', worst: 'O(q)', space: 'O(q)' },
+    flags: ['Assessment', 'Mastery'],
+    pseudocode: ['sample questions', 'grade answers', 'update mastery', 'schedule review'],
+    code: 'mastery[moduleId] = score(correct, total, confidence)',
+    runner: suiteDemo('Assessment engine', [
+      { type: 'select', description: 'Sample quiz items for the active topic.', variables: { mode: 'topic quiz' } },
+      { type: 'compare', description: 'Grade answer and confidence together.', variables: { scoring: 'correctness + confidence' } },
+      { description: 'Update mastery and review due date.', variables: { mastery: 0.82 } },
+    ]),
+  },
+  {
+    id: 'spaced-review',
+    name: 'Spaced Review',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Review missed concepts after one day, three days, seven days, and later intervals.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n log n)', space: 'O(n)' },
+    flags: ['Spaced repetition', 'Review'],
+    pseudocode: ['record miss', 'compute interval', 'sort due cards', 'ask review prompt'],
+    code: 'dueAt = now + intervalFor(confidence)',
+    runner: suiteDemo('Spaced review', [
+      { type: 'select', description: 'Record a missed concept or uncertain answer.', variables: { miss: 'recurrence relation' } },
+      { type: 'compare', description: 'Choose the next interval from confidence and history.', variables: { interval: '3 days' } },
+      { description: 'Add the item to the due review queue.', variables: { dueQueue: true } },
+    ]),
+  },
+  {
+    id: 'hints-system',
+    name: 'Hints System',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Tiered hints from concept hint to formula hint to next-step hint.',
+    complexity: { best: 'O(1)', average: 'O(1)', worst: 'O(1)', space: 'O(1)' },
+    flags: ['Hints', 'Scaffolding'],
+    pseudocode: ['start with broad hint', 'reveal stronger hint on request', 'avoid giving answer first', 'record hint usage'],
+    code: 'hint = hints[level++]',
+    runner: suiteDemo('Hints system', [
+      { type: 'select', description: 'Show a concept-level hint first.', variables: { level: 1 } },
+      { type: 'compare', description: 'Escalate only if the learner still needs help.', variables: { level: 2 } },
+      { description: 'Reveal the next-step hint and record hint usage.', variables: { level: 3 } },
+    ]),
+  },
+  {
+    id: 'multi-language-code',
+    name: 'Multi-Language Code',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Language-toggle learning for TypeScript, Python, Java, and C++ implementations.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Code', 'Languages'],
+    pseudocode: ['select language', 'load implementation', 'sync active line', 'compare idioms'],
+    code: 'snippet = implementations[moduleId][language]',
+    runner: suiteDemo('Multi-language code', [
+      { type: 'select', description: 'Choose a language implementation for the same algorithm.', variables: { languages: ['TS', 'Python', 'Java', 'C++'] } },
+      { type: 'compare', description: 'Map each snippet back to shared pseudocode.', variables: { sync: 'pseudocode line' } },
+      { description: 'Explain language-specific idioms without changing the algorithm.', variables: { idioms: true } },
+    ]),
+  },
+  {
+    id: 'code-runner-sandbox',
+    name: 'Code Runner Sandbox',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Editable-code workflow with examples, run results, and comparison against expected output.',
+    complexity: { best: 'O(1)', average: 'O(t)', worst: 'O(t)', space: 'O(t)' },
+    flags: ['Sandbox', 'Code runner'],
+    pseudocode: ['edit code', 'run sample tests', 'capture output', 'compare expected values'],
+    code: 'result = sandbox.run(code, tests)',
+    runner: suiteDemo('Code runner sandbox', [
+      { type: 'select', description: 'Load starter code and sample tests.', variables: { sandbox: 'local exercise' } },
+      { type: 'compare', description: 'Compare output against expected results.', variables: { testsPassed: 2 } },
+      { description: 'Show failing input with the relevant algorithm step.', variables: { failureExplained: true } },
+    ]),
+  },
+  {
+    id: 'custom-test-cases',
+    name: 'Custom Test Cases',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Learner-created inputs with expected output validation and edge-case prompts.',
+    complexity: { best: 'O(1)', average: 'O(t)', worst: 'O(t)', space: 'O(t)' },
+    flags: ['Testing', 'Edge cases'],
+    pseudocode: ['enter input', 'enter expected output', 'run algorithm', 'compare result'],
+    code: 'assertEqual(run(input), expected)',
+    runner: suiteDemo('Custom test cases', [
+      { type: 'select', description: 'Add an edge-case input and expected result.', variables: { case: 'duplicates' } },
+      { type: 'compare', description: 'Run the algorithm and compare final output.', variables: { assertion: 'exact match' } },
+      { description: 'Save reusable cases for later practice.', variables: { saved: true } },
+    ]),
+  },
+  {
+    id: 'mistake-analytics',
+    name: 'Mistake Analytics',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Tracks missed complexity, wrong step predictions, recurrence mistakes, and off-by-one errors.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Analytics', 'Mistakes'],
+    pseudocode: ['classify miss', 'count pattern', 'rank weak concepts', 'recommend practice'],
+    code: 'weakAreas = groupBy(misses, "concept")',
+    runner: suiteDemo('Mistake analytics', [
+      { type: 'select', description: 'Classify a missed answer by concept.', variables: { concept: 'off-by-one' } },
+      { type: 'compare', description: 'Compare recent misses against historical patterns.', variables: { trend: 'recurring' } },
+      { description: 'Recommend a focused review exercise.', variables: { recommendation: 'bounds practice' } },
+    ]),
+  },
+  {
+    id: 'certificates-and-milestones',
+    name: 'Certificates and Milestones',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Completion state, milestones, badges, and certificate-ready topic mastery.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Milestones', 'Completion'],
+    pseudocode: ['check completed modules', 'verify assessments', 'award milestone', 'prepare certificate state'],
+    code: 'award(pathId) if mastery >= threshold',
+    runner: suiteDemo('Certificates and milestones', [
+      { type: 'select', description: 'Check completed modules in the current path.', variables: { complete: 8 } },
+      { type: 'compare', description: 'Verify mastery threshold before awarding a milestone.', variables: { threshold: '80%' } },
+      { description: 'Record badge and certificate-ready state locally.', variables: { badge: 'DSA Foundations' } },
+    ]),
+  },
+  {
+    id: 'matrix-grid-renderer-suite',
+    name: 'Matrix/Grid Renderer Suite',
+    category: 'Matrix / Grid',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Cell-grid learning renderer for DP tables, maze grids, flood fill, pathfinding, and matrix transforms.',
+    complexity: { best: 'O(1)', average: 'O(rc)', worst: 'O(rc)', space: 'O(rc)' },
+    flags: ['Grid', 'Renderer'],
+    pseudocode: ['parse rows and columns', 'map values to cells', 'highlight active neighbors', 'render table state'],
+    code: 'cell = grid[row][column]; highlight(neighbors(cell))',
+    runner: suiteDemo('Matrix/grid renderer suite', [
+      { type: 'select', description: 'Parse a flattened state into row and column cells.', variables: { shape: 'rows x columns' } },
+      { type: 'compare', description: 'Highlight neighbors and dependency arrows.', variables: { neighbors: ['up', 'left', 'right', 'down'] } },
+      { description: 'Render DP, maze, and matrix-operation states with the same cell model.', variables: { reusableRenderer: true } },
+    ], 12),
+  },
+]
+
+const algorithmPatternSuiteModules: AlgorithmModule[] = [
+  {
+    id: 'greedy-suite',
+    name: 'Greedy Suite',
+    category: 'Greedy',
+    subcategory: 'Patterns',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Scheduling, fractional knapsack, interval selection, Huffman-style choices, and greedy-vs-DP tradeoffs.',
+    complexity: { best: 'O(n)', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)' },
+    flags: ['Greedy choice', 'Exchange argument'],
+    pseudocode: ['sort or prioritize candidates', 'choose the best local option', 'prove the choice is safe', 'repeat until complete'],
+    code: 'if (isSafe(choice)) solution.push(choice)',
+    runner: suiteDemo('Greedy suite', [
+      { type: 'select', description: 'Sort candidates by finish time, ratio, weight, or priority.', variables: { strategy: 'local optimum' } },
+      { type: 'compare', description: 'Check whether the local choice is safe to commit.', variables: { proof: 'exchange argument' } },
+      { description: 'Commit the choice and shrink the remaining problem.', variables: { committed: true } },
+    ]),
+  },
+  {
+    id: 'number-theory-suite',
+    name: 'Number Theory Suite',
+    category: 'Number Theory',
+    subcategory: 'Math Foundations',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'GCD, sieve, modular arithmetic, fast exponentiation, primality checks, totients, and RSA-supporting math.',
+    complexity: { best: 'O(log n)', average: 'O(n log log n)', worst: 'O(n log log n)', space: 'O(n)' },
+    flags: ['GCD', 'Primes', 'Modulo'],
+    pseudocode: ['reduce with gcd', 'mark composite numbers', 'multiply under modulo', 'reuse powers by squaring'],
+    code: 'while (b) [a, b] = [b, a % b]',
+    runner: suiteDemo('Number theory suite', [
+      { type: 'compare', description: 'Euclid reduces gcd(a, b) to gcd(b, a mod b).', variables: { algorithm: 'Euclid' } },
+      { type: 'update', description: 'Sieve marks composite multiples after each prime.', variables: { algorithm: 'Sieve' } },
+      { type: 'select', description: 'Fast exponentiation selects powers from binary bits.', variables: { algorithm: 'Binary exponentiation' } },
+    ]),
+  },
+  {
+    id: 'matrix-grid-suite',
+    name: 'Matrix/Grid Suite',
+    category: 'Matrix / Grid',
+    subcategory: 'Core Algorithms',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Flood fill, island counting, maze BFS, matrix rotation, prefix sums, and cellular automata.',
+    complexity: { best: 'O(rc)', average: 'O(rc)', worst: 'O(rc)', space: 'O(rc)' },
+    flags: ['Grid traversal', 'Cells'],
+    pseudocode: ['visit a cell', 'check valid neighbors', 'update matrix state', 'repeat until frontier is empty'],
+    code: 'for (const [dr, dc] of dirs) visit(row + dr, col + dc)',
+    runner: suiteDemo('Matrix/grid suite', [
+      { type: 'visit', description: 'Visit the active cell and mark it reached.', variables: { pattern: 'flood fill' } },
+      { type: 'compare', description: 'Check neighbor bounds, walls, and visited state.', variables: { directions: 4 } },
+      { description: 'Update the grid layer, path, or transformed value.', variables: { update: 'cell state' } },
+    ], 12),
+  },
+  {
+    id: 'string-pattern-matching-suite',
+    name: 'String Pattern Matching Suite',
+    category: 'Strings',
+    subcategory: 'Pattern Search',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'KMP, Rabin-Karp, Z algorithm, prefix functions, rolling hashes, and palindrome checks.',
+    complexity: { best: 'O(n)', average: 'O(n)', worst: 'O(n + m)', space: 'O(n)' },
+    flags: ['Pattern matching', 'Prefix function'],
+    pseudocode: ['precompute pattern metadata', 'scan text', 'reuse matched prefix', 'report match positions'],
+    code: 'while (j > 0 && text[i] !== pattern[j]) j = pi[j - 1]',
+    runner: suiteDemo('String pattern matching suite', [
+      { type: 'select', description: 'Build prefix, Z, or rolling-hash metadata for the pattern.', variables: { preprocessing: true } },
+      { type: 'compare', description: 'Compare text and pattern without restarting from scratch.', variables: { fallback: 'prefix link' } },
+      { description: 'Report the matched window and continue scanning.', variables: { matchFound: true } },
+    ]),
+  },
+  {
+    id: 'advanced-graph-suite',
+    name: 'Advanced Graph Suite',
+    category: 'Graphs',
+    subcategory: 'Advanced',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Bridges, articulation points, Eulerian paths, max flow, bipartite matching, and graph coloring.',
+    complexity: { best: 'O(V + E)', average: 'O(VE)', worst: 'O(VE)', space: 'O(V + E)' },
+    flags: ['Lowlink', 'Flow', 'Matching'],
+    pseudocode: ['track discovery metadata', 'update lowlinks or residual capacity', 'choose augmenting structure', 'commit graph update'],
+    code: 'if (low[child] > tin[node]) bridge(edge)',
+    runner: () => graphSuite('Advanced graph suite', { algorithms: ['Bridges', 'Articulation Points', 'Eulerian Path', 'Max Flow', 'Bipartite Matching'] }),
+  },
+  {
+    id: 'sliding-window-two-pointers-suite',
+    name: 'Sliding Window / Two Pointers Suite',
+    category: 'Searching',
+    subcategory: 'Patterns',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Fixed windows, variable windows, opposite pointers, fast/slow pointers, and partition-style scans.',
+    complexity: { best: 'O(n)', average: 'O(n)', worst: 'O(n)', space: 'O(1)' },
+    flags: ['Two pointers', 'Sliding window'],
+    pseudocode: ['move right pointer', 'update window state', 'shrink left pointer when invalid', 'record best answer'],
+    code: 'while (!valid(window)) left += 1',
+    runner: suiteDemo('Sliding window and two pointers suite', [
+      { type: 'select', description: 'Expand the right pointer to include a new value.', variables: { right: 0 } },
+      { type: 'compare', description: 'Check whether the current window violates the constraint.', variables: { valid: false } },
+      { description: 'Move the left pointer until the invariant returns.', variables: { left: 1 } },
+    ]),
+  },
+  {
+    id: 'recursion-fundamentals-suite',
+    name: 'Recursion Fundamentals Suite',
+    category: 'Data Structures',
+    subcategory: 'Runtime Model',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Base cases, recursive cases, stack frames, divide steps, backtracking, and unwinding.',
+    complexity: { best: 'O(depth)', average: 'O(branch^depth)', worst: 'O(branch^depth)', space: 'O(depth)' },
+    flags: ['Recursion', 'Call stack'],
+    pseudocode: ['check base case', 'create stack frame', 'recurse on smaller input', 'unwind result'],
+    code: 'return base ? value : combine(solve(smaller))',
+    runner: callStackDemo,
+  },
+  {
+    id: 'bit-manipulation-suite',
+    name: 'Bit Manipulation Suite',
+    category: 'Number Theory',
+    subcategory: 'Bitwise Patterns',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Masks, shifts, XOR tricks, lowbit, subsets, parity, and power-of-two checks.',
+    complexity: { best: 'O(1)', average: 'O(bits)', worst: 'O(2^n)', space: 'O(1)' },
+    flags: ['Bits', 'Masks'],
+    pseudocode: ['build mask', 'test bit', 'toggle or clear bit', 'use lowbit or xor invariant'],
+    code: 'mask & (1 << bit); x &= x - 1',
+    runner: suiteDemo('Bit manipulation suite', [
+      { type: 'select', description: 'Select the bit mask for the current position.', variables: { mask: '1 << bit' } },
+      { type: 'compare', description: 'Test whether the bit is set.', variables: { operation: 'AND' } },
+      { description: 'Toggle, clear, or accumulate the bitwise result.', variables: { operation: 'XOR/lowbit' } },
+    ]),
+  },
+  {
+    id: 'divide-and-conquer-suite',
+    name: 'Divide and Conquer Suite',
+    category: 'Sorting',
+    subcategory: 'Patterns',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Split, solve, combine pattern across merge sort, quick sort, binary search, and closest-pair style problems.',
+    complexity: { best: 'O(n log n)', average: 'O(n log n)', worst: 'O(n^2)', space: 'O(n)' },
+    flags: ['Divide and conquer', 'Recursion'],
+    pseudocode: ['divide problem', 'solve subproblems', 'combine answers', 'stop at base case'],
+    code: 'return combine(solve(left), solve(right))',
+    runner: divideAndConquerSuite,
+  },
+  {
+    id: 'interview-patterns-suite',
+    name: 'Interview Patterns Suite',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'When-to-use cards for sorted input, monotonic structures, overlapping subproblems, greedy choices, and graph frontiers.',
+    complexity: { best: 'O(1)', average: 'Varies', worst: 'Varies', space: 'Varies' },
+    flags: ['Interview prep', 'Patterns'],
+    pseudocode: ['read problem signal', 'choose pattern', 'state invariant', 'test edge cases'],
+    code: 'pattern = infer(problemSignals)',
+    runner: suiteDemo('Interview patterns suite', [
+      { type: 'select', description: 'Identify the problem signal from input constraints and wording.', variables: { signal: 'sorted input' } },
+      { type: 'compare', description: 'Compare candidate patterns before choosing one.', variables: { candidates: ['binary search', 'two pointers'] } },
+      { description: 'State the invariant and edge cases before coding.', variables: { invariant: true } },
+    ]),
+  },
+]
+
+const remainingCoverageModules: AlgorithmModule[] = [
+  {
+    id: 'advanced-searching-suite',
+    name: 'Advanced Searching Suite',
+    category: 'Searching',
+    subcategory: 'Advanced Variants',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Jump search, exponential search, interpolation search, ternary search, and answer-space binary search.',
+    complexity: { best: 'O(1)', average: 'O(log n)', worst: 'O(n)', space: 'O(1)' },
+    flags: ['Sorted data', 'Search variants'],
+    pseudocode: ['choose probing strategy', 'bound the candidate range', 'compare probe with target', 'shrink or scan the range'],
+    code: 'probe = chooseProbe(low, high, target); adjustRange(probe)',
+    runner: suiteDemo('Advanced searching suite', [
+      { type: 'select', description: 'Jump or exponential search chooses a probe before scanning locally.', variables: { variant: 'jump/exponential' } },
+      { type: 'compare', description: 'Interpolation search estimates a likely probe from value distribution.', variables: { variant: 'interpolation' } },
+      { description: 'Answer-space binary search checks whether a candidate answer is feasible.', variables: { variant: 'binary search on answer' } },
+    ]),
+  },
+  {
+    id: 'advanced-sorting-suite',
+    name: 'Advanced Sorting Suite',
+    category: 'Sorting',
+    subcategory: 'Advanced Variants',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Bucket sort, TimSort, IntroSort, stable partitioning, and hybrid sorting strategy selection.',
+    complexity: { best: 'O(n)', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)' },
+    flags: ['Hybrid sort', 'Buckets'],
+    pseudocode: ['inspect input shape', 'choose bucket, run, heap, or insertion strategy', 'sort local regions', 'merge or collect regions'],
+    code: 'strategy = chooseSort(inputShape); return strategy.sort(values)',
+    runner: (input) => {
+      const data = [...input]
+      const steps: AlgorithmStep[] = []
+      const metrics = { ...baseMetrics, memory: data.length }
+      makeStep(steps, 'select', 'Detect input shape to choose bucket, TimSort, or IntroSort strategy.', data, [0], { strategies: ['Bucket', 'TimSort', 'IntroSort'] }, metrics)
+      metrics.comparisons += data.length
+      makeStep(steps, 'compare', 'Compare local runs or bucket ranges before ordering each region.', data, [0, Math.max(0, data.length - 1)], { phase: 'local ordering' }, metrics)
+      data.sort((a, b) => a - b)
+      metrics.writes += data.length
+      makeStep(steps, 'merge', 'Collect sorted buckets or merge detected runs into the final order.', data, data.map((_, index) => index), { stableMerge: true }, metrics)
+      makeStep(steps, 'complete', 'Advanced sorting suite complete.', data, data.map((_, index) => index), { sorted: true }, metrics)
+      return steps
+    },
+  },
+  {
+    id: 'prefix-sum-difference-suite',
+    name: 'Prefix Sum / Difference Suite',
+    category: 'Dynamic Programming',
+    subcategory: 'Range Patterns',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Prefix sums, 2D prefix sums, difference arrays, range updates, and subarray-sum patterns.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Prefix sums', 'Range updates'],
+    pseudocode: ['build cumulative state', 'answer range query by subtraction', 'mark difference endpoints', 'recover values by scanning'],
+    code: 'rangeSum(l, r) = prefix[r + 1] - prefix[l]',
+    runner: suiteDemo('Prefix sum and difference suite', [
+      { type: 'update', description: 'Build prefix[i] from prefix[i - 1] plus the current value.', variables: { structure: 'prefix sum' } },
+      { type: 'compare', description: 'Answer a range query by subtracting two prefix states.', variables: { query: '[l, r]' } },
+      { description: 'Apply a range update by marking two difference-array endpoints.', variables: { structure: 'difference array' } },
+    ]),
+  },
+  {
+    id: 'monotonic-stack-queue-suite',
+    name: 'Monotonic Stack / Queue Suite',
+    category: 'Data Structures',
+    subcategory: 'Linear Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Next greater element, stock span, histogram area, sliding-window maximum, and deque invariants.',
+    complexity: { best: 'O(n)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Monotonic structure', 'Stack', 'Deque'],
+    pseudocode: ['keep structure monotonic', 'pop dominated values', 'push current index', 'read answer from top or front'],
+    code: 'while (stack.length && value >= stack.at(-1)) stack.pop()',
+    runner: suiteDemo('Monotonic stack and queue suite', [
+      { type: 'compare', description: 'Pop dominated values until the invariant is restored.', variables: { invariant: 'monotonic decreasing' } },
+      { type: 'update', description: 'Push the current index after weaker candidates are removed.', variables: { operation: 'push index' } },
+      { description: 'Read next greater, span, area, or window maximum from the structure.', variables: { answerSource: 'top/front' } },
+    ]),
+  },
+  {
+    id: 'tree-algorithms-suite',
+    name: 'Tree Algorithms Suite',
+    category: 'Data Structures',
+    subcategory: 'Trees',
+    status: 'live',
+    visualMode: 'Tree',
+    summary: 'Lowest common ancestor, tree height, diameter, subtree aggregation, serialization, and traversal-derived properties.',
+    complexity: { best: 'O(log n)', average: 'O(n)', worst: 'O(n)', space: 'O(h)' },
+    flags: ['Trees', 'LCA', 'DFS'],
+    pseudocode: ['visit child subtrees', 'return aggregate values', 'combine child answers', 'answer path or ancestor query'],
+    code: 'return combine(solve(node.left), solve(node.right), node)',
+    runner: () => graphSuite('Tree algorithms suite', { algorithms: ['LCA', 'Diameter', 'Height', 'Serialize', 'Subtree DP'], treePattern: 'postorder aggregate' }),
+  },
+  {
+    id: 'graph-representation-suite',
+    name: 'Graph Representation Suite',
+    category: 'Graphs',
+    subcategory: 'Foundations',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Adjacency lists, adjacency matrices, edge lists, weighted graphs, directed graphs, and input normalization.',
+    complexity: { best: 'O(V + E)', average: 'O(V + E)', worst: 'O(V^2)', space: 'O(V + E)' },
+    flags: ['Graph modeling', 'Input shape'],
+    pseudocode: ['parse edges', 'choose representation', 'normalize directed or weighted data', 'feed traversal or path algorithm'],
+    code: 'adj[u].push({ to: v, weight })',
+    runner: () => graphSuite('Graph representation suite', { representations: ['adjacency list', 'matrix', 'edge list'], directed: true, weighted: true }),
+  },
+  {
+    id: 'formula-glossary-sheet',
+    name: 'Formula and Glossary Sheet',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Quick reference for complexity classes, invariants, recurrence forms, graph terms, and data-structure vocabulary.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Glossary', 'Reference'],
+    pseudocode: ['collect terms', 'group by topic', 'link each term to modules', 'surface examples during practice'],
+    code: 'glossary.lookup(term).examples',
+    runner: suiteDemo('Formula and glossary sheet', [
+      { type: 'select', description: 'Group formulas and terms by topic.', variables: { groups: ['Complexity', 'Graphs', 'DP', 'Trees'] } },
+      { type: 'compare', description: 'Match the active step to a relevant vocabulary term.', variables: { term: 'invariant' } },
+      { description: 'Show a compact example linked to the current module.', variables: { contextual: true } },
+    ]),
+  },
+  {
+    id: 'flashcards-drill-mode',
+    name: 'Flashcards Drill Mode',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Rapid recall cards for complexities, use cases, invariants, edge cases, and pattern selection.',
+    complexity: { best: 'O(1)', average: 'O(c)', worst: 'O(c)', space: 'O(c)' },
+    flags: ['Flashcards', 'Recall'],
+    pseudocode: ['draw due card', 'capture recall quality', 'show answer', 'reschedule card'],
+    code: 'card.interval = nextInterval(recallQuality)',
+    runner: suiteDemo('Flashcards drill mode', [
+      { type: 'select', description: 'Draw the next due card from the review queue.', variables: { cardType: 'complexity' } },
+      { type: 'compare', description: 'Compare learner recall quality with the expected answer.', variables: { recall: 'partial' } },
+      { description: 'Reschedule the card using spaced repetition.', variables: { nextInterval: '3 days' } },
+    ]),
+  },
+  {
+    id: 'challenge-mode',
+    name: 'Challenge Mode',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Timed mixed-topic drills, streaks, mastery gates, and final-review challenge sets.',
+    complexity: { best: 'O(1)', average: 'O(q)', worst: 'O(q)', space: 'O(q)' },
+    flags: ['Timed practice', 'Mastery'],
+    pseudocode: ['choose mixed prompt set', 'run timer', 'grade each response', 'update streak and mastery'],
+    code: 'challenge.score = gradeAll(responses, timer)',
+    runner: suiteDemo('Challenge mode', [
+      { type: 'select', description: 'Select a mixed set across weak and due topics.', variables: { mode: 'mixed review' } },
+      { type: 'compare', description: 'Grade each response while the timer is running.', variables: { timed: true } },
+      { description: 'Update streak, mastery, and next recommendations.', variables: { streak: 5 } },
+    ]),
+  },
+  {
+    id: 'progress-portability',
+    name: 'Progress Portability',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Import and export learning progress, notes, quiz scores, saved experiments, and review queues.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Import', 'Export', 'Progress'],
+    pseudocode: ['collect local learning data', 'serialize portable report', 'validate import shape', 'merge restored progress'],
+    code: 'backup = exportLearningState(localStorage, indexedDb)',
+    runner: suiteDemo('Progress portability', [
+      { type: 'select', description: 'Collect notes, completions, quiz scores, and experiments.', variables: { sources: ['localStorage', 'IndexedDB'] } },
+      { type: 'compare', description: 'Validate imported progress before merging.', variables: { schemaValid: true } },
+      { description: 'Restore the learner state without overwriting newer local work.', variables: { mergeStrategy: 'newest wins' } },
+    ]),
+  },
+]
+
+const missingKitModules: AlgorithmModule[] = [
+  ...completeLearningSuiteModules,
+  ...algorithmPatternSuiteModules,
+  ...remainingCoverageModules,
+  {
+    id: 'linked-list-suite',
+    name: 'Linked List Suite',
+    category: 'Data Structures',
+    subcategory: 'Linked Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Singly, doubly, and circular linked-list operations with pointer rewiring.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Pointers', 'Insertion', 'Deletion'],
+    pseudocode: ['create head node', 'rewire next and previous links', 'delete by bypassing node', 'reverse links'],
+    code: 'node.next = next; prev.next = node; current.next = prev',
+    runner: linkedListSuite,
+  },
+  {
+    id: 'hash-table-suite',
+    name: 'Hash Table Suite',
+    category: 'Data Structures',
+    subcategory: 'Hash Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Hashing, collisions, probing, chaining concepts, load factor, and rehash triggers.',
+    complexity: { best: 'O(1)', average: 'O(1)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Hashing', 'Collisions'],
+    pseudocode: ['compute hash', 'probe or chain on collision', 'insert key', 'rehash when load factor is high'],
+    code: 'slot = hash(key) % capacity; while (table[slot]) slot++',
+    runner: hashTableSuite,
+  },
+  {
+    id: 'binary-search-tree-operations',
+    name: 'Binary Search Tree Operations',
+    category: 'Data Structures',
+    subcategory: 'Trees',
+    status: 'live',
+    visualMode: 'Tree',
+    summary: 'BST insert, search, min/max, successor, predecessor, and delete cases.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(n)', space: 'O(h)' },
+    flags: ['BST', 'Ordered tree'],
+    pseudocode: ['compare with node', 'go left or right', 'insert/search/delete', 'repair delete case'],
+    code: 'value < node.value ? node.left : node.right',
+    runner: bstOperations,
+  },
+  {
+    id: 'avl-tree-rotations',
+    name: 'AVL Tree Rotations',
+    category: 'Data Structures',
+    subcategory: 'Balanced Trees',
+    status: 'live',
+    visualMode: 'Tree',
+    summary: 'LL, RR, LR, and RL rotations with balance-factor reasoning.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(log n)', space: 'O(h)' },
+    flags: ['Balanced tree', 'Rotations'],
+    pseudocode: ['insert as BST', 'update height', 'detect imbalance', 'rotate to restore balance'],
+    code: 'if (balance > 1) rotateRight(node); if (balance < -1) rotateLeft(node)',
+    runner: () => rotationDemo('AVL rotation'),
+  },
+  {
+    id: 'red-black-tree-visualization',
+    name: 'Red-Black Tree Visualization',
+    category: 'Data Structures',
+    subcategory: 'Balanced Trees',
+    status: 'live',
+    visualMode: 'Tree',
+    summary: 'Red-black insert/delete fixups, rotations, recoloring, and black-height rules.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(log n)', space: 'O(h)' },
+    flags: ['Balanced tree', 'Color invariants'],
+    pseudocode: ['insert red node', 'recolor parent and uncle', 'rotate on triangle/line', 'force root black'],
+    code: 'while (parent.color === RED) fixViolation(node)',
+    runner: () => rotationDemo('Red-black fixup'),
+  },
+  {
+    id: 'heap-priority-queue-operations',
+    name: 'Heap / Priority Queue Operations',
+    category: 'Data Structures',
+    subcategory: 'Heaps',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Insert, build heap, heapify, extract, and priority queue ordering.',
+    complexity: { best: 'O(1)', average: 'O(log n)', worst: 'O(log n)', space: 'O(n)' },
+    flags: ['Heap', 'Priority queue'],
+    pseudocode: ['insert at end', 'bubble up', 'extract root', 'heapify down'],
+    code: 'push(value); while (parent < child) swap(parent, child)',
+    runner: heapPriorityQueue,
+  },
+  {
+    id: 'trie-prefix-tree',
+    name: 'Trie / Prefix Tree',
+    category: 'Data Structures',
+    subcategory: 'String Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Insert, search, delete, autocomplete, and prefix counting.',
+    complexity: { best: 'O(k)', average: 'O(k)', worst: 'O(k)', space: 'O(total characters)' },
+    flags: ['Prefix search'],
+    pseudocode: ['walk one character at a time', 'create missing child', 'mark terminal', 'collect prefix matches'],
+    code: 'node = node.children[ch] ??= new TrieNode()',
+    runner: trieDemo,
+  },
+  {
+    id: 'disjoint-set-union',
+    name: 'Disjoint Set Union',
+    category: 'Data Structures',
+    subcategory: 'Set Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Union by representative with path compression and Kruskal-style connectivity.',
+    complexity: { best: 'O(alpha(n))', average: 'O(alpha(n))', worst: 'O(alpha(n))', space: 'O(n)' },
+    flags: ['Union find', 'Path compression'],
+    pseudocode: ['find parent recursively', 'compress path', 'union smaller rank under larger', 'answer connected queries'],
+    code: 'parent[x] = find(parent[x]); union(rootA, rootB)',
+    runner: dsuDemo,
+  },
+  {
+    id: 'segment-tree',
+    name: 'Segment Tree',
+    category: 'Data Structures',
+    subcategory: 'Range Queries',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Range queries, point updates, and lazy propagation for interval data.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(log n)', space: 'O(n)' },
+    flags: ['Range query', 'Lazy propagation'],
+    pseudocode: ['build interval tree', 'split query range', 'update leaf', 'recompute ancestors'],
+    code: 'query(node, left, right); update(index, value)',
+    runner: segmentTreeDemo,
+  },
+  {
+    id: 'fenwick-tree',
+    name: 'Fenwick Tree / Binary Indexed Tree',
+    category: 'Data Structures',
+    subcategory: 'Range Queries',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Prefix sums and point updates using lowbit jumps.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(log n)', space: 'O(n)' },
+    flags: ['Prefix sums', 'Bit manipulation'],
+    pseudocode: ['update while i <= n', 'i += i & -i', 'query while i > 0', 'i -= i & -i'],
+    code: 'for (; i <= n; i += i & -i) bit[i] += delta',
+    runner: fenwickTreeDemo,
+  },
+  {
+    id: 'deque-circular-queue',
+    name: 'Deque and Circular Queue',
+    category: 'Data Structures',
+    subcategory: 'Linear Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Front/rear pointer operations, wraparound, overflow, and underflow.',
+    complexity: { best: 'O(1)', average: 'O(1)', worst: 'O(1)', space: 'O(n)' },
+    flags: ['Deque', 'Circular buffer'],
+    pseudocode: ['advance rear modulo capacity', 'advance front modulo capacity', 'detect full and empty', 'avoid shifting'],
+    code: 'rear = (rear + 1) % capacity',
+    runner: dequeCircularQueue,
+  },
+  {
+    id: 'expression-trees',
+    name: 'Expression Trees',
+    category: 'Data Structures',
+    subcategory: 'Trees',
+    status: 'live',
+    visualMode: 'Tree',
+    summary: 'Infix, postfix, prefix conversion and expression evaluation through trees.',
+    complexity: { best: 'O(n)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Expression parsing'],
+    pseudocode: ['parse operator precedence', 'build operator nodes', 'traverse prefix/infix/postfix', 'evaluate bottom up'],
+    code: 'postorder(node.left); postorder(node.right); apply(node.operator)',
+    runner: expressionTreeDemo,
+  },
+  {
+    id: 'skip-list',
+    name: 'Skip List',
+    category: 'Data Structures',
+    subcategory: 'Probabilistic Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Probabilistic levels for search, insert, and delete.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(n)', space: 'O(n log n)' },
+    flags: ['Probabilistic', 'Ordered set'],
+    pseudocode: ['start at top level', 'move right while safe', 'drop down', 'splice tower on insert'],
+    code: 'while (next.key < target) moveRight(); moveDown()',
+    runner: skipListDemo,
+  },
+  {
+    id: 'b-tree-b-plus-tree',
+    name: 'B-Tree / B+ Tree',
+    category: 'Data Structures',
+    subcategory: 'Database Trees',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Database-style node splits, promotions, merges, and range scans.',
+    complexity: { best: 'O(log n)', average: 'O(log n)', worst: 'O(log n)', space: 'O(n)' },
+    flags: ['Database index', 'Multiway tree'],
+    pseudocode: ['insert into leaf', 'split overflow', 'promote median', 'borrow or merge on underflow'],
+    code: 'if (node.keys.length > maxKeys) split(node)',
+    runner: bTreeDemo,
+  },
+  {
+    id: 'graph-shortest-paths-suite',
+    name: 'Graph Shortest Paths Suite',
+    category: 'Graphs',
+    subcategory: 'Shortest Paths',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Dijkstra, Bellman-Ford, Floyd-Warshall, and A* pathfinding concepts.',
+    complexity: { best: 'O(E log V)', average: 'O(E log V)', worst: 'O(VE)', space: 'O(V)' },
+    flags: ['Shortest paths', 'Weighted graph'],
+    pseudocode: ['relax edges', 'choose next frontier', 'update distance', 'reconstruct path'],
+    code: 'if (dist[u] + w < dist[v]) dist[v] = dist[u] + w',
+    runner: () => graphSuite('Shortest paths', { distances: { A: 0, B: 2, D: 3, G: 12 }, algorithm: 'Dijkstra/Bellman-Ford/A*' }),
+  },
+  {
+    id: 'graph-mst-suite',
+    name: 'Graph MST Suite',
+    category: 'Graphs',
+    subcategory: 'Minimum Spanning Tree',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Prim and Kruskal with edge choices and DSU cycle checks.',
+    complexity: { best: 'O(E log V)', average: 'O(E log V)', worst: 'O(E log V)', space: 'O(V)' },
+    flags: ['MST', 'Greedy'],
+    pseudocode: ['sort or prioritize edges', 'choose cheapest safe edge', 'skip cycles', 'stop at V - 1 edges'],
+    code: 'if (find(u) !== find(v)) addEdge(u, v)',
+    runner: () => graphSuite('Minimum spanning tree', { edgesChosen: ['A-B', 'B-D', 'B-E', 'D-F', 'F-G', 'A-C'] }),
+  },
+  {
+    id: 'topological-sort-suite',
+    name: 'Topological Sort Suite',
+    category: 'Graphs',
+    subcategory: 'Ordering',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Kahn and DFS topological sorting with cycle detection.',
+    complexity: { best: 'O(V + E)', average: 'O(V + E)', worst: 'O(V + E)', space: 'O(V)' },
+    flags: ['DAG', 'Cycle detection'],
+    pseudocode: ['compute indegrees', 'enqueue zero-indegree nodes', 'remove outgoing edges', 'detect leftover cycle'],
+    code: 'if (--indegree[next] === 0) queue.push(next)',
+    runner: () => graphSuite('Topological sort', { order: 'A -> B -> C -> D -> E -> F -> G', cycleDetected: false }),
+  },
+  {
+    id: 'strongly-connected-components',
+    name: 'Strongly Connected Components',
+    category: 'Graphs',
+    subcategory: 'Components',
+    status: 'live',
+    visualMode: 'Graph',
+    summary: 'Kosaraju and Tarjan stack/finish-time component discovery.',
+    complexity: { best: 'O(V + E)', average: 'O(V + E)', worst: 'O(V + E)', space: 'O(V)' },
+    flags: ['Directed graph', 'Stack'],
+    pseudocode: ['run DFS finish times', 'reverse graph or track lowlinks', 'pop component roots', 'label SCCs'],
+    code: 'if (lowlink[v] === index[v]) popComponent()',
+    runner: () => graphSuite('Strongly connected components', { components: ['A,B,C', 'D,E,F', 'G'] }),
+  },
+  {
+    id: 'dynamic-programming-suite',
+    name: 'Dynamic Programming Suite',
+    category: 'Dynamic Programming',
+    subcategory: 'Tabulation and Memoization',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Fibonacci, coin change, LCS, edit distance, and knapsack-style state transitions in shared DP tables.',
+    complexity: { best: 'O(n)', average: 'O(nm)', worst: 'O(nm)', space: 'O(nm)' },
+    flags: ['Memoization', 'Tabulation', 'Overlapping subproblems'],
+    pseudocode: ['define state meaning', 'initialize base cases', 'apply recurrence transition', 'read the final table answer'],
+    code: 'dp[state] = best(transition(previousStates))',
+    runner: dynamicProgrammingSuite,
+  },
+  {
+    id: 'backtracking-suite',
+    name: 'Backtracking Suite',
+    category: 'Backtracking',
+    subcategory: 'Constraint Search',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'N-Queens and Sudoku-style constraint search with recursive choices, pruning, and undo steps.',
+    complexity: { best: 'O(n)', average: 'O(n!)', worst: 'O(n!)', space: 'O(n^2)' },
+    flags: ['N-Queens', 'Sudoku', 'Constraint pruning'],
+    pseudocode: ['choose the next empty position', 'try each valid candidate', 'recurse with the candidate committed', 'undo candidate when the branch fails'],
+    code: 'if (isValid(choice)) { place(choice); solve(next); undo(choice); }',
+    runner: backtrackingSuite,
+  },
+  {
+    id: 'advanced-string-structures',
+    name: 'Advanced String Structures',
+    category: 'Strings',
+    subcategory: 'String Structures',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Trie, suffix array, suffix tree preview, and Aho-Corasick matching.',
+    complexity: { best: 'O(n)', average: 'O(n log n)', worst: 'O(n log n)', space: 'O(n)' },
+    flags: ['Suffixes', 'Multi-pattern'],
+    pseudocode: ['insert prefixes', 'sort suffixes', 'compute shared prefixes', 'follow failure links'],
+    code: 'patterns.forEach(insertTrie); buildFailureLinks()',
+    runner: stringStructureDemo,
+  },
+  {
+    id: 'recursion-call-stack-visualizer',
+    name: 'Recursion and Call Stack Visualizer',
+    category: 'Data Structures',
+    subcategory: 'Runtime Model',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Generic stack-frame tracing for recursive algorithms and backtracking.',
+    complexity: { best: 'O(depth)', average: 'O(depth)', worst: 'O(depth)', space: 'O(depth)' },
+    flags: ['Recursion', 'Call stack'],
+    pseudocode: ['push frame', 'recurse to child', 'hit base case', 'unwind return values'],
+    code: 'function solve(i) { if (base) return; solve(i + 1); }',
+    runner: callStackDemo,
+  },
+  {
+    id: 'memory-model-view',
+    name: 'Memory Model View',
+    category: 'Data Structures',
+    subcategory: 'Runtime Model',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Array slots, pointer references, object nodes, and stack versus heap.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Memory', 'Pointers'],
+    pseudocode: ['place primitives in slots', 'allocate objects on heap', 'store references', 'release stack frames'],
+    code: 'const node = { value, next }; stackFrame.local = node',
+    runner: memoryModelDemo,
+  },
+  {
+    id: 'interactive-exercises-mode',
+    name: 'Interactive Exercises Mode',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Predict-next-step, fix-the-bug, fill-pseudocode, and output quizzes.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Practice', 'Assessment'],
+    pseudocode: ['show prompt', 'capture answer', 'compare expected step', 'give feedback'],
+    code: 'answer === expected ? markCorrect() : showHint()',
+    runner: learningFeatureDemo('Interactive exercises'),
+  },
+  {
+    id: 'complexity-lab',
+    name: 'Complexity Lab',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Compare step counts, reads, writes, comparisons, and memory across input sizes.',
+    complexity: { best: 'O(1)', average: 'O(n log n)', worst: 'O(n^2)', space: 'Varies' },
+    flags: ['Metrics', 'Experiments'],
+    pseudocode: ['run algorithm on small n', 'double input size', 'record metrics', 'plot growth'],
+    code: 'sizes.map((n) => run(inputOfSize(n)).metrics)',
+    runner: learningFeatureDemo('Complexity lab'),
+  },
+  {
+    id: 'custom-data-structure-builder',
+    name: 'Custom Data Structure Builder',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Manual input workflows for arrays, trees, graphs, grids, and node structures.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Custom input', 'Builder'],
+    pseudocode: ['read learner input', 'validate shape', 'normalize data', 'feed runner'],
+    code: 'const model = parseUserStructure(inputText)',
+    runner: learningFeatureDemo('Custom data builder'),
+  },
+  {
+    id: 'learning-paths-assessments',
+    name: 'Learning Paths and Assessments',
+    category: 'Data Structures',
+    subcategory: 'Learning Tools',
+    status: 'live',
+    visualMode: 'Array',
+    summary: 'Beginner, intermediate, and advanced tracks with checkpoints and review prompts.',
+    complexity: { best: 'O(1)', average: 'O(n)', worst: 'O(n)', space: 'O(n)' },
+    flags: ['Learning path', 'Assessment'],
+    pseudocode: ['choose path', 'complete module', 'score quiz', 'schedule review'],
+    code: 'progress[moduleId] = { complete: true, reviewDue }',
+    runner: learningFeatureDemo('Learning paths'),
+  },
+]
+
 export const algorithmModules: AlgorithmModule[] = [
   {
     id: 'linear-search',
@@ -1348,39 +2856,9 @@ export const algorithmModules: AlgorithmModule[] = [
     code: 'while (stack.length) visit(stack.pop())',
     runner: (input, target) => graphTraversal(input, target, 'dfs'),
   },
+  ...missingKitModules,
 ]
 
-export const plannedModules: AlgorithmModule[] = [
-  ['Graphs', 'Dijkstra', 'Graph'],
-  ['Graphs', 'Topological Sort', 'Graph'],
-  ['Graphs', 'Prim', 'Graph'],
-  ['Graphs', 'Kruskal', 'Graph'],
-  ['Dynamic Programming', 'Fibonacci DP', 'Matrix'],
-  ['Dynamic Programming', 'Coin Change', 'Matrix'],
-  ['Dynamic Programming', '0/1 Knapsack', 'Matrix'],
-  ['Dynamic Programming', 'LCS', 'Matrix'],
-  ['Dynamic Programming', 'Edit Distance', 'Matrix'],
-  ['Strings', 'KMP', 'Array'],
-  ['Strings', 'Rabin-Karp', 'Array'],
-  ['Strings', 'Z Algorithm', 'Array'],
-  ['Number Theory', 'GCD', 'Array'],
-  ['Number Theory', 'Sieve of Eratosthenes', 'Array'],
-  ['Backtracking', 'N-Queens', 'Tree'],
-  ['Greedy', 'Huffman Coding', 'Tree'],
-  ['Matrix / Grid', 'A* Maze Pathfinding', 'Matrix'],
-].map(([category, name, visualMode]) => ({
-  id: String(name)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-$/, ''),
-  name: String(name),
-  category: category as AlgorithmCategory,
-  status: 'planned' as const,
-  visualMode: visualMode as AlgorithmModule['visualMode'],
-  summary: 'Queued in the product roadmap with the same step-event interface.',
-  complexity: { best: 'Varies', average: 'Varies', worst: 'Varies', space: 'Varies' },
-  pseudocode: ['Shared AlgorithmStep generator', 'Visualization renderer', 'Experiment metrics', 'Exportable report'],
-  code: '// Planned module scaffold',
-}))
+export const plannedModules: AlgorithmModule[] = []
 
 export const allModules = [...algorithmModules, ...plannedModules]

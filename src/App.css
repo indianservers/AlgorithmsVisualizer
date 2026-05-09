@@ -795,6 +795,89 @@ p {
   position: relative;
 }
 
+.matrix-stage {
+  display: grid;
+  gap: 14px;
+  min-height: 320px;
+  padding-top: 28px;
+  position: relative;
+}
+
+.matrix-meta {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #bfd8ef;
+  border-radius: 8px;
+  color: #31404b;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 900;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 9px 12px;
+  text-transform: uppercase;
+}
+
+.matrix-meta em {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.matrix-grid-view {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(var(--matrix-columns, 4), minmax(46px, 1fr));
+}
+
+.matrix-cell {
+  align-items: center;
+  aspect-ratio: 1;
+  background: #eef7ff;
+  border: 1px solid #bfd8ef;
+  border-radius: 7px;
+  color: #25313a;
+  display: grid;
+  justify-items: center;
+  min-width: 46px;
+  padding: 6px;
+  position: relative;
+}
+
+.matrix-cell small {
+  color: #647789;
+  font-size: 10px;
+  font-weight: 900;
+  left: 6px;
+  position: absolute;
+  top: 5px;
+}
+
+.matrix-cell strong {
+  font-size: 16px;
+}
+
+.matrix-cell.active {
+  background: #fff3d4;
+  border-color: #e69f00;
+  box-shadow: 0 0 0 2px rgba(230, 159, 0, 0.2);
+}
+
+.matrix-cell.compare {
+  background: #e8f1ff;
+  border-color: #0072b2;
+}
+
+.matrix-cell.update,
+.matrix-cell.complete {
+  background: #e6f6eb;
+  border-color: #52a66a;
+}
+
+.matrix-comparison {
+  position: static;
+}
+
 .bar-stage.has-negatives {
   align-items: center;
 }
@@ -1219,6 +1302,55 @@ ol {
   background: #24313a;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
   color: #fff;
+}
+
+.aimer-site-footer {
+  align-items: center;
+  background:
+    linear-gradient(90deg, #123c63, #1f6da8 52%, #17633d),
+    #123c63;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f8fbff;
+  display: grid;
+  gap: 10px 18px;
+  grid-template-columns: minmax(220px, auto) minmax(0, 1fr) auto;
+  padding: 16px 22px;
+}
+
+.aimer-site-footer div,
+.aimer-site-footer p,
+.aimer-site-footer small {
+  min-width: 0;
+}
+
+.aimer-site-footer div {
+  display: grid;
+  gap: 2px;
+}
+
+.aimer-site-footer strong {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.aimer-site-footer span {
+  color: #cde9ff;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.aimer-site-footer p {
+  color: #eef8ff;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.aimer-site-footer small {
+  color: #d8f4df;
+  font-weight: 800;
+  text-align: right;
 }
 
 .command-backdrop {
@@ -2280,6 +2412,17 @@ ol {
 
   .bottom-panel {
     grid-template-columns: 1fr;
+  }
+
+  .aimer-site-footer {
+    grid-template-columns: 1fr;
+    padding: 16px 14px;
+    text-align: left;
+  }
+
+  .aimer-site-footer p,
+  .aimer-site-footer small {
+    text-align: left;
   }
 
   .bottom-panel section {
