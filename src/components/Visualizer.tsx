@@ -575,7 +575,8 @@ export function Visualizer({
               style={
                 {
                   '--matrix-columns': matrixColumns,
-                  minWidth: `${canvasZoom}%`,
+                  '--matrix-rows': matrixRows,
+                  minWidth: isGameBoard ? undefined : `${canvasZoom}%`,
                 } as CSSProperties
               }
             >
@@ -613,7 +614,9 @@ export function Visualizer({
                       ? 'x-mark'
                       : gameSymbol === 'O'
                         ? 'o-mark'
-                        : 'empty-mark'
+                        : gameSymbol
+                          ? 'symbol-mark'
+                          : 'empty-mark'
                   return (
                     <motion.div
                       className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${isChessBoard && chessArrow?.from === index ? 'move-from' : ''} ${isChessBoard && chessArrow?.to === index ? 'move-to' : ''} ${markClass}`}
