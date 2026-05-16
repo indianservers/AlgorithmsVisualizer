@@ -152,15 +152,23 @@ export function RightPanel({
           <p>
             {activeModule.category === 'Sorting'
               ? 'The algorithm preserves the same values while increasing the amount of known order.'
-              : activeModule.flags?.includes('Requires sorted input')
-                ? 'The search range only has meaning while the input remains sorted.'
-                : 'Each step preserves the data structure contract for the next operation.'}
+              : activeModule.category === 'Games'
+                ? activeModule.id === 'chess-minimax'
+                  ? 'Every suggested move must be legal: the king stays safe and pieces move by chess rules.'
+                  : 'Every move must be on an empty square, and three in a row is the goal.'
+                : activeModule.flags?.includes('Requires sorted input')
+                  ? 'The search range only has meaning while the input remains sorted.'
+                  : 'Each step preserves the data structure contract for the next operation.'}
           </p>
           <h3>Edge cases</h3>
           <p>
             {activeModule.flags?.includes('Requires sorted input')
               ? 'Empty input, duplicates, missing target, and unsorted input are the cases to test first.'
-              : 'Empty input, one item, duplicates, and very large values are the quickest checks.'}
+              : activeModule.category === 'Games'
+                ? activeModule.id === 'chess-minimax'
+                  ? 'Checkmate, stalemate, hanging pieces, checks, captures, and quiet improving moves.'
+                  : 'Check immediate wins, forced blocks, full boards, and draws.'
+                : 'Empty input, one item, duplicates, and very large values are the quickest checks.'}
           </p>
           <h3>When to use it</h3>
           <p>
@@ -168,7 +176,11 @@ export function RightPanel({
               ? 'Use it when data is already sorted or sorting is acceptable before searching.'
               : activeModule.category === 'Sorting'
                 ? 'Use it to understand ordering tradeoffs, data movement, and comparison counts.'
-                : 'Use it when the data shape matches this visualization.'}
+                : activeModule.category === 'Games'
+                  ? activeModule.id === 'chess-minimax'
+                    ? 'Use it to learn how engines list legal moves, imagine replies, score positions, and build a line.'
+                    : 'Use it to learn the rules and why looking ahead helps choose better moves.'
+                  : 'Use it when the data shape matches this visualization.'}
           </p>
           <h3>When not to use it</h3>
           <p>

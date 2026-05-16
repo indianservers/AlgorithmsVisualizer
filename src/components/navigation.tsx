@@ -1,4 +1,4 @@
-import { BarChart3, Braces, FileJson, FlaskConical, Gauge, Hash, Home, RotateCcw, Search, Square } from 'lucide-react'
+import { BarChart3, Braces, FileJson, FlaskConical, Gamepad2, Gauge, Hash, Home, RotateCcw, Search, Square } from 'lucide-react'
 import type { AlgorithmCategory, AlgorithmModule } from '../types'
 import { allModules } from '../algorithms'
 
@@ -24,12 +24,14 @@ export function categoryIcon(category: AlgorithmCategory, size = 17) {
   if (category === 'Backtracking') return <RotateCcw {...props} />
   if (category === 'Greedy') return <Gauge {...props} />
   if (category === 'Matrix / Grid') return <Square {...props} />
+  if (category === 'Games') return <Gamepad2 {...props} />
   return <FlaskConical {...props} />
 }
 
 export function moduleIcon(module: AlgorithmModule) {
   if (module.visualMode === 'Graph') return 'GR'
   if (module.visualMode === 'Tree') return 'TR'
+  if (module.category === 'Games') return 'GM'
   if (module.category === 'Searching') return 'SE'
   if (module.category === 'Sorting') return 'SO'
   return module.name

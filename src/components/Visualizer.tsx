@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
 import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics } from '../types'
-import { allModules } from '../algorithms'
+import { allModules, chessFenPresets } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
 
 type VisualItem = {
@@ -143,10 +143,24 @@ export function Visualizer({
   visualItems,
 }: VisualizerProps) {
   const matrixData = currentStep?.dataState?.length ? currentStep.dataState : input
+  const isGameBoard = activeModule.category === 'Games'
+  const isChessBoard = activeModule.id === 'chess-minimax'
+  const gameSymbols = Array.isArray(currentStep?.highlights.variables?.boardSymbols) ? (currentStep?.highlights.variables?.boardSymbols as string[]) : []
   const tableShape = String(currentStep?.highlights.variables?.tableShape ?? '')
   const tableColumns = Number(tableShape.split('x')[1])
   const matrixColumns = Number.isFinite(tableColumns) && tableColumns > 0 ? tableColumns : Math.max(2, Math.ceil(Math.sqrt(Math.max(matrixData.length, 1))))
   const matrixRows = Math.max(1, Math.ceil(matrixData.length / matrixColumns))
+  const chessArrow =
+    isChessBoard && currentStep?.highlights.indices && currentStep.highlights.indices.length >= 2
+      ? {
+          from: currentStep.highlights.indices[0],
+          to: currentStep.highlights.indices[1],
+        }
+      : undefined
+  const arrowPoint = (index: number) => ({
+    x: `${((index % matrixColumns) + 0.5) * (100 / matrixColumns)}%`,
+    y: `${(Math.floor(index / matrixColumns) + 0.5) * (100 / matrixRows)}%`,
+  })
 
   return (
     <section className="lab-grid">
@@ -167,118 +181,125 @@ export function Visualizer({
           <em>{recommendation}</em>
           <em>{progressPercent}% category progress</em>
         </div>
-        <section className="category-module-map">
-          {pageSections.map((section) => {
-            const sectionModules = filteredModules
-              .filter((module) => `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()))
-              .slice(0, 4)
-            const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
-            return (
-              <article key={section}>
-                <h2>{section}</h2>
-                <div>
-                  {fallback.map((module) => (
-                    <button
-                      className={module.id === activeId ? 'active' : ''}
-                      key={`${section}-${module.id}`}
-                      type="button"
-                      onClick={() => chooseAlgorithm(module.id)}
-                    >
-                      {module.name}
-                    </button>
-                  ))}
-                </div>
-              </article>
-            )
-          })}
-        </section>
-
-        <section className="algorithm-picker" aria-label="Algorithm picker">
-          <div className="picker-search">
+        <details className="algorithm-browser">
+          <summary>
             <Search size={17} />
-            <input
-              aria-label="Search algorithms"
-              placeholder={`Search ${activeCategory.toLowerCase()} algorithms`}
-              value={algorithmQuery}
-              onChange={(event) => setAlgorithmQuery(event.target.value)}
-            />
-            <span className="picker-count">{visiblePickerModules.length} results</span>
-          </div>
-          <div className="picker-filters">
-            <label>
-              Status
-              <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
-                <option value="all">All</option>
-                <option value="live">Interactive</option>
-                <option value="planned">Coming soon</option>
-              </select>
-            </label>
-            <label>
-              View
-              <select value={visualFilter} onChange={(event) => setVisualFilter(event.target.value as typeof visualFilter)}>
-                <option value="all">All</option>
-                {(['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
-                  <option key={mode} value={mode}>
-                    {mode}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Complexity
-              <select value={complexityFilter} onChange={(event) => setComplexityFilter(event.target.value as typeof complexityFilter)}>
-                <option value="all">All</option>
-                <option value="log">Logarithmic</option>
-                <option value="linear">Linear</option>
-                <option value="nlogn">n log n</option>
-                <option value="quadratic">Quadratic</option>
-              </select>
-            </label>
-            <button className="btn-reset-filters" type="button" onClick={resetFilters}>
-              Reset filters
-            </button>
-          </div>
-          <div className="favorite-row">
-            {favorites
-              .map((id) => allModules.find((module) => module.id === id))
-              .filter(Boolean)
-              .map((module) => (
-                <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
-                  Pinned: {module!.name}
-                </button>
-              ))}
-          </div>
-          {visiblePickerModules.length ? (
-            <div className="picker-grid">
-              {visiblePickerModules.map((module) => (
-                <button
-                  className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
-                  key={module.id}
-                  onClick={() => chooseAlgorithm(module.id)}
-                  type="button"
-                >
-                  <span>
-                    <strong>{module.name}</strong>
-                    <small>
-                      {module.subcategory ?? module.visualMode} / {module.status === 'live' ? 'interactive' : 'coming soon'}
-                    </small>
-                  </span>
-                  <em>{module.complexity.average}</em>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-state">
-              <strong>No algorithms match these filters.</strong>
-              <span>Clear the search or reset filters to see the full {activeCategory.toLowerCase()} catalog.</span>
-            </div>
-          )}
-          <button className="favorite-toggle" type="button" onClick={() => toggleFavorite(activeModule.id)}>
-            {favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite'}
-          </button>
-        </section>
+            Browse {activeCategory.toLowerCase()} algorithms
+            <span>{visiblePickerModules.length} results</span>
+          </summary>
+          <section className="category-module-map">
+            {pageSections.map((section) => {
+              const sectionModules = filteredModules
+                .filter((module) => `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()))
+                .slice(0, 4)
+              const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
+              return (
+                <article key={section}>
+                  <h2>{section}</h2>
+                  <div>
+                    {fallback.map((module) => (
+                      <button
+                        className={module.id === activeId ? 'active' : ''}
+                        key={`${section}-${module.id}`}
+                        type="button"
+                        onClick={() => chooseAlgorithm(module.id)}
+                      >
+                        {module.name}
+                      </button>
+                    ))}
+                  </div>
+                </article>
+              )
+            })}
+          </section>
 
-        {!['Graph', 'Tree'].includes(activeModule.visualMode) && (
+          <section className="algorithm-picker" aria-label="Algorithm picker">
+            <div className="picker-search">
+              <Search size={17} />
+              <input
+                aria-label="Search algorithms"
+                placeholder={`Search ${activeCategory.toLowerCase()} algorithms`}
+                value={algorithmQuery}
+                onChange={(event) => setAlgorithmQuery(event.target.value)}
+              />
+              <span className="picker-count">{visiblePickerModules.length} results</span>
+            </div>
+            <div className="picker-filters">
+              <label>
+                Status
+                <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
+                  <option value="all">All</option>
+                  <option value="live">Interactive</option>
+                  <option value="planned">Coming soon</option>
+                </select>
+              </label>
+              <label>
+                View
+                <select value={visualFilter} onChange={(event) => setVisualFilter(event.target.value as typeof visualFilter)}>
+                  <option value="all">All</option>
+                  {(['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
+                    <option key={mode} value={mode}>
+                      {mode}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Complexity
+                <select value={complexityFilter} onChange={(event) => setComplexityFilter(event.target.value as typeof complexityFilter)}>
+                  <option value="all">All</option>
+                  <option value="log">Logarithmic</option>
+                  <option value="linear">Linear</option>
+                  <option value="nlogn">n log n</option>
+                  <option value="quadratic">Quadratic</option>
+                </select>
+              </label>
+              <button className="btn-reset-filters" type="button" onClick={resetFilters}>
+                Reset filters
+              </button>
+            </div>
+            <div className="favorite-row">
+              {favorites
+                .map((id) => allModules.find((module) => module.id === id))
+                .filter(Boolean)
+                .map((module) => (
+                  <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
+                    Pinned: {module!.name}
+                  </button>
+                ))}
+            </div>
+            {visiblePickerModules.length ? (
+              <div className="picker-grid">
+                {visiblePickerModules.map((module) => (
+                  <button
+                    className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
+                    key={module.id}
+                    onClick={() => chooseAlgorithm(module.id)}
+                    type="button"
+                  >
+                    <span>
+                      <strong>{module.name}</strong>
+                      <small>
+                        {module.subcategory ?? module.visualMode} / {module.status === 'live' ? 'interactive' : 'coming soon'}
+                      </small>
+                    </span>
+                    <em>{module.complexity.average}</em>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <strong>No algorithms match these filters.</strong>
+                <span>Clear the search or reset filters to see the full {activeCategory.toLowerCase()} catalog.</span>
+              </div>
+            )}
+            <button className="favorite-toggle" type="button" onClick={() => toggleFavorite(activeModule.id)}>
+              {favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite'}
+            </button>
+          </section>
+        </details>
+
+        {activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
           <div className="input-strip">
             <label>
               Data
@@ -399,21 +420,72 @@ export function Visualizer({
         {activeModule.visualMode === 'Matrix' && (
           <div className="ds-input-panel">
             <div>
-              <h2>Matrix / Grid Input</h2>
-              <p>Enter rows separated by semicolons. Planned grid modules will read this shape.</p>
+              <h2>{isGameBoard ? 'Game Board Setup' : 'Matrix / Grid Input'}</h2>
+              <p>
+                {isGameBoard
+                  ? 'This lesson uses one fixed game so the moves are easy to follow.'
+                  : 'Enter rows separated by semicolons. Planned grid modules will read this shape.'}
+              </p>
             </div>
-            <label>
-              Grid
-              <textarea
-                value={inputText}
-                onChange={(event) => {
-                  setInputText(event.target.value)
-                  resetPlayback()
-                }}
-                placeholder="1,0,1; 0,1,0; 1,0,1"
-                rows={3}
-              />
-            </label>
+            {isGameBoard ? (
+              <div className="game-rule-card">
+                {isChessBoard ? (
+                  <>
+                    <strong>Load a FEN, then press Run.</strong>
+                    <span>The computer lists legal moves, checks replies, scores the board, and builds a line up to 12 plies.</span>
+                    <label>
+                      Chess FEN
+                      <select
+                        value={Math.abs(Math.trunc(target)) % chessFenPresets.length}
+                        onChange={(event) => {
+                          localStorage.removeItem('algodrishti-chess-fen')
+                          setTarget(Number(event.target.value))
+                          resetPlayback()
+                        }}
+                      >
+                        {chessFenPresets.map((preset, index) => (
+                          <option key={preset.name} value={index}>
+                            {index + 1}. {preset.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <small>{chessFenPresets[Math.abs(Math.trunc(target)) % chessFenPresets.length]?.fen}</small>
+                    <label>
+                      Custom FEN
+                      <textarea
+                        rows={2}
+                        placeholder="Paste any legal FEN here"
+                        value={localStorage.getItem('algodrishti-chess-fen') ?? ''}
+                        onChange={(event) => {
+                          localStorage.setItem('algodrishti-chess-fen', event.target.value)
+                          setInputText(event.target.value)
+                          resetPlayback()
+                        }}
+                      />
+                    </label>
+                  </>
+                ) : (
+                  <>
+                    <strong>X goes first. Three in a row wins.</strong>
+                    <span>Press Run to watch X make threats, O block them, and the game end in a draw.</span>
+                  </>
+                )}
+              </div>
+            ) : (
+              <label>
+                Grid
+                <textarea
+                  value={inputText}
+                  onChange={(event) => {
+                    setInputText(event.target.value)
+                    resetPlayback()
+                  }}
+                  placeholder="1,0,1; 0,1,0; 1,0,1"
+                  rows={3}
+                />
+              </label>
+            )}
           </div>
         )}
 
@@ -498,7 +570,7 @@ export function Visualizer({
             </div>
           ) : activeModule.visualMode === 'Matrix' ? (
             <div
-              className="matrix-stage"
+              className={`matrix-stage ${isGameBoard ? 'game-board-stage' : ''} ${isChessBoard ? 'chess-board-stage' : ''}`}
               aria-label="Matrix visualization"
               style={
                 {
@@ -515,21 +587,76 @@ export function Visualizer({
                 <em>{currentStep?.type ?? 'ready'}</em>
               </div>
               <div className="matrix-grid-view">
+                {chessArrow && (
+                  <svg className="game-arrow-layer" aria-hidden="true">
+                    <defs>
+                      <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+                        <path d="M0,0 L8,4 L0,8 Z" />
+                      </marker>
+                    </defs>
+                    <line
+                      x1={arrowPoint(chessArrow.from).x}
+                      y1={arrowPoint(chessArrow.from).y}
+                      x2={arrowPoint(chessArrow.to).x}
+                      y2={arrowPoint(chessArrow.to).y}
+                    />
+                  </svg>
+                )}
                 {matrixData.map((value, index) => {
                   const active = currentStep?.highlights.indices?.includes(index)
+                  const gameSymbol = gameSymbols[index] ?? (value === 1 ? 'X' : value === -1 ? 'O' : '')
+                  const markClass = isChessBoard
+                    ? gameSymbol
+                      ? 'chess-piece'
+                      : 'empty-mark'
+                    : gameSymbol === 'X'
+                      ? 'x-mark'
+                      : gameSymbol === 'O'
+                        ? 'o-mark'
+                        : 'empty-mark'
                   return (
                     <motion.div
-                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''}`}
+                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${isChessBoard && chessArrow?.from === index ? 'move-from' : ''} ${isChessBoard && chessArrow?.to === index ? 'move-to' : ''} ${markClass}`}
                       key={`${index}-${value}`}
                       layout
                       transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
                     >
                       {showIndices && <small>{index}</small>}
-                      {showValues && <strong>{value}</strong>}
+                      {showValues && <strong>{isGameBoard ? gameSymbol : value}</strong>}
                     </motion.div>
                   )
                 })}
               </div>
+              {isGameBoard && currentStep?.highlights.variables && (
+                <div className="game-insight">
+                  {[
+                    'next',
+                    'preset',
+                    'sideToMove',
+                    'legalMoveCount',
+                    'move',
+                    'check',
+                    'score',
+                    'possibleMoves',
+                    'likelyReply',
+                    'bestMove',
+                    'opponentReplies',
+                    'bestLine4Ply',
+                    'planNext12Plies',
+                    'threat',
+                    'block',
+                    'result',
+                    'lesson',
+                  ].map((key) =>
+                    currentStep.highlights.variables?.[key] !== undefined ? (
+                      <span key={key}>
+                        <strong>{key}</strong>
+                        {String(currentStep.highlights.variables[key])}
+                      </span>
+                    ) : null,
+                  )}
+                </div>
+              )}
               {showStateComparison && currentStep && (
                 <div className="state-comparison matrix-comparison">
                   <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>

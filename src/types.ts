@@ -40,6 +40,7 @@ export type AlgorithmCategory =
   | 'Backtracking'
   | 'Greedy'
   | 'Matrix / Grid'
+  | 'Games'
 
 export type AlgorithmModule = {
   id: string

@@ -11,6 +11,7 @@ export const categories: AlgorithmCategory[] = [
   'Backtracking',
   'Greedy',
   'Matrix / Grid',
+  'Games',
 ]
 
 export const categoryPages: Record<AlgorithmCategory, { slug: string; title: string; subtitle: string; accent: string; sections: string[] }> = {
@@ -83,5 +84,12 @@ export const categoryPages: Record<AlgorithmCategory, { slug: string; title: str
     subtitle: 'Visualize cells, neighbors, paths, flood fill, mazes, and matrix transformations.',
     accent: '#0891b2',
     sections: ['Traversal', 'Maze search', 'Matrix operations', 'Cellular automata'],
+  },
+  Games: {
+    slug: 'games',
+    title: 'Game Algorithms',
+    subtitle: 'Learn game rules, legal moves, evaluation, search trees, and decision-making strategies.',
+    accent: '#b45309',
+    sections: ['Board games', 'Search and minimax', 'Constraint puzzles', 'Strategy games'],
   },
 }

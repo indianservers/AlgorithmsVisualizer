@@ -912,7 +912,11 @@ function graphTraversal(_input: number[], _target: number, mode: 'bfs' | 'dfs') 
   return makeTraversalSteps(order, mode === 'bfs' ? 'BFS traversal' : 'DFS traversal')
 }
 
-function demoArray(values: number[], label: string, operations: { description: string; indices?: number[]; type?: StepType; variables?: Record<string, unknown> }[]) {
+function demoArray(
+  values: number[],
+  label: string,
+  operations: { description: string; indices?: number[]; type?: StepType; variables?: Record<string, unknown> }[],
+) {
   const data = values.length ? [...values] : [8, 3, 10, 1, 6, 14, 4, 7]
   const steps: AlgorithmStep[] = []
   const metrics = { ...baseMetrics, memory: data.length }
@@ -922,7 +926,15 @@ function demoArray(values: number[], label: string, operations: { description: s
     else metrics.writes += 1
     makeStep(steps, operation.type ?? 'update', operation.description, data, operation.indices ?? [], operation.variables ?? {}, metrics)
   })
-  makeStep(steps, 'complete', `${label} demo complete.`, data, data.map((_, index) => index), { topic: label }, metrics)
+  makeStep(
+    steps,
+    'complete',
+    `${label} demo complete.`,
+    data,
+    data.map((_, index) => index),
+    { topic: label },
+    metrics,
+  )
   return steps
 }
 
@@ -934,7 +946,11 @@ function linkedListSuite(input: number[]) {
   return demoArray(data, 'Linked list suite', [
     { type: 'select', description: 'Create head pointer and chain each input value as a node.', indices: [0], variables: { head: data[0] } },
     { description: 'Insert 42 after the head by rewiring next pointers.', indices: [0, 1], variables: { inserted: 42 } },
-    { description: 'Delete the old tail by redirecting the previous next pointer.', indices: [data.length - 1], variables: { deleted: input.at(-1) ?? 'tail' } },
+    {
+      description: 'Delete the old tail by redirecting the previous next pointer.',
+      indices: [data.length - 1],
+      variables: { deleted: input.at(-1) ?? 'tail' },
+    },
     { type: 'compare', description: 'Run slow and fast pointers to check for a cycle.', indices: [1, 3], variables: { slow: 1, fast: 3 } },
     { description: 'Reverse links one node at a time: prev <- current -> next.', indices: [0, 1, 2], variables: { prev: data[0], current: data[1] } },
   ])
@@ -982,11 +998,27 @@ function heapPriorityQueue(input: number[]) {
   const metrics = { ...baseMetrics, memory: data.length }
   for (let index = Math.floor(data.length / 2) - 1; index >= 0; index -= 1) {
     metrics.comparisons += 1
-    makeStep(steps, 'compare', `Heapify subtree rooted at ${index}.`, data, [index, index * 2 + 1, index * 2 + 2].filter((i) => i < data.length), { phase: 'build heap' }, metrics)
+    makeStep(
+      steps,
+      'compare',
+      `Heapify subtree rooted at ${index}.`,
+      data,
+      [index, index * 2 + 1, index * 2 + 2].filter((i) => i < data.length),
+      { phase: 'build heap' },
+      metrics,
+    )
   }
   data.sort((a, b) => b - a)
   makeStep(steps, 'update', 'Extract highest priority item and restore heap order.', data, [0], { extracted: data[0] }, metrics)
-  makeStep(steps, 'complete', 'Priority queue demo complete.', data, data.map((_, index) => index), { heapRoot: data[0] }, metrics)
+  makeStep(
+    steps,
+    'complete',
+    'Priority queue demo complete.',
+    data,
+    data.map((_, index) => index),
+    { heapRoot: data[0] },
+    metrics,
+  )
   return steps
 }
 
@@ -1025,7 +1057,15 @@ function dsuDemo(input: number[]) {
     metrics.writes += 1
     makeStep(steps, 'update', `Union ${a} and ${b}; compress paths toward root ${rootA}.`, parent, [a, b], { root: rootA }, metrics)
   })
-  makeStep(steps, 'complete', 'Disjoint set union demo complete.', parent, parent.map((_, index) => index), { sets: [...new Set(parent)].length }, metrics)
+  makeStep(
+    steps,
+    'complete',
+    'Disjoint set union demo complete.',
+    parent,
+    parent.map((_, index) => index),
+    { sets: [...new Set(parent)].length },
+    metrics,
+  )
   return steps
 }
 
@@ -1033,7 +1073,12 @@ function segmentTreeDemo(input: number[]) {
   const data = input.slice(0, 8)
   const total = data.reduce((sum, value) => sum + value, 0)
   return demoArray(data, 'Segment tree', [
-    { type: 'select', description: `Build root range [0, ${data.length - 1}] with sum ${total}.`, indices: [0, data.length - 1], variables: { range: `[0, ${data.length - 1}]`, sum: total } },
+    {
+      type: 'select',
+      description: `Build root range [0, ${data.length - 1}] with sum ${total}.`,
+      indices: [0, data.length - 1],
+      variables: { range: `[0, ${data.length - 1}]`, sum: total },
+    },
     { type: 'compare', description: 'Split range query into left and right child intervals.', indices: [1, 2], variables: { query: '[1, 4]' } },
     { description: 'Apply point update and recompute ancestors back to the root.', indices: [3], variables: { updateIndex: 3 } },
     { description: 'Lazy propagation stores pending range updates until a child is needed.', indices: [0], variables: { lazy: '+5 pending' } },
@@ -1096,7 +1141,12 @@ function graphSuite(label: string, variables: Record<string, unknown>) {
 function stringStructureDemo(input: number[]) {
   return demoArray(input.slice(0, 8), 'Advanced string structures', [
     { type: 'hash', description: 'Build trie edges for multiple dictionary words.', indices: [0], variables: { structure: 'trie' } },
-    { type: 'compare', description: 'Sort suffixes lexicographically to form a suffix array.', indices: [1, 2, 3], variables: { suffixArray: '[5, 3, 1, 0, 4, 2]' } },
+    {
+      type: 'compare',
+      description: 'Sort suffixes lexicographically to form a suffix array.',
+      indices: [1, 2, 3],
+      variables: { suffixArray: '[5, 3, 1, 0, 4, 2]' },
+    },
     { description: 'Aho-Corasick adds failure links for multi-pattern matching.', indices: [4], variables: { failureLinks: true } },
   ])
 }
@@ -1111,23 +1161,39 @@ function dynamicProgrammingSuite(input: number[]) {
 
   table[0] = 0
   table[1] = 1
-  makeStep(steps, 'select', 'Seed Fibonacci tabulation with base cases F(0)=0 and F(1)=1.', table, [0, 1], {
-    problem: 'Fibonacci DP',
-    recurrence: 'dp[i] = dp[i - 1] + dp[i - 2]',
-    baseCases: ['F(0)', 'F(1)'],
-  }, metrics)
+  makeStep(
+    steps,
+    'select',
+    'Seed Fibonacci tabulation with base cases F(0)=0 and F(1)=1.',
+    table,
+    [0, 1],
+    {
+      problem: 'Fibonacci DP',
+      recurrence: 'dp[i] = dp[i - 1] + dp[i - 2]',
+      baseCases: ['F(0)', 'F(1)'],
+    },
+    metrics,
+  )
 
   for (let index = 2; index < columns; index += 1) {
     table[index] = table[index - 1] + table[index - 2]
     metrics.reads += 2
     metrics.writes += 1
-    makeStep(steps, 'update', `Fill Fibonacci cell ${index} from the previous two solved subproblems.`, table, [index - 2, index - 1, index], {
-      problem: 'Fibonacci DP',
-      index,
-      left: table[index - 2],
-      right: table[index - 1],
-      value: table[index],
-    }, metrics)
+    makeStep(
+      steps,
+      'update',
+      `Fill Fibonacci cell ${index} from the previous two solved subproblems.`,
+      table,
+      [index - 2, index - 1, index],
+      {
+        problem: 'Fibonacci DP',
+        index,
+        left: table[index - 2],
+        right: table[index - 1],
+        value: table[index],
+      },
+      metrics,
+    )
   }
 
   const coins = [1, 3, 4]
@@ -1140,22 +1206,38 @@ function dynamicProgrammingSuite(input: number[]) {
       const index = coinOffset + amount
       const candidate = table[coinOffset + amount - coin] + 1
       metrics.comparisons += 1
-      makeStep(steps, 'compare', `Coin change checks coin ${coin} for amount ${amount}.`, table, [coinOffset + amount - coin, index], {
-        problem: 'Coin Change',
-        coin,
-        amount,
-        candidate,
-        previousBest: table[index],
-      }, metrics)
+      makeStep(
+        steps,
+        'compare',
+        `Coin change checks coin ${coin} for amount ${amount}.`,
+        table,
+        [coinOffset + amount - coin, index],
+        {
+          problem: 'Coin Change',
+          coin,
+          amount,
+          candidate,
+          previousBest: table[index],
+        },
+        metrics,
+      )
       if (candidate < table[index]) {
         table[index] = candidate
         metrics.writes += 1
-        makeStep(steps, 'update', `Update minimum coins for amount ${amount} to ${candidate}.`, table, [index], {
-          problem: 'Coin Change',
-          amount,
-          best: candidate,
-          target,
-        }, metrics)
+        makeStep(
+          steps,
+          'update',
+          `Update minimum coins for amount ${amount} to ${candidate}.`,
+          table,
+          [index],
+          {
+            problem: 'Coin Change',
+            amount,
+            best: candidate,
+            target,
+          },
+          metrics,
+        )
       }
     }
   })
@@ -1174,14 +1256,24 @@ function dynamicProgrammingSuite(input: number[]) {
     table[index] = matched ? previous + 1 : previous
     metrics.comparisons += 1
     metrics.writes += 1
-    makeStep(steps, matched ? 'update' : 'compare', matched ? `LCS characters ${leftChar} and ${rightChar} match, extend the subsequence.` : `LCS characters ${leftChar} and ${rightChar} differ, keep the best neighbor.`, table, [index], {
-      problem: 'LCS',
-      leftChar,
-      rightChar,
-      row,
-      column,
-      value: table[index],
-    }, metrics)
+    makeStep(
+      steps,
+      matched ? 'update' : 'compare',
+      matched
+        ? `LCS characters ${leftChar} and ${rightChar} match, extend the subsequence.`
+        : `LCS characters ${leftChar} and ${rightChar} differ, keep the best neighbor.`,
+      table,
+      [index],
+      {
+        problem: 'LCS',
+        leftChar,
+        rightChar,
+        row,
+        column,
+        value: table[index],
+      },
+      metrics,
+    )
   })
 
   const editOffset = columns * 3
@@ -1195,19 +1287,35 @@ function dynamicProgrammingSuite(input: number[]) {
     const index = editOffset + row * columns + column
     table[index] = distance
     metrics.writes += 1
-    makeStep(steps, 'update', `Edit distance stores cost ${distance} at row ${row}, column ${column}.`, table, [index], {
-      problem: 'Edit Distance',
-      row,
-      column,
-      operation: distance === 0 ? 'match/base' : 'insert/delete/replace',
-    }, metrics)
+    makeStep(
+      steps,
+      'update',
+      `Edit distance stores cost ${distance} at row ${row}, column ${column}.`,
+      table,
+      [index],
+      {
+        problem: 'Edit Distance',
+        row,
+        column,
+        operation: distance === 0 ? 'match/base' : 'insert/delete/replace',
+      },
+      metrics,
+    )
   })
 
-  makeStep(steps, 'complete', 'Dynamic programming suite complete: solve overlapping subproblems once, store answers, and reuse them.', table, table.map((_, index) => index), {
-    problems: ['Fibonacci', 'Coin Change', 'LCS', 'Edit Distance', '0/1 Knapsack'],
-    tableShape: `${rows}x${columns}`,
-    corePattern: 'state -> transition -> memo/table -> answer',
-  }, metrics)
+  makeStep(
+    steps,
+    'complete',
+    'Dynamic programming suite complete: solve overlapping subproblems once, store answers, and reuse them.',
+    table,
+    table.map((_, index) => index),
+    {
+      problems: ['Fibonacci', 'Coin Change', 'LCS', 'Edit Distance', '0/1 Knapsack'],
+      tableShape: `${rows}x${columns}`,
+      corePattern: 'state -> transition -> memo/table -> answer',
+    },
+    metrics,
+  )
   return steps
 }
 
@@ -1242,14 +1350,22 @@ function backtrackingSuite() {
       const descending = row - column
       const ascending = row + column
       metrics.comparisons += 1
-      makeStep(steps, 'compare', `Check row ${row}, column ${column} for column and diagonal conflicts.`, board, [index], {
-        puzzle: 'N-Queens',
-        row,
-        column,
-        depth: row,
-        columnFree: !columns.has(column),
-        diagonalsFree: !descendingDiagonals.has(descending) && !ascendingDiagonals.has(ascending),
-      }, metrics)
+      makeStep(
+        steps,
+        'compare',
+        `Check row ${row}, column ${column} for column and diagonal conflicts.`,
+        board,
+        [index],
+        {
+          puzzle: 'N-Queens',
+          row,
+          column,
+          depth: row,
+          columnFree: !columns.has(column),
+          diagonalsFree: !descendingDiagonals.has(descending) && !ascendingDiagonals.has(ascending),
+        },
+        metrics,
+      )
 
       if (columns.has(column) || descendingDiagonals.has(descending) || ascendingDiagonals.has(ascending)) continue
 
@@ -1267,31 +1383,945 @@ function backtrackingSuite() {
       descendingDiagonals.delete(descending)
       ascendingDiagonals.delete(ascending)
       metrics.writes += 1
-      makeStep(steps, 'update', `Backtrack from row ${row}, column ${column} and try the next candidate.`, board, [index], {
-        puzzle: 'N-Queens',
-        row,
-        column,
-        depth: row,
-        action: 'undo placement',
-      }, metrics)
+      makeStep(
+        steps,
+        'update',
+        `Backtrack from row ${row}, column ${column} and try the next candidate.`,
+        board,
+        [index],
+        {
+          puzzle: 'N-Queens',
+          row,
+          column,
+          depth: row,
+          action: 'undo placement',
+        },
+        metrics,
+      )
     }
     return false
   }
 
   placeQueens(0)
-  makeStep(steps, 'compare', 'Sudoku branch preview: collect row, column, and box candidates before committing a digit.', board, [0, 1, 4, 5], {
-    puzzle: 'Sudoku',
-    cell: 'r1c1',
-    rowMissing: [2, 3, 4],
-    columnMissing: [1, 3],
-    boxMissing: [2, 4],
-    candidates: [3],
-  }, metrics)
-  makeStep(steps, 'complete', 'Backtracking suite complete: recurse, test constraints, commit a candidate, and undo when a branch fails.', board, [], {
-    puzzles: ['N-Queens', 'Sudoku'],
-    corePattern: 'choose -> constrain -> recurse -> backtrack',
-  }, metrics)
+  makeStep(
+    steps,
+    'compare',
+    'Sudoku branch preview: collect row, column, and box candidates before committing a digit.',
+    board,
+    [0, 1, 4, 5],
+    {
+      puzzle: 'Sudoku',
+      cell: 'r1c1',
+      rowMissing: [2, 3, 4],
+      columnMissing: [1, 3],
+      boxMissing: [2, 4],
+      candidates: [3],
+    },
+    metrics,
+  )
+  makeStep(
+    steps,
+    'complete',
+    'Backtracking suite complete: recurse, test constraints, commit a candidate, and undo when a branch fails.',
+    board,
+    [],
+    {
+      puzzles: ['N-Queens', 'Sudoku'],
+      corePattern: 'choose -> constrain -> recurse -> backtrack',
+    },
+    metrics,
+  )
   return steps
+}
+
+export const chessFenPresets = [
+  { name: 'Starting position', fen: 'startpos' },
+  { name: 'Italian opening', fen: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 3' },
+  { name: 'Queen pawn center', fen: 'rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 2' },
+  { name: 'Scholar mate threat', fen: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 3 3' },
+  { name: 'King safety puzzle', fen: 'r3k2r/pppq1ppp/2n2n2/3pp3/3PP3/2N2N2/PPPQ1PPP/R3K2R w KQkq - 0 9' },
+  { name: 'Hanging queen', fen: 'rnb1kbnr/pppp1ppp/8/4p3/4P1q1/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3' },
+  { name: 'Fork chance', fen: 'r1bqkbnr/pppp1ppp/2n5/4N3/4p3/8/PPPP1PPP/RNBQKB1R w KQkq - 0 4' },
+  { name: 'Pinned knight', fen: 'rnbqk2r/pppp1ppp/5n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4' },
+  { name: 'Castle decision', fen: 'r1bq1rk1/ppp2ppp/2n2n2/3pp3/2B1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 4 7' },
+  { name: 'Open file rook', fen: 'r4rk1/ppp2ppp/2n2n2/3qp3/3P4/2N1PN2/PPP2PPP/R2Q1RK1 w - - 0 10' },
+  { name: 'Knight outpost', fen: 'r2q1rk1/ppp2ppp/2n2n2/3pp3/3P4/2N1PN2/PPP2PPP/R2Q1RK1 w - - 0 9' },
+  { name: 'Bishop pair', fen: 'r2qk2r/ppp2ppp/2n2n2/2bpp3/2BPP3/2N2N2/PPP2PPP/R1BQ1RK1 w kq - 2 8' },
+  { name: 'Passed pawn', fen: '8/3k4/8/3P4/4K3/8/8/8 w - - 0 1' },
+  { name: 'Rook endgame', fen: '8/8/4k3/8/8/4K3/5R2/7r w - - 0 1' },
+  { name: 'King opposition', fen: '8/8/8/3k4/8/3K4/4P3/8 w - - 0 1' },
+  { name: 'Mate in one', fen: '6k1/5ppp/8/8/8/8/5PPP/6KQ w - - 0 1' },
+  { name: 'Back rank danger', fen: '6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1' },
+  { name: 'Queen trade', fen: 'r3k2r/ppp2ppp/2n5/3q4/3Q4/2N5/PPP2PPP/R3K2R w KQkq - 0 12' },
+  { name: 'Central break', fen: 'r1bq1rk1/ppp2ppp/2n2n2/3pp3/2BPP3/2N2N2/PPP2PPP/R1BQ1RK1 w - - 0 8' },
+  { name: 'Isolated pawn', fen: 'r2q1rk1/pp3ppp/2n2n2/2bp4/3P4/2N1PN2/PP3PPP/R2Q1RK1 w - - 0 11' },
+  { name: 'Tactical skewer', fen: '4k3/8/8/8/8/8/4q3/4K2R w K - 0 1' },
+  { name: 'Discovered attack', fen: 'r3k2r/ppp2ppp/2n5/3b4/3B4/2N5/PPP2PPP/R3K2R w KQkq - 0 10' },
+  { name: 'Attack the king', fen: 'r4rk1/ppp2ppp/2n2n2/3qp3/2B1P3/2NP1N1P/PPP2PP1/R2Q1RK1 w - - 0 11' },
+  { name: 'Defend the pawn', fen: '8/8/3k4/3p4/3P4/3K4/8/8 w - - 0 1' },
+  { name: 'Promotion race', fen: '8/2P5/8/8/8/8/5p2/4K2k w - - 0 1' },
+  { name: 'Queen versus rook', fen: '6k1/8/8/8/8/8/5r2/5QK1 w - - 0 1' },
+  { name: 'Simplify when ahead', fen: '4k3/8/8/8/8/8/4q3/4RQK1 w - - 0 1' },
+  { name: 'Find safe check', fen: '6k1/5ppp/8/8/8/8/5PPP/5RK1 w - - 0 1' },
+]
+
+function ticTacToeMinimax() {
+  const board = Array(9).fill(0)
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: board.length }
+  const wins = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ]
+  const vars = (extra: Record<string, unknown> = {}) => ({
+    game: 'Tic Tac Toe',
+    tableShape: '3x3',
+    boardSymbols: board.map((value) => (value === 1 ? 'X' : value === -1 ? 'O' : '')),
+    ...extra,
+  })
+
+  makeStep(
+    steps,
+    'select',
+    'Start with an empty board. X goes first. The goal is to get three marks in a row.',
+    board,
+    [],
+    vars({ next: 'X moves first', idea: 'Rows, columns, and diagonals can win.' }),
+    metrics,
+  )
+
+  board[4] = 1
+  metrics.writes += 1
+  makeStep(
+    steps,
+    'update',
+    'X chooses the center. The center is strong because it touches many winning lines.',
+    board,
+    [4],
+    vars({ next: 'O turn', move: 'X plays center' }),
+    metrics,
+  )
+
+  board[0] = -1
+  metrics.writes += 1
+  makeStep(
+    steps,
+    'update',
+    'O chooses a corner. Corners are also strong starting squares.',
+    board,
+    [0],
+    vars({ next: 'X turn', move: 'O plays corner' }),
+    metrics,
+  )
+
+  const candidateScores = [
+    { index: 2, score: 0, reason: 'this move is safe, but does not create much pressure' },
+    { index: 6, score: 0, reason: 'this move is also safe' },
+    { index: 8, score: 1, reason: 'this move creates the most pressure' },
+  ]
+  candidateScores.forEach((candidate) => {
+    metrics.comparisons += 1
+    makeStep(
+      steps,
+      'compare',
+      `Look ahead at cell ${candidate.index}: ${candidate.reason}. Score: ${candidate.score}.`,
+      board,
+      [candidate.index],
+      vars({ check: `cell ${candidate.index}`, score: candidate.score, idea: 'Try a move, imagine O replies, then score the result.' }),
+      metrics,
+    )
+  })
+
+  board[8] = 1
+  metrics.writes += 1
+  makeStep(
+    steps,
+    'update',
+    'X chooses the opposite corner because it was the best look-ahead move.',
+    board,
+    [8],
+    vars({ next: 'O turn', move: 'X plays cell 8' }),
+    metrics,
+  )
+
+  board[2] = -1
+  metrics.writes += 1
+  makeStep(steps, 'update', 'O blocks a possible top-row threat.', board, [2], vars({ next: 'X turn', block: 'top row' }), metrics)
+
+  board[6] = 1
+  metrics.writes += 1
+  makeStep(steps, 'update', 'X creates a bottom-row threat.', board, [6], vars({ next: 'O turn', threat: 'bottom row' }), metrics)
+
+  board[7] = -1
+  metrics.writes += 1
+  makeStep(
+    steps,
+    'update',
+    'O blocks the bottom row. Good defense stops the immediate win.',
+    board,
+    [7],
+    vars({ next: 'X turn', block: 'bottom row' }),
+    metrics,
+  )
+
+  board[1] = 1
+  metrics.writes += 1
+  makeStep(
+    steps,
+    'update',
+    'X plays the top edge. No player has a forced win now.',
+    board,
+    [1],
+    vars({ next: 'O turn', resultSoon: 'draw with best play' }),
+    metrics,
+  )
+
+  board[3] = -1
+  metrics.writes += 1
+  makeStep(steps, 'update', 'O takes the last safe side square.', board, [3], vars({ next: 'X turn', remaining: 'cell 5' }), metrics)
+
+  board[5] = 1
+  metrics.writes += 1
+  const winLine = wins.find((line) => Math.abs(line.reduce((sum, index) => sum + board[index], 0)) === 3)
+  makeStep(
+    steps,
+    'complete',
+    'The board is full and nobody has three in a row. With best play, Tic Tac Toe ends in a draw.',
+    board,
+    winLine ?? board.map((_, index) => index),
+    vars({ result: 'Draw', lesson: 'Look ahead, block threats, and choose the safest move.' }),
+    metrics,
+  )
+
+  return steps
+}
+
+function gameLesson({
+  columns,
+  game,
+  initial,
+  steps: lessonSteps,
+}: {
+  columns: number
+  game: string
+  initial: string[]
+  steps: { description: string; indices?: number[]; symbols?: Record<number, string>; type?: StepType; variables?: Record<string, unknown> }[]
+}) {
+  const symbols = [...initial]
+  const data = symbols.map((symbol) => (symbol ? 1 : 0))
+  const timeline: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: data.length }
+  const vars = (extra: Record<string, unknown> = {}) => ({
+    game,
+    tableShape: `${Math.ceil(data.length / columns)}x${columns}`,
+    boardSymbols: [...symbols],
+    ...extra,
+  })
+
+  makeStep(
+    timeline,
+    'select',
+    `${game}: start with the board and learn what each piece or cell means.`,
+    data,
+    [],
+    vars({ idea: 'Read the board first, then choose a move.' }),
+    metrics,
+  )
+  lessonSteps.forEach((step) => {
+    Object.entries(step.symbols ?? {}).forEach(([index, symbol]) => {
+      const position = Number(index)
+      symbols[position] = symbol
+      data[position] = symbol ? 1 : 0
+      metrics.writes += 1
+    })
+    if (step.type === 'compare') metrics.comparisons += 1
+    makeStep(timeline, step.type ?? 'update', step.description, data, step.indices ?? [], vars(step.variables), metrics)
+  })
+  makeStep(
+    timeline,
+    'complete',
+    `${game} lesson complete: rules plus look-ahead make the next move easier to explain.`,
+    data,
+    [],
+    vars({ result: 'Lesson complete' }),
+    metrics,
+  )
+  return timeline
+}
+
+const pieceSymbols: Record<string, string> = {
+  wp: '♙',
+  wn: '♘',
+  wb: '♗',
+  wr: '♖',
+  wq: '♕',
+  wk: '♔',
+  bp: '♟',
+  bn: '♞',
+  bb: '♝',
+  br: '♜',
+  bq: '♛',
+  bk: '♚',
+}
+
+const pieceValues: Record<PieceSymbol, number> = {
+  p: 100,
+  n: 320,
+  b: 330,
+  r: 500,
+  q: 900,
+  k: 0,
+}
+
+const squareIndex = (square: Square) => {
+  const file = square.charCodeAt(0) - 97
+  const rank = Number(square[1])
+  return (8 - rank) * 8 + file
+}
+
+function chessBoardState(chess: Chess) {
+  const board = chess.board()
+  const symbols: string[] = []
+  const data: number[] = []
+  board.forEach((row) =>
+    row.forEach((piece) => {
+      symbols.push(piece ? pieceSymbols[`${piece.color}${piece.type}`] : '')
+      data.push(piece ? (piece.color === 'w' ? 1 : -1) : 0)
+    }),
+  )
+  return { data, symbols }
+}
+
+function evaluateChess(chess: Chess) {
+  if (chess.isCheckmate()) return chess.turn() === 'w' ? -100000 : 100000
+  if (chess.isDraw()) return 0
+  let score = 0
+  chess.board().forEach((row) =>
+    row.forEach((piece) => {
+      if (piece) score += (piece.color === 'w' ? 1 : -1) * pieceValues[piece.type]
+    }),
+  )
+  const turn = chess.turn()
+  const mobility = chess.moves().length
+  score += turn === 'w' ? mobility * 3 : -mobility * 3
+  return score
+}
+
+function orderedChessMoves(chess: Chess) {
+  return chess.moves({ verbose: true }).sort((a, b) => {
+    const captureA = a.captured ? pieceValues[a.captured] : 0
+    const captureB = b.captured ? pieceValues[b.captured] : 0
+    return captureB - captureA || a.san.localeCompare(b.san)
+  })
+}
+
+function searchChess(chess: Chess, depth: number, alpha = -Infinity, beta = Infinity): { line: string[]; score: number } {
+  if (depth === 0 || chess.isGameOver()) return { line: [], score: evaluateChess(chess) }
+  const maximizing = chess.turn() === 'w'
+  let best = { line: [] as string[], score: maximizing ? -Infinity : Infinity }
+  for (const move of orderedChessMoves(chess).slice(0, 14)) {
+    chess.move(move)
+    const result = searchChess(chess, depth - 1, alpha, beta)
+    chess.undo()
+    const score = result.score
+    if ((maximizing && score > best.score) || (!maximizing && score < best.score)) best = { score, line: [move.san, ...result.line] }
+    if (maximizing) alpha = Math.max(alpha, score)
+    else beta = Math.min(beta, score)
+    if (beta <= alpha) break
+  }
+  return best
+}
+
+function chessMinimaxLesson(_input: number[], target: number) {
+  const preset = chessFenPresets[Math.abs(Math.trunc(target)) % chessFenPresets.length] ?? chessFenPresets[0]
+  const customFen = typeof localStorage === 'undefined' ? '' : (localStorage.getItem('algodrishti-chess-fen') ?? '').trim()
+  const selectedFen = customFen || preset.fen
+  let chess: Chess
+  try {
+    chess = selectedFen === 'startpos' ? new Chess() : new Chess(selectedFen)
+  } catch {
+    chess = preset.fen === 'startpos' ? new Chess() : new Chess(preset.fen)
+  }
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: 64 }
+  const state = () => chessBoardState(chess)
+  const vars = (extra: Record<string, unknown> = {}) => ({
+    game: 'Chess',
+    tableShape: '8x8',
+    boardSymbols: state().symbols,
+    fen: chess.fen(),
+    preset: customFen ? 'Custom FEN' : preset.name,
+    sideToMove: chess.turn() === 'w' ? 'White' : 'Black',
+    ...extra,
+  })
+  const push = (type: StepType, description: string, indices: number[] = [], extra: Record<string, unknown> = {}) => {
+    const board = state()
+    makeStep(steps, type, description, board.data, indices, vars(extra), metrics)
+  }
+
+  const legalMoves = orderedChessMoves(chess)
+  push('select', `${preset.name}: read the board first. ${chess.turn() === 'w' ? 'White' : 'Black'} must choose a legal move.`, [], {
+    possibleMoves: legalMoves
+      .map((move) => move.san)
+      .slice(0, 30)
+      .join(', '),
+    legalMoveCount: legalMoves.length,
+  })
+
+  const candidates = legalMoves.slice(0, 8).map((move) => {
+    chess.move(move)
+    const replyMoves = orderedChessMoves(chess)
+    const reply = replyMoves[0]?.san ?? 'none'
+    const score = searchChess(chess, 2).score
+    chess.undo()
+    return { move, reply, score }
+  })
+  candidates.forEach(({ move, reply, score }) => {
+    metrics.comparisons += 1
+    push('compare', `Try ${move.san}. Then imagine the opponent reply ${reply}. Score: ${score}.`, [squareIndex(move.from), squareIndex(move.to)], {
+      check: move.san,
+      score,
+      likelyReply: reply,
+      idea: 'A chess engine tries a move, imagines replies, then scores the board.',
+    })
+  })
+
+  const best = candidates.sort((a, b) => (chess.turn() === 'w' ? b.score - a.score : a.score - b.score))[0]
+  if (best) {
+    chess.move(best.move)
+    metrics.writes += 1
+    push(
+      'update',
+      `Choose ${best.move.san} because it gives the best score after checking replies.`,
+      [squareIndex(best.move.from), squareIndex(best.move.to)],
+      {
+        bestMove: best.move.san,
+        score: best.score,
+        opponentReplies: orderedChessMoves(chess)
+          .map((move) => move.san)
+          .slice(0, 24)
+          .join(', '),
+      },
+    )
+  }
+
+  const planGame = new Chess(selectedFen === 'startpos' ? undefined : selectedFen)
+  const plan = searchChess(planGame, 4).line
+  const longPlan: string[] = []
+  for (let i = 0; i < 12 && !planGame.isGameOver(); i += 1) {
+    const next = searchChess(planGame, Math.min(3, 12 - i)).line[0] ?? orderedChessMoves(planGame)[0]?.san
+    if (!next) break
+    planGame.move(next)
+    longPlan.push(next)
+  }
+  push('complete', `The computer plan starts: ${longPlan.slice(0, 8).join(' ')}. It can keep extending this line by repeating move, reply, score.`, [], {
+    bestLine4Ply: plan.join(' '),
+    planNext12Plies: longPlan.join(' '),
+    result: 'Analysis complete',
+  })
+  return steps
+}
+
+function sudokuBacktrackingLesson() {
+  return gameLesson({
+    columns: 9,
+    game: 'Sudoku',
+    initial: [
+      '5',
+      '3',
+      '',
+      '',
+      '7',
+      '',
+      '',
+      '',
+      '',
+      '6',
+      '',
+      '',
+      '1',
+      '9',
+      '5',
+      '',
+      '',
+      '',
+      '',
+      '9',
+      '8',
+      '',
+      '',
+      '',
+      '',
+      '6',
+      '',
+      '8',
+      '',
+      '',
+      '',
+      '6',
+      '',
+      '',
+      '',
+      '3',
+      '4',
+      '',
+      '',
+      '8',
+      '',
+      '3',
+      '',
+      '',
+      '1',
+      '7',
+      '',
+      '',
+      '',
+      '2',
+      '',
+      '',
+      '',
+      '6',
+      '',
+      '6',
+      '',
+      '',
+      '',
+      '',
+      '2',
+      '8',
+      '',
+      '',
+      '',
+      '',
+      '4',
+      '1',
+      '9',
+      '',
+      '',
+      '5',
+      '',
+      '',
+      '',
+      '',
+      '8',
+      '',
+      '',
+      '7',
+      '9',
+    ],
+    steps: [
+      {
+        type: 'select',
+        description: 'Pick the first empty cell. Sudoku solves one blank at a time.',
+        indices: [2],
+        variables: { rule: 'each row, column, and box uses 1-9 once' },
+      },
+      {
+        type: 'compare',
+        description: 'Try 1, 2, 3, and 4. Reject numbers already in the row, column, or 3x3 box.',
+        indices: [2, 0, 1, 20],
+        variables: { candidates: '1, 2, 4' },
+      },
+      { description: 'Place 4 because it fits all three checks.', indices: [2], symbols: { 2: '4' }, variables: { move: 'place 4' } },
+      {
+        type: 'compare',
+        description: 'If a later cell gets stuck, backtracking returns here and tries the next candidate.',
+        indices: [2, 3],
+        variables: { algorithm: 'try, recurse, undo if needed' },
+      },
+    ],
+  })
+}
+
+function goTerritoryLesson() {
+  return gameLesson({
+    columns: 9,
+    game: 'Go',
+    initial: [
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '●',
+      '●',
+      '',
+      '',
+      '',
+      '○',
+      '',
+      '',
+      '',
+      '●',
+      '',
+      '',
+      '',
+      '',
+      '○',
+      '○',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '●',
+      '',
+      '',
+      '○',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '●',
+      '',
+      '',
+      '',
+      '○',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+    ],
+    steps: [
+      {
+        type: 'select',
+        description: 'Go stones stay on intersections. Groups need empty neighbor points called liberties.',
+        indices: [11, 19],
+        variables: { rule: 'groups need liberties' },
+      },
+      {
+        type: 'compare',
+        description: 'Count liberties around the white group. Fewer liberties means danger.',
+        indices: [24, 25, 34],
+        variables: { liberties: 3 },
+      },
+      {
+        description: 'Black plays next to the white group to reduce its liberties.',
+        indices: [33],
+        symbols: { 33: '●' },
+        variables: { move: 'reduce liberties' },
+      },
+      {
+        type: 'compare',
+        description: 'Go programs often use search plus pattern evaluation because the board is huge.',
+        indices: [33, 24, 25],
+        variables: { algorithm: 'territory and liberty evaluation' },
+      },
+    ],
+  })
+}
+
+function connectFourLesson() {
+  return gameLesson({
+    columns: 7,
+    game: 'Connect Four',
+    initial: [
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '🔴',
+      '🟡',
+      '',
+      '',
+      '',
+      '',
+      '🔴',
+      '🟡',
+      '🔴',
+      '',
+      '',
+      '',
+    ],
+    steps: [
+      { type: 'select', description: 'Pieces fall to the lowest empty space in the chosen column.', indices: [31, 38], variables: { rule: 'gravity' } },
+      {
+        type: 'compare',
+        description: 'Look for three-in-a-row threats before choosing a column.',
+        indices: [30, 37, 38],
+        variables: { threat: 'red can build four' },
+      },
+      { description: 'Yellow drops a piece to block the red threat.', indices: [39], symbols: { 39: '🟡' }, variables: { move: 'block column' } },
+      {
+        type: 'compare',
+        description: 'A Connect Four bot scores windows of four cells and looks ahead at replies.',
+        indices: [36, 37, 38, 39],
+        variables: { algorithm: 'minimax with window scoring' },
+      },
+    ],
+  })
+}
+
+function checkersLesson() {
+  return gameLesson({
+    columns: 8,
+    game: 'Checkers',
+    initial: [
+      '',
+      '⛂',
+      '',
+      '⛂',
+      '',
+      '⛂',
+      '',
+      '⛂',
+      '⛂',
+      '',
+      '⛂',
+      '',
+      '⛂',
+      '',
+      '⛂',
+      '',
+      '',
+      '⛂',
+      '',
+      '',
+      '',
+      '⛂',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '⛀',
+      '',
+      '',
+      '',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+      '⛀',
+      '',
+    ],
+    steps: [
+      { type: 'select', description: 'Checkers pieces move diagonally on dark squares.', indices: [42], variables: { rule: 'diagonal moves' } },
+      {
+        type: 'compare',
+        description: 'Captures are important: jump over an enemy piece into an empty square.',
+        indices: [42, 33, 24],
+        variables: { capture: 'jump if possible' },
+      },
+      {
+        description: 'White jumps and removes the black piece.',
+        indices: [24, 33, 42],
+        symbols: { 42: '', 33: '', 24: '⛀' },
+        variables: { move: 'jump capture' },
+      },
+      {
+        type: 'compare',
+        description: 'A bot searches captures first because one jump can lead to another jump.',
+        indices: [24],
+        variables: { algorithm: 'forced capture search' },
+      },
+    ],
+  })
+}
+
+function minesweeperLesson() {
+  return gameLesson({
+    columns: 8,
+    game: 'Minesweeper',
+    initial: [
+      '1',
+      '1',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '1',
+      '💣',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '1',
+      '1',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '1',
+      '1',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '1',
+      '💣',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '1',
+      '1',
+      '1',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+    ],
+    steps: [
+      { type: 'select', description: 'Numbers tell how many mines touch that square.', indices: [0, 1, 2], variables: { rule: 'number = nearby mines' } },
+      {
+        type: 'compare',
+        description: 'If a 1 already touches one known mine, all other covered neighbors are safe.',
+        indices: [0, 9, 8],
+        variables: { inference: 'safe neighbor' },
+      },
+      { description: 'Reveal a safe square using the number clue.', indices: [8], symbols: { 8: '1' }, variables: { move: 'reveal safe cell' } },
+      {
+        type: 'compare',
+        description: 'Minesweeper solvers use constraints: each number is a small equation about nearby mines.',
+        indices: [36, 37, 38],
+        variables: { algorithm: 'constraint propagation' },
+      },
+    ],
+  })
+}
+
+function twentyFortyEightLesson() {
+  return gameLesson({
+    columns: 4,
+    game: '2048',
+    initial: ['2', '', '2', '', '', '4', '', '', '', '', '4', '', '', '', '', ''],
+    steps: [
+      { type: 'select', description: 'A move slides every tile in one direction.', indices: [0, 2], variables: { rule: 'slide' } },
+      { type: 'compare', description: 'Equal tiles merge once per move.', indices: [0, 2], variables: { merge: '2 + 2 = 4' } },
+      { description: 'Slide left and merge the two 2 tiles into a 4.', indices: [0], symbols: { 0: '4', 2: '' }, variables: { move: 'left' } },
+      {
+        type: 'compare',
+        description: 'A 2048 bot tries moves, estimates the random new tile, and keeps boards with open space.',
+        indices: [0, 5, 10],
+        variables: { algorithm: 'expectimax' },
+      },
+    ],
+  })
 }
 
 function callStackDemo(input: number[]) {
@@ -1301,9 +2331,12 @@ function callStackDemo(input: number[]) {
     metrics.recursiveCalls += 1
     makeStep(steps, 'select', `Push recursive frame depth ${depth} with value ${value}.`, input, [depth], { depth, frame: `solve(${depth})` }, metrics)
   })
-  input.slice(0, 6).reverse().forEach((value, index) => {
-    makeStep(steps, 'update', `Return from frame with value ${value}.`, input, [input.length - 1 - index], { unwinding: true }, metrics)
-  })
+  input
+    .slice(0, 6)
+    .reverse()
+    .forEach((value, index) => {
+      makeStep(steps, 'update', `Return from frame with value ${value}.`, input, [input.length - 1 - index], { unwinding: true }, metrics)
+    })
   makeStep(steps, 'complete', 'Call stack visualization complete.', input, [], { stackEmpty: true }, metrics)
   return steps
 }
@@ -1320,7 +2353,12 @@ function learningFeatureDemo(name: string) {
   return (input: number[]) =>
     demoArray(input.slice(0, 8), name, [
       { type: 'select', description: `${name}: present the learner with a focused prompt.`, indices: [0], variables: { mode: name } },
-      { type: 'compare', description: `${name}: compare the learner response with the expected next state.`, indices: [1, 2], variables: { feedback: 'instant' } },
+      {
+        type: 'compare',
+        description: `${name}: compare the learner response with the expected next state.`,
+        indices: [1, 2],
+        variables: { feedback: 'instant' },
+      },
       { description: `${name}: record progress, notes, or custom data for review.`, indices: [3], variables: { savedLocally: true } },
     ])
 }
@@ -1343,23 +2381,55 @@ function divideAndConquerSuite(input: number[]) {
   const data = [...input]
   const steps: AlgorithmStep[] = []
   const metrics = { ...baseMetrics, memory: data.length }
-  makeStep(steps, 'partition', 'Divide the input into left and right subproblems around the midpoint.', data, [0, Math.max(0, Math.floor(data.length / 2))], {
-    phase: 'divide',
-    pattern: 'split problem',
-  }, metrics)
+  makeStep(
+    steps,
+    'partition',
+    'Divide the input into left and right subproblems around the midpoint.',
+    data,
+    [0, Math.max(0, Math.floor(data.length / 2))],
+    {
+      phase: 'divide',
+      pattern: 'split problem',
+    },
+    metrics,
+  )
   metrics.recursiveCalls += 2
-  makeStep(steps, 'select', 'Solve each subproblem recursively until base cases are reached.', data, [0, Math.max(0, data.length - 1)], {
-    phase: 'conquer',
-    baseCase: 'one item',
-  }, metrics)
+  makeStep(
+    steps,
+    'select',
+    'Solve each subproblem recursively until base cases are reached.',
+    data,
+    [0, Math.max(0, data.length - 1)],
+    {
+      phase: 'conquer',
+      baseCase: 'one item',
+    },
+    metrics,
+  )
   data.sort((a, b) => a - b)
   metrics.comparisons += Math.max(0, data.length - 1)
   metrics.writes += data.length
-  makeStep(steps, 'merge', 'Combine solved subproblems into one sorted result.', data, data.map((_, index) => index), {
-    phase: 'combine',
-    examples: ['merge sort', 'binary search', 'quick sort'],
-  }, metrics)
-  makeStep(steps, 'complete', 'Divide and conquer suite complete.', data, data.map((_, index) => index), { pattern: 'divide -> conquer -> combine' }, metrics)
+  makeStep(
+    steps,
+    'merge',
+    'Combine solved subproblems into one sorted result.',
+    data,
+    data.map((_, index) => index),
+    {
+      phase: 'combine',
+      examples: ['merge sort', 'binary search', 'quick sort'],
+    },
+    metrics,
+  )
+  makeStep(
+    steps,
+    'complete',
+    'Divide and conquer suite complete.',
+    data,
+    data.map((_, index) => index),
+    { pattern: 'divide -> conquer -> combine' },
+    metrics,
+  )
   return steps
 }
 
@@ -1412,7 +2482,8 @@ const completeLearningSuiteModules: AlgorithmModule[] = [
     flags: ['Prerequisites', 'DAG'],
     pseudocode: ['model topics as nodes', 'add prerequisite edges', 'topologically order modules', 'highlight blocked topics'],
     code: 'order = topologicalSort(prerequisiteGraph)',
-    runner: () => graphSuite('Prerequisite graph', { order: 'Arrays -> Searching -> Recursion -> Trees -> Graphs -> DP', blocked: 'advanced graph algorithms' }),
+    runner: () =>
+      graphSuite('Prerequisite graph', { order: 'Arrays -> Searching -> Recursion -> Trees -> Graphs -> DP', blocked: 'advanced graph algorithms' }),
   },
   {
     id: 'concept-lessons',
@@ -1494,11 +2565,15 @@ const completeLearningSuiteModules: AlgorithmModule[] = [
     flags: ['Trace table', 'Dry run'],
     pseudocode: ['choose variables', 'advance one step', 'fill row values', 'validate against step metadata'],
     code: 'trace[row] = pick(step.variables, watchedNames)',
-    runner: suiteDemo('Trace table mode', [
-      { type: 'select', description: 'Pick watched variables from the current algorithm.', variables: { watched: ['low', 'mid', 'high', 'dp[i][j]'] } },
-      { type: 'compare', description: 'Validate learner-filled cells against step variables.', variables: { feedback: 'cell-level' } },
-      { description: 'Highlight the first row where the trace diverges.', variables: { divergenceRow: 2 } },
-    ], 12),
+    runner: suiteDemo(
+      'Trace table mode',
+      [
+        { type: 'select', description: 'Pick watched variables from the current algorithm.', variables: { watched: ['low', 'mid', 'high', 'dp[i][j]'] } },
+        { type: 'compare', description: 'Validate learner-filled cells against step variables.', variables: { feedback: 'cell-level' } },
+        { description: 'Highlight the first row where the trace diverges.', variables: { divergenceRow: 2 } },
+      ],
+      12,
+    ),
   },
   {
     id: 'dry-run-worksheet',
@@ -1674,11 +2749,15 @@ const completeLearningSuiteModules: AlgorithmModule[] = [
     flags: ['Grid', 'Renderer'],
     pseudocode: ['parse rows and columns', 'map values to cells', 'highlight active neighbors', 'render table state'],
     code: 'cell = grid[row][column]; highlight(neighbors(cell))',
-    runner: suiteDemo('Matrix/grid renderer suite', [
-      { type: 'select', description: 'Parse a flattened state into row and column cells.', variables: { shape: 'rows x columns' } },
-      { type: 'compare', description: 'Highlight neighbors and dependency arrows.', variables: { neighbors: ['up', 'left', 'right', 'down'] } },
-      { description: 'Render DP, maze, and matrix-operation states with the same cell model.', variables: { reusableRenderer: true } },
-    ], 12),
+    runner: suiteDemo(
+      'Matrix/grid renderer suite',
+      [
+        { type: 'select', description: 'Parse a flattened state into row and column cells.', variables: { shape: 'rows x columns' } },
+        { type: 'compare', description: 'Highlight neighbors and dependency arrows.', variables: { neighbors: ['up', 'left', 'right', 'down'] } },
+        { description: 'Render DP, maze, and matrix-operation states with the same cell model.', variables: { reusableRenderer: true } },
+      ],
+      12,
+    ),
   },
 ]
 
@@ -1731,11 +2810,15 @@ const algorithmPatternSuiteModules: AlgorithmModule[] = [
     flags: ['Grid traversal', 'Cells'],
     pseudocode: ['visit a cell', 'check valid neighbors', 'update matrix state', 'repeat until frontier is empty'],
     code: 'for (const [dr, dc] of dirs) visit(row + dr, col + dc)',
-    runner: suiteDemo('Matrix/grid suite', [
-      { type: 'visit', description: 'Visit the active cell and mark it reached.', variables: { pattern: 'flood fill' } },
-      { type: 'compare', description: 'Check neighbor bounds, walls, and visited state.', variables: { directions: 4 } },
-      { description: 'Update the grid layer, path, or transformed value.', variables: { update: 'cell state' } },
-    ], 12),
+    runner: suiteDemo(
+      'Matrix/grid suite',
+      [
+        { type: 'visit', description: 'Visit the active cell and mark it reached.', variables: { pattern: 'flood fill' } },
+        { type: 'compare', description: 'Check neighbor bounds, walls, and visited state.', variables: { directions: 4 } },
+        { description: 'Update the grid layer, path, or transformed value.', variables: { update: 'cell state' } },
+      ],
+      12,
+    ),
   },
   {
     id: 'string-pattern-matching-suite',
@@ -1888,13 +2971,45 @@ const remainingCoverageModules: AlgorithmModule[] = [
       const data = [...input]
       const steps: AlgorithmStep[] = []
       const metrics = { ...baseMetrics, memory: data.length }
-      makeStep(steps, 'select', 'Detect input shape to choose bucket, TimSort, or IntroSort strategy.', data, [0], { strategies: ['Bucket', 'TimSort', 'IntroSort'] }, metrics)
+      makeStep(
+        steps,
+        'select',
+        'Detect input shape to choose bucket, TimSort, or IntroSort strategy.',
+        data,
+        [0],
+        { strategies: ['Bucket', 'TimSort', 'IntroSort'] },
+        metrics,
+      )
       metrics.comparisons += data.length
-      makeStep(steps, 'compare', 'Compare local runs or bucket ranges before ordering each region.', data, [0, Math.max(0, data.length - 1)], { phase: 'local ordering' }, metrics)
+      makeStep(
+        steps,
+        'compare',
+        'Compare local runs or bucket ranges before ordering each region.',
+        data,
+        [0, Math.max(0, data.length - 1)],
+        { phase: 'local ordering' },
+        metrics,
+      )
       data.sort((a, b) => a - b)
       metrics.writes += data.length
-      makeStep(steps, 'merge', 'Collect sorted buckets or merge detected runs into the final order.', data, data.map((_, index) => index), { stableMerge: true }, metrics)
-      makeStep(steps, 'complete', 'Advanced sorting suite complete.', data, data.map((_, index) => index), { sorted: true }, metrics)
+      makeStep(
+        steps,
+        'merge',
+        'Collect sorted buckets or merge detected runs into the final order.',
+        data,
+        data.map((_, index) => index),
+        { stableMerge: true },
+        metrics,
+      )
+      makeStep(
+        steps,
+        'complete',
+        'Advanced sorting suite complete.',
+        data,
+        data.map((_, index) => index),
+        { sorted: true },
+        metrics,
+      )
       return steps
     },
   },
@@ -1946,7 +3061,8 @@ const remainingCoverageModules: AlgorithmModule[] = [
     flags: ['Trees', 'LCA', 'DFS'],
     pseudocode: ['visit child subtrees', 'return aggregate values', 'combine child answers', 'answer path or ancestor query'],
     code: 'return combine(solve(node.left), solve(node.right), node)',
-    runner: () => graphSuite('Tree algorithms suite', { algorithms: ['LCA', 'Diameter', 'Height', 'Serialize', 'Subtree DP'], treePattern: 'postorder aggregate' }),
+    runner: () =>
+      graphSuite('Tree algorithms suite', { algorithms: ['LCA', 'Diameter', 'Height', 'Serialize', 'Subtree DP'], treePattern: 'postorder aggregate' }),
   },
   {
     id: 'graph-representation-suite',
@@ -2856,9 +3972,122 @@ export const algorithmModules: AlgorithmModule[] = [
     code: 'while (stack.length) visit(stack.pop())',
     runner: (input, target) => graphTraversal(input, target, 'dfs'),
   },
+  {
+    id: 'tic-tac-toe-minimax',
+    name: 'Tic Tac Toe Minimax',
+    category: 'Games',
+    subcategory: 'Board games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn the rules, threats, blocks, and simple look-ahead strategy on a 3x3 board.',
+    complexity: { best: 'O(1)', average: 'O(b^d)', worst: 'O(9!)', space: 'O(d)' },
+    flags: ['Game tree', 'Minimax', 'Solved game'],
+    pseudocode: ['find empty squares', 'try one move ahead', 'block any immediate threat', 'choose the safest move'],
+    code: 'try each empty square, imagine the reply, then keep the safest move',
+    runner: ticTacToeMinimax,
+  },
+  {
+    id: 'chess-minimax',
+    name: 'Chess Look-Ahead',
+    category: 'Games',
+    subcategory: 'Board games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn legal moves, king safety, board scoring, and simple chess engine look-ahead.',
+    complexity: { best: 'O(1)', average: 'O(b^d)', worst: 'O(35^d)', space: 'O(d)' },
+    flags: ['Game tree', 'Minimax', 'Board evaluation'],
+    pseudocode: ['generate legal moves', 'remove moves that leave king in check', 'score replies', 'choose the safest move'],
+    code: 'for each legal move: make move, score opponent replies, keep best score',
+    runner: chessMinimaxLesson,
+  },
+  {
+    id: 'sudoku-backtracking-game',
+    name: 'Sudoku Backtracking',
+    category: 'Games',
+    subcategory: 'Constraint puzzles',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn Sudoku row, column, and box rules through try, check, recurse, and undo.',
+    complexity: { best: 'O(n)', average: 'O(9^e)', worst: 'O(9^e)', space: 'O(e)' },
+    flags: ['Backtracking', 'Constraint solving'],
+    pseudocode: ['pick an empty cell', 'try a valid digit', 'continue recursively', 'undo if stuck'],
+    code: 'if digit fits row, column, and box: place it; solve rest; otherwise undo',
+    runner: sudokuBacktrackingLesson,
+  },
+  {
+    id: 'go-liberties-territory',
+    name: 'Go Liberties and Territory',
+    category: 'Games',
+    subcategory: 'Strategy games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn stones, groups, liberties, captures, and territory evaluation on a small Go board.',
+    complexity: { best: 'O(1)', average: 'O(b^d)', worst: 'Very high', space: 'O(board)' },
+    flags: ['Territory', 'Liberties', 'Pattern evaluation'],
+    pseudocode: ['find connected groups', 'count liberties', 'reduce opponent liberties', 'estimate territory'],
+    code: 'group = floodFill(stones); liberties = emptyNeighbors(group)',
+    runner: goTerritoryLesson,
+  },
+  {
+    id: 'connect-four-minimax',
+    name: 'Connect Four Look-Ahead',
+    category: 'Games',
+    subcategory: 'Board games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn gravity, four-in-a-row threats, blocking, and window scoring.',
+    complexity: { best: 'O(1)', average: 'O(7^d)', worst: 'O(7^d)', space: 'O(d)' },
+    flags: ['Minimax', 'Gravity', 'Window scoring'],
+    pseudocode: ['drop into a column', 'scan windows of four', 'block urgent threats', 'look ahead at replies'],
+    code: 'score every 4-cell window, then minimax over legal columns',
+    runner: connectFourLesson,
+  },
+  {
+    id: 'checkers-capture-search',
+    name: 'Checkers Capture Search',
+    category: 'Games',
+    subcategory: 'Board games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn diagonal moves, forced captures, jump chains, and move search.',
+    complexity: { best: 'O(1)', average: 'O(b^d)', worst: 'O(b^d)', space: 'O(d)' },
+    flags: ['Forced captures', 'Game tree'],
+    pseudocode: ['find legal diagonal moves', 'prefer captures', 'continue jump chains', 'score the board'],
+    code: 'if captures exist, search capture chains before quiet moves',
+    runner: checkersLesson,
+  },
+  {
+    id: 'minesweeper-constraints',
+    name: 'Minesweeper Constraints',
+    category: 'Games',
+    subcategory: 'Constraint puzzles',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn number clues, safe squares, mine flags, and constraint propagation.',
+    complexity: { best: 'O(n)', average: 'Varies', worst: 'NP-complete', space: 'O(n)' },
+    flags: ['Constraints', 'Inference'],
+    pseudocode: ['read number clue', 'count known mines', 'mark safe neighbors', 'repeat constraints'],
+    code: 'if clue mines are already known, remaining covered neighbors are safe',
+    runner: minesweeperLesson,
+  },
+  {
+    id: 'twenty-forty-eight-expectimax',
+    name: '2048 Expectimax',
+    category: 'Games',
+    subcategory: 'Strategy games',
+    status: 'live',
+    visualMode: 'Matrix',
+    summary: 'Learn sliding tiles, merging, random tile spawns, and expectimax-style move choice.',
+    complexity: { best: 'O(1)', average: 'O(4^d r^d)', worst: 'O(4^d r^d)', space: 'O(d)' },
+    flags: ['Expectimax', 'Random tiles', 'Board scoring'],
+    pseudocode: ['slide tiles', 'merge equal neighbors', 'estimate random new tile', 'keep the best board shape'],
+    code: 'score(move) = average(score(randomTileAfter(move)))',
+    runner: twentyFortyEightLesson,
+  },
   ...missingKitModules,
 ]
 
 export const plannedModules: AlgorithmModule[] = []
 
 export const allModules = [...algorithmModules, ...plannedModules]
+import { Chess, type PieceSymbol, type Square } from 'chess.js'

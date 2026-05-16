@@ -140,9 +140,7 @@ function App() {
     (completed.filter((id) => allModules.find((module) => module.id === id)?.category === activeCategory).length / Math.max(1, filteredModules.length)) * 100,
   )
   const difficulty =
-    activeModule.complexity.average === 'O(n)' ||
-    activeModule.complexity.average.includes('n²') ||
-    activeModule.complexity.average.includes('n^2')
+    activeModule.complexity.average === 'O(n)' || activeModule.complexity.average.includes('n²') || activeModule.complexity.average.includes('n^2')
       ? 'Beginner'
       : activeModule.complexity.average.includes('log n') || activeModule.complexity.average.includes('n log n')
         ? 'Intermediate'
@@ -162,16 +160,26 @@ function App() {
             ? 'Correctness check: queue ends empty after FIFO dequeues.'
             : ['Graph', 'Tree'].includes(activeModule.visualMode) && steps.length
               ? 'Correctness check: traversal completed with a visited order.'
-              : ''
+              : activeModule.category === 'Games' && steps.length
+                ? activeModule.id === 'chess-minimax'
+                  ? 'Game check: legal chess moves are generated and scored into a plan.'
+                  : 'Game check: the lesson follows legal moves and reaches a draw.'
+                : ''
   const recommendation = activeModule.flags?.includes('Great for nearly sorted data')
     ? 'Recommended for nearly sorted data.'
     : activeModule.category === 'Searching' && activeModule.flags?.includes('Requires sorted input')
       ? 'Best when the input is already sorted.'
       : activeModule.category === 'Sorting'
         ? `Average complexity: ${activeModule.complexity.average}.`
-        : 'Use this module when the data shape matches the visual mode.'
+        : activeModule.category === 'Games'
+          ? 'Run the board to see threats, blocks, and simple look-ahead.'
+          : 'Use this module when the data shape matches the visual mode.'
   const inputConstraints = [
-    !['Graph', 'Tree'].includes(activeModule.visualMode) ? 'At least one numeric value' : 'Uses graph/tree preset or numeric tree input',
+    activeModule.category === 'Games'
+      ? 'Uses a fixed board lesson'
+      : !['Graph', 'Tree'].includes(activeModule.visualMode)
+        ? 'At least one numeric value'
+        : 'Uses graph/tree preset or numeric tree input',
     sortedInputRequired ? 'Input must be sorted ascending' : '',
     ['counting-sort', 'radix-sort'].includes(activeModule.id) ? 'Non-negative integers only' : '',
   ].filter(Boolean)
@@ -292,7 +300,7 @@ function App() {
       })
     }, speed)
     return () => window.clearTimeout(timer)
-  }, [pauseOn, playing, speed, steps])
+  }, [pauseOn, playing, speed, stepIndex, steps])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -508,7 +516,9 @@ function App() {
     resetPlayback()
     setViewMode('visualize')
     pushToast('Loaded data locally with the Browser File API')
-    window.requestAnimationFrame(() => document.querySelector('.input-strip, .ds-input-panel, .visual-canvas')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+    window.requestAnimationFrame(() =>
+      document.querySelector('.input-strip, .ds-input-panel, .visual-canvas')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+    )
   }
 
   const scrollToSection = (selector: string) => {

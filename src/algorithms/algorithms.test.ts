@@ -38,11 +38,14 @@ describe('algorithm runners', () => {
         "bug-fix-mode",
         "certificates-and-milestones",
         "challenge-mode",
+        "checkers-capture-search",
+        "chess-minimax",
         "cocktail-shaker-sort",
         "code-runner-sandbox",
         "comb-sort",
         "complexity-lab",
         "concept-lessons",
+        "connect-four-minimax",
         "counting-sort",
         "curriculum-paths",
         "custom-data-structure-builder",
@@ -59,6 +62,7 @@ describe('algorithm runners', () => {
         "flashcards-drill-mode",
         "formula-glossary-sheet",
         "gnome-sort",
+        "go-liberties-territory",
         "graph-mst-suite",
         "graph-representation-suite",
         "graph-shortest-paths-suite",
@@ -80,6 +84,7 @@ describe('algorithm runners', () => {
         "matrix-grid-suite",
         "memory-model-view",
         "merge-sort",
+        "minesweeper-constraints",
         "mistake-analytics",
         "monotonic-stack-queue-suite",
         "multi-language-code",
@@ -109,6 +114,8 @@ describe('algorithm runners', () => {
         "step-prediction-mode",
         "string-pattern-matching-suite",
         "strongly-connected-components",
+        "sudoku-backtracking-game",
+        "tic-tac-toe-minimax",
         "topological-sort-suite",
         "trace-table-mode",
         "tree-algorithms-suite",
@@ -117,6 +124,7 @@ describe('algorithm runners', () => {
         "tree-postorder-traversal",
         "tree-preorder-traversal",
         "trie-prefix-tree",
+        "twenty-forty-eight-expectimax",
         "upper-bound",
       ]
     `)
@@ -190,6 +198,32 @@ describe('algorithm runners', () => {
     const module = algorithmModules.find((item) => item.id === id)!
     const steps = module.runner?.(baseInput, 31) ?? []
     expect(steps.at(-1)?.highlights.variables?.order).toBe(expectedOrder)
+  })
+
+  it('tic tac toe minimax teaches a solved draw on a 3x3 board', () => {
+    const module = algorithmModules.find((item) => item.id === 'tic-tac-toe-minimax')!
+    const steps = module.runner?.([], 31) ?? []
+    expect(steps.at(0)?.highlights.variables?.tableShape).toBe('3x3')
+    expect(steps.some((step) => step.description.includes('Look ahead'))).toBe(true)
+    expect(steps.at(-1)?.dataState).toHaveLength(9)
+    expect(steps.at(-1)?.highlights.variables?.result).toBe('Draw')
+  })
+
+  it.each([
+    'chess-minimax',
+    'sudoku-backtracking-game',
+    'go-liberties-territory',
+    'connect-four-minimax',
+    'checkers-capture-search',
+    'minesweeper-constraints',
+    'twenty-forty-eight-expectimax',
+  ])('%s emits a readable game-board timeline', (id) => {
+    const module = algorithmModules.find((item) => item.id === id)!
+    const steps = module.runner?.([], 31) ?? []
+    expect(steps.length).toBeGreaterThan(2)
+    expect(steps.at(0)?.highlights.variables?.boardSymbols).toBeInstanceOf(Array)
+    expect(String(steps.at(0)?.highlights.variables?.tableShape)).toMatch(/^\d+x\d+$/)
+    expect(steps.at(-1)?.type).toBe('complete')
   })
 })
 
