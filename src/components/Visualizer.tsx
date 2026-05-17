@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
 import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics } from '../types'
-import { allModules, chessFenPresets } from '../algorithms'
+import { allModules, chessFenPresets, gameBoardPresets } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
 
 type VisualItem = {
@@ -75,6 +75,7 @@ type VisualizerProps = {
   setStatusFilter: Dispatch<SetStateAction<'all' | 'live' | 'planned'>>
   setVisualFilter: Dispatch<SetStateAction<'all' | AlgorithmModule['visualMode']>>
   setComplexityFilter: Dispatch<SetStateAction<'all' | 'log' | 'linear' | 'nlogn' | 'quadratic'>>
+  startGameInteraction: () => void
 }
 
 const gameProfiles: Record<
@@ -221,6 +222,7 @@ export function Visualizer({
   showStateComparison,
   showValues,
   size,
+  startGameInteraction,
   sortCurrentInput,
   sortedBoundary,
   sortedInputRequired,
@@ -258,6 +260,27 @@ export function Visualizer({
     x: `${((index % matrixColumns) + 0.5) * (100 / matrixColumns)}%`,
     y: `${(Math.floor(index / matrixColumns) + 0.5) * (100 / matrixRows)}%`,
   })
+  const gamePresets = gameBoardPresets[activeModule.id] ?? []
+  const customGameKey = `algodrishti-game-custom-${activeModule.id}`
+  const gameStateKey = `algodrishti-game-state-${activeModule.id}`
+  const legalMovePayload = Array.isArray(gameVariables.legalMovePayload)
+    ? (gameVariables.legalMovePayload as { from?: number; label: string; set?: Record<number, string>; to: number }[])
+    : []
+  const legalTargets = Array.isArray(gameVariables.legalTargets) ? (gameVariables.legalTargets as number[]) : []
+  const gameMoveArrow =
+    isGameBoard && !isChessBoard && currentStep?.highlights.indices && currentStep.highlights.indices.length >= 2
+      ? {
+          from: currentStep.highlights.indices[0],
+          to: currentStep.highlights.indices[1],
+        }
+      : undefined
+  const activeGameArrow = chessArrow ?? gameMoveArrow
+  const playGameCell = (index: number) => {
+    if (!isGameBoard || isChessBoard || !legalMovePayload.length) return
+    const move = legalMovePayload.find((item) => item.to === index) ?? legalMovePayload[0]
+    localStorage.setItem(gameStateKey, JSON.stringify({ base: gameSymbols, move }))
+    startGameInteraction()
+  }
 
   return (
     <section className="lab-grid">
@@ -479,6 +502,17 @@ export function Visualizer({
                 rows={2}
               />
             </label>
+            <label>
+              Search / lookup value
+              <input
+                type="number"
+                value={target}
+                onChange={(event) => {
+                  setTarget(Number(event.target.value))
+                  resetPlayback()
+                }}
+              />
+            </label>
             <div className="preset-row">
               <button type="button" onClick={() => updateRandom('random')}>
                 <Shuffle size={14} />
@@ -566,6 +600,40 @@ export function Visualizer({
                   <>
                     <strong>{gameProfile?.objective ?? 'Learn the rules, then watch the algorithm choose a move.'}</strong>
                     <span>{gameProfile?.setup ?? 'Press Run to step through the board state and the computer decision.'}</span>
+                    {gamePresets.length > 0 && (
+                      <label>
+                        Board preset
+                        <select
+                          value={Math.abs(Math.trunc(target)) % gamePresets.length}
+                          onChange={(event) => {
+                            localStorage.removeItem(customGameKey)
+                            localStorage.removeItem(gameStateKey)
+                            setTarget(Number(event.target.value))
+                            resetPlayback()
+                          }}
+                        >
+                          {gamePresets.map((preset, index) => (
+                            <option key={preset.name} value={index}>
+                              {index + 1}. {preset.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    )}
+                    <label>
+                      Custom board
+                      <textarea
+                        rows={2}
+                        placeholder="Use comma, space, or semicolon separated cells. Use . for empty cells."
+                        value={localStorage.getItem(customGameKey) ?? ''}
+                        onChange={(event) => {
+                          localStorage.setItem(customGameKey, event.target.value)
+                          localStorage.removeItem(gameStateKey)
+                          resetPlayback()
+                          startGameInteraction()
+                        }}
+                      />
+                    </label>
                   </>
                 )}
               </div>
@@ -685,7 +753,7 @@ export function Visualizer({
                 <em>{currentStep?.type ?? 'ready'}</em>
               </div>
               <div className="matrix-grid-view">
-                {chessArrow && (
+                {activeGameArrow && (
                   <svg className="game-arrow-layer" aria-hidden="true">
                     <defs>
                       <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
@@ -693,10 +761,10 @@ export function Visualizer({
                       </marker>
                     </defs>
                     <line
-                      x1={arrowPoint(chessArrow.from).x}
-                      y1={arrowPoint(chessArrow.from).y}
-                      x2={arrowPoint(chessArrow.to).x}
-                      y2={arrowPoint(chessArrow.to).y}
+                      x1={arrowPoint(activeGameArrow.from).x}
+                      y1={arrowPoint(activeGameArrow.from).y}
+                      x2={arrowPoint(activeGameArrow.to).x}
+                      y2={arrowPoint(activeGameArrow.to).y}
                     />
                   </svg>
                 )}
@@ -716,10 +784,12 @@ export function Visualizer({
                           : 'empty-mark'
                   return (
                     <motion.div
-                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${isChessBoard && chessArrow?.from === index ? 'move-from' : ''} ${isChessBoard && chessArrow?.to === index ? 'move-to' : ''} ${markClass}`}
+                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${activeGameArrow?.from === index ? 'move-from' : ''} ${activeGameArrow?.to === index ? 'move-to' : ''} ${markClass}`}
                       key={`${index}-${value}`}
                       layout
+                      onClick={() => playGameCell(index)}
                       transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
+                      data-legal={isGameBoard && !isChessBoard && legalTargets.includes(index) ? 'true' : undefined}
                     >
                       {showIndices && <small>{index}</small>}
                       {showValues && <strong>{isGameBoard ? gameSymbol : value}</strong>}

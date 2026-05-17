@@ -106,6 +106,7 @@ function App() {
   const [practiceGuess, setPracticeGuess] = useState('')
   const [routeChanging, setRouteChanging] = useState(false)
   const [commandOpen, setCommandOpen] = useState(false)
+  const [gameRevision, setGameRevision] = useState(0)
   const canvasRef = useRef<HTMLDivElement>(null)
 
   const pushToast = (message: string) => {
@@ -122,9 +123,10 @@ function App() {
   const disabledReason = runDisabledReason(activeModule, input, sortedInputValid)
   const steps = useMemo(() => {
     if (disabledReason) return []
+    if (gameRevision < 0) return []
     const run = activeModule.runner?.(input, target) ?? []
     return run.length > MAX_VISUAL_STEPS ? run.slice(0, MAX_VISUAL_STEPS) : run
-  }, [activeModule, disabledReason, input, target])
+  }, [activeModule, disabledReason, gameRevision, input, target])
   const currentStep = steps[Math.min(stepIndex, Math.max(steps.length - 1, 0))]
   const visualData = currentStep?.dataState.length ? currentStep.dataState : input
   const finalMetrics = steps.at(-1)?.metrics ?? baseMetrics
@@ -163,7 +165,7 @@ function App() {
               : activeModule.category === 'Games' && steps.length
                 ? activeModule.id === 'chess-minimax'
                   ? 'Game check: legal chess moves are generated and scored into a plan.'
-                  : 'Game check: the lesson follows legal moves and reaches a draw.'
+                  : 'Game check: legal moves are generated from the current board, then the computer replies.'
                 : ''
   const recommendation = activeModule.flags?.includes('Great for nearly sorted data')
     ? 'Recommended for nearly sorted data.'
@@ -176,7 +178,7 @@ function App() {
           : 'Use this module when the data shape matches the visual mode.'
   const inputConstraints = [
     activeModule.category === 'Games'
-      ? 'Uses a fixed board lesson'
+      ? 'Supports presets, custom board text, and click-to-play moves'
       : !['Graph', 'Tree'].includes(activeModule.visualMode)
         ? 'At least one numeric value'
         : 'Uses graph/tree preset or numeric tree input',
@@ -280,8 +282,15 @@ function App() {
 
   useEffect(() => {
     setLastAlgorithmId(activeId)
+    const resetTimer = window.setTimeout(() => {
+      setStepIndex(0)
+      setPlaying(false)
+    }, 0)
     const timer = window.setTimeout(() => setRouteChanging(false), 120)
-    return () => window.clearTimeout(timer)
+    return () => {
+      window.clearTimeout(resetTimer)
+      window.clearTimeout(timer)
+    }
   }, [activeId, location.key, setLastAlgorithmId])
 
   useEffect(() => {
@@ -329,6 +338,12 @@ function App() {
   const resetPlayback = () => {
     setStepIndex(0)
     setPlaying(false)
+  }
+
+  const startGameInteraction = () => {
+    setGameRevision((value) => value + 1)
+    setStepIndex(0)
+    setPlaying(true)
   }
 
   const resetAll = () => {
@@ -810,6 +825,7 @@ function App() {
             showStateComparison={showStateComparison}
             showValues={showValues}
             size={size}
+            startGameInteraction={startGameInteraction}
             sortCurrentInput={sortCurrentInput}
             sortedBoundary={sortedBoundary}
             sortedInputRequired={sortedInputRequired}

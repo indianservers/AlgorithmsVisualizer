@@ -980,11 +980,66 @@ function hashTableSuite(input: number[], target: number) {
 }
 
 function bstOperations(input: number[], target: number) {
-  const values = input.slice(0, 9)
-  const order = values.map(String)
-  const steps = makeTraversalSteps(order, 'BST insert/search/delete')
-  steps.at(-1)!.description = `BST operations complete: inserted ${values.length} values, searched for ${target}, and demonstrated successor-based deletion.`
-  steps.at(-1)!.highlights.variables = { order: order.join(' -> '), search: target, deleteCase: 'two-child node uses inorder successor' }
+  const values = (input.length ? input : [42, 18, 67, 9, 31, 73, 54, 26, 88]).slice(0, 15)
+  type BstNode = { left?: BstNode; right?: BstNode; value: number }
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: values.length }
+  let root: BstNode | undefined
+  const inserted: number[] = []
+  const setNodes = (nodes: string[]) => {
+    const step = steps.at(-1)
+    if (step) step.highlights.nodes = nodes
+  }
+  const add = (node: BstNode | undefined, value: number): BstNode => {
+    if (!node) return { value }
+    if (value < node.value) node.left = add(node.left, value)
+    else if (value > node.value) node.right = add(node.right, value)
+    return node
+  }
+
+  values.forEach((value) => {
+    root = add(root, value)
+    inserted.push(value)
+    metrics.writes += 1
+    makeStep(steps, 'update', `Insert ${value} into the BST using ordered comparisons.`, inserted, [inserted.length - 1], {
+      inserted: value,
+      order: inserted.join(' -> '),
+    }, metrics)
+    setNodes([String(value)])
+  })
+
+  const searchPath: string[] = []
+  let cursor = root
+  while (cursor) {
+    searchPath.push(String(cursor.value))
+    metrics.comparisons += 1
+    makeStep(
+      steps,
+      'compare',
+      `Search for ${target}: compare with ${cursor.value}, then ${target === cursor.value ? 'stop' : target < cursor.value ? 'go left' : 'go right'}.`,
+      values,
+      [values.indexOf(cursor.value)].filter((index) => index >= 0),
+      { current: cursor.value, direction: target === cursor.value ? 'found' : target < cursor.value ? 'left' : 'right', search: target, order: searchPath.join(' -> ') },
+      metrics,
+    )
+    setNodes([...searchPath])
+    if (target === cursor.value) break
+    cursor = target < cursor.value ? cursor.left : cursor.right
+  }
+
+  const found = cursor?.value === target
+  makeStep(
+    steps,
+    'complete',
+    found
+      ? `BST search found ${target}. Path: ${searchPath.join(' -> ')}.`
+      : `BST search did not find ${target}. It would be inserted after path: ${searchPath.join(' -> ')}.`,
+    values,
+    searchPath.map((node) => values.indexOf(Number(node))).filter((index) => index >= 0),
+    { order: searchPath.join(' -> '), search: target, found, deleteCase: 'two-child delete uses inorder successor' },
+    metrics,
+  )
+  setNodes(searchPath)
   return steps
 }
 
@@ -1465,7 +1520,16 @@ export const chessFenPresets = [
   { name: 'Find safe check', fen: '6k1/5ppp/8/8/8/8/5PPP/5RK1 w - - 0 1' },
 ]
 
-function ticTacToeMinimax() {
+function ticTacToeMinimax(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => ticTacToeMoves(board, 'O')[0],
+    columns: 3,
+    describe: (_board, moves) => `Tic Tac Toe: ${moves.length} legal X moves are available. Look ahead, click a highlighted square, and the computer will reply.`,
+    game: 'Tic Tac Toe',
+    id: 'tic-tac-toe-minimax',
+    legalMoves: (board) => ticTacToeMoves(board, 'X'),
+    target,
+  })
   const board = Array(9).fill(0)
   const steps: AlgorithmStep[] = []
   const metrics = { ...baseMetrics, memory: board.length }
@@ -1655,6 +1719,396 @@ function gameLesson({
   return timeline
 }
 
+type BoardPreset = { name: string; board: string[] }
+type BoardMove = { from?: number; label: string; score?: number; set?: Record<number, string>; to: number }
+
+export const gameBoardPresets: Record<string, BoardPreset[]> = {
+  'tic-tac-toe-minimax': [
+    { name: 'Empty board', board: Array(9).fill('') },
+    { name: 'Block top row', board: ['X', 'X', '', '', 'O', '', '', '', ''] },
+    { name: 'Fork practice', board: ['O', '', '', '', 'X', '', '', '', 'X'] },
+  ],
+  'sudoku-backtracking-game': [
+    {
+      name: 'Classic easy',
+      board: [
+        '5',
+        '3',
+        '',
+        '',
+        '7',
+        '',
+        '',
+        '',
+        '',
+        '6',
+        '',
+        '',
+        '1',
+        '9',
+        '5',
+        '',
+        '',
+        '',
+        '',
+        '9',
+        '8',
+        '',
+        '',
+        '',
+        '',
+        '6',
+        '',
+        '8',
+        '',
+        '',
+        '',
+        '6',
+        '',
+        '',
+        '',
+        '3',
+        '4',
+        '',
+        '',
+        '8',
+        '',
+        '3',
+        '',
+        '',
+        '1',
+        '7',
+        '',
+        '',
+        '',
+        '2',
+        '',
+        '',
+        '',
+        '6',
+        '',
+        '6',
+        '',
+        '',
+        '',
+        '',
+        '2',
+        '8',
+        '',
+        '',
+        '',
+        '',
+        '4',
+        '1',
+        '9',
+        '',
+        '',
+        '5',
+        '',
+        '',
+        '',
+        '',
+        '8',
+        '',
+        '',
+        '7',
+        '9',
+      ],
+    },
+    {
+      name: 'Nearly solved row',
+      board: ['1', '2', '3', '4', '5', '6', '7', '8', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+    },
+    {
+      name: 'Box practice',
+      board: ['1', '', '', '', '', '', '', '', '', '', '2', '', '', '', '', '', '', '', '', '', '3', '', '', '', '', '', '', '', '', '', '4', '', '', '', '', '', '', '', '', '', '5', '', '', '', '', '', '', '', '', '', '6', '', '', '', '', '', '', '', '', '', '7', '', '', '', '', '', '', '', '', '', '8', '', '', '', '', '', '', '', '', '', '9'],
+    },
+  ],
+  'go-liberties-territory': [
+    {
+      name: 'Liberty squeeze',
+      board: ['', '', '', '', '', '', '', '', '', '', '●', '●', '', '', '', '○', '', '', '', '●', '', '', '', '', '○', '○', '', '', '', '', '', '', '', '', '', '', '', '', '●', '', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '●', '', '', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+    },
+    { name: 'Corner fight', board: ['●', '○', '', '', '', '', '', '', '', '●', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''] },
+    { name: 'Center group', board: Array.from({ length: 81 }, (_, index) => ({ 30: '○', 31: '○', 39: '○', 41: '●', 49: '●', 50: '●' })[index] ?? '') },
+  ],
+  'connect-four-minimax': [
+    { name: 'Block red', board: Array.from({ length: 42 }, (_, index) => ({ 30: '🔴', 31: '🟡', 36: '🔴', 37: '🟡', 38: '🔴' })[index] ?? '') },
+    { name: 'Center stack', board: Array.from({ length: 42 }, (_, index) => ({ 24: '🟡', 31: '🔴', 32: '🟡', 38: '🔴', 39: '🔴' })[index] ?? '') },
+    { name: 'Empty board', board: Array(42).fill('') },
+  ],
+  'checkers-capture-search': [
+    { name: 'Opening capture', board: Array.from({ length: 64 }, (_, index) => ({ 10: '⛂', 17: '⛂', 21: '⛂', 33: '⛂', 35: '⛀', 40: '⛀', 42: '⛀', 49: '⛀', 56: '⛀', 58: '⛀' })[index] ?? '') },
+    { name: 'Quiet move', board: Array.from({ length: 64 }, (_, index) => ({ 17: '⛂', 21: '⛂', 40: '⛀', 42: '⛀' })[index] ?? '') },
+    { name: 'King lesson', board: Array.from({ length: 64 }, (_, index) => ({ 18: '⛃', 27: '⛁', 36: '⛂' })[index] ?? '') },
+  ],
+  'minesweeper-constraints': [
+    { name: 'Known mine', board: Array.from({ length: 64 }, (_, index) => ({ 0: '1', 1: '1', 2: '1', 8: '1', 9: '💣', 10: '1', 16: '1', 17: '1', 18: '1', 36: '1', 37: '💣', 38: '1' })[index] ?? '') },
+    { name: 'Safe edge', board: Array.from({ length: 64 }, (_, index) => ({ 6: '1', 7: '1', 14: '1', 15: '💣' })[index] ?? '') },
+    { name: 'Two mines', board: Array.from({ length: 64 }, (_, index) => ({ 27: '2', 28: '2', 35: '💣', 36: '💣' })[index] ?? '') },
+  ],
+  'twenty-forty-eight-expectimax': [
+    { name: 'Easy merge', board: ['2', '', '2', '', '', '4', '', '', '', '', '4', '', '', '', '', ''] },
+    { name: 'Keep corner', board: ['16', '8', '4', '2', '', '', '4', '', '', '', '2', '', '', '', '', ''] },
+    { name: 'Crowded board', board: ['2', '4', '2', '4', '4', '8', '', '2', '2', '', '4', '8', '', '', '2', ''] },
+  ],
+}
+
+const gameStorageKey = (id: string) => `algodrishti-game-state-${id}`
+const customGameKey = (id: string) => `algodrishti-game-custom-${id}`
+const gamePreset = (id: string, target: number) => gameBoardPresets[id]?.[Math.abs(Math.trunc(target)) % (gameBoardPresets[id]?.length || 1)]
+const parseBoardText = (text: string, size: number) =>
+  text
+    .trim()
+    .split(/[\s,;|]+/)
+    .map((cell) => (cell === '.' || cell === '_' || cell === '-' ? '' : cell))
+    .concat(Array(size).fill(''))
+    .slice(0, size)
+
+function readPlayableBoard(id: string, target: number, size: number) {
+  const fallback = gamePreset(id, target)
+  const presetBoard = fallback?.board ?? Array(size).fill('')
+  if (typeof localStorage === 'undefined') return { board: presetBoard, custom: false, move: undefined as BoardMove | undefined, presetName: fallback?.name ?? 'Preset' }
+  const custom = localStorage.getItem(customGameKey(id))
+  const saved = safeParseGameState(localStorage.getItem(gameStorageKey(id)))
+  const board = saved?.base?.length === size ? saved.base : custom ? parseBoardText(custom, size) : presetBoard
+  return { board, custom: Boolean(custom), move: saved?.move, presetName: custom ? 'Custom board' : (fallback?.name ?? 'Preset') }
+}
+
+function safeParseGameState(value: string | null): { base?: string[]; move?: BoardMove } | undefined {
+  if (!value) return undefined
+  try {
+    const parsed = JSON.parse(value) as { base?: string[]; move?: BoardMove }
+    return parsed && Array.isArray(parsed.base) ? parsed : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const boardData = (board: string[]) => board.map((symbol) => (symbol ? 1 : 0))
+const applyMove = (board: string[], move?: BoardMove) => {
+  const next = [...board]
+  Object.entries(move?.set ?? { [move?.to ?? -1]: 'X' }).forEach(([index, symbol]) => {
+    const position = Number(index)
+    if (position >= 0 && position < next.length) next[position] = symbol
+  })
+  return next
+}
+
+function playableGameLesson({
+  aiMove,
+  columns,
+  describe,
+  game,
+  id,
+  legalMoves,
+  target,
+}: {
+  aiMove: (board: string[]) => BoardMove | undefined
+  columns: number
+  describe: (board: string[], moves: BoardMove[]) => string
+  game: string
+  id: string
+  legalMoves: (board: string[]) => BoardMove[]
+  target: number
+}) {
+  const { board, custom, move, presetName } = readPlayableBoard(id, target, columns === 7 ? 42 : columns * columns)
+  const steps: AlgorithmStep[] = []
+  const metrics = { ...baseMetrics, memory: board.length }
+  const vars = (symbols: string[], extra: Record<string, unknown> = {}) => ({
+    game,
+    tableShape: `${Math.ceil(symbols.length / columns)}x${columns}`,
+    boardSymbols: [...symbols],
+    preset: presetName,
+    customBoard: custom ? 'yes' : 'no',
+    ...extra,
+  })
+  const moves = legalMoves(board)
+  const legalTargets = moves.map((item) => item.to)
+  makeStep(steps, 'select', describe(board, moves), boardData(board), legalTargets, vars(board, { legalMoves: moves.map((item) => item.label).join(', '), legalTargets, legalMovePayload: moves }))
+  moves.slice(0, 6).forEach((candidate) => {
+    metrics.comparisons += 1
+    makeStep(steps, 'compare', `Candidate: ${candidate.label}. Score ${candidate.score ?? 0}.`, boardData(board), [candidate.from ?? candidate.to, candidate.to], vars(board, { check: candidate.label, score: candidate.score ?? 0 }))
+  })
+  const chosen = move && moves.some((item) => item.to === move.to && item.label === move.label) ? move : move && moves.some((item) => item.to === move.to) ? moves.find((item) => item.to === move.to) : undefined
+  const playerMove = chosen ?? moves[0]
+  if (!playerMove) {
+    makeStep(steps, 'complete', `${game}: no legal moves are available.`, boardData(board), [], vars(board, { result: 'No legal moves' }), metrics)
+    return steps
+  }
+  const afterUser = applyMove(board, playerMove)
+  metrics.writes += 1
+  makeStep(steps, 'update', `You play: ${playerMove.label}.`, boardData(afterUser), [playerMove.from ?? playerMove.to, playerMove.to], vars(afterUser, { move: playerMove.label, from: playerMove.from, to: playerMove.to }))
+  const reply = aiMove(afterUser)
+  if (reply) {
+    const afterReply = applyMove(afterUser, reply)
+    metrics.writes += 1
+    makeStep(steps, 'update', `Computer replies: ${reply.label}.`, boardData(afterReply), [reply.from ?? reply.to, reply.to], vars(afterReply, { likelyReply: reply.label, from: reply.from, to: reply.to }))
+    makeStep(
+      steps,
+      'complete',
+      `${game}: move and reply complete. Try another legal move from this position.`,
+      boardData(afterReply),
+      [],
+      vars(afterReply, { result: game === 'Tic Tac Toe' ? 'Draw' : 'Playable turn complete' }),
+      metrics,
+    )
+  } else {
+    makeStep(steps, 'complete', `${game}: your move completes this lesson state.`, boardData(afterUser), [], vars(afterUser, { result: 'Playable move complete' }), metrics)
+  }
+  return steps
+}
+
+const emptyCells = (board: string[]) => board.map((symbol, index) => (symbol ? -1 : index)).filter((index) => index >= 0)
+
+const ticTacToeWins = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+]
+
+function scoreTicTacToe(board: string[]) {
+  if (ticTacToeWins.some((line) => line.every((index) => board[index] === 'X'))) return 10
+  if (ticTacToeWins.some((line) => line.every((index) => board[index] === 'O'))) return -10
+  return 0
+}
+
+function ticTacToeMoves(board: string[], symbol = 'X') {
+  return emptyCells(board)
+    .map((index) => {
+      const next = [...board]
+      next[index] = symbol
+      return { label: `${symbol} to ${index}`, score: scoreTicTacToe(next) + (index === 4 ? 2 : [0, 2, 6, 8].includes(index) ? 1 : 0), set: { [index]: symbol }, to: index }
+    })
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
+const sudokuPeers = (index: number) => {
+  const row = Math.floor(index / 9)
+  const column = index % 9
+  const boxRow = Math.floor(row / 3) * 3
+  const boxColumn = Math.floor(column / 3) * 3
+  return new Set(
+    Array.from({ length: 9 }, (_, offset) => row * 9 + offset)
+      .concat(Array.from({ length: 9 }, (_, offset) => offset * 9 + column))
+      .concat(Array.from({ length: 9 }, (_, offset) => (boxRow + Math.floor(offset / 3)) * 9 + boxColumn + (offset % 3))),
+  )
+}
+
+function sudokuMoves(board: string[]) {
+  return emptyCells(board)
+    .flatMap((index) => {
+      const blocked = sudokuPeers(index)
+      const used = new Set([...blocked].map((peer) => board[peer]).filter(Boolean))
+      return ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+        .filter((digit) => !used.has(digit))
+        .map((digit) => ({ label: `place ${digit} at ${index}`, score: 9 - used.size, set: { [index]: digit }, to: index }))
+    })
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
+const neighbors = (index: number, columns: number, rows: number) =>
+  [
+    index - columns,
+    index + columns,
+    index % columns > 0 ? index - 1 : -1,
+    index % columns < columns - 1 ? index + 1 : -1,
+  ].filter((item) => item >= 0 && item < rows * columns)
+
+function goMoves(board: string[], symbol = '●') {
+  return emptyCells(board)
+    .map((index) => {
+      const contact = neighbors(index, 9, 9).filter((neighbor) => board[neighbor]).length
+      return { label: `${symbol} at ${index}`, score: contact, set: { [index]: symbol }, to: index }
+    })
+    .filter((move) => (move.score ?? 0) > 0)
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
+function connectFourMoves(board: string[], symbol = '🔴'): BoardMove[] {
+  return Array.from({ length: 7 }, (_, column) => column)
+    .flatMap((column) => {
+      for (let row = 5; row >= 0; row -= 1) {
+        const index = row * 7 + column
+        if (!board[index]) return [{ label: `${symbol} drop column ${column + 1}`, score: column === 3 ? 3 : 1, set: { [index]: symbol }, to: index }]
+      }
+      return []
+    })
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
+function checkersMoves(board: string[], own = '⛀', opponent = '⛂') {
+  const moves: BoardMove[] = []
+  board.forEach((piece, index) => {
+    if (!piece.includes(own) && piece !== '⛁') return
+    ;[-9, -7].forEach((delta) => {
+      const to = index + delta
+      const jumped = index + delta / 2
+      if (to >= 0 && to < 64 && board[jumped]?.includes(opponent) && !board[to]) {
+        moves.push({ from: index, label: `${piece} jumps ${index} to ${to}`, score: 10, set: { [index]: '', [jumped]: '', [to]: piece }, to })
+      }
+    })
+    ;[-9, -7].forEach((delta) => {
+      const to = index + delta
+      if (to >= 0 && to < 64 && !board[to]) moves.push({ from: index, label: `${piece} moves ${index} to ${to}`, score: 1, set: { [index]: '', [to]: piece }, to })
+    })
+  })
+  return moves.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
+function minesweeperMoves(board: string[]) {
+  return emptyCells(board)
+    .filter((index) => neighbors(index, 8, 8).some((neighbor) => /^\d$/.test(board[neighbor] ?? '')))
+    .map((index) => ({ label: `reveal safe cell ${index}`, score: neighbors(index, 8, 8).filter((neighbor) => board[neighbor] === '💣').length, set: { [index]: '✓' }, to: index }))
+}
+
+function slide2048(board: string[], direction: 'left' | 'right' | 'up' | 'down') {
+  const next = [...board]
+  const lines =
+    direction === 'left' || direction === 'right'
+      ? Array.from({ length: 4 }, (_, row) => Array.from({ length: 4 }, (_, column) => row * 4 + column))
+      : Array.from({ length: 4 }, (_, column) => Array.from({ length: 4 }, (_, row) => row * 4 + column))
+  lines.forEach((line) => {
+    const cells = direction === 'right' || direction === 'down' ? [...line].reverse() : line
+    const values = cells.map((index) => next[index]).filter(Boolean)
+    const merged: string[] = []
+    for (let index = 0; index < values.length; index += 1) {
+      if (values[index] === values[index + 1]) {
+        merged.push(String(Number(values[index]) * 2))
+        index += 1
+      } else merged.push(values[index])
+    }
+    cells.forEach((cell, offset) => {
+      next[cell] = merged[offset] ?? ''
+    })
+  })
+  return next
+}
+
+function twentyFortyEightMoves(board: string[]): BoardMove[] {
+  return (['left', 'right', 'up', 'down'] as const)
+    .flatMap((direction) => {
+      const next = slide2048(board, direction)
+      const changed = next.some((value, index) => value !== board[index])
+      return changed
+        ? [
+            {
+              label: `swipe ${direction}`,
+              score: next.filter((value) => !value).length,
+              set: Object.fromEntries(next.map((value, index) => [index, value])),
+              to: direction === 'left' ? 0 : direction === 'right' ? 3 : direction === 'up' ? 1 : 13,
+            },
+          ]
+        : []
+    })
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+}
+
 const pieceSymbols: Record<string, string> = {
   wp: '♙',
   wn: '♘',
@@ -1725,7 +2179,7 @@ function searchChess(chess: Chess, depth: number, alpha = -Infinity, beta = Infi
   if (depth === 0 || chess.isGameOver()) return { line: [], score: evaluateChess(chess) }
   const maximizing = chess.turn() === 'w'
   let best = { line: [] as string[], score: maximizing ? -Infinity : Infinity }
-  for (const move of orderedChessMoves(chess).slice(0, 14)) {
+  for (const move of orderedChessMoves(chess).slice(0, 8)) {
     chess.move(move)
     const result = searchChess(chess, depth - 1, alpha, beta)
     chess.undo()
@@ -1774,7 +2228,7 @@ function chessMinimaxLesson(_input: number[], target: number) {
     legalMoveCount: legalMoves.length,
   })
 
-  const candidates = legalMoves.slice(0, 8).map((move) => {
+  const candidates = legalMoves.slice(0, 6).map((move) => {
     chess.move(move)
     const replyMoves = orderedChessMoves(chess)
     const reply = replyMoves[0]?.san ?? 'none'
@@ -1812,10 +2266,10 @@ function chessMinimaxLesson(_input: number[], target: number) {
   }
 
   const planGame = new Chess(selectedFen === 'startpos' ? undefined : selectedFen)
-  const plan = searchChess(planGame, 4).line
+  const plan = searchChess(planGame, 3).line
   const longPlan: string[] = []
   for (let i = 0; i < 12 && !planGame.isGameOver(); i += 1) {
-    const next = searchChess(planGame, Math.min(3, 12 - i)).line[0] ?? orderedChessMoves(planGame)[0]?.san
+    const next = searchChess(planGame, Math.min(2, 12 - i)).line[0] ?? orderedChessMoves(planGame)[0]?.san
     if (!next) break
     planGame.move(next)
     longPlan.push(next)
@@ -1828,7 +2282,16 @@ function chessMinimaxLesson(_input: number[], target: number) {
   return steps
 }
 
-function sudokuBacktrackingLesson() {
+function sudokuBacktrackingLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => sudokuMoves(board)[0],
+    columns: 9,
+    describe: (_board, moves) => `Sudoku: ${moves.length} legal digit placements are available. Pick a highlighted blank to place a valid candidate.`,
+    game: 'Sudoku',
+    id: 'sudoku-backtracking-game',
+    legalMoves: sudokuMoves,
+    target,
+  })
   return gameLesson({
     columns: 9,
     game: 'Sudoku',
@@ -1939,7 +2402,16 @@ function sudokuBacktrackingLesson() {
   })
 }
 
-function goTerritoryLesson() {
+function goTerritoryLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => goMoves(board, '○')[0],
+    columns: 9,
+    describe: (_board, moves) => `Go: ${moves.length} legal teaching moves touch existing groups and change liberties.`,
+    game: 'Go',
+    id: 'go-liberties-territory',
+    legalMoves: (board) => goMoves(board, '●'),
+    target,
+  })
   return gameLesson({
     columns: 9,
     game: 'Go',
@@ -2055,7 +2527,16 @@ function goTerritoryLesson() {
   })
 }
 
-function connectFourLesson() {
+function connectFourLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => connectFourMoves(board, '🟡')[0],
+    columns: 7,
+    describe: (_board, moves) => `Connect Four: ${moves.length} columns are open. Click a highlighted landing cell to drop a red piece.`,
+    game: 'Connect Four',
+    id: 'connect-four-minimax',
+    legalMoves: (board) => connectFourMoves(board, '🔴'),
+    target,
+  })
   return gameLesson({
     columns: 7,
     game: 'Connect Four',
@@ -2122,7 +2603,16 @@ function connectFourLesson() {
   })
 }
 
-function checkersLesson() {
+function checkersLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => checkersMoves(board, '⛂', '⛀')[0],
+    columns: 8,
+    describe: (_board, moves) => `Checkers: ${moves.length} legal moves are available. Captures are ranked first.`,
+    game: 'Checkers',
+    id: 'checkers-capture-search',
+    legalMoves: (board) => checkersMoves(board, '⛀', '⛂'),
+    target,
+  })
   return gameLesson({
     columns: 8,
     game: 'Checkers',
@@ -2216,7 +2706,19 @@ function checkersLesson() {
   })
 }
 
-function minesweeperLesson() {
+function minesweeperLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => {
+      const mineIndex = board.findIndex((symbol) => symbol === '💣')
+      return mineIndex >= 0 ? { label: `flag mine ${mineIndex}`, score: 10, set: { [mineIndex]: '🚩' }, to: mineIndex } : undefined
+    },
+    columns: 8,
+    describe: (_board, moves) => `Minesweeper: ${moves.length} safe reveals are inferred from nearby number clues.`,
+    game: 'Minesweeper',
+    id: 'minesweeper-constraints',
+    legalMoves: minesweeperMoves,
+    target,
+  })
   return gameLesson({
     columns: 8,
     game: 'Minesweeper',
@@ -2305,7 +2807,19 @@ function minesweeperLesson() {
   })
 }
 
-function twentyFortyEightLesson() {
+function twentyFortyEightLesson(_input: number[], target: number) {
+  return playableGameLesson({
+    aiMove: (board) => {
+      const empty = board.findIndex((symbol) => !symbol)
+      return empty >= 0 ? { label: `random tile appears at ${empty}`, score: 1, set: { [empty]: '2' }, to: empty } : undefined
+    },
+    columns: 4,
+    describe: (_board, moves) => `2048: ${moves.length} swipes change the board. Click a highlighted direction cell to choose a swipe.`,
+    game: '2048',
+    id: 'twenty-forty-eight-expectimax',
+    legalMoves: twentyFortyEightMoves,
+    target,
+  })
   return gameLesson({
     columns: 4,
     game: '2048',

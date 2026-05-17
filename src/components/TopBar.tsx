@@ -8,6 +8,7 @@ import {
   Link as LinkIcon,
   Maximize2,
   Menu,
+  Moon,
   PanelLeft,
   Play,
   RotateCcw,
@@ -15,6 +16,7 @@ import {
   Search,
   Settings,
   Square,
+  Sun,
   Upload,
 } from 'lucide-react'
 import type { AlgorithmModule } from '../types'
@@ -173,6 +175,16 @@ export function TopBar({
         </button>
         <button className="icon-button btn-data" type="button" onClick={openCommandPalette} title="Open command palette" aria-label="Open command palette">
           <Search size={16} />
+        </button>
+        <button
+          className="icon-button theme-toggle"
+          type="button"
+          onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}
+          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-pressed={theme === 'dark'}
+        >
+          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </button>
         <button
           className="icon-button btn-data"
