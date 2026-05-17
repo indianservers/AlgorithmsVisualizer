@@ -77,6 +77,101 @@ type VisualizerProps = {
   setComplexityFilter: Dispatch<SetStateAction<'all' | 'log' | 'linear' | 'nlogn' | 'quadratic'>>
 }
 
+const gameProfiles: Record<
+  string,
+  {
+    objective: string
+    setup: string
+    engine: string
+    board: string
+    tactic: string
+    mistake: string
+    practice: string
+    depth: string
+  }
+> = {
+  'tic-tac-toe-minimax': {
+    objective: 'Make three in a row while blocking the opponent.',
+    setup: 'X goes first. Run the lesson to see attack, block, and draw logic.',
+    engine: 'Minimax tries every move, assumes the opponent answers perfectly, then chooses the safest score.',
+    board: '3 x 3 grid',
+    tactic: 'Forks and blocks',
+    mistake: 'Playing only your own threat and missing the opponent win.',
+    practice: 'Pause before each move and name the square that stops the strongest threat.',
+    depth: 'Full game tree',
+  },
+  'sudoku-backtracking-game': {
+    objective: 'Fill every row, column, and 3 x 3 box with 1-9.',
+    setup: 'Run the lesson to watch candidate checking and backtracking.',
+    engine: 'Backtracking picks an empty cell, tries legal digits, and undoes a digit when a later cell gets stuck.',
+    board: '9 x 9 grid',
+    tactic: 'Candidate elimination',
+    mistake: 'Guessing without checking row, column, and box together.',
+    practice: 'For the highlighted blank, say which digits are impossible before revealing the next step.',
+    depth: 'Recursive search',
+  },
+  'go-liberties-territory': {
+    objective: 'Surround territory and keep stone groups alive with liberties.',
+    setup: 'Run the lesson to count liberties and reduce a weak group.',
+    engine: 'Go bots combine liberty counting, territory estimates, pattern knowledge, and deeper search.',
+    board: '9 x 9 teaching board',
+    tactic: 'Liberty pressure',
+    mistake: 'Counting stones but not the empty neighbor points that keep groups alive.',
+    practice: 'Count the liberties around the highlighted group before moving forward.',
+    depth: 'Pattern search',
+  },
+  'connect-four-minimax': {
+    objective: 'Drop pieces to make four in a row.',
+    setup: 'Run the lesson to see gravity, threats, and a defensive block.',
+    engine: 'Minimax scores every four-cell window, then searches likely drops and replies.',
+    board: '6 x 7 grid',
+    tactic: 'Window scoring',
+    mistake: 'Blocking one line while allowing a stronger line next turn.',
+    practice: 'Find which column creates or blocks the next four-cell window.',
+    depth: 'Reply search',
+  },
+  'checkers-capture-search': {
+    objective: 'Capture pieces and promote to kings.',
+    setup: 'Run the lesson to see diagonal movement and a jump capture.',
+    engine: 'The search checks forced captures first, then follows multi-jump lines before quiet moves.',
+    board: '8 x 8 board',
+    tactic: 'Forced capture',
+    mistake: 'Moving a piece when a capture sequence is available.',
+    practice: 'Trace the jump path from start square to landing square.',
+    depth: 'Capture tree',
+  },
+  'minesweeper-constraints': {
+    objective: 'Reveal safe cells and flag mines using number clues.',
+    setup: 'Run the lesson to convert visible numbers into safe/mine constraints.',
+    engine: 'Constraint propagation treats each number as an equation over its covered neighbors.',
+    board: '8 x 8 grid',
+    tactic: 'Safe-cell inference',
+    mistake: 'Treating a number by itself instead of checking all neighboring covered cells.',
+    practice: 'Point to the safe neighbor implied by the highlighted number.',
+    depth: 'Constraint solving',
+  },
+  'twenty-forty-eight-expectimax': {
+    objective: 'Merge equal tiles and keep enough open space to survive.',
+    setup: 'Run the lesson to see slide, merge, and board scoring.',
+    engine: 'Expectimax tries each swipe, estimates random new tiles, and prefers smooth boards with open cells.',
+    board: '4 x 4 grid',
+    tactic: 'Space control',
+    mistake: 'Chasing one merge while trapping the largest tile.',
+    practice: 'Predict the board after the highlighted swipe before stepping forward.',
+    depth: 'Chance search',
+  },
+  'chess-minimax': {
+    objective: 'Choose legal moves that improve the position after replies.',
+    setup: 'Load a FEN, press Run, then follow legal moves, arrows, scores, and plans.',
+    engine: 'Minimax with alpha-beta pruning searches move, reply, score, and principal variation lines.',
+    board: '8 x 8 board',
+    tactic: 'Best move and reply',
+    mistake: 'Looking at one attractive move without checking the opponent response.',
+    practice: 'Compare the top candidate with the likely reply before accepting the best line.',
+    depth: '4-12 ply planning',
+  },
+}
+
 export function Visualizer({
   activeCategory,
   activeId,
@@ -145,6 +240,8 @@ export function Visualizer({
   const matrixData = currentStep?.dataState?.length ? currentStep.dataState : input
   const isGameBoard = activeModule.category === 'Games'
   const isChessBoard = activeModule.id === 'chess-minimax'
+  const gameProfile = gameProfiles[activeModule.id]
+  const gameVariables = currentStep?.highlights.variables ?? {}
   const gameSymbols = Array.isArray(currentStep?.highlights.variables?.boardSymbols) ? (currentStep?.highlights.variables?.boardSymbols as string[]) : []
   const tableShape = String(currentStep?.highlights.variables?.tableShape ?? '')
   const tableColumns = Number(tableShape.split('x')[1])
@@ -467,8 +564,8 @@ export function Visualizer({
                   </>
                 ) : (
                   <>
-                    <strong>X goes first. Three in a row wins.</strong>
-                    <span>Press Run to watch X make threats, O block them, and the game end in a draw.</span>
+                    <strong>{gameProfile?.objective ?? 'Learn the rules, then watch the algorithm choose a move.'}</strong>
+                    <span>{gameProfile?.setup ?? 'Press Run to step through the board state and the computer decision.'}</span>
                   </>
                 )}
               </div>
@@ -659,6 +756,90 @@ export function Visualizer({
                     ) : null,
                   )}
                 </div>
+              )}
+              {isGameBoard && gameProfile && (
+                <section className="game-coach" aria-label="Board game learning tools">
+                  <div className="game-coach-main">
+                    <article>
+                      <span>Goal</span>
+                      <strong>{gameProfile.objective}</strong>
+                    </article>
+                    <article>
+                      <span>How computer thinks</span>
+                      <strong>{gameProfile.engine}</strong>
+                    </article>
+                    <article>
+                      <span>Practice now</span>
+                      <strong>{gameProfile.practice}</strong>
+                    </article>
+                  </div>
+                  <div className="game-coach-strip">
+                    {[
+                      ['Board', gameProfile.board],
+                      ['Search', gameProfile.depth],
+                      ['Tactic', gameProfile.tactic],
+                      ['Mistake', gameProfile.mistake],
+                      ['Turn', String(gameVariables.sideToMove ?? gameVariables.next ?? 'Step through')],
+                      ['Move', String(gameVariables.bestMove ?? gameVariables.move ?? gameVariables.check ?? 'Look at highlight')],
+                      ['Reply', String(gameVariables.likelyReply ?? gameVariables.opponentReplies ?? 'Compare opponent answer')],
+                      ['Score', String(gameVariables.score ?? gameVariables.result ?? 'Explain after Run')],
+                    ].map(([label, value]) => (
+                      <span key={label}>
+                        <strong>{label}</strong>
+                        {value}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="game-teacher-grid">
+                    {[
+                      ['Read', 'Name the pieces, empty cells, and current player.'],
+                      ['Legal', 'List only moves allowed by the rules.'],
+                      ['Threat', String(gameVariables.threat ?? gameVariables.capture ?? gameVariables.inference ?? 'Find the urgent idea.')],
+                      [
+                        'Candidates',
+                        String(gameVariables.possibleMoves ?? gameVariables.candidates ?? gameVariables.liberties ?? 'Check the highlighted options.'),
+                      ],
+                      ['Choose', String(gameVariables.bestMove ?? gameVariables.move ?? 'Pick the move with the best explanation.')],
+                      ['Plan', String(gameVariables.planNext12Plies ?? gameVariables.bestLine4Ply ?? gameVariables.algorithm ?? 'Repeat move, reply, score.')],
+                    ].map(([label, value]) => (
+                      <article key={label}>
+                        <span>{label}</span>
+                        <p>{value}</p>
+                      </article>
+                    ))}
+                  </div>
+                  <div className="game-upgrade-list" aria-label="Applied board game upgrades">
+                    {[
+                      'compact board',
+                      'visible symbols',
+                      'rule card',
+                      'AI thinking',
+                      'legal moves',
+                      'best move',
+                      'reply view',
+                      'score',
+                      'threats',
+                      'mistakes',
+                      'practice prompt',
+                      'plan line',
+                      'active cells',
+                      'move labels',
+                      'game objective',
+                      'board size',
+                      'search depth',
+                      'candidate list',
+                      'turn display',
+                      'teaching steps',
+                      'algorithm name',
+                      'simple wording',
+                      'mobile fit',
+                      'highlight legend',
+                      'shared layout',
+                    ].map((item) => (
+                      <span key={item}>{item}</span>
+                    ))}
+                  </div>
+                </section>
               )}
               {showStateComparison && currentStep && (
                 <div className="state-comparison matrix-comparison">

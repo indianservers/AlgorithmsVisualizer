@@ -1106,6 +1106,91 @@ p {
   text-transform: capitalize;
 }
 
+.game-coach {
+  display: grid;
+  gap: 10px;
+}
+
+.game-coach-main {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.game-coach-main article,
+.game-teacher-grid article {
+  background: #fff;
+  border: 1px solid #c9dced;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+}
+
+.game-coach-main span,
+.game-teacher-grid span,
+.game-coach-strip strong {
+  color: #145a91;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.game-coach-main strong {
+  color: #1f2a36;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.game-coach-strip {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+}
+
+.game-coach-strip span {
+  background: #eef6fb;
+  border: 1px solid #c9dced;
+  border-radius: 7px;
+  color: #44586b;
+  display: grid;
+  font-size: 12px;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 8px;
+}
+
+.game-teacher-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.game-teacher-grid p {
+  color: #526779;
+  font-size: 12px;
+  line-height: 1.35;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.game-upgrade-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.game-upgrade-list span {
+  background: #e8f7ec;
+  border: 1px solid #9fd6b1;
+  border-radius: 999px;
+  color: #1f5f38;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+}
+
 .matrix-cell.compare {
   background: #e8f1ff;
   border-color: #0072b2;
