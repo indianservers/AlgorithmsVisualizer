@@ -1,4 +1,7 @@
-﻿import type { AlgorithmModule, AlgorithmStep, StepType } from '../types'
+import type { AlgorithmModule, AlgorithmStep, StepType } from '../types'
+
+import { daaModules } from '../daa/catalog'
+import { legacyStudy } from '../daa/legacyStudy'
 
 export const baseMetrics = {
   comparisons: 0,
@@ -1001,10 +1004,18 @@ function bstOperations(input: number[], target: number) {
     root = add(root, value)
     inserted.push(value)
     metrics.writes += 1
-    makeStep(steps, 'update', `Insert ${value} into the BST using ordered comparisons.`, inserted, [inserted.length - 1], {
-      inserted: value,
-      order: inserted.join(' -> '),
-    }, metrics)
+    makeStep(
+      steps,
+      'update',
+      `Insert ${value} into the BST using ordered comparisons.`,
+      inserted,
+      [inserted.length - 1],
+      {
+        inserted: value,
+        order: inserted.join(' -> '),
+      },
+      metrics,
+    )
     setNodes([String(value)])
   })
 
@@ -1019,7 +1030,12 @@ function bstOperations(input: number[], target: number) {
       `Search for ${target}: compare with ${cursor.value}, then ${target === cursor.value ? 'stop' : target < cursor.value ? 'go left' : 'go right'}.`,
       values,
       [values.indexOf(cursor.value)].filter((index) => index >= 0),
-      { current: cursor.value, direction: target === cursor.value ? 'found' : target < cursor.value ? 'left' : 'right', search: target, order: searchPath.join(' -> ') },
+      {
+        current: cursor.value,
+        direction: target === cursor.value ? 'found' : target < cursor.value ? 'left' : 'right',
+        search: target,
+        order: searchPath.join(' -> '),
+      },
       metrics,
     )
     setNodes([...searchPath])
@@ -1524,7 +1540,8 @@ function ticTacToeMinimax(_input: number[], target: number) {
   return playableGameLesson({
     aiMove: (board) => ticTacToeMoves(board, 'O')[0],
     columns: 3,
-    describe: (_board, moves) => `Tic Tac Toe: ${moves.length} legal X moves are available. Look ahead, click a highlighted square, and the computer will reply.`,
+    describe: (_board, moves) =>
+      `Tic Tac Toe: ${moves.length} legal X moves are available. Look ahead, click a highlighted square, and the computer will reply.`,
     game: 'Tic Tac Toe',
     id: 'tic-tac-toe-minimax',
     legalMoves: (board) => ticTacToeMoves(board, 'X'),
@@ -1817,19 +1834,350 @@ export const gameBoardPresets: Record<string, BoardPreset[]> = {
     },
     {
       name: 'Nearly solved row',
-      board: ['1', '2', '3', '4', '5', '6', '7', '8', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      board: [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+      ],
     },
     {
       name: 'Box practice',
-      board: ['1', '', '', '', '', '', '', '', '', '', '2', '', '', '', '', '', '', '', '', '', '3', '', '', '', '', '', '', '', '', '', '4', '', '', '', '', '', '', '', '', '', '5', '', '', '', '', '', '', '', '', '', '6', '', '', '', '', '', '', '', '', '', '7', '', '', '', '', '', '', '', '', '', '8', '', '', '', '', '', '', '', '', '', '9'],
+      board: [
+        '1',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '2',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '3',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '4',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '5',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '6',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '7',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '8',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '9',
+      ],
     },
   ],
   'go-liberties-territory': [
     {
       name: 'Liberty squeeze',
-      board: ['', '', '', '', '', '', '', '', '', '', '●', '●', '', '', '', '○', '', '', '', '●', '', '', '', '', '○', '○', '', '', '', '', '', '', '', '', '', '', '', '', '●', '', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '●', '', '', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      board: [
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '●',
+        '●',
+        '',
+        '',
+        '',
+        '○',
+        '',
+        '',
+        '',
+        '●',
+        '',
+        '',
+        '',
+        '',
+        '○',
+        '○',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '●',
+        '',
+        '',
+        '○',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '●',
+        '',
+        '',
+        '',
+        '○',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+      ],
     },
-    { name: 'Corner fight', board: ['●', '○', '', '', '', '', '', '', '', '●', '', '○', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''] },
+    {
+      name: 'Corner fight',
+      board: [
+        '●',
+        '○',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '●',
+        '',
+        '○',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+      ],
+    },
     { name: 'Center group', board: Array.from({ length: 81 }, (_, index) => ({ 30: '○', 31: '○', 39: '○', 41: '●', 49: '●', 50: '●' })[index] ?? '') },
   ],
   'connect-four-minimax': [
@@ -1838,12 +2186,24 @@ export const gameBoardPresets: Record<string, BoardPreset[]> = {
     { name: 'Empty board', board: Array(42).fill('') },
   ],
   'checkers-capture-search': [
-    { name: 'Opening capture', board: Array.from({ length: 64 }, (_, index) => ({ 10: '⛂', 17: '⛂', 21: '⛂', 33: '⛂', 35: '⛀', 40: '⛀', 42: '⛀', 49: '⛀', 56: '⛀', 58: '⛀' })[index] ?? '') },
+    {
+      name: 'Opening capture',
+      board: Array.from(
+        { length: 64 },
+        (_, index) => ({ 10: '⛂', 17: '⛂', 21: '⛂', 33: '⛂', 35: '⛀', 40: '⛀', 42: '⛀', 49: '⛀', 56: '⛀', 58: '⛀' })[index] ?? '',
+      ),
+    },
     { name: 'Quiet move', board: Array.from({ length: 64 }, (_, index) => ({ 17: '⛂', 21: '⛂', 40: '⛀', 42: '⛀' })[index] ?? '') },
     { name: 'King lesson', board: Array.from({ length: 64 }, (_, index) => ({ 18: '⛃', 27: '⛁', 36: '⛂' })[index] ?? '') },
   ],
   'minesweeper-constraints': [
-    { name: 'Known mine', board: Array.from({ length: 64 }, (_, index) => ({ 0: '1', 1: '1', 2: '1', 8: '1', 9: '💣', 10: '1', 16: '1', 17: '1', 18: '1', 36: '1', 37: '💣', 38: '1' })[index] ?? '') },
+    {
+      name: 'Known mine',
+      board: Array.from(
+        { length: 64 },
+        (_, index) => ({ 0: '1', 1: '1', 2: '1', 8: '1', 9: '💣', 10: '1', 16: '1', 17: '1', 18: '1', 36: '1', 37: '💣', 38: '1' })[index] ?? '',
+      ),
+    },
     { name: 'Safe edge', board: Array.from({ length: 64 }, (_, index) => ({ 6: '1', 7: '1', 14: '1', 15: '💣' })[index] ?? '') },
     { name: 'Two mines', board: Array.from({ length: 64 }, (_, index) => ({ 27: '2', 28: '2', 35: '💣', 36: '💣' })[index] ?? '') },
   ],
@@ -1868,7 +2228,8 @@ const parseBoardText = (text: string, size: number) =>
 function readPlayableBoard(id: string, target: number, size: number) {
   const fallback = gamePreset(id, target)
   const presetBoard = fallback?.board ?? Array(size).fill('')
-  if (typeof localStorage === 'undefined') return { board: presetBoard, custom: false, move: undefined as BoardMove | undefined, presetName: fallback?.name ?? 'Preset' }
+  if (typeof localStorage === 'undefined')
+    return { board: presetBoard, custom: false, move: undefined as BoardMove | undefined, presetName: fallback?.name ?? 'Preset' }
   const custom = localStorage.getItem(customGameKey(id))
   const saved = safeParseGameState(localStorage.getItem(gameStorageKey(id)))
   const board = saved?.base?.length === size ? saved.base : custom ? parseBoardText(custom, size) : presetBoard
@@ -1925,12 +2286,31 @@ function playableGameLesson({
   })
   const moves = legalMoves(board)
   const legalTargets = moves.map((item) => item.to)
-  makeStep(steps, 'select', describe(board, moves), boardData(board), legalTargets, vars(board, { legalMoves: moves.map((item) => item.label).join(', '), legalTargets, legalMovePayload: moves }))
+  makeStep(
+    steps,
+    'select',
+    describe(board, moves),
+    boardData(board),
+    legalTargets,
+    vars(board, { legalMoves: moves.map((item) => item.label).join(', '), legalTargets, legalMovePayload: moves }),
+  )
   moves.slice(0, 6).forEach((candidate) => {
     metrics.comparisons += 1
-    makeStep(steps, 'compare', `Candidate: ${candidate.label}. Score ${candidate.score ?? 0}.`, boardData(board), [candidate.from ?? candidate.to, candidate.to], vars(board, { check: candidate.label, score: candidate.score ?? 0 }))
+    makeStep(
+      steps,
+      'compare',
+      `Candidate: ${candidate.label}. Score ${candidate.score ?? 0}.`,
+      boardData(board),
+      [candidate.from ?? candidate.to, candidate.to],
+      vars(board, { check: candidate.label, score: candidate.score ?? 0 }),
+    )
   })
-  const chosen = move && moves.some((item) => item.to === move.to && item.label === move.label) ? move : move && moves.some((item) => item.to === move.to) ? moves.find((item) => item.to === move.to) : undefined
+  const chosen =
+    move && moves.some((item) => item.to === move.to && item.label === move.label)
+      ? move
+      : move && moves.some((item) => item.to === move.to)
+        ? moves.find((item) => item.to === move.to)
+        : undefined
   const playerMove = chosen ?? moves[0]
   if (!playerMove) {
     makeStep(steps, 'complete', `${game}: no legal moves are available.`, boardData(board), [], vars(board, { result: 'No legal moves' }), metrics)
@@ -1938,12 +2318,26 @@ function playableGameLesson({
   }
   const afterUser = applyMove(board, playerMove)
   metrics.writes += 1
-  makeStep(steps, 'update', `You play: ${playerMove.label}.`, boardData(afterUser), [playerMove.from ?? playerMove.to, playerMove.to], vars(afterUser, { move: playerMove.label, from: playerMove.from, to: playerMove.to }))
+  makeStep(
+    steps,
+    'update',
+    `You play: ${playerMove.label}.`,
+    boardData(afterUser),
+    [playerMove.from ?? playerMove.to, playerMove.to],
+    vars(afterUser, { move: playerMove.label, from: playerMove.from, to: playerMove.to }),
+  )
   const reply = aiMove(afterUser)
   if (reply) {
     const afterReply = applyMove(afterUser, reply)
     metrics.writes += 1
-    makeStep(steps, 'update', `Computer replies: ${reply.label}.`, boardData(afterReply), [reply.from ?? reply.to, reply.to], vars(afterReply, { likelyReply: reply.label, from: reply.from, to: reply.to }))
+    makeStep(
+      steps,
+      'update',
+      `Computer replies: ${reply.label}.`,
+      boardData(afterReply),
+      [reply.from ?? reply.to, reply.to],
+      vars(afterReply, { likelyReply: reply.label, from: reply.from, to: reply.to }),
+    )
     makeStep(
       steps,
       'complete',
@@ -1954,7 +2348,15 @@ function playableGameLesson({
       metrics,
     )
   } else {
-    makeStep(steps, 'complete', `${game}: your move completes this lesson state.`, boardData(afterUser), [], vars(afterUser, { result: 'Playable move complete' }), metrics)
+    makeStep(
+      steps,
+      'complete',
+      `${game}: your move completes this lesson state.`,
+      boardData(afterUser),
+      [],
+      vars(afterUser, { result: 'Playable move complete' }),
+      metrics,
+    )
   }
   return steps
 }
@@ -1983,7 +2385,12 @@ function ticTacToeMoves(board: string[], symbol = 'X') {
     .map((index) => {
       const next = [...board]
       next[index] = symbol
-      return { label: `${symbol} to ${index}`, score: scoreTicTacToe(next) + (index === 4 ? 2 : [0, 2, 6, 8].includes(index) ? 1 : 0), set: { [index]: symbol }, to: index }
+      return {
+        label: `${symbol} to ${index}`,
+        score: scoreTicTacToe(next) + (index === 4 ? 2 : [0, 2, 6, 8].includes(index) ? 1 : 0),
+        set: { [index]: symbol },
+        to: index,
+      }
     })
     .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
 }
@@ -2013,12 +2420,9 @@ function sudokuMoves(board: string[]) {
 }
 
 const neighbors = (index: number, columns: number, rows: number) =>
-  [
-    index - columns,
-    index + columns,
-    index % columns > 0 ? index - 1 : -1,
-    index % columns < columns - 1 ? index + 1 : -1,
-  ].filter((item) => item >= 0 && item < rows * columns)
+  [index - columns, index + columns, index % columns > 0 ? index - 1 : -1, index % columns < columns - 1 ? index + 1 : -1].filter(
+    (item) => item >= 0 && item < rows * columns,
+  )
 
 function goMoves(board: string[], symbol = '●') {
   return emptyCells(board)
@@ -2055,7 +2459,8 @@ function checkersMoves(board: string[], own = '⛀', opponent = '⛂') {
     })
     ;[-9, -7].forEach((delta) => {
       const to = index + delta
-      if (to >= 0 && to < 64 && !board[to]) moves.push({ from: index, label: `${piece} moves ${index} to ${to}`, score: 1, set: { [index]: '', [to]: piece }, to })
+      if (to >= 0 && to < 64 && !board[to])
+        moves.push({ from: index, label: `${piece} moves ${index} to ${to}`, score: 1, set: { [index]: '', [to]: piece }, to })
     })
   })
   return moves.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
@@ -2064,7 +2469,12 @@ function checkersMoves(board: string[], own = '⛀', opponent = '⛂') {
 function minesweeperMoves(board: string[]) {
   return emptyCells(board)
     .filter((index) => neighbors(index, 8, 8).some((neighbor) => /^\d$/.test(board[neighbor] ?? '')))
-    .map((index) => ({ label: `reveal safe cell ${index}`, score: neighbors(index, 8, 8).filter((neighbor) => board[neighbor] === '💣').length, set: { [index]: '✓' }, to: index }))
+    .map((index) => ({
+      label: `reveal safe cell ${index}`,
+      score: neighbors(index, 8, 8).filter((neighbor) => board[neighbor] === '💣').length,
+      set: { [index]: '✓' },
+      to: index,
+    }))
 }
 
 function slide2048(board: string[], direction: 'left' | 'right' | 'up' | 'down') {
@@ -4214,7 +4624,7 @@ export const algorithmModules: AlgorithmModule[] = [
     status: 'live',
     visualMode: 'Array',
     summary: 'Repeated adjacent comparisons move large values to the sorted suffix.',
-    complexity: { best: 'O(n)', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
+    complexity: { best: 'O(n²)', average: 'O(n²)', worst: 'O(n²)', space: 'O(1)' },
     flags: ['Stable', 'In-place'],
     pseudocode: ['repeat passes', 'compare adjacent values', 'swap if out of order', 'largest bubbles to the end'],
     code: 'if (array[i] > array[i + 1]) [array[i], array[i + 1]] = [array[i + 1], array[i]]',
@@ -4603,5 +5013,12 @@ export const algorithmModules: AlgorithmModule[] = [
 
 export const plannedModules: AlgorithmModule[] = []
 
-export const allModules = [...algorithmModules, ...plannedModules]
+export const allModules = [
+  ...algorithmModules.map((module) => {
+    const replacement = daaModules.find((item) => item.id === ({ 'bfs-traversal': 'daa-bfs', 'dfs-traversal': 'daa-dfs' } as Record<string, string>)[module.id])
+    return replacement ? { ...replacement, id: module.id } : { ...module, coverage: legacyStudy[module.id] ? ('complete' as const) : ('partial' as const) }
+  }),
+  ...plannedModules,
+  ...daaModules,
+]
 import { Chess, type PieceSymbol, type Square } from 'chess.js'

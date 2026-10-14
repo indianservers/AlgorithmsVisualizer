@@ -10,7 +10,8 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('visualizer shell matches screenshot', async ({ page }) => {
-  await page.goto('/sorting/bubble-sort')
+  await page.goto('/#/sorting/bubble-sort')
+  await page.getByRole('button', { name: 'Visualization', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Bubble Sort' }).first()).toBeVisible()
   await expect(page.locator('.route-skeleton')).toHaveCount(0)
   await expect(page.locator('.visual-canvas')).toBeVisible()
@@ -18,7 +19,8 @@ test('visualizer shell matches screenshot', async ({ page }) => {
 })
 
 test('compare page matches screenshot', async ({ page }) => {
-  await page.goto('/sorting/bubble-sort')
+  await page.goto('/#/sorting/bubble-sort')
+  await page.getByRole('button', { name: 'Visualization', exact: true }).click()
   await page.getByRole('button', { name: 'Compare', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Compare Sorting Algorithms' })).toBeVisible()
   await expect(page).toHaveScreenshot('compare-page.png', { fullPage: true, timeout: 15000 })

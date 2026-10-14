@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { useEffect, type CSSProperties, type Dispatch, type ReactNode, type SetStateAction } from 'react'
+import { useEffect, useState, type CSSProperties, type Dispatch, type ReactNode, type SetStateAction } from 'react'
 
 type LayoutProps = {
   children: ReactNode
@@ -24,6 +24,13 @@ export function Layout({
   sidebarCollapsed,
   toasts,
 }: LayoutProps) {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1120px)').matches)
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 1120px)')
+    const update = () => setIsMobile(query.matches)
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
   useEffect(() => {
     if (!mobileMenuOpen) return
     const onKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +50,7 @@ export function Layout({
         Menu
       </button>
       <button className="mobile-menu-backdrop" type="button" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)} />
-      <div className="mobile-drawer-shell" aria-hidden={!mobileMenuOpen}>
+      <div className="mobile-drawer-shell" aria-hidden={isMobile && !mobileMenuOpen} inert={isMobile && !mobileMenuOpen ? true : undefined}>
         <button className="mobile-drawer-close" type="button" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
           <X size={18} />
         </button>

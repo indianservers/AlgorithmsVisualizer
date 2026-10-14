@@ -126,7 +126,7 @@ export function TopBar({
       <div className="view-switch">
         <button className={viewMode === 'visualize' ? 'active' : ''} type="button" onClick={() => setViewMode('visualize')}>
           <Play size={16} />
-          Visualizer
+          Algorithms
         </button>
         <button className={viewMode === 'compare' ? 'active' : ''} type="button" onClick={() => setViewMode('compare')}>
           <BarChart3 size={16} />

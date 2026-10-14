@@ -1,6 +1,12 @@
 ﻿import type { AlgorithmCategory } from '../types'
 
 export const categories: AlgorithmCategory[] = [
+  'DAA Concepts',
+  'Analysis & Correctness',
+  'Divide and Conquer',
+  'Branch and Bound',
+  'Complexity Theory',
+  'DAA Extensions',
   'Sorting',
   'Searching',
   'Data Structures',
@@ -15,6 +21,48 @@ export const categories: AlgorithmCategory[] = [
 ]
 
 export const categoryPages: Record<AlgorithmCategory, { slug: string; title: string; subtitle: string; accent: string; sections: string[] }> = {
+  'DAA Concepts': {
+    slug: 'daa',
+    title: 'DAA Concepts',
+    subtitle: 'Core concepts and your learning path.',
+    accent: '#1673c7',
+    sections: ['Core', 'Extensions'],
+  },
+  'Analysis & Correctness': {
+    slug: 'analysis-correctness',
+    title: 'Analysis & Correctness',
+    subtitle: 'Derive bounds and prove why algorithms work.',
+    accent: '#1673c7',
+    sections: ['Analysis', 'Recurrences', 'Proofs'],
+  },
+  'Divide and Conquer': {
+    slug: 'divide-and-conquer',
+    title: 'Divide and Conquer',
+    subtitle: 'Split, solve, combine and analyze.',
+    accent: '#7c5bb0',
+    sections: ['Core'],
+  },
+  'Branch and Bound': {
+    slug: 'branch-and-bound',
+    title: 'Branch and Bound',
+    subtitle: 'Explore search trees and prune with safe bounds.',
+    accent: '#db2777',
+    sections: ['Core'],
+  },
+  'Complexity Theory': {
+    slug: 'complexity-theory',
+    title: 'Complexity Theory',
+    subtitle: 'Certificates, reductions and computational limits.',
+    accent: '#0f9f9a',
+    sections: ['Theory'],
+  },
+  'DAA Extensions': {
+    slug: 'daa-extensions',
+    title: 'DAA Extensions',
+    subtitle: 'Advanced algorithm concepts and techniques.',
+    accent: '#b45309',
+    sections: ['Extensions'],
+  },
   Searching: {
     slug: 'searching',
     title: 'Searching Algorithms',

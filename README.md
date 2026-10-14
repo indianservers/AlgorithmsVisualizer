@@ -6,6 +6,8 @@ This README is written as a re-entry guide for Codex/future maintainers: read it
 
 ## Run
 
+The DAA learning track is available at `/#/daa/syllabus-dashboard`. See [DAA implementation and coverage notes](docs/daa.md) for lesson scope, typed inputs, syllabus mappings, trace exports and validation.
+
 ```bash
 npm ci
 npm run dev

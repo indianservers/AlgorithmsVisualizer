@@ -1,6 +1,7 @@
 ﻿export type StepType = 'compare' | 'swap' | 'select' | 'visit' | 'partition' | 'merge' | 'update' | 'hash' | 'complete'
 
 export type AlgorithmStep = {
+  state?: import('./daa/types').LearningState
   id: string
   operationId?: string
   type: StepType
@@ -30,6 +31,12 @@ export type AlgorithmStep = {
 }
 
 export type AlgorithmCategory =
+  | 'DAA Concepts'
+  | 'Analysis & Correctness'
+  | 'Divide and Conquer'
+  | 'Branch and Bound'
+  | 'Complexity Theory'
+  | 'DAA Extensions'
   | 'Searching'
   | 'Sorting'
   | 'Data Structures'
@@ -43,6 +50,9 @@ export type AlgorithmCategory =
   | 'Games'
 
 export type AlgorithmModule = {
+  lessonId?: string
+  coverage?: 'complete' | 'partial' | 'missing'
+  typedRunner?: (input: import('./daa/types').DaaInput) => import('./daa/types').DaaRun
   id: string
   name: string
   category: AlgorithmCategory
@@ -73,7 +83,7 @@ export type SavedExperiment = {
   metrics: AlgorithmStep['metrics']
 }
 
-export type LearningTab = 'Study' | 'Sim' | 'Code' | 'Quiz' | 'Experiments'
+export type LearningTab = 'Learn' | 'Visualization' | 'Code' | 'Practice' | 'Experiments'
 
 export type QuizScore = {
   correct: number

@@ -1,4 +1,5 @@
-import { LockKeyhole } from 'lucide-react'
+import { Home, LockKeyhole } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import type { AlgorithmCategory } from '../types'
 import { allModules } from '../algorithms'
 import { categories } from '../data/catalog'
@@ -25,6 +26,9 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, chooseCateg
           <span>Visualize every step</span>
         </div>
       </div>
+      <Link className="sidebar-home" to="/" onClick={onNavigate}>
+        <Home size={19} /> Home dashboard
+      </Link>
       <nav className="category-list" aria-label="Algorithm categories">
         {categories.map((category) => (
           <div className="menu-group" key={category}>

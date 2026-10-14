@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import './App.css'
+import { DaaWorkspace } from './daa/DaaWorkspace'
+import { suiteLinks } from './daa/syllabi'
+import './mobile-first.css'
 import type { AlgorithmCategory, AlgorithmModule, AnimationQuality, LearningTab, QuizScore, SavedExperiment } from './types'
 import { algorithmModules, allModules, baseMetrics } from './algorithms'
 import { categoryPages } from './data/catalog'
@@ -101,7 +104,8 @@ function App() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'live' | 'planned'>('all')
   const [visualFilter, setVisualFilter] = useState<'all' | AlgorithmModule['visualMode']>('all')
   const [complexityFilter, setComplexityFilter] = useState<'all' | 'log' | 'linear' | 'nlogn' | 'quadratic'>('all')
-  const [learningTab, setLearningTab] = useState<LearningTab>('Study')
+  const [selectedLearningTab, setLearningTab] = useState<LearningTab>('Learn')
+  const learningTab = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments'].includes(selectedLearningTab) ? selectedLearningTab : 'Learn'
   const [practiceReveal, setPracticeReveal] = useState(false)
   const [practiceGuess, setPracticeGuess] = useState('')
   const [routeChanging, setRouteChanging] = useState(false)
@@ -125,7 +129,14 @@ function App() {
     if (disabledReason) return []
     if (gameRevision < 0) return []
     const run = activeModule.runner?.(input, target) ?? []
-    return run.length > MAX_VISUAL_STEPS ? run.slice(0, MAX_VISUAL_STEPS) : run
+    if (run.length <= MAX_VISUAL_STEPS) return run
+    const clipped = run.slice(0, MAX_VISUAL_STEPS)
+    clipped[clipped.length - 1] = {
+      ...clipped[clipped.length - 1],
+      type: 'update',
+      description: 'Timeline truncated at 1000 steps; this trace does not certify completion.',
+    }
+    return clipped
   }, [activeModule, disabledReason, gameRevision, input, target])
   const currentStep = steps[Math.min(stepIndex, Math.max(steps.length - 1, 0))]
   const visualData = currentStep?.dataState.length ? currentStep.dataState : input
@@ -136,7 +147,8 @@ function App() {
   const codeView = codeLinesFor(activeModule.code, currentStep)
   const nextStep = steps[stepIndex + 1]
   const quizScore = quizScores[activeId] ?? { correct: 0, total: 0 }
-  const statusLabel = activeModule.status === 'live' ? 'Interactive' : 'Coming soon'
+  const statusLabel =
+    activeModule.status === 'live' ? (activeModule.id.includes('suite') || suiteLinks[activeId] ? 'Illustrative demo' : 'Interactive') : 'Coming soon'
   const filteredModules = filteredModulesForCategory(activeCategory)
   const progressPercent = Math.round(
     (completed.filter((id) => allModules.find((module) => module.id === id)?.category === activeCategory).length / Math.max(1, filteredModules.length)) * 100,
@@ -147,8 +159,9 @@ function App() {
       : activeModule.complexity.average.includes('log n') || activeModule.complexity.average.includes('n log n')
         ? 'Intermediate'
         : 'Advanced'
-  const correctnessText =
-    activeModule.category === 'Sorting' && steps.length
+  const correctnessText = steps.at(-1)?.description.startsWith('Timeline truncated')
+    ? 'Trace truncated: this run does not certify algorithm completion.'
+    : activeModule.category === 'Sorting' && steps.length
       ? isSortedAscending(steps.at(-1)?.dataState ?? [])
         ? 'Correctness check: final output is sorted.'
         : 'Correctness check: final output is not sorted.'
@@ -562,6 +575,30 @@ function App() {
     </div>
   )
 
+  if (activeModule.lessonId && !routeState.notFound) {
+    return (
+      <Layout
+        focusMode={false}
+        fullCanvas={false}
+        mobileMenuOpen={mobileMenuOpen}
+        rightPanelWidth={rightPanelWidth}
+        setMobileMenuOpen={setMobileMenuOpen}
+        sidebar={sidebar}
+        sidebarCollapsed={sidebarCollapsed}
+        toasts={toastStack}
+      >
+        <section className="workspace category-page">
+          <DaaWorkspace
+            module={activeModule}
+            completed={completed}
+            toggleCompleted={(id) => setCompleted((items) => (items.includes(id) ? items.filter((item) => item !== id) : [...items, id]))}
+          />
+          <AimerSiteFooter />
+        </section>
+      </Layout>
+    )
+  }
+
   if (routeState.notFound) {
     return (
       <Layout
@@ -574,7 +611,11 @@ function App() {
         sidebarCollapsed={sidebarCollapsed}
         toasts={toastStack}
       >
-        <section className={`workspace category-page page-${activePage.slug}`} style={{ '--page-accent': activePage.accent } as CSSProperties}>
+        <section
+          className={`workspace category-page page-${activePage.slug}`}
+          data-learning-tab={viewMode === 'compare' ? 'Visualization' : learningTab}
+          style={{ '--page-accent': activePage.accent } as CSSProperties}
+        >
           <RouteFallback
             algorithmSlug={routeState.notFound.algorithmSlug}
             categorySlug={routeState.notFound.categorySlug}
@@ -598,7 +639,11 @@ function App() {
       sidebarCollapsed={sidebarCollapsed}
       toasts={toastStack}
     >
-      <section className={`workspace category-page page-${activePage.slug}`} style={{ '--page-accent': activePage.accent } as CSSProperties}>
+      <section
+        className={`workspace category-page page-${activePage.slug}`}
+        data-learning-tab={viewMode === 'compare' ? 'Visualization' : learningTab}
+        style={{ '--page-accent': activePage.accent } as CSSProperties}
+      >
         <TopBar
           activeModule={activeModule}
           classroomMode={classroomMode}
@@ -722,6 +767,8 @@ function App() {
           />
         ) : (
           <Visualizer
+            learningTab={learningTab}
+            setLearningTab={setLearningTab}
             activeCategory={activeCategory}
             activeId={activeId}
             activeModule={activeModule}
@@ -854,21 +901,25 @@ function App() {
             setInputText(item.input.join(', '))
             setTarget(item.target)
             setViewMode('visualize')
+            setLearningTab('Visualization')
             resetPlayback()
             pushToast(`${item.algorithmName} loaded`)
             scrollToSection('.visual-canvas')
           }}
           openDashboard={() => {
             setViewMode('visualize')
+            setLearningTab('Learn')
             scrollToSection('.page-ribbon')
           }}
           openDataGrid={() => {
             setViewMode('visualize')
+            setLearningTab('Visualization')
             scrollToSection('.input-strip, .ds-input-panel')
           }}
           openStatistics={() => scrollToSection('.metrics-panel')}
           openVisualizer={() => {
             setViewMode('visualize')
+            setLearningTab('Visualization')
             scrollToSection('.visual-canvas')
           }}
           saved={saved}

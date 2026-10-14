@@ -9,6 +9,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes('/src/components/PenguinVisualization') || id.includes('/src/components/penguins.css') || id.includes('/src/data/sortingCharacters'))
+            return 'sorting-characters'
+          if (id.includes('/src/daa/')) return id.includes('?raw') ? 'daa-source' : 'daa-learning'
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
             return 'vendor-react'
           }

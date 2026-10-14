@@ -22,7 +22,7 @@ export function downloadBlob(filename: string, blob: Blob) {
 }
 
 export function buildStepLogCsv(steps: AlgorithmStep[]) {
-  return ['step,type,description,comparisons,swaps,reads,writes,recursiveCalls']
+  return ['step,type,description,comparisons,swaps,reads,writes,recursiveCalls,state']
     .concat(
       steps.map((step, index) =>
         [
@@ -34,6 +34,7 @@ export function buildStepLogCsv(steps: AlgorithmStep[]) {
           step.metrics.reads ?? 0,
           step.metrics.writes ?? 0,
           step.metrics.recursiveCalls ?? 0,
+          `"${JSON.stringify(step.state ?? {}).replaceAll('"', '""')}"`,
         ].join(','),
       ),
     )

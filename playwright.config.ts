@@ -12,7 +12,10 @@ export default defineConfig({
     colorScheme: 'light',
   },
   webServer: {
-    command: 'npm run dev -- --host 127.0.0.1 --port 5199 --strictPort',
+    command:
+      process.env.DAA_TEST_PRODUCTION === '1'
+        ? 'npm run preview -- --host 127.0.0.1 --port 5199 --strictPort'
+        : 'npm run dev -- --host 127.0.0.1 --port 5199 --strictPort',
     reuseExistingServer: false,
     url: 'http://127.0.0.1:5199',
   },

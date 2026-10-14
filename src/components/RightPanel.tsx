@@ -2,6 +2,8 @@ import type { Dispatch, SetStateAction } from 'react'
 import { BookOpen, Braces, Hash } from 'lucide-react'
 import type { AlgorithmModule, AlgorithmStep, LearningTab } from '../types'
 import { metricRules } from '../algorithms/metrics'
+import { DaaTheoryView } from './DaaTheoryView'
+import { daaTheoryFor } from '../guides/daaTheory'
 
 type Guide = {
   compareWith: string[]
@@ -58,7 +60,6 @@ export function RightPanel({
   copyText,
   correctnessText,
   currentStep,
-  difficulty,
   guide,
   hugeRunWarning,
   inputConstraints,
@@ -73,7 +74,6 @@ export function RightPanel({
   reviewDueDate,
   resultText,
   rightPanelWidth,
-  setLearningTab,
   setNotes,
   setPracticeGuess,
   setPracticeReveal,
@@ -86,25 +86,19 @@ export function RightPanel({
   toggleComplete,
 }: RightPanelProps) {
   return (
-    <aside className="right-panel">
-      <section className="panel-tools">
+    <aside className="right-panel" data-learning-tab={learningTab}>
+      <section className="panel-tools desktop-panel-tools">
         <h2>Panel</h2>
         <label>
           Width
           <input min={300} max={560} step={20} type="range" value={rightPanelWidth} onChange={(event) => setRightPanelWidth(Number(event.target.value))} />
         </label>
       </section>
-      <section>
+      <section className="timeline-inspector">
         <h2>
           <BookOpen size={18} /> Explanation
         </h2>
-        <div className="learning-tabs">
-          {(['Study', 'Sim', 'Code', 'Quiz', 'Experiments'] as LearningTab[]).map((tab) => (
-            <button className={learningTab === tab ? 'active' : ''} key={tab} type="button" onClick={() => setLearningTab(tab)}>
-              {tab}
-            </button>
-          ))}
-        </div>
+
         {resultText && <div className={`result-banner ${resultText.includes('not') || resultText.includes('absent') ? 'miss' : 'hit'}`}>{resultText}</div>}
         {correctnessText && (
           <div className={`result-banner ${correctnessText.includes('not') || correctnessText.includes('required') ? 'miss' : 'hit'}`}>{correctnessText}</div>
@@ -136,92 +130,14 @@ export function RightPanel({
           </div>
         </div>
       </section>
-      {learningTab === 'Study' && (
+      {learningTab === 'Learn' && (
         <section className="guide-panel">
-          <h2>Study Guide</h2>
-          <div className="study-meta">
-            <span>
-              <strong>{difficulty}</strong> difficulty
-            </span>
-            <span>
-              <strong>{activeModule.visualMode}</strong> visual mode
-            </span>
-          </div>
-          <p>{guide.concept}</p>
-          <h3>Invariant</h3>
-          <p>
-            {activeModule.category === 'Sorting'
-              ? 'The algorithm preserves the same values while increasing the amount of known order.'
-              : activeModule.category === 'Games'
-                ? activeModule.id === 'chess-minimax'
-                  ? 'Every suggested move must be legal: the king stays safe and pieces move by chess rules.'
-                  : 'Every move must be on an empty square, and three in a row is the goal.'
-                : activeModule.flags?.includes('Requires sorted input')
-                  ? 'The search range only has meaning while the input remains sorted.'
-                  : 'Each step preserves the data structure contract for the next operation.'}
-          </p>
-          <h3>Edge cases</h3>
-          <p>
-            {activeModule.flags?.includes('Requires sorted input')
-              ? 'Empty input, duplicates, missing target, and unsorted input are the cases to test first.'
-              : activeModule.category === 'Games'
-                ? activeModule.id === 'chess-minimax'
-                  ? 'Checkmate, stalemate, hanging pieces, checks, captures, and quiet improving moves.'
-                  : 'Check immediate wins, forced blocks, full boards, and draws.'
-                : 'Empty input, one item, duplicates, and very large values are the quickest checks.'}
-          </p>
-          <h3>When to use it</h3>
-          <p>
-            {activeModule.flags?.includes('Requires sorted input')
-              ? 'Use it when data is already sorted or sorting is acceptable before searching.'
-              : activeModule.category === 'Sorting'
-                ? 'Use it to understand ordering tradeoffs, data movement, and comparison counts.'
-                : activeModule.category === 'Games'
-                  ? activeModule.id === 'chess-minimax'
-                    ? 'Use it to learn how engines list legal moves, imagine replies, score positions, and build a line.'
-                    : 'Use it to learn the rules and why looking ahead helps choose better moves.'
-                  : 'Use it when the data shape matches this visualization.'}
-          </p>
-          <h3>When not to use it</h3>
-          <p>
-            {activeModule.complexity.average.includes('n²') || activeModule.complexity.average.includes('n^2')
-              ? 'Avoid it for large inputs where quadratic growth dominates.'
-              : 'Avoid it when its input assumptions do not match your data.'}
-          </p>
-          <h3>Path</h3>
-          <p>{guide.path} learning path.</p>
-          <h3>Interview trap</h3>
-          <p>{guide.trap}</p>
-          <h3>Real-world use</h3>
-          <p>{guide.useCase}</p>
-          <h3>Compare with</h3>
-          <div className="compare-links">
-            {guide.compareWith.map((name) => (
-              <span key={name}>{name}</span>
-            ))}
-          </div>
-          <h3>Input constraints</h3>
+          <h2>DAA learning</h2>
+          <DaaTheoryView module={activeModule} />
+          <h3>Visualizer input requirements</h3>
           <ul>
-            {inputConstraints.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <h3>Learning objectives</h3>
-          <ul>
-            {guide.objectives.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <h3>Prerequisites</h3>
-          <ul>
-            {guide.prerequisites.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <h3>Misconceptions</h3>
-          <ul>
-            {guide.misconceptions.map((item) => (
-              <li key={item}>{item}</li>
+            {inputConstraints.map((c) => (
+              <li key={c}>{c}</li>
             ))}
           </ul>
           <button className="mini-action" type="button" onClick={() => toggleComplete(activeModule.id)}>
@@ -229,7 +145,41 @@ export function RightPanel({
           </button>
         </section>
       )}
-      {learningTab === 'Sim' && (
+      {learningTab === 'Visualization' && (
+        <section className="guide-panel">
+          <h2>Visualization guide</h2>
+          <p>
+            Inspect highlighted values, variables and the current operation. Step forward or backward, or seek with the timeline; the Learn and Code tabs
+            explain the underlying method.
+          </p>
+          <p>{stepReason(currentStep)}</p>
+        </section>
+      )}
+      {learningTab === 'Code' && (
+        <section className="guide-panel">
+          <h2>Code Walkthrough</h2>
+          <pre className="code-lines">
+            {(daaTheoryFor(activeModule).code || codeView.lines.join('\n')).split('\n').map((line, index) => (
+              <span
+                className={daaTheoryFor(activeModule).code === activeModule.code && index === codeView.activeIndex ? 'active-line' : ''}
+                key={`${index}-${line}`}
+              >
+                {line || ' '}
+              </span>
+            ))}
+          </pre>
+          <p>Read the pseudocode first, then map each animation step to the corresponding code line.</p>
+          <details className="runner-source">
+            <summary>Actual visualization runner source</summary>
+            <p>
+              This function uses shared tracing helpers. The compact textbook fragment may omit instrumentation; suite runners demonstrate only their stated
+              scope.
+            </p>
+            <pre>{activeModule.runner?.toString() ?? 'This page has no executable legacy runner.'}</pre>
+          </details>
+        </section>
+      )}
+      {learningTab === 'Practice' && (
         <section className="guide-panel">
           <h2>Practice Mode</h2>
           <p>Predict the next operation before stepping forward.</p>
@@ -252,23 +202,16 @@ export function RightPanel({
           <div className="visual-legend">
             <span className="red" /> active <span className="green" /> completed/visited <span className="blue" /> normal
           </div>
-        </section>
-      )}
-      {learningTab === 'Code' && (
-        <section className="guide-panel">
-          <h2>Code Walkthrough</h2>
-          <pre className="code-lines">
-            {codeView.lines.map((line, index) => (
-              <span className={index === codeView.activeIndex ? 'active-line' : ''} key={`${index}-${line}`}>
-                {line || ' '}
-              </span>
-            ))}
-          </pre>
-          <p>Read the pseudocode first, then map each animation step to the corresponding code line.</p>
-        </section>
-      )}
-      {learningTab === 'Quiz' && (
-        <section className="guide-panel">
+          <h2>DAA reasoning practice</h2>
+          <p>{daaTheoryFor(activeModule).question}</p>
+          <label className="practice-guess">
+            Your explanation
+            <textarea rows={4} placeholder="State the invariant, apply it to the example, and justify your answer." />
+          </label>
+          <details className="quiz-card">
+            <summary>Reveal DAA explanation</summary>
+            <p>{daaTheoryFor(activeModule).answer}</p>
+          </details>
           <h2>Quiz</h2>
           <div className="quiz-score">
             Score {quizScore.correct} / {quizScore.total}
@@ -331,7 +274,7 @@ export function RightPanel({
           />
         </section>
       )}
-      <section>
+      <section className="simulation-inspector">
         <h2>
           <Hash size={18} /> Variables
         </h2>
@@ -342,7 +285,7 @@ export function RightPanel({
           <pre>{JSON.stringify(currentStep ?? {}, null, 2)}</pre>
         </details>
       </section>
-      <section>
+      <section className="code-inspector">
         <h2>
           <Braces size={18} /> Pseudocode
         </h2>
@@ -357,14 +300,14 @@ export function RightPanel({
           ))}
         </ol>
       </section>
-      <section>
+      <section className="code-inspector">
         <h2>Code</h2>
         <button className="mini-action" type="button" onClick={() => copyText('Code', activeModule.code)}>
           Copy code
         </button>
         <pre>{activeModule.code}</pre>
       </section>
-      <section>
+      <section className="learn-inspector">
         <h2>Complexity</h2>
         <div className="complexity-grid">
           {Object.entries(activeModule.complexity).map(([key, value]) => (
@@ -375,15 +318,12 @@ export function RightPanel({
           ))}
         </div>
       </section>
-      <section>
+      <section className="learn-inspector">
         <h2>Learning</h2>
         <p>{recommendation}</p>
         <div className="progress-pill">{completed.includes(activeModule.id) ? 'Completed locally' : 'Not completed yet'}</div>
-        <div className="quiz-card">
-          Quiz: {guide.quiz[0]?.q} Answer: {guide.quiz[0]?.a}
-        </div>
         <div className="quiz-card">Common mistake: {guide.misconceptions[0]}</div>
-        <div className="quiz-card">Interview prompt: {guide.interview[0]}</div>
+
         <details className="quiz-card">
           <summary>Metric rules</summary>
           <ul>

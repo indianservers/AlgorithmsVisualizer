@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
+import { HomeDashboard } from './home/HomeDashboard.tsx'
 import { ErrorBoundary } from './components/ErrorBoundary.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -10,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
     <ErrorBoundary>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<HomeDashboard />} />
           <Route path="/:categorySlug" element={<App />} />
           <Route path="/:categorySlug/:algorithmSlug" element={<App />} />
           <Route path="*" element={<App />} />

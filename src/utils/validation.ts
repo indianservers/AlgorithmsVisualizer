@@ -5,6 +5,8 @@ export function runDisabledReason(module: AlgorithmModule, input: number[], sort
   if (module.category === 'Games') return ''
   if (!['Graph', 'Tree'].includes(module.visualMode) && input.length === 0) return 'Enter at least one numeric value.'
   if (module.flags?.includes('Requires sorted input') && !sortedInputValid) return 'Sort the input before running this algorithm.'
-  if (['counting-sort', 'radix-sort'].includes(module.id) && input.some((value) => value < 0)) return 'Counting and radix sort need non-negative integers.'
+  if (['counting-sort', 'radix-sort'].includes(module.id) && input.some((value) => !Number.isSafeInteger(value) || value < 0))
+    return 'Counting and radix sort need non-negative integers.'
+  if (module.id === 'counting-sort' && input.some((value) => value > 10000)) return 'Counting sort visualization supports keys at most 10000.'
   return ''
 }

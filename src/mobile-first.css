@@ -1,0 +1,389 @@
+/* Base layout serves phones; enhance the workspace when enough width exists. */
+.workspace {
+  grid-template-rows: none;
+  grid-auto-rows: max-content;
+  align-content: start;
+}
+.category-hero {
+  align-content: start;
+  align-items: start;
+  grid-auto-rows: max-content;
+  gap: 12px;
+  padding: 18px 22px;
+}
+.category-hero p {
+  margin: 0;
+  line-height: 1.55;
+}
+.category-section-strip {
+  align-content: start;
+  align-self: center;
+}
+.algorithm-hero .learning-paths article,
+.learning-paths article {
+  min-height: 0;
+  align-content: start;
+  grid-template-rows: max-content max-content;
+  gap: 8px;
+}
+.learning-paths span {
+  line-height: 1.5;
+}
+@media (min-width: 1121px) {
+  .lab-grid:not([data-learning-tab='Visualization']) .canvas-zone {
+    display: none;
+  }
+}
+.app-shell {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr);
+}
+.workspace,
+.lab-grid,
+.canvas-zone,
+.right-panel,
+.bottom-panel,
+.daa-workspace,
+.compare-page {
+  min-width: 0;
+}
+.lab-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.lesson-tabs {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 12px;
+  background: var(--panel);
+  border-block: 1px solid var(--line);
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+.lesson-tabs button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--panel);
+  font-weight: 700;
+}
+.lesson-tabs button[aria-pressed='true'] {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.lesson-tabs button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.canvas-zone {
+  padding: 12px;
+}
+.right-panel {
+  grid-template-columns: minmax(0, 1fr);
+  position: static;
+  max-height: none;
+  overflow: visible;
+  width: 100%;
+  border-left: 0;
+}
+.right-panel section {
+  min-width: 0;
+  padding: 16px 12px;
+}
+.right-panel .desktop-panel-tools {
+  display: none;
+}
+.right-panel pre,
+.daa-source,
+.daa-result {
+  max-width: 100%;
+  overflow: auto;
+}
+.right-panel p,
+.right-panel li,
+.daa-card p,
+.daa-card li {
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.daa-theory blockquote {
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  line-height: 1.7;
+}
+.daa-theory h3 {
+  margin-top: 24px;
+}
+.lesson-scope {
+  font-size: 13px;
+  background: var(--surface);
+  padding: 12px;
+  border-radius: 8px;
+}
+.related-lessons {
+  display: grid;
+  gap: 8px;
+}
+.related-lessons a {
+  display: block;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--accent);
+}
+.right-panel summary,
+.daa-workspace summary {
+  min-height: 44px;
+  padding-block: 12px;
+  cursor: pointer;
+}
+.right-panel .quiz-card button,
+.right-panel .mini-action {
+  min-height: 44px;
+}
+.right-panel .guide-panel textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 100px;
+}
+.lab-grid:not([data-learning-tab='Visualization']) .canvas-zone > :not(.canvas-header) {
+  display: none;
+}
+.right-panel:not([data-learning-tab='Visualization']) .timeline-inspector,
+.right-panel:not([data-learning-tab='Visualization']) .simulation-inspector,
+.right-panel:not([data-learning-tab='Code']) .code-inspector,
+.right-panel:not([data-learning-tab='Learn']) .learn-inspector {
+  display: none;
+}
+.workspace:not([data-learning-tab='Visualization']):not([data-learning-tab='Experiments']) > .bottom-panel {
+  display: none;
+}
+.bottom-panel {
+  grid-template-columns: minmax(0, 1fr);
+}
+.input-strip {
+  grid-template-columns: minmax(0, 1fr);
+}
+.input-strip label,
+.ds-input-panel label {
+  min-width: 0;
+}
+.input-strip textarea,
+.input-strip input,
+.ds-input-panel textarea,
+.ds-input-panel input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.preset-row button,
+.utility-row button,
+.control-panel button,
+.daa-workspace button {
+  min-height: 44px;
+}
+.visual-controls button,
+.visual-controls select,
+.visual-controls label,
+.top-actions button,
+.view-switch button {
+  min-height: 44px;
+}
+.visual-controls {
+  gap: 8px;
+}
+.visual-controls label {
+  flex-wrap: wrap;
+}
+.visual-controls input[type='range'] {
+  max-width: 120px;
+}
+.comparison-table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.compare-controls,
+.compare-input-grid,
+.game-teacher-grid,
+.game-coach-main {
+  grid-template-columns: minmax(0, 1fr);
+}
+.matrix-grid-view {
+  min-width: 0;
+}
+.matrix-stage:not(.game-board-stage) .matrix-grid-view {
+  overflow-x: auto;
+}
+.game-board-stage {
+  min-width: 0;
+  width: 100%;
+}
+.game-coach-strip {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.daa-input-card {
+  grid-template-columns: minmax(0, 1fr);
+}
+.daa-filters > label {
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.daa-workspace {
+  color: var(--ink);
+  padding: 14px 12px;
+}
+.daa-workspace a {
+  color: var(--accent);
+}
+.daa-card {
+  padding: 16px;
+}
+.daa-workspace .lesson-tabs {
+  padding-inline: 0;
+  border-top: 0;
+}
+.daa-workspace input,
+.daa-workspace select,
+.daa-workspace textarea {
+  min-height: 44px;
+}
+.topbar {
+  position: static;
+  min-width: 0;
+  padding-left: 108px;
+}
+.control-panel {
+  position: static;
+}
+.app-shell.sidebar-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 700px) {
+  .input-strip {
+    grid-template-columns: minmax(0, 1fr) 90px 90px;
+  }
+  .input-strip > .preset-row,
+  .input-strip > .input-messages,
+  .input-strip > .utility-row {
+    grid-column: 1 / -1;
+  }
+  .bottom-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bottom-panel > :last-child {
+    grid-column: 1 / -1;
+  }
+  .game-teacher-grid,
+  .game-coach-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .daa-input-card {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+  .daa-workspace {
+    padding: 24px;
+  }
+}
+@media (min-width: 1121px) {
+  .app-shell {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+  .app-shell.sidebar-collapsed {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+  .topbar {
+    position: sticky;
+    padding-left: 18px;
+  }
+}
+.app-shell.full-canvas .lab-grid:not([data-learning-tab='Visualization']) .right-panel,
+.app-shell.focus-mode .lab-grid:not([data-learning-tab='Visualization']) .right-panel {
+  display: grid;
+}
+@media (min-width: 1280px) {
+  .lab-grid[data-learning-tab='Visualization'] {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, var(--right-panel-width, 360px));
+  }
+  .lab-grid:not([data-learning-tab='Visualization']) .right-panel {
+    max-width: 1050px;
+    justify-self: center;
+  }
+  .lab-grid[data-learning-tab='Visualization'] .right-panel {
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+    position: sticky;
+    top: 90px;
+    border-left: 1px solid var(--line);
+  }
+  .bottom-panel {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .bottom-panel > :last-child {
+    grid-column: auto;
+  }
+  .game-coach-main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 699px) {
+  .input-strip.bubble-compact {
+    grid-template-columns: minmax(0, 1fr) 64px 64px;
+  }
+  .input-strip.bubble-compact .preset-row button,
+  .input-strip.bubble-compact .utility-row button {
+    min-height: 44px;
+  }
+  .canvas-header h1 {
+    font-size: 26px;
+    overflow-wrap: anywhere;
+  }
+  .top-actions {
+    gap: 6px;
+  }
+  .control-panel {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .metric-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .daa-stats {
+    align-items: flex-start;
+  }
+  .daa-coverage {
+    min-width: 0;
+  }
+  .daa-coverage thead {
+    display: none;
+  }
+  .daa-coverage tr,
+  .daa-coverage th,
+  .daa-coverage td {
+    display: block;
+    width: 100%;
+  }
+  .daa-coverage tr {
+    border-bottom: 2px solid var(--line);
+    padding-block: 8px;
+  }
+  .daa-coverage td,
+  .daa-coverage th {
+    border-bottom: 0;
+    padding: 8px 0;
+  }
+}
+@media (max-width: 1120px) {
+  .mobile-menu-fab {
+    position: absolute;
+  }
+}

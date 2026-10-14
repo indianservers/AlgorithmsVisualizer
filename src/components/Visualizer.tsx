@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
-import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics } from '../types'
+import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics, LearningTab } from '../types'
 import { allModules, chessFenPresets, gameBoardPresets } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
+import { PenguinVisualization } from './PenguinVisualization'
+import { sortingCharacters } from '../data/sortingCharacters'
+import { LessonTabs } from './LessonTabs'
+import { suiteLinks } from '../daa/syllabi'
+import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 
 type VisualItem = {
   id: string
@@ -12,6 +17,8 @@ type VisualItem = {
 }
 
 type VisualizerProps = {
+  learningTab: LearningTab
+  setLearningTab: (tab: LearningTab) => void
   activeCategory: AlgorithmCategory
   activeId: string
   activeModule: AlgorithmModule
@@ -238,7 +245,13 @@ export function Visualizer({
   visiblePickerModules,
   visualFilter,
   visualItems,
+  learningTab,
+  setLearningTab,
 }: VisualizerProps) {
+  const isBubble = activeId === 'bubble-sort'
+  const isSorting = activeModule.category === 'Sorting'
+  const [sortingCharacter, setSortingCharacter] = usePersistentState('algodrishti-sorting-character', 'penguins', persistentString)
+  const [bubbleView, setBubbleView] = usePersistentState('algodrishti-bubble-view', 'bars', persistentString)
   const matrixData = currentStep?.dataState?.length ? currentStep.dataState : input
   const isGameBoard = activeModule.category === 'Games'
   const isChessBoard = activeModule.id === 'chess-minimax'
@@ -283,7 +296,8 @@ export function Visualizer({
   }
 
   return (
-    <section className="lab-grid">
+    <section className="lab-grid" data-learning-tab={learningTab}>
+      <LessonTabs active={learningTab} onChange={setLearningTab} />
       <section className="canvas-zone">
         <div className="canvas-header">
           <div>
@@ -295,6 +309,17 @@ export function Visualizer({
           </div>
           <span className={`status ${activeModule.status}`}>{statusLabel}</span>
         </div>
+        {learningTab === 'Visualization' && suiteLinks[activeId] && (
+          <div className="daa-suite-notice">
+            <strong>This suite uses an illustrative example.</strong>
+            <p>Choose a dedicated algorithm below to edit its problem data and compute a full timeline.</p>
+            {suiteLinks[activeId].map((id) => (
+              <button type="button" key={id} onClick={() => chooseAlgorithm(id)}>
+                {allModules.find((module) => module.id === id)?.name ?? id}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="page-ribbon">
           <span>{activeCategory} page</span>
           <strong>{activeModule.subcategory ?? activeModule.visualMode}</strong>
@@ -420,16 +445,17 @@ export function Visualizer({
         </details>
 
         {activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
-          <div className="input-strip">
+          <div className={`input-strip ${isBubble ? 'bubble-compact' : ''}`}>
+            {isBubble && <h2>Input &amp; Controls</h2>}
             <label>
-              Data
+              {isBubble ? 'Array (comma separated)' : 'Data'}
               <textarea
                 value={inputText}
                 onChange={(event) => {
                   setInputText(event.target.value)
                   resetPlayback()
                 }}
-                rows={2}
+                rows={isBubble ? 1 : 2}
               />
             </label>
             <label>
@@ -448,12 +474,31 @@ export function Visualizer({
               <input min={4} max={48} type="number" value={size} onChange={(event) => setSize(Number(event.target.value))} />
             </label>
             <div className="preset-row">
-              {['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'best', 'average', 'worst', 'empty', 'single', 'all-equal', 'negative'].map((mode) => (
+              {(isBubble
+                ? ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'empty']
+                : ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'best', 'average', 'worst', 'empty', 'single', 'all-equal', 'negative']
+              ).map((mode) => (
                 <button type="button" key={mode} className={dataMode === mode ? 'active' : ''} onClick={() => updateRandom(mode)}>
                   <Shuffle size={14} />
-                  {mode}
+                  {isBubble ? (mode === 'empty' ? 'Clear' : mode === 'nearly' ? 'Nearly sorted' : mode[0].toUpperCase() + mode.slice(1)) : mode}
                 </button>
               ))}
+              {isBubble && (
+                <select
+                  aria-label="More input presets"
+                  value=""
+                  onChange={(event) => {
+                    if (event.target.value) updateRandom(event.target.value)
+                  }}
+                >
+                  <option value="">More presets</option>
+                  {['best', 'average', 'worst', 'single', 'all-equal', 'negative'].map((mode) => (
+                    <option key={mode} value={mode}>
+                      {mode}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="input-messages">
               {inputDiagnostics.invalid.length > 0 && (
@@ -656,6 +701,36 @@ export function Visualizer({
 
         {!['Graph', 'Tree'].includes(activeModule.visualMode) && (
           <section className="visual-controls">
+            {isSorting && (
+              <div className="bubble-view-switch" role="group" aria-label="View as">
+                <span>View as</span>
+                <button type="button" aria-pressed={bubbleView !== 'icons'} onClick={() => setBubbleView('bars')}>
+                  Bars
+                </button>
+                <button type="button" aria-pressed={bubbleView === 'icons'} onClick={() => setBubbleView('icons')}>
+                  Icons
+                </button>
+              </div>
+            )}
+            {isSorting && (
+              <label className="sorting-character-picker">
+                Character
+                <select
+                  aria-label="Sorting character"
+                  value={sortingCharacters.some((option) => option.id === sortingCharacter) ? sortingCharacter : 'penguins'}
+                  onChange={(event) => {
+                    setSortingCharacter(event.target.value)
+                    setBubbleView('icons')
+                  }}
+                >
+                  {sortingCharacters.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.icon} {option.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
             <label>
               <input type="checkbox" checked={showValues} onChange={(event) => setShowValues(event.target.checked)} />
               Show values
@@ -918,6 +993,19 @@ export function Visualizer({
                 </div>
               )}
             </div>
+          ) : isSorting && bubbleView === 'icons' ? (
+            <PenguinVisualization
+              items={visualItems}
+              step={currentStep}
+              reducedMotion={reducedMotion}
+              quality={animationQuality}
+              showIndices={showIndices}
+              showValues={showValues}
+              sortedCount={isBubble ? sortedBoundary : currentStep?.type === 'complete' ? visualItems.length : 0}
+              character={sortingCharacter}
+              palette={stepPalette}
+              showStateComparison={showStateComparison}
+            />
           ) : (
             <div
               className={`bar-stage ${hasNegativeValues ? 'has-negatives' : ''}`}
