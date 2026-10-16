@@ -4,9 +4,7 @@ export async function accountRequest(path, options = {}) {
   try {
     response = await fetch(new URL(path, 'https://tools.aimersociety.com'), { ...options, credentials: 'include', cache: 'no-store' })
   } catch {
-    throw new Error(
-      'The shared AIMER account service could not be reached from this website. Check your connection, retry, or continue on AIMER Tools. Learning remains available.',
-    )
+    throw new Error('Can’t reach AIMER accounts. Retry or continue on AIMER Tools. You can keep learning here.')
   }
   let data
   try {

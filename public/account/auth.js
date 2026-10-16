@@ -1,5 +1,5 @@
-import { setupPhoneInput } from './phone-input.mjs?v=20261016-2'
-import { accountRequest, getProfile, updateProfile } from './account-client.mjs?v=20261016-2'
+import { setupPhoneInput } from './phone-input.mjs?v=20261016-3'
+import { accountRequest, getProfile, updateProfile } from './account-client.mjs?v=20261016-3'
 const $ = (selector) => document.querySelector(selector)
 const dialog = $('#account-dialog'),
   onboarding = $('#onboarding-dialog'),
@@ -92,7 +92,7 @@ function view(next) {
   $('#phone-toggle').setAttribute('aria-expanded', String(next === 'phone'))
 }
 async function showProfile(user) {
-  const { photo } = await import('./account-client.mjs?v=20261016-2')
+  const { photo } = await import('./account-client.mjs?v=20261016-3')
   if (user?.uid !== currentUser?.uid) return
   if (user) {
     photo($('.account-avatar'), user)

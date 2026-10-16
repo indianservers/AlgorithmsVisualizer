@@ -292,3 +292,17 @@ for (const size of [
     expect(fit).toBe(true)
     await page.locator('#account-dialog').screenshot({ path: test.info().outputPath('signed-menu.png') })
   })
+
+test('desktop service-error popup stays compact without concealing error or legal links', async ({ page }) => {
+  await setup(page)
+  await page.route('https://tools.aimersociety.com/api/session', (route) => route.abort('failed'))
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto('/')
+  await page.locator('#account-trigger').click()
+  await expect(page.locator('#auth-status')).toContainText('reach AIMER accounts')
+  await expect(page.locator('#auth-retry')).toBeVisible()
+  await expect(page.locator('.account-privacy')).toBeVisible()
+  const fit = await page.locator('#account-dialog').evaluate((e) => ({ height: e.clientHeight, scroll: e.scrollHeight }))
+  expect(fit.scroll).toBeLessThanOrEqual(fit.height + 1)
+  await page.locator('#account-dialog').screenshot({ path: test.info().outputPath('account-service-error.png') })
+})

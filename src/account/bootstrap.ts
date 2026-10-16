@@ -1,5 +1,5 @@
 import shell from './shell.html?raw'
-const version = '20261016-2'
+const version = '20261016-3'
 const host = document.createElement('div')
 host.id = 'aimer-account-root'
 host.innerHTML = shell
