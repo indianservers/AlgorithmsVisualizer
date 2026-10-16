@@ -14,6 +14,7 @@ test('every catalog algorithm has visible Learn content on a narrow phone', asyn
   await page.setViewportSize({ width: 360, height: 800 })
   for (const module of allModules.filter((m) => m.id !== 'syllabus-dashboard')) {
     await page.goto('/#' + algorithmPath(module))
+    await page.getByRole('button', { name: 'Learn', exact: true }).click()
     await expect(page.getByRole('button', { name: 'Learn', exact: true }), module.id).toHaveAttribute('aria-pressed', 'true')
     if (module.lessonId) await expect(page.getByRole('heading', { name: 'Concept and worked example' }), module.id).toBeVisible()
     else {
@@ -93,9 +94,11 @@ test('dark theme and mobile menu remain usable with learning tabs', async ({ pag
   await page.getByRole('button', { name: 'Open menu', exact: true }).click()
   await expect(page.locator('.mobile-drawer-shell')).not.toHaveAttribute('inert')
   await page.locator('.category-list').getByRole('button', { name: 'Strings', exact: true }).click()
+  await page.locator('.global-sidebar').getByRole('link', { name: 'String Pattern Matching Suite', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Learn String Pattern Matching Suite', exact: true })).toBeVisible()
   await expect(page.locator('.mobile-drawer-shell')).toHaveAttribute('inert', '')
   await page.goto('/#/graphs/dijkstra')
+  await page.getByRole('button', { name: 'Learn', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Concept and worked example' })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
 })

@@ -557,8 +557,8 @@ function App() {
     <Sidebar
       activeCategory={activeCategory}
       activeId={activeId}
+      onExpand={() => setSidebarCollapsed(false)}
       chooseAlgorithm={chooseAlgorithm}
-      chooseCategory={chooseCategory}
       iconStyle={iconStyle}
       onNavigate={() => setMobileMenuOpen(false)}
       recentIds={recentIds}

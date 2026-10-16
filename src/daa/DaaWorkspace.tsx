@@ -1,4 +1,28 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import {
+  SkipBack,
+  ChevronLeft,
+  Play,
+  Pause,
+  ChevronRight,
+  SkipForward,
+  BookOpen,
+  Network,
+  Code2,
+  FlaskConical,
+  PencilLine,
+  Trash2,
+  BarChart3,
+  Settings,
+  Lightbulb,
+  Download,
+  FileSpreadsheet,
+  Save,
+  Info,
+  Eye,
+  GraduationCap,
+  Bookmark,
+} from 'lucide-react'
+import { lazy, Suspense, useEffect, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import type { AlgorithmModule, LearningTab } from '../types'
 import { LessonTabs } from '../components/LessonTabs'
@@ -18,6 +42,12 @@ import searchSource from './search.ts?raw'
 import stringsSource from './strings.ts?raw'
 import extensionSource from './extensions.ts?raw'
 import './daa.css'
+import './dijkstra.css'
+import './dfs.css'
+import './bfs.css'
+import { BfsHero } from './BfsHero'
+import { DfsHero } from './DfsHero'
+import { DijkstraHero } from './DijkstraHero'
 
 type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
 type Experiment = { id: string; lessonId: string; input: DaaInput; run: DaaRun; createdAt: string }
@@ -26,7 +56,19 @@ const ExplorerTraversal = lazy(() => import('../components/ExplorerTraversal').t
 const WeightedExplorer = lazy(() => import('../components/WeightedExplorer').then((module) => ({ default: module.WeightedExplorer })))
 const cell = (value: unknown) => (value === null ? '—' : String(value))
 
-function ProblemEditor({ input, onChange }: { input: string; onChange: (value: string) => void }) {
+function ProblemEditor({
+  input,
+  onChange,
+  graphStyle = false,
+  traversalStyle = false,
+  bfsStyle = false,
+}: {
+  input: string
+  onChange: (value: string) => void
+  graphStyle?: boolean
+  traversalStyle?: boolean
+  bfsStyle?: boolean
+}) {
   let parsed: Record<string, unknown>
   try {
     parsed = JSON.parse(input)
@@ -44,10 +86,23 @@ function ProblemEditor({ input, onChange }: { input: string; onChange: (value: s
           return (
             <fieldset key={key}>
               <legend>Graph edges</legend>
-              <p>Each row connects two vertices. Weights are ignored by BFS and DFS.</p>
+              <p>
+                {bfsStyle
+                  ? 'Each row connects two vertices. Weights are ignored by BFS and DFS.'
+                  : traversalStyle
+                    ? 'Each row connects two vertices. Weights are ignored by DFS and used as labels.'
+                    : graphStyle
+                      ? 'Each row connects two vertices with a non-negative weight.'
+                      : 'Each row connects two vertices. Weights are ignored by BFS and DFS.'}
+              </p>
               <div className="daa-edge-list">
                 {value.map((edge, index) => (
                   <div className="daa-edge-row" key={index}>
+                    {bfsStyle && (
+                      <label className="bfs-edge-number">
+                        #<output>{index + 1}</output>
+                      </label>
+                    )}
                     {['from', 'to', 'weight'].map((field) => (
                       <label key={field}>
                         {field}
@@ -74,35 +129,67 @@ function ProblemEditor({ input, onChange }: { input: string; onChange: (value: s
                         )
                       }
                     >
-                      ×
+                      {graphStyle || traversalStyle ? <Trash2 size={14} aria-hidden="true" /> : '×'}
                     </button>
                   </div>
                 ))}
               </div>
-              <button type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
-                Add edge
-              </button>
+              {traversalStyle ? (
+                <div className="daa-edge-actions">
+                  <button aria-label="Add edge" type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
+                    {traversalStyle && <span aria-hidden="true">＋</span>}Add edge
+                  </button>
+                  {traversalStyle && !bfsStyle && (
+                    <button className="dfs-clear-edges" type="button" onClick={() => update(key, [])}>
+                      <Trash2 size={14} />
+                      Clear all
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <button type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
+                  Add edge
+                </button>
+              )}
             </fieldset>
+          )
+        if (typeof value === 'boolean' && graphStyle)
+          return (
+            <div className="dijkstra-direction" key={key}>
+              <span>Graph type</span>
+              <div role="group" aria-label="Graph type">
+                {[true, false].map((directed) => (
+                  <button key={String(directed)} type="button" aria-pressed={value === directed} onClick={() => update(key, directed)}>
+                    {directed ? 'Directed' : 'Undirected'}
+                  </button>
+                ))}
+              </div>
+            </div>
           )
         if (typeof value === 'boolean')
           return (
             <label key={key}>
-              {key}
-              <select value={String(value)} onChange={(event) => update(key, event.target.value === 'true')}>
+              {traversalStyle && !bfsStyle ? 'Graph type' : key}
+              <select aria-label={key} value={String(value)} onChange={(event) => update(key, event.target.value === 'true')}>
                 <option value="true">Directed</option>
                 <option value="false">Undirected</option>
               </select>
+              {bfsStyle && <small>true for directed, false for undirected.</small>}
             </label>
           )
         if (typeof value === 'number' || typeof value === 'string')
           return (
             <label key={key}>
-              {key}
+              {bfsStyle ? key : graphStyle || traversalStyle ? (key === 'vertices' ? 'Number of vertices' : key === 'source' ? 'Source vertex' : key) : key}
               <input
+                aria-label={key}
                 type={typeof value === 'number' ? 'number' : 'text'}
                 value={String(value)}
                 onChange={(event) => update(key, typeof value === 'number' ? Number(event.target.value) : event.target.value)}
               />
+              {bfsStyle && (
+                <small>{key === 'vertices' ? 'Number of vertices (1–8).' : key === 'source' ? 'Start vertex; flow sink is the last vertex.' : ''}</small>
+              )}
             </label>
           )
         return (
@@ -156,12 +243,24 @@ function ArrayField({ name, value, onApply }: { name: string; value: unknown; on
   )
 }
 
-function StateView({ state }: { state?: LearningState }) {
+function StateView({
+  state,
+  spacious = false,
+  traversalLayout = false,
+  breadthLayout = false,
+}: {
+  state?: LearningState
+  spacious?: boolean
+  traversalLayout?: boolean
+  breadthLayout?: boolean
+}) {
   if (!state) return <p>Run an example to see its computed states.</p>
   const g = state.graph
   const position = (v: number) => {
     const angle = (2 * Math.PI * v) / (g?.vertices ?? 1) - Math.PI / 2
-    return { x: 260 + 170 * Math.cos(angle), y: 200 + 145 * Math.sin(angle) }
+    return traversalLayout
+      ? { x: 300 + 220 * Math.cos(angle), y: 170 + 130 * Math.sin(angle) }
+      : { x: 260 + 170 * Math.cos(angle), y: 200 + 145 * Math.sin(angle) }
   }
   return (
     <div className="daa-state">
@@ -197,8 +296,20 @@ function StateView({ state }: { state?: LearningState }) {
         </div>
       ) : null}
       {g && (
-        <svg className="daa-graph" viewBox="0 0 520 400" role="img" aria-label="Weighted graph state">
+        <svg
+          className="daa-graph"
+          viewBox={traversalLayout ? '0 0 600 360' : spacious ? '40 12 440 380' : '0 0 520 400'}
+          role="img"
+          aria-label="Weighted graph state"
+        >
           <defs>
+            <radialGradient id="bfs-node-fill" cx=".3" cy=".2" r=".9">
+              <stop stopColor="#fff" />
+              <stop offset="1" stopColor="#a6d5ff" />
+            </radialGradient>
+            <marker id="daa-active-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#fa6c24" />
+            </marker>
             <marker id="daa-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="currentColor" />
             </marker>
@@ -226,7 +337,7 @@ function StateView({ state }: { state?: LearningState }) {
                     y2={b.y - (dy / len) * 26}
                     stroke="currentColor"
                     strokeWidth={active ? 4 : 2}
-                    markerEnd={g.directed ? 'url(#daa-arrow)' : undefined}
+                    markerEnd={g.directed ? ((spacious || breadthLayout) && active ? 'url(#daa-active-arrow)' : 'url(#daa-arrow)') : undefined}
                   />
                 )}
                 <text x={(a.x + b.x) / 2 + (dy / len) * 10} y={(a.y + b.y) / 2 - (dx / len) * 10} textAnchor="middle">
@@ -238,8 +349,21 @@ function StateView({ state }: { state?: LearningState }) {
           {Array.from({ length: g.vertices }, (_, v) => {
             const p = position(v)
             return (
-              <g key={v}>
-                <circle cx={p.x} cy={p.y} r="22" />
+              <g
+                key={v}
+                className={
+                  breadthLayout && state.traversal?.distance
+                    ? state.traversal.distance[v] < 0
+                      ? 'bfs-unreachable-vertex'
+                      : 'bfs-discovered-vertex'
+                    : state.weightedExplorer?.current === v
+                      ? 'current-vertex'
+                      : state.weightedExplorer?.visited.includes(v) || state.traversal?.visited.includes(v)
+                        ? 'visited-vertex'
+                        : undefined
+                }
+              >
+                <circle cx={p.x} cy={p.y} r={spacious || traversalLayout ? 26 : 22} />
                 <text x={p.x} y={p.y + 5} textAnchor="middle">
                   {v}
                 </text>
@@ -410,8 +534,37 @@ function Dashboard({ completed }: { completed: string[] }) {
   )
 }
 
+function TraceDisclosure({ compact, children }: { compact: boolean; children: ReactNode }) {
+  return compact ? (
+    <details className="dfs-trace-details">
+      <summary>Algorithm steps & computed result</summary>
+      {children}
+    </details>
+  ) : (
+    <>{children}</>
+  )
+}
+
+function TraceExports({ onExport, onSave, icons = false }: { onExport: (format: 'json' | 'csv') => void; onSave: () => void; icons?: boolean }) {
+  return (
+    <div className="daa-actions daa-trace-exports">
+      <button type="button" onClick={() => onExport('json')}>
+        {icons && <Download size={16} />}Export JSON trace
+      </button>
+      <button type="button" onClick={() => onExport('csv')}>
+        {icons && <FileSpreadsheet size={16} />}Export CSV states
+      </button>
+      <button type="button" onClick={onSave}>
+        {icons && <Save size={16} />}Save experiment locally
+      </button>
+    </div>
+  )
+}
+
 function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; completed: string[]; toggleCompleted: (id: string) => void }) {
   const [traversalView, setTraversalView] = usePersistentState('algodrishti-traversal-view', 'graph', persistentString)
+  const isBfs = lesson.id === 'daa-bfs'
+  const isTraversalStudio = lesson.id === 'daa-dfs' || isBfs
   const isExplorerTraversal = lesson.id === 'daa-bfs' || lesson.id === 'daa-dfs'
   const weightedExplorerMode =
     lesson.id === 'dijkstra' ||
@@ -436,7 +589,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
     [index, setIndex] = useState(0),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(600),
-    [selectedTab, setTab] = useState<LearningTab>('Learn'),
+    [selectedTab, setTab] = useState<LearningTab>(lesson.id === 'dijkstra' || isTraversalStudio ? 'Visualization' : 'Learn'),
     [editorVersion, setEditorVersion] = useState(0),
     [answer, setAnswer] = useState(false)
   const [experiments, setExperimentState] = useState<Experiment[]>(() => {
@@ -501,6 +654,12 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
       )
     }
   }
+  function saveExperiment() {
+    if (usedInput && run)
+      setExperiments((items) =>
+        [{ id: crypto.randomUUID(), lessonId: lesson.id, input: usedInput, run, createdAt: new Date().toISOString() }, ...items].slice(0, 10),
+      )
+  }
   const graphIds = [
     'edmonds-karp',
     'bipartite-matching',
@@ -525,6 +684,8 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
               : designSource
   return (
     <>
+      {lesson.id === 'dijkstra' && <DijkstraHero />}
+      {isBfs ? <BfsHero /> : isTraversalStudio && <DfsHero />}
       <header className="daa-header">
         <span className="daa-eyebrow">
           {lesson.extension ? 'DAA EXTENSION' : 'DAA CORE'} · {lesson.category}
@@ -532,6 +693,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
         <h1>{lesson.title}</h1>
         <p>{lesson.summary}</p>
         <button type="button" onClick={() => toggleCompleted(lesson.id)}>
+          {isBfs && <Bookmark size={13} fill="currentColor" />}
           {completed.includes(lesson.id) ? '✓ Studied — undo' : 'Mark as studied'}
         </button>
       </header>
@@ -543,7 +705,22 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
           <p>A computed example is ready. Explore its steps or change the input.</p>
         </div>
       )}
-      <LessonTabs active={tab} onChange={setTab} tabs={lesson.run ? ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments'] : ['Learn', 'Practice']} />
+      <LessonTabs
+        icons={
+          lesson.id === 'dijkstra' || isTraversalStudio
+            ? {
+                Learn: <BookOpen size={16} />,
+                Visualization: isBfs ? <Eye size={16} /> : <Network size={16} />,
+                Code: <Code2 size={16} />,
+                Practice: isBfs ? <GraduationCap size={16} /> : <PencilLine size={16} />,
+                Experiments: <FlaskConical size={16} />,
+              }
+            : undefined
+        }
+        active={tab}
+        onChange={setTab}
+        tabs={lesson.run ? ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments'] : ['Learn', 'Practice']}
+      />
       {tab === 'Learn' && (
         <section className="daa-card">
           <h2>Concept and worked example</h2>
@@ -577,21 +754,79 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
         <div className="daa-interactive-layout">
           <section className="daa-card daa-input-card">
             <div>
-              <h2>Editable problem input</h2>
+              <h2>{isTraversalStudio && <Settings size={22} />}Editable problem input</h2>
               <p>
-                Zero-based vertices and item indices; k is a one-based selection rank. Edit the named JSON fields, then run. Validation errors appear below.
+                {isBfs
+                  ? 'Zero-based vertices and item indices; edit the fields below, then run. Validation errors appear below.'
+                  : isTraversalStudio
+                    ? 'Create your own graph, edit parameters, and run DFS.'
+                    : lesson.id === 'dijkstra'
+                      ? 'Create your own graph, edit parameters, and run Dijkstra’s algorithm.'
+                      : 'Zero-based vertices and item indices; k is a one-based selection rank. Edit the named JSON fields, then run. Validation errors appear below.'}
               </p>
-              <ProblemEditor key={lesson.id + editorVersion + JSON.stringify(usedInput)} input={draft} onChange={setDraft} />
+              {isBfs && (
+                <select
+                  className="bfs-examples"
+                  aria-label="Load example"
+                  value=""
+                  onChange={(event) => {
+                    const example =
+                      event.target.value === 'default'
+                        ? lesson.defaultInput
+                        : event.target.value === 'branching'
+                          ? {
+                              vertices: 5,
+                              directed: false,
+                              source: 0,
+                              edges: [
+                                { from: 0, to: 1, weight: 1 },
+                                { from: 0, to: 2, weight: 1 },
+                                { from: 1, to: 3, weight: 1 },
+                                { from: 1, to: 4, weight: 1 },
+                              ],
+                            }
+                          : {
+                              vertices: 5,
+                              directed: true,
+                              source: 0,
+                              edges: [
+                                { from: 0, to: 1, weight: 2 },
+                                { from: 1, to: 2, weight: 1 },
+                                { from: 3, to: 4, weight: 1 },
+                              ],
+                            }
+                    setDraft(JSON.stringify(example, null, 2))
+                    setEditorVersion((version) => version + 1)
+                    setError('')
+                  }}
+                >
+                  <option value="" disabled>
+                    Load example
+                  </option>
+                  <option value="default">Default graph</option>
+                  <option value="branching">Undirected branching graph</option>
+                  <option value="disconnected">Disconnected graph</option>
+                </select>
+              )}
+              <ProblemEditor
+                bfsStyle={isBfs}
+                traversalStyle={isTraversalStudio}
+                graphStyle={lesson.id === 'dijkstra'}
+                key={lesson.id + editorVersion + JSON.stringify(usedInput)}
+                input={draft}
+                onChange={setDraft}
+              />
               <details>
                 <summary>Advanced: edit full JSON input</summary>
                 <label htmlFor="daa-input">Problem input (JSON)</label>
                 <textarea id="daa-input" value={draft} spellCheck={false} onChange={(e) => setDraft(e.target.value)} rows={12} />
               </details>
               <div className="daa-actions">
-                <button type="button" onClick={start}>
+                <button aria-label="Run algorithm" type="button" onClick={start}>
                   Run algorithm
                 </button>
                 <button
+                  aria-label="Reset input"
                   type="button"
                   onClick={() => {
                     setDraft(JSON.stringify(lesson.defaultInput, null, 2))
@@ -616,7 +851,11 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     <dt>{key}</dt>
                     <dd>
                       {key === 'edges'
-                        ? 'Array of {from, to, weight}; flow uses weights as capacities.'
+                        ? isBfs
+                          ? 'Array of {from, to, weight}.'
+                          : isTraversalStudio
+                            ? 'List of directed edges (from, to, weight); weights are labels ignored by DFS.'
+                            : 'Array of {from, to, weight}; flow uses weights as capacities.'
                         : key === 'vertices'
                           ? 'Number of vertices (1–8).'
                           : key === 'source'
@@ -637,21 +876,77 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
           </section>
           {run && (
             <section className="daa-card">
-              <h2>Computed timeline</h2>
+              <h2>
+                {isBfs ? <Network size={25} /> : isTraversalStudio && <BarChart3 size={24} />}{' '}
+                {lesson.id === 'dijkstra' || isTraversalStudio ? 'Graph Visualization' : 'Computed timeline'}
+              </h2>
+              {isTraversalStudio && (
+                <div className="dfs-legend">
+                  <span>
+                    {isBfs
+                      ? 'Step through the BFS traversal and see the frontier evolve.'
+                      : 'Step through DFS execution and see how the stack and visited set evolve.'}
+                  </span>
+                  <div>
+                    {isBfs ? (
+                      <>
+                        <i />
+                        Unvisited
+                        <i />
+                        Visited
+                        <i />
+                        Frontier
+                        <i />
+                        Unreachable
+                      </>
+                    ) : (
+                      <>
+                        <i />
+                        Unvisited
+                        <i />
+                        Current node
+                        <i />
+                        Visited
+                        <i />
+                        Pending
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+              {lesson.id === 'dijkstra' && (
+                <div className="dijkstra-legend">
+                  <span>Step through Dijkstra’s algorithm and see how shortest paths are discovered.</span>
+                  <div>
+                    <i /> Unvisited <i /> Current node <i /> Relaxed edge <i /> Visited
+                  </div>
+                </div>
+              )}
               {draft !== JSON.stringify(usedInput, null, 2) && (
                 <p role="status">Input has changed. Run algorithm to update this timeline; the displayed steps still use the previous input.</p>
               )}
-              <div className="daa-actions">
+              <div className="daa-actions daa-transport">
                 <button
+                  aria-label="First"
                   type="button"
                   onClick={() => {
                     setPlaying(false)
                     setIndex(0)
                   }}
                 >
-                  First
+                  {isTraversalStudio ? (
+                    <>
+                      <SkipBack size={15} />
+                      <span>First</span>
+                    </>
+                  ) : lesson.id === 'dijkstra' ? (
+                    <SkipBack size={19} aria-hidden="true" />
+                  ) : (
+                    'First'
+                  )}
                 </button>
                 <button
+                  aria-label="Previous"
                   type="button"
                   disabled={index === 0}
                   onClick={() => {
@@ -659,12 +954,37 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     setIndex((i) => i - 1)
                   }}
                 >
-                  Previous
+                  {isTraversalStudio ? (
+                    <>
+                      <ChevronLeft size={15} />
+                      <span>Previous</span>
+                    </>
+                  ) : lesson.id === 'dijkstra' ? (
+                    <ChevronLeft size={19} aria-hidden="true" />
+                  ) : (
+                    'Previous'
+                  )}
                 </button>
-                <button type="button" disabled={index === last} onClick={() => setPlaying((p) => !p)}>
-                  {playing && index < last ? 'Pause' : 'Play'}
+                <button aria-label={playing && index < last ? 'Pause' : 'Play'} type="button" disabled={index === last} onClick={() => setPlaying((p) => !p)}>
+                  {isTraversalStudio ? (
+                    <>
+                      {playing && index < last ? <Pause size={16} /> : <Play size={16} />}
+                      <span>{playing && index < last ? 'Pause' : 'Play'}</span>
+                    </>
+                  ) : lesson.id === 'dijkstra' ? (
+                    playing && index < last ? (
+                      <Pause size={19} />
+                    ) : (
+                      <Play size={19} />
+                    )
+                  ) : playing && index < last ? (
+                    'Pause'
+                  ) : (
+                    'Play'
+                  )}
                 </button>
                 <button
+                  aria-label="Next"
                   type="button"
                   disabled={index === last}
                   onClick={() => {
@@ -672,16 +992,35 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     setIndex((i) => i + 1)
                   }}
                 >
-                  Next
+                  {isTraversalStudio ? (
+                    <>
+                      <ChevronRight size={15} />
+                      <span>Next</span>
+                    </>
+                  ) : lesson.id === 'dijkstra' ? (
+                    <ChevronRight size={19} aria-hidden="true" />
+                  ) : (
+                    'Next'
+                  )}
                 </button>
                 <button
+                  aria-label="Last"
                   type="button"
                   onClick={() => {
                     setPlaying(false)
                     setIndex(last)
                   }}
                 >
-                  Last
+                  {isTraversalStudio ? (
+                    <>
+                      <SkipForward size={15} />
+                      <span>Last</span>
+                    </>
+                  ) : lesson.id === 'dijkstra' ? (
+                    <SkipForward size={19} aria-hidden="true" />
+                  ) : (
+                    'Last'
+                  )}
                 </button>
                 <label>
                   Speed
@@ -704,9 +1043,16 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     setIndex(Number(e.target.value))
                   }}
                 />
+                {isBfs && (
+                  <span className="bfs-timeline-stops" aria-hidden="true">
+                    {run.steps.map((_, i) => (
+                      <i key={i} className={i <= index ? 'active' : undefined} />
+                    ))}
+                  </span>
+                )}
               </label>
               <p aria-live="polite" className="daa-step-description">
-                {step?.description}
+                {isBfs ? <Info size={18} /> : isTraversalStudio && <Lightbulb size={20} />} {step?.description}
               </p>
               {run.message && (
                 <p role="status" className="daa-error">
@@ -791,42 +1137,30 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                   />
                 </Suspense>
               ) : (
-                <StateView state={step?.state} />
+                <StateView state={step?.state} spacious={lesson.id === 'dijkstra'} traversalLayout={isTraversalStudio} breadthLayout={isBfs} />
               )}
-              <ol className="daa-pseudocode">
-                {lesson.pseudocode.map((line, i) => (
-                  <li key={i} className={step?.type !== 'complete' && step?.pseudocodeLine === i ? 'active' : ''}>
-                    {line}
-                  </li>
-                ))}
-              </ol>
-              <details open={index === last}>
-                <summary>Computed result · {run.status === 'complete' ? 'complete trace' : 'truncated trace'}</summary>
-                <pre className="daa-result">{JSON.stringify(run.result, null, 2)}</pre>
-              </details>
-              <p>
-                Operation counter: {step?.metrics.writes ?? 0} emitted learning events. This is not a comparison count or a complexity proof. Snapshot storage
-                is excluded from the algorithm’s stated space bound.
-              </p>
-              <div className="daa-actions">
-                <button type="button" onClick={() => exportRun('json')}>
-                  Export JSON trace
-                </button>
-                <button type="button" onClick={() => exportRun('csv')}>
-                  Export CSV states
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (usedInput)
-                      setExperiments((items) =>
-                        [{ id: crypto.randomUUID(), lessonId: lesson.id, input: usedInput, run, createdAt: new Date().toISOString() }, ...items].slice(0, 10),
-                      )
-                  }}
-                >
-                  Save experiment locally
-                </button>
-              </div>
+              {isTraversalStudio && <TraceExports icons onExport={exportRun} onSave={saveExperiment} />}
+              <TraceDisclosure compact={isTraversalStudio}>
+                {lesson.id === 'dijkstra' && <h3 className="dijkstra-steps-title">Algorithm Steps</h3>}
+                <ol className="daa-pseudocode">
+                  {lesson.pseudocode.map((line, i) => (
+                    <li key={i} className={step?.type !== 'complete' && step?.pseudocodeLine === i ? 'active' : ''}>
+                      {line}
+                    </li>
+                  ))}
+                </ol>
+                <div className="daa-run-result">
+                  <details open={index === last}>
+                    <summary>Computed result · {run.status === 'complete' ? 'complete trace' : 'truncated trace'}</summary>
+                    <pre className="daa-result">{JSON.stringify(run.result, null, 2)}</pre>
+                  </details>
+                  <p>
+                    Operation counter: {step?.metrics.writes ?? 0} emitted learning events. This is not a comparison count or a complexity proof. Snapshot
+                    storage is excluded from the algorithm’s stated space bound.
+                  </p>
+                  {!isTraversalStudio && <TraceExports onExport={exportRun} onSave={saveExperiment} />}
+                </div>
+              </TraceDisclosure>
             </section>
           )}
           {experiments.some((e) => e.lessonId === lesson.id) && (
@@ -933,10 +1267,22 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 
 export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
   return (
-    <div className="daa-workspace">
+    <div
+      className={`daa-workspace ${module.lessonId === 'dijkstra' ? 'dijkstra-page' : module.lessonId === 'daa-dfs' ? 'dfs-page' : module.lessonId === 'daa-bfs' ? 'dfs-page bfs-page' : ''}`}
+    >
       <div className="daa-top">
-        <Link to="/daa/syllabus-dashboard">← DAA concepts</Link>
-        <Link to="/sorting/bubble-sort">Algorithm visualizer</Link>
+        {['dijkstra', 'daa-dfs', 'daa-bfs'].includes(module.lessonId ?? '') ? (
+          <div className="dijkstra-breadcrumb">
+            <Link to={module.lessonId === 'daa-bfs' ? '/daa/syllabus-dashboard' : '/'}>{module.lessonId === 'daa-bfs' ? '← DAA Concepts' : 'Home'}</Link>
+            <span>›</span>
+            <Link to="/daa/syllabus-dashboard">Graphs</Link>
+            <span>›</span>
+            <strong>{module.lessonId === 'daa-bfs' ? 'Breadth-First Search' : module.lessonId === 'daa-dfs' ? 'Depth-First Search' : 'Dijkstra'}</strong>
+          </div>
+        ) : (
+          <Link to="/daa/syllabus-dashboard">← DAA concepts</Link>
+        )}
+        {!['dijkstra', 'daa-dfs', 'daa-bfs'].includes(module.lessonId ?? '') && <Link to="/sorting/bubble-sort">Algorithm visualizer</Link>}
         <AccountControl />
       </div>
       {module.lessonId === 'dashboard' ? (

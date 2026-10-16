@@ -1,0 +1,943 @@
+.app-shell:has(.dfs-page) {
+  background: #f3f8ff;
+}
+.app-shell:has(.dfs-page) .category-page {
+  padding: 0;
+  background: linear-gradient(120deg, #f3f8ff, #fcfeff);
+}
+.dfs-page {
+  position: relative;
+  isolation: isolate;
+  max-width: 1600px;
+  padding: 14px 22px 24px;
+  color: #102247;
+  --panel: #fff;
+  --text: #102247;
+}
+.dfs-page .daa-top {
+  min-height: 20px;
+  margin-bottom: 14px;
+}
+.dfs-page .daa-top .aimer-account-slot {
+  position: absolute;
+  right: 22px;
+  top: 8px;
+}
+.dfs-page .dijkstra-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.dfs-page .dijkstra-breadcrumb a {
+  text-decoration: none;
+  color: #657fa9;
+}
+.dfs-page .dijkstra-breadcrumb strong {
+  font-weight: 600;
+  color: #23467b;
+}
+.dfs-page .daa-header {
+  min-height: 102px;
+  margin-bottom: 12px;
+  position: relative;
+  pointer-events: none;
+}
+.dfs-page .daa-eyebrow {
+  font-size: 11px;
+  color: #4c6b9f;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+.dfs-page .daa-header h1 {
+  color: #112241;
+  font-size: 38px;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin: 8px 0 4px;
+}
+.dfs-page .daa-header p {
+  font-size: 15px;
+  color: #61799e;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 65%;
+}
+.dfs-page .daa-header > button {
+  pointer-events: auto;
+  position: absolute;
+  left: 365px;
+  top: 29px;
+  font-size: 11px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid #b5d0ff;
+  background: linear-gradient(#f6fbff, #e4f1ff);
+  color: #065aff;
+}
+.dfs-page .daa-header > button::before {
+  content: '✓';
+  font-size: 18px;
+}
+.dfs-hero-art {
+  position: absolute;
+  z-index: -1;
+  inset: 24px 22px auto;
+  height: 134px;
+}
+.dfs-hero-art > svg {
+  position: absolute;
+  right: 70px;
+  width: 75%;
+  height: 100%;
+  opacity: 0.85;
+}
+.dfs-hero-art blockquote {
+  position: absolute;
+  right: 27%;
+  top: 26px;
+  color: #617ca8;
+  padding: 0;
+  border: 0;
+  background: none;
+  margin: 0;
+}
+.dfs-hero-art blockquote::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: #3886ff;
+  margin-top: 8px;
+}
+.dfs-explore {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 17px 21px;
+  text-decoration: none !important;
+  background: linear-gradient(120deg, #e0eeff, #e8f4ff);
+  color: #5276a7 !important;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.dfs-explore > svg {
+  color: #0075ff;
+}
+.dfs-explore strong,
+.dfs-explore b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #123770;
+}
+.dfs-explore b {
+  color: #075bff;
+}
+.dfs-page .lesson-tabs {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 8px 12px !important;
+  background: #ffffffeb;
+  border: 1px solid #edf3ff;
+  border-radius: 14px;
+  box-shadow: 0 3px 14px #3779c608;
+}
+.dfs-page .lesson-tabs button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  min-height: 36px;
+  padding: 8px 18px;
+  font-size: 12px;
+  background: linear-gradient(#fff, #f8fbff);
+  border: 1px solid #dce8ff;
+  border-radius: 8px;
+  color: #122248;
+}
+.dfs-page .lesson-tabs button svg {
+  color: #0070ff;
+}
+.dfs-page .lesson-tabs button:nth-child(4) svg {
+  color: #8e28ed;
+}
+.dfs-page .lesson-tabs button:nth-child(5) svg {
+  color: #ed7b08;
+}
+.dfs-page .lesson-tabs button[aria-pressed='true'] {
+  color: white;
+  background: #0664ff;
+  border-color: #0664ff;
+  box-shadow: 0 4px 10px #096aff20;
+}
+.dfs-page .lesson-tabs button[aria-pressed='true'] svg {
+  color: white;
+}
+.dfs-page .daa-interactive-layout {
+  gap: 14px;
+  align-items: start;
+}
+.dfs-page .daa-card {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #e4efff;
+  border-radius: 14px;
+  background: #ffffffed;
+  box-shadow: 0 3px 15px #4680c608;
+}
+.dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+.dfs-page .daa-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  margin: 0;
+  color: #102244;
+}
+.dfs-page .daa-card h2 > svg {
+  box-sizing: content-box;
+  padding: 7px;
+  border-radius: 50%;
+  background: #e5f0ff;
+  color: #0064ff;
+  flex-shrink: 0;
+}
+.dfs-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: -14px 0 2px 51px;
+  font-size: 11px;
+  color: #6a81a3;
+}
+.dfs-legend > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #264674;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.dfs-legend i {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #4383df;
+  background: #fff;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+.dfs-legend i:nth-of-type(2) {
+  background: #1477ff;
+  border-color: #1477ff;
+}
+.dfs-legend i:nth-of-type(3) {
+  background: #61c887;
+  border-color: #61c887;
+}
+.dfs-legend i:nth-of-type(4) {
+  background: #ff821c;
+  border-color: #ff821c;
+}
+.dfs-page .daa-state,
+.dfs-page .explorer-workbench {
+  grid-row: 3;
+  border: 1px solid #e0ebfd;
+  border-radius: 10px;
+  background: radial-gradient(ellipse at top, #fff, #fbfdff);
+  min-width: 0;
+  padding: 0;
+}
+.dfs-page .daa-graph {
+  height: 340px;
+  max-height: none;
+  color: #7895b7;
+}
+.dfs-page .daa-graph circle {
+  fill: #f8fcff;
+  stroke: #0065ff;
+  stroke-width: 2;
+}
+.dfs-page .daa-graph .visited-vertex circle {
+  fill: #ace0ac;
+  stroke: #079b37;
+}
+.dfs-page .daa-graph text {
+  fill: #0c2b64;
+  stroke: #fff;
+  stroke-width: 3px;
+  font-size: 19px;
+}
+.dfs-page .daa-graph .vertex-label {
+  font-size: 15px;
+}
+.dfs-page .daa-graph .visited-vertex > text:first-of-type {
+  font-weight: 700;
+}
+.dfs-page .daa-transport {
+  grid-row: 4;
+  gap: 8px;
+}
+.dfs-page .daa-transport button {
+  display: flex;
+  gap: 8px;
+  min-height: 36px;
+  padding: 8px 13px;
+  font-size: 11px;
+  color: #204a8d;
+  border: 1px solid #d3e4ff;
+  background: linear-gradient(#fff, #edf5ff);
+}
+.dfs-page .daa-transport button:nth-child(3) {
+  background: #0867ff;
+  border-color: #0867ff;
+  color: white;
+  min-width: 95px;
+}
+.dfs-page .daa-transport label {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 12px;
+  margin: 0 0 0 auto;
+  font-size: 11px;
+}
+.dfs-page .daa-transport select {
+  min-width: 115px;
+  padding: 7px 10px;
+  min-height: 34px;
+  font-size: 11px;
+  border-color: #d3e1f4;
+}
+.dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+  grid-row: 5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.dfs-page input[type='range'] {
+  width: 100%;
+  min-width: 0;
+  accent-color: #006bff;
+  min-height: 24px;
+}
+.dfs-page .daa-step-description {
+  grid-row: 6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin: 0;
+  min-height: 48px;
+  border-left: 3px solid #ff8a21;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #fff5eb, #fff9f4);
+  font-size: 12px;
+  font-weight: 600;
+}
+.dfs-page .daa-step-description svg {
+  box-sizing: content-box;
+  padding: 6px;
+  background: #ffead9;
+  color: #ff871d;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dfs-page .bubble-view-switch {
+  margin: 0;
+  font-size: 10px;
+  grid-row: 2;
+  justify-self: end;
+}
+.dfs-page .bubble-view-switch button {
+  min-height: 26px;
+  padding: 3px 8px;
+  font-size: 10px;
+}
+.dfs-page .daa-trace-exports {
+  grid-row: 7;
+  display: flex;
+  gap: 6px;
+  margin: 0 -14px;
+  padding: 10px 14px 0;
+  border-top: 1px solid #e5effc;
+}
+.dfs-page .daa-trace-exports button {
+  display: flex;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 10px;
+  color: #1c4e91;
+  border: 1px solid #bcd7ff;
+  background: linear-gradient(#f8fcff, #eaf4ff);
+}
+.dfs-page .dfs-trace-details {
+  grid-row: 8;
+  margin: 0;
+  border-top: 1px solid #e5effc;
+  padding-top: 8px;
+  font-size: 11px;
+  color: #5e789f;
+  min-width: 0;
+}
+.dfs-page .dfs-trace-details > summary {
+  cursor: pointer;
+}
+.dfs-page .daa-run-result {
+  display: block;
+}
+.dfs-page .daa-run-result p {
+  font-size: 11px;
+}
+.dfs-page .daa-result {
+  max-height: 230px;
+  overflow: auto;
+  font-size: 12px;
+}
+.dfs-page .daa-input-card {
+  position: static;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  font-size: 12px;
+}
+.dfs-page .daa-input-card h2 {
+  font-size: 17px;
+}
+.dfs-page .daa-input-card h2 + p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #7187a8;
+  margin: 3px 0 18px 35px;
+}
+.dfs-page .daa-field-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+}
+.dfs-page .daa-field-editor > label {
+  margin: 0;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.dfs-page .daa-field-editor input,
+.dfs-page .daa-field-editor select {
+  padding: 5px 10px;
+  min-height: 32px;
+  min-width: 0;
+  width: 100%;
+  font-size: 12px;
+  border-radius: 5px;
+  border-color: #cdddf3;
+}
+.dfs-page .daa-field-editor > label:nth-child(3) {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 135px minmax(0, 1fr);
+  align-items: center;
+}
+.dfs-page .daa-field-editor > label:nth-child(3) input {
+  grid-column: 1;
+}
+.dfs-page .daa-field-editor > label:nth-child(3)::after {
+  content: 'Start vertex; flow sink is the last vertex.';
+  color: #7187a8;
+  font-size: 10px;
+  font-weight: 400;
+  grid-column: 2;
+}
+.dfs-page .daa-field-editor fieldset {
+  grid-column: 1/-1;
+  border: 0;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.dfs-page .daa-field-editor legend {
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+.dfs-page .daa-field-editor fieldset > p {
+  font-size: 10px;
+  line-height: 1.5;
+  color: #7389aa;
+  margin: 3px 0 8px;
+}
+.dfs-page .daa-edge-list {
+  gap: 3px;
+}
+.dfs-page .daa-edge-row {
+  grid-template-columns: 1fr 1fr 1fr 28px;
+  gap: 7px;
+}
+.dfs-page .daa-edge-row label {
+  margin: 0;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.dfs-page .daa-edge-row input {
+  min-height: 25px;
+  height: 25px;
+  padding: 2px 9px;
+}
+.dfs-page .daa-edge-row:not(:first-child) label {
+  font-size: 0;
+  gap: 0;
+}
+.dfs-page .daa-edge-row > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 3px;
+  min-height: 25px;
+  height: 25px;
+  color: #ff2929;
+  background: transparent;
+  border: 0;
+}
+.dfs-page .daa-edge-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+}
+.dfs-page .daa-edge-actions button {
+  min-height: 29px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #075bff;
+  border: 1px solid #b4d0ff;
+  background: linear-gradient(#fff, #e6f2ff);
+}
+.dfs-page .daa-edge-actions .dfs-clear-edges {
+  color: #ed2c3f;
+  border-color: #ffacb3;
+  background: #fff7f7;
+}
+.dfs-page .daa-input-card details {
+  margin: 8px 0;
+  border: 1px solid #e0ebfb;
+  border-radius: 7px;
+  padding: 8px;
+  background: #f8fbff;
+  font-size: 10px;
+  color: #46658f;
+}
+.dfs-page .daa-input-card > div:first-child > .daa-actions {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+.dfs-page .daa-input-card .daa-actions button {
+  min-height: 36px;
+  font-size: 12px;
+  border-color: #b7d3ff;
+  color: #065dff;
+  background: #fbfdff;
+}
+.dfs-page .daa-input-card .daa-actions button:first-child {
+  color: white;
+  background: #0867ff;
+  border-color: #0867ff;
+}
+.dfs-page .daa-input-card .daa-actions button:first-child::before {
+  content: '▶';
+  margin-right: 8px;
+}
+.dfs-page .daa-input-card .daa-actions button:last-child::before {
+  content: '⟳';
+  margin-right: 8px;
+}
+.dfs-page .daa-input-card > div:last-child {
+  border: 1px solid #dfebfc;
+  border-radius: 10px;
+  padding: 12px 12px 12px 38px;
+  background: #f2f8ff;
+  position: relative;
+}
+.dfs-page .daa-input-card > div:last-child::before {
+  content: 'i';
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: #0867ff;
+  color: white;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+}
+.dfs-page .daa-input-card h3 {
+  font-size: 12px;
+  margin: 0 0 6px;
+}
+.dfs-page .daa-input-card dl {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.5;
+  font-family: inherit;
+  color: #4c6993;
+}
+.dfs-page .daa-input-card dl > div {
+  display: block;
+}
+.dfs-page .daa-input-card dt,
+.dfs-page .daa-input-card dd {
+  display: inline;
+  margin: 0;
+  font-family: inherit;
+}
+.dfs-page .daa-input-card dt::after {
+  content: ': ';
+}
+.dfs-page .daa-input-card dd::after {
+  content: '';
+  display: block;
+}
+.dfs-page .daa-input-card > div:last-child > p {
+  display: none;
+}
+.dfs-page input,
+.dfs-page textarea,
+.dfs-page select {
+  min-width: 0;
+}
+@media (min-width: 1100px) {
+  .dfs-page .daa-interactive-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(340px, 1fr);
+  }
+}
+@media (max-width: 1450px) {
+  .dfs-legend {
+    flex-wrap: wrap;
+    margin-top: -9px;
+  }
+  .dfs-legend > div {
+    margin-left: auto;
+  }
+  .dfs-page .daa-transport {
+    gap: 5px;
+  }
+  .dfs-page .daa-transport button {
+    padding: 7px 10px;
+  }
+  .dfs-page .daa-transport label {
+    gap: 7px;
+  }
+  .dfs-page .daa-header > button {
+    left: 355px;
+  }
+}
+@media (max-width: 1099px) {
+  .dfs-page .daa-interactive-layout {
+    display: flex;
+    gap: 14px;
+  }
+  .dfs-explore {
+    display: none;
+  }
+  .dfs-hero-art blockquote {
+    right: 5%;
+  }
+  .dfs-page .daa-input-card {
+    margin-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .dfs-page {
+    padding: 14px 12px 24px;
+  }
+  .dfs-page .daa-top {
+    min-height: 38px;
+    flex-wrap: wrap;
+  }
+  .dfs-page .daa-top .aimer-account-slot {
+    position: static;
+    margin-left: auto;
+  }
+  .dfs-page .daa-header {
+    min-height: 150px;
+  }
+  .dfs-page .daa-header h1 {
+    font-size: 29px;
+  }
+  .dfs-page .daa-header p {
+    max-width: 100%;
+    font-size: 13px;
+  }
+  .dfs-page .daa-header > button {
+    position: static;
+    margin-top: 10px;
+    min-height: 40px;
+  }
+  .dfs-hero-art {
+    top: 90px;
+    height: 145px;
+    right: 0;
+    left: 0;
+    opacity: 0.7;
+  }
+  .dfs-hero-art blockquote {
+    display: none;
+  }
+  .dfs-hero-art > svg {
+    width: 100%;
+    right: 0;
+  }
+  .dfs-page .lesson-tabs {
+    overflow-x: auto;
+  }
+  .dfs-page .lesson-tabs button {
+    min-width: 95px;
+    padding: 8px 12px;
+  }
+  .dfs-page .daa-card {
+    padding: 12px;
+  }
+  .dfs-page .daa-card h2 {
+    font-size: 17px;
+  }
+  .dfs-legend {
+    margin: 0;
+    font-size: 10px;
+  }
+  .dfs-legend > div {
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 5px;
+    font-size: 9px;
+  }
+  .dfs-page .daa-graph {
+    height: 275px;
+  }
+  .dfs-page .daa-graph text {
+    font-size: 25px;
+  }
+  .dfs-page .daa-graph .vertex-label {
+    font-size: 20px;
+  }
+  .dfs-page .daa-transport {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .dfs-page .daa-transport button {
+    flex: 1;
+    min-height: 44px;
+    padding: 6px;
+    font-size: 10px;
+    gap: 4px;
+  }
+  .dfs-page .daa-transport button:nth-child(3) {
+    min-width: 0;
+  }
+  .dfs-page .daa-transport label {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .dfs-page .daa-transport select {
+    min-height: 44px;
+  }
+  .dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .dfs-page .daa-trace-exports {
+    flex-wrap: wrap;
+    margin: 0 -12px;
+    padding: 10px 12px 0;
+  }
+  .dfs-page .daa-trace-exports button {
+    flex: 1;
+    min-height: 44px;
+    font-size: 9px;
+    padding: 5px;
+    gap: 4px;
+  }
+  .dfs-page .daa-input-card h2 + p {
+    margin-left: 0;
+  }
+  .dfs-page .daa-field-editor {
+    gap: 12px;
+  }
+  .dfs-page .daa-field-editor input,
+  .dfs-page .daa-field-editor select,
+  .dfs-page .daa-edge-row > button,
+  .dfs-page .daa-edge-actions button {
+    min-height: 44px;
+    height: auto;
+  }
+  .dfs-page .daa-field-editor > label:nth-child(3) {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+  .dfs-page .daa-input-card .daa-actions button {
+    min-height: 44px;
+  }
+}
+.dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+  position: relative;
+}
+.dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > h2 {
+  grid-row: 1;
+}
+.dfs-page .dfs-legend {
+  grid-row: 2;
+  margin: -17px 0 0 49px;
+  min-height: 18px;
+}
+.dfs-page .dfs-legend > div {
+  position: absolute;
+  top: 62px;
+  right: 14px;
+}
+.dfs-page .bubble-view-switch {
+  position: absolute;
+  top: 15px;
+  right: 14px;
+  grid-area: auto;
+  z-index: 1;
+}
+.dfs-hero-art blockquote {
+  font-family: inherit;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.dfs-explore {
+  top: 28px;
+  padding-block: 11px;
+}
+.dfs-page .daa-top {
+  height: 20px;
+}
+@media (max-width: 1450px) {
+  .dfs-page .dfs-legend {
+    margin: 0;
+    min-height: 32px;
+    padding-bottom: 12px;
+  }
+  .dfs-page .dfs-legend > div {
+    top: 78px;
+  }
+}
+@media (max-width: 700px) {
+  .dfs-page .daa-top {
+    height: auto;
+  }
+  .dfs-page .dfs-legend {
+    margin: 0;
+    min-height: 50px;
+    padding-bottom: 18px;
+  }
+  .dfs-page .dfs-legend > div {
+    top: 99px;
+    left: 12px;
+    right: auto;
+  }
+  .dfs-page .bubble-view-switch {
+    position: static;
+    grid-row: 3;
+    margin: 0;
+    justify-self: start;
+  }
+  .dfs-page .daa-state,
+  .dfs-page .explorer-workbench {
+    grid-row: 4;
+  }
+  .dfs-page .daa-transport {
+    grid-row: 5;
+  }
+  .dfs-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+    grid-row: 6;
+  }
+  .dfs-page .daa-step-description {
+    grid-row: 7;
+  }
+  .dfs-page .daa-trace-exports {
+    grid-row: 8;
+  }
+  .dfs-page .dfs-trace-details {
+    grid-row: 9;
+  }
+}
+.daa-workspace.dfs-page {
+  padding: 14px 22px 24px;
+}
+.dfs-page .daa-top {
+  margin-bottom: 5px;
+}
+.dfs-page .daa-top .aimer-account-slot {
+  right: 202px;
+}
+.dfs-hero-art {
+  top: 14px;
+}
+.dfs-explore {
+  top: 0;
+}
+@media (max-width: 700px) {
+  .daa-workspace.dfs-page {
+    padding: 14px 12px 24px;
+  }
+  .dfs-page .daa-top {
+    margin-bottom: 12px;
+  }
+  .dfs-page .daa-top .aimer-account-slot {
+    position: static;
+  }
+  .dfs-hero-art {
+    top: 90px;
+  }
+}
+.dfs-page .daa-input-card details > summary,
+.dfs-page .dfs-trace-details > summary {
+  min-height: 0;
+  padding: 0;
+}
+.dfs-page .daa-input-card h2 + p {
+  margin-bottom: 10px;
+}
+.dfs-page .daa-step-description {
+  padding: 8px 12px;
+}
+.daa-workspace.dfs-page {
+  padding-bottom: 6px;
+}
+.dfs-page .explorer-workbench {
+  grid-row: 3;
+  min-width: 0;
+}
+@media (min-width: 1451px) {
+  .dfs-page .dfs-legend > div {
+    top: 46px;
+  }
+}
+@media (max-width: 700px) {
+  .dfs-page .explorer-workbench {
+    grid-row: 4;
+  }
+}

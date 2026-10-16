@@ -7,8 +7,15 @@ test('every executable DAA lesson opens with a computed example and editable fie
   await page.setViewportSize({ width: 360, height: 800 })
   for (const module of allModules.filter((item) => item.typedRunner)) {
     await page.goto('/#' + algorithmPath(module))
-    await page.getByRole('button', { name: 'Open visualization & edit data →' }).click()
-    await expect(page.getByRole('heading', { name: 'Computed timeline' }), module.id).toBeVisible()
+    await expect(page.getByRole('heading', { name: module.name, exact: true }), module.id).toBeVisible()
+    await page.getByRole('button', { name: 'Visualization', exact: true }).click()
+    await expect(
+      page.getByRole('heading', {
+        name: ['dijkstra', 'daa-dfs', 'daa-bfs'].includes(module.lessonId ?? '') ? 'Graph Visualization' : 'Computed timeline',
+        exact: true,
+      }),
+      module.id,
+    ).toBeVisible()
     await expect(page.locator('.daa-state'), module.id).toBeVisible()
     await expect(page.locator('.daa-field-editor'), module.id).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), module.id).toBe(true)
@@ -18,7 +25,7 @@ test('every executable DAA lesson opens with a computed example and editable fie
 test('BFS accepts a custom graph and Dijkstra reacts to edge edits', async ({ page }) => {
   for (const id of ['bfs-traversal', 'dijkstra']) {
     await page.goto('/#/graphs/' + id)
-    await page.getByRole('button', { name: 'Open visualization & edit data →' }).click()
+    await page.getByRole('button', { name: 'Visualization', exact: true }).click()
     await page.getByText('Advanced: edit full JSON input', { exact: true }).click()
     await page.getByLabel('Problem input (JSON)').fill(
       JSON.stringify({

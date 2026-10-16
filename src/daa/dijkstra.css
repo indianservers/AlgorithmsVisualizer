@@ -1,0 +1,971 @@
+/* The Dijkstra reference layout is intentionally scoped to this lesson. */
+.app-shell:has(.dijkstra-page) {
+  background: #f4f9ff;
+  color: #0b194c;
+}
+.app-shell:has(.dijkstra-page) .category-page {
+  padding: 0;
+  background: radial-gradient(ellipse at 70% 0%, #fff, #f2f8ff 75%);
+}
+.dijkstra-page {
+  max-width: 1600px;
+  padding: 16px 22px 28px;
+  color: #101e50;
+  position: relative;
+  isolation: isolate;
+  --panel: #fff;
+  --text: #101e50;
+}
+.dijkstra-page .daa-top {
+  margin-bottom: 16px;
+  min-height: 28px;
+}
+.dijkstra-breadcrumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  color: #7186ab;
+}
+.dijkstra-page a {
+  text-decoration: none;
+  color: #466797;
+}
+.dijkstra-breadcrumb strong {
+  color: #0a287b;
+}
+.dijkstra-page .daa-header {
+  min-height: 158px;
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 36px;
+  pointer-events: none;
+}
+.dijkstra-page .daa-header h1 {
+  font-size: 48px;
+  letter-spacing: -1.8px;
+  margin: 7px 0 4px;
+  line-height: 1.12;
+  color: #07133d;
+}
+.dijkstra-page .daa-header p {
+  margin: 0;
+  font-size: 17px;
+  color: #5a739f;
+  max-width: 60%;
+}
+.dijkstra-page .daa-eyebrow {
+  color: #466cb0;
+  letter-spacing: 0.04em;
+  font-size: 12px;
+}
+.dijkstra-page .daa-header > button {
+  position: absolute;
+  left: 225px;
+  top: 25px;
+  pointer-events: auto;
+  background: #075cff;
+  color: white;
+  border-color: #075cff;
+  box-shadow: 0 4px 9px #1264ff25;
+  padding: 10px 19px;
+}
+.dijkstra-page .daa-header > button::before {
+  content: '✓';
+  margin-right: 10px;
+}
+.dijkstra-hero-art {
+  position: absolute;
+  inset: 55px 22px auto;
+  height: 179px;
+  z-index: -1;
+}
+.dijkstra-landscape {
+  position: absolute;
+  width: 78%;
+  right: 70px;
+  height: 100%;
+  opacity: 0.85;
+}
+.dijkstra-hero-art blockquote {
+  position: absolute;
+  left: 57%;
+  top: 17px;
+  font-size: 14px;
+  font-style: italic;
+  color: #647cac;
+  line-height: 1.7;
+  margin: 0;
+}
+.dijkstra-hero-art blockquote::before,
+.dijkstra-hero-art blockquote::after {
+  content: '';
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin: 9px 0;
+  background: #9fc5ff;
+}
+.dijkstra-explore {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px solid white;
+  background: linear-gradient(120deg, #eaf5ffdf, #dceeffef);
+  padding: 22px 28px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.dijkstra-explore strong {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #0736ac;
+}
+.dijkstra-features {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  gap: 24px;
+  font-size: 12px;
+  color: #476491;
+}
+.dijkstra-features span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
+}
+.dijkstra-features svg {
+  width: 27px;
+  height: 27px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #dcf8f1;
+  color: #00ab9e;
+}
+.dijkstra-features span:nth-child(2) svg {
+  background: #ddf4ff;
+  color: #009edc;
+}
+.dijkstra-features span:nth-child(3) svg {
+  background: #e9e9ff;
+  color: #414bff;
+}
+.dijkstra-page .lesson-tabs {
+  background: #fff;
+  border: 1px solid #edf3ff;
+  border-radius: 15px;
+  padding: 10px !important;
+  gap: 7px;
+  margin: 0 0 14px;
+  width: calc((100% - 16px) * 0.68);
+  box-shadow: 0 3px 12px #3276ca08;
+}
+.dijkstra-page .lesson-tabs button {
+  flex: 1;
+  min-width: 0;
+  background: #fbfdff;
+  border: 1px solid #dce8ff;
+  color: #0b1a4e;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 9px;
+}
+.dijkstra-page .lesson-tabs button[aria-pressed='true'] {
+  background: #075cff;
+  border-color: #075cff;
+  color: white;
+  box-shadow: 0 4px 8px #075cff22;
+}
+.dijkstra-page .daa-interactive-layout {
+  grid-template-columns: minmax(0, 2.12fr) minmax(320px, 1fr);
+  gap: 14px;
+}
+.dijkstra-page .daa-card {
+  background: #ffffffeb;
+  border: 1px solid #edf3ff;
+  padding: 16px;
+  margin: 0;
+  box-shadow: 0 3px 16px #3676c908;
+  border-radius: 16px;
+}
+.dijkstra-page .daa-input-card {
+  position: static;
+  margin-top: -77px;
+  font-size: 12px;
+  gap: 10px;
+}
+.dijkstra-page .daa-input-card h2 {
+  font-size: 17px;
+  margin: 0 0 3px;
+}
+.dijkstra-page .daa-input-card h2::before {
+  content: '⚙';
+  color: #075cff;
+  margin-right: 8px;
+}
+.dijkstra-page .daa-input-card h2 + p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #7185a9;
+  margin: 3px 0 12px;
+}
+.dijkstra-page .daa-input-card h3 {
+  font-size: 13px;
+  margin: 0 0 6px;
+}
+.dijkstra-page .daa-input-card > div:last-child {
+  background: #f4f9fd;
+  border: 1px solid #e1ecfa;
+  border-radius: 9px;
+  padding: 12px;
+  color: #58739a;
+}
+.dijkstra-page .daa-input-card dl {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.dijkstra-page .daa-input-card dl > div {
+  display: flex;
+  gap: 4px;
+}
+.dijkstra-page .daa-input-card dt {
+  font-weight: 600;
+}
+.dijkstra-page .daa-input-card dd {
+  margin: 0;
+}
+.dijkstra-page .daa-input-card > div:last-child > p {
+  font-size: 11px;
+  margin: 4px 0;
+}
+.dijkstra-page .daa-field-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+}
+.dijkstra-page .daa-field-editor fieldset {
+  grid-column: 1/-1;
+  padding: 0;
+  margin: 4px 0;
+  border: 0;
+}
+.dijkstra-page .daa-field-editor legend {
+  font-weight: 700;
+  padding: 0;
+}
+.dijkstra-page .daa-field-editor fieldset p {
+  margin: 3px 0 7px;
+  font-size: 11px;
+  color: #7185a9;
+}
+.dijkstra-page .daa-field-editor > label {
+  font-size: 12px;
+  gap: 4px;
+  margin: 0;
+  font-weight: 400;
+}
+.dijkstra-page .daa-edge-list {
+  gap: 3px;
+}
+.dijkstra-page .daa-edge-row {
+  grid-template-columns: 1fr 1fr 1fr 30px;
+  gap: 6px;
+}
+.dijkstra-page .daa-edge-row label {
+  margin: 0;
+  gap: 3px;
+  font-weight: 400;
+  font-size: 11px;
+}
+.dijkstra-page .daa-edge-row:not(:first-child) label {
+  font-size: 0;
+  gap: 0;
+}
+.dijkstra-page .daa-edge-row input {
+  font-size: 12px;
+}
+.dijkstra-page .daa-field-editor input,
+.dijkstra-page .daa-field-editor select {
+  min-height: 30px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  border-color: #d2def0;
+}
+.dijkstra-page .daa-edge-row > button {
+  color: #f24454;
+  background: #fff7f8;
+  border: 0;
+  min-height: 28px;
+  padding: 2px;
+  margin: 0;
+  font-size: 20px;
+}
+.dijkstra-page button {
+  color: #1245b1;
+  border-color: #d4e2f7;
+  background: linear-gradient(#fff, #f3f7fc);
+}
+.dijkstra-page .daa-input-card details {
+  background: #f6faff;
+  border: 1px solid #e1ebfa;
+  border-radius: 7px;
+  padding: 8px;
+  margin: 8px 0;
+}
+.dijkstra-page .daa-input-card .daa-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.dijkstra-page .daa-input-card .daa-actions button {
+  font-size: 12px;
+}
+.dijkstra-page .daa-input-card .daa-actions button:first-child {
+  background: #075cff;
+  color: white;
+  border-color: #075cff;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 9px 12px;
+  align-content: start;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > h2 {
+  grid-column: 1/-1;
+  font-size: 21px;
+  margin: 0;
+}
+.dijkstra-legend {
+  grid-column: 1/-1;
+  color: #7083a5;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.dijkstra-legend > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  margin-left: auto;
+  color: #30486f;
+}
+.dijkstra-legend i {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #6a8cd7;
+  border-radius: 50%;
+  background: #fff;
+}
+.dijkstra-legend i:nth-of-type(2) {
+  background: #075cff;
+  border-color: #075cff;
+}
+.dijkstra-legend i:nth-of-type(3) {
+  background: #ff7429;
+  border-color: #ff7429;
+}
+.dijkstra-legend i:nth-of-type(4) {
+  background: #60c68f;
+  border-color: #60c68f;
+}
+.dijkstra-page .bubble-view-switch {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start;
+}
+.dijkstra-page .daa-state,
+.dijkstra-page .weighted-explorer {
+  grid-column: 1;
+  grid-row: 4;
+  min-width: 0;
+  border: 1px solid #e2edff;
+  border-radius: 12px;
+  padding: 8px;
+  background: radial-gradient(ellipse at top, #fff, #fbfdff);
+}
+.dijkstra-page .daa-graph {
+  height: 315px;
+  max-height: none;
+}
+.dijkstra-page .daa-graph circle {
+  fill: #f8fbff;
+  stroke: #0753dc;
+  stroke-width: 2;
+}
+.dijkstra-page .daa-graph .current-vertex circle {
+  fill: #dfedff;
+  stroke: #0664ff;
+  stroke-width: 3;
+}
+.dijkstra-page .daa-graph .visited-vertex circle {
+  fill: #ddf6e9;
+  stroke: #5bbd88;
+}
+.dijkstra-page .daa-graph text {
+  fill: #0b1a4d;
+  font-size: 17px;
+}
+.dijkstra-page .daa-graph .selected {
+  color: #fa6c24;
+  stroke-width: 3;
+}
+.dijkstra-page .daa-state > .daa-table-scroll {
+  max-height: 110px;
+  overflow: auto;
+  font-size: 11px;
+}
+.dijkstra-page .daa-state .daa-table {
+  margin: 0;
+}
+.dijkstra-page .daa-state .daa-table td,
+.dijkstra-page .daa-state .daa-table th {
+  padding: 4px 7px;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-transport {
+  grid-column: 1;
+  grid-row: 5;
+  gap: 6px;
+}
+.dijkstra-page .daa-actions button {
+  padding: 7px 10px;
+  min-height: 36px;
+  font-size: 11px;
+}
+.dijkstra-page .daa-actions label {
+  margin: 0 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  font-size: 11px;
+  gap: 7px;
+}
+.dijkstra-page .daa-actions select {
+  padding: 7px;
+  min-height: 36px;
+  font-size: 11px;
+}
+.dijkstra-page .daa-actions button:nth-child(3) {
+  background: #075cff;
+  color: white;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+  grid-column: 1;
+  grid-row: 6;
+  margin: 0;
+  font-size: 12px;
+  gap: 4px;
+}
+.dijkstra-page input[type='range'] {
+  accent-color: #075cff;
+  width: 100%;
+  min-height: 20px;
+}
+.dijkstra-page .daa-step-description {
+  grid-column: 1;
+  grid-row: 7;
+  background: #fff5ed;
+  border-left: 3px solid #ff7e30;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+.dijkstra-steps-title {
+  grid-column: 2;
+  grid-row: 3;
+  font-size: 13px;
+  background: #f4f9ff;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #e0ebfb;
+  border-radius: 10px 10px 0 0;
+}
+.dijkstra-page .daa-pseudocode {
+  grid-column: 2;
+  grid-row: 4;
+  margin: -9px 0 0;
+  border: 1px solid #e0ebfb;
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  padding: 12px 10px 12px 35px;
+  font-size: 12px;
+  background: #fbfdff;
+  align-self: stretch;
+}
+.dijkstra-page .daa-pseudocode li {
+  padding: 9px 5px;
+  line-height: 1.5;
+  color: #5d769b;
+}
+.dijkstra-page .daa-pseudocode li.active {
+  color: #0049d5;
+  background: #dff1ff;
+  border-radius: 7px;
+  font-weight: 700;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > details {
+  grid-column: 2;
+  grid-row: 5 / span 2;
+  background: #f5faff;
+  border: 1px solid #e0ebfb;
+  border-radius: 9px;
+  padding: 10px;
+  font-size: 11px;
+  min-width: 0;
+}
+.dijkstra-page .daa-result {
+  font-size: 11px;
+  max-height: 180px;
+  overflow: auto;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > p:not(.daa-step-description) {
+  grid-column: 2;
+  font-size: 10px;
+  color: #7185a9;
+  margin: 0;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-actions:last-child {
+  grid-column: 2;
+  gap: 5px;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-actions:last-child button {
+  flex: 1;
+  font-size: 9px;
+  padding: 6px;
+  background: #edf5ff;
+  color: #0753dc;
+}
+@media (min-width: 1121px) {
+  .app-shell:has(.dijkstra-page) {
+    grid-template-columns: 248px minmax(0, 1fr);
+  }
+}
+@media (max-width: 1400px) and (min-width: 1100px) {
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+    grid-template-columns: minmax(0, 1fr) 180px;
+  }
+  .dijkstra-page .daa-actions label {
+    width: 100%;
+  }
+  .dijkstra-features {
+    gap: 12px;
+    font-size: 10px;
+  }
+  .dijkstra-explore {
+    padding: 16px;
+  }
+  .dijkstra-hero-art blockquote {
+    left: 58%;
+    font-size: 12px;
+  }
+}
+@media (max-width: 1099px) {
+  .dijkstra-page .lesson-tabs {
+    width: 100%;
+  }
+  .dijkstra-page .daa-input-card {
+    margin-top: 0;
+  }
+  .dijkstra-page .daa-interactive-layout {
+    gap: 16px;
+  }
+  .dijkstra-explore {
+    display: none;
+  }
+  .dijkstra-hero-art blockquote {
+    left: auto;
+    right: 10px;
+  }
+}
+@media (max-width: 650px) {
+  .dijkstra-page {
+    padding: 14px 12px;
+  }
+  .dijkstra-page .daa-header {
+    min-height: 206px;
+    padding-bottom: 80px;
+  }
+  .dijkstra-page .daa-header h1 {
+    font-size: 38px;
+  }
+  .dijkstra-page .daa-header p {
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .dijkstra-page .daa-header > button {
+    position: static;
+    margin-top: 12px;
+    font-size: 12px;
+  }
+  .dijkstra-hero-art {
+    inset: 65px 12px auto;
+    height: 210px;
+  }
+  .dijkstra-hero-art blockquote {
+    display: none;
+  }
+  .dijkstra-landscape {
+    width: 100%;
+    right: 0;
+    opacity: 0.4;
+  }
+  .dijkstra-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 9px;
+    bottom: 8px;
+  }
+  .dijkstra-page .lesson-tabs {
+    overflow: auto;
+  }
+  .dijkstra-page .lesson-tabs button {
+    min-width: 85px;
+  }
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+    display: flex;
+    flex-direction: column;
+  }
+  .dijkstra-page .daa-pseudocode {
+    margin-top: -9px;
+  }
+  .dijkstra-page .daa-graph {
+    height: 300px;
+  }
+  .dijkstra-page .daa-input-card input,
+  .dijkstra-page .daa-input-card select,
+  .dijkstra-page .daa-input-card button {
+    min-height: 44px;
+  }
+  .dijkstra-page .daa-actions button {
+    min-height: 44px;
+  }
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-transport {
+    order: 4;
+  }
+  .dijkstra-page .daa-state,
+  .dijkstra-page .weighted-explorer {
+    order: 3;
+  }
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+    order: 5;
+  }
+  .dijkstra-page .daa-step-description {
+    order: 6;
+  }
+  .dijkstra-steps-title,
+  .dijkstra-page .daa-pseudocode {
+    order: 7;
+  }
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > details {
+    order: 8;
+  }
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > p:not(.daa-step-description),
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-actions:last-child {
+    order: 9;
+  }
+}
+.dijkstra-page input,
+.dijkstra-page select,
+.dijkstra-page textarea {
+  min-width: 0;
+  width: 100%;
+}
+.dijkstra-page .daa-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dijkstra-page .lesson-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+.dijkstra-hero-art blockquote {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+}
+.dijkstra-page .daa-input-card dl {
+  font-family: inherit;
+}
+.dijkstra-page .daa-input-card dl > div {
+  display: flex;
+  flex-direction: row;
+}
+.dijkstra-page .daa-input-card dt {
+  min-width: 0;
+}
+.dijkstra-page .daa-input-card fieldset > button {
+  min-height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.dijkstra-page .daa-graph {
+  height: 330px;
+}
+.dijkstra-page .daa-pseudocode {
+  font-family: inherit;
+}
+.dijkstra-page .daa-pseudocode li::marker {
+  color: #075cff;
+  font-weight: 700;
+}
+.dijkstra-page .daa-input-card details summary {
+  font-weight: 600;
+}
+@media (max-width: 650px) {
+  .dijkstra-page .daa-actions select {
+    width: auto;
+    flex: 1;
+  }
+}
+/* Keep the first graph and its controls within the desktop workspace. */
+.dijkstra-page .daa-top {
+  min-height: 24px;
+  height: 24px;
+  margin-bottom: 12px;
+}
+.dijkstra-page .daa-top .aimer-account-slot {
+  position: absolute;
+  right: 22px;
+  top: 10px;
+}
+.dijkstra-page .daa-header {
+  min-height: 146px;
+  margin-bottom: 14px;
+}
+.dijkstra-hero-art {
+  top: 44px;
+  height: 156px;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) {
+  position: relative;
+}
+.dijkstra-page .bubble-view-switch {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 11px;
+}
+.dijkstra-page .bubble-view-switch button {
+  min-height: 30px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+.dijkstra-page .daa-state,
+.dijkstra-page .weighted-explorer {
+  grid-row: 3;
+}
+.dijkstra-page .dijkstra-steps-title {
+  grid-row: 3;
+  align-self: start;
+  z-index: 1;
+}
+.dijkstra-page .daa-pseudocode {
+  grid-row: 3;
+  padding-top: 48px;
+  margin: 0;
+  border-top: 1px solid #e0ebfb;
+  border-radius: 10px;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-transport {
+  grid-row: 4;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > label {
+  grid-row: 5;
+}
+.dijkstra-page .daa-step-description {
+  grid-row: 6;
+}
+.dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > details {
+  grid-row: 4 / span 2;
+}
+.dijkstra-page .daa-input-card > div:last-child > p {
+  display: none;
+}
+.dijkstra-page .daa-input-card dl > div {
+  display: block;
+}
+.dijkstra-page .daa-input-card dt,
+.dijkstra-page .daa-input-card dd {
+  display: inline;
+  font-family: inherit;
+  font-size: 10px;
+}
+.dijkstra-page .daa-input-card dt::after {
+  content: ': ';
+}
+.dijkstra-page .daa-input-card dd::after {
+  content: '';
+  display: block;
+}
+.dijkstra-page .daa-input-card > div:last-child {
+  padding: 10px;
+}
+.dijkstra-page .daa-input-card details {
+  padding: 8px;
+}
+.dijkstra-page .daa-input-card details summary {
+  min-height: 0;
+}
+.dijkstra-page .daa-legend {
+  min-height: 20px;
+}
+.dijkstra-page .daa-input-card .daa-actions button:first-child::before {
+  content: '▶';
+  margin-right: 8px;
+}
+.dijkstra-page .daa-input-card .daa-actions button:last-child::before {
+  content: '⟳';
+  margin-right: 8px;
+}
+.dijkstra-page .daa-field-editor fieldset p {
+  font-size: 10px;
+}
+@media (max-width: 650px) {
+  .dijkstra-page .daa-top {
+    margin-bottom: 16px;
+  }
+  .dijkstra-page .daa-top .aimer-account-slot {
+    position: static;
+  }
+  .dijkstra-page .daa-top {
+    height: auto;
+  }
+  .dijkstra-page .daa-header {
+    min-height: 206px;
+  }
+  .dijkstra-hero-art {
+    top: 92px;
+    height: 210px;
+  }
+  .dijkstra-page .bubble-view-switch {
+    position: static;
+  }
+  .dijkstra-page .daa-pseudocode {
+    padding-top: 12px;
+  }
+  .dijkstra-page .dijkstra-steps-title {
+    margin-bottom: 0;
+  }
+}
+.dijkstra-page .bubble-view-switch {
+  grid-area: auto;
+  z-index: 2;
+}
+@media (max-width: 650px) {
+  .dijkstra-page .daa-interactive-layout > .daa-card:not(.daa-input-card) > .daa-transport {
+    order: 4;
+  }
+  .dijkstra-page .daa-state,
+  .dijkstra-page .weighted-explorer {
+    order: 3;
+  }
+  .dijkstra-page .bubble-view-switch {
+    order: 2;
+  }
+}
+.dijkstra-direction > span {
+  display: block;
+  margin-bottom: 4px;
+}
+.dijkstra-direction > div {
+  display: flex;
+  gap: 6px;
+}
+.dijkstra-page .dijkstra-direction button {
+  flex: 1;
+  padding: 6px;
+  font-size: 11px;
+  min-height: 30px;
+}
+.dijkstra-page .dijkstra-direction button[aria-pressed='true'] {
+  background: #dceeff;
+  border-color: #7aa8ff;
+  color: #003bc6;
+  box-shadow: inset 0 0 0 2px #b9dbff44;
+}
+.dijkstra-page .daa-edge-row > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dijkstra-page .daa-graph .selected text {
+  stroke-width: 3px;
+}
+@media (max-width: 650px) {
+  .dijkstra-page .dijkstra-direction button {
+    min-height: 44px;
+  }
+}
+.daa-run-result {
+  display: contents;
+}
+.dijkstra-page .daa-run-result {
+  grid-column: 2;
+  grid-row: 4 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e0ebfb;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f6faff;
+  min-width: 0;
+}
+.dijkstra-page .daa-run-result details {
+  font-size: 11px;
+}
+.dijkstra-page .daa-run-result p {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #7185a9;
+  margin: 0;
+}
+.dijkstra-page .daa-run-result .daa-actions {
+  gap: 4px;
+}
+.dijkstra-page .daa-run-result button {
+  flex: 1;
+  font-size: 9px;
+  padding: 6px;
+  min-height: 34px;
+  background: #eaf3ff;
+  color: #0753dc;
+}
+.dijkstra-page .daa-graph {
+  height: 315px;
+}
+@media (max-width: 650px) {
+  .dijkstra-page .daa-run-result {
+    order: 8;
+  }
+  .dijkstra-page .daa-run-result button {
+    min-height: 44px;
+  }
+}
+@media (max-width: 650px) {
+  .dijkstra-hero-art {
+    height: 262px;
+  }
+}
+@media (max-width: 360px) {
+  .dijkstra-hero-art {
+    height: 310px;
+  }
+}
