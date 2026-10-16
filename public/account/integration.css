@@ -1,51 +1,329 @@
+/* Scoped integration overrides; account styles cannot reach lesson controls. */
 .aimer-account-slot {
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
-.aimer-account-slot .account-trigger {
-  width: auto;
-  height: auto;
-  min-height: 42px;
+#aimer-account-root {
+  font:
+    16px/1.5 Inter,
+    system-ui,
+    sans-serif;
+  color: #18314d;
 }
-.account-dialog {
+#aimer-account-root *,
+#aimer-account-root *::before,
+#aimer-account-root *::after {
+  box-sizing: border-box;
+}
+#aimer-account-root [hidden],
+.aimer-account-slot [hidden] {
+  display: none !important;
+}
+#aimer-account-root dialog {
+  margin: auto;
+  border: 1px solid #d7e2f1;
+  color: #18314d;
   font-family: Inter, system-ui, sans-serif;
+  overflow: auto;
+  overscroll-behavior: contain;
 }
-.account-dialog a:focus-visible {
-  outline: 3px solid #8db3ff;
-  outline-offset: 3px;
+#aimer-account-root button,
+#aimer-account-root input,
+#aimer-account-root select,
+#aimer-account-root a {
+  font-family: inherit;
+  letter-spacing: normal;
 }
-.account-brand > svg {
-  display: none;
+#aimer-account-root button {
+  cursor: pointer;
+  min-height: 44px;
+  line-height: 1.4;
 }
-.account-brand {
-  background: white;
-}
-#central-login {
-  display: block;
-  margin: 14px 0;
-  color: #215cce;
-  font-size: 12px;
-}
-.account-links a {
-  text-decoration: none;
-}
-.account-dialog button:disabled {
+#aimer-account-root button:disabled {
   cursor: wait;
 }
-.account-dialog #email-submit {
-  background: linear-gradient(105deg, #167cff, #8634ff);
+#aimer-account-root input,
+#aimer-account-root select {
+  font-size: 16px;
+  min-height: 48px;
 }
-.account-dialog img {
-  max-width: 100%;
+#aimer-account-root button svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+#aimer-account-root a:focus-visible,
+#aimer-account-root button:focus-visible,
+#aimer-account-root input:focus-visible,
+#aimer-account-root select:focus-visible {
+  outline: 3px solid #739ce2;
+  outline-offset: 2px;
+}
+#aimer-account-root #account-dialog {
+  width: calc(100% - 20px);
+  max-width: 420px;
+  max-height: calc(100dvh - 20px);
+  padding: 0;
+  display: none;
+  background: #fff;
+  text-align: left;
+  border-radius: 20px;
+  box-shadow: 0 24px 90px #162c4c44;
+}
+#aimer-account-root #account-dialog[open] {
+  display: block;
+}
+#aimer-account-root #account-dialog .signin-content {
+  padding: 52px 22px 20px;
+}
+#aimer-account-root #account-dialog .account-brand,
+#aimer-account-root #account-dialog .account-note {
+  display: none;
+}
+#aimer-account-root #account-dialog h2 {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: #17314f;
+  text-align: left;
+}
+#aimer-account-root #account-dialog #account-description {
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: none;
+  color: #50647e;
+}
+#aimer-account-root #account-dialog .google-login,
+#aimer-account-root #account-dialog .email-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 14px;
+  margin: 10px 0 0;
+  font-size: 15px;
+}
+#aimer-account-root #account-dialog .google-login {
+  border: 1px solid #bed0ec;
+  background: #fff;
+  color: #17314f;
+}
+#aimer-account-root #account-dialog .google-login > span,
+#aimer-account-root .email-toggle > span:nth-child(2) {
+  flex: 1;
+  text-align: left;
+}
+#aimer-account-root #account-dialog #shared-account {
+  margin: 16px 0 0;
+  padding: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+#aimer-account-root #central-login {
+  display: block;
+  margin: 12px 0 0;
+  font-size: 12px;
+  min-height: 44px;
+  align-content: center;
+  color: #215cce;
+  text-decoration: underline;
+}
+#aimer-account-root #auth-status {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #714021;
+  overflow-wrap: anywhere;
+}
+#aimer-account-root #auth-status:empty {
+  display: none;
+}
+#aimer-account-root #auth-back {
+  background: none;
+  border: 0;
+  color: #215cce;
+  padding: 0 0 8px;
+  text-align: left;
+}
+#aimer-account-root #account-dialog[data-auth-view='email'] #account-description,
+#aimer-account-root #account-dialog[data-auth-view='phone'] #account-description,
+#aimer-account-root #account-dialog[data-auth-view='verification'] #account-description,
+#aimer-account-root #account-dialog[data-auth-view='email'] #shared-account,
+#aimer-account-root #account-dialog[data-auth-view='phone'] #shared-account,
+#aimer-account-root #account-dialog[data-auth-view='verification'] #shared-account {
+  display: none;
+}
+#aimer-account-root #signup-fields:not([hidden]) {
+  display: block !important;
+}
+#aimer-account-root #email-form input {
+  font-size: 16px;
+}
+#aimer-account-root .password-field {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#aimer-account-root .password-field #signin-password-error {
+  flex: 0 0 100%;
+}
+#aimer-account-root .password-field #toggle-password {
+  top: 2px;
+  right: 3px;
+  min-height: 44px;
+  min-width: 48px;
+}
+#aimer-account-root .auth-field-error {
+  color: #a92e29 !important;
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+#aimer-account-root .auth-field-error:empty {
+  display: none !important;
+}
+#aimer-account-root #email-form [aria-invalid='true'],
+#aimer-account-root #phone-code[aria-invalid='true'] {
+  border-color: #a92e29;
+}
+#aimer-account-root #email-form .auth-divider {
+  margin: 8px 0;
+}
+#aimer-account-root #phone-country {
+  font-size: 16px;
+}
+#aimer-account-root .phone-input-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+#aimer-account-root .phone-auth {
+  margin-top: 0;
+}
+#aimer-account-root .phone-auth .phone-consent {
+  font-size: 12px;
+  color: #52637d;
+}
+#aimer-account-root #phone-recaptcha {
+  overflow: auto;
+}
+#aimer-account-root #account-dialog .account-privacy {
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: left;
+  margin-top: 12px;
+  color: #52637d;
+}
+#aimer-account-root .account-privacy a {
+  min-height: 44px;
+  padding-top: 12px;
+}
+#aimer-account-root #account-dialog.is-signed-in {
+  max-width: 400px;
+}
+#aimer-account-root #account-dialog.is-signed-in .signin-content {
+  padding-top: 44px;
+}
+#aimer-account-root #account-profile {
+  align-items: center;
+}
+#aimer-account-root .account-links {
+  text-align: left;
+}
+#aimer-account-root .account-links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+#aimer-account-root #onboarding-dialog {
+  max-width: 650px;
+}
+#aimer-account-root .onboarding-layout {
+  display: block;
+  min-height: 0;
+}
+#aimer-account-root .onboarding-story {
+  display: none;
+}
+#aimer-account-root .onboarding-content {
+  padding: 26px 20px 20px;
+}
+#aimer-account-root #onboarding-dialog #onboarding-title {
+  font-size: 30px;
+  line-height: 1.2;
+}
+#aimer-account-root #onboarding-dialog .interest-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+#aimer-account-root #onboarding-dialog .interest-card {
+  min-height: 112px;
+}
+#aimer-account-root .interest-card input {
+  min-height: 0;
+}
+#aimer-account-root #onboarding-dialog .onboarding-close,
+#aimer-account-root #account-close {
+  position: sticky;
+  float: right;
+  top: 6px;
+  margin: 8px 8px -48px 0;
+  width: 44px;
+  height: 44px;
+  z-index: 5;
+}
+#aimer-account-root #onboarding-dialog .onboarding-close {
+  position: absolute;
+  top: 12px;
+  margin: 0;
+}
+body:has(#aimer-account-root dialog[open]) {
+  overflow: hidden;
+}
+.home-header .aimer-account-slot .account-trigger,
+.topbar .aimer-account-slot .account-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  min-height: 44px;
+  padding: 7px 12px 7px 8px;
+  border: 1px solid #bed4ff;
+  border-radius: 100px;
+  background: #edf4ff;
+  color: #174aaf;
+  font:
+    13px Inter,
+    system-ui,
+    sans-serif;
+}
+.aimer-account-slot .account-avatar {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.aimer-account-slot .account-avatar svg,
+.aimer-account-slot .account-arrow {
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 600px) {
+  #aimer-account-root .phone-input-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  #aimer-account-root #onboarding-dialog .interest-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 @media (max-width: 700px) {
-  .home-header {
-    flex-wrap: wrap;
-  }
-  .topbar {
-    flex-wrap: wrap;
-  }
+  .home-header,
+  .topbar,
   .top-actions {
     flex-wrap: wrap;
   }
@@ -56,22 +334,58 @@
     max-width: 110px;
   }
 }
-.account-dialog h2 {
-  display: block;
-}
-.home-header .aimer-account-slot .account-trigger,
-.topbar .aimer-account-slot .account-trigger {
-  display: flex;
-  border-radius: 100px;
-  background: linear-gradient(135deg, #f0f7ff, #e8edff);
-  color: #174aaf;
-  border: 1px solid #bed4ff;
-  padding: 7px 13px 7px 8px;
-  min-height: 44px;
-}
 @media (max-width: 680px) {
   .topbar .top-actions .aimer-account-slot {
     grid-column: 1/-1;
     justify-self: end;
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  #aimer-account-root *,
+  #aimer-account-root *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.aimer-account-slot .account-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  min-height: 44px;
+  padding: 7px 12px 7px 8px;
+  border: 1px solid #bed4ff;
+  border-radius: 100px;
+  background: #edf4ff;
+  color: #174aaf;
+  font:
+    13px Inter,
+    system-ui,
+    sans-serif;
+}
+.daa-top .aimer-account-slot {
+  margin-left: auto;
+}
+@media (max-width: 360px) {
+  .topbar .view-switch {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .topbar .view-switch button {
+    padding-inline: 6px;
+  }
+}
+@media (max-width: 1000px) {
+  .topbar,
+  .top-actions {
+    flex-wrap: wrap;
+  }
+  .top-actions {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+#aimer-account-root .account-privacy a {
+  margin-inline-start: 4px;
 }

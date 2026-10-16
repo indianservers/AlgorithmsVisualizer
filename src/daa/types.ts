@@ -34,6 +34,40 @@ export type DaaInput = {
 }
 export type Cell = number | string | boolean | null
 export type LearningState = {
+  networkStudy?: {
+    phase: 'ready' | 'remove' | 'release' | 'forward' | 'finish' | 'transpose' | 'group' | 'summary'
+    order: number[]
+    frontier: number[]
+    degrees?: number[]
+    groups?: number[][]
+    finishOrder?: number[]
+    reversed?: boolean
+    blocked?: number[]
+  }
+  routeStudy?: {
+    phase: 'start' | 'pass' | 'check' | 'summary'
+    pass: number
+    from?: number
+    to?: number
+    via?: number
+    before?: Cell
+    candidate?: Cell
+    improved?: boolean
+    affected?: number[]
+    negativeCycle?: boolean
+  }
+  weightedExplorer?: {
+    current: number
+    action: 'start' | 'settle' | 'relax' | 'accept' | 'reject'
+    edge?: number
+    accepted: number[]
+    visited: number[]
+    distances?: (number | null)[]
+    frontier?: number[]
+    components?: number[]
+    cost: number
+  }
+  traversal?: { current: number; frontier: number[]; visited: number[]; path: number[]; parent: number[]; distance?: number[] }
   activeIndices?: number[]
   matrices?: { label: string; values: Cell[][] }[]
   labels?: string[]

@@ -1,450 +1,533 @@
-import { readSessionResponse } from './session-response.mjs'
-import { getProfile, updateProfile, safeReturnTo, photo } from './account-client.mjs'
-let auth, firebase, initialization
-async function initializeFirebase() {
-  if (!initialization)
-    initialization = (async () => {
-      const [appSDK, authSDK] = await Promise.all([
+import { setupPhoneInput } from './phone-input.mjs?v=20261016-2'
+import { accountRequest, getProfile, updateProfile } from './account-client.mjs?v=20261016-2'
+const $ = (selector) => document.querySelector(selector)
+const dialog = $('#account-dialog'),
+  onboarding = $('#onboarding-dialog'),
+  status = $('#auth-status'),
+  phoneInput = setupPhoneInput()
+let currentUser = null,
+  busy = false,
+  refreshing = false,
+  pendingVerification = null,
+  confirmation = null,
+  verifier = null,
+  resendAt = 0,
+  timer,
+  firebase,
+  method = 'methods',
+  emailMode = 'signin',
+  lastAttempt = 'refresh',
+  ownerVersion = 0
+const deferredOnboarding = new Set()
+const config = {
+  apiKey: 'AIzaSyDKiPMjAuHqmFFm1l6tW3YMCkF7xQlsoMw',
+  authDomain: 'mlvisualizationsaimersweb.firebaseapp.com',
+  projectId: 'mlvisualizationsaimersweb',
+  storageBucket: 'mlvisualizationsaimersweb.firebasestorage.app',
+  messagingSenderId: '593351107909',
+  appId: '1:593351107909:web:e2ba110eb27a8ef6830a2c',
+}
+async function sdk() {
+  if (!firebase)
+    firebase = (async () => {
+      const [{ initializeApp }, f] = await Promise.all([
         import('https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js'),
         import('https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js'),
       ])
-      firebase = authSDK
-      auth = firebase.getAuth(
-        appSDK.initializeApp({
-          apiKey: 'AIzaSyDKiPMjAuHqmFFm1l6tW3YMCkF7xQlsoMw',
-          authDomain: 'mlvisualizationsaimersweb.firebaseapp.com',
-          projectId: 'mlvisualizationsaimersweb',
-          storageBucket: 'mlvisualizationsaimersweb.firebasestorage.app',
-          messagingSenderId: '593351107909',
-          appId: '1:593351107909:web:e2ba110eb27a8ef6830a2c',
-        }),
-      )
-      await firebase.setPersistence(auth, firebase.inMemoryPersistence)
+      const auth = f.getAuth(initializeApp(config))
+      await f.setPersistence(auth, f.inMemoryPersistence)
+      return { ...f, auth }
     })().catch((error) => {
-      initialization = null
+      firebase = null
       throw error
     })
-  return initialization
+  return firebase
 }
-const signOut = () => (auth ? firebase.signOut(auth) : Promise.resolve())
-const signInWithPopup = (...args) => firebase.signInWithPopup(...args)
-const createUserWithEmailAndPassword = (...args) => firebase.createUserWithEmailAndPassword(...args)
-const signInWithEmailAndPassword = (...args) => firebase.signInWithEmailAndPassword(...args)
-const sendEmailVerification = (...args) => firebase.sendEmailVerification(...args)
-const sendPasswordResetEmail = (...args) => firebase.sendPasswordResetEmail(...args)
-const updateFirebaseProfile = (...args) => firebase.updateProfile(...args)
-const reload = (...args) => firebase.reload(...args)
-const validatePassword = (...args) => firebase.validatePassword(...args)
-const button = document.querySelector('#google-login')
-const logout = document.querySelector('#google-logout')
-const status = document.querySelector('#auth-status')
-let currentUser
-let busy = false
-let emailMode = 'signin',
-  pendingVerification = null,
-  pendingMobile = ''
-let lastAttempt = 'google'
-
-window.addEventListener('aimer-profile', (e) => {
-  if (currentUser?.uid === e.detail.uid) render({ ...currentUser, name: e.detail.name, picture: e.detail.picture })
-})
+async function clearClient() {
+  if (firebase) {
+    const f = await firebase.catch(() => null)
+    if (f) await f.signOut(f.auth).catch(() => {})
+  }
+}
+function fieldError(id, message = '') {
+  const field = $('#' + id)
+  field.setAttribute('aria-invalid', String(!!message))
+  $('#' + id + '-error').textContent = message
+}
+function clearErrors() {
+  for (const id of ['signup-name', 'signin-email', 'signin-password', 'phone-code']) fieldError(id)
+}
+function message(text) {
+  status.textContent = text
+  $('#auth-retry').hidden = true
+}
+function cooldown() {
+  const seconds = Math.max(0, Math.ceil((resendAt - Date.now()) / 1000))
+  $('#phone-resend').disabled = busy || seconds > 0
+  $('#phone-resend').textContent = seconds ? `Resend in ${seconds}s` : 'Resend code'
+}
+function clearVerifier() {
+  verifier?.clear()
+  verifier = null
+  $('#phone-recaptcha').replaceChildren()
+}
+function resetPhone() {
+  clearVerifier()
+  confirmation = null
+  clearInterval(timer)
+  $('#phone-number-form').hidden = false
+  $('#phone-code-form').hidden = true
+  $('#phone-code').value = ''
+  cooldown()
+}
+function view(next) {
+  method = next
+  dialog.dataset.authView = next
+  $('#email-auth').hidden = next !== 'email'
+  $('#phone-auth').hidden = next !== 'phone'
+  $('#email-verification').hidden = next !== 'verification'
+  for (const id of ['google-login', 'email-toggle', 'phone-toggle']) $('#' + id).hidden = !!currentUser || next !== 'methods'
+  $('#auth-back').hidden = !!currentUser || next === 'methods' || next === 'verification'
+  $('#email-toggle').setAttribute('aria-expanded', String(next === 'email'))
+  $('#phone-toggle').setAttribute('aria-expanded', String(next === 'phone'))
+}
+async function showProfile(user) {
+  const { photo } = await import('./account-client.mjs?v=20261016-2')
+  if (user?.uid !== currentUser?.uid) return
+  if (user) {
+    photo($('.account-avatar'), user)
+    photo($('#profile-initial'), user)
+  }
+}
 function render(user) {
-  const changed = currentUser?.uid !== user?.uid || currentUser === undefined
-  if (currentUser?.uid && currentUser.uid !== user?.uid) document.querySelector('#onboarding-dialog').close()
+  const changed = currentUser?.uid !== user?.uid
+  if (changed) {
+    ownerVersion++
+    onboarding.close()
+    pendingVerification = null
+    resetPhone()
+    clearClient()
+    clearErrors()
+  }
   currentUser = user
-  const trigger = document.querySelector('#account-trigger')
-  trigger.classList.toggle('is-signed-in', Boolean(user))
-  trigger.setAttribute('aria-label', user ? `Account: ${user.name || user.email || 'Signed in'}` : 'Continue to login')
-  document.querySelector('#account-label').textContent = user ? (user.name || 'My account').split(' ')[0] : 'Continue to login'
-  const avatar = trigger.querySelector('.account-avatar')
-  if (user) avatar.textContent = (user.name || user.email || 'A').slice(0, 1).toUpperCase()
-  else
-    avatar.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg>'
-  if (user) {
-    photo(avatar, user)
-    photo(document.querySelector('#profile-initial'), user)
-  }
-  document.querySelector('#account-title').innerHTML = user ? 'Welcome to AIMER.' : 'A little curiosity.<br>Endless possibilities.'
-  document.querySelector('#account-description').textContent = user
-    ? 'You’re signed in. Let’s explore something new.'
-    : 'Sign in with Google or your email. Your next discovery starts here.'
-  document.querySelector('#account-profile').hidden = !user
-  document.querySelector('#profile-name').textContent = user?.name || ''
-  document.querySelector('#profile-email').textContent = user?.email || ''
-  if (user) photo(document.querySelector('#profile-initial'), user)
-  else document.querySelector('#profile-initial').textContent = ''
-  button.hidden = Boolean(user)
-  button.disabled = false
-  logout.hidden = !user
-  document.querySelector('#account-links').hidden = !user
-  document.querySelector('#shared-account').hidden = Boolean(user)
-  document.querySelector('#email-toggle').hidden = Boolean(user) || Boolean(pendingVerification)
-  if (user) {
-    document.querySelector('#email-auth').hidden = true
-    document.querySelector('#email-verification').hidden = true
-  }
+  dialog.classList.toggle('is-signed-in', !!user)
+  $('#account-trigger').classList.toggle('is-signed-in', !!user)
+  $('#account-trigger').setAttribute('aria-label', user ? `Account: ${user.name || 'My account'}` : 'Continue to login')
+  $('#account-label').textContent = user ? user.name?.trim().split(/\s+/)[0] || 'My account' : 'Continue to login'
+  $('#account-title').textContent = user ? 'Your AIMER account' : 'Welcome to AIMER Society'
+  $('#account-description').textContent = 'Choose how you’d like to continue. Learning is always open to guests.'
+  $('#profile-name').textContent = user?.name || 'AIMER learner'
+  $('#profile-email').textContent = user?.email || (user?.signInMethod === 'phone' ? 'Signed in with phone' : '')
+  $('#account-profile').hidden = !user
+  $('#account-links').hidden = !user
+  $('#google-logout').hidden = !user
+  $('#shared-account').hidden = !!user
+  $('#central-login').hidden = !!user
+  if (!user) {
+    $('.account-avatar').textContent = 'A'
+    $('#profile-initial').textContent = ''
+  } else showProfile(user)
+  if (changed || user) view('methods')
   if (changed) window.dispatchEvent(new CustomEvent('aimer-account', { detail: user }))
 }
-async function session(method = 'GET', idToken) {
-  const response = await fetch('https://tools.aimersociety.com/api/session', {
-    method,
-    credentials: 'include',
-    cache: 'no-store',
-    ...(method === 'POST' ? { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken }) } : {}),
-  })
-  if (response.status === 401) {
-    render(null)
-    throw new Error('Your session expired. Please sign in again.')
-  }
-  return readSessionResponse(response)
+function lock(value) {
+  busy = value
+  dialog.setAttribute('aria-busy', String(value))
+  for (const el of dialog.querySelectorAll('button,input,select')) if (el.id !== 'account-close') el.disabled = value
+  cooldown()
 }
-function emailBusy(value) {
-  document.querySelector('#email-auth').setAttribute('aria-busy', String(value))
-  for (const el of document.querySelectorAll('#email-auth button,#email-auth input,#email-toggle,#email-verification button')) el.disabled = value
+const errors = {
+  'auth/popup-closed-by-user': 'Sign-in cancelled. Choose a method to try again.',
+  'auth/popup-blocked': 'Allow pop-ups for this site, or continue on AIMER Tools.',
+  'auth/unauthorized-domain': 'Direct sign-in is not configured for this website yet. Continue on AIMER Tools.',
+  'auth/invalid-credential': 'We couldn’t sign you in. Check your email and password, or use your original sign-in method.',
+  'auth/wrong-password': 'We couldn’t sign you in. Check your email and password, or use your original sign-in method.',
+  'auth/user-not-found': 'We couldn’t sign you in. Check your email and password, or use your original sign-in method.',
+  'auth/email-already-in-use': 'Unable to create this account. Try signing in or requesting a password reset.',
+  'auth/account-exists-with-different-credential': 'Use your original sign-in method. Accounts are not linked automatically.',
+  'auth/too-many-requests': 'Too many attempts. Wait a few minutes before trying again.',
+  'auth/invalid-verification-code': 'That code is incorrect. Check the SMS and try again.',
+  'auth/code-expired': 'This code expired. Resend a code or change the number.',
+  'auth/session-expired': 'This code expired. Resend a code or change the number.',
+  'auth/captcha-check-failed': 'Security check expired. Complete reCAPTCHA again to request a code.',
+  'auth/quota-exceeded': 'The SMS quota is temporarily unavailable. Use Google or email, or try later.',
+  'auth/billing-not-enabled': 'SMS is unavailable due to the provider’s billing configuration. Use Google or email.',
+  'auth/network-request-failed': 'Connection interrupted. Check your internet and try again.',
+  'auth/requires-recent-login': 'Your verification took longer than the secure sign-in window. Sign in again to finish.',
 }
-function mobileValue(value) {
-  const normalized = value.replace(/[ ()-]/g, '')
-  if (normalized && !/^\+[1-9]\d{7,14}$/.test(normalized)) throw new Error('Enter a mobile number with country code, such as +91 98765 43210.')
-  return normalized
+function failure(error) {
+  const text =
+    errors[error.code] ||
+    (error.code === 'auth/operation-not-allowed'
+      ? lastAttempt === 'phone'
+        ? 'SMS may be restricted for the selected country or by the provider configuration. Last verified region policy allowed India only. Try Google or email.'
+        : 'This sign-in method is unavailable. Try another method.'
+      : error.code?.startsWith('auth/')
+        ? 'Sign-in could not complete. Try again.'
+        : error.message || 'The account service is unavailable. Try again.')
+  message(text)
+  $('#auth-retry').hidden = false
+  if (lastAttempt === 'email') fieldError(error.code === 'auth/invalid-email' ? 'signin-email' : 'signin-password', text)
+  if (lastAttempt === 'phone' && confirmation) fieldError('phone-code', text)
 }
-async function completeLogin(user) {
-  if (!user.emailVerified) throw new Error('Verify your email before signing in.')
-  render(await session('POST', await user.getIdToken(true)))
-  pendingVerification = null
-  await signOut(auth)
-  if (pendingMobile) {
-    try {
-      await updateProfile({ mobileNumber: pendingMobile }, user.uid)
-      pendingMobile = ''
-    } catch {
-      status.textContent = 'Signed in. Add your optional mobile number in your profile.'
+async function action(attempt, task) {
+  if (busy) return
+  lastAttempt = attempt
+  lock(true)
+  clearErrors()
+  message('Connecting securely…')
+  try {
+    await task()
+  } catch (error) {
+    failure(error)
+  } finally {
+    lock(false)
+    if (!pendingVerification && !confirmation) await clearClient()
+    if (dialog.open) {
+      const invalid = dialog.querySelector('[aria-invalid="true"]')
+      if (invalid) invalid.focus()
+      else if (confirmation && method === 'phone') $('#phone-code').focus()
     }
   }
-  status.textContent = 'Signed in to AIMER Society.'
-  document.querySelector('#account-dialog').close()
-  await loadCommonProfile()
 }
-function authError(error) {
-  const messages = {
-    'auth/popup-closed-by-user': 'Sign-in cancelled. You can try again.',
-    'auth/popup-blocked': 'Allow pop-ups for this site, then try again.',
-    'auth/operation-not-allowed': 'This sign-in method must be enabled in Firebase.',
-    'auth/unauthorized-domain': 'This website needs to be authorized in Firebase.',
-    'auth/invalid-credential': 'We couldn’t sign you in. Check your email and password, or try Google.',
-    'auth/wrong-password': 'We couldn’t sign you in. Check your email and password, or try Google.',
-    'auth/user-not-found': 'We couldn’t sign you in. Check your email and password, or try Google.',
-    'auth/email-already-in-use': 'Unable to create this account. Try signing in, Google, or password reset.',
-    'auth/account-exists-with-different-credential': 'Try your original sign-in method to access this account.',
-    'auth/weak-password': 'Choose a stronger password that meets the password requirements.',
-    'auth/invalid-email': 'Enter a valid email address.',
-    'auth/too-many-requests': 'Too many attempts. Please wait a few minutes before trying again.',
-    'auth/network-request-failed': 'Connection interrupted. Check your internet and try again.',
+async function commonProfile(auto = false) {
+  const uid = currentUser?.uid,
+    version = ownerVersion
+  if (!uid) return
+  const p = await getProfile()
+  if (version !== ownerVersion || p.uid !== uid || currentUser?.uid !== uid) return
+  render({ ...currentUser, name: p.name, picture: p.picture, signInMethod: p.signInMethod || currentUser.signInMethod })
+  if (auto && !p.onboardingComplete && !deferredOnboarding.has(uid)) {
+    deferredOnboarding.add(uid)
+    dialog.close()
+    window.aimerOnboarding.open(p)
   }
-  status.textContent = messages[error.code] || (error.code?.startsWith('auth/') ? 'Sign-in could not complete. Please try again.' : error.message)
-  document.querySelector('#auth-retry').hidden = false
-  if (document.querySelector('#account-dialog').open) status.scrollIntoView({ block: 'nearest' })
+  return p
 }
-button.addEventListener('click', async () => {
-  if (busy) return
-  busy = true
-  lastAttempt = 'google'
-  pendingMobile = ''
-  emailBusy(true)
-  button.disabled = true
-  status.textContent = 'Connecting to Google…'
-  button.classList.add('is-loading')
-  button.querySelector('span').textContent = 'Connecting to Google…'
-  document.querySelector('#auth-retry').hidden = true
+async function completeLogin(user) {
+  if (user.providerData?.some((p) => p.providerId === 'password' || p.providerId === 'google.com') && !user.emailVerified)
+    throw new Error('Verify your email before finishing sign-in.')
+  const { user: sessionUser } = await accountRequest('/api/session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: await user.getIdToken(true) }),
+  })
+  if (!sessionUser?.uid) throw new Error('The shared session was not created. Try signing in again.')
+  pendingVerification = null
+  confirmation = null
+  render(sessionUser)
+  await clearClient()
+  message('Signed in to AIMER Society.')
+  dialog.close()
   try {
-    await initializeFirebase()
-    const result = await signInWithPopup(auth, new firebase.GoogleAuthProvider())
-    status.textContent = 'Signing you in…'
-    button.querySelector('span').textContent = 'Signing you in…'
-    await completeLogin(result.user)
+    await commonProfile(true)
   } catch (error) {
-    authError(error)
-  } finally {
-    await signOut(auth).catch(() => {})
-    button.disabled = false
-    busy = false
-    emailBusy(false)
-    button.classList.remove('is-loading')
-    button.querySelector('span').textContent = 'Continue with Google'
+    message('You’re signed in, but your profile could not load. Open your account and try again.')
+    failure(error)
   }
-})
-logout.addEventListener('click', async () => {
-  if (busy) return
-  busy = true
-  logout.disabled = true
-  try {
-    await session('DELETE')
-    await signOut(auth)
-    render(null)
-    status.textContent = 'Signed out.'
-  } catch (error) {
-    status.textContent = error.message
-  } finally {
-    logout.disabled = false
-    busy = false
-  }
-})
-let refreshing = false
+}
 async function refresh() {
-  if (busy || refreshing) return
+  if (busy || refreshing || pendingVerification || confirmation || method === 'phone' || method === 'email') return
   refreshing = true
+  const version = ownerVersion
   try {
-    const user = await session()
-    if (busy) return
+    const { user } = await accountRequest('/api/session')
+    if (busy || version !== ownerVersion) return
     render(user)
-    status.textContent = ''
-    if (currentUser) await loadCommonProfile()
+    message('')
+    if (user) await commonProfile(false)
   } catch (error) {
-    status.textContent = error.message
-    document.querySelector('#auth-retry').hidden = false
+    if (error.status === 401) render(null)
+    failure(error)
   } finally {
     refreshing = false
   }
 }
-
-document.querySelector('#auth-retry').addEventListener('click', () => {
-  if (busy) return
-  if (pendingVerification) document.querySelector('#check-verification').click()
-  else if (lastAttempt === 'reset') document.querySelector('#forgot-password').click()
-  else if (lastAttempt === 'email') document.querySelector('#email-form').requestSubmit()
-  else refresh()
-})
-window.addEventListener('aimer-session-expired', () => {
-  render(null)
-  document.querySelector('#onboarding-dialog').close()
-  status.textContent = 'Your session expired. Sign in again to access your AIMER account.'
-  document.querySelector('#account-trigger').click()
-})
-const onboarding = document.querySelector('#onboarding-dialog')
-window.addEventListener('aimer-onboarding', (e) => {
-  const profile = { ...e.detail, mobileNumber: e.detail.mobileNumber || pendingMobile || '' }
-  if (currentUser?.uid === profile.uid && !onboarding.open && !busy) window.aimerOnboarding.open(profile)
-  else if (busy)
-    setTimeout(() => {
-      if (currentUser?.uid === profile.uid && !onboarding.open) window.aimerOnboarding.open(profile)
-    }, 250)
-})
-document.querySelector('#personalize-learning').addEventListener('click', async () => {
-  const control = document.querySelector('#personalize-learning')
-  control.disabled = true
-  try {
-    const profile = await getProfile()
-    document.querySelector('#account-dialog').close()
-    window.aimerOnboarding.open(profile)
-  } catch (error) {
-    status.textContent = error.message
-  } finally {
-    control.disabled = false
-  }
-})
-async function finishOnboarding(skip) {
-  const owner = onboarding.dataset.accountUid
-  if (!owner || currentUser?.uid !== owner) {
-    onboarding.close()
-    status.textContent = 'Your account changed. Open personalization again.'
-    return
-  }
-  const controls = [...onboarding.querySelectorAll('button')]
-  controls.forEach((b) => (b.disabled = true))
-  try {
-    const skipInterests = skip && onboarding.dataset.step === '1'
-    await updateProfile(
-      {
-        ...(skip ? {} : { mobileNumber: mobileValue(document.querySelector('#onboarding-mobile').value) }),
-        interests: skipInterests
-          ? JSON.parse(onboarding.dataset.originalInterests || '[]')
-          : [...onboarding.querySelectorAll('.interest-card input:checked')].map((i) => i.value).filter((value) => value !== 'all'),
-        onboardingComplete: true,
-      },
-      owner,
-    )
-    onboarding.close()
-    // Keep the current learning route.
-  } catch (error) {
-    document.querySelector('#onboarding-status').textContent = error.message
-  } finally {
-    controls.forEach((b) => (b.disabled = false))
-  }
-}
-document.querySelector('#onboarding-save').addEventListener('click', () => finishOnboarding(false))
-document.querySelector('#onboarding-skip').addEventListener('click', () => finishOnboarding(true))
-const emailForm = document.querySelector('#email-form')
-function setEmailMode(mode) {
-  emailMode = mode
-  document.querySelector('#signup-fields').hidden = mode !== 'signup'
-  document.querySelector('#signup-name').required = mode === 'signup'
-  document.querySelector('#signin-password').minLength = mode === 'signup' ? 8 : 1
-  document.querySelector('#signin-password').autocomplete = mode === 'signup' ? 'new-password' : 'current-password'
-  document.querySelector('#password-help').hidden = mode !== 'signup'
-  document.querySelector('#email-submit').textContent = mode === 'signup' ? 'Create account →' : 'Sign in with email →'
-  document.querySelector('#forgot-password').hidden = mode === 'signup'
-  document.querySelector('#email-signin-tab').setAttribute('aria-pressed', mode === 'signin')
-  document.querySelector('#email-signup-tab').setAttribute('aria-pressed', mode === 'signup')
-}
-function verificationView(user) {
-  pendingVerification = user
-  document.querySelector('#email-auth').hidden = true
-  document.querySelector('#email-toggle').hidden = true
-  document.querySelector('#email-verification').hidden = false
-  button.hidden = true
-  document.querySelector('#signin-password').value = ''
-}
-function actionSettings() {
-  const url = new URL('/?login=1', location.origin)
-  const destination = safeReturnTo(new URLSearchParams(location.search).get('returnTo'))
-  if (destination) url.searchParams.set('returnTo', destination)
+function settings() {
+  const url = new URL(location.href)
+  url.searchParams.delete('returnTo')
+  url.searchParams.set('login', '1')
   return { url: url.href }
 }
-async function emailAction(task, message) {
-  if (busy) return
-  busy = true
-  emailBusy(true)
-  button.disabled = true
-  status.textContent = message
-  document.querySelector('#auth-retry').hidden = true
-  document.querySelector('#email-submit').classList.add('is-loading')
-  try {
-    await initializeFirebase()
-    await task()
-  } catch (error) {
-    authError(error)
-  } finally {
-    if (!pendingVerification) await signOut(auth).catch(() => {})
-    busy = false
-    emailBusy(false)
-    button.disabled = false
-    document.querySelector('#email-submit').classList.remove('is-loading')
-  }
+function setEmailMode(mode) {
+  emailMode = mode
+  $('#signup-fields').hidden = mode !== 'signup'
+  $('#signup-name').required = mode === 'signup'
+  $('#signin-password').autocomplete = mode === 'signup' ? 'new-password' : 'current-password'
+  $('#password-help').hidden = mode !== 'signup'
+  $('#forgot-password').hidden = mode === 'signup'
+  $('#email-submit').textContent = mode === 'signup' ? 'Create account' : 'Sign in with email'
+  $('#email-signin-tab').setAttribute('aria-pressed', String(mode === 'signin'))
+  $('#email-signup-tab').setAttribute('aria-pressed', String(mode === 'signup'))
+  clearErrors()
 }
-document.querySelector('#email-toggle').addEventListener('click', () => {
-  const section = document.querySelector('#email-auth')
-  section.hidden = !section.hidden
-  document.querySelector('#email-toggle').setAttribute('aria-expanded', !section.hidden)
-  if (!section.hidden) {
-    setEmailMode('signin')
-    document.querySelector('#signin-email').focus()
-  }
+function verification(user) {
+  pendingVerification = user
+  view('verification')
+  $('#signin-password').value = ''
+}
+$('#google-login').addEventListener('click', () =>
+  action('google', async () => {
+    resetPhone()
+    const f = await sdk()
+    const result = await f.signInWithPopup(f.auth, new f.GoogleAuthProvider())
+    await completeLogin(result.user)
+  }),
+)
+$('#email-toggle').addEventListener('click', () => {
+  if (busy) return
+  resetPhone()
+  view('email')
+  setEmailMode('signin')
+  message('')
+  $('#signin-email').focus()
 })
-document.querySelector('#email-signin-tab').addEventListener('click', () => setEmailMode('signin'))
-document.querySelector('#email-signup-tab').addEventListener('click', () => setEmailMode('signup'))
-document.querySelector('#toggle-password').addEventListener('click', () => {
-  const input = document.querySelector('#signin-password'),
+$('#phone-toggle').addEventListener('click', () => {
+  if (busy) return
+  resetPhone()
+  view('phone')
+  message('')
+  $('#login-phone').focus()
+})
+$('#auth-back').addEventListener('click', () => {
+  if (busy) return
+  resetPhone()
+  view('methods')
+  message('')
+  $('#google-login').focus()
+})
+$('#email-signin-tab').addEventListener('click', () => setEmailMode('signin'))
+$('#email-signup-tab').addEventListener('click', () => setEmailMode('signup'))
+$('#toggle-password').addEventListener('click', () => {
+  const input = $('#signin-password'),
     show = input.type === 'password'
   input.type = show ? 'text' : 'password'
-  document.querySelector('#toggle-password').textContent = show ? 'Hide' : 'Show'
-  document.querySelector('#toggle-password').setAttribute('aria-label', show ? 'Hide password' : 'Show password')
+  $('#toggle-password').textContent = show ? 'Hide' : 'Show'
+  $('#toggle-password').setAttribute('aria-label', show ? 'Hide password' : 'Show password')
 })
-emailForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-  lastAttempt = 'email'
-  emailAction(
-    async () => {
-      const email = document.querySelector('#signin-email').value.trim(),
-        password = document.querySelector('#signin-password').value
-      let result
-      if (emailMode === 'signup') {
-        const displayName = document.querySelector('#signup-name').value.trim()
-        if (!displayName) throw new Error('Enter your name to create an account.')
-        pendingMobile = mobileValue(document.querySelector('#signup-mobile').value)
-        if (!(await validatePassword(auth, password)).isValid) throw new Error('Choose a password that meets the account password requirements.')
-        result = await createUserWithEmailAndPassword(auth, email, password)
-        verificationView(result.user)
-        await updateFirebaseProfile(result.user, { displayName })
-        await sendEmailVerification(result.user, actionSettings())
-        status.textContent = 'Verification email sent. Check your inbox and spam folder.'
-      } else {
-        pendingMobile = ''
-        result = await signInWithEmailAndPassword(auth, email, password)
-        if (!result.user.emailVerified) {
-          verificationView(result.user)
-          await sendEmailVerification(result.user, actionSettings())
-          status.textContent = 'Verify your email to finish signing in. We sent a new link.'
-        } else {
-          document.querySelector('#signin-password').value = ''
-          await completeLogin(result.user)
-        }
+$('#email-form').addEventListener('submit', (event) => {
+  event.preventDefault()
+  if (busy) return
+  for (const id of ['signin-email', 'signin-password', ...(emailMode === 'signup' ? ['signup-name'] : [])]) {
+    const input = $('#' + id)
+    if (!input.value.trim() || !input.checkValidity()) {
+      fieldError(id, id === 'signin-email' ? 'Enter a valid email address.' : id === 'signup-name' ? 'Enter your name.' : 'Enter your password.')
+      input.focus()
+      return
+    }
+  }
+  action('email', async () => {
+    const f = await sdk(),
+      email = $('#signin-email').value.trim(),
+      password = $('#signin-password').value
+    let result
+    if (emailMode === 'signup') {
+      const policy = await f.validatePassword(f.auth, password)
+      if (!policy.isValid) {
+        const rules = [
+          policy.containsLowercaseLetter === false ? 'a lowercase letter' : '',
+          policy.containsUppercaseLetter === false ? 'an uppercase letter' : '',
+          policy.containsNumericCharacter === false ? 'a number' : '',
+          policy.containsNonAlphanumericCharacter === false ? 'a symbol' : '',
+          policy.meetsMinPasswordLength === false ? `at least ${policy.passwordPolicy?.customStrengthOptions?.minPasswordLength || 8} characters` : '',
+        ].filter(Boolean)
+        throw new Error('Password needs ' + (rules.join(', ') || 'to meet the account password policy') + '.')
       }
-    },
-    emailMode === 'signup' ? 'Creating your account…' : 'Signing you in…',
-  )
+      result = await f.createUserWithEmailAndPassword(f.auth, email, password)
+      verification(result.user)
+      await f.updateProfile(result.user, { displayName: $('#signup-name').value.trim() })
+      await f.sendEmailVerification(result.user, settings())
+      message('Verification email sent. Check your inbox and spam folder.')
+    } else {
+      result = await f.signInWithEmailAndPassword(f.auth, email, password)
+      if (!result.user.emailVerified) {
+        verification(result.user)
+        await f.sendEmailVerification(result.user, settings())
+        message('Verify your email to finish signing in. Check your inbox and spam folder.')
+      } else {
+        $('#signin-password').value = ''
+        await completeLogin(result.user)
+      }
+    }
+  })
 })
-document.querySelector('#forgot-password').addEventListener('click', () => {
-  const input = document.querySelector('#signin-email')
-  if (!input.reportValidity()) return
-  lastAttempt = 'reset'
-  emailAction(async () => {
+$('#forgot-password').addEventListener('click', () => {
+  const input = $('#signin-email')
+  if (!input.value || !input.checkValidity()) {
+    fieldError('signin-email', 'Enter your email address to request a reset link.')
+    input.focus()
+    return
+  }
+  action('reset', async () => {
+    const f = await sdk()
     try {
-      await sendPasswordResetEmail(auth, input.value.trim(), actionSettings())
+      await f.sendPasswordResetEmail(f.auth, input.value.trim(), settings())
     } catch (error) {
       if (error.code !== 'auth/user-not-found') throw error
     }
-    status.textContent = 'If an eligible account exists, a password reset link will arrive in your inbox. Check spam too.'
-    document.querySelector('#signin-password').value = ''
-  }, 'Requesting a reset link…')
+    message('If an eligible account exists, a password reset link will arrive in your inbox. Check spam too.')
+  })
 })
-document.querySelector('#resend-verification').addEventListener('click', () =>
-  emailAction(async () => {
+$('#resend-verification').addEventListener('click', () =>
+  action('verification', async () => {
     if (!pendingVerification) return
-    await sendEmailVerification(pendingVerification, actionSettings())
-    status.textContent = 'Verification email sent. Check your inbox and spam folder.'
-  }, 'Sending verification link…'),
+    const f = await sdk()
+    await f.sendEmailVerification(pendingVerification, settings())
+    message('Verification email sent. Check your inbox and spam folder.')
+  }),
 )
-document.querySelector('#check-verification').addEventListener('click', () =>
-  emailAction(async () => {
+$('#check-verification').addEventListener('click', () =>
+  action('verification', async () => {
     if (!pendingVerification) return
-    await reload(pendingVerification)
+    const f = await sdk()
+    await f.reload(pendingVerification)
     if (!pendingVerification.emailVerified) {
-      status.textContent = 'Your email is not verified yet. Open the latest verification link, then try again.'
+      message('Your email is not verified yet. Open the latest link, then try again.')
       return
     }
-    const verified = pendingVerification
-    pendingVerification = null
     try {
-      await completeLogin(verified)
+      await completeLogin(pendingVerification)
     } catch (error) {
-      document.querySelector('#email-verification').hidden = true
-      document.querySelector('#email-auth').hidden = false
-      document.querySelector('#email-toggle').hidden = false
-      button.hidden = false
-      setEmailMode('signin')
-      throw error
+      if (error.status === 401 || error.code === 'auth/requires-recent-login') {
+        pendingVerification = null
+        view('email')
+        setEmailMode('signin')
+        message('Verification is complete. Sign in again to finish securely.')
+      } else throw error
     }
-  }, 'Checking your verification…'),
+  }),
 )
-document.querySelector('#cancel-verification').addEventListener('click', () =>
-  emailAction(async () => {
+$('#cancel-verification').addEventListener('click', () =>
+  action('verification', async () => {
     pendingVerification = null
-    pendingMobile = ''
-    await signOut(auth)
-    document.querySelector('#email-verification').hidden = true
-    document.querySelector('#email-auth').hidden = true
-    document.querySelector('#email-toggle').setAttribute('aria-expanded', 'false')
-    render(null)
-    status.textContent = ''
-  }, 'Returning to sign-in…'),
+    await clearClient()
+    view('methods')
+    message('')
+  }),
 )
-document.querySelector('#account-trigger').addEventListener('click', () => {
-  initializeFirebase().catch(() => {})
+async function sendCode() {
+  const number = phoneInput.validate()
+  if (Date.now() < resendAt) throw new Error('Please wait before requesting another SMS.')
+  const f = await sdk()
+  confirmation = null
+  clearVerifier()
+  f.auth.useDeviceLanguage?.()
+  $('#phone-number-form').hidden = false
+  $('#phone-code-form').hidden = true
+  verifier = new f.RecaptchaVerifier(f.auth, 'phone-recaptcha', { size: $('#phone-recaptcha').clientWidth < 304 ? 'compact' : 'normal' })
+  message('Complete the security check to receive your code…')
+  try {
+    confirmation = await f.signInWithPhoneNumber(f.auth, number, verifier)
+  } finally {
+    clearVerifier()
+  }
+  resendAt = Date.now() + 60000
+  clearInterval(timer)
+  timer = setInterval(cooldown, 1000)
+  $('#phone-number-form').hidden = true
+  $('#phone-code-form').hidden = false
+  $('#phone-code-hint').textContent = `Code sent to ${number}.`
+  $('#phone-code').value = ''
+  message('Enter the 6-digit verification code.')
+  $('#phone-code').focus()
+}
+$('#phone-number-form').addEventListener('submit', (event) => {
+  event.preventDefault()
+  action('phone', sendCode)
 })
-await refresh()
-const params = new URLSearchParams(location.search)
-if (params.get('login') === '1') {
-  const destination = safeReturnTo(params.get('returnTo'))
-  if (currentUser && destination && destination !== location.href) location.replace(destination)
-  else document.querySelector('#account-trigger').click()
+$('#phone-code-form').addEventListener('submit', (event) => {
+  event.preventDefault()
+  if (!/^\d{6}$/.test($('#phone-code').value.trim())) {
+    fieldError('phone-code', 'Enter the 6-digit code from your SMS.')
+    return
+  }
+  action('phone', async () => {
+    if (!confirmation) throw new Error('Request a new code.')
+    const result = await confirmation.confirm($('#phone-code').value.trim())
+    await completeLogin(result.user)
+  })
+})
+$('#phone-resend').addEventListener('click', () => action('phone', sendCode))
+$('#phone-change').addEventListener('click', () => {
+  if (busy) return
+  resetPhone()
+  view('phone')
+  message('')
+  $('#login-phone').focus()
+})
+$('#google-logout').addEventListener('click', () =>
+  action('logout', async () => {
+    await accountRequest('/api/session', { method: 'DELETE' })
+    pendingVerification = null
+    resetPhone()
+    await clearClient()
+    render(null)
+    message('Signed out of AIMER websites.')
+  }),
+)
+$('#auth-retry').addEventListener('click', () => {
+  if (busy) return
+  if (lastAttempt === 'refresh' || lastAttempt === 'logout') {
+    refresh()
+    return
+  }
+  if (method === 'verification') $('#check-verification').click()
+  else if (method === 'phone') (confirmation ? $('#phone-code-form') : $('#phone-number-form')).requestSubmit()
+  else if (method === 'email') lastAttempt === 'reset' ? $('#forgot-password').click() : $('#email-form').requestSubmit()
+  else refresh()
+})
+$('#personalize-learning').addEventListener('click', () =>
+  action('profile', async () => {
+    const p = await commonProfile(false)
+    if (!p) return
+    dialog.close()
+    window.aimerOnboarding.open(p)
+  }),
+)
+async function finishOnboarding(skip) {
+  const uid = onboarding.dataset.accountUid
+  if (busy || !uid || uid !== currentUser?.uid) {
+    onboarding.close()
+    return
+  }
+  const controls = [...onboarding.querySelectorAll('button,input')]
+  controls.forEach((el) => (el.disabled = true))
+  try {
+    const skipInterests = skip && onboarding.dataset.step === '1',
+      body = {
+        interests: skipInterests
+          ? JSON.parse(onboarding.dataset.originalInterests || '[]')
+          : [...onboarding.querySelectorAll('.interest-card input:checked')].map((i) => i.value).filter((v) => v !== 'all'),
+        onboardingComplete: true,
+      }
+    if (!skip) {
+      const mobile = $('#onboarding-mobile').value.replace(/[ ()-]/g, '')
+      if (mobile && !/^\+[1-9]\d{7,14}$/.test(mobile)) throw new Error('Enter a contact number with country code, or skip this optional step.')
+      body.mobileNumber = mobile
+    }
+    await updateProfile(body, uid)
+    onboarding.close()
+  } catch (error) {
+    $('#onboarding-status').textContent = error.message
+  } finally {
+    controls.forEach((el) => (el.disabled = false))
+  }
 }
+$('#onboarding-save').addEventListener('click', () => finishOnboarding(false))
+$('#onboarding-skip').addEventListener('click', () => finishOnboarding(true))
+window.addEventListener('aimer-session-expired', () => {
+  render(null)
+  message('Your session expired. Sign in again to access your AIMER account.')
+})
+dialog.addEventListener('close', () => {
+  if (!busy && !pendingVerification) {
+    resetPhone()
+    view('methods')
+    clearClient()
+  }
+})
 window.addEventListener('focus', refresh)
-
-async function loadCommonProfile() {
-  const uid = currentUser?.uid
-  const profile = await getProfile()
-  if (!uid || currentUser?.uid !== uid || profile.uid !== uid) return
-  render({ ...currentUser, name: profile.name, picture: profile.picture })
-  if (!profile.onboardingComplete && !onboarding.open && !document.querySelector('#account-dialog').open)
-    window.dispatchEvent(new CustomEvent('aimer-onboarding', { detail: profile }))
-}
+window.addEventListener('pageshow', refresh)
+window.addEventListener('aimer-account-open', refresh)
+await refresh()
+if (new URLSearchParams(location.search).get('login') === '1' && !currentUser) $('#account-trigger').click()

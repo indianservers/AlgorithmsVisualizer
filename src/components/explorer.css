@@ -1,0 +1,272 @@
+.explorer-workbench {
+  --exp-accent: #238f9d;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  padding: 18px;
+  color: var(--ink);
+  min-width: 0;
+}
+.explorer-workbench.dfs {
+  --exp-accent: #b58035;
+}
+.explorer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.explorer-kicker {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+  color: var(--muted);
+}
+.explorer-heading h3 {
+  margin: 5px 0;
+  font-size: 20px;
+}
+.explorer-current {
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--exp-accent) 12%, var(--panel));
+}
+.explorer-map-scroll {
+  overflow-x: auto;
+}
+.explorer-workbench .explorer-map {
+  display: block;
+  width: 100%;
+  min-width: 580px;
+  height: auto;
+  max-height: none;
+  margin: 12px 0;
+}
+.explorer-map-grid path {
+  stroke: var(--line);
+  opacity: 0.26;
+  fill: none;
+  stroke-width: 1;
+}
+.explorer-compass {
+  font-size: 12px;
+  fill: var(--muted);
+}
+.explorer-bridge {
+  stroke: color-mix(in srgb, var(--muted) 65%, var(--panel));
+  stroke-width: 2;
+  fill: none;
+}
+.explorer-bridge.discovered {
+  stroke: var(--exp-accent);
+  stroke-width: 3;
+}
+.explorer-breadcrumb-edge {
+  stroke: #d4a449;
+  stroke-width: 4;
+  stroke-dasharray: 2 10;
+  stroke-linecap: round;
+  fill: none;
+  animation: breadcrumb-flow 1.8s linear infinite;
+}
+.explorer-weight rect {
+  fill: var(--panel);
+  stroke: var(--line);
+}
+.explorer-weight text {
+  fill: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.island-shore {
+  fill: color-mix(in srgb, var(--exp-accent) 12%, var(--panel));
+  stroke: color-mix(in srgb, var(--exp-accent) 25%, var(--line));
+}
+.island-center {
+  fill: var(--panel);
+  stroke: var(--line);
+  stroke-width: 2;
+  transition:
+    fill 0.3s,
+    stroke 0.3s;
+}
+.explorer-island.current .island-center {
+  fill: var(--exp-accent);
+  stroke: var(--exp-accent);
+  stroke-width: 3;
+}
+.explorer-island.visited .island-center {
+  fill: color-mix(in srgb, #399074 14%, var(--panel));
+  stroke: #399074;
+}
+.explorer-island.queued .island-center {
+  stroke: var(--exp-accent);
+  stroke-dasharray: 4 3;
+}
+.explorer-node-label {
+  fill: var(--ink);
+  font-size: 17px;
+  font-weight: 800;
+}
+.explorer-island.current .explorer-node-label {
+  fill: white;
+}
+.explorer-node-detail {
+  fill: var(--muted);
+  font-size: 12px;
+  paint-order: stroke;
+  stroke: var(--panel);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.explorer-flag path {
+  stroke: #399074;
+  fill: #399074;
+  stroke-width: 2;
+}
+.explorer-sonar circle {
+  fill: none;
+  stroke: var(--exp-accent);
+  stroke-width: 2;
+  opacity: 0.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: explorer-sonar 1.8s ease-out infinite;
+}
+.explorer-sonar .ring-1 {
+  animation-delay: 0.4s;
+}
+.explorer-sonar .ring-2 {
+  animation-delay: 0.8s;
+}
+.explorer-lantern {
+  filter: drop-shadow(0 0 7px #ffcb60);
+}
+.explorer-penguin .penguin-art {
+  filter: drop-shadow(0 5px 3px #102a3c22);
+}
+.explorer-dock {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--exp-accent) 5%, var(--panel));
+}
+.explorer-dock-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.explorer-dock-title strong {
+  font-size: 14px;
+}
+.explorer-dock-title > span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.explorer-frontier {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  min-height: 65px;
+}
+.explorer-ticket {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--panel);
+}
+.explorer-ticket:first-child {
+  border-color: var(--exp-accent);
+}
+.explorer-ticket small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.explorer-ticket strong {
+  font-size: 15px;
+}
+.explorer-dock-empty {
+  color: var(--muted);
+  font-size: 12px;
+  align-self: center;
+}
+.explorer-breadcrumbs {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+.explorer-breadcrumbs > span {
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #d4a449 12%, var(--panel));
+}
+.explorer-breadcrumbs em {
+  font-size: 12px;
+  color: var(--muted);
+}
+.explorer-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 18px;
+}
+.explorer-order {
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.explorer-order strong {
+  margin-right: 8px;
+}
+.explorer-note {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+@keyframes explorer-sonar {
+  from {
+    transform: scale(0.65);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+@keyframes breadcrumb-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.explorer-workbench[data-motion='off'] * {
+  animation: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .explorer-workbench * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (max-width: 480px) {
+  .explorer-workbench {
+    padding: 12px;
+  }
+  .explorer-heading h3 {
+    font-size: 18px;
+  }
+}

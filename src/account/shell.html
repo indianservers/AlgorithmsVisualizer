@@ -8,92 +8,162 @@
     ><svg class="account-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
   </button>
 </div>
+
 <dialog id="account-dialog" class="account-dialog" aria-labelledby="account-title">
   <button id="account-close" class="account-close" type="button" aria-label="Close account dialog">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
   </button>
-  <div class="account-brand" aria-hidden="true">
-    <img src="/account/assets/brand.svg" width="44" height="44" alt="" /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-      <path d="m12 3 9 5-9 5-9-5 9-5Z" />
-      <path d="M6 10v6c4 3 8 3 12 0v-6M21 8v8" />
-    </svg>
-  </div>
-  <span class="account-eyebrow">YOUR AIMER ACCOUNT</span>
-  <h2 id="account-title">A little curiosity.<br />Endless possibilities.</h2>
-  <p id="account-description">Sign in with Google or your email.<br />Your next discovery starts here.</p>
-  <div id="account-profile" hidden>
-    <span id="profile-initial" class="profile-initial" aria-hidden="true"></span><strong id="profile-name"></strong><span id="profile-email"></span>
-  </div>
-  <button id="google-login" class="google-login" type="button">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.33 2.98-7.36Z" />
-      <path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.41l-3.24-2.51c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.59A10 10 0 0 0 12 22Z" />
-      <path fill="#FBBC05" d="M6.41 13.92a6 6 0 0 1 0-3.84V7.49H3.07a10 10 0 0 0 0 9.02l3.34-2.59Z" />
-      <path fill="#EA4335" d="M12 5.96c1.47 0 2.79.51 3.83 1.51l2.88-2.88A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.93 5.49l3.34 2.59C7.2 7.72 9.4 5.96 12 5.96Z" /></svg
-    ><span>Continue with Google</span
-    ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>
-  </button>
-  <section id="email-auth" class="email-auth" hidden>
-    <div class="auth-divider"><span>or use your email</span></div>
-    <div class="email-tabs" role="group" aria-label="Email account options">
-      <button id="email-signin-tab" type="button" aria-pressed="true">Sign in</button
-      ><button id="email-signup-tab" type="button" aria-pressed="false">Create account</button>
+  <div class="signin-content">
+    <div class="account-brand" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+        <path d="M6 10v6c4 3 8 3 12 0v-6M21 8v8" />
+      </svg>
     </div>
-    <form id="email-form">
-      <div id="signup-fields" hidden>
-        <label for="signup-name">Your name</label><input id="signup-name" autocomplete="name" maxlength="80" /><label for="signup-mobile"
-          >Mobile number <span>Optional</span></label
-        ><input id="signup-mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+91 98765 43210" /><small
-          >Include country code. This number is not SMS-verified.</small
-        >
+    <span class="account-eyebrow">YOUR AIMER ACCOUNT</span>
+    <h2 id="account-title">Welcome to<br />AIMER Society</h2>
+    <p id="account-description">Sign in to access our learning tools,<br />visualizations and resources.</p>
+    <div id="account-profile" hidden>
+      <span id="profile-initial" class="profile-initial" aria-hidden="true"></span><strong id="profile-name"></strong><span id="profile-email"></span>
+    </div>
+    <button id="auth-back" type="button" hidden>← Other sign-in methods</button
+    ><button id="google-login" class="google-login" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.33 2.98-7.36Z" />
+        <path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.41l-3.24-2.51c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.59A10 10 0 0 0 12 22Z" />
+        <path fill="#FBBC05" d="M6.41 13.92a6 6 0 0 1 0-3.84V7.49H3.07a10 10 0 0 0 0 9.02l3.34-2.59Z" />
+        <path
+          fill="#EA4335"
+          d="M12 5.96c1.47 0 2.79.51 3.83 1.51l2.88-2.88A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.93 5.49l3.34 2.59C7.2 7.72 9.4 5.96 12 5.96Z"
+        /></svg
+      ><span>Continue with Google</span
+      ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>
+    </button>
+    <section id="email-auth" class="email-auth" hidden>
+      <div class="auth-divider"><span>or use your email</span></div>
+      <div class="email-tabs" role="group" aria-label="Email account options">
+        <button id="email-signin-tab" type="button" aria-pressed="true">Sign in</button
+        ><button id="email-signup-tab" type="button" aria-pressed="false">Create account</button>
       </div>
-      <label for="signin-email">Email address</label><input id="signin-email" type="email" autocomplete="email" required maxlength="254" /><label
-        for="signin-password"
-        >Password</label
-      >
-      <div class="password-field">
-        <input id="signin-password" type="password" autocomplete="current-password" required maxlength="128" /><button
-          id="toggle-password"
-          type="button"
-          aria-label="Show password"
-        >
-          Show
-        </button>
-      </div>
-      <small id="password-help" hidden>Use at least 8 characters and meet your account’s password requirements.</small
-      ><button id="email-submit" type="submit">Sign in with email →</button><button id="forgot-password" type="button">Forgot password?</button>
-    </form>
-  </section>
-  <button id="email-toggle" class="email-toggle" type="button" aria-expanded="false" aria-controls="email-auth">✉ Continue with email</button>
-  <section id="email-verification" hidden>
-    <h3>Check your inbox</h3>
-    <p>We sent a verification link to your email. Open it, then return here to finish signing in.</p>
-    <button id="check-verification" type="button">I’ve verified my email →</button
-    ><button id="resend-verification" type="button">Resend verification email</button
-    ><button id="cancel-verification" type="button">Use a different sign-in method</button>
-  </section>
-  <div id="account-links" class="account-links" hidden>
-    <a href="https://tools.aimersociety.com/profile">◉ Profile</a><a href="/#/" id="account-learning">▣ My Learning</a
-    ><a href="https://tools.aimersociety.com/" target="_blank" rel="noopener">Tools ↗</a><a href="https://www.aimersociety.com/">AIMER Home</a
-    ><button id="personalize-learning" type="button">✦ Personalize learning</button>
+      <form id="email-form" novalidate>
+        <div id="signup-fields" hidden>
+          <label for="signup-name">Your name</label><input id="signup-name" autocomplete="name" maxlength="80" aria-describedby="signup-name-error" /><small
+            id="signup-name-error"
+            class="auth-field-error"
+            aria-live="polite"
+          ></small>
+        </div>
+        <label for="signin-email">Email address</label
+        ><input id="signin-email" type="email" autocomplete="email" required maxlength="254" aria-describedby="signin-email-error" /><small
+          id="signin-email-error"
+          class="auth-field-error"
+          aria-live="polite"
+        ></small
+        ><label for="signin-password">Password</label>
+        <div class="password-field">
+          <input id="signin-password" type="password" autocomplete="current-password" required maxlength="128" aria-describedby="signin-password-error" /><small
+            id="signin-password-error"
+            class="auth-field-error"
+            aria-live="polite"
+          ></small
+          ><button id="toggle-password" type="button" aria-label="Show password">Show</button>
+        </div>
+        <small id="password-help" hidden>Password requirements are checked against the current AIMER account policy.</small
+        ><button id="email-submit" type="submit">Sign in with email →</button><button id="forgot-password" type="button">Forgot password?</button>
+      </form>
+    </section>
+    <button id="email-toggle" class="email-toggle" type="button" aria-expanded="false" aria-controls="email-auth">
+      <span aria-hidden="true">✉</span><span>Continue with email</span><span aria-hidden="true">→</span></button
+    ><button id="phone-toggle" class="email-toggle" type="button" aria-expanded="false" aria-controls="phone-auth">
+      <span aria-hidden="true">☏</span><span>Continue with phone</span><span aria-hidden="true">→</span>
+    </button>
+    <section id="phone-auth" class="phone-auth" hidden aria-label="Sign in with phone">
+      <form id="phone-number-form" novalidate>
+        <div class="phone-input-row">
+          <div class="phone-country-field">
+            <label for="phone-country">Country code</label>
+            <div class="phone-country-select">
+              <img id="phone-country-flag" src="/account/assets/flags/IN.svg" width="24" height="16" alt="" /><select
+                id="phone-country"
+                autocomplete="country"
+                required
+                aria-describedby="phone-country-error"
+              ></select>
+            </div>
+            <small id="phone-country-error" class="phone-field-error" aria-live="polite"></small>
+          </div>
+          <div class="phone-national-field">
+            <label for="login-phone">Mobile number</label
+            ><input
+              id="login-phone"
+              type="tel"
+              autocomplete="tel-national"
+              inputmode="tel"
+              placeholder="98765 43210"
+              maxlength="25"
+              required
+              aria-describedby="phone-number-error"
+            /><small id="phone-number-error" class="phone-field-error" aria-live="polite"></small>
+          </div>
+        </div>
+        <p class="phone-consent">
+          By sending a code, you agree to receive a verification SMS. Standard rates may apply. Google stores and processes your number to prevent spam and
+          abuse. Use Google or email for stronger account protection.
+        </p>
+        <div id="phone-recaptcha"></div>
+        <button id="phone-send" type="submit">Send verification code →</button>
+      </form>
+      <form id="phone-code-form" hidden novalidate>
+        <label for="phone-code">6-digit verification code</label>
+        <p id="phone-code-hint"></p>
+        <input
+          id="phone-code"
+          type="text"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          pattern="[0-9]{6}"
+          maxlength="6"
+          required
+          aria-describedby="phone-code-error"
+        /><small id="phone-code-error" class="auth-field-error" aria-live="polite"></small
+        ><button id="phone-verify" type="submit">Verify &amp; sign in →</button><button id="phone-resend" type="button">Resend code</button
+        ><button id="phone-change" type="button">Change number</button>
+      </form>
+    </section>
+    <section id="email-verification" hidden>
+      <h3>Check your inbox</h3>
+      <p>We sent a verification link to your email. Open it, then return here to finish signing in.</p>
+      <button id="check-verification" type="button">I’ve verified my email →</button
+      ><button id="resend-verification" type="button">Resend verification email</button
+      ><button id="cancel-verification" type="button">Use a different sign-in method</button>
+    </section>
+    <div id="account-links" class="account-links" hidden>
+      <a href="https://tools.aimersociety.com/profile">◉ Profile</a><a href="/#/daa/syllabus-dashboard" id="account-learning">▣ My Learning</a
+      ><button id="personalize-learning" type="button">✦ Personalize learning</button
+      ><a href="https://tools.aimersociety.com/" target="_blank" rel="noopener">Tools ↗</a><a href="https://www.aimersociety.com/">AIMER Home</a>
+    </div>
+    <a id="central-login" href="https://tools.aimersociety.com/?login=1">Continue on AIMER Tools →</a>
+    <p id="shared-account">
+      <span class="shared-account-icon" aria-hidden="true">♧</span
+      ><span><strong>One account for all AIMER learning websites</strong><small>Your learning stays available while you browse as a guest.</small></span>
+    </p>
+    <button id="auth-retry" type="button" hidden>Try again</button
+    ><button id="google-logout" class="google-logout" type="button" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 4H4v16h5m0-8h12m-4-4 4 4-4 4" /></svg>Sign
+      out
+    </button>
+    <p id="auth-status" role="status" aria-live="polite"></p>
+    <div class="account-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <rect x="5" y="10" width="14" height="11" rx="3" />
+        <path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg
+      ><span>Secure sign-in, powered by Firebase.</span>
+    </div>
+    <p class="account-privacy">
+      We save your name, email, optional mobile number and profile photo.<br /><a href="https://tools.aimersociety.com/privacy.html">Privacy Policy</a> ·
+      <a href="https://tools.aimersociety.com/terms.html">Terms</a>
+    </p>
   </div>
-  <a id="central-login" href="https://tools.aimersociety.com/?login=1">Continue on AIMER Tools →</a>
-  <p id="shared-account">One account for all AIMER learning websites</p>
-  <button id="auth-retry" type="button" hidden>Try again</button
-  ><button id="google-logout" class="google-logout" type="button" hidden>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 4H4v16h5m0-8h12m-4-4 4 4-4 4" /></svg>Sign out
-  </button>
-  <p id="auth-status" role="status" aria-live="polite"></p>
-  <div class="account-note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-      <rect x="5" y="10" width="14" height="11" rx="3" />
-      <path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg
-    ><span>Secure sign-in, powered by Firebase.</span>
-  </div>
-  <p class="account-privacy">
-    We save your name, email, optional mobile number and profile photo.<br /><a href="https://tools.aimersociety.com/privacy.html">Privacy Policy</a> ·
-    <a href="https://tools.aimersociety.com/terms.html">Terms</a>
-  </p>
 </dialog>
 <dialog id="onboarding-dialog" class="account-dialog" aria-labelledby="onboarding-title" data-step="1">
   <div class="onboarding-layout">

@@ -1,9 +1,12 @@
 export async function accountRequest(path, options = {}) {
+  if (!['/api/session', '/api/profile'].includes(path)) throw new Error('Unknown account endpoint.')
   let response
   try {
     response = await fetch(new URL(path, 'https://tools.aimersociety.com'), { ...options, credentials: 'include', cache: 'no-store' })
   } catch {
-    throw new Error('Connection interrupted. Check your internet and try again.')
+    throw new Error(
+      'The shared AIMER account service could not be reached from this website. Check your connection, retry, or continue on AIMER Tools. Learning remains available.',
+    )
   }
   let data
   try {
@@ -13,10 +16,20 @@ export async function accountRequest(path, options = {}) {
   }
   if (response.status === 401) window.dispatchEvent(new Event('aimer-session-expired'))
   if (!response.ok) {
-    const error = new Error(typeof data?.error === 'string' ? data.error : 'The account service could not complete this request. Please try again.')
+    const error = new Error(
+      response.status === 401
+        ? 'Your session expired. Sign in again to continue.'
+        : response.status === 403
+          ? 'Shared sign-in is not enabled for this website yet. Continue on AIMER Tools; learning remains available here.'
+          : typeof data?.error === 'string'
+            ? data.error
+            : 'The account service could not complete this request. Please try again.',
+    )
     error.status = response.status
     throw error
   }
+  if (path === '/api/session' && (!data || !Object.hasOwn(data, 'user')))
+    throw new Error('The account service returned an unexpected session response. Try again.')
   return data
 }
 export const getProfile = () => accountRequest('/api/profile').then((r) => r.profile)

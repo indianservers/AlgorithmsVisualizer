@@ -258,3 +258,218 @@
 .penguin-slot.moving .penguin-art {
   filter: drop-shadow(0 0 4px currentColor);
 }
+
+/* The stage stays still while characters move, keeping swaps easy to follow. */
+.penguin-stage {
+  isolation: isolate;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 72%);
+}
+.penguin-stage::before {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 40%, var(--line)), transparent);
+}
+.penguin-standing {
+  position: relative;
+  padding-bottom: 8px;
+}
+.penguin-art {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+}
+.penguin-ground-shadow {
+  position: absolute;
+  bottom: 3px;
+  width: 58%;
+  max-width: 76px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.12;
+  filter: blur(3px);
+  transition:
+    background 0.25s,
+    opacity 0.25s;
+}
+.penguin-slot.swapping,
+.penguin-slot.moving {
+  z-index: 3;
+}
+.penguin-slot.comparing {
+  z-index: 2;
+}
+.penguin-slot.comparing .penguin-value,
+.penguin-slot.swapping .penguin-value,
+.penguin-slot.moving .penguin-value {
+  border-color: currentColor;
+  box-shadow: 0 3px 12px color-mix(in srgb, currentColor 16%, transparent);
+}
+.penguin-value {
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+  font-variant-numeric: tabular-nums;
+}
+.penguin-slot.sorted .penguin-value {
+  border-color: color-mix(in srgb, currentColor 50%, var(--line));
+  background: color-mix(in srgb, currentColor 9%, var(--panel));
+}
+.penguin-art.comparing {
+  animation: penguin-look 0.48s ease-in-out both;
+}
+.penguin-art.swapping {
+  animation: penguin-leap 0.58s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.penguin-art.moving {
+  animation: penguin-glide 0.48s ease-in-out both;
+}
+.penguin-art.sorted {
+  animation: penguin-celebrate 0.65s ease-in-out both;
+  animation-delay: var(--celebrate-delay);
+}
+.penguin-wing {
+  transform-box: view-box;
+  transform-origin: 26px 78px;
+}
+.penguin-wing.right {
+  transform-origin: 74px 78px;
+}
+.penguin-art.comparing .penguin-wing.left {
+  animation: penguin-wave 0.48s ease-in-out;
+}
+.penguin-art.sorted .penguin-wing.left {
+  animation: penguin-wave 0.65s ease-in-out;
+  animation-delay: var(--celebrate-delay);
+}
+.penguin-art.sorted .penguin-wing.right {
+  animation: penguin-wave 0.65s ease-in-out reverse;
+  animation-delay: var(--celebrate-delay);
+}
+.penguin-slot.swapping .penguin-ground-shadow {
+  animation: penguin-shadow 0.58s ease-in-out;
+}
+.penguin-sparkles {
+  position: absolute;
+  bottom: 65%;
+  color: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 22px;
+  z-index: 2;
+}
+.penguin-slot.sorted .penguin-sparkles {
+  animation: penguin-spark 0.75s ease-out both;
+  animation-delay: var(--celebrate-delay);
+}
+.penguin-check {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, currentColor 12%, var(--panel));
+}
+.penguin-slot.sorted .count-character {
+  background: color-mix(in srgb, currentColor 10%, var(--panel));
+  border-color: currentColor;
+}
+@keyframes penguin-look {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  40% {
+    transform: translateY(-5px) rotate(calc(var(--lean) * 7deg));
+  }
+  70% {
+    transform: translateY(-3px) rotate(calc(var(--lean) * 4deg));
+  }
+}
+@keyframes penguin-leap {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  15% {
+    transform: translateY(2px) scale(1.08, 0.9);
+  }
+  48% {
+    transform: translateY(-30px) rotate(calc(var(--lean) * 9deg)) scale(0.96, 1.04);
+  }
+  78% {
+    transform: translateY(0) scale(1.07, 0.93);
+  }
+  90% {
+    transform: translateY(-4px) scale(0.99, 1.01);
+  }
+}
+@keyframes penguin-glide {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  45% {
+    transform: translateY(-14px) rotate(calc(var(--lean) * 5deg));
+  }
+  80% {
+    transform: translateY(1px) scale(1.03, 0.97);
+  }
+}
+@keyframes penguin-celebrate {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: scale(1.06, 0.94);
+  }
+  48% {
+    transform: translateY(-19px) rotate(calc(var(--lean) * 5deg));
+  }
+  75% {
+    transform: translateY(0) scale(1.05, 0.95);
+  }
+}
+@keyframes penguin-wave {
+  50% {
+    transform: rotate(-26deg);
+  }
+}
+@keyframes penguin-shadow {
+  45% {
+    transform: scale(0.55);
+    opacity: 0.05;
+  }
+}
+@keyframes penguin-spark {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3);
+  }
+  35% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(18px, -35px) rotate(55deg) scale(1.2);
+  }
+}
+.penguin-viewport[data-motion='off'] *,
+.penguin-viewport[data-motion='simple'] .penguin-wing,
+.penguin-viewport[data-motion='simple'] .penguin-sparkles,
+.penguin-viewport[data-motion='simple'] .penguin-ground-shadow {
+  animation: none !important;
+  transition: none !important;
+}
+.penguin-viewport[data-motion='simple'] .penguin-art {
+  animation-duration: 0.18s;
+  animation-delay: 0ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .penguin-viewport * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

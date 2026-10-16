@@ -5,6 +5,7 @@ import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQualit
 import { allModules, chessFenPresets, gameBoardPresets } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
 import { PenguinVisualization } from './PenguinVisualization'
+import { DetectiveSearch } from './DetectiveSearch'
 import { sortingCharacters } from '../data/sortingCharacters'
 import { LessonTabs } from './LessonTabs'
 import { suiteLinks } from '../daa/syllabi'
@@ -71,6 +72,7 @@ type VisualizerProps = {
   stepLogCsv: () => string
   stepPalette: Record<string, string>
   stepsLength: number
+  searchHistory: AlgorithmStep[]
   target: number
   toggleFavorite: (id: string) => void
   updateRandom: (mode?: string) => void
@@ -239,6 +241,7 @@ export function Visualizer({
   stepLogCsv,
   stepPalette,
   stepsLength,
+  searchHistory,
   target,
   toggleFavorite,
   updateRandom,
@@ -732,11 +735,21 @@ export function Visualizer({
               </label>
             )}
             <label>
-              <input type="checkbox" checked={showValues} onChange={(event) => setShowValues(event.target.checked)} />
+              <input
+                type="checkbox"
+                checked={activeModule.category === 'Searching' || showValues}
+                disabled={activeModule.category === 'Searching'}
+                onChange={(event) => setShowValues(event.target.checked)}
+              />
               Show values
             </label>
             <label>
-              <input type="checkbox" checked={showIndices} onChange={(event) => setShowIndices(event.target.checked)} />
+              <input
+                type="checkbox"
+                checked={activeModule.category === 'Searching' || showIndices}
+                disabled={activeModule.category === 'Searching'}
+                onChange={(event) => setShowIndices(event.target.checked)}
+              />
               Show indices
             </label>
             <label>
@@ -786,12 +799,14 @@ export function Visualizer({
         )}
 
         <div className="visual-canvas" ref={canvasRef}>
-          <div className="visual-legend persistent">
-            <span className="red" /> active
-            <span className="purple" /> swap/negative
-            <span className="green" /> complete
-            <span className="blue" /> normal
-          </div>
+          {activeModule.category !== 'Searching' && (
+            <div className="visual-legend persistent">
+              <span className="red" /> active
+              <span className="purple" /> swap/negative
+              <span className="green" /> complete
+              <span className="blue" /> normal
+            </div>
+          )}
           {['Graph', 'Tree'].includes(activeModule.visualMode) ? (
             <TraversalWorkbench activeModule={activeModule} currentStep={currentStep} input={input} />
           ) : activeModule.status === 'planned' ? (
@@ -993,6 +1008,16 @@ export function Visualizer({
                 </div>
               )}
             </div>
+          ) : activeModule.category === 'Searching' ? (
+            <DetectiveSearch
+              items={visualItems}
+              step={currentStep}
+              history={searchHistory}
+              target={target}
+              algorithmId={activeId}
+              reducedMotion={reducedMotion}
+              quality={animationQuality}
+            />
           ) : isSorting && bubbleView === 'icons' ? (
             <PenguinVisualization
               items={visualItems}

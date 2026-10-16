@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import type { AlgorithmStep, AnimationQuality } from '../types'
 import './penguins.css'
 
@@ -9,7 +10,8 @@ export function Penguin({ height, status }: { height: number; status: string }) 
   return (
     <svg viewBox="0 0 100 200" width={height / 2} height={height} className={`penguin-art ${status}`} aria-hidden="true">
       <ellipse cx="50" cy="191" rx="35" ry="6" fill="#152c46" opacity=".14" />
-      <path d="M26 73 Q4 105 8 145 Q11 156 18 137 L30 108 M74 73 Q96 105 92 145 Q89 156 82 137 L70 108" fill="#173956" stroke="#0e253e" strokeWidth="3" />
+      <path className="penguin-wing left" d="M26 73 Q4 105 8 145 Q11 156 18 137 L30 108" fill="#173956" stroke="#0e253e" strokeWidth="3" />
+      <path className="penguin-wing right" d="M74 73 Q96 105 92 145 Q89 156 82 137 L70 108" fill="#173956" stroke="#0e253e" strokeWidth="3" />
       <path d="M48 14 Q38 0 41 20 Q48 6 54 19 Q64 5 59 24" fill="#102b45" />
       <path
         d="M50 19 C20 19 19 52 22 76 C12 112 17 163 31 181 Q50 195 69 181 C83 163 88 112 78 76 C81 52 80 19 50 19"
@@ -76,7 +78,12 @@ export function PenguinVisualization({
   const countMode = selectedCharacter.id !== 'penguins'
   const countLimit = Math.min(100, Math.max(1, Math.floor((slot - 8) / 14)) * 14)
   return (
-    <div ref={ref} className="penguin-viewport" aria-label={`${selectedCharacter.name} array visualization`}>
+    <div
+      ref={ref}
+      className="penguin-viewport"
+      data-motion={noMotion ? 'off' : quality === 'simple' ? 'simple' : 'full'}
+      aria-label={`${selectedCharacter.name} array visualization`}
+    >
       <div className="penguin-stage" style={{ width: Math.max(width, items.length * 32) }}>
         {items.map((item) => {
           const sorted = step?.type === 'complete' || item.index >= items.length - sortedCount
@@ -95,19 +102,31 @@ export function PenguinVisualization({
           return (
             <motion.div
               key={item.id}
-              layout="position"
+              layout={noMotion ? false : 'position'}
               className={`penguin-slot ${status}`}
               data-value={item.value}
               data-status={status}
-              style={{
-                width: slot,
-                color:
-                  status === 'sorted' ? (palette.complete ?? '#258555') : status === 'swapping' ? (palette.swap ?? '#d99718') : (palette.compare ?? '#e65f42'),
-              }}
-              transition={{ duration: noMotion ? 0 : quality === 'simple' ? 0.12 : 0.3 }}
+              style={
+                {
+                  width: slot,
+                  '--celebrate-delay': `${Math.min(item.index * 45, 540)}ms`,
+                  '--lean': item.index % 2 ? '1' : '-1',
+                  color:
+                    status === 'sorted'
+                      ? (palette.complete ?? '#258555')
+                      : status === 'swapping'
+                        ? (palette.swap ?? '#d99718')
+                        : (palette.compare ?? '#e65f42'),
+                } as CSSProperties
+              }
+              transition={noMotion ? { duration: 0 } : quality === 'simple' ? { duration: 0.12 } : { type: 'spring', stiffness: 240, damping: 24, mass: 0.8 }}
             >
               {showIndices && <small className="penguin-index">{item.index}</small>}
               <div className="penguin-standing">
+                <span className="penguin-ground-shadow" aria-hidden="true" />
+                <span key={`spark-${status}`} className="penguin-sparkles" aria-hidden="true">
+                  ✦
+                </span>
                 {countMode ? (
                   <div
                     key={active && !sorted ? step?.id : status}

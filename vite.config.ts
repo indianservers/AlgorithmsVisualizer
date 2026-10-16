@@ -8,18 +8,29 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('/src/components/PenguinVisualization') || id.includes('/src/components/penguins.css') || id.includes('/src/data/sortingCharacters'))
-            return 'sorting-characters'
-          if (id.includes('/src/daa/')) return id.includes('?raw') ? 'daa-source' : 'daa-learning'
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
-            return 'vendor-react'
-          }
-          if (id.includes('node_modules/framer-motion')) return 'vendor-motion'
-          if (id.includes('node_modules/lucide-react')) return 'vendor-icons'
-          if (id.includes('node_modules/dexie')) return 'vendor-storage'
-          if (id.includes('/src/algorithms/')) return 'algorithms'
-          if (id.includes('/src/components/') || id.includes('/src/guides/') || id.includes('/src/exports/')) return 'ui-support'
+        codeSplitting: {
+          groups: [
+            { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
+            {
+              name(id) {
+                if (
+                  id.includes('/src/components/PenguinVisualization') ||
+                  id.includes('/src/components/penguins.css') ||
+                  id.includes('/src/data/sortingCharacters')
+                )
+                  return 'sorting-characters'
+                if (id.includes('/src/daa/')) return id.includes('?raw') ? 'daa-source' : 'daa-learning'
+                if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+                  return 'vendor-react'
+                }
+                if (id.includes('node_modules/framer-motion')) return 'vendor-motion'
+                if (id.includes('node_modules/lucide-react')) return 'vendor-icons'
+                if (id.includes('node_modules/dexie')) return 'vendor-storage'
+                if (id.includes('/src/algorithms/')) return 'algorithms'
+                if (id.includes('/src/components/') || id.includes('/src/guides/') || id.includes('/src/exports/')) return 'ui-support'
+              },
+            },
+          ],
         },
       },
     },

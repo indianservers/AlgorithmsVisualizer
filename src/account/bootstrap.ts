@@ -1,7 +1,5 @@
 import shell from './shell.html?raw'
-
-// Account dialogs live outside React's route tree, keeping verification in memory
-// and preserving the original hash route when a user opens or closes sign-in.
+const version = '20261016-2'
 const host = document.createElement('div')
 host.id = 'aimer-account-root'
 host.innerHTML = shell
@@ -17,23 +15,37 @@ trigger.addEventListener('click', () => {
   const trusted = current.protocol === 'https:' && current.hostname === 'algorithms.aimersociety.com' && !current.port && !current.username && !current.password
   fallback.href = trusted ? `https://tools.aimersociety.com/?login=1&returnTo=${encodeURIComponent(current.href)}` : 'https://tools.aimersociety.com/?login=1'
   if (!dialog.open) dialog.showModal()
+  window.dispatchEvent(new Event('aimer-account-open'))
 })
 document.getElementById('account-close')!.addEventListener('click', () => dialog.close())
 document.getElementById('account-learning')!.addEventListener('click', () => dialog.close())
 for (const modal of [dialog, onboarding]) {
-  modal.addEventListener('close', () => trigger.focus({ preventScroll: true }))
+  modal.addEventListener('close', () => {
+    if (!document.querySelector('dialog[open]')) trigger.focus({ preventScroll: true })
+  })
   modal.addEventListener('keydown', (event) => event.stopPropagation())
+  modal.addEventListener('click', (event) => {
+    const r = modal.getBoundingClientRect()
+    if (event.target === modal && (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom)) modal.close()
+  })
 }
-// A failed CDN load leaves the central-login fallback usable.
-const ui = document.createElement('script')
-ui.src = '/account/onboarding-ui.js'
-ui.onload = () => {
-  const auth = document.createElement('script')
-  auth.type = 'module'
-  auth.src = '/account/auth.js'
-  auth.onerror = () => {
+function script(src: string, type?: string) {
+  return new Promise<void>((resolve, reject) => {
+    const el = document.createElement('script')
+    el.src = `${src}?v=${version}`
+    if (type) el.type = type
+    el.onload = () => resolve()
+    el.onerror = () => reject(new Error('Account resources could not load.'))
+    document.body.append(el)
+  })
+}
+async function loadAccount() {
+  try {
+    await script('/account/onboarding-ui.js')
+    await script('/account/vendor/libphonenumber-max.js')
+    await script('/account/auth.js', 'module')
+  } catch {
     document.getElementById('auth-status')!.textContent = 'Direct sign-in is unavailable. Continue on AIMER Tools, then return here.'
   }
-  document.body.append(auth)
 }
-document.body.append(ui)
+void loadAccount()

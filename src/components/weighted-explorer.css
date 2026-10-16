@@ -1,0 +1,394 @@
+.weighted-expedition.prim {
+  --exp-accent: #b18432;
+}
+.weighted-expedition.kruskal {
+  --exp-accent: #8664b0;
+}
+.weighted-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.weighted-summary > span {
+  font-size: 12px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+}
+.weighted-summary strong {
+  color: var(--ink);
+  margin-left: 7px;
+  font-variant-numeric: tabular-nums;
+}
+.weighted-bridge {
+  stroke: var(--muted);
+  stroke-width: 2;
+  opacity: 0.65;
+  fill: none;
+  transition: stroke 0.3s;
+}
+.weighted-edge.accepted .weighted-bridge {
+  stroke: #399074;
+  stroke-width: 4;
+  opacity: 1;
+}
+.weighted-edge.relax .weighted-bridge,
+.weighted-edge.accept .weighted-bridge {
+  stroke: var(--exp-accent);
+  stroke-width: 4;
+  opacity: 1;
+}
+.weighted-edge.reject .weighted-bridge {
+  stroke: #bf6472;
+  stroke-dasharray: 6 5;
+  opacity: 1;
+}
+.weighted-route-pulse {
+  stroke: var(--exp-accent);
+  stroke-width: 6;
+  fill: none;
+  stroke-dasharray: 5 14;
+  stroke-linecap: round;
+  animation: weighted-route-flow 0.8s linear infinite;
+  opacity: 0.55;
+}
+.weighted-halo {
+  fill: color-mix(in srgb, var(--exp-accent) 9%, transparent);
+  stroke: color-mix(in srgb, var(--exp-accent) 35%, transparent);
+}
+.weighted-component-ring {
+  fill: none;
+  stroke-width: 3;
+  stroke-dasharray: 5 4;
+  transition: stroke 0.4s;
+}
+.weighted-node-detail {
+  font-weight: 700;
+}
+.weighted-settled {
+  fill: #399074;
+  font-size: 19px;
+  font-weight: 800;
+}
+.explorer-weight .weighted-skip-label {
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--panel);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  font-size: 12px;
+}
+.weighted-decision {
+  border-left: 3px solid var(--exp-accent);
+  padding: 10px 14px;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  background: color-mix(in srgb, var(--exp-accent) 5%, var(--panel));
+}
+.weighted-decision span {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.weighted-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+}
+.weighted-edge-ticket {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 9px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 13px;
+}
+.weighted-edge-ticket span,
+.weighted-edge-ticket small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.weighted-edge-ticket.built {
+  border-color: #399074;
+  background: color-mix(in srgb, #399074 7%, var(--panel));
+}
+.weighted-edge-ticket.reject {
+  border-color: #bf6472;
+  border-style: dashed;
+}
+.weighted-edge-ticket.accept,
+.weighted-edge-ticket.relax {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--exp-accent) 18%, transparent);
+}
+.weighted-distance-ticket strong {
+  background: color-mix(in srgb, var(--exp-accent) 10%, var(--panel));
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+.weighted-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.weighted-groups span {
+  font-size: 12px;
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 6px 12px;
+}
+@keyframes weighted-route-flow {
+  to {
+    stroke-dashoffset: -38;
+  }
+}
+.weighted-expedition.bellman-ford {
+  --exp-accent: #ad7540;
+}
+.weighted-expedition.floyd-warshall {
+  --exp-accent: #8d66ab;
+}
+.route-formula {
+  display: flex;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 14px;
+  background: color-mix(in srgb, var(--exp-accent) 8%, var(--panel));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.route-formula > span {
+  font-size: 14px;
+  font-weight: 800;
+}
+.route-formula strong {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.route-formula strong span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0 8px;
+}
+.route-formula em {
+  font-size: 12px;
+  color: var(--muted);
+}
+.route-formula.approved {
+  border-color: #399074;
+  animation: route-stamp 0.4s ease-out;
+}
+.route-edge-active {
+  border-color: var(--exp-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--exp-accent) 15%, transparent);
+}
+.route-matrix-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.route-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  background: var(--panel);
+}
+.route-matrix caption {
+  padding: 14px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+}
+.route-matrix th,
+.route-matrix td {
+  min-width: 48px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.route-matrix th {
+  color: var(--muted);
+  font-size: 12px;
+}
+.route-matrix .route-cell-hub {
+  background: color-mix(in srgb, var(--exp-accent) 9%, var(--panel));
+}
+.route-matrix .route-cell-current {
+  background: color-mix(in srgb, #399074 18%, var(--panel));
+  outline: 2px solid #399074;
+  outline-offset: -2px;
+  font-weight: 800;
+}
+.route-matrix .route-cell-cycle {
+  background: color-mix(in srgb, #be5973 16%, var(--panel));
+  font-weight: 800;
+}
+.route-cycle-warning {
+  padding: 12px;
+  border-left: 3px solid #be5973;
+  font-size: 12px;
+  line-height: 1.7;
+  background: color-mix(in srgb, #be5973 8%, var(--panel));
+}
+.atlas-shortcut {
+  fill: none;
+  stroke: var(--exp-accent);
+  stroke-width: 2;
+  stroke-dasharray: 5 8;
+  opacity: 0.45;
+}
+.atlas-shortcut.improved {
+  stroke: #399074;
+  opacity: 0.85;
+  animation: weighted-route-flow 1.2s linear infinite;
+}
+@keyframes route-stamp {
+  from {
+    transform: translateY(4px);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.weighted-expedition.kahn-topological-sort {
+  --exp-accent: #2d9688;
+}
+.weighted-expedition.kosaraju-scc {
+  --exp-accent: #9674b4;
+}
+.network-map-caption {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.network-released .weighted-bridge {
+  stroke: #54a497;
+  stroke-dasharray: 5 6;
+  opacity: 0.8;
+}
+.network-pass-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.network-pass-banner > span.active {
+  padding: 9px 14px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--exp-accent) 12%, var(--panel));
+  color: var(--ink);
+  font-weight: 700;
+}
+.network-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--exp-accent);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.network-card strong {
+  font-size: 16px;
+}
+.network-card small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.network-card.assigned {
+  border-style: dashed;
+  border-color: var(--line);
+}
+.network-output {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.network-output > strong {
+  font-size: 13px;
+}
+.network-output > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+}
+.network-output span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--exp-accent) 10%, var(--panel));
+  font-size: 17px;
+  font-weight: 800;
+}
+.network-output small {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.network-output em {
+  font-size: 12px;
+  color: var(--muted);
+}
+.network-degrees {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.network-degrees span {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.network-degrees .ready {
+  border-color: var(--exp-accent);
+  color: var(--ink);
+}
+.network-cycle-warning {
+  font-size: 12px;
+  line-height: 1.7;
+  border-left: 3px solid #be5973;
+  padding: 12px;
+  background: color-mix(in srgb, #be5973 8%, var(--panel));
+}
+.network-group-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: network-reunion 0.55s ease-out;
+}
+@keyframes network-reunion {
+  from {
+    opacity: 0.2;
+    transform: scale(1.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

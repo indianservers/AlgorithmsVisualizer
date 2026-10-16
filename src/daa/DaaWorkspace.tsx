@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { AlgorithmModule, LearningTab } from '../types'
 import { LessonTabs } from '../components/LessonTabs'
+import { AccountControl } from '../account/AccountControl'
 import { sortingCharacters } from '../data/sortingCharacters'
 import { usePersistentState, persistentString, persistentBoolean } from '../hooks/usePersistentState'
 import { allModules } from '../algorithms'
@@ -21,6 +22,8 @@ import './daa.css'
 type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
 type Experiment = { id: string; lessonId: string; input: DaaInput; run: DaaRun; createdAt: string }
 const PenguinVisualization = lazy(() => import('../components/PenguinVisualization').then((module) => ({ default: module.PenguinVisualization })))
+const ExplorerTraversal = lazy(() => import('../components/ExplorerTraversal').then((module) => ({ default: module.ExplorerTraversal })))
+const WeightedExplorer = lazy(() => import('../components/WeightedExplorer').then((module) => ({ default: module.WeightedExplorer })))
 const cell = (value: unknown) => (value === null ? '—' : String(value))
 
 function ProblemEditor({ input, onChange }: { input: string; onChange: (value: string) => void }) {
@@ -408,6 +411,19 @@ function Dashboard({ completed }: { completed: string[] }) {
 }
 
 function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; completed: string[]; toggleCompleted: (id: string) => void }) {
+  const [traversalView, setTraversalView] = usePersistentState('algodrishti-traversal-view', 'graph', persistentString)
+  const isExplorerTraversal = lesson.id === 'daa-bfs' || lesson.id === 'daa-dfs'
+  const weightedExplorerMode =
+    lesson.id === 'dijkstra' ||
+    lesson.id === 'prim' ||
+    lesson.id === 'kruskal' ||
+    lesson.id === 'bellman-ford' ||
+    lesson.id === 'floyd-warshall' ||
+    lesson.id === 'kahn-topological-sort' ||
+    lesson.id === 'kosaraju-scc'
+      ? lesson.id
+      : undefined
+  const [weightedView, setWeightedView] = usePersistentState('algodrishti-weighted-graph-view', 'graph', persistentString)
   const [character, setCharacter] = usePersistentState('algodrishti-sorting-character', 'penguins', persistentString)
   const [sortingView, setSortingView] = usePersistentState('algodrishti-bubble-view', 'bars', persistentString)
   const [sortingReducedMotion] = usePersistentState('algodrishti-reduced-motion', false, persistentBoolean)
@@ -720,7 +736,42 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                   </select>
                 </label>
               )}
-              {lesson.id === 'randomized-quicksort' && sortingView === 'icons' ? (
+              {weightedExplorerMode && (
+                <div className="bubble-view-switch" role="group" aria-label="View as">
+                  <span>View as</span>
+                  <button type="button" aria-pressed={weightedView !== 'icons'} onClick={() => setWeightedView('graph')}>
+                    Graph
+                  </button>
+                  <button type="button" aria-pressed={weightedView === 'icons'} onClick={() => setWeightedView('icons')}>
+                    Icons
+                  </button>
+                </div>
+              )}
+              {isExplorerTraversal && (
+                <div className="bubble-view-switch" role="group" aria-label="View as">
+                  <span>View as</span>
+                  <button type="button" aria-pressed={traversalView !== 'icons'} onClick={() => setTraversalView('graph')}>
+                    Graph
+                  </button>
+                  <button type="button" aria-pressed={traversalView === 'icons'} onClick={() => setTraversalView('icons')}>
+                    Icons
+                  </button>
+                </div>
+              )}
+              {weightedExplorerMode && weightedView === 'icons' ? (
+                <Suspense fallback={<p>Loading expedition…</p>}>
+                  <WeightedExplorer step={step} mode={weightedExplorerMode} reducedMotion={sortingReducedMotion} />
+                </Suspense>
+              ) : isExplorerTraversal && traversalView === 'icons' ? (
+                <Suspense fallback={<p>Loading expedition…</p>}>
+                  <ExplorerTraversal
+                    step={step}
+                    previous={run.steps[index - 1]}
+                    mode={lesson.id === 'daa-bfs' ? 'bfs' : 'dfs'}
+                    reducedMotion={sortingReducedMotion}
+                  />
+                </Suspense>
+              ) : lesson.id === 'randomized-quicksort' && sortingView === 'icons' ? (
                 <Suspense fallback={<p>Loading characters…</p>}>
                   <PenguinVisualization
                     items={(step?.state?.values ?? []).map((value, i) => ({
@@ -886,6 +937,7 @@ export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
       <div className="daa-top">
         <Link to="/daa/syllabus-dashboard">← DAA concepts</Link>
         <Link to="/sorting/bubble-sort">Algorithm visualizer</Link>
+        <AccountControl />
       </div>
       {module.lessonId === 'dashboard' ? (
         <Dashboard completed={completed} />

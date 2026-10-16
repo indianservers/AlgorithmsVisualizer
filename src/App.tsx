@@ -767,6 +767,7 @@ function App() {
           />
         ) : (
           <Visualizer
+            searchHistory={steps.slice(0, stepIndex)}
             learningTab={learningTab}
             setLearningTab={setLearningTab}
             activeCategory={activeCategory}

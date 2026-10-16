@@ -11,7 +11,7 @@ test('concept library offers lessons without institutional references', async ({
   await expect(page.getByRole('heading', { name: 'DAA Concept Library' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Core learning path' })).toBeVisible()
   await expect(page.getByText(/University|IIT Patna|Allahabad|JNTUH|Duke University|Official syllabus/i)).toHaveCount(0)
-  await expect(page.locator('a[href^="http"]')).toHaveCount(0)
+  await expect(page.locator('.daa-workspace a[href^="http"]')).toHaveCount(0)
   await page.getByLabel('Find topic').fill('Dijkstra')
   await expect(page.getByRole('rowheader', { name: /Dijkstra/ })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
