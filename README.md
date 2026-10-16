@@ -170,3 +170,62 @@ When changing input or validation:
 - Several educational modules are scaffold-style demos, not full custom data-structure editors.
 - `runnerController.ts` provides async cancellation helpers, but the current app mostly runs algorithms synchronously through `activeModule.runner`.
 - Some displayed symbols/text may show mojibake from earlier encoding issues; inspect rendered UI before doing copy edits.
+
+## Shared AIMER Society accounts
+
+Production origin: `https://algorithms.aimersociety.com` (DNS points to Vercel).
+The home and lesson navigation use one persistent account widget. Its dialogs
+live outside the React route tree so opening login, verification or onboarding
+preserves the current hash route. `src/account/AccountControl.tsx` mounts the
+same trigger in each navigation; `src/account/bootstrap.ts` initializes the
+shared markup in `src/account/shell.html`. Adapted reference scripts, styles and
+branding are in `public/account/`.
+
+All account requests go to `https://tools.aimersociety.com/api/session` or
+`/api/profile`, with credentials included and caching disabled. Google and
+email/password use the existing `mlvisualizationsaimersweb` Firebase project,
+memory-only SDK persistence, verified email and a central server-session
+exchange. Temporary Firebase state is signed out after the exchange. Passwords
+are only sent to Firebase. No account tokens are written to localStorage or
+JavaScript cookies. Profile mutations include `X-Aimer-Account`; onboarding
+writes only interests, optional mobile and completion, never Tools learning.
+Profile editing is linked to the common `/profile` page.
+
+Existing experiments, progress and favorites remain device-local, available to
+guests, and are not uploaded, imported into an account or associated with the
+signed-in identity. No private backend or cloud learning schema was introduced.
+Any future private route must verify the shared cookie on the server using
+Firebase Admin `verifySessionCookie(cookie, true)` and scope queries to its UID.
+
+### Required central configuration
+
+A read-only production request on 2026-10-16 with
+`Origin: https://algorithms.aimersociety.com` returned **403 Origin not allowed**.
+The central origin configuration is currently blocking shared login. Firebase
+settings and central deployment settings could not be modified here:
+
+1. In Firebase Authentication for `mlvisualizationsaimersweb`, authorize
+   `algorithms.aimersociety.com`; ensure Google and Email/Password are enabled.
+2. On the **central Tools Vercel project**, append
+   `https://algorithms.aimersociety.com` to `AUTH_ALLOWED_ORIGINS`, retaining all
+   existing entries, then redeploy. Do not add wildcard origins.
+3. The local reference `dist/account-client.mjs` already explicitly includes
+   `algorithms.aimersociety.com` in `safeReturnTo`. Confirm that deployed Tools
+   contains this version; if absent there, append the hostname and redeploy.
+
+Central fallback preserves the current HTTPS production path, query and hash
+through `?login=1&returnTo=...`. Untrusted development/preview origins are never
+sent as return destinations. Direct popup sign-in stays on the learning page.
+Shared login cannot be claimed operational until the central configuration and
+real-browser cookie behavior are verified.
+
+### Account verification
+
+`tests/visual/account.spec.ts` uses mocked Firebase modules and central APIs;
+it creates no production accounts, sends no email and modifies no real profile.
+Run `npx playwright test tests/visual/account.spec.ts` for desktop/mobile account
+checks. Also run the standard lint, unit tests, build and bundle budget checks.
+Real-user staging/production checks remain necessary for Google popup consent,
+email delivery and verification links, Firebase password reset, existing
+cross-subdomain cookies, CORS preflights, shared logout and browser privacy modes.
+Never use or commit service account keys or the Tools `.env.local` file here.

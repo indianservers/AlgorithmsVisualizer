@@ -1,3 +1,4 @@
+import { AccountControl } from '../account/AccountControl'
 import type { Dispatch, SetStateAction } from 'react'
 import { useEffect, useRef } from 'react'
 import {
@@ -134,6 +135,7 @@ export function TopBar({
         </button>
       </div>
       <div className="top-actions">
+        <AccountControl />
         <button
           className="icon-button btn-data desktop-sidebar-toggle"
           type="button"

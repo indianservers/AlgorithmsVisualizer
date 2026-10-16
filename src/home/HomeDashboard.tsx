@@ -1,3 +1,4 @@
+import { AccountControl } from '../account/AccountControl'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen, CheckCheck, GraduationCap, Layers, Moon, Play, Search, Sparkles, Sun } from 'lucide-react'
@@ -88,6 +89,7 @@ export function HomeDashboard() {
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
         </nav>
+        <AccountControl />
       </header>
       <main>
         <section className="home-hero">

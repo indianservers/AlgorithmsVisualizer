@@ -1,0 +1,77 @@
+.aimer-account-slot {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.aimer-account-slot .account-trigger {
+  width: auto;
+  height: auto;
+  min-height: 42px;
+}
+.account-dialog {
+  font-family: Inter, system-ui, sans-serif;
+}
+.account-dialog a:focus-visible {
+  outline: 3px solid #8db3ff;
+  outline-offset: 3px;
+}
+.account-brand > svg {
+  display: none;
+}
+.account-brand {
+  background: white;
+}
+#central-login {
+  display: block;
+  margin: 14px 0;
+  color: #215cce;
+  font-size: 12px;
+}
+.account-links a {
+  text-decoration: none;
+}
+.account-dialog button:disabled {
+  cursor: wait;
+}
+.account-dialog #email-submit {
+  background: linear-gradient(105deg, #167cff, #8634ff);
+}
+.account-dialog img {
+  max-width: 100%;
+}
+@media (max-width: 700px) {
+  .home-header {
+    flex-wrap: wrap;
+  }
+  .topbar {
+    flex-wrap: wrap;
+  }
+  .top-actions {
+    flex-wrap: wrap;
+  }
+  .aimer-account-slot {
+    margin-left: auto;
+  }
+  .aimer-account-slot #account-label {
+    max-width: 110px;
+  }
+}
+.account-dialog h2 {
+  display: block;
+}
+.home-header .aimer-account-slot .account-trigger,
+.topbar .aimer-account-slot .account-trigger {
+  display: flex;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #f0f7ff, #e8edff);
+  color: #174aaf;
+  border: 1px solid #bed4ff;
+  padding: 7px 13px 7px 8px;
+  min-height: 44px;
+}
+@media (max-width: 680px) {
+  .topbar .top-actions .aimer-account-slot {
+    grid-column: 1/-1;
+    justify-self: end;
+  }
+}
