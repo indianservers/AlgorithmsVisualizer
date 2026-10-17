@@ -2,6 +2,8 @@ import type { AlgorithmCategory, AlgorithmStep } from '../types'
 
 export type Edge = { from: number; to: number; weight: number }
 export type DaaInput = {
+  range?: number[]
+  delta?: number
   values?: number[]
   k?: number
   n?: number
@@ -34,6 +36,16 @@ export type DaaInput = {
 }
 export type Cell = number | string | boolean | null
 export type LearningState = {
+  dp?: {
+    phase: 'base' | 'call' | 'reuse' | 'choose' | 'traceback' | 'complete'
+    focus?: [number, number]
+    dependencies: { cell: [number, number]; label: string }[]
+    candidates: { label: string; value: Cell }[]
+    expression: string
+    filled: string[]
+    path?: [number, number][]
+    stack?: number[]
+  }
   networkStudy?: {
     phase: 'ready' | 'remove' | 'release' | 'forward' | 'finish' | 'transpose' | 'group' | 'summary'
     order: number[]
@@ -155,6 +167,13 @@ export function validateInput(input: DaaInput, defaults: DaaInput) {
     }
   }
   if (input.directed !== undefined && typeof input.directed !== 'boolean') throw new Error('directed must be true or false.')
+  if (
+    input.range !== undefined &&
+    (!Array.isArray(input.range) || ![2, 4].includes(input.range.length) || input.range.some((v) => !Number.isSafeInteger(v) || v < 0))
+  )
+    throw new Error('Range must contain 2 or 4 non-negative integer indices.')
+  if (input.delta !== undefined && (typeof input.delta !== 'number' || !Number.isFinite(input.delta) || Math.abs(input.delta) > 1e6))
+    throw new Error('Delta must be a finite number of magnitude at most 1,000,000.')
   if (input.weights && ((input.profits && input.weights.length !== input.profits.length) || input.weights.some((w) => !Number.isInteger(w) || w <= 0)))
     throw new Error('Weights must be positive integers and match profits when provided.')
   if (input.profits?.some((p) => p < 0)) throw new Error('Profits must be non-negative.')

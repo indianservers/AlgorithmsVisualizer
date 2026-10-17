@@ -14,6 +14,14 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/learning/DynamicProgrammingStudio') ||
+                  id.includes('/src/learning/dpProfiles') ||
+                  id.includes('/src/learning/dpExtras') ||
+                  id.includes('/src/learning/dpModel') ||
+                  id.includes('/src/learning/dynamic-programming.css')
+                )
+                  return 'dp-learning'
+                if (
                   id.includes('/src/components/PenguinVisualization') ||
                   id.includes('/src/components/penguins.css') ||
                   id.includes('/src/data/sortingCharacters')

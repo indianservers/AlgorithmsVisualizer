@@ -43,6 +43,7 @@ import './dfs.css'
 import './bfs.css'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
+const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 import { isTargetUiLesson } from './targetUi'
 
 type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
@@ -1159,6 +1160,12 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 }
 
 export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
+  if (module.category === 'Dynamic Programming')
+    return (
+      <Suspense fallback={<p role="status">Loading the dynamic programming lab…</p>}>
+        <DPLessonPage key={module.id} module={module} completed={completed} toggleCompleted={toggleCompleted} />
+      </Suspense>
+    )
   return (
     <div className={`daa-workspace${module.lessonId === 'dashboard' ? '' : ' compact-daa'}`} data-lesson-id={module.lessonId}>
       {module.lessonId === 'dashboard' && (

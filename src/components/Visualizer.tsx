@@ -2,6 +2,7 @@ import { ViewportCanvas } from './ViewportCanvas'
 import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import { lazy, Suspense } from 'react'
 import type { AlgorithmCategory, AlgorithmModule, AlgorithmStep, AnimationQuality, InputDiagnostics, LearningTab } from '../types'
 import { allModules, chessFenPresets, gameBoardPresets } from '../algorithms'
 import { TraversalWorkbench } from './TraversalWorkbench'
@@ -14,6 +15,7 @@ import { usePersistentState, persistentString } from '../hooks/usePersistentStat
 import { TreeLearningStudio } from '../learning/TreeLearningStudio'
 import { isTreeLearningModule } from '../learning/treeModel'
 import { GraphSuiteLearning } from '../learning/GraphSuiteLearning'
+const DPSuiteLearning = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPSuiteLearning })))
 
 type VisualItem = {
   id: string
@@ -300,6 +302,16 @@ export function Visualizer({
     localStorage.setItem(gameStateKey, JSON.stringify({ base: gameSymbols, move }))
     startGameInteraction()
   }
+
+  if (activeModule.category === 'Dynamic Programming')
+    return (
+      <section className="lab-grid" data-learning-tab={learningTab}>
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <Suspense fallback={<p role="status">Loading the dynamic programming lab…</p>}>
+          <DPSuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} onTab={setLearningTab} />
+        </Suspense>
+      </section>
+    )
 
   if (isTreeLearningModule(activeModule))
     return (

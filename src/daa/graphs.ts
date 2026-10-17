@@ -1,4 +1,5 @@
 import { Trace, type DaaInput, type Edge } from './types'
+import { DPTrace, displayValue } from './dpTrace'
 
 export function arcs(input: DaaInput): Edge[] {
   return input.directed ? input.edges! : input.edges!.flatMap((e) => [e, { from: e.to, to: e.from, weight: e.weight }])
@@ -474,12 +475,43 @@ export function multistage(input: DaaInput, t: Trace) {
   const dist = Array(input.vertices!).fill(Infinity),
     parent = Array(input.vertices!).fill(-1)
   dist[input.source!] = 0
+  const shown = dist.map(displayValue),
+    d = new DPTrace(
+      t,
+      [shown],
+      ['distance'],
+      dist.map((_, v) => String(v)),
+    )
+  d.mark([0, input.source!])
+  d.emit(
+    `Source ${input.source} has distance 0. Topological order: ${sorted.order.join(' → ')}.`,
+    'base',
+    [0, input.source!],
+    [],
+    [],
+    'Relax each vertex only after its predecessors.',
+    graphState(input, [], dist.map(String)),
+  )
   for (const u of sorted.order)
     for (const e of input.edges!.filter((e) => e.from === u))
       if (dist[u] + e.weight < dist[e.to]) {
+        const previous = dist[e.to]
         dist[e.to] = dist[u] + e.weight
+        shown[e.to] = dist[e.to]
+        d.mark([0, e.to])
         parent[e.to] = u
-        t.add(`Topological DP relaxes ${u} → ${e.to}.`, graphState(input, [[u, e.to]], dist.map(String)), 1)
+        d.emit(
+          `Topological DP relaxes ${u} → ${e.to}.`,
+          'choose',
+          [0, e.to],
+          [{ cell: [0, u], label: 'predecessor distance' }],
+          [
+            { label: 'Previous distance', value: displayValue(previous) },
+            { label: `Via ${u}`, value: dist[e.to] },
+          ],
+          `${dist[u]} + ${e.weight} = ${dist[e.to]}`,
+          graphState(input, [[u, e.to]], dist.map(String)),
+        )
       }
   return { distances: dist.map((d) => (Number.isFinite(d) ? d : 'unreachable')), parent }
 }

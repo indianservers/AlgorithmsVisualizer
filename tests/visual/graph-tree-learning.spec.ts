@@ -75,7 +75,6 @@ for (const [category, id] of [
   ['daa-extensions', 'bridges'],
   ['daa-extensions', 'edmonds-karp'],
   ['backtracking', 'graph-coloring'],
-  ['dynamic-programming', 'held-karp-tsp'],
 ])
   test(`graph explorer: ${id}`, async ({ page }) => {
     const errors: string[] = []

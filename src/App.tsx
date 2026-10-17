@@ -59,7 +59,7 @@ function App() {
   const activeCategory = routeState.activeCategory
   const activeModule = routeState.activeModule
   const activeId = activeModule.id
-  const usesLearningStudio = isTreeLearningModule(activeModule) || activeCategory === 'Graphs'
+  const usesLearningStudio = isTreeLearningModule(activeModule) || activeCategory === 'Graphs' || activeCategory === 'Dynamic Programming'
   const activePage = categoryPages[activeCategory]
 
   const [inputText, setInputText] = usePersistentState('algodrishti-input', '42, 18, 67, 9, 31, 73, 54, 26, 88, 12', persistentString)
