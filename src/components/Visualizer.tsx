@@ -11,6 +11,9 @@ import { sortingCharacters } from '../data/sortingCharacters'
 import { LessonTabs } from './LessonTabs'
 import { suiteLinks } from '../daa/syllabi'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
+import { TreeLearningStudio } from '../learning/TreeLearningStudio'
+import { isTreeLearningModule } from '../learning/treeModel'
+import { GraphSuiteLearning } from '../learning/GraphSuiteLearning'
 
 type VisualItem = {
   id: string
@@ -296,6 +299,23 @@ export function Visualizer({
     const move = legalMovePayload.find((item) => item.to === index) ?? legalMovePayload[0]
     localStorage.setItem(gameStateKey, JSON.stringify({ base: gameSymbols, move }))
     startGameInteraction()
+  }
+
+  if (isTreeLearningModule(activeModule))
+    return (
+      <section className="lab-grid" data-learning-tab={learningTab}>
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <TreeLearningStudio key={activeModule.id} module={activeModule} tab={learningTab} />
+      </section>
+    )
+
+  if (['Learn', 'Visualization'].includes(learningTab) && activeModule.category === 'Graphs') {
+    return (
+      <section className="lab-grid" data-learning-tab={learningTab}>
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <GraphSuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} />
+      </section>
+    )
   }
 
   return (

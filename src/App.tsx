@@ -1,4 +1,5 @@
 import { CompactLessonHeader } from './components/CompactLessonHeader'
+import { isTreeLearningModule } from './learning/treeModel'
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import './App.css'
@@ -58,6 +59,7 @@ function App() {
   const activeCategory = routeState.activeCategory
   const activeModule = routeState.activeModule
   const activeId = activeModule.id
+  const usesLearningStudio = isTreeLearningModule(activeModule) || activeCategory === 'Graphs'
   const activePage = categoryPages[activeCategory]
 
   const [inputText, setInputText] = usePersistentState('algodrishti-input', '42, 18, 67, 9, 31, 73, 54, 26, 88, 12', persistentString)
@@ -331,6 +333,7 @@ function App() {
         event.preventDefault()
         setCommandOpen(true)
       }
+      if (usesLearningStudio || (event.target as HTMLElement).closest('.learning-studio')) return
       if (event.key === ' ') {
         event.preventDefault()
         setPlaying((value) => !value)
@@ -346,7 +349,7 @@ function App() {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [steps.length])
+  }, [steps.length, usesLearningStudio])
 
   const resetPlayback = () => {
     setStepIndex(0)
@@ -644,44 +647,52 @@ function App() {
         data-learning-tab={viewMode === 'compare' ? 'Visualization' : learningTab}
         style={{ '--page-accent': activePage.accent } as CSSProperties}
       >
-        <TopBar
-          activeModule={activeModule}
-          classroomMode={classroomMode}
-          clearLocalData={clearLocalData}
-          copyText={copyText}
-          density={density}
-          downloadText={downloadText}
-          exportJson={exportJson}
-          exportPng={exportPng}
-          exportSvg={exportSvg}
-          exportsOpen={exportsOpen}
-          focusMode={focusMode}
-          fullCanvas={fullCanvas}
-          notes={notes}
-          onFileLoad={onFileLoad}
-          openCommandPalette={() => setCommandOpen(true)}
-          pushToast={pushToast}
-          reducedMotion={reducedMotion}
-          resetUiSettings={resetUiSettings}
-          saveExperiment={saveExperiment}
-          saving={saving}
-          setClassroomMode={setClassroomMode}
-          setDensity={setDensity}
-          setExportsOpen={setExportsOpen}
-          setFocusMode={setFocusMode}
-          setFullCanvas={setFullCanvas}
-          setNotes={setNotes}
-          setReducedMotion={setReducedMotion}
-          setSettingsOpen={setSettingsOpen}
-          setSidebarCollapsed={setSidebarCollapsed}
-          setTheme={setTheme}
-          setViewMode={setViewMode}
-          settingsOpen={settingsOpen}
-          sidebarCollapsed={sidebarCollapsed}
-          stepsLength={steps.length}
-          theme={theme}
-          viewMode={viewMode}
-        />
+        {usesLearningStudio ? (
+          <div className="studio-toolbar">
+            <span>Interactive learning workshop</span>
+            <button onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}>{theme === 'dark' ? 'Light theme' : 'Dark theme'}</button>
+            <button onClick={() => copyText('Lesson link', window.location.href)}>Copy lesson link</button>
+          </div>
+        ) : (
+          <TopBar
+            activeModule={activeModule}
+            classroomMode={classroomMode}
+            clearLocalData={clearLocalData}
+            copyText={copyText}
+            density={density}
+            downloadText={downloadText}
+            exportJson={exportJson}
+            exportPng={exportPng}
+            exportSvg={exportSvg}
+            exportsOpen={exportsOpen}
+            focusMode={focusMode}
+            fullCanvas={fullCanvas}
+            notes={notes}
+            onFileLoad={onFileLoad}
+            openCommandPalette={() => setCommandOpen(true)}
+            pushToast={pushToast}
+            reducedMotion={reducedMotion}
+            resetUiSettings={resetUiSettings}
+            saveExperiment={saveExperiment}
+            saving={saving}
+            setClassroomMode={setClassroomMode}
+            setDensity={setDensity}
+            setExportsOpen={setExportsOpen}
+            setFocusMode={setFocusMode}
+            setFullCanvas={setFullCanvas}
+            setNotes={setNotes}
+            setReducedMotion={setReducedMotion}
+            setSettingsOpen={setSettingsOpen}
+            setSidebarCollapsed={setSidebarCollapsed}
+            setTheme={setTheme}
+            setViewMode={setViewMode}
+            settingsOpen={settingsOpen}
+            sidebarCollapsed={sidebarCollapsed}
+            stepsLength={steps.length}
+            theme={theme}
+            viewMode={viewMode}
+          />
+        )}
         <MobileCategoryTabs activeCategory={activeCategory} chooseCategory={chooseCategory} />
         <CommandPalette
           algorithms={allModules}
@@ -850,44 +861,46 @@ function App() {
             visualItems={visualItems}
           />
         )}
-        <BottomPanel
-          activeModuleId={activeModule.id}
-          copyText={copyText}
-          downloadText={downloadText}
-          finalMetrics={finalMetrics}
-          loadingSaved={loadingSaved}
-          onLoadSaved={(item) => {
-            chooseAlgorithm(item.algorithmId)
-            setInputText(item.input.join(', '))
-            setTarget(item.target)
-            setViewMode('visualize')
-            setLearningTab('Visualization')
-            resetPlayback()
-            pushToast(`${item.algorithmName} loaded`)
-            scrollToSection('.visual-canvas')
-          }}
-          openDashboard={() => {
-            setViewMode('visualize')
-            setLearningTab('Learn')
-            scrollToSection('.page-ribbon')
-          }}
-          openDataGrid={() => {
-            setViewMode('visualize')
-            setLearningTab('Visualization')
-            scrollToSection('.input-strip, .ds-input-panel')
-          }}
-          openStatistics={() => scrollToSection('.metrics-panel')}
-          openVisualizer={() => {
-            setViewMode('visualize')
-            setLearningTab('Visualization')
-            scrollToSection('.visual-canvas')
-          }}
-          saved={saved}
-          setStepIndex={setStepIndex}
-          stepIndex={stepIndex}
-          stepLogCsv={stepLogCsv}
-          steps={steps}
-        />
+        {!usesLearningStudio && (
+          <BottomPanel
+            activeModuleId={activeModule.id}
+            copyText={copyText}
+            downloadText={downloadText}
+            finalMetrics={finalMetrics}
+            loadingSaved={loadingSaved}
+            onLoadSaved={(item) => {
+              chooseAlgorithm(item.algorithmId)
+              setInputText(item.input.join(', '))
+              setTarget(item.target)
+              setViewMode('visualize')
+              setLearningTab('Visualization')
+              resetPlayback()
+              pushToast(`${item.algorithmName} loaded`)
+              scrollToSection('.visual-canvas')
+            }}
+            openDashboard={() => {
+              setViewMode('visualize')
+              setLearningTab('Learn')
+              scrollToSection('.page-ribbon')
+            }}
+            openDataGrid={() => {
+              setViewMode('visualize')
+              setLearningTab('Visualization')
+              scrollToSection('.input-strip, .ds-input-panel')
+            }}
+            openStatistics={() => scrollToSection('.metrics-panel')}
+            openVisualizer={() => {
+              setViewMode('visualize')
+              setLearningTab('Visualization')
+              scrollToSection('.visual-canvas')
+            }}
+            saved={saved}
+            setStepIndex={setStepIndex}
+            stepIndex={stepIndex}
+            stepLogCsv={stepLogCsv}
+            steps={steps}
+          />
+        )}
         <AimerSiteFooter />
       </section>
     </Layout>

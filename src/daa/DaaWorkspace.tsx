@@ -41,6 +41,9 @@ import './daa.css'
 import './dijkstra.css'
 import './dfs.css'
 import './bfs.css'
+import { TargetLessonVisualization } from './TargetLessonVisualization'
+import { GraphLearningStudio } from '../learning/GraphLearningStudio'
+import { isTargetUiLesson } from './targetUi'
 
 type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
 type Experiment = { id: string; lessonId: string; input: DaaInput; run: DaaRun; createdAt: string }
@@ -243,7 +246,7 @@ function ArrayField({ name, value, onApply }: { name: string; value: unknown; on
   )
 }
 
-function StateView({
+export function StateView({
   state,
   spacious = false,
   traversalLayout = false,
@@ -562,6 +565,7 @@ function TraceExports({ onExport, onSave, icons = false }: { onExport: (format: 
 }
 
 function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; completed: string[]; toggleCompleted: (id: string) => void }) {
+  const targetUiLesson = isTargetUiLesson(lesson)
   const [traversalView, setTraversalView] = usePersistentState('algodrishti-traversal-view', 'graph', persistentString)
   const isBfs = lesson.id === 'daa-bfs'
   const isTraversalStudio = lesson.id === 'daa-dfs' || isBfs
@@ -589,7 +593,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
     [index, setIndex] = useState(0),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(600),
-    [selectedTab, setTab] = useState<LearningTab>(lesson.id === 'dijkstra' || isTraversalStudio ? 'Visualization' : 'Learn'),
+    [selectedTab, setTab] = useState<LearningTab>(targetUiLesson || lesson.id === 'dijkstra' || isTraversalStudio ? 'Visualization' : 'Learn'),
     [editorVersion, setEditorVersion] = useState(0),
     [answer, setAnswer] = useState(false)
   const [experiments, setExperimentState] = useState<Experiment[]>(() => {
@@ -705,7 +709,17 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
         }
         active={tab}
         onChange={setTab}
-        tabs={lesson.run ? ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments'] : ['Learn', 'Practice']}
+        tabs={
+          lesson.run || targetUiLesson
+            ? [
+                'Learn',
+                'Visualization',
+                ...(lesson.run ? (['Code'] as LearningTab[]) : []),
+                'Practice',
+                ...(lesson.run ? (['Experiments'] as LearningTab[]) : []),
+              ]
+            : ['Learn', 'Practice']
+        }
       />
       {tab === 'Learn' && (
         <section className="daa-card">
@@ -736,7 +750,14 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
           )}
         </section>
       )}
-      {tab === 'Visualization' && (
+      {lesson.defaultInput?.vertices && (tab === 'Learn' || tab === 'Visualization') && (
+        <details className="graph-academy-wrap" open={tab === 'Learn'} key={`${lesson.id}-${tab}`}>
+          <summary>Explore the graph learning lab · build, predict, compare</summary>
+          <GraphLearningStudio key={lesson.id} lesson={lesson} />
+        </details>
+      )}
+      {tab === 'Visualization' && targetUiLesson && <TargetLessonVisualization lesson={lesson} />}
+      {tab === 'Visualization' && !targetUiLesson && (
         <div className="daa-interactive-layout">
           <section className="daa-card daa-input-card">
             <div>
