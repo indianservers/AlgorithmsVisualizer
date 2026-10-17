@@ -1,3 +1,4 @@
+import { CompactLessonHeader } from './components/CompactLessonHeader'
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import './App.css'
@@ -99,7 +100,6 @@ function App() {
   const [comparedIds, setComparedIds] = useState<string[]>(['bubble-sort', 'selection-sort', 'insertion-sort', 'quick-sort'])
   const [fullCanvas, setFullCanvas] = useState(false)
   const [focusMode, setFocusMode] = useState(false)
-  const [showOnboarding, setShowOnboarding] = useState(() => localStorage.getItem('algodrishti-onboarded') !== 'true')
   const [pauseOn, setPauseOn] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | 'live' | 'planned'>('all')
   const [visualFilter, setVisualFilter] = useState<'all' | AlgorithmModule['visualMode']>('all')
@@ -695,54 +695,12 @@ function App() {
         />
         {routeChanging && <RouteTransitionSkeleton />}
         {viewMode === 'visualize' && (
-          <section className="category-hero algorithm-hero">
-            {showOnboarding && (
-              <div className="onboarding-panel">
-                <strong>Start here</strong>
-                <span>Pick an algorithm, choose a preset, press Run, then use the step slider to connect the bars with pseudocode and metrics.</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    localStorage.setItem('algodrishti-onboarded', 'true')
-                    setShowOnboarding(false)
-                  }}
-                >
-                  Got it
-                </button>
-              </div>
-            )}
-            <div>
-              <nav className="breadcrumbs" aria-label="Current route">
-                <button type="button" onClick={() => chooseCategory(activeCategory)}>
-                  {activeCategory}
-                </button>
-                <span>/</span>
-                <button type="button" onClick={() => chooseAlgorithm(activeModule.id)}>
-                  {activeModule.name}
-                </button>
-              </nav>
-              <h1>{activeModule.name}</h1>
-              <p>{activeModule.summary}</p>
-            </div>
-            <div className="category-section-strip">
-              <span>{activeModule.category}</span>
-              <span>{activeModule.subcategory ?? activeModule.visualMode}</span>
-              <span>{statusLabel}</span>
-              <span>{activeModule.complexity.average}</span>
-            </div>
-            <div className="learning-paths">
-              {[
-                ['What this page teaches', guide.concept],
-                ['What to watch', guide.objectives[1]],
-                ['Pitfall', guide.misconceptions[0]],
-              ].map(([title, detail]) => (
-                <article key={title}>
-                  <strong>{title}</strong>
-                  <span>{detail}</span>
-                </article>
-              ))}
-            </div>
-          </section>
+          <CompactLessonHeader
+            title={activeModule.name}
+            description={activeModule.summary}
+            studied={completed.includes(activeModule.id)}
+            onStudy={() => toggleComplete(activeModule.id)}
+          />
         )}
         {viewMode === 'compare' ? (
           <CompareView
@@ -781,6 +739,7 @@ function App() {
             complexityFilter={complexityFilter}
             controls={
               <Controls
+                stepIndex={stepIndex}
                 activeCategory={activeCategory}
                 disabledReason={disabledReason}
                 pauseOn={pauseOn}

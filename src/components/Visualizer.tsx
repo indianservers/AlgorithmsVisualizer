@@ -1,3 +1,4 @@
+import { ViewportCanvas } from './ViewportCanvas'
 import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
@@ -237,7 +238,6 @@ export function Visualizer({
   sortedInputRequired,
   sortedInputValid,
   statusFilter,
-  statusLabel,
   stepLogCsv,
   stepPalette,
   stepsLength,
@@ -301,155 +301,10 @@ export function Visualizer({
   return (
     <section className="lab-grid" data-learning-tab={learningTab}>
       <LessonTabs active={learningTab} onChange={setLearningTab} />
-      <section className="canvas-zone">
-        <div className="canvas-header">
-          <div>
-            <span className="eyebrow">
-              {activeModule.category} / {activeModule.visualMode} Mode
-            </span>
-            <h1>{activeModule.name}</h1>
-            <p>{activeModule.summary}</p>
-          </div>
-          <span className={`status ${activeModule.status}`}>{statusLabel}</span>
-        </div>
-        {learningTab === 'Visualization' && suiteLinks[activeId] && (
-          <div className="daa-suite-notice">
-            <strong>This suite uses an illustrative example.</strong>
-            <p>Choose a dedicated algorithm below to edit its problem data and compute a full timeline.</p>
-            {suiteLinks[activeId].map((id) => (
-              <button type="button" key={id} onClick={() => chooseAlgorithm(id)}>
-                {allModules.find((module) => module.id === id)?.name ?? id}
-              </button>
-            ))}
-          </div>
-        )}
-        <div className="page-ribbon">
-          <span>{activeCategory} page</span>
-          <strong>{activeModule.subcategory ?? activeModule.visualMode}</strong>
-          <em>{recommendation}</em>
-          <em>{progressPercent}% category progress</em>
-        </div>
-        <details className="algorithm-browser">
-          <summary>
-            <Search size={17} />
-            Browse {activeCategory.toLowerCase()} algorithms
-            <span>{visiblePickerModules.length} results</span>
-          </summary>
-          <section className="category-module-map">
-            {pageSections.map((section) => {
-              const sectionModules = filteredModules
-                .filter((module) => `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()))
-                .slice(0, 4)
-              const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
-              return (
-                <article key={section}>
-                  <h2>{section}</h2>
-                  <div>
-                    {fallback.map((module) => (
-                      <button
-                        className={module.id === activeId ? 'active' : ''}
-                        key={`${section}-${module.id}`}
-                        type="button"
-                        onClick={() => chooseAlgorithm(module.id)}
-                      >
-                        {module.name}
-                      </button>
-                    ))}
-                  </div>
-                </article>
-              )
-            })}
-          </section>
-
-          <section className="algorithm-picker" aria-label="Algorithm picker">
-            <div className="picker-search">
-              <Search size={17} />
-              <input
-                aria-label="Search algorithms"
-                placeholder={`Search ${activeCategory.toLowerCase()} algorithms`}
-                value={algorithmQuery}
-                onChange={(event) => setAlgorithmQuery(event.target.value)}
-              />
-              <span className="picker-count">{visiblePickerModules.length} results</span>
-            </div>
-            <div className="picker-filters">
-              <label>
-                Status
-                <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
-                  <option value="all">All</option>
-                  <option value="live">Interactive</option>
-                  <option value="planned">Coming soon</option>
-                </select>
-              </label>
-              <label>
-                View
-                <select value={visualFilter} onChange={(event) => setVisualFilter(event.target.value as typeof visualFilter)}>
-                  <option value="all">All</option>
-                  {(['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
-                    <option key={mode} value={mode}>
-                      {mode}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Complexity
-                <select value={complexityFilter} onChange={(event) => setComplexityFilter(event.target.value as typeof complexityFilter)}>
-                  <option value="all">All</option>
-                  <option value="log">Logarithmic</option>
-                  <option value="linear">Linear</option>
-                  <option value="nlogn">n log n</option>
-                  <option value="quadratic">Quadratic</option>
-                </select>
-              </label>
-              <button className="btn-reset-filters" type="button" onClick={resetFilters}>
-                Reset filters
-              </button>
-            </div>
-            <div className="favorite-row">
-              {favorites
-                .map((id) => allModules.find((module) => module.id === id))
-                .filter(Boolean)
-                .map((module) => (
-                  <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
-                    Pinned: {module!.name}
-                  </button>
-                ))}
-            </div>
-            {visiblePickerModules.length ? (
-              <div className="picker-grid">
-                {visiblePickerModules.map((module) => (
-                  <button
-                    className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
-                    key={module.id}
-                    onClick={() => chooseAlgorithm(module.id)}
-                    type="button"
-                  >
-                    <span>
-                      <strong>{module.name}</strong>
-                      <small>
-                        {module.subcategory ?? module.visualMode} / {module.status === 'live' ? 'interactive' : 'coming soon'}
-                      </small>
-                    </span>
-                    <em>{module.complexity.average}</em>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="empty-state">
-                <strong>No algorithms match these filters.</strong>
-                <span>Clear the search or reset filters to see the full {activeCategory.toLowerCase()} catalog.</span>
-              </div>
-            )}
-            <button className="favorite-toggle" type="button" onClick={() => toggleFavorite(activeModule.id)}>
-              {favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite'}
-            </button>
-          </section>
-        </details>
-
+      <section className="workbench-input" aria-label="Problem Input">
+        <h2>Problem Input</h2>
         {activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
           <div className={`input-strip ${isBubble ? 'bubble-compact' : ''}`}>
-            {isBubble && <h2>Input &amp; Controls</h2>}
             <label>
               {isBubble ? 'Array (comma separated)' : 'Data'}
               <textarea
@@ -701,7 +556,144 @@ export function Visualizer({
             )}
           </div>
         )}
+        <details className="algorithm-browser">
+          <summary>
+            <Search size={17} />
+            Browse {activeCategory.toLowerCase()} algorithms
+            <span>{visiblePickerModules.length} results</span>
+          </summary>
+          <section className="category-module-map">
+            {pageSections.map((section) => {
+              const sectionModules = filteredModules
+                .filter((module) => `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()))
+                .slice(0, 4)
+              const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
+              return (
+                <article key={section}>
+                  <h2>{section}</h2>
+                  <div>
+                    {fallback.map((module) => (
+                      <button
+                        className={module.id === activeId ? 'active' : ''}
+                        key={`${section}-${module.id}`}
+                        type="button"
+                        onClick={() => chooseAlgorithm(module.id)}
+                      >
+                        {module.name}
+                      </button>
+                    ))}
+                  </div>
+                </article>
+              )
+            })}
+          </section>
 
+          <section className="algorithm-picker" aria-label="Algorithm picker">
+            <div className="picker-search">
+              <Search size={17} />
+              <input
+                aria-label="Search algorithms"
+                placeholder={`Search ${activeCategory.toLowerCase()} algorithms`}
+                value={algorithmQuery}
+                onChange={(event) => setAlgorithmQuery(event.target.value)}
+              />
+              <span className="picker-count">{visiblePickerModules.length} results</span>
+            </div>
+            <div className="picker-filters">
+              <label>
+                Status
+                <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
+                  <option value="all">All</option>
+                  <option value="live">Interactive</option>
+                  <option value="planned">Coming soon</option>
+                </select>
+              </label>
+              <label>
+                View
+                <select value={visualFilter} onChange={(event) => setVisualFilter(event.target.value as typeof visualFilter)}>
+                  <option value="all">All</option>
+                  {(['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
+                    <option key={mode} value={mode}>
+                      {mode}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Complexity
+                <select value={complexityFilter} onChange={(event) => setComplexityFilter(event.target.value as typeof complexityFilter)}>
+                  <option value="all">All</option>
+                  <option value="log">Logarithmic</option>
+                  <option value="linear">Linear</option>
+                  <option value="nlogn">n log n</option>
+                  <option value="quadratic">Quadratic</option>
+                </select>
+              </label>
+              <button className="btn-reset-filters" type="button" onClick={resetFilters}>
+                Reset filters
+              </button>
+            </div>
+            <div className="favorite-row">
+              {favorites
+                .map((id) => allModules.find((module) => module.id === id))
+                .filter(Boolean)
+                .map((module) => (
+                  <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
+                    Pinned: {module!.name}
+                  </button>
+                ))}
+            </div>
+            {visiblePickerModules.length ? (
+              <div className="picker-grid">
+                {visiblePickerModules.map((module) => (
+                  <button
+                    className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
+                    key={module.id}
+                    onClick={() => chooseAlgorithm(module.id)}
+                    type="button"
+                  >
+                    <span>
+                      <strong>{module.name}</strong>
+                      <small>
+                        {module.subcategory ?? module.visualMode} / {module.status === 'live' ? 'interactive' : 'coming soon'}
+                      </small>
+                    </span>
+                    <em>{module.complexity.average}</em>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <strong>No algorithms match these filters.</strong>
+                <span>Clear the search or reset filters to see the full {activeCategory.toLowerCase()} catalog.</span>
+              </div>
+            )}
+            <button className="favorite-toggle" type="button" onClick={() => toggleFavorite(activeModule.id)}>
+              {favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite'}
+            </button>
+          </section>
+        </details>
+      </section>
+      <section className="canvas-zone">
+        {learningTab === 'Visualization' && suiteLinks[activeId] && (
+          <div className="daa-suite-notice">
+            <strong>This suite uses an illustrative example.</strong>
+            <p>Choose a dedicated algorithm below to edit its problem data and compute a full timeline.</p>
+            {suiteLinks[activeId].map((id) => (
+              <button type="button" key={id} onClick={() => chooseAlgorithm(id)}>
+                {allModules.find((module) => module.id === id)?.name ?? id}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="page-ribbon">
+          <span>{activeCategory} page</span>
+          <strong>{activeModule.subcategory ?? activeModule.visualMode}</strong>
+          <em>{recommendation}</em>
+          <em>{progressPercent}% category progress</em>
+        </div>
+
+        {controls}
         {!['Graph', 'Tree'].includes(activeModule.visualMode) && (
           <section className="visual-controls">
             {isSorting && (
@@ -734,404 +726,424 @@ export function Visualizer({
                 </select>
               </label>
             )}
-            <label>
-              <input
-                type="checkbox"
-                checked={activeModule.category === 'Searching' || showValues}
-                disabled={activeModule.category === 'Searching'}
-                onChange={(event) => setShowValues(event.target.checked)}
-              />
-              Show values
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={activeModule.category === 'Searching' || showIndices}
-                disabled={activeModule.category === 'Searching'}
-                onChange={(event) => setShowIndices(event.target.checked)}
-              />
-              Show indices
-            </label>
-            <label>
-              Zoom
-              <input min={70} max={170} step={10} type="range" value={canvasZoom} onChange={(event) => setCanvasZoom(Number(event.target.value))} />
-              <span>{canvasZoom}%</span>
-            </label>
-            <button type="button" onClick={() => setCanvasZoom(100)}>
-              Fit to canvas
-            </button>
-            <label>
-              <input type="checkbox" checked={showStateComparison} onChange={(event) => setShowStateComparison(event.target.checked)} />
-              Before/after
-            </label>
-            <label>
-              Motion
-              <select value={animationQuality} onChange={(event) => setAnimationQuality(event.target.value as AnimationQuality)}>
-                <option value="off">Off</option>
-                <option value="simple">Simple</option>
-                <option value="detailed">Detailed</option>
-              </select>
-            </label>
-            <button
-              type="button"
-              onClick={() =>
-                setStepPalette({
-                  compare: '#0072b2',
-                  swap: '#cc79a7',
-                  select: '#e69f00',
-                  complete: '#009e73',
-                })
-              }
-            >
-              Color-blind palette
-            </button>
-            {(['compare', 'swap', 'select', 'complete'] as const).map((type) => (
-              <label key={type}>
-                {type}
-                <input
-                  type="color"
-                  value={stepPalette[type] ?? (type === 'swap' ? '#7c5bb0' : type === 'complete' ? '#397b50' : type === 'select' ? '#d59a26' : '#d85f3f')}
-                  onChange={(event) => setStepPalette((value) => ({ ...value, [type]: event.target.value }))}
-                />
-              </label>
-            ))}
+            <details className="display-options">
+              <summary>Display options</summary>
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={activeModule.category === 'Searching' || showValues}
+                    disabled={activeModule.category === 'Searching'}
+                    onChange={(event) => setShowValues(event.target.checked)}
+                  />
+                  Show values
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={activeModule.category === 'Searching' || showIndices}
+                    disabled={activeModule.category === 'Searching'}
+                    onChange={(event) => setShowIndices(event.target.checked)}
+                  />
+                  Show indices
+                </label>
+                <label>
+                  Zoom
+                  <input min={70} max={170} step={10} type="range" value={canvasZoom} onChange={(event) => setCanvasZoom(Number(event.target.value))} />
+                  <span>{canvasZoom}%</span>
+                </label>
+                <button type="button" onClick={() => setCanvasZoom(100)}>
+                  Fit to canvas
+                </button>
+                <label>
+                  <input type="checkbox" checked={showStateComparison} onChange={(event) => setShowStateComparison(event.target.checked)} />
+                  Before/after
+                </label>
+                <label>
+                  Motion
+                  <select value={animationQuality} onChange={(event) => setAnimationQuality(event.target.value as AnimationQuality)}>
+                    <option value="off">Off</option>
+                    <option value="simple">Simple</option>
+                    <option value="detailed">Detailed</option>
+                  </select>
+                </label>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setStepPalette({
+                      compare: '#0072b2',
+                      swap: '#cc79a7',
+                      select: '#e69f00',
+                      complete: '#009e73',
+                    })
+                  }
+                >
+                  Color-blind palette
+                </button>
+                {(['compare', 'swap', 'select', 'complete'] as const).map((type) => (
+                  <label key={type}>
+                    {type}
+                    <input
+                      type="color"
+                      value={stepPalette[type] ?? (type === 'swap' ? '#7c5bb0' : type === 'complete' ? '#397b50' : type === 'select' ? '#d59a26' : '#d85f3f')}
+                      onChange={(event) => setStepPalette((value) => ({ ...value, [type]: event.target.value }))}
+                    />
+                  </label>
+                ))}
+              </div>
+            </details>
           </section>
         )}
 
-        <div className="visual-canvas" ref={canvasRef}>
-          {activeModule.category !== 'Searching' && (
-            <div className="visual-legend persistent">
-              <span className="red" /> active
-              <span className="purple" /> swap/negative
-              <span className="green" /> complete
-              <span className="blue" /> normal
-            </div>
-          )}
-          {['Graph', 'Tree'].includes(activeModule.visualMode) ? (
-            <TraversalWorkbench activeModule={activeModule} currentStep={currentStep} input={input} />
-          ) : activeModule.status === 'planned' ? (
-            <div className="planned-state">
-              <Home size={34} />
-              <h2>{activeModule.name} is coming soon.</h2>
-              <p>This page is prepared with learning notes, complexity, routing, local saves, and exports. The interactive runner is the remaining piece.</p>
-              <button
-                type="button"
-                onClick={() =>
-                  chooseAlgorithm(allModules.find((module) => module.category === activeCategory && module.status === 'live')?.id ?? 'bubble-sort')
+        <ViewportCanvas onReset={() => setCanvasZoom(100)}>
+          <div className="visual-canvas" ref={canvasRef}>
+            {activeModule.category !== 'Searching' && (
+              <div className="visual-legend persistent">
+                <span className="red" /> active
+                <span className="purple" /> swap/negative
+                <span className="green" /> complete
+                <span className="blue" /> normal
+              </div>
+            )}
+            {['Graph', 'Tree'].includes(activeModule.visualMode) ? (
+              <TraversalWorkbench activeModule={activeModule} currentStep={currentStep} input={input} />
+            ) : activeModule.status === 'planned' ? (
+              <div className="planned-state">
+                <Home size={34} />
+                <h2>{activeModule.name} is coming soon.</h2>
+                <p>This page is prepared with learning notes, complexity, routing, local saves, and exports. The interactive runner is the remaining piece.</p>
+                <button
+                  type="button"
+                  onClick={() =>
+                    chooseAlgorithm(allModules.find((module) => module.category === activeCategory && module.status === 'live')?.id ?? 'bubble-sort')
+                  }
+                >
+                  Open an interactive {activeCategory.toLowerCase()} module
+                </button>
+              </div>
+            ) : activeModule.visualMode === 'Matrix' ? (
+              <div
+                className={`matrix-stage ${isGameBoard ? 'game-board-stage' : ''} ${isChessBoard ? 'chess-board-stage' : ''}`}
+                aria-label="Matrix visualization"
+                style={
+                  {
+                    '--matrix-columns': matrixColumns,
+                    '--matrix-rows': matrixRows,
+                    minWidth: isGameBoard ? undefined : `${canvasZoom}%`,
+                  } as CSSProperties
                 }
               >
-                Open an interactive {activeCategory.toLowerCase()} module
-              </button>
-            </div>
-          ) : activeModule.visualMode === 'Matrix' ? (
-            <div
-              className={`matrix-stage ${isGameBoard ? 'game-board-stage' : ''} ${isChessBoard ? 'chess-board-stage' : ''}`}
-              aria-label="Matrix visualization"
-              style={
-                {
-                  '--matrix-columns': matrixColumns,
-                  '--matrix-rows': matrixRows,
-                  minWidth: isGameBoard ? undefined : `${canvasZoom}%`,
-                } as CSSProperties
-              }
-            >
-              <div className="matrix-meta">
-                <span>
-                  {matrixRows} x {matrixColumns}
-                </span>
-                <strong>{String(currentStep?.highlights.variables?.problem ?? activeModule.subcategory ?? 'Matrix state')}</strong>
-                <em>{currentStep?.type ?? 'ready'}</em>
-              </div>
-              <div className="matrix-grid-view">
-                {activeGameArrow && (
-                  <svg className="game-arrow-layer" aria-hidden="true">
-                    <defs>
-                      <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
-                        <path d="M0,0 L8,4 L0,8 Z" />
-                      </marker>
-                    </defs>
-                    <line
-                      x1={arrowPoint(activeGameArrow.from).x}
-                      y1={arrowPoint(activeGameArrow.from).y}
-                      x2={arrowPoint(activeGameArrow.to).x}
-                      y2={arrowPoint(activeGameArrow.to).y}
-                    />
-                  </svg>
+                <div className="matrix-meta">
+                  <span>
+                    {matrixRows} x {matrixColumns}
+                  </span>
+                  <strong>{String(currentStep?.highlights.variables?.problem ?? activeModule.subcategory ?? 'Matrix state')}</strong>
+                  <em>{currentStep?.type ?? 'ready'}</em>
+                </div>
+                <div className="matrix-grid-view">
+                  {activeGameArrow && (
+                    <svg className="game-arrow-layer" aria-hidden="true">
+                      <defs>
+                        <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+                          <path d="M0,0 L8,4 L0,8 Z" />
+                        </marker>
+                      </defs>
+                      <line
+                        x1={arrowPoint(activeGameArrow.from).x}
+                        y1={arrowPoint(activeGameArrow.from).y}
+                        x2={arrowPoint(activeGameArrow.to).x}
+                        y2={arrowPoint(activeGameArrow.to).y}
+                      />
+                    </svg>
+                  )}
+                  {matrixData.map((value, index) => {
+                    const active = currentStep?.highlights.indices?.includes(index)
+                    const gameSymbol = gameSymbols[index] ?? (value === 1 ? 'X' : value === -1 ? 'O' : '')
+                    const markClass = isChessBoard
+                      ? gameSymbol
+                        ? 'chess-piece'
+                        : 'empty-mark'
+                      : gameSymbol === 'X'
+                        ? 'x-mark'
+                        : gameSymbol === 'O'
+                          ? 'o-mark'
+                          : gameSymbol
+                            ? 'symbol-mark'
+                            : 'empty-mark'
+                    return (
+                      <motion.div
+                        className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${activeGameArrow?.from === index ? 'move-from' : ''} ${activeGameArrow?.to === index ? 'move-to' : ''} ${markClass}`}
+                        key={`${index}-${value}`}
+                        layout
+                        onClick={() => playGameCell(index)}
+                        transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
+                        data-legal={isGameBoard && !isChessBoard && legalTargets.includes(index) ? 'true' : undefined}
+                      >
+                        {showIndices && <small>{index}</small>}
+                        {showValues && <strong>{isGameBoard ? gameSymbol : value}</strong>}
+                      </motion.div>
+                    )
+                  })}
+                </div>
+                {isGameBoard && currentStep?.highlights.variables && (
+                  <div className="game-insight">
+                    {[
+                      'next',
+                      'preset',
+                      'sideToMove',
+                      'legalMoveCount',
+                      'move',
+                      'check',
+                      'score',
+                      'possibleMoves',
+                      'likelyReply',
+                      'bestMove',
+                      'opponentReplies',
+                      'bestLine4Ply',
+                      'planNext12Plies',
+                      'threat',
+                      'block',
+                      'result',
+                      'lesson',
+                    ].map((key) =>
+                      currentStep.highlights.variables?.[key] !== undefined ? (
+                        <span key={key}>
+                          <strong>{key}</strong>
+                          {String(currentStep.highlights.variables[key])}
+                        </span>
+                      ) : null,
+                    )}
+                  </div>
                 )}
-                {matrixData.map((value, index) => {
-                  const active = currentStep?.highlights.indices?.includes(index)
-                  const gameSymbol = gameSymbols[index] ?? (value === 1 ? 'X' : value === -1 ? 'O' : '')
-                  const markClass = isChessBoard
-                    ? gameSymbol
-                      ? 'chess-piece'
-                      : 'empty-mark'
-                    : gameSymbol === 'X'
-                      ? 'x-mark'
-                      : gameSymbol === 'O'
-                        ? 'o-mark'
-                        : gameSymbol
-                          ? 'symbol-mark'
-                          : 'empty-mark'
+                {isGameBoard && gameProfile && (
+                  <section className="game-coach" aria-label="Board game learning tools">
+                    <div className="game-coach-main">
+                      <article>
+                        <span>Goal</span>
+                        <strong>{gameProfile.objective}</strong>
+                      </article>
+                      <article>
+                        <span>How computer thinks</span>
+                        <strong>{gameProfile.engine}</strong>
+                      </article>
+                      <article>
+                        <span>Practice now</span>
+                        <strong>{gameProfile.practice}</strong>
+                      </article>
+                    </div>
+                    <div className="game-coach-strip">
+                      {[
+                        ['Board', gameProfile.board],
+                        ['Search', gameProfile.depth],
+                        ['Tactic', gameProfile.tactic],
+                        ['Mistake', gameProfile.mistake],
+                        ['Turn', String(gameVariables.sideToMove ?? gameVariables.next ?? 'Step through')],
+                        ['Move', String(gameVariables.bestMove ?? gameVariables.move ?? gameVariables.check ?? 'Look at highlight')],
+                        ['Reply', String(gameVariables.likelyReply ?? gameVariables.opponentReplies ?? 'Compare opponent answer')],
+                        ['Score', String(gameVariables.score ?? gameVariables.result ?? 'Explain after Run')],
+                      ].map(([label, value]) => (
+                        <span key={label}>
+                          <strong>{label}</strong>
+                          {value}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="game-teacher-grid">
+                      {[
+                        ['Read', 'Name the pieces, empty cells, and current player.'],
+                        ['Legal', 'List only moves allowed by the rules.'],
+                        ['Threat', String(gameVariables.threat ?? gameVariables.capture ?? gameVariables.inference ?? 'Find the urgent idea.')],
+                        [
+                          'Candidates',
+                          String(gameVariables.possibleMoves ?? gameVariables.candidates ?? gameVariables.liberties ?? 'Check the highlighted options.'),
+                        ],
+                        ['Choose', String(gameVariables.bestMove ?? gameVariables.move ?? 'Pick the move with the best explanation.')],
+                        [
+                          'Plan',
+                          String(gameVariables.planNext12Plies ?? gameVariables.bestLine4Ply ?? gameVariables.algorithm ?? 'Repeat move, reply, score.'),
+                        ],
+                      ].map(([label, value]) => (
+                        <article key={label}>
+                          <span>{label}</span>
+                          <p>{value}</p>
+                        </article>
+                      ))}
+                    </div>
+                    <div className="game-upgrade-list" aria-label="Applied board game upgrades">
+                      {[
+                        'compact board',
+                        'visible symbols',
+                        'rule card',
+                        'AI thinking',
+                        'legal moves',
+                        'best move',
+                        'reply view',
+                        'score',
+                        'threats',
+                        'mistakes',
+                        'practice prompt',
+                        'plan line',
+                        'active cells',
+                        'move labels',
+                        'game objective',
+                        'board size',
+                        'search depth',
+                        'candidate list',
+                        'turn display',
+                        'teaching steps',
+                        'algorithm name',
+                        'simple wording',
+                        'mobile fit',
+                        'highlight legend',
+                        'shared layout',
+                      ].map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
+                  </section>
+                )}
+                {showStateComparison && currentStep && (
+                  <div className="state-comparison matrix-comparison">
+                    <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
+                    <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
+                  </div>
+                )}
+              </div>
+            ) : activeModule.category === 'Searching' ? (
+              <DetectiveSearch
+                items={visualItems}
+                step={currentStep}
+                history={searchHistory}
+                target={target}
+                algorithmId={activeId}
+                reducedMotion={reducedMotion}
+                quality={animationQuality}
+              />
+            ) : isSorting && bubbleView === 'icons' ? (
+              <PenguinVisualization
+                items={visualItems}
+                step={currentStep}
+                reducedMotion={reducedMotion}
+                quality={animationQuality}
+                showIndices={showIndices}
+                showValues={showValues}
+                sortedCount={isBubble ? sortedBoundary : currentStep?.type === 'complete' ? visualItems.length : 0}
+                character={sortingCharacter}
+                palette={stepPalette}
+                showStateComparison={showStateComparison}
+              />
+            ) : (
+              <div
+                className={`bar-stage ${hasNegativeValues ? 'has-negatives' : ''}`}
+                aria-label="Array visualization"
+                style={
+                  {
+                    '--compare-color': stepPalette.compare ?? '#d85f3f',
+                    '--swap-color': stepPalette.swap ?? '#7c5bb0',
+                    '--select-color': stepPalette.select ?? '#d59a26',
+                    '--complete-color': stepPalette.complete ?? '#397b50',
+                    minWidth: `${canvasZoom}%`,
+                  } as CSSProperties
+                }
+              >
+                {hasNegativeValues && <div className="baseline-axis">0 baseline</div>}
+                {currentStep?.type === 'swap' && (
+                  <div className="swap-arrow" aria-label="Swap direction">
+                    ⇌
+                  </div>
+                )}
+                {sortedBoundary > 0 && <div className="sorted-region-label">sorted region</div>}
+                {showIndices && (
+                  <div className="index-ruler">
+                    {visualItems.map((item) => (
+                      <span key={`ruler-${item.id}`}>{item.index}</span>
+                    ))}
+                  </div>
+                )}
+                <div className="bar-pointer-row">
+                  {pointerEntries.map((pointer) => (
+                    <span key={pointer.key} style={{ left: `${((pointer.index + 0.5) / Math.max(visualItems.length, 1)) * 100}%` }}>
+                      {pointer.key}
+                    </span>
+                  ))}
+                </div>
+                {visualItems.map((item) => {
+                  const active = currentStep?.highlights.indices?.includes(item.index)
+                  const discarded = discardedRange ? item.index < discardedRange.low || item.index > discardedRange.high : false
                   return (
                     <motion.div
-                      className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${activeGameArrow?.from === index ? 'move-from' : ''} ${activeGameArrow?.to === index ? 'move-to' : ''} ${markClass}`}
-                      key={`${index}-${value}`}
+                      className={`bar-wrap ${item.value < 0 ? 'negative' : ''}`}
+                      key={item.id}
                       layout
-                      onClick={() => playGameCell(index)}
-                      transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
-                      data-legal={isGameBoard && !isChessBoard && legalTargets.includes(index) ? 'true' : undefined}
+                      transition={
+                        animationQuality === 'detailed'
+                          ? { duration: reducedMotion ? 0 : 0.36, type: 'spring', bounce: reducedMotion ? 0 : 0.18 }
+                          : { duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }
+                      }
                     >
-                      {showIndices && <small>{index}</small>}
-                      {showValues && <strong>{isGameBoard ? gameSymbol : value}</strong>}
+                      <motion.div
+                        className={`bar ${active ? 'active' : ''} ${discarded ? 'discarded' : ''} ${currentStep?.type ?? ''}`}
+                        animate={{ height: `${Math.max(8, (Math.abs(item.value) / maxMagnitude) * 100)}%` }}
+                        transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : animationQuality === 'simple' ? 0.12 : 0.22 }}
+                        data-negative={item.value < 0}
+                      >
+                        {showValues && <span>{item.value}</span>}
+                      </motion.div>
+                      {showIndices && <small>{item.index}</small>}
                     </motion.div>
                   )
                 })}
+                {currentStep?.highlights.variables && (
+                  <div className="pointer-labels">
+                    {['low', 'mid', 'high', 'pivot', 'pivotIndex', 'min'].map((key) =>
+                      currentStep.highlights.variables?.[key] !== undefined ? (
+                        <span key={key}>
+                          {key}: {String(currentStep.highlights.variables[key])}
+                        </span>
+                      ) : null,
+                    )}
+                  </div>
+                )}
+                {activeModule.id === 'counting-sort' && (
+                  <div className="bucket-panel">
+                    Frequency table: {String(currentStep?.highlights.variables?.counts ?? 'counts appear during counting steps')}
+                  </div>
+                )}
+                {activeModule.id === 'radix-sort' && (
+                  <div className="bucket-panel">
+                    Radix bucket: {String(currentStep?.highlights.variables?.digit ?? 'digits appear during bucket placement')}
+                  </div>
+                )}
+                {activeModule.id === 'heap-sort' && (
+                  <div className="bucket-panel">Heap relation: parent i, children 2i+1 and 2i+2. Active heap indices are highlighted.</div>
+                )}
+                {activeModule.id === 'merge-sort' && (
+                  <div className="bucket-panel">
+                    Merge range: {String(currentStep?.highlights.variables?.left ?? '-')}-{String(currentStep?.highlights.variables?.right ?? '-')}
+                  </div>
+                )}
+                {showStateComparison && currentStep && (
+                  <div className="state-comparison">
+                    <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
+                    <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
+                  </div>
+                )}
               </div>
-              {isGameBoard && currentStep?.highlights.variables && (
-                <div className="game-insight">
-                  {[
-                    'next',
-                    'preset',
-                    'sideToMove',
-                    'legalMoveCount',
-                    'move',
-                    'check',
-                    'score',
-                    'possibleMoves',
-                    'likelyReply',
-                    'bestMove',
-                    'opponentReplies',
-                    'bestLine4Ply',
-                    'planNext12Plies',
-                    'threat',
-                    'block',
-                    'result',
-                    'lesson',
-                  ].map((key) =>
-                    currentStep.highlights.variables?.[key] !== undefined ? (
-                      <span key={key}>
-                        <strong>{key}</strong>
-                        {String(currentStep.highlights.variables[key])}
-                      </span>
-                    ) : null,
-                  )}
-                </div>
-              )}
-              {isGameBoard && gameProfile && (
-                <section className="game-coach" aria-label="Board game learning tools">
-                  <div className="game-coach-main">
-                    <article>
-                      <span>Goal</span>
-                      <strong>{gameProfile.objective}</strong>
-                    </article>
-                    <article>
-                      <span>How computer thinks</span>
-                      <strong>{gameProfile.engine}</strong>
-                    </article>
-                    <article>
-                      <span>Practice now</span>
-                      <strong>{gameProfile.practice}</strong>
-                    </article>
-                  </div>
-                  <div className="game-coach-strip">
-                    {[
-                      ['Board', gameProfile.board],
-                      ['Search', gameProfile.depth],
-                      ['Tactic', gameProfile.tactic],
-                      ['Mistake', gameProfile.mistake],
-                      ['Turn', String(gameVariables.sideToMove ?? gameVariables.next ?? 'Step through')],
-                      ['Move', String(gameVariables.bestMove ?? gameVariables.move ?? gameVariables.check ?? 'Look at highlight')],
-                      ['Reply', String(gameVariables.likelyReply ?? gameVariables.opponentReplies ?? 'Compare opponent answer')],
-                      ['Score', String(gameVariables.score ?? gameVariables.result ?? 'Explain after Run')],
-                    ].map(([label, value]) => (
-                      <span key={label}>
-                        <strong>{label}</strong>
-                        {value}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="game-teacher-grid">
-                    {[
-                      ['Read', 'Name the pieces, empty cells, and current player.'],
-                      ['Legal', 'List only moves allowed by the rules.'],
-                      ['Threat', String(gameVariables.threat ?? gameVariables.capture ?? gameVariables.inference ?? 'Find the urgent idea.')],
-                      [
-                        'Candidates',
-                        String(gameVariables.possibleMoves ?? gameVariables.candidates ?? gameVariables.liberties ?? 'Check the highlighted options.'),
-                      ],
-                      ['Choose', String(gameVariables.bestMove ?? gameVariables.move ?? 'Pick the move with the best explanation.')],
-                      ['Plan', String(gameVariables.planNext12Plies ?? gameVariables.bestLine4Ply ?? gameVariables.algorithm ?? 'Repeat move, reply, score.')],
-                    ].map(([label, value]) => (
-                      <article key={label}>
-                        <span>{label}</span>
-                        <p>{value}</p>
-                      </article>
-                    ))}
-                  </div>
-                  <div className="game-upgrade-list" aria-label="Applied board game upgrades">
-                    {[
-                      'compact board',
-                      'visible symbols',
-                      'rule card',
-                      'AI thinking',
-                      'legal moves',
-                      'best move',
-                      'reply view',
-                      'score',
-                      'threats',
-                      'mistakes',
-                      'practice prompt',
-                      'plan line',
-                      'active cells',
-                      'move labels',
-                      'game objective',
-                      'board size',
-                      'search depth',
-                      'candidate list',
-                      'turn display',
-                      'teaching steps',
-                      'algorithm name',
-                      'simple wording',
-                      'mobile fit',
-                      'highlight legend',
-                      'shared layout',
-                    ].map((item) => (
-                      <span key={item}>{item}</span>
-                    ))}
-                  </div>
-                </section>
-              )}
-              {showStateComparison && currentStep && (
-                <div className="state-comparison matrix-comparison">
-                  <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
-                  <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
-                </div>
-              )}
-            </div>
-          ) : activeModule.category === 'Searching' ? (
-            <DetectiveSearch
-              items={visualItems}
-              step={currentStep}
-              history={searchHistory}
-              target={target}
-              algorithmId={activeId}
-              reducedMotion={reducedMotion}
-              quality={animationQuality}
-            />
-          ) : isSorting && bubbleView === 'icons' ? (
-            <PenguinVisualization
-              items={visualItems}
-              step={currentStep}
-              reducedMotion={reducedMotion}
-              quality={animationQuality}
-              showIndices={showIndices}
-              showValues={showValues}
-              sortedCount={isBubble ? sortedBoundary : currentStep?.type === 'complete' ? visualItems.length : 0}
-              character={sortingCharacter}
-              palette={stepPalette}
-              showStateComparison={showStateComparison}
-            />
-          ) : (
-            <div
-              className={`bar-stage ${hasNegativeValues ? 'has-negatives' : ''}`}
-              aria-label="Array visualization"
-              style={
-                {
-                  '--compare-color': stepPalette.compare ?? '#d85f3f',
-                  '--swap-color': stepPalette.swap ?? '#7c5bb0',
-                  '--select-color': stepPalette.select ?? '#d59a26',
-                  '--complete-color': stepPalette.complete ?? '#397b50',
-                  minWidth: `${canvasZoom}%`,
-                } as CSSProperties
-              }
-            >
-              {hasNegativeValues && <div className="baseline-axis">0 baseline</div>}
-              {currentStep?.type === 'swap' && (
-                <div className="swap-arrow" aria-label="Swap direction">
-                  ⇌
-                </div>
-              )}
-              {sortedBoundary > 0 && <div className="sorted-region-label">sorted region</div>}
-              {showIndices && (
-                <div className="index-ruler">
-                  {visualItems.map((item) => (
-                    <span key={`ruler-${item.id}`}>{item.index}</span>
-                  ))}
-                </div>
-              )}
-              <div className="bar-pointer-row">
-                {pointerEntries.map((pointer) => (
-                  <span key={pointer.key} style={{ left: `${((pointer.index + 0.5) / Math.max(visualItems.length, 1)) * 100}%` }}>
-                    {pointer.key}
-                  </span>
-                ))}
-              </div>
-              {visualItems.map((item) => {
-                const active = currentStep?.highlights.indices?.includes(item.index)
-                const discarded = discardedRange ? item.index < discardedRange.low || item.index > discardedRange.high : false
-                return (
-                  <motion.div
-                    className={`bar-wrap ${item.value < 0 ? 'negative' : ''}`}
-                    key={item.id}
-                    layout
-                    transition={
-                      animationQuality === 'detailed'
-                        ? { duration: reducedMotion ? 0 : 0.36, type: 'spring', bounce: reducedMotion ? 0 : 0.18 }
-                        : { duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }
-                    }
-                  >
-                    <motion.div
-                      className={`bar ${active ? 'active' : ''} ${discarded ? 'discarded' : ''} ${currentStep?.type ?? ''}`}
-                      animate={{ height: `${Math.max(8, (Math.abs(item.value) / maxMagnitude) * 100)}%` }}
-                      transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : animationQuality === 'simple' ? 0.12 : 0.22 }}
-                      data-negative={item.value < 0}
-                    >
-                      {showValues && <span>{item.value}</span>}
-                    </motion.div>
-                    {showIndices && <small>{item.index}</small>}
-                  </motion.div>
-                )
-              })}
-              {currentStep?.highlights.variables && (
-                <div className="pointer-labels">
-                  {['low', 'mid', 'high', 'pivot', 'pivotIndex', 'min'].map((key) =>
-                    currentStep.highlights.variables?.[key] !== undefined ? (
-                      <span key={key}>
-                        {key}: {String(currentStep.highlights.variables[key])}
-                      </span>
-                    ) : null,
-                  )}
-                </div>
-              )}
-              {activeModule.id === 'counting-sort' && (
-                <div className="bucket-panel">
-                  Frequency table: {String(currentStep?.highlights.variables?.counts ?? 'counts appear during counting steps')}
-                </div>
-              )}
-              {activeModule.id === 'radix-sort' && (
-                <div className="bucket-panel">Radix bucket: {String(currentStep?.highlights.variables?.digit ?? 'digits appear during bucket placement')}</div>
-              )}
-              {activeModule.id === 'heap-sort' && (
-                <div className="bucket-panel">Heap relation: parent i, children 2i+1 and 2i+2. Active heap indices are highlighted.</div>
-              )}
-              {activeModule.id === 'merge-sort' && (
-                <div className="bucket-panel">
-                  Merge range: {String(currentStep?.highlights.variables?.left ?? '-')}-{String(currentStep?.highlights.variables?.right ?? '-')}
-                </div>
-              )}
-              {showStateComparison && currentStep && (
-                <div className="state-comparison">
-                  <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
-                  <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {controls}
+            )}
+          </div>
+        </ViewportCanvas>
+        <p className="workbench-step-description" aria-live="polite">
+          {currentStep?.description ?? 'Choose your input and run the algorithm.'}
+        </p>
       </section>
-      {rightPanel}
+      {learningTab === 'Visualization' ? (
+        <details className="workbench-details">
+          <summary>Explanation, results & variables</summary>
+          {rightPanel}
+        </details>
+      ) : (
+        rightPanel
+      )}
     </section>
   )
 }

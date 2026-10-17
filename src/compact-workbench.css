@@ -1,0 +1,1077 @@
+/* Shared, viewport-first lesson layout for both algorithm rendering systems. */
+:root {
+  --workbench-canvas-height: clamp(360px, calc(100dvh - 288px), 650px);
+}
+.compact-lesson-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 46px;
+  margin: 0 0 8px;
+  padding: 4px 0;
+  color: #10234b;
+}
+.compact-lesson-header h1 {
+  font-size: clamp(22px, 1.8vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+.compact-lesson-header > p {
+  font-size: 13px;
+  color: #617493;
+  margin: 0;
+  min-width: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.compact-back,
+.compact-lesson-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid #cbdff9;
+  border-radius: 8px;
+  background: #f5faff;
+  color: #1758b6;
+  font-size: 12px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.compact-lesson-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.app-shell .workspace.category-page {
+  padding: 12px;
+  gap: 8px;
+  min-width: 0;
+}
+.app-shell .daa-workspace.compact-daa {
+  padding: 0;
+  max-width: none;
+  width: 100%;
+}
+.app-shell .lesson-tabs {
+  margin: 0 0 10px;
+  padding: 4px;
+  gap: 8px;
+  min-height: 44px;
+  width: 100%;
+  grid-column: 1/-1;
+  background: #fff;
+  border: 1px solid #dfebfa;
+  border-radius: 10px;
+}
+.app-shell .lesson-tabs button {
+  height: 36px;
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 13px;
+  flex: none;
+}
+.app-shell .compact-daa .daa-top {
+  margin: 0;
+}
+.app-shell .compact-daa .daa-interactive-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin: 0;
+}
+.app-shell .compact-daa .daa-card {
+  padding: 12px;
+  margin: 0 0 12px;
+  min-width: 0;
+}
+.app-shell .compact-daa .daa-input-card {
+  grid-column: 2;
+  grid-row: 1;
+  position: static;
+  display: block;
+}
+.app-shell .compact-daa .daa-timeline-card {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: static;
+}
+.app-shell .compact-daa .daa-timeline-card > * {
+  grid-area: auto;
+  margin: 0;
+  max-width: 100%;
+  min-width: 0;
+}
+.app-shell .compact-daa .daa-timeline-card h2,
+.workbench-input h2 {
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+.app-shell .compact-daa .daa-timeline-card h2 svg {
+  width: 20px;
+  height: 20px;
+}
+.app-shell .compact-daa .dfs-legend,
+.app-shell .compact-daa .dijkstra-legend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  min-height: 18px;
+}
+.app-shell .compact-daa .dfs-legend > span,
+.app-shell .compact-daa .dijkstra-legend > span {
+  display: none;
+}
+.app-shell .compact-daa .dfs-legend > div,
+.app-shell .compact-daa .dijkstra-legend > div {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+.app-shell .workbench-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid #deebfc;
+  border-radius: 9px;
+  background: #f5f9ff;
+  min-width: 0;
+}
+.workbench-playback {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.app-shell .workbench-toolbar button,
+.app-shell .canvas-view-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  min-height: 34px;
+  height: 34px;
+  min-width: 34px;
+  width: auto;
+  margin: 0;
+  border: 1px solid #cddff7;
+  border-radius: 7px;
+  background: white;
+  color: #204673;
+  box-shadow: none;
+  font-size: 12px;
+}
+.app-shell .workbench-toolbar .workbench-play {
+  background: #0867ff;
+  color: white;
+  border-color: #0867ff;
+}
+.app-shell .workbench-toolbar button:disabled {
+  opacity: 0.4;
+}
+.app-shell .workbench-toolbar .workbench-progress {
+  display: flex;
+  align-items: center;
+  flex: 1 1 140px;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  min-width: 110px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.app-shell .workbench-progress input {
+  width: 100%;
+  min-width: 40px;
+  min-height: 20px;
+  height: 20px;
+  padding: 0;
+  accent-color: #0668ff;
+}
+.app-shell .workbench-speed {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  margin: 0;
+}
+.app-shell .workbench-speed select {
+  min-height: 34px;
+  height: 34px;
+  width: 85px;
+  padding: 4px;
+  font-size: 12px;
+}
+.app-shell .workbench-toolbar .bubble-view-switch {
+  display: flex;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+}
+.app-shell .workbench-toolbar .bubble-view-switch button {
+  padding: 4px 8px;
+}
+.app-shell .workbench-toolbar button[aria-pressed='true'] {
+  background: #dcecff;
+  color: #0059dd;
+  border-color: #72a7ff;
+}
+.viewport-canvas {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: var(--workbench-canvas-height);
+  border: 1px solid #deebfa;
+  border-radius: 10px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #fff 20%, #f6faff 100%);
+}
+.canvas-view-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 4px 8px;
+  border-bottom: 1px solid #edf3fc;
+  flex-shrink: 0;
+}
+.canvas-view-tools > span {
+  font-size: 11px;
+  color: #687d9a;
+  margin-right: 4px;
+}
+.app-shell .canvas-view-tools button {
+  height: 26px;
+  min-height: 26px;
+  min-width: 28px;
+  padding: 4px;
+}
+.canvas-viewport-scroll {
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+  overscroll-behavior: contain;
+}
+.canvas-zoom-content {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 8px;
+}
+.app-shell .compact-daa .viewport-canvas .daa-state {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+.app-shell .compact-daa .viewport-canvas .daa-state > svg {
+  width: 100%;
+  height: calc(var(--workbench-canvas-height) - 64px);
+  min-height: 260px;
+  max-height: none;
+  display: block;
+  overflow: visible;
+}
+.app-shell .compact-daa .daa-step-description {
+  font-size: 12px;
+  padding: 9px 10px;
+  border-left: 3px solid #1681ff;
+  border-radius: 6px;
+  background: #edf6ff;
+  order: 3;
+}
+.app-shell .compact-daa .daa-step-description svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+.app-shell .compact-daa .daa-timeline-card > .daa-trace-exports,
+.app-shell .compact-daa .daa-timeline-card > .dfs-trace-details {
+  order: 4;
+}
+.app-shell .compact-daa .daa-input-card h2 {
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+.app-shell .compact-daa .daa-input-card h2 svg {
+  width: 20px;
+  height: 20px;
+}
+.app-shell .compact-daa .daa-input-card > div:first-child > p:first-of-type {
+  display: none;
+}
+.app-shell .compact-daa .daa-field-editor {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 10px;
+}
+.app-shell .compact-daa .daa-field-editor > label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-size: 12px;
+  margin: 0;
+}
+.app-shell .compact-daa input:not([type='range']):not([type='checkbox']),
+.app-shell .compact-daa select {
+  height: 35px;
+  min-height: 35px;
+  padding: 5px 7px;
+  font-size: 12px;
+  min-width: 0;
+  width: 100%;
+}
+.app-shell .compact-daa .daa-field-editor > fieldset,
+.app-shell .compact-daa .daa-field-editor > .array-field {
+  grid-column: 1/-1;
+  min-width: 0;
+}
+.app-shell .compact-daa .daa-edge-list {
+  max-height: clamp(180px, calc(100dvh - 430px), 420px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0 3px 3px;
+}
+.app-shell .compact-daa .daa-edge-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 28px;
+  gap: 5px;
+  margin: 0;
+  align-items: end;
+}
+.app-shell .compact-daa .daa-edge-row label {
+  font-size: 11px;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+}
+.app-shell .compact-daa .daa-edge-row:not(:first-child) label {
+  font-size: 0;
+}
+.app-shell .compact-daa .daa-edge-row button {
+  height: 35px;
+  min-height: 35px;
+  padding: 4px;
+  margin: 0;
+}
+.app-shell .compact-daa .daa-edge-row:has(.bfs-edge-number) {
+  grid-template-columns: 22px repeat(3, minmax(0, 1fr)) 28px;
+}
+.app-shell .compact-daa .daa-input-card fieldset {
+  padding: 8px;
+  margin: 0;
+  border: 1px solid #dfebfa;
+  border-radius: 8px;
+}
+.app-shell .compact-daa .daa-input-card fieldset > p {
+  font-size: 11px;
+  margin: 0 0 5px;
+}
+.app-shell .compact-daa .daa-actions {
+  gap: 6px;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+.app-shell .compact-daa .daa-actions button {
+  min-height: 34px;
+  font-size: 12px;
+  padding: 6px 10px;
+}
+.app-shell .compact-daa .daa-input-card > div + div {
+  margin-top: 10px;
+  font-size: 11px;
+  padding: 8px;
+  background: #f4f9ff;
+  border: 1px solid #e0edfc;
+  border-radius: 8px;
+}
+.app-shell .compact-daa .daa-input-card dl {
+  margin: 4px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+.app-shell .compact-daa .daa-input-card h3 {
+  font-size: 12px;
+  margin: 0;
+}
+.app-shell .compact-daa .daa-input-card dd {
+  margin: 0;
+}
+.app-shell .compact-daa .daa-input-card details {
+  margin: 8px 0;
+  font-size: 12px;
+}
+.app-shell .compact-daa .daa-error {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.app-shell .lab-grid {
+  gap: 10px;
+  min-width: 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+  align-items: start;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] > .canvas-zone {
+  display: contents;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .page-ribbon {
+  display: none;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .algorithm-browser {
+  grid-column: 2;
+  grid-row: 4;
+  margin: 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .workbench-input {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .control-panel {
+  grid-column: 1;
+  grid-row: 2;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .visual-controls {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .viewport-canvas {
+  grid-column: 1;
+  grid-row: 4;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .right-panel {
+  grid-column: 1/-1;
+  grid-row: 5;
+  max-height: none;
+  margin: 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .right-panel .step-meter {
+  display: none;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .daa-suite-notice {
+  grid-column: 1/-1;
+  grid-row: 6;
+}
+.app-shell .workbench-input {
+  padding: 12px;
+  border: 1px solid #deebfa;
+  background: #fff;
+  border-radius: 10px;
+  min-width: 0;
+}
+.app-shell .workbench-input .input-strip,
+.app-shell .workbench-input .ds-input-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.app-shell .workbench-input label {
+  flex: 1 1 100px;
+  min-width: 0;
+  font-size: 12px;
+}
+.app-shell .workbench-input input,
+.app-shell .workbench-input select {
+  height: 35px;
+  min-height: 35px;
+  max-width: 100%;
+  font-size: 12px;
+}
+.app-shell .workbench-input button {
+  min-height: 34px;
+  padding: 6px 9px;
+  font-size: 12px;
+}
+.app-shell .viewport-canvas .visual-canvas {
+  height: auto;
+  min-height: 0;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.app-shell .playback-options,
+.app-shell .display-options {
+  font-size: 11px;
+  position: relative;
+  margin: 4px 0;
+}
+.playback-options > div,
+.display-options > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #dfebfa;
+  border-radius: 8px;
+  background: #f7faff;
+}
+.app-shell .visual-controls label,
+.app-shell .visual-controls button {
+  font-size: 12px;
+  margin: 0;
+}
+.app-shell .visual-controls select {
+  height: 34px;
+  min-height: 34px;
+  padding: 4px;
+}
+@media (max-width: 1100px) {
+  .compact-lesson-header > p {
+    display: none;
+  }
+  .app-shell .compact-daa .daa-interactive-layout,
+  .app-shell .lab-grid[data-learning-tab='Visualization'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-shell .compact-daa .daa-timeline-card {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .app-shell .compact-daa .daa-input-card {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .workbench-input {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .algorithm-browser {
+    grid-column: 1;
+    grid-row: 6;
+  }
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .right-panel {
+    grid-row: 7;
+  }
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .daa-suite-notice {
+    grid-row: 8;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --workbench-canvas-height: 420px;
+  }
+  .app-shell .workspace.category-page {
+    padding: 8px;
+  }
+  .compact-lesson-header {
+    gap: 6px;
+    min-height: 46px;
+  }
+  .compact-lesson-header h1 {
+    font-size: 21px;
+  }
+  .compact-lesson-actions button > span {
+    display: none;
+  }
+  .compact-lesson-actions {
+    gap: 4px;
+  }
+  .compact-back {
+    padding: 6px;
+  }
+  .app-shell .lesson-tabs {
+    gap: 4px;
+  }
+  .app-shell .lesson-tabs button {
+    min-height: 40px;
+    height: 40px;
+    padding: 6px 12px;
+  }
+  .app-shell .workbench-toolbar {
+    gap: 6px;
+  }
+  .app-shell .workbench-toolbar .workbench-progress {
+    flex: 1 1 100%;
+    order: 4;
+  }
+  .app-shell .workbench-toolbar button {
+    min-height: 40px;
+    height: 40px;
+    min-width: 36px;
+  }
+  .app-shell .compact-daa .daa-field-editor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .app-shell .compact-daa .daa-card {
+    padding: 10px;
+  }
+  .app-shell .compact-daa .daa-input-card dl {
+    grid-template-columns: 1fr;
+  }
+}
+.app-shell .compact-daa .daa-field-editor > label:has(textarea),
+.app-shell .compact-daa .daa-field-editor > div:has(textarea) {
+  grid-column: 1/-1;
+}
+.app-shell .compact-daa .daa-field-editor label {
+  text-align: left;
+}
+.app-shell .compact-daa .daa-field-editor > fieldset {
+  order: 2;
+}
+.app-shell .compact-daa .daa-field-editor small {
+  font-size: 10px;
+}
+.app-shell .compact-daa .daa-input-card dt {
+  margin: 0;
+}
+.app-shell .compact-daa .daa-input-card h2 {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.app-shell .compact-daa .daa-timeline-card .bubble-view-switch {
+  position: static;
+  transform: none;
+  inset: auto;
+}
+.app-shell .compact-daa .workbench-toolbar label {
+  flex-direction: row;
+  text-align: left;
+}
+.app-shell .compact-daa .workbench-toolbar .workbench-progress {
+  font-size: 11px;
+  font-weight: 500;
+}
+.app-shell .compact-daa .daa-edge-row:first-child label {
+  position: relative;
+}
+.app-shell .compact-daa .daa-edge-list {
+  scroll-padding-top: 20px;
+}
+.app-shell .compact-daa .dfs-legend i,
+.app-shell .compact-daa .dijkstra-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #3282ff;
+  border-radius: 50%;
+  background: #fff;
+}
+.app-shell .compact-daa .dfs-legend i:nth-of-type(2),
+.app-shell .compact-daa .dijkstra-legend i:nth-of-type(2) {
+  background: #0867ff;
+}
+.app-shell .compact-daa .dfs-legend i:nth-of-type(3),
+.app-shell .compact-daa .dijkstra-legend i:nth-of-type(4) {
+  background: #55c789;
+  border-color: #55c789;
+}
+.app-shell .compact-daa .dfs-legend i:nth-of-type(4),
+.app-shell .compact-daa .dijkstra-legend i:nth-of-type(3) {
+  background: #ff862d;
+  border-color: #ff862d;
+}
+.app-shell .compact-daa .daa-input-card > div + div {
+  display: none;
+}
+.app-shell .compact-daa .input-reference {
+  font-size: 11px;
+}
+.app-shell .compact-daa .input-reference dl {
+  display: block;
+}
+.app-shell .compact-daa .dfs-trace-details {
+  padding: 6px 0;
+  font-size: 12px;
+}
+.edge-table-heading {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 28px;
+  gap: 5px;
+  padding: 4px 3px;
+  background: #f1f7ff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.edge-table-heading.with-edge-number {
+  grid-template-columns: 22px repeat(3, minmax(0, 1fr)) 28px;
+}
+.app-shell .compact-daa .daa-edge-row label {
+  font-size: 0;
+}
+.app-shell .compact-daa .daa-input-card details.input-reference {
+  border-top: 1px solid #e1ebfa;
+  padding-top: 8px;
+  margin-bottom: 0;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] > .canvas-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .workbench-input {
+  grid-column: 2;
+  grid-row: 2;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .workbench-input .algorithm-browser {
+  margin-top: 10px;
+}
+.app-shell .lab-grid[data-learning-tab='Visualization'] .right-panel {
+  grid-row: 3;
+}
+.app-shell .lab-grid:not([data-learning-tab='Visualization']) > .workbench-input {
+  display: none;
+}
+.app-shell .canvas-zone > .daa-suite-notice {
+  order: 8;
+}
+.app-shell .viewport-canvas .bar-stage {
+  height: calc(var(--workbench-canvas-height) - 120px);
+  min-height: 260px;
+}
+.app-shell .compact-daa .daa-graph .visited-vertex circle {
+  fill: #b1e8bd;
+  stroke: #269c4c;
+}
+.app-shell .compact-daa .daa-graph .current-vertex circle {
+  fill: #dcecff;
+  stroke: #0668ff;
+}
+.app-shell .compact-daa .daa-actions button:first-child {
+  background: #0867ff;
+  border-color: #0867ff;
+  color: #fff;
+}
+.app-shell .compact-daa .daa-edge-actions button {
+  min-height: 34px;
+  padding: 5px 9px;
+  font-size: 12px;
+}
+.app-shell .compact-daa .daa-input-card label small {
+  display: none;
+}
+.app-shell .compact-daa .daa-timeline-card > .dfs-legend,
+.app-shell .compact-daa .daa-timeline-card > .dijkstra-legend {
+  margin-top: -5px;
+}
+.app-shell .compact-daa .daa-timeline-card {
+  gap: 6px;
+}
+@media (max-width: 1100px) {
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .workbench-input {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .app-shell .lab-grid[data-learning-tab='Visualization'] .right-panel {
+    grid-row: 4;
+  }
+}
+.app-shell .compact-daa {
+  --workbench-canvas-height: clamp(360px, calc(100dvh - 330px), 650px);
+}
+.app-shell .lab-grid {
+  --workbench-canvas-height: clamp(360px, calc(100dvh - 410px), 650px);
+}
+.app-shell .compact-daa .daa-input-card {
+  padding-bottom: 10px;
+}
+.app-shell .compact-daa .daa-input-card > div:first-child > .daa-actions {
+  margin: 10px 0 4px;
+}
+.app-shell .compact-daa .daa-input-card fieldset > p {
+  display: none;
+}
+.app-shell .compact-daa .daa-graph .bfs-discovered-vertex circle {
+  fill: #d6ebff;
+  stroke: #0668ff;
+}
+.app-shell .compact-daa .daa-graph .bfs-unreachable-vertex circle {
+  fill: #edf1f6;
+  stroke: #879bb3;
+}
+.app-shell .compact-daa .daa-graph text {
+  font-family: inherit;
+  paint-order: stroke fill;
+  stroke: white;
+  stroke-width: 3px;
+  fill: #12356a;
+}
+.app-shell .compact-daa .daa-trace-exports button {
+  min-height: 30px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+.app-shell .workbench-speed select {
+  flex: none;
+}
+@media (max-width: 600px) {
+  .app-shell .compact-daa,
+  .app-shell .lab-grid {
+    --workbench-canvas-height: 420px;
+  }
+}
+.app-shell .canvas-zone > .control-panel {
+  order: 0;
+}
+.app-shell .canvas-zone > .visual-controls {
+  order: 1;
+}
+.app-shell .canvas-zone > .viewport-canvas {
+  order: 2;
+}
+.app-shell .workbench-speed {
+  flex-shrink: 0;
+  min-width: 0;
+}
+.app-shell .compact-daa .workbench-speed select {
+  width: 77px;
+  max-width: 77px;
+  min-width: 0;
+}
+.app-shell .compact-daa .dijkstra-direction {
+  grid-column: span 2;
+  min-width: 0;
+}
+.app-shell .compact-daa .dijkstra-direction > div {
+  display: flex;
+  gap: 4px;
+}
+.app-shell .compact-daa .dijkstra-direction button {
+  font-size: 12px;
+  padding: 5px 8px;
+  min-height: 35px;
+}
+.app-shell .viewport-canvas .bar-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  height: 100%;
+  padding-bottom: 24px;
+}
+.app-shell .viewport-canvas .bar-wrap small {
+  position: absolute;
+  bottom: 3px;
+}
+.app-shell .viewport-canvas .bar span {
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  transform: none;
+  font-size: 12px;
+}
+.app-shell .viewport-canvas .bar-stage.has-negatives .bar-wrap {
+  justify-content: center;
+}
+.app-shell .topbar {
+  padding: 6px 10px;
+  min-height: 52px;
+}
+.app-shell .topbar button {
+  min-height: 34px;
+}
+.app-shell .workbench-details {
+  grid-column: 1/-1;
+  padding: 10px;
+  border: 1px solid #dfebfa;
+  border-radius: 8px;
+  font-size: 12px;
+  background: #fff;
+}
+.app-shell .workbench-details .right-panel {
+  position: static;
+  overflow: visible;
+  width: auto;
+}
+.app-shell .workbench-step-description {
+  order: 3;
+  font-size: 12px;
+  padding: 9px 10px;
+  margin: 0;
+  background: #edf6ff;
+  border-left: 3px solid #1681ff;
+  border-radius: 6px;
+}
+.app-shell .playback-options .btn-reset,
+.app-shell .playback-options .btn-danger,
+.app-shell .playback-options .speed,
+.app-shell .playback-options .pause-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.app-shell .playback-options button {
+  padding: 5px 9px;
+  min-height: 34px;
+  font-size: 12px;
+}
+@media (max-width: 1120px) {
+  .app-shell .mobile-menu-fab {
+    font-size: 0;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    min-height: 36px;
+    left: 8px;
+    top: 16px;
+    padding: 8px;
+  }
+  .app-shell:has(.compact-daa) .compact-lesson-header {
+    padding-left: 44px;
+  }
+  .app-shell:has(.compact-daa) .compact-back {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .app-shell .compact-lesson-header h1 {
+    font-size: 18px;
+    letter-spacing: -0.4px;
+  }
+  .app-shell .workbench-toolbar .bubble-view-switch {
+    margin-left: auto;
+  }
+}
+.app-shell.full-canvas .lab-grid[data-learning-tab='Visualization'] {
+  grid-template-columns: minmax(0, 1fr);
+  --workbench-canvas-height: clamp(400px, calc(100dvh - 260px), 850px);
+}
+.app-shell.full-canvas .lab-grid[data-learning-tab='Visualization'] > .workbench-input {
+  display: none;
+}
+[data-theme='dark'] .compact-lesson-header {
+  color: #e3efff;
+}
+[data-theme='dark'] .compact-lesson-header > p {
+  color: #a9bdd7;
+}
+[data-theme='dark'] .viewport-canvas {
+  background: #132438;
+  border-color: #324b66;
+}
+[data-theme='dark'] .app-shell .lesson-tabs,
+[data-theme='dark'] .app-shell .workbench-toolbar,
+[data-theme='dark'] .app-shell .workbench-input,
+[data-theme='dark'] .app-shell .workbench-details,
+[data-theme='dark'] .app-shell .playback-options > div,
+[data-theme='dark'] .app-shell .display-options > div {
+  background: #182d43;
+  color: #dceaff;
+  border-color: #35506d;
+}
+[data-theme='dark'] .app-shell .workbench-step-description,
+[data-theme='dark'] .app-shell .compact-daa .daa-step-description {
+  background: #1a3551;
+  color: #e0efff;
+}
+[data-theme='dark'] .canvas-view-tools {
+  border-color: #324b66;
+}
+[data-theme='dark'] .edge-table-heading {
+  background: #233c57;
+  color: #e0efff;
+}
+@media (max-width: 600px) {
+  .app-shell .topbar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+    padding: 4px 8px;
+  }
+  .app-shell .topbar .view-switch {
+    display: flex;
+    width: 100%;
+    padding: 2px 2px 2px 34px;
+  }
+  .app-shell .topbar .view-switch button {
+    min-height: 34px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .app-shell .topbar .top-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+  }
+  .app-shell .topbar .top-actions > button:not(.mobile-low-priority):not(.desktop-sidebar-toggle) {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    padding: 7px;
+  }
+  .app-shell .topbar .top-actions > .btn-export,
+  .app-shell .topbar .top-actions > .btn-save {
+    font-size: 0;
+    gap: 0;
+  }
+  .app-shell .topbar .aimer-account-slot {
+    width: 44px;
+    margin: 0;
+  }
+  .app-shell .topbar .account-trigger {
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    justify-content: center;
+  }
+  .app-shell .topbar #account-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .app-shell .topbar .account-arrow {
+    display: none;
+  }
+  .app-shell .topbar > div:last-child:empty {
+    display: none;
+  }
+}

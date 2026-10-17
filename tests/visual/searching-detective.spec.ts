@@ -33,6 +33,7 @@ test('binary search spotlight follows midpoint and range without hiding labels',
   await page.goto('/#/searching/binary-search')
   await page.getByRole('button', { name: 'Visualization', exact: true }).click()
   await expect(page.locator('.detective-cell.examining')).toHaveAttribute('data-index', '2')
+  await page.getByText('Display options', { exact: true }).click()
   await expect(page.getByRole('checkbox', { name: 'Show values', exact: true })).toBeDisabled()
   await expect(page.getByRole('checkbox', { name: 'Show indices', exact: true })).toBeDisabled()
   await page.getByRole('button', { name: 'Step forward', exact: true }).click()

@@ -1,8 +1,8 @@
 /* BFS reference skin; the shared rail and traversal controls retain their behavior. */
-.app-shell:has(.bfs-page) {
+.app-shell:has([data-lesson-id='daa-bfs']) {
   background: #f6fbff;
 }
-.app-shell:has(.bfs-page) .category-page {
+.app-shell:has([data-lesson-id='daa-bfs']) .category-page {
   background: linear-gradient(110deg, #fff, #f3f9ff);
 }
 .daa-workspace.bfs-page {
@@ -413,30 +413,30 @@
   font-size: 10px;
   line-height: 1.8;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer {
   background: transparent;
   color: #184b92;
   padding: 8px 20px;
   min-height: 44px;
   gap: 15px;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer strong {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer strong {
   color: #0062ff;
   font-size: 12px;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer span {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer span {
   color: #6784ac;
   font-size: 9px;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer p {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer p {
   font-size: 10px;
   max-width: 400px;
   text-align: center;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer small {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer small {
   font-size: 9px;
 }
-.app-shell:has(.bfs-page) .global-sidebar {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar {
   --nav-ink: #d7e8ff;
   --nav-muted: #b8d5ff;
   --nav-hover: #125ba3;
@@ -445,30 +445,30 @@
   background: linear-gradient(120deg, #074d8e, #062c5b 75%);
   border-right: 1px solid #124e88;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-header {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-header {
   padding: 14px 19px 12px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .brand strong {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .brand strong {
   color: #fff;
   font-size: 18px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .brand span {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .brand span {
   color: #bad7ef;
   font-size: 11px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-logo {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-logo {
   background: linear-gradient(130deg, #009eff, #005aca);
   border-radius: 7px;
   padding: 3px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-section-label {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-section-label {
   display: none;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-navigation {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-navigation {
   padding: 0 18px 8px;
   scrollbar-color: #1d64a0 transparent;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-home {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-home {
   margin: 0 0 4px;
   min-height: 29px;
   padding: 5px 10px;
@@ -477,48 +477,48 @@
   color: white;
   font-weight: 600;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-category-toggle {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-category-toggle {
   min-height: 24px;
   height: 24px;
   padding: 3px 10px;
   font-size: 11px;
   gap: 12px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .category-icon {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .category-icon {
   width: 15px;
   height: 15px;
   flex-basis: 15px;
   color: #ffc341;
 }
-.app-shell:has(.bfs-page) .global-sidebar .category-icon svg {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .category-icon svg {
   width: 15px;
   height: 15px;
   stroke-width: 2.4;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-chevron {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-chevron {
   color: #aacff2;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-category-toggle.current {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-category-toggle.current {
   background: linear-gradient(100deg, #0788ed, #075bb9);
   box-shadow: inset 0 0 0 1px #2b89d7;
   color: white;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-category-toggle.current .category-icon {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-category-toggle.current .category-icon {
   color: white;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-algorithm {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-algorithm {
   min-height: 23px;
   padding: 3px 6px 3px 26px;
   font-size: 10px;
   line-height: 17px;
   color: #c5dcfb;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-submenu {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-submenu {
   border-color: #1e70ad;
   margin-left: 0;
   border-radius: 0 0 8px 8px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-algorithm::before {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-algorithm::before {
   content: '';
   width: 7px;
   height: 7px;
@@ -530,52 +530,52 @@
   border: 2px solid #007cb9;
   border-radius: 50%;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-algorithm.active {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-algorithm.active {
   background: linear-gradient(100deg, #087df2, #176ad3);
   color: white;
   border-radius: 6px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-algorithm.active::before {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-algorithm.active::before {
   box-shadow: none;
   background: #edffff;
   border-color: #00bcf9;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-footer {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-footer {
   margin: 8px 18px;
   padding: 10px;
   background: #134c80;
   border-color: #28699c;
   color: #d9edff;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-footer small {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-footer small {
   color: #b0d1ef;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-utilities {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-utilities {
   border-color: #1c5a8c;
   padding: 6px;
   margin-top: 8px;
   color: #d2e7ff;
 }
-.app-shell:has(.bfs-page) .global-sidebar .sidebar-utilities a {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-utilities a {
   color: #c7ddfa;
   font-size: 9px;
   padding: 4px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .icon-style-panel button {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .icon-style-panel button {
   color: #d4e7ff;
   background: #144b80;
   border-color: #1c5b96;
   min-height: 25px;
 }
-.app-shell:has(.bfs-page) .global-sidebar .icon-style-panel button[aria-pressed='true'] {
+.app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .icon-style-panel button[aria-pressed='true'] {
   background: #0874c7;
   color: white;
 }
 @media (min-width: 1121px) {
-  .app-shell:has(.bfs-page) {
+  .app-shell:has([data-lesson-id='daa-bfs']) {
     grid-template-columns: 275px minmax(0, 1fr);
   }
-  .app-shell.sidebar-collapsed:has(.bfs-page) {
+  .app-shell.sidebar-collapsed:has([data-lesson-id='daa-bfs']) {
     grid-template-columns: 72px minmax(0, 1fr);
   }
 }
@@ -727,20 +727,20 @@
   .bfs-page .daa-trace-exports button {
     min-height: 44px;
   }
-  .app-shell:has(.bfs-page) .global-sidebar .sidebar-category-toggle {
+  .app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-category-toggle {
     min-height: 38px;
     height: auto;
   }
-  .app-shell:has(.bfs-page) .global-sidebar .sidebar-algorithm {
+  .app-shell:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-algorithm {
     min-height: 34px;
     padding-block: 8px;
   }
 }
 @media (min-width: 1121px) {
-  .app-shell:has(.daa-workspace.bfs-page) {
+  .app-shell:has([data-lesson-id='daa-bfs']) {
     grid-template-columns: 275px minmax(0, 1fr);
   }
-  .app-shell.sidebar-collapsed:has(.daa-workspace.bfs-page) {
+  .app-shell.sidebar-collapsed:has([data-lesson-id='daa-bfs']) {
     grid-template-columns: 72px minmax(0, 1fr);
   }
 }
@@ -755,8 +755,8 @@
 .bfs-page .dfs-legend {
   margin: -14px 0 0 44px;
 }
-.app-shell:has(.bfs-page) .aimer-site-footer p,
-.app-shell:has(.bfs-page) .aimer-site-footer small {
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer p,
+.app-shell:has([data-lesson-id='daa-bfs']) .aimer-site-footer small {
   color: #184b92;
 }
 @media (max-width: 1450px) {
@@ -854,7 +854,7 @@
   }
 }
 @media (min-width: 1121px) {
-  .app-shell.sidebar-collapsed:has(.bfs-page) .global-sidebar .sidebar-header {
+  .app-shell.sidebar-collapsed:has([data-lesson-id='daa-bfs']) .global-sidebar .sidebar-header {
     padding: 14px 16px;
   }
 }

@@ -23,6 +23,7 @@ test('bubble-only switch preserves snapshots, scales penguins and sorts accurate
   await page.getByRole('button', { name: 'Step forward', exact: true }).click()
   await expect(slots.nth(0)).toHaveAttribute('data-value', '18')
   const metrics = await page.locator('.metrics-panel').textContent()
+  await page.getByText('Playback options', { exact: true }).click()
   await page.locator('.speed input').press('End')
   await page.getByRole('button', { name: 'Sort', exact: true }).click()
   await page.getByRole('button', { name: 'Bars', exact: true }).click()

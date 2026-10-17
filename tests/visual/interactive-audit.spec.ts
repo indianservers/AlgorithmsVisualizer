@@ -51,7 +51,7 @@ test('BFS accepts a custom graph and Dijkstra reacts to edge edits', async ({ pa
 
 test('maximum subarray highlights its answer and Strassen shows operands and products', async ({ page }) => {
   await page.goto('/#/divide-and-conquer/maximum-subarray')
-  await page.getByRole('button', { name: 'Open visualization & edit data →' }).click()
+  await page.getByRole('button', { name: 'Visualization', exact: true }).click()
   await page.getByRole('button', { name: 'Last', exact: true }).click()
   await expect(page.locator('.daa-value-chart .active').first()).toBeVisible()
   await page.getByLabel('values values', { exact: true }).fill('-4, 7, -1, 3, -9')
@@ -60,7 +60,7 @@ test('maximum subarray highlights its answer and Strassen shows operands and pro
   await page.getByRole('button', { name: 'Last', exact: true }).click()
   await expect(page.locator('.daa-result')).toContainText('"sum": 9')
   await page.goto('/#/divide-and-conquer/strassen')
-  await page.getByRole('button', { name: 'Open visualization & edit data →' }).click()
+  await page.getByRole('button', { name: 'Visualization', exact: true }).click()
   await expect(page.locator('.daa-matrices')).toContainText('A')
   await page.getByRole('button', { name: 'Next', exact: true }).click()
   await expect(page.locator('.daa-step-description')).toContainText('Scalar multiplication')

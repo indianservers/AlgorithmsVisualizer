@@ -105,30 +105,32 @@ export function RightPanel({
         )}
         <p>{currentStep?.description ?? 'Choose a live algorithm and press Run to generate timeline events.'}</p>
         <div className="reason-card">{stepReason(currentStep)}</div>
-        <div className="step-meter">
-          <span>
-            Step {steps.length ? stepIndex + 1 : 0} / {steps.length}
-          </span>
-          <input
-            disabled={!steps.length}
-            max={Math.max(0, steps.length - 1)}
-            min={0}
-            type="range"
-            value={stepIndex}
-            onChange={(event) => setStepIndex(Number(event.target.value))}
-          />
-          <div className="timeline-map">
-            {steps.map((step, index) => (
-              <button
-                className={index === stepIndex ? 'active' : step.type}
-                key={step.id}
-                type="button"
-                onClick={() => setStepIndex(index)}
-                title={`${index + 1}. ${step.type}`}
-              />
-            ))}
+        {learningTab !== 'Visualization' && (
+          <div className="step-meter">
+            <span>
+              Step {steps.length ? stepIndex + 1 : 0} / {steps.length}
+            </span>
+            <input
+              disabled={!steps.length}
+              max={Math.max(0, steps.length - 1)}
+              min={0}
+              type="range"
+              value={stepIndex}
+              onChange={(event) => setStepIndex(Number(event.target.value))}
+            />
+            <div className="timeline-map">
+              {steps.map((step, index) => (
+                <button
+                  className={index === stepIndex ? 'active' : step.type}
+                  key={step.id}
+                  type="button"
+                  onClick={() => setStepIndex(index)}
+                  title={`${index + 1}. ${step.type}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
       {learningTab === 'Learn' && (
         <section className="guide-panel">

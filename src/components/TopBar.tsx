@@ -197,12 +197,19 @@ export function TopBar({
         >
           <Settings size={16} />
         </button>
-        <button className="btn-export" type="button" onClick={() => setExportsOpen((value) => !value)} title="Open export menu">
+        <button className="btn-export" aria-label="Export" type="button" onClick={() => setExportsOpen((value) => !value)} title="Open export menu">
           <Download size={16} />
           Export
         </button>
         <span className="pwa-status">Offline ready</span>
-        <button className="btn-save" type="button" onClick={saveExperiment} disabled={saving || !stepsLength}>
+        <button
+          className="btn-save"
+          aria-label={saving ? 'Saving...' : 'Save'}
+          title="Save experiment"
+          type="button"
+          onClick={saveExperiment}
+          disabled={saving || !stepsLength}
+        >
           <Save size={16} />
           {saving ? 'Saving...' : 'Save'}
         </button>
