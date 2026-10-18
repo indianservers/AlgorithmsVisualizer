@@ -1,0 +1,504 @@
+.greedy-studio {
+  overflow-wrap: anywhere;
+  --gr-teal: #087d75;
+  --gr-gold: #ac6710;
+}
+.gr-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+}
+.gr-heading > div {
+  min-width: 0;
+}
+.gr-heading .ls-chip {
+  white-space: normal;
+}
+.gr-heading p,
+.gr-help {
+  color: var(--ls-muted);
+}
+.gr-recipe {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+  margin: 20px 0;
+  border-block: 1px solid var(--ls-border);
+}
+.gr-recipe small {
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  color: var(--gr-teal);
+}
+.gr-recipe p {
+  font-size: 13px;
+}
+.greedy-studio ol {
+  padding-left: 20px;
+  line-height: 1.9;
+}
+.gr-input-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.greedy-studio label,
+.gr-suite-intro label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 0;
+}
+.gr-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.greedy-studio input:not([type='range']),
+.greedy-studio textarea,
+.greedy-studio select,
+.gr-suite-intro select {
+  width: 100%;
+  min-width: 0;
+  color: var(--ls-ink);
+  background: var(--ls-surface);
+  border: 1px solid var(--ls-border);
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+}
+.gr-help {
+  font-size: 12px;
+}
+.gr-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 285px;
+  gap: 24px;
+  margin-top: 22px;
+  align-items: start;
+}
+.gr-workbench > div {
+  min-width: 0;
+}
+.gr-decision {
+  min-width: 0;
+  background: var(--ls-soft);
+  border: 1px solid var(--ls-border);
+  border-radius: 14px;
+  padding: 20px;
+}
+.gr-reason {
+  padding: 12px;
+  border-left: 3px solid var(--gr-teal);
+  background: var(--ls-surface);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.gr-result {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+  gap: 7px;
+}
+.gr-result span {
+  color: var(--ls-muted);
+  font-size: 12px;
+}
+.gr-result strong {
+  font-size: 36px;
+  color: var(--gr-teal);
+  line-height: 1.1;
+}
+.gr-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  margin: 0 0 18px;
+}
+.gr-legend span {
+  border-left: 4px solid var(--ls-border);
+  padding-left: 7px;
+}
+.gr-legend > span {
+  box-shadow: none !important;
+  border-width: 0;
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding: 3px 7px;
+  line-height: 1.4;
+}
+.gr-related {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  font-size: 12px;
+}
+.greedy-studio [data-status='current'] {
+  border-color: var(--gr-gold);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gr-gold) 24%, transparent);
+}
+.greedy-studio [data-status='accepted'] {
+  border-color: var(--gr-teal);
+}
+.greedy-studio [data-status='rejected'] {
+  border-color: #c35b71;
+  border-style: dashed;
+}
+.gr-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ls-muted);
+  margin: 12px 0 10px;
+  padding-left: 75px;
+}
+.gr-activity {
+  display: grid !important;
+  grid-template-columns: 65px minmax(0, 1fr) 48px;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+  margin: 8px 0;
+  padding: 10px !important;
+  border: 1px solid var(--ls-border) !important;
+  border-radius: 10px;
+  background: var(--ls-surface);
+  color: var(--ls-ink);
+  text-align: left;
+  min-height: 54px;
+}
+.gr-activity > span:first-child {
+  font-weight: 800;
+}
+.gr-activity small {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+}
+.gr-track {
+  height: 26px;
+  position: relative;
+  background: var(--ls-soft);
+  border-radius: 5px;
+}
+.gr-track > span {
+  position: absolute;
+  background: #81b9dc;
+  color: #123452;
+  top: 0;
+  height: 100%;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 10px;
+  display: grid;
+  align-items: center;
+  min-width: 1px;
+  overflow: hidden;
+}
+.gr-activity[data-status='accepted'] .gr-track > span {
+  background: var(--gr-teal);
+  color: white;
+}
+.gr-activity[data-status='rejected'] .gr-track > span {
+  background: #e4a4b1;
+  color: #4f1832;
+}
+.gr-activity[data-status='current'] .gr-track > span {
+  background: #e8b45b;
+  color: #442b06;
+}
+.gr-track i {
+  position: absolute;
+  border-left: 2px dashed var(--gr-teal);
+  height: 40px;
+  top: -7px;
+  pointer-events: none;
+}
+.gr-vessel {
+  height: 48px;
+  display: flex;
+  border: 2px solid var(--ls-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, var(--ls-soft), var(--ls-soft) 8px, var(--ls-surface) 8px, var(--ls-surface) 16px);
+  margin: 12px 0 20px;
+}
+.gr-vessel span {
+  color: white;
+  font-weight: 800;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.gr-item-grid,
+.gr-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.gr-item-grid button,
+.gr-slots > div {
+  border: 1px solid var(--ls-border);
+  background: var(--ls-surface);
+  color: var(--ls-ink);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  min-width: 0;
+}
+.gr-item-grid strong,
+.gr-slots strong {
+  font-size: 28px;
+  color: var(--gr-teal);
+}
+.gr-item-grid span,
+.gr-slots span {
+  font-size: 12px;
+}
+.gr-item-grid small,
+.gr-slots small {
+  font-size: 11px;
+  color: var(--ls-muted);
+}
+.gr-item-grid b {
+  font-size: 11px;
+}
+.gr-fraction {
+  width: 100%;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--ls-soft);
+  overflow: hidden;
+}
+.gr-fraction i {
+  display: block;
+  height: 100%;
+  background: var(--gr-teal);
+}
+.gr-forest {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 14px 3px;
+  max-width: 100%;
+}
+.gr-tree {
+  overflow: auto;
+  max-height: 620px;
+  flex: 1 0 90px;
+  max-width: 100%;
+  min-width: 90px;
+  border: 1px solid var(--ls-border);
+  background: var(--ls-soft);
+  border-radius: 12px;
+  padding: 10px;
+}
+.gr-tree svg {
+  display: block;
+  width: 100%;
+  min-width: 65px;
+  max-height: 570px;
+}
+.gr-tree line {
+  stroke: var(--ls-muted);
+  stroke-width: 1.5;
+}
+.gr-tree circle {
+  fill: var(--ls-surface);
+  stroke: var(--gr-gold);
+  stroke-width: 2;
+}
+.gr-tree .gr-leaf circle {
+  stroke: var(--gr-teal);
+}
+.gr-tree text {
+  fill: var(--ls-ink);
+  text-anchor: middle;
+  font: 12px system-ui;
+}
+.gr-tree .gr-bit {
+  font-size: 10px;
+  fill: var(--gr-teal);
+}
+.gr-tree .gr-symbol {
+  font-size: 11px;
+}
+.gr-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.gr-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.gr-table-scroll td,
+.gr-table-scroll th {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--ls-border);
+}
+.gr-table-scroll caption {
+  text-align: left;
+  font-size: 12px;
+  padding: 12px 0;
+  color: var(--ls-muted);
+}
+.gr-controls {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding: 18px 0;
+  margin: 10px 0;
+  border-block: 1px solid var(--ls-border);
+}
+.gr-controls input[type='range'] {
+  flex: 1;
+  min-width: 100px;
+  accent-color: var(--gr-teal);
+}
+.gr-controls label {
+  max-width: 110px;
+}
+.gr-controls button {
+  min-height: 38px;
+}
+.gr-prediction {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--ls-border);
+  background: var(--ls-soft);
+  border-radius: 14px;
+}
+.gr-prediction > div {
+  min-width: 0;
+  flex: 1;
+}
+.gr-prediction > svg {
+  flex-shrink: 0;
+  color: var(--gr-gold);
+}
+.gr-prediction .ls-operations {
+  align-items: end;
+}
+.gr-proof,
+.gr-final {
+  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--ls-border);
+}
+.gr-code pre,
+.gr-final pre {
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--ls-soft);
+  max-width: 100%;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.gr-suite {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  grid-column: 1/-1;
+}
+.gr-suite-intro select {
+  max-width: 480px;
+  margin: 8px 0;
+}
+.gr-exchange {
+  padding: 15px 0;
+  margin: 15px 0;
+  border-block: 1px solid var(--ls-border);
+}
+.greedy-studio .ls-experiments code {
+  overflow-wrap: anywhere;
+  display: block;
+  margin-bottom: 12px;
+}
+.greedy-studio button:focus-visible {
+  outline: 3px solid var(--ls-blue);
+  outline-offset: 3px;
+}
+[data-theme='dark'] .greedy-studio {
+  --gr-teal: #68d7c6;
+  --gr-gold: #f2bc67;
+}
+@media (max-width: 1000px) {
+  .gr-workbench {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gr-decision {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .gr-heading {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 600px) {
+  .greedy-studio {
+    padding: 16px;
+  }
+  .gr-recipe {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .gr-recipe p {
+    margin: 5px 0;
+  }
+  .gr-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gr-prediction {
+    padding: 14px;
+    gap: 8px;
+  }
+  .gr-activity {
+    grid-template-columns: 48px minmax(0, 1fr) 42px;
+    gap: 5px;
+    padding: 8px !important;
+  }
+  .gr-scale {
+    padding-left: 55px;
+  }
+  .gr-item-grid,
+  .gr-slots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .gr-item-grid button,
+  .gr-slots > div {
+    padding: 12px;
+  }
+  .gr-controls input[type='range'] {
+    order: 5;
+    flex-basis: 100%;
+  }
+  .gr-heading .ls-chip {
+    font-size: 11px;
+  }
+  .gr-tree {
+    padding: 4px;
+  }
+}

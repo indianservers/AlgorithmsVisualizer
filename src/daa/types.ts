@@ -35,7 +35,24 @@ export type DaaInput = {
   bins?: number
 }
 export type Cell = number | string | boolean | null
+export type GreedyTree = { weight: number; id?: number; left?: GreedyTree; right?: GreedyTree }
 export type LearningState = {
+  greedy?: {
+    phase: 'ready' | 'accept' | 'reject' | 'merge' | 'codes'
+    order: number[]
+    current?: number
+    selected: number[]
+    rejected: number[]
+    reason: string
+    objective: number
+    boundary?: number
+    fractions?: number[]
+    remaining?: number
+    slots?: number[]
+    forest?: GreedyTree[]
+    codes?: Record<number, string>
+    prediction?: { question: string; answer: string; explanation: string }
+  }
   dp?: {
     phase: 'base' | 'call' | 'reuse' | 'choose' | 'traceback' | 'complete'
     focus?: [number, number]

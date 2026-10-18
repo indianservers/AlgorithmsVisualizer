@@ -44,6 +44,7 @@ import './bfs.css'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
+const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
 import { isTargetUiLesson } from './targetUi'
 
 type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
@@ -1160,6 +1161,12 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 }
 
 export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
+  if (module.category === 'Greedy' || module.id === 'greedy-exchange')
+    return (
+      <Suspense fallback={<p role="status">Loading the greedy lab…</p>}>
+        <GreedyLessonPage key={module.id} module={module} completed={completed} toggleCompleted={toggleCompleted} />
+      </Suspense>
+    )
   if (module.category === 'Dynamic Programming')
     return (
       <Suspense fallback={<p role="status">Loading the dynamic programming lab…</p>}>

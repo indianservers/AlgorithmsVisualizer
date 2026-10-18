@@ -75,13 +75,13 @@ test('DP table, implementation and practice work at desktop and mobile sizes', a
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true)
 })
 
-test('theory pages need no runner and overview suites link to real algorithms', async ({ page }) => {
+test('theory pages explain reductions and greedy suites link to real algorithms', async ({ page }) => {
   await page.goto('/#/complexity-theory/three-sat-clique-reduction')
-  await expect(page.getByRole('heading', { name: 'Worked Reduction: 3-SAT → Clique' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Visualization', exact: true })).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'Worked Reduction: 3-SAT → Clique', level: 1 })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Visualization', exact: true })).toBeVisible()
   await expect(page.getByText('Forward:', { exact: false })).toBeVisible()
   await page.goto('/#/greedy/greedy-suite')
-  await expect(page.locator('.lesson-scope')).toContainText('Illustrative overview')
-  await page.locator('.related-lessons').getByRole('link', { name: 'Fractional Knapsack' }).click()
-  await expect(page.getByRole('heading', { name: 'Fractional Knapsack', exact: true })).toBeVisible()
+  await expect(page.getByLabel('Greedy suite concept')).toBeVisible()
+  await page.getByRole('navigation', { name: 'Full greedy lessons' }).getByRole('link', { name: 'Fractional Knapsack', exact: false }).click()
+  await expect(page.getByRole('heading', { name: 'Fractional Knapsack', exact: true, level: 1 })).toBeVisible()
 })

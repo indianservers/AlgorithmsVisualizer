@@ -1,4 +1,4 @@
-import { Trace, type DaaInput } from './types'
+import { Trace, type DaaInput, type GreedyTree } from './types'
 
 export function minmax(input: DaaInput, t: Trace) {
   function solve(a: number[], depth: number): [number, number] {
@@ -185,55 +185,192 @@ export function strassen(input: DaaInput, t: Trace) {
 }
 export function activitySelection(input: DaaInput, t: Trace) {
   const activities = input.intervals!.map(([start, end], id) => ({ start, end, id })).sort((a, b) => a.end - b.end),
-    selected: number[] = []
+    selected: number[] = [],
+    rejected: number[] = [],
+    order = activities.map((a) => a.id)
   let finish = -Infinity
+  t.add(
+    'Sort activities by increasing finish time.',
+    { greedy: { phase: 'ready', order, selected, rejected, objective: 0, reason: 'Finish earlier to leave the most room for future activities.' } },
+    0,
+  )
   for (const a of activities) {
-    const safe = a.start >= finish
+    const safe = a.start >= finish,
+      before = finish,
+      reason = `${a.start} ≥ ${Number.isFinite(before) ? before : '−∞'} is ${safe}. ${safe ? 'Accept: the activity does not overlap the chosen prefix.' : 'Reject: it overlaps the last chosen activity.'}`
     if (safe) {
       selected.push(a.id)
       finish = a.end
-    }
-    t.add(`${safe ? 'Accept' : 'Skip'} activity ${a.id} [${a.start}, ${a.end}].`, { values: selected }, 1)
+    } else rejected.push(a.id)
+    t.add(
+      `${safe ? 'Accept' : 'Skip'} activity ${a.id} [${a.start}, ${a.end}].`,
+      {
+        values: selected,
+        greedy: {
+          phase: safe ? 'accept' : 'reject',
+          order,
+          current: a.id,
+          selected,
+          rejected,
+          objective: selected.length,
+          boundary: finish,
+          reason,
+          prediction: { question: `Accept or reject activity ${a.id} [${a.start}, ${a.end}]?`, answer: safe ? 'accept' : 'reject', explanation: reason },
+        },
+      },
+      1,
+    )
   }
   return { selected, count: selected.length }
 }
 export function fractionalKnapsack(input: DaaInput, t: Trace) {
   const items = input.weights!.map((w, id) => ({ w, p: input.profits![id], id })).sort((a, b) => b.p / b.w - a.p / a.w),
-    fractions = Array(items.length).fill(0)
+    fractions = Array(items.length).fill(0),
+    order = items.map((a) => a.id),
+    selected: number[] = []
   let remaining = input.capacity!,
     profit = 0
+  t.add(
+    'Sort by decreasing profit per unit weight.',
+    {
+      greedy: {
+        phase: 'ready',
+        order,
+        selected,
+        rejected: [],
+        objective: 0,
+        remaining,
+        fractions,
+        reason: 'Each unit of capacity should earn the highest available profit.',
+      },
+    },
+    0,
+  )
   for (const item of items) {
     const fraction = Math.min(1, remaining / item.w)
     fractions[item.id] = fraction
     remaining -= fraction * item.w
     profit += fraction * item.p
-    t.add(`Take fraction ${fraction} of item ${item.id}, ratio ${item.p / item.w}.`, { values: fractions }, 1)
+    if (fraction > 0) selected.push(item.id)
+    const reason = `Take min(1, remaining / ${item.w}) = ${fraction}; gain ${fraction * item.p}. Capacity left: ${remaining}.`
+    t.add(
+      `Take fraction ${fraction} of item ${item.id}, ratio ${item.p / item.w}.`,
+      {
+        values: fractions,
+        greedy: {
+          phase: fraction > 0 ? 'accept' : 'reject',
+          order,
+          selected,
+          rejected: [],
+          current: item.id,
+          fractions,
+          remaining,
+          objective: profit,
+          reason,
+          prediction: { question: `What fraction of item ${item.id} will be taken? (0–1)`, answer: String(fraction), explanation: reason },
+        },
+      },
+      1,
+    )
     if (remaining === 0) break
   }
   return { profit, fractions, weight: input.capacity! - remaining }
 }
 export function jobSequencing(input: DaaInput, t: Trace) {
   const jobs = input.profits!.map((profit, id) => ({ profit, deadline: input.deadlines![id], id })).sort((a, b) => b.profit - a.profit),
-    slots = Array(Math.max(0, ...input.deadlines!)).fill(-1)
-  for (const job of jobs)
-    for (let slot = Math.min(slots.length, job.deadline) - 1; slot >= 0; slot--)
-      if (slots[slot] < 0) {
-        slots[slot] = job.id
-        t.add(`Place job ${job.id} in latest free slot ${slot + 1}.`, { values: slots.map((v) => (v < 0 ? 'empty' : v)) }, 1)
-        break
-      }
+    slots = Array(Math.max(0, ...input.deadlines!)).fill(-1),
+    selected: number[] = [],
+    rejected: number[] = [],
+    order = jobs.map((j) => j.id)
+  let profit = 0
+  t.add(
+    'Sort jobs by decreasing profit. Each job occupies one slot.',
+    {
+      greedy: { phase: 'ready', order, selected, rejected, slots, objective: profit, reason: 'Keep earlier slots available for jobs with tighter deadlines.' },
+    },
+    0,
+  )
+  for (const job of jobs) {
+    let slot = Math.min(slots.length, job.deadline) - 1
+    while (slot >= 0 && slots[slot] >= 0) slot--
+    if (slot >= 0) {
+      slots[slot] = job.id
+      selected.push(job.id)
+      profit += job.profit
+    } else rejected.push(job.id)
+    const reason =
+      slot >= 0
+        ? `Place job ${job.id} in latest free slot ${slot + 1} ≤ deadline ${job.deadline}; profit +${job.profit}.`
+        : `Reject job ${job.id}: no free slot ends by deadline ${job.deadline}.`
+    t.add(
+      reason,
+      {
+        values: slots.map((v) => (v < 0 ? 'empty' : v)),
+        greedy: {
+          phase: slot >= 0 ? 'accept' : 'reject',
+          order,
+          selected,
+          rejected,
+          current: job.id,
+          slots,
+          objective: profit,
+          reason,
+          prediction: { question: `Which slot receives job ${job.id}? (1-based, or 0 to reject)`, answer: String(slot + 1), explanation: reason },
+        },
+      },
+      1,
+    )
+  }
   return { slots, profit: slots.reduce((sum, id) => sum + (id < 0 ? 0 : input.profits![id]), 0) }
 }
-type HuffNode = { weight: number; id?: number; left?: HuffNode; right?: HuffNode }
+type HuffNode = GreedyTree
 export function huffman(input: DaaInput, t: Trace) {
   const queue: HuffNode[] = input.frequencies!.map((weight, id) => ({ weight, id }))
   if (queue.some((n) => n.weight <= 0)) throw new Error('Huffman frequencies must be positive.')
+  let cost = 0
+  const snapshot = (
+    phase: 'ready' | 'merge' | 'codes',
+    reason: string,
+    prediction?: { question: string; answer: string; explanation: string },
+    codes?: Record<number, string>,
+  ) => ({
+    greedy: {
+      phase,
+      order: [],
+      selected: [],
+      rejected: [],
+      objective: cost,
+      forest: [...queue].sort((a, b) => a.weight - b.weight),
+      reason,
+      prediction,
+      codes,
+    },
+  })
+  t.add(
+    'Create one leaf for each symbol, then order the forest by weight.',
+    snapshot('ready', 'Merge the two lightest trees; their leaves gain one bit each.'),
+    0,
+  )
   while (queue.length > 1) {
     queue.sort((a, b) => a.weight - b.weight)
     const left = queue.shift()!,
       right = queue.shift()!
     queue.push({ weight: left.weight + right.weight, left, right })
-    t.add(`Merge two least frequencies ${left.weight} + ${right.weight}.`, { values: queue.map((n) => n.weight) }, 1, 'merge')
+    cost += left.weight + right.weight
+    const reason = `Merge ${left.weight} + ${right.weight} = ${left.weight + right.weight}; weighted path cost increases by ${left.weight + right.weight}.`
+    t.add(
+      reason,
+      {
+        values: queue.map((n) => n.weight),
+        ...snapshot('merge', reason, {
+          question: 'What is the weight of the next merged parent?',
+          answer: String(left.weight + right.weight),
+          explanation: reason,
+        }),
+      },
+      1,
+      'merge',
+    )
   }
   const codes: Record<number, string> = {}
   function walk(n: HuffNode, code: string) {
@@ -244,6 +381,19 @@ export function huffman(input: DaaInput, t: Trace) {
     }
   }
   walk(queue[0], '')
+  if (input.frequencies!.length === 1) cost = input.frequencies![0]
+  t.add(
+    'Read root-to-leaf bits to obtain a prefix-free code.',
+    snapshot(
+      'codes',
+      input.frequencies!.length === 1
+        ? 'Single-symbol convention: assign code 0 (one bit per occurrence).'
+        : 'Left edges append 0; right edges append 1. Symbols appear only at leaves.',
+      undefined,
+      codes,
+    ),
+    2,
+  )
   return { codes, weightedLength: input.frequencies!.reduce((s, f, id) => s + f * codes[id].length, 0), tree: queue[0] }
 }
 export function inversions(input: DaaInput, t: Trace) {
