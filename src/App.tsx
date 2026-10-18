@@ -64,6 +64,7 @@ function App() {
     activeCategory === 'Graphs' ||
     activeCategory === 'Dynamic Programming' ||
     activeCategory === 'Greedy' ||
+    activeCategory === 'Backtracking' ||
     activeModule.id === 'greedy-exchange'
   const activePage = categoryPages[activeCategory]
 

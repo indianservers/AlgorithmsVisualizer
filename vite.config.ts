@@ -13,6 +13,12 @@ export default defineConfig({
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {
+                if (
+                  id.includes('/src/learning/BacktrackingStudio') ||
+                  id.includes('/src/learning/backtrackingModel') ||
+                  id.includes('/src/learning/backtracking.css')
+                )
+                  return 'backtracking-learning'
                 if (id.includes('/src/learning/GreedyStudio') || id.includes('/src/learning/greedyModel') || id.includes('/src/learning/greedy.css'))
                   return 'greedy-learning'
                 if (

@@ -37,6 +37,22 @@ export type DaaInput = {
 export type Cell = number | string | boolean | null
 export type GreedyTree = { weight: number; id?: number; left?: GreedyTree; right?: GreedyTree }
 export type LearningState = {
+  backtrack?: {
+    phase: 'ready' | 'choose' | 'reject' | 'undo' | 'solution' | 'dead-end' | 'complete'
+    depth: number
+    path: number[]
+    candidate?: number
+    conflicts: number[]
+    reason: string
+    current: number
+    nodes: { id: number; parent?: number; depth: number; label: string; status: string }[]
+    totalNodes: number
+    rejected: number
+    undos: number
+    solutions: number
+    closed?: boolean
+    prediction?: { question: string; answer: string; explanation: string }
+  }
   greedy?: {
     phase: 'ready' | 'accept' | 'reject' | 'merge' | 'codes'
     order: number[]

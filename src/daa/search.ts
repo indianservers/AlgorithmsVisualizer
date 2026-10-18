@@ -1,5 +1,6 @@
 import { Trace, type DaaInput, type LearningState } from './types'
 import { arcs } from './graphs'
+import { BacktrackingTrace } from './backtrackingTrace'
 
 export function queens(input: DaaInput, t: Trace) {
   const n = input.n!
@@ -9,101 +10,220 @@ export function queens(input: DaaInput, t: Trace) {
     up = new Set<number>(),
     placement: number[] = [],
     solutions: number[][] = []
-  function solve(row: number) {
+  const bt = new BacktrackingTrace(t)
+  const board = () => ({ table: Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => (placement[r] === c ? 'Q' : '·'))) })
+  bt.emit('ready', 'Start with an empty board. Try rows and columns in increasing order.', [], 0, 0, board())
+  function solve(row: number, parent = 0) {
     if (row === n) {
       solutions.push([...placement])
-      t.add(
-        `Solution ${solutions.length}: ${placement}.`,
-        { table: Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => (placement[r] === c ? 'Q' : '·'))) },
-        2,
+      bt.emit(
+        'solution',
+        `Solution ${solutions.length}: columns [${placement}]. All ${n} queens are nonattacking. Continue to enumerate other solutions.`,
+        placement,
+        row,
+        parent,
+        board(),
       )
       return
     }
     for (let c = 0; c < n; c++) {
-      if (columns.has(c) || down.has(row - c) || up.has(row + c)) continue
+      const conflicts = placement.map((col, r) => (col === c || Math.abs(col - c) === row - r ? r : -1)).filter((r) => r >= 0),
+        safe = !columns.has(c) && !down.has(row - c) && !up.has(row + c)
+      const id = bt.branch(parent, `r${row} → c${c}`, row + 1, safe ? 'choose' : 'reject'),
+        reason = safe
+          ? `Choose (${row},${c}): no queen shares its column or diagonals.`
+          : `Reject (${row},${c}): attacked by queen(s) in row ${conflicts.join(', ')}.`
+      const prediction = { question: `Choose or reject row ${row}, column ${c}?`, answer: safe ? 'choose' : 'reject', explanation: reason }
+      if (!safe) {
+        bt.emit('reject', reason, placement, row, id, board(), { candidate: c, conflicts, prediction })
+        continue
+      }
       columns.add(c)
       down.add(row - c)
       up.add(row + c)
       placement[row] = c
-      t.add(
-        `Place queen at row ${row}, column ${c}.`,
-        { table: Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, column) => (r <= row && placement[r] === column ? 'Q' : '·'))) },
-        1,
-      )
-      solve(row + 1)
+      bt.emit('choose', reason, placement, row, id, board(), { candidate: c, prediction })
+      solve(row + 1, id)
       columns.delete(c)
       down.delete(row - c)
       up.delete(row + c)
       placement.pop()
-      t.add(`Undo row ${row}, column ${c}.`, { values: placement }, 3)
+      bt.emit('undo', `Undo (${row},${c}): remove the queen and restore its column and diagonal marks before trying a sibling.`, placement, row, id, board(), {
+        candidate: c,
+      })
     }
   }
   solve(0)
+  bt.emit('complete', `Exhausted every safe branch. Found ${solutions.length} solution(s); the board is restored to empty.`, placement, 0, 0, board())
   return { count: solutions.length, solutions }
 }
 export function subsetSum(input: DaaInput, t: Trace) {
   if (input.values!.length > 16) throw new Error('Subset search supports at most 16 values.')
   const solutions: number[][] = [],
     chosen: number[] = []
-  const search: NonNullable<LearningState['search']> = []
-  function solve(index: number, sum: number, parent?: number) {
-    const id = search.length
-    search.push({ id, parent, label: `i=${index}, sum=${sum}` })
-    t.add(`Explore subset state ${id}.`, { search }, 1)
+  const bt = new BacktrackingTrace(t)
+  bt.emit('ready', 'Start with sum 0. Each input index has an include and an exclude branch.', chosen, 0, 0, { values: input.values })
+  function solve(index: number, sum: number, parent = 0) {
     if (index === input.values!.length) {
-      if (sum === input.target) solutions.push([...chosen])
+      const found = sum === input.target
+      if (found) solutions.push([...chosen])
+      const reason = `Leaf: chosen indices [${chosen}], sum ${sum} ${found ? '=' : '≠'} target ${input.target}. ${found ? 'Record this subset.' : 'Reject this complete subset.'}`
+      bt.emit(
+        found ? 'solution' : 'reject',
+        reason,
+        chosen,
+        index,
+        parent,
+        { values: input.values, note: `sum=${sum}` },
+        {
+          prediction: { question: `Does the complete subset [${chosen}] sum to ${input.target}? (yes/no)`, answer: found ? 'yes' : 'no', explanation: reason },
+        },
+      )
       return
     }
     chosen.push(index)
-    solve(index + 1, sum + input.values![index], id)
+    const include = bt.branch(parent, `+ index ${index}`, index + 1, 'choose')
+    bt.emit('choose', `Include index ${index} (value ${input.values![index]}): sum ${sum} → ${sum + input.values![index]}.`, chosen, index, include, {
+      values: input.values,
+      note: `sum=${sum + input.values![index]}`,
+    })
+    solve(index + 1, sum + input.values![index], include)
     chosen.pop()
-    solve(index + 1, sum, id)
+    bt.emit('undo', `Undo inclusion of index ${index}; restore sum ${sum}.`, chosen, index, include, { values: input.values, note: `sum=${sum}` })
+    const exclude = bt.branch(parent, `− index ${index}`, index + 1, 'choose')
+    bt.emit('choose', `Exclude index ${index}: keep sum ${sum}.`, chosen, index, exclude, { values: input.values, note: `sum=${sum}` })
+    solve(index + 1, sum, exclude)
   }
   solve(0, 0)
+  bt.emit(
+    'complete',
+    `All include/exclude branches explored; found ${solutions.length} subset(s). Equal values at different indices are distinct choices.`,
+    chosen,
+    0,
+    0,
+    { values: input.values, note: 'sum=0' },
+  )
   return { subsets: solutions, count: solutions.length, interpretation: 'indices; equal-valued items remain distinct' }
 }
 export function coloring(input: DaaInput, t: Trace) {
   const n = input.vertices!,
     colors = Array(n).fill(-1),
     edges = arcs({ ...input, directed: false })
-  if (input.edges!.some((e) => e.from === e.to)) return { satisfiable: false, colors: [] }
-  function solve(u: number): boolean {
-    if (u === n) return true
-    for (let c = 0; c < input.colors!; c++)
-      if (!edges.some((e) => e.from === u && colors[e.to] === c)) {
+  const bt = new BacktrackingTrace(t),
+    graph = () => ({ graph: { vertices: n, edges: input.edges!, directed: false, labels: colors.map((c) => (c < 0 ? 'uncolored' : `color ${c}`)) } })
+  bt.emit(
+    'ready',
+    `Assign vertices in order using at most ${input.colors} colors. Edges are treated as undirected constraints; weights are ignored.`,
+    colors,
+    0,
+    0,
+    graph(),
+  )
+  if (input.edges!.some((e) => e.from === e.to)) {
+    bt.emit('reject', 'A self-loop requires a vertex to differ from itself: no coloring exists.', colors, 0, 0, graph())
+    return { satisfiable: false, colors: [] }
+  }
+  function solve(u: number, parent = 0): boolean {
+    if (u === n) {
+      bt.emit('solution', 'Every edge joins different colors. Stop at the first valid coloring.', colors, u, parent, graph())
+      return true
+    }
+    for (let c = 0; c < input.colors!; c++) {
+      const conflicts = [...new Set(edges.filter((e) => e.from === u && colors[e.to] === c).map((e) => e.to))],
+        safe = conflicts.length === 0
+      const id = bt.branch(parent, `v${u} → color ${c}`, u + 1, safe ? 'choose' : 'reject'),
+        reason = safe
+          ? `Choose color ${c} for vertex ${u}: no assigned neighbor has that color.`
+          : `Reject color ${c} for vertex ${u}: neighbor(s) ${conflicts.join(', ')} already use it.`
+      const prediction = { question: `Choose or reject color ${c} for vertex ${u}?`, answer: safe ? 'choose' : 'reject', explanation: reason }
+      if (safe) {
         colors[u] = c
-        t.add(
-          `Try color ${c} on vertex ${u}.`,
-          { graph: { vertices: n, edges: input.edges!, directed: false, labels: colors.map((c) => (c < 0 ? 'uncolored' : `color ${c}`)) } },
-          1,
-        )
-        if (solve(u + 1)) return true
+        bt.emit('choose', reason, colors, u, id, graph(), { candidate: c, prediction })
+        if (solve(u + 1, id)) return true
         colors[u] = -1
-        t.add(`Undo vertex ${u}.`, { values: colors }, 2)
-      }
+        bt.emit('undo', `Undo vertex ${u}: color ${c} had no valid completion. Restore uncolored before trying the next color.`, colors, u, id, graph(), {
+          candidate: c,
+        })
+      } else bt.emit('reject', reason, colors, u, id, graph(), { candidate: c, conflicts, prediction })
+    }
+    bt.emit('dead-end', `Vertex ${u} has no remaining safe color. Return to the previous vertex.`, colors, u, parent, graph())
     return false
   }
   const satisfiable = solve(0)
+  bt.emit(
+    'complete',
+    satisfiable
+      ? 'One valid coloring found; this is a decision problem, not enumeration or minimum-color optimization.'
+      : 'All possible colorings failed; no solution exists for this color limit.',
+    colors,
+    0,
+    0,
+    graph(),
+  )
   return { satisfiable, colors: satisfiable ? colors : [] }
 }
 export function hamiltonian(input: DaaInput, t: Trace) {
   const edges = arcs(input),
     path = [input.source!],
     used = new Set(path)
-  function solve(): boolean {
-    if (path.length === input.vertices) return edges.some((e) => e.from === path.at(-1) && e.to === path[0])
-    for (const e of edges.filter((e) => e.from === path.at(-1)))
-      if (!used.has(e.to)) {
-        used.add(e.to)
-        path.push(e.to)
-        t.add(`Extend path to ${e.to}.`, { values: path }, 1)
-        if (solve()) return true
+  const bt = new BacktrackingTrace(t),
+    graph = () => ({
+      graph: { vertices: input.vertices!, edges: input.edges!, directed: input.directed ?? false, selected: path.slice(1).map((v, i) => [path[i], v]) },
+    })
+  bt.emit(
+    'ready',
+    `Start at vertex ${path[0]}. Extend along edges to unused vertices. A full path must also have an edge back to the start.`,
+    path,
+    0,
+    0,
+    graph(),
+  )
+  function solve(parent = 0): boolean {
+    if (path.length === input.vertices) {
+      const closed = edges.some((e) => e.from === path.at(-1) && e.to === path[0]),
+        reason = closed
+          ? `Closing edge ${path.at(-1)} → ${path[0]} exists: a Hamiltonian cycle is found.`
+          : `Full path, but closing edge ${path.at(-1)} → ${path[0]} is missing. Backtrack.`
+      bt.emit(closed ? 'solution' : 'reject', reason, path, path.length - 1, parent, graph(), {
+        closed,
+        prediction: { question: `Can this full path close into a cycle? (yes/no)`, answer: closed ? 'yes' : 'no', explanation: reason },
+      })
+      return closed
+    }
+    for (let v = 0; v < input.vertices!; v++) {
+      const adjacent = edges.some((e) => e.from === path.at(-1) && e.to === v),
+        safe = adjacent && !used.has(v)
+      const id = bt.branch(parent, `→ vertex ${v}`, path.length, safe ? 'choose' : 'reject'),
+        reason = safe
+          ? `Choose vertex ${v}: adjacent to ${path.at(-1)} and not yet visited.`
+          : `Reject vertex ${v}: ${used.has(v) ? 'already visited' : 'no edge from the current endpoint'}.`
+      const prediction = { question: `Choose or reject next vertex ${v}?`, answer: safe ? 'choose' : 'reject', explanation: reason }
+      if (safe) {
+        used.add(v)
+        path.push(v)
+        bt.emit('choose', reason, path, path.length - 1, id, graph(), { candidate: v, prediction })
+        if (solve(id)) return true
         used.delete(path.pop()!)
-        t.add('Undo dead end.', { values: path }, 2)
-      }
+        bt.emit('undo', `Undo vertex ${v}: this path has no cycle completion. Restore the previous endpoint and visited set.`, path, path.length, id, graph(), {
+          candidate: v,
+        })
+      } else bt.emit('reject', reason, path, path.length - 1, id, graph(), { candidate: v, prediction })
+    }
+    bt.emit('dead-end', 'No remaining neighbor leads to a cycle. Return to the previous choice.', path, path.length - 1, parent, graph())
     return false
   }
   const exists = solve()
+  bt.emit(
+    'complete',
+    exists
+      ? 'Found a source-starting cycle visiting every vertex exactly once before returning.'
+      : 'All source-starting paths exhausted; no Hamiltonian cycle exists.',
+    path,
+    0,
+    0,
+    graph(),
+    { closed: exists },
+  )
   return { exists, cycle: exists ? [...path, path[0]] : [] }
 }
 type Node = { id: number; parent?: number; index: number; weight: number; profit: number; chosen: number[]; bound: number }

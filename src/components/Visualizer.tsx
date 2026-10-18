@@ -17,6 +17,7 @@ import { isTreeLearningModule } from '../learning/treeModel'
 import { GraphSuiteLearning } from '../learning/GraphSuiteLearning'
 const DPSuiteLearning = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPSuiteLearning })))
 const GreedySuiteLearning = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedySuiteLearning })))
+const BacktrackingSuiteLearning = lazy(() => import('../learning/BacktrackingStudio').then((module) => ({ default: module.BacktrackingSuiteLearning })))
 
 type VisualItem = {
   id: string
@@ -303,6 +304,16 @@ export function Visualizer({
     localStorage.setItem(gameStateKey, JSON.stringify({ base: gameSymbols, move }))
     startGameInteraction()
   }
+
+  if (activeModule.category === 'Backtracking')
+    return (
+      <section className="lab-grid" data-learning-tab={learningTab}>
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <Suspense fallback={<p role="status">Loading the backtracking lab…</p>}>
+          <BacktrackingSuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} onTab={setLearningTab} />
+        </Suspense>
+      </section>
+    )
 
   if (activeModule.category === 'Greedy')
     return (
