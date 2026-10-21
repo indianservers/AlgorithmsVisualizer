@@ -1,7 +1,11 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect, useRef, useState } from 'react'
 import { PencilLine } from 'lucide-react'
 
 export function InputAccessButton({ onOpen }: { onOpen?: () => void }) {
+  useLocaleRender()
+
   const [request, setRequest] = useState(0),
     button = useRef<HTMLButtonElement>(null)
   useEffect(() => {
@@ -46,7 +50,7 @@ export function InputAccessButton({ onOpen }: { onOpen?: () => void }) {
       }}
     >
       <PencilLine size={16} />
-      Edit input
+      {tx('Edit input', 'common')}
     </button>
   )
 }

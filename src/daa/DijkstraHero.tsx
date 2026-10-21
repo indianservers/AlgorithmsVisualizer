@@ -1,7 +1,11 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { ArrowRight, BookOpen, Code2, FlaskConical, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export function DijkstraHero() {
+  useLocaleRender()
+
   return (
     <div className="dijkstra-hero-art">
       <svg className="dijkstra-landscape" viewBox="0 0 1000 230" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
@@ -22,36 +26,39 @@ export function DijkstraHero() {
         <path d="M850 68V32m0 0h20l-6 6 6 6h-20" stroke="#489cfa" strokeWidth="2" fill="#72c6ff" />
       </svg>
       <blockquote>
-        “Shortest paths
+        {tx('“Shortest paths', 'studios')}
         <br />
-        build stronger foundations
+        {tx('build stronger foundations', 'studios')}
         <br />
-        for bigger problems.”
+        {tx('for bigger problems.”', 'studios')}
       </blockquote>
       <Link className="dijkstra-explore" to="/daa/syllabus-dashboard">
-        Explore<strong>Algorithms</strong>Visualize
+        {tx('Explore', 'studios')}
+        <strong>{tx('Algorithms', 'studios')}</strong>
+        {tx('Visualize', 'studios')}
         <br />
-        Understand
+        {tx('Understand', 'studios')}
         <strong>
-          Grow <ArrowRight size={17} />
+          {tx('Grow ', 'studios')}
+          <ArrowRight size={17} />
         </strong>
       </Link>
       <div className="dijkstra-features">
         <span>
           <Sparkles />
-          Step-by-step visualization
+          {tx('Step-by-step visualization', 'studios')}
         </span>
         <span>
           <FlaskConical />
-          Interactive experimentation
+          {tx('Interactive experimentation', 'studios')}
         </span>
         <span>
           <Code2 />
-          Code & practice
+          {tx('Code & practice', 'studios')}
         </span>
         <span>
           <BookOpen />
-          Build intuition
+          {tx('Build intuition', 'studios')}
         </span>
       </div>
     </div>

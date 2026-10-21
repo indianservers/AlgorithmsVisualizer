@@ -1,0 +1,290 @@
+.aimer-account-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.language-selector {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.language-trigger {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid var(--line, #d7e4f7);
+  border-radius: 12px;
+  color: var(--ink, #17375d);
+  background: var(--panel, #fff);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.language-trigger span {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.language-popover {
+  position: fixed;
+  z-index: 10000;
+  width: min(340px, calc(100vw - 20px));
+  max-height: calc(100dvh - 90px);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel, #fff);
+  color: var(--ink, #17375d);
+  border: 1px solid var(--line, #ccdbee);
+  border-radius: 14px;
+  box-shadow: 0 14px 45px #142f5733;
+  font-family: inherit;
+  padding: 12px;
+}
+.language-popover header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 10px;
+}
+.language-popover header button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  min-width: 36px;
+  min-height: 36px;
+  display: grid;
+  place-items: center;
+}
+.language-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line, #c5d6ed);
+  border-radius: 9px;
+  padding: 8px;
+}
+.language-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+}
+.language-options {
+  overflow: auto;
+  overscroll-behavior: contain;
+  max-height: 52dvh;
+  padding: 6px 0;
+}
+.language-options h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 12px 6px 5px;
+  color: var(--muted, #637e9a);
+}
+.language-options [role='option'] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: start;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.language-options [role='option'] span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.language-options small {
+  font-size: 11px;
+  color: var(--muted, #647b95);
+}
+.language-options [aria-selected='true'],
+.language-options [data-highlighted='true'] {
+  background: #eaf3ff;
+  color: #145cad;
+}
+.language-options [role='option']:focus-visible,
+.language-trigger:focus-visible {
+  outline: 3px solid #7aafff;
+  outline-offset: 2px;
+}
+.language-status {
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+.language-status:empty {
+  display: none;
+}
+@media (max-width: 700px) {
+  .language-trigger span,
+  .language-trigger > svg:last-child {
+    display: none;
+  }
+  .language-trigger {
+    width: 38px;
+    min-width: 38px;
+    padding: 8px;
+  }
+  .aimer-account-controls {
+    gap: 5px;
+  }
+}
+html[data-locale]:not([data-locale='en-IN']) body {
+  font-family: system-ui, 'Nirmala UI', 'Noto Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Arabic', 'Nyala', sans-serif;
+}
+html[data-locale]:not([data-locale='en-IN']) :is(.lesson-tabs button, .studio-view-toolbar button, .topbar button, .sidebar button, .sidebar a) {
+  white-space: normal;
+  height: auto;
+  overflow-wrap: anywhere;
+}
+html[dir='rtl']
+  :is(
+    .sidebar,
+    .lesson-navigation,
+    .wiki-breadcrumb,
+    .wiki-contents,
+    .problem-input-panel,
+    .studio-input,
+    .topbar,
+    .home-header,
+    .ss-top,
+    .daa-actions,
+    .gr-fields,
+    .dp-fields,
+    .bt-fields
+  ) {
+  text-align: start;
+}
+html[dir='rtl']
+  :is(
+    pre,
+    code,
+    svg,
+    canvas,
+    .studio-chart,
+    .penguin-stage,
+    .bar-stage,
+    .visual-canvas,
+    .canvas-zoom-content,
+    .ls-tree,
+    .ls-graph,
+    .tuv-scene,
+    .gr-visual,
+    .dp-table,
+    .bt-board,
+    .ss-visual
+  ) {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+html[dir='rtl'] :is(input[type='number'], .studio-input textarea, .problem-input-fields textarea, .workbench-input textarea, .studio-source, .studio-live dd) {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+}
+html[dir='rtl'] .language-popover {
+  text-align: start;
+}
+
+.wiki-site-header > .aimer-account-controls {
+  margin-inline-start: auto;
+}
+
+/* Leave room for the added global selector without widening the existing header. */
+.ss-top .ss-search,
+.ss-top .ss-search input {
+  min-width: 0;
+}
+.ss-page .ss-top {
+  flex-wrap: wrap;
+  height: auto;
+  min-height: 68px;
+  padding-block: 10px;
+}
+html[data-locale]:not([data-locale='en-IN']) .ss-presets {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+html[data-locale]:not([data-locale='en-IN']) .ss-presets button {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Time and array coordinates retain the same direction in every language. */
+html[dir='rtl'] :is(input[type='range'], .workbench-playback, .workbench-progress) {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+@media (max-width: 1120px) {
+  .app-shell .studio-toolbar {
+    padding-inline-start: 44px;
+  }
+}
+
+.ss-page .ss-sidebar {
+  top: var(--ss-header-height, 68px);
+}
+
+.ss-page .ss-workspace > div,
+.ss-page .ss-fields label {
+  min-width: 0;
+}
+@media (max-width: 1150px) {
+  .ss-page .ss-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .ss-page .ss-route > div,
+  .ss-page .ss-input-actions {
+    flex-wrap: wrap;
+  }
+  .ss-page .ss-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ss-page .ss-input-actions button {
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
+  .ss-page .ss-input h2 {
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+}
+
+.ss-page .ss-legend {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .ss-page .ss-canvas {
+    height: auto;
+  }
+  .ss-page .ss-result,
+  .ss-page .ss-canvas-bottom {
+    position: static;
+    margin-block-start: 12px;
+  }
+}
+html[dir='rtl'] :is(.ss-fields input, .ss-fields textarea) {
+  direction: ltr;
+  unicode-bidi: isolate;
+}

@@ -1,3 +1,5 @@
+// @localized-render
+import { tx } from '../i18n/render'
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 
 type ErrorBoundaryProps = {
@@ -25,11 +27,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return (
       <main className="app-error">
         <section>
-          <h1>Something went wrong</h1>
-          <p>The visualizer hit a UI error, but the page stayed alive. Reload to return to the workspace.</p>
+          <h1>{tx('Something went wrong', 'messages')}</h1>
+          <p>{tx('The visualizer hit a UI error, but the page stayed alive. Reload to return to the workspace.', 'messages')}</p>
           <pre>{this.state.error.message}</pre>
           <button type="button" onClick={() => window.location.reload()}>
-            Reload app
+            {tx('Reload app', 'messages')}
           </button>
         </section>
       </main>

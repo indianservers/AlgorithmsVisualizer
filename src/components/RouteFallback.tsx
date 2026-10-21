@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import type { AlgorithmModule } from '../types'
 
 type RouteFallbackProps = {
@@ -8,16 +10,21 @@ type RouteFallbackProps = {
 }
 
 export function RouteFallback({ algorithmSlug, categorySlug, fallbackModule, openFallback }: RouteFallbackProps) {
+  useLocaleRender()
+
   return (
     <section className="route-fallback">
-      <span className="eyebrow">Route not found</span>
-      <h1>That algorithm page is not in this catalog.</h1>
+      <span className="eyebrow">{tx('Route not found', 'common')}</span>
+      <h1>{tx('That algorithm page is not in this catalog.', 'common')}</h1>
       <p>
-        We could not match {categorySlug ? `/${categorySlug}` : 'this category'}
-        {algorithmSlug ? `/${algorithmSlug}` : ''}. You can jump back to a known interactive module.
+        {tx('We could not match ', 'common')}
+        {tx(categorySlug ? `/${categorySlug}` : 'this category', 'common')}
+        {tx(algorithmSlug ? `/${algorithmSlug}` : '', 'common')}
+        {tx('. You can jump back to a known interactive module.', 'common')}
       </p>
       <button type="button" onClick={openFallback}>
-        Open {fallbackModule.name}
+        {tx('Open ', 'common')}
+        {tx(fallbackModule.name, 'common')}
       </button>
     </section>
   )

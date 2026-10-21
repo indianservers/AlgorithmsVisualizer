@@ -209,3 +209,7 @@ indexes and the directory, then emits `sitemap.xml` and `robots.txt`. Generated
 HTML is build output in `dist`, not checked-in source. Vercel `cleanUrls` serves
 those HTML files at extensionless URLs, with a fallback for application routes.
 Do not restore a relative Vite asset base: nested URLs require root-relative assets.
+
+## Localization
+
+English (India) remains the source default. See [LOCALIZATION_STATUS.md](LOCALIZATION_STATUS.md) for actual locale coverage and outstanding review, and [the contributor guide](docs/localization/README.md) for adding translated UI. Run `npm run i18n:check` for resource validation and `npm run test:localization` for browser behavior. Target dictionaries are partial drafts; English fallback is not counted as translated.

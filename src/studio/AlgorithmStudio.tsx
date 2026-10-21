@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { Penguin, Dolphin } from '../components/CharacterArt'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -16,6 +18,8 @@ import { usePersistentState, persistentString } from '../hooks/usePersistentStat
 import './studio.css'
 
 export function AppleIcon({ id }: { id: string }) {
+  useLocaleRender()
+
   return (
     <svg viewBox="0 0 40 44" className="studio-apple" aria-hidden="true">
       <defs>
@@ -63,6 +67,8 @@ function Syntax({ text }: { text: string }) {
 }
 
 export function CodeExecutionPanel({ id, step }: { id: StudioId; step?: StudioStep }) {
+  useLocaleRender()
+
   const [language, setLanguage] = useState('JavaScript'),
     [autoScroll, setAutoScroll] = useState(true)
   const activeRef = useRef<HTMLDivElement>(null)
@@ -85,98 +91,121 @@ export function CodeExecutionPanel({ id, step }: { id: StudioId; step?: StudioSt
       source.scrollTo({ top: Math.max(0, active.offsetTop - source.clientHeight / 2), behavior: 'instant' })
   }, [autoScroll, step?.id, language])
   return (
-    <MobileDisclosure className="studio-code" title="Executing code and live variables">
+    <MobileDisclosure className="studio-code" title={tx('Executing code and live variables', 'studios')}>
       <header className="studio-code-tabs">
         <Code2 size={18} />
-        <b>Live code</b>
-        <div role="group" aria-label="Code language">
-          {['Pseudocode', 'C++', 'Java', 'Python', 'JavaScript'].map((name) => (
-            <button key={name} aria-pressed={language === name} onClick={() => setLanguage(name)}>
-              {name}
-            </button>
-          ))}
+        <b>{tx('Live code', 'studios')}</b>
+        <div role="group" aria-label={tx('Code language', 'studios')}>
+          {tx(
+            ['Pseudocode', 'C++', 'Java', 'Python', 'JavaScript'].map((name) => (
+              <button key={name} aria-pressed={language === name} onClick={() => setLanguage(name)}>
+                {tx(name, 'studios')}
+              </button>
+            )),
+            'studios',
+          )}
         </div>
         <label className="studio-auto">
-          <input type="checkbox" checked={autoScroll} onChange={(e) => setAutoScroll(e.target.checked)} /> Follow line
+          <input type="checkbox" checked={autoScroll} onChange={(e) => setAutoScroll(e.target.checked)} />
+          {tx(' Follow line', 'studios')}
         </label>
       </header>
       <div className="studio-code-grid">
-        <div className="studio-source" aria-label={`${language} source code`}>
-          {rows.map((line, i) => {
-            const active = !!line.id && line.id === step?.lineId
-            const text =
-              language === 'Pseudocode'
-                ? line.text
-                    .replace(/\b(const|let) /g, '')
-                    .replace(/Math.floor/g, 'floor')
-                    .replaceAll('===', '=')
-                    .replaceAll('&&', 'AND')
-                    .replaceAll('||', 'OR')
-                    .replace(/;$/, '')
-                : line.text
-            return (
-              <div
-                key={i}
-                ref={active ? activeRef : undefined}
-                className={`studio-source-line ${active ? 'executing' : ''}`}
-                data-line-id={line.id}
-                aria-current={active ? 'step' : undefined}
-              >
-                <span className="studio-line-number">{i + 1}</span>
-                <span className="studio-execution-arrow">{active ? '▶' : ''}</span>
-                <code>
-                  <Syntax text={text} />
-                </code>
-                {line.id?.includes('loop') && <span className="studio-loop-label">{line.id.replaceAll('-', ' ')}</span>}
-              </div>
-            )
-          })}
+        <div className="studio-source" aria-label={tx(`${language} source code`, 'studios')}>
+          {tx(
+            rows.map((line, i) => {
+              const active = !!line.id && line.id === step?.lineId
+              const text =
+                language === 'Pseudocode'
+                  ? line.text
+                      .replace(/\b(const|let) /g, '')
+                      .replace(/Math.floor/g, 'floor')
+                      .replaceAll('===', '=')
+                      .replaceAll('&&', 'AND')
+                      .replaceAll('||', 'OR')
+                      .replace(/;$/, '')
+                  : line.text
+              return (
+                <div
+                  key={i}
+                  ref={active ? activeRef : undefined}
+                  className={`studio-source-line ${active ? 'executing' : ''}`}
+                  data-line-id={line.id}
+                  aria-current={active ? 'step' : undefined}
+                >
+                  <span className="studio-line-number">{tx(i + 1, 'studios')}</span>
+                  <span className="studio-execution-arrow">{tx(active ? '▶' : '', 'studios')}</span>
+                  <code>
+                    <Syntax text={text} />
+                  </code>
+                  {tx(line.id?.includes('loop') && <span className="studio-loop-label">{tx(line.id.replaceAll('-', ' '), 'studios')}</span>, 'studios')}
+                </div>
+              )
+            }),
+            'studios',
+          )}
         </div>
         <aside className="studio-live">
           <h3>
-            <Activity size={15} /> Variables <span>Live</span>
+            <Activity size={15} />
+            {tx(' Variables ', 'studios')}
+            <span>{tx('Live', 'studios')}</span>
           </h3>
           <dl>
-            {variables.map(([key, value]) => (
-              <div key={key}>
-                <dt>{key}</dt>
-                <dd>{value === null ? '—' : typeof value === 'object' ? JSON.stringify(value) : String(value)}</dd>
-              </div>
-            ))}
+            {tx(
+              variables.map(([key, value]) => (
+                <div key={key}>
+                  <dt>{tx(key, 'studios')}</dt>
+                  <dd>{tx(value === null ? '—' : typeof value === 'object' ? JSON.stringify(value) : String(value), 'studios')}</dd>
+                </div>
+              )),
+              'studios',
+            )}
           </dl>
-          {step?.highlights.variables?.comparison !== undefined && (
-            <div className="studio-comparison">
-              <b>{step?.type === 'compare' ? 'Current comparison' : 'Last comparison'}</b>
-              <code>{String(step.highlights.variables.comparison)}</code>
-              <span>{String(step.highlights.variables.condition)}</span>
-            </div>
+          {tx(
+            step?.highlights.variables?.comparison !== undefined && (
+              <div className="studio-comparison">
+                <b>{tx(step?.type === 'compare' ? 'Current comparison' : 'Last comparison', 'studios')}</b>
+                <code>{String(step.highlights.variables.comparison)}</code>
+                <span>{tx(String(step.highlights.variables.condition), 'studios')}</span>
+              </div>
+            ),
+            'studios',
           )}
-          {nestedLoops && (
-            <div className="studio-loop-progress">
-              <label>
-                Outer loop - i = {i} / {Math.max(0, n - 2)}
-                <progress max={Math.max(1, n - 1)} value={i + 1} />
-              </label>
-              <label>
-                Inner loop - {runtime.j === null ? 'between comparisons' : `j = ${j}`}
-                <progress max={Math.max(1, n - i - 1)} value={runtime.j === null ? 0 : id === 'bubble-sort' ? j + 1 : j - i} />
-              </label>
-            </div>
+          {tx(
+            nestedLoops && (
+              <div className="studio-loop-progress">
+                <label>
+                  {tx('Outer loop - i = ', 'studios')}
+                  {tx(i, 'studios')} / {tx(Math.max(0, n - 2), 'studios')}
+                  <progress max={Math.max(1, n - 1)} value={i + 1} />
+                </label>
+                <label>
+                  {tx('Inner loop - ', 'studios')}
+                  {tx(runtime.j === null ? 'between comparisons' : `j = ${j}`, 'studios')}
+                  <progress max={Math.max(1, n - i - 1)} value={runtime.j === null ? 0 : id === 'bubble-sort' ? j + 1 : j - i} />
+                </label>
+              </div>
+            ),
+            'studios',
           )}
           <div className="studio-loop-status">
-            <b>Execution</b>
-            <span>{step?.lineId.replaceAll('-', ' ') ?? 'Ready'}</span>
-            {['i', 'j', 'gap', 'low', 'high', 'mid', 'exp', 'root', 'end']
-              .filter((k) => typeof step?.highlights.variables?.[k] === 'number')
-              .map((k) => (
-                <label key={k}>
-                  {k} = {String(step?.highlights.variables?.[k])}
-                </label>
-              ))}
+            <b>{tx('Execution', 'studios')}</b>
+            <span>{tx(step?.lineId.replaceAll('-', ' ') ?? 'Ready', 'studios')}</span>
+            {tx(
+              ['i', 'j', 'gap', 'low', 'high', 'mid', 'exp', 'root', 'end']
+                .filter((k) => typeof step?.highlights.variables?.[k] === 'number')
+                .map((k) => (
+                  <label key={k}>
+                    {tx(k, 'studios')} = {tx(String(step?.highlights.variables?.[k]), 'studios')}
+                  </label>
+                )),
+              'studios',
+            )}
           </div>
         </aside>
       </div>
-      <p className="studio-source-note">Source views follow the same canonical trace. Language selection preserves the current step.</p>
+      <p className="studio-source-note">{tx('Source views follow the same canonical trace. Language selection preserves the current step.', 'studios')}</p>
     </MobileDisclosure>
   )
 }
@@ -196,6 +225,8 @@ export function ArrayScene({
   reducedMotion: boolean
   character?: string
 }) {
+  useLocaleRender()
+
   const systemReduced = useReducedMotion()
   const reduced = reducedMotion || systemReduced
   const data = step?.dataState ?? input
@@ -212,14 +243,20 @@ export function ArrayScene({
   return (
     <>
       <div className="studio-scale-note">
-        {view === 'icons'
-          ? scaledCharacter
-            ? `One ${selected.name === 'Penguins' ? 'penguin' : 'dolphin'} per value. Character height represents magnitude; labels show exact values.`
-            : exactIcons
-              ? `One ${selected.icon} = one whole unit. Each bar contains the exact count; labels retain the sign.`
-              : 'Scaled bars · exact values are labeled. Whole numbers up to 1,000 per bar show individual icons.'
-          : 'Bar height represents magnitude · exact values are labeled.'}
-        {signed && (exactIcons || scaledCharacter ? ' Negative values show their magnitude with a signed label.' : ' Negative values extend below zero.')}
+        {tx(
+          view === 'icons'
+            ? scaledCharacter
+              ? `One ${selected.name === 'Penguins' ? 'penguin' : 'dolphin'} per value. Character height represents magnitude; labels show exact values.`
+              : exactIcons
+                ? `One ${selected.icon} = one whole unit. Each bar contains the exact count; labels retain the sign.`
+                : 'Scaled bars · exact values are labeled. Whole numbers up to 1,000 per bar show individual icons.'
+            : 'Bar height represents magnitude · exact values are labeled.',
+          'studios',
+        )}
+        {tx(
+          signed && (exactIcons || scaledCharacter ? ' Negative values show their magnitude with a signed label.' : ' Negative values extend below zero.'),
+          'studios',
+        )}
       </div>
       <div className="studio-chart-scroll">
         <div
@@ -232,73 +269,90 @@ export function ArrayScene({
             } as React.CSSProperties
           }
           role="img"
-          aria-label={`Array: ${data.join(', ') || 'empty'}`}
+          aria-label={tx(`Array: ${data.join(', ') || 'empty'}`, 'studios')}
         >
           <div className="studio-zero-line">
             <span>0</span>
           </div>
-          {!data.length && (
-            <div className="studio-empty">
-              <Layers />
-              <b>An empty array is a valid example</b>
-              <span>Run the algorithm to inspect its base case.</span>
-            </div>
+          {tx(
+            !data.length && (
+              <div className="studio-empty">
+                <Layers />
+                <b>{tx('An empty array is a valid example', 'studios')}</b>
+                <span>{tx('Run the algorithm to inspect its base case.', 'studios')}</span>
+              </div>
+            ),
+            'studios',
           )}
-          {data.map((value, i) => {
-            const sorted = step?.sortedIndices.includes(i)
-            const state = active.includes(i) ? (step?.type === 'swap' ? 'swapping' : active.indexOf(i) === 0 ? 'active' : 'comparing') : sorted ? 'sorted' : ''
-            const markers = Object.entries(variables)
-              .filter(([key, v]) => ['i', 'j', 'mid', 'minIndex', 'low', 'high', 'k'].includes(key) && v === i)
-              .map(([key]) => key)
-            const height = value === 0 ? 3 : Math.max(5, (Math.abs(value) / max) * (signed && !scaledCharacter ? 115 : 190))
-            return (
-              <motion.div
-                layout={!reduced}
-                transition={{ layout: { duration: reduced ? 0 : 0.38, ease: 'easeInOut' } }}
-                key={step?.itemIds[i] ?? `item-${i}`}
-                className={`studio-column ${state}`}
-                style={
-                  {
-                    ...(exactIcons ? { height: stackHeight + 35 } : {}),
-                    '--bar-height': `${exactIcons ? Math.ceil(Math.abs(value) / columns) * (appleHeight + 1) + 10 : height}px`,
-                  } as React.CSSProperties
-                }
-                data-value={value}
-                data-index={i}
-              >
-                <div className="studio-pointer">{markers.join(' · ')}</div>
-                <strong className="studio-value">{value}</strong>
-                <div
-                  className={`studio-bar ${value < 0 ? 'negative' : ''} ${exactIcons ? 'apple-stack' : ''} ${scaledCharacter ? 'studio-animal' : ''}`}
-                  data-scaled-character={scaledCharacter ? selected.id : undefined}
+          {tx(
+            data.map((value, i) => {
+              const sorted = step?.sortedIndices.includes(i)
+              const state = active.includes(i)
+                ? step?.type === 'swap'
+                  ? 'swapping'
+                  : active.indexOf(i) === 0
+                    ? 'active'
+                    : 'comparing'
+                : sorted
+                  ? 'sorted'
+                  : ''
+              const markers = Object.entries(variables)
+                .filter(([key, v]) => ['i', 'j', 'mid', 'minIndex', 'low', 'high', 'k'].includes(key) && v === i)
+                .map(([key]) => key)
+              const height = value === 0 ? 3 : Math.max(5, (Math.abs(value) / max) * (signed && !scaledCharacter ? 115 : 190))
+              return (
+                <motion.div
+                  layout={!reduced}
+                  transition={{ layout: { duration: reduced ? 0 : 0.38, ease: 'easeInOut' } }}
+                  key={step?.itemIds[i] ?? `item-${i}`}
+                  className={`studio-column ${state}`}
                   style={
                     {
-                      height: exactIcons ? undefined : height,
-                      '--apple-height': `${appleHeight}px`,
-                      gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                      ...(exactIcons ? { height: stackHeight + 35 } : {}),
+                      '--bar-height': `${exactIcons ? Math.ceil(Math.abs(value) / columns) * (appleHeight + 1) + 10 : height}px`,
                     } as React.CSSProperties
                   }
+                  data-value={value}
+                  data-index={i}
                 >
-                  {scaledCharacter ? (
-                    selected.id === 'penguins' ? (
-                      <Penguin height={height} status={reduced ? 'still' : state} />
-                    ) : (
-                      <Dolphin height={height} status={reduced ? 'still' : state} />
-                    )
-                  ) : exactIcons ? (
-                    Array.from({ length: Math.abs(value) }, (_, k) => (
-                      <span className="studio-unit-icon" data-unit-icon key={k}>
-                        {selected.id === 'apples' ? <AppleIcon id={`apple-${i}-${k}`} /> : selected.icon}
-                      </span>
-                    ))
-                  ) : (
-                    view === 'icons' && <span className="studio-unit-icon">{selected.icon}</span>
-                  )}
-                </div>
-                <span className="studio-index">{i}</span>
-              </motion.div>
-            )
-          })}
+                  <div className="studio-pointer">{tx(markers.join(' · '), 'studios')}</div>
+                  <strong className="studio-value">{value}</strong>
+                  <div
+                    className={`studio-bar ${value < 0 ? 'negative' : ''} ${exactIcons ? 'apple-stack' : ''} ${scaledCharacter ? 'studio-animal' : ''}`}
+                    data-scaled-character={scaledCharacter ? selected.id : undefined}
+                    style={
+                      {
+                        height: exactIcons ? undefined : height,
+                        '--apple-height': `${appleHeight}px`,
+                        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    {tx(
+                      scaledCharacter ? (
+                        selected.id === 'penguins' ? (
+                          <Penguin height={height} status={reduced ? 'still' : state} />
+                        ) : (
+                          <Dolphin height={height} status={reduced ? 'still' : state} />
+                        )
+                      ) : exactIcons ? (
+                        Array.from({ length: Math.abs(value) }, (_, k) => (
+                          <span className="studio-unit-icon" data-unit-icon key={k}>
+                            {tx(selected.id === 'apples' ? <AppleIcon id={`apple-${i}-${k}`} /> : selected.icon, 'studios')}
+                          </span>
+                        ))
+                      ) : (
+                        view === 'icons' && <span className="studio-unit-icon">{tx(selected.icon, 'studios')}</span>
+                      ),
+                      'studios',
+                    )}
+                  </div>
+                  <span className="studio-index">{tx(i, 'studios')}</span>
+                </motion.div>
+              )
+            }),
+            'studios',
+          )}
         </div>
       </div>
     </>
@@ -346,6 +400,8 @@ export function AlgorithmStudio({
   reducedMotion: boolean
   canvasRef: React.RefObject<HTMLDivElement | null>
 }) {
+  useLocaleRender()
+
   const [view, setView] = useState('icons'),
     [zoom, setZoom] = useState(100)
   const [character, setCharacter] = usePersistentState('algodrishti-sorting-character', 'apples', persistentString)
@@ -355,75 +411,86 @@ export function AlgorithmStudio({
     <div className="algorithm-studio" data-algorithm={module.id}>
       <div className="studio-main">
         <header className="studio-heading">
-          <span className="studio-heading-icon">{sorting ? <AppleIcon id="heading-apple" /> : <Search />}</span>
+          <span className="studio-heading-icon">{tx(sorting ? <AppleIcon id="heading-apple" /> : <Search />, 'studios')}</span>
           <div>
-            <h1>{module.name}</h1>
+            <h1>{tx(module.name, 'studios')}</h1>
             <p>
-              {module.id === 'sliding-window-two-pointers-suite'
-                ? 'Live example: two-pointer pair sum on ascending values.'
-                : suiteExamples[module.id]
-                  ? `Suite example: ${suiteExamples[module.id].replaceAll('-', ' ')}. Browse algorithms to explore each method.`
-                  : module.summary}
+              {tx(
+                module.id === 'sliding-window-two-pointers-suite'
+                  ? 'Live example: two-pointer pair sum on ascending values.'
+                  : suiteExamples[module.id]
+                    ? `Suite example: ${suiteExamples[module.id].replaceAll('-', ' ')}. Browse algorithms to explore each method.`
+                    : module.summary,
+                'studios',
+              )}
             </p>
           </div>
           <div className="studio-complexity time">
             <Clock />
             <span>
-              Time complexity<strong>{module.complexity.average}</strong>
+              {tx('Time complexity', 'studios')}
+              <strong>{tx(module.complexity.average, 'studios')}</strong>
             </span>
           </div>
           <div className="studio-complexity space">
             <Layers />
             <span>
-              Space complexity<strong>{module.complexity.space}</strong>
+              {tx('Space complexity', 'studios')}
+              <strong>{tx(module.complexity.space, 'studios')}</strong>
             </span>
           </div>
         </header>
-        {controls}
+        {tx(controls, 'studios')}
         <section className="studio-visual" ref={canvasRef}>
           <div className="studio-view-toolbar">
-            <span>View as:</span>
+            <span>{tx('View as:', 'studios')}</span>
             <div className="studio-toggle">
-              {['bars', 'icons'].map((v) => (
-                <button key={v} aria-pressed={view === v} onClick={() => setView(v)}>
-                  {v === 'bars' ? 'Bars' : 'Icons'}
-                </button>
-              ))}
+              {tx(
+                ['bars', 'icons'].map((v) => (
+                  <button key={v} aria-pressed={view === v} onClick={() => setView(v)}>
+                    {tx(v === 'bars' ? 'Bars' : 'Icons', 'studios')}
+                  </button>
+                )),
+                'studios',
+              )}
             </div>
             <label className="studio-character">
-              Bar icons
+              {tx('Bar icons', 'studios')}
               <select
-                aria-label="Bar icons"
+                aria-label={tx('Bar icons', 'studios')}
                 value={character}
                 onChange={(event) => {
                   setCharacter(event.target.value)
                   setView('icons')
                 }}
               >
-                {sortingCharacters.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.icon} {option.name}
-                  </option>
-                ))}
+                {tx(
+                  sortingCharacters.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {tx(option.icon, 'studios')} {tx(option.name, 'studios')}
+                    </option>
+                  )),
+                  'studios',
+                )}
               </select>
             </label>
             <div className="studio-legend">
-              <span className="active">Active</span>
-              <span className="comparing">Comparing</span>
-              <span className="sorted">Sorted</span>
-              <span>Unsorted</span>
+              <span className="active">{tx('Active', 'studios')}</span>
+              <span className="comparing">{tx('Comparing', 'studios')}</span>
+              <span className="sorted">{tx('Sorted', 'studios')}</span>
+              <span>{tx('Unsorted', 'studios')}</span>
             </div>
             <div className="studio-zoom">
-              <button aria-label="Zoom out" disabled={zoom <= 75} onClick={() => setZoom((v) => v - 25)}>
+              <button aria-label={tx('Zoom out', 'studios')} disabled={zoom <= 75} onClick={() => setZoom((v) => v - 25)}>
                 <ZoomOut size={17} />
               </button>
-              <button aria-label="Zoom in" disabled={zoom >= 200} onClick={() => setZoom((v) => v + 25)}>
+              <button aria-label={tx('Zoom in', 'studios')} disabled={zoom >= 200} onClick={() => setZoom((v) => v + 25)}>
                 <ZoomIn size={17} />
               </button>
-              <button aria-label="Fit to view" onClick={() => setZoom(100)}>
-                {zoom}%
+              <button aria-label={tx('Fit to view', 'studios')} onClick={() => setZoom(100)}>
+                {tx(zoom, 'studios')}%
               </button>
-              <button aria-label="Reset animation" onClick={reset}>
+              <button aria-label={tx('Reset animation', 'studios')} onClick={reset}>
                 <RotateCcw size={17} />
               </button>
             </div>
@@ -432,35 +499,39 @@ export function AlgorithmStudio({
           <div className="studio-explanation" aria-live="polite">
             <BookOpen size={22} />
             <div>
-              <b>{current?.type === 'complete' ? 'Result' : 'Step explanation'}</b>
-              <p>{disabledReason || current?.description || 'Choose your dataset, then press Run algorithm.'}</p>
+              <b>{tx(current?.type === 'complete' ? 'Result' : 'Step explanation', 'studios')}</b>
+              <p>{tx(disabledReason || current?.description || 'Choose your dataset, then press Run algorithm.', 'studios')}</p>
             </div>
             <code>{current?.lineId.replaceAll('-', ' ') ?? 'ready'}</code>
           </div>
           <div className="studio-counters">
-            {['comparisons', 'swaps', 'writes'].map((key) => (
-              <span key={key}>
-                {key}
-                <b>{current?.metrics[key as keyof AlgorithmStep['metrics']] ?? 0}</b>
-              </span>
-            ))}
+            {tx(
+              ['comparisons', 'swaps', 'writes'].map((key) => (
+                <span key={key}>
+                  {tx(key, 'studios')}
+                  <b>{tx(current?.metrics[key as keyof AlgorithmStep['metrics']] ?? 0, 'studios')}</b>
+                </span>
+              )),
+              'studios',
+            )}
           </div>
         </section>
         <CodeExecutionPanel id={module.id as StudioId} step={current} />
       </div>
       <aside className="studio-sidebar">
-        <MobileDisclosure key={module.id} className="studio-input" defaultOpen title="Problem input and presets">
+        <MobileDisclosure key={module.id} className="studio-input" defaultOpen title={tx('Problem input and presets', 'studios')}>
           <h2>
-            Problem Input <Settings2 size={19} />
+            {tx('Problem Input ', 'studios')}
+            <Settings2 size={19} />
           </h2>
           <label className="studio-dataset">
-            Dataset
+            {tx('Dataset', 'studios')}
             <textarea
-              aria-label="Dataset"
+              aria-label={tx('Dataset', 'studios')}
               value={inputText}
               rows={5}
               spellCheck={false}
-              placeholder="42, 18, 67, 9, 31…"
+              placeholder={tx('42, 18, 67, 9, 31…', 'studios')}
               onChange={(e) => {
                 setInput(e.target.value)
                 reset()
@@ -468,24 +539,27 @@ export function AlgorithmStudio({
             />
           </label>
           <div className="studio-input-fields">
-            {!sorting && module.id !== 'peak-element-search' && (
-              <label>
-                Target
-                <input
-                  aria-label="Target"
-                  type="number"
-                  value={target}
-                  onChange={(e) => {
-                    setTarget(Number(e.target.value))
-                    reset()
-                  }}
-                />
-              </label>
+            {tx(
+              !sorting && module.id !== 'peak-element-search' && (
+                <label>
+                  {tx('Target', 'studios')}
+                  <input
+                    aria-label={tx('Target', 'studios')}
+                    type="number"
+                    value={target}
+                    onChange={(e) => {
+                      setTarget(Number(e.target.value))
+                      reset()
+                    }}
+                  />
+                </label>
+              ),
+              'studios',
             )}
             <label>
-              Array size
+              {tx('Array size', 'studios')}
               <input
-                aria-label="Array size"
+                aria-label={tx('Array size', 'studios')}
                 type="number"
                 min={0}
                 max={64}
@@ -493,32 +567,39 @@ export function AlgorithmStudio({
                 onChange={(e) => setSize(Math.max(0, Math.min(64, Number(e.target.value))))}
               />
             </label>
-            <span>{input.length} / 64 values</span>
+            <span>
+              {tx(input.length, 'studios')}
+              {tx(' / 64 values', 'studios')}
+            </span>
           </div>
           <div className="studio-presets">
-            {[
-              ['random', 'Random'],
-              ['sorted', 'Sorted'],
-              ['reverse', 'Reverse'],
-              ['duplicates', 'Duplicates'],
-              ['nearly', 'Nearly sorted'],
-              ['best', 'Best case'],
-              ['average', 'Average case'],
-              ['worst', 'Worst case'],
-              ['empty', 'Empty'],
-              ['single', 'Single element'],
-              ['all-equal', 'All equal'],
-              ['negative', 'Negative numbers'],
-            ].map(([mode, label]) => (
-              <button key={mode} onClick={() => preset(mode)}>
-                <Shuffle size={13} />
-                {label}
-              </button>
-            ))}
+            {tx(
+              [
+                ['random', 'Random'],
+                ['sorted', 'Sorted'],
+                ['reverse', 'Reverse'],
+                ['duplicates', 'Duplicates'],
+                ['nearly', 'Nearly sorted'],
+                ['best', 'Best case'],
+                ['average', 'Average case'],
+                ['worst', 'Worst case'],
+                ['empty', 'Empty'],
+                ['single', 'Single element'],
+                ['all-equal', 'All equal'],
+                ['negative', 'Negative numbers'],
+              ].map(([mode, label]) => (
+                <button key={mode} onClick={() => preset(mode)}>
+                  <Shuffle size={13} />
+                  {tx(label, 'studios')}
+                </button>
+              )),
+              'studios',
+            )}
           </div>
           <div className="studio-input-utilities">
             <button onClick={() => copy('Input', inputText)}>
-              <Copy size={15} /> Copy input
+              <Copy size={15} />
+              {tx(' Copy input', 'studios')}
             </button>
             <button
               onClick={() => {
@@ -526,54 +607,68 @@ export function AlgorithmStudio({
                 reset()
               }}
             >
-              Sort input
+              {tx('Sort input', 'studios')}
             </button>
-            <button onClick={() => download(`${module.id}-trace.csv`, csv(), 'text/csv')}>CSV step log</button>
+            <button onClick={() => download(`${module.id}-trace.csv`, csv(), 'text/csv')}>{tx('CSV step log', 'studios')}</button>
           </div>
-          {disabledReason && (
-            <p className="studio-input-error" role="alert">
-              {disabledReason}
-            </p>
+          {tx(
+            disabledReason && (
+              <p className="studio-input-error" role="alert">
+                {tx(disabledReason, 'studios')}
+              </p>
+            ),
+            'studios',
           )}
           <details className="studio-browse">
             <summary>
-              <Search size={16} /> Browse {sorting ? 'sorting' : 'searching'} algorithms <span>{modules.length}</span>
+              <Search size={16} />
+              {tx(' Browse ', 'studios')}
+              {tx(sorting ? 'sorting' : 'searching', 'studios')}
+              {tx(' algorithms ', 'studios')}
+              <span>{tx(modules.length, 'studios')}</span>
             </summary>
-            {modules.map((m) => (
-              <Link key={m.id} to={algorithmPath(m)} aria-current={module.id === m.id ? 'page' : undefined}>
-                {m.name}
-                <ArrowRight size={14} />
-              </Link>
-            ))}
+            {tx(
+              modules.map((m) => (
+                <Link key={m.id} to={algorithmPath(m)} aria-current={module.id === m.id ? 'page' : undefined}>
+                  {tx(m.name, 'studios')}
+                  <ArrowRight size={14} />
+                </Link>
+              )),
+              'studios',
+            )}
           </details>
         </MobileDisclosure>
-        <MobileDisclosure className="studio-information" title="Algorithm information">
+        <MobileDisclosure className="studio-information" title={tx('Algorithm information', 'studios')}>
           <h2>
-            <BookOpen size={18} /> Algorithm Information
+            <BookOpen size={18} />
+            {tx(' Algorithm Information', 'studios')}
           </h2>
-          <p>{module.summary}</p>
+          <p>{tx(module.summary, 'studios')}</p>
           <div className="studio-flags">
-            {module.flags?.map((flag) => (
-              <span key={flag}>{flag}</span>
-            ))}
+            {tx(
+              module.flags?.map((flag) => <span key={flag}>{tx(flag, 'studios')}</span>),
+              'studios',
+            )}
           </div>
           <dl>
             <div>
-              <dt>Best case</dt>
-              <dd>{module.complexity.best}</dd>
+              <dt>{tx('Best case', 'studios')}</dt>
+              <dd>{tx(module.complexity.best, 'studios')}</dd>
             </div>
             <div>
-              <dt>Average / worst</dt>
+              <dt>{tx('Average / worst', 'studios')}</dt>
               <dd>
-                {module.complexity.average} / {module.complexity.worst}
+                {tx(module.complexity.average, 'studios')} / {tx(module.complexity.worst, 'studios')}
               </dd>
             </div>
             <div>
-              <dt>Extra space</dt>
-              <dd>{module.complexity.space}</dd>
+              <dt>{tx('Extra space', 'studios')}</dt>
+              <dd>{tx(module.complexity.space, 'studios')}</dd>
             </div>
           </dl>
-          <p className="studio-tip">Step forward to inspect one decision. Drag the timeline backward to restore the array, variables, and counters together.</p>
+          <p className="studio-tip">
+            {tx('Step forward to inspect one decision. Drag the timeline backward to restore the array, variables, and counters together.', 'studios')}
+          </p>
         </MobileDisclosure>
       </aside>
     </div>

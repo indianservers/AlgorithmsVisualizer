@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { LogIn, X } from 'lucide-react'
@@ -25,6 +27,8 @@ function saveVisits(value: Visits) {
 
 /** A route invitation never opens the account dialog or interrupts learning. */
 export function LoginInvitation() {
+  useLocaleRender()
+
   const { pathname } = useLocation()
   const [shownPath, setShownPath] = useState<string | null>(null)
   const [signedIn, setSignedIn] = useState(() => !!document.getElementById('account-trigger')?.classList.contains('is-signed-in'))
@@ -62,16 +66,16 @@ export function LoginInvitation() {
   }
   if (signedIn || shownPath !== pathname) return null
   return (
-    <aside className="login-invitation" aria-label="Optional login" role="region">
-      <button className="login-invitation-close" aria-label="Dismiss login invitation" onClick={dismiss}>
+    <aside className="login-invitation" aria-label={tx('Optional login', 'messages')} role="region">
+      <button className="login-invitation-close" aria-label={tx('Dismiss login invitation', 'messages')} onClick={dismiss}>
         <X size={18} />
       </button>
       <span className="login-invitation-icon" aria-hidden="true">
         <LogIn size={23} />
       </span>
       <div>
-        <h2>Enjoying exploring?</h2>
-        <p>Log in to continue with your AIMER account, or keep learning as a guest.</p>
+        <h2>{tx('Enjoying exploring?', 'messages')}</h2>
+        <p>{tx('Log in to continue with your AIMER account, or keep learning as a guest.', 'messages')}</p>
       </div>
       <div className="login-invitation-actions">
         <button
@@ -81,9 +85,9 @@ export function LoginInvitation() {
             document.getElementById('account-trigger')?.click()
           }}
         >
-          Log in to continue
+          {tx('Log in to continue', 'messages')}
         </button>
-        <button onClick={dismiss}>Continue as guest</button>
+        <button onClick={dismiss}>{tx('Continue as guest', 'messages')}</button>
       </div>
     </aside>
   )

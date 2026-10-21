@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { Link } from 'react-router-dom'
 import type { AlgorithmModule } from '../types'
 import { allModules } from '../algorithms'
@@ -6,6 +8,8 @@ import { articleSections, encyclopediaFor } from './content'
 import './encyclopedia.css'
 
 export function AlgorithmArticle({ module }: { module: AlgorithmModule }) {
+  useLocaleRender()
+
   const t = encyclopediaFor(module)
   const related = allModules
     .filter((m) => m.id !== module.id && (t.related.includes(m.id) || m.category === module.category))
@@ -13,210 +17,274 @@ export function AlgorithmArticle({ module }: { module: AlgorithmModule }) {
     .slice(0, 6)
   const sectionTitle = (id: string, title: string) => (
     <h2>
-      <a className="wiki-heading-link" href={`#${id}`} aria-label={`Bookmark ${title}`}>
-        {title}
+      <a className="wiki-heading-link" href={`#${id}`} aria-label={tx(`Bookmark ${title}`, 'common')}>
+        {tx(title, 'common')}
         <span aria-hidden="true"> #</span>
       </a>
     </h2>
   )
   return (
-    <article className="algorithm-article" aria-label={`${module.name} encyclopedia`}>
+    <article className="algorithm-article" aria-label={tx(`${module.name} encyclopedia`, 'common')}>
       <header className="wiki-intro">
-        <p className="wiki-eyebrow">ALGORITHM ENCYCLOPEDIA · {module.category}</p>
-        <h1>{module.name}</h1>
-        <p className="wiki-deck">Definition, purpose, step-by-step explanation, worked examples and analysis.</p>
+        <p className="wiki-eyebrow">
+          {tx('ALGORITHM ENCYCLOPEDIA · ', 'common')}
+          {tx(module.category, 'common')}
+        </p>
+        <h1>{tx(module.name, 'common')}</h1>
+        <p className="wiki-deck">{tx('Definition, purpose, step-by-step explanation, worked examples and analysis.', 'common')}</p>
         <div className="wiki-tags">
-          {(module.flags ?? [module.category, t.method]).map((f, i) => (
-            <span key={`${f}-${i}`}>{f}</span>
-          ))}
+          {tx(
+            (module.flags ?? [module.category, t.method]).map((f, i) => <span key={`${f}-${i}`}>{tx(f, 'common')}</span>),
+            'common',
+          )}
         </div>
-        {t.overview && (
-          <p className="wiki-note">
-            This page explains a topic family or learning tool. Follow the related links for the individual algorithms and their precise guarantees.
-          </p>
+        {tx(
+          t.overview && (
+            <p className="wiki-note">
+              {tx(
+                'This page explains a topic family or learning tool. Follow the related links for the individual algorithms and their precise guarantees.',
+                'common',
+              )}
+            </p>
+          ),
+          'common',
         )}
       </header>
       <div className="wiki-body">
-        <nav className="wiki-contents" aria-label="On this page">
-          <strong>On this page</strong>
-          {articleSections.map(([id, title]) => (
-            <a key={id} href={`#${id}`}>
-              {title}
-            </a>
-          ))}
+        <nav className="wiki-contents" aria-label={tx('On this page', 'common')}>
+          <strong>{tx('On this page', 'common')}</strong>
+          {tx(
+            articleSections.map(([id, title]) => (
+              <a key={id} href={`#${id}`}>
+                {tx(title, 'common')}
+              </a>
+            )),
+            'common',
+          )}
           <Link className="wiki-try" to={algorithmPath(module)}>
-            Try the visualization →
+            {tx('Try the visualization →', 'common')}
           </Link>
         </nav>
         <div className="wiki-sections">
           <section id="overview">
-            {sectionTitle('overview', `What is ${module.name}?`)}
-            <p>{t.definition}</p>
-            <p>{t.intuition}</p>
+            {tx(sectionTitle('overview', `What is ${module.name}?`), 'common')}
+            <p>{tx(t.definition, 'common')}</p>
+            <p>{tx(t.intuition, 'common')}</p>
           </section>
           <section id="purpose">
-            {sectionTitle('purpose', 'Purpose and applications')}
-            <p>{t.purpose}</p>
-            <h3>What problem does it solve?</h3>
-            <p>{t.idea}</p>
+            {tx(sectionTitle('purpose', 'Purpose and applications'), 'common')}
+            <p>{tx(t.purpose, 'common')}</p>
+            <h3>{tx('What problem does it solve?', 'common')}</h3>
+            <p>{tx(t.idea, 'common')}</p>
           </section>
           <section id="how-it-works">
-            {sectionTitle('how-it-works', 'How it works, step by step')}
-            {t.steps.length ? (
-              <ol className="wiki-steps">
-                {t.steps.map((step, i) => (
-                  <li key={i}>
-                    <p>{step}</p>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p>{t.intuition}</p>
+            {tx(sectionTitle('how-it-works', 'How it works, step by step'), 'common')}
+            {tx(
+              t.steps.length ? (
+                <ol className="wiki-steps">
+                  {tx(
+                    t.steps.map((step, i) => (
+                      <li key={i}>
+                        <p>{tx(step, 'common')}</p>
+                      </li>
+                    )),
+                    'common',
+                  )}
+                </ol>
+              ) : (
+                <p>{tx(t.intuition, 'common')}</p>
+              ),
+              'common',
             )}
             <p className="wiki-note">
-              Read the input assumptions before tracing. A method can produce a plausible result on one example while failing on inputs outside its contract.
+              {tx(
+                'Read the input assumptions before tracing. A method can produce a plausible result on one example while failing on inputs outside its contract.',
+                'common',
+              )}
             </p>
           </section>
           <section id="worked-example">
-            {sectionTitle('worked-example', 'Worked example')}
-            <blockquote>{t.example}</blockquote>
-            {module.id === 'selection-sort' && (
-              <>
-                <p>
-                  For input [64, 25, 12, 22, 11], the sorted prefix begins empty. The vertical divider below separates the final prefix from the values that
-                  still need a scan.
-                </p>
-                <div className="wiki-table-wrap">
-                  <table>
-                    <caption>Selection sort passes in ascending order</caption>
-                    <thead>
-                      <tr>
-                        <th>Pass</th>
-                        <th>Minimum chosen</th>
-                        <th>Array after the pass</th>
-                        <th>Why it is final</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        ['1', '11', '11 | 25, 12, 22, 64', '11 is the smallest of all five values.'],
-                        ['2', '12', '11, 12 | 25, 22, 64', '12 is smallest among the four remaining values.'],
-                        ['3', '22', '11, 12, 22 | 25, 64', 'Only the remaining suffix is scanned.'],
-                        ['4', '25', '11, 12, 22, 25 | 64', '25 is already in place, so no exchange is needed.'],
-                      ].map((row) => (
-                        <tr key={row[0]}>
-                          {row.map((cell, i) => (
-                            <td key={i}>{cell}</td>
-                          ))}
+            {tx(sectionTitle('worked-example', 'Worked example'), 'common')}
+            <blockquote>{tx(t.example, 'common')}</blockquote>
+            {tx(
+              module.id === 'selection-sort' && (
+                <>
+                  <p>
+                    {tx(
+                      'For input [64, 25, 12, 22, 11], the sorted prefix begins empty. The vertical divider below separates the final prefix from the values that still need a scan.',
+                      'common',
+                    )}
+                  </p>
+                  <div className="wiki-table-wrap">
+                    <table>
+                      <caption>{tx('Selection sort passes in ascending order', 'common')}</caption>
+                      <thead>
+                        <tr>
+                          <th>{tx('Pass', 'common')}</th>
+                          <th>{tx('Minimum chosen', 'common')}</th>
+                          <th>{tx('Array after the pass', 'common')}</th>
+                          <th>{tx('Why it is final', 'common')}</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p>
-                  The inner loop changes minIndex when it discovers a smaller candidate. The array changes only after the scan finishes. The final value needs
-                  no extra pass because all smaller values are already placed.
-                </p>
-              </>
+                      </thead>
+                      <tbody>
+                        {tx(
+                          [
+                            ['1', '11', '11 | 25, 12, 22, 64', '11 is the smallest of all five values.'],
+                            ['2', '12', '11, 12 | 25, 22, 64', '12 is smallest among the four remaining values.'],
+                            ['3', '22', '11, 12, 22 | 25, 64', 'Only the remaining suffix is scanned.'],
+                            ['4', '25', '11, 12, 22, 25 | 64', '25 is already in place, so no exchange is needed.'],
+                          ].map((row) => (
+                            <tr key={row[0]}>
+                              {tx(
+                                row.map((cell, i) => <td key={i}>{cell}</td>),
+                                'common',
+                              )}
+                            </tr>
+                          )),
+                          'common',
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p>
+                    {tx(
+                      'The inner loop changes minIndex when it discovers a smaller candidate. The array changes only after the scan finishes. The final value needs no extra pass because all smaller values are already placed.',
+                      'common',
+                    )}
+                  </p>
+                </>
+              ),
+              'common',
             )}
-            <h3>Trace it yourself</h3>
+            <h3>{tx('Trace it yourself', 'common')}</h3>
             <p>
-              Write the state before the first action. Follow one instruction at a time, record what changes and explain what stays true. Compare your predicted
-              next action with the visualization, then try a boundary case from the assumptions below.
+              {tx(
+                'Write the state before the first action. Follow one instruction at a time, record what changes and explain what stays true. Compare your predicted next action with the visualization, then try a boundary case from the assumptions below.',
+                'common',
+              )}
             </p>
-            <Link to={algorithmPath(module)}>Open {module.name} visualization →</Link>
+            <Link to={algorithmPath(module)}>
+              {tx('Open ', 'common')}
+              {tx(module.name, 'common')}
+              {tx(' visualization →', 'common')}
+            </Link>
           </section>
           <section id="correctness">
-            {sectionTitle('correctness', 'Why it works: correctness and invariant')}
-            <p>{t.proof}</p>
+            {tx(sectionTitle('correctness', 'Why it works: correctness and invariant'), 'common')}
+            <p>{tx(t.proof, 'common')}</p>
             <p>
-              A correctness argument needs both a preserved property and termination. Check the initial state, explain why each permitted update preserves the
-              property, then show that the stopping condition implies the required result.
+              {tx(
+                'A correctness argument needs both a preserved property and termination. Check the initial state, explain why each permitted update preserves the property, then show that the stopping condition implies the required result.',
+                'common',
+              )}
             </p>
-            {module.id === 'selection-sort' && (
-              <p>
-                Before pass i, the first i positions contain exactly the i smallest input values in nondecreasing order. The full suffix scan identifies the
-                next smallest value. Exchanging it into position i extends the prefix without losing any values. After n − 1 passes, only the largest remaining
-                value is left, so the entire array is sorted.
-              </p>
+            {tx(
+              module.id === 'selection-sort' && (
+                <p>
+                  {tx(
+                    'Before pass i, the first i positions contain exactly the i smallest input values in nondecreasing order. The full suffix scan identifies the next smallest value. Exchanging it into position i extends the prefix without losing any values. After n − 1 passes, only the largest remaining value is left, so the entire array is sorted.',
+                    'common',
+                  )}
+                </p>
+              ),
+              'common',
             )}
           </section>
           <section id="complexity">
-            {sectionTitle('complexity', 'Time and space complexity')}
+            {tx(sectionTitle('complexity', 'Time and space complexity'), 'common')}
             <div className="wiki-table-wrap">
               <table>
-                <caption>Published bounds for this page’s model</caption>
+                <caption>{tx('Published bounds for this page’s model', 'common')}</caption>
                 <thead>
                   <tr>
-                    <th>Best time</th>
-                    <th>Average time</th>
-                    <th>Worst time</th>
-                    <th>Auxiliary space</th>
+                    <th>{tx('Best time', 'common')}</th>
+                    <th>{tx('Average time', 'common')}</th>
+                    <th>{tx('Worst time', 'common')}</th>
+                    <th>{tx('Auxiliary space', 'common')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{module.complexity.best}</td>
-                    <td>{module.complexity.average}</td>
-                    <td>{module.complexity.worst}</td>
-                    <td>{module.complexity.space}</td>
+                    <td>{tx(module.complexity.best, 'common')}</td>
+                    <td>{tx(module.complexity.average, 'common')}</td>
+                    <td>{tx(module.complexity.worst, 'common')}</td>
+                    <td>{tx(module.complexity.space, 'common')}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p>{t.analysis}</p>
-            {module.id === 'selection-sort' && (
-              <>
-                <p>
-                  The first scan compares n − 1 candidates, the next compares n − 2, and the final useful scan compares one. Their sum is n(n − 1)/2. With five
-                  values this is 4 + 3 + 2 + 1 = 10 comparisons, regardless of the starting order.
-                </p>
-                <p>
-                  At most one useful exchange occurs per pass, giving at most n − 1 swaps. Counting comparisons and swaps separately explains why selection sort
-                  can be relevant when writes are costly even though its total time remains quadratic.
-                </p>
-              </>
+            <p>{tx(t.analysis, 'common')}</p>
+            {tx(
+              module.id === 'selection-sort' && (
+                <>
+                  <p>
+                    {tx(
+                      'The first scan compares n − 1 candidates, the next compares n − 2, and the final useful scan compares one. Their sum is n(n − 1)/2. With five values this is 4 + 3 + 2 + 1 = 10 comparisons, regardless of the starting order.',
+                      'common',
+                    )}
+                  </p>
+                  <p>
+                    {tx(
+                      'At most one useful exchange occurs per pass, giving at most n − 1 swaps. Counting comparisons and swaps separately explains why selection sort can be relevant when writes are costly even though its total time remains quadratic.',
+                      'common',
+                    )}
+                  </p>
+                </>
+              ),
+              'common',
             )}
             <p>
-              Algorithm workspace and visualization storage are different costs. The interface may retain arrays, graphs or tables for many steps; those
-              snapshots are not included in a textbook auxiliary-space bound unless explicitly stated.
+              {tx(
+                'Algorithm workspace and visualization storage are different costs. The interface may retain arrays, graphs or tables for many steps; those snapshots are not included in a textbook auxiliary-space bound unless explicitly stated.',
+                'common',
+              )}
             </p>
           </section>
           <section id="trade-offs">
-            {sectionTitle('trade-offs', 'Advantages, limitations and when to use it')}
-            <h3>Advantages</h3>
+            {tx(sectionTitle('trade-offs', 'Advantages, limitations and when to use it'), 'common')}
+            <h3>{tx('Advantages', 'common')}</h3>
             <ul>
-              {t.advantages.map((x, i) => (
-                <li key={i}>{x}</li>
-              ))}
+              {tx(
+                t.advantages.map((x, i) => <li key={i}>{x}</li>),
+                'common',
+              )}
             </ul>
-            <h3>Limitations</h3>
+            <h3>{tx('Limitations', 'common')}</h3>
             <ul>
-              {t.disadvantages.map((x, i) => (
-                <li key={i}>{x}</li>
-              ))}
+              {tx(
+                t.disadvantages.map((x, i) => <li key={i}>{x}</li>),
+                'common',
+              )}
             </ul>
-            <h3>Input assumptions and edge cases</h3>
-            <p>{t.limits}</p>
-            {module.id === 'selection-sort' && (
-              <p>
-                Empty and single-value arrays are already sorted. Negative values use the same ordering comparisons as positive values. Duplicate values are
-                supported, but record stability is different: swapping the first 2 in [2ₐ, 2ᵦ, 1] with 1 produces [1, 2ᵦ, 2ₐ], reversing the equal records.
-              </p>
+            <h3>{tx('Input assumptions and edge cases', 'common')}</h3>
+            <p>{tx(t.limits, 'common')}</p>
+            {tx(
+              module.id === 'selection-sort' && (
+                <p>
+                  {tx(
+                    'Empty and single-value arrays are already sorted. Negative values use the same ordering comparisons as positive values. Duplicate values are supported, but record stability is different: swapping the first 2 in [2ₐ, 2ᵦ, 1] with 1 produces [1, 2ᵦ, 2ₐ], reversing the equal records.',
+                    'common',
+                  )}
+                </p>
+              ),
+              'common',
             )}
           </section>
           <section id="implementation">
-            {sectionTitle('implementation', 'Pseudocode and implementation')}
+            {tx(sectionTitle('implementation', 'Pseudocode and implementation'), 'common')}
             <pre>
               <code>{t.steps.map((x, i) => `${i + 1}. ${x}`).join('\n') || t.idea}</code>
             </pre>
             <p>
-              Translate each action into a state update, keep the termination condition explicit, and test the edge cases before optimizing. Open the
-              visualization’s Code tab to connect its execution to the displayed implementation.
+              {tx(
+                'Translate each action into a state update, keep the termination condition explicit, and test the edge cases before optimizing. Open the visualization’s Code tab to connect its execution to the displayed implementation.',
+                'common',
+              )}
             </p>
-            {module.id === 'selection-sort' && (
-              <pre>
-                <code>{`function selectionSort(values) {
+            {tx(
+              module.id === 'selection-sort' && (
+                <pre>
+                  <code>{`function selectionSort(values) {
   const a = values; // Sort the supplied array in place.
   for (let i = 0; i < a.length - 1; i++) {
     let minIndex = i;
@@ -227,62 +295,75 @@ export function AlgorithmArticle({ module }: { module: AlgorithmModule }) {
   }
   return a;
 }`}</code>
-              </pre>
+                </pre>
+              ),
+              'common',
             )}
           </section>
           <section id="common-mistakes">
-            {sectionTitle('common-mistakes', 'Common mistakes and misconceptions')}
+            {tx(sectionTitle('common-mistakes', 'Common mistakes and misconceptions'), 'common')}
             <ul>
-              {t.mistakes.map((x, i) => (
-                <li key={i}>{x}</li>
-              ))}
+              {tx(
+                t.mistakes.map((x, i) => <li key={i}>{x}</li>),
+                'common',
+              )}
             </ul>
           </section>
           <section id="faq">
-            {sectionTitle('faq', 'Questions and answers')}
-            <h3>{t.question}</h3>
-            <p>{t.answer}</p>
-            <h3>How should I choose between related methods?</h3>
+            {tx(sectionTitle('faq', 'Questions and answers'), 'common')}
+            <h3>{tx(t.question, 'common')}</h3>
+            <p>{tx(t.answer, 'common')}</p>
+            <h3>{tx('How should I choose between related methods?', 'common')}</h3>
             <p>
-              Compare the input preconditions, the exact output contract, worst-case cost and memory requirements. Use the related pages below to examine a
-              different strategy on the same problem. A faster result on one small example does not establish a better asymptotic bound.
+              {tx(
+                'Compare the input preconditions, the exact output contract, worst-case cost and memory requirements. Use the related pages below to examine a different strategy on the same problem. A faster result on one small example does not establish a better asymptotic bound.',
+                'common',
+              )}
             </p>
           </section>
           <section id="related">
-            {sectionTitle('related', 'Related topics')}
+            {tx(sectionTitle('related', 'Related topics'), 'common')}
             <div className="wiki-related">
-              {related.map((m) => (
-                <Link to={learnPath(m)} key={m.id}>
-                  <strong>{m.name}</strong>
-                  <span>{m.summary}</span>
-                </Link>
-              ))}
+              {tx(
+                related.map((m) => (
+                  <Link to={learnPath(m)} key={m.id}>
+                    <strong>{tx(m.name, 'common')}</strong>
+                    <span>{tx(m.summary, 'common')}</span>
+                  </Link>
+                )),
+                'common',
+              )}
             </div>
-            <Link to="/encyclopedia">Browse the complete algorithm encyclopedia →</Link>
+            <Link to="/encyclopedia">{tx('Browse the complete algorithm encyclopedia →', 'common')}</Link>
           </section>
           <section id="references">
-            {sectionTitle('references', 'References and further reading')}
+            {tx(sectionTitle('references', 'References and further reading'), 'common')}
             <p>
-              These original explanations combine this project’s algorithm definitions, implementation notes and worked examples. Use the following references
-              for further study.
+              {tx(
+                'These original explanations combine this project’s algorithm definitions, implementation notes and worked examples. Use the following references for further study.',
+                'common',
+              )}
             </p>
             <ul>
               <li>
                 <a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noreferrer">
-                  MIT OpenCourseWare — Introduction to Algorithms
+                  {tx('MIT OpenCourseWare — Introduction to Algorithms', 'common')}
                 </a>
               </li>
               <li>
                 <a href="https://www.nist.gov/dads" target="_blank" rel="noreferrer">
-                  NIST — Dictionary of Algorithms and Data Structures
+                  {tx('NIST — Dictionary of Algorithms and Data Structures', 'common')}
                 </a>
               </li>
-              {module.id === 'selection-sort' && (
-                <li>
-                  <a href="https://www.geeksforgeeks.org/dsa/selection-sort-algorithm-2/" target="_blank" rel="noreferrer">
-                    GeeksforGeeks — Selection Sort (requested reference)
-                  </a>
-                </li>
+              {tx(
+                module.id === 'selection-sort' && (
+                  <li>
+                    <a href="https://www.geeksforgeeks.org/dsa/selection-sort-algorithm-2/" target="_blank" rel="noreferrer">
+                      {tx('GeeksforGeeks — Selection Sort (requested reference)', 'common')}
+                    </a>
+                  </li>
+                ),
+                'common',
               )}
             </ul>
           </section>

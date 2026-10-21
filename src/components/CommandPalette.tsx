@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect, useMemo, useState } from 'react'
 import type { AlgorithmModule } from '../types'
 
@@ -13,6 +15,8 @@ type CommandPaletteProps = {
 }
 
 export function CommandPalette({ algorithms, chooseAlgorithm, close, copyLink, open, reset, run, switchTheme }: CommandPaletteProps) {
+  useLocaleRender()
+
   const [query, setQuery] = useState('')
   const commands = useMemo(
     () => [
@@ -39,30 +43,33 @@ export function CommandPalette({ algorithms, chooseAlgorithm, close, copyLink, o
 
   return (
     <div className="command-backdrop" role="presentation" onMouseDown={close}>
-      <section className="command-palette" role="dialog" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}>
+      <section className="command-palette" role="dialog" aria-label={tx('Command palette', 'common')} onMouseDown={(event) => event.stopPropagation()}>
         <input
           autoFocus
-          aria-label="Search commands and algorithms"
-          placeholder="Search commands or algorithms"
+          aria-label={tx('Search commands and algorithms', 'common')}
+          placeholder={tx('Search commands or algorithms', 'common')}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
         <div>
-          {visible.length ? (
-            visible.map((command) => (
-              <button
-                key={command.id}
-                type="button"
-                onClick={() => {
-                  command.action()
-                  close()
-                }}
-              >
-                {command.label}
-              </button>
-            ))
-          ) : (
-            <p>No command matches that search.</p>
+          {tx(
+            visible.length ? (
+              visible.map((command) => (
+                <button
+                  key={command.id}
+                  type="button"
+                  onClick={() => {
+                    command.action()
+                    close()
+                  }}
+                >
+                  {tx(command.label, 'common')}
+                </button>
+              ))
+            ) : (
+              <p>{tx('No command matches that search.', 'common')}</p>
+            ),
+            'common',
           )}
         </div>
       </section>

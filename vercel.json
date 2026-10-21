@@ -1,1 +1,1 @@
-{ "cleanUrls": true, "rewrites": [{ "source": "/((?!assets/|account/|robots.txt|sitemap.xml|favicon.svg).*)", "destination": "/" }] }
+{ "cleanUrls": true, "rewrites": [{ "source": "/((?!assets/|account/|locales/|robots.txt|sitemap.xml|favicon.svg).*)", "destination": "/" }] }

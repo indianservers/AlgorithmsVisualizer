@@ -1,6 +1,9 @@
+import { LanguageSelector } from '../i18n/LanguageSelector'
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useNavigate } from 'react-router-dom'
 import { InputAccessButton } from './InputAccessButton'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {
   Activity,
   BarChart3,
@@ -39,6 +42,16 @@ import './string-suite.css'
 const initialText = 'ABABACABABABC'
 const initialPattern = 'ABABC'
 export function StringSuite() {
+  useLocaleRender()
+
+  const headerRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+    const observer = new ResizeObserver(() => header.parentElement?.style.setProperty('--ss-header-height', `${header.offsetHeight}px`))
+    observer.observe(header)
+    return () => observer.disconnect()
+  }, [])
   const [text, setText] = useState(initialText)
   const [pattern, setPattern] = useState(initialPattern)
   const [input, setInput] = useState('42, 18, 67, 9, 31, 73, 54, 26, 88, 12')
@@ -105,33 +118,36 @@ export function StringSuite() {
   const presets = ['Random', 'Sorted', 'Reverse', 'Duplicates', 'Nearly', 'Best', 'Average', 'Worst', 'Empty', 'Single', 'All Equal', 'Negative']
   return (
     <div className={`ss-page ${dark ? 'ss-dark' : ''}`}>
-      <header className="ss-top">
+      <header ref={headerRef} className="ss-top">
         <Link to="/" className="ss-brand">
-          <span className="ss-logo">A</span>
+          <span className="ss-logo">{tx('A', 'studios')}</span>
           <span>
-            <strong>AlgoDrishti</strong>
-            <small>Visualize every step</small>
+            <strong>{tx('AlgoDrishti', 'studios')}</strong>
+            <small>{tx('Visualize every step', 'studios')}</small>
           </span>
         </Link>
         <button className="ss-active">
           <Play />
-          Algorithms
+          {tx('Algorithms', 'studios')}
         </button>
         <button>
           <BarChart3 />
-          Compare
+          {tx('Compare', 'studios')}
         </button>
         <label className="ss-search">
           <Search />
-          <input placeholder="Search algorithms, concepts..." onChange={(e) => setNotice(e.target.value ? `Searching for ${e.target.value}` : '')} />
-          <kbd>Ctrl K</kbd>
+          <input
+            placeholder={tx('Search algorithms, concepts...', 'studios')}
+            onChange={(e) => setNotice(e.target.value ? `Searching for ${e.target.value}` : '')}
+          />
+          <kbd>{tx('Ctrl K', 'studios')}</kbd>
         </label>
         <button onClick={() => setDark(!dark)}>
-          <Moon /> {dark ? 'Light' : 'Dark'}
+          <Moon /> {tx(dark ? 'Light' : 'Dark', 'studios')}
         </button>
         <button className="ss-export" onClick={download}>
           <Download />
-          Export
+          {tx('Export', 'studios')}
         </button>
         <button
           className="ss-save"
@@ -141,70 +157,84 @@ export function StringSuite() {
           }}
         >
           <Save />
-          Save
+          {tx('Save', 'studios')}
         </button>
+
         <button className="ss-primary" onClick={() => setNotice('Account sign-in is available from the main dashboard')}>
           <UserRound />
-          Sign in
+          {tx('Sign in', 'studios')}
         </button>
+        <LanguageSelector />
         <span className="ss-society">
-          ◉{' '}
+          ◉{tx(' ', 'studios')}
           <b>
-            AIMER Society<small>AI for Education</small>
+            {tx('AIMER Society', 'studios')}
+            <small>{tx('AI for Education', 'studios')}</small>
           </b>
         </span>
       </header>
       <aside className="ss-sidebar">
         <nav>
-          {[
-            'Dashboard',
-            'Data Structures',
-            'Graphs',
-            'Dynamic Programming',
-            'Strings',
-            'Number Theory',
-            'Backtracking',
-            'Greedy',
-            'Matrix / Grid',
-            'Games',
-          ].map((name, i) => (
-            <div key={name}>
-              <Link
-                className={name === 'Strings' ? 'selected' : ''}
-                to={name === 'Strings' ? '/strings/string-pattern-matching-suite' : name === 'Dashboard' ? '/' : '/' + name.toLowerCase().replaceAll(' ', '-')}
-              >
-                <span>{[<Network />, <Grid3X3 />, <Network />, <Grid3X3 />, <Type />, '#', '↶', '◎', <Grid3X3 />, '♧'][i]}</span>
-                {name}
-                {i > 0 && <ChevronDown />}
-              </Link>
-              {name === 'Strings' && (
-                <div className="ss-subnav">
-                  {['String Pattern Matching', 'Advanced String Structures', 'Naive String Matching', 'Knuth–Morris–Pratt', 'Rabin–Karp'].map((n, j) => (
-                    <Link
-                      key={n}
-                      className={j === 0 ? 'selected' : ''}
-                      to={
-                        '/strings/' +
-                        ['string-pattern-matching-suite', 'advanced-string-structures', 'naive-string-matching', 'knuth-morris-pratt', 'rabin-karp'][j]
-                      }
-                    >
-                      {j === 0 && <i />}
-                      {n}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+          {tx(
+            [
+              'Dashboard',
+              'Data Structures',
+              'Graphs',
+              'Dynamic Programming',
+              'Strings',
+              'Number Theory',
+              'Backtracking',
+              'Greedy',
+              'Matrix / Grid',
+              'Games',
+            ].map((name, i) => (
+              <div key={name}>
+                <Link
+                  className={name === 'Strings' ? 'selected' : ''}
+                  to={
+                    name === 'Strings' ? '/strings/string-pattern-matching-suite' : name === 'Dashboard' ? '/' : '/' + name.toLowerCase().replaceAll(' ', '-')
+                  }
+                >
+                  <span>{tx([<Network />, <Grid3X3 />, <Network />, <Grid3X3 />, <Type />, '#', '↶', '◎', <Grid3X3 />, '♧'][i], 'studios')}</span>
+                  {tx(name, 'studios')}
+                  {tx(i > 0 && <ChevronDown />, 'studios')}
+                </Link>
+                {tx(
+                  name === 'Strings' && (
+                    <div className="ss-subnav">
+                      {tx(
+                        ['String Pattern Matching', 'Advanced String Structures', 'Naive String Matching', 'Knuth–Morris–Pratt', 'Rabin–Karp'].map((n, j) => (
+                          <Link
+                            key={n}
+                            className={j === 0 ? 'selected' : ''}
+                            to={
+                              '/strings/' +
+                              ['string-pattern-matching-suite', 'advanced-string-structures', 'naive-string-matching', 'knuth-morris-pratt', 'rabin-karp'][j]
+                            }
+                          >
+                            {tx(j === 0 && <i />, 'studios')}
+                            {tx(n, 'studios')}
+                          </Link>
+                        )),
+                        'studios',
+                      )}
+                    </div>
+                  ),
+                  'studios',
+                )}
+              </div>
+            )),
+            'studios',
+          )}
         </nav>
         <div className="ss-tip">
           <Lightbulb />
           <div>
-            <b>Learn. Experiment. Grow.</b>
+            <b>{tx('Learn. Experiment. Grow.', 'studios')}</b>
             <p>
-              Interactive visualizations
+              {tx('Interactive visualizations', 'studios')}
               <br />
-              for a deeper understanding.
+              {tx('for a deeper understanding.', 'studios')}
             </p>
           </div>
         </div>
@@ -212,394 +242,474 @@ export function StringSuite() {
       <main className="ss-main">
         <div className="ss-route">
           <span>
-            Home <ChevronRight /> Strings <ChevronRight /> <b>String Pattern Matching Suite</b>
+            {tx('Home ', 'studios')}
+            <ChevronRight />
+            {tx(' Strings ', 'studios')}
+            <ChevronRight /> <b>{tx('String Pattern Matching Suite', 'studios')}</b>
           </span>
           <div>
-            {['Learn', 'Visualize', 'Code', 'Practice', 'Experiments'].map((t) => (
-              <button
-                key={t}
-                className={tab === t ? 'current' : ''}
-                onClick={() => (t === 'Learn' ? navigate('/strings/string-pattern-matching-suite/learn') : setTab(t))}
-              >
-                {t}
-              </button>
-            ))}
+            {tx(
+              ['Learn', 'Visualize', 'Code', 'Practice', 'Experiments'].map((t) => (
+                <button
+                  key={t}
+                  className={tab === t ? 'current' : ''}
+                  onClick={() => (t === 'Learn' ? navigate('/strings/string-pattern-matching-suite/learn') : setTab(t))}
+                >
+                  {tx(t, 'studios')}
+                </button>
+              )),
+              'studios',
+            )}
             <InputAccessButton onOpen={() => setTab('Visualize')} />
             <button className="ss-studied" onClick={() => setStudied(!studied)}>
-              {studied ? <Check /> : <Bookmark />}
-              {studied ? 'Studied' : 'Mark as studied'}
+              {tx(studied ? <Check /> : <Bookmark />, 'studios')}
+              {tx(studied ? 'Studied' : 'Mark as studied', 'studios')}
             </button>
           </div>
         </div>
         <section className="ss-hero ss-card">
-          <div className="ss-type">Tt</div>
+          <div className="ss-type">{tx('Tt', 'studios')}</div>
           <div className="ss-title">
-            <h1>String Pattern Matching Suite</h1>
-            <p>Visualize KMP, Rabin-Karp, Z algorithm, prefix functions, rolling hashes, and palindrome checks.</p>
+            <h1>{tx('String Pattern Matching Suite', 'studios')}</h1>
+            <p>{tx('Visualize KMP, Rabin-Karp, Z algorithm, prefix functions, rolling hashes, and palindrome checks.', 'studios')}</p>
           </div>
           <div className="ss-feature green">
             <Eye />
             <span>
-              Step-by-Step
+              {tx('Step-by-Step', 'studios')}
               <br />
-              <b>Visualization</b>
+              <b>{tx('Visualization', 'studios')}</b>
             </span>
           </div>
           <div className="ss-feature purple">
             <Network />
             <span>
-              Multiple
+              {tx('Multiple', 'studios')}
               <br />
-              <b>Algorithms</b>
+              <b>{tx('Algorithms', 'studios')}</b>
             </span>
           </div>
           <div className="ss-feature orange">
             <BarChart3 />
             <span>
-              Learn &amp; Compare
+              {tx('Learn & Compare', 'studios')}
               <br />
-              <b>Performance</b>
+              <b>{tx('Performance', 'studios')}</b>
             </span>
           </div>
         </section>
-        {tab !== 'Visualize' ? (
-          <section className="ss-card ss-other">
-            <h2>{tab}</h2>
-            {tab === 'Learn' ? (
-              <>
-                <h3>Find a pattern inside a string</h3>
-                <p>
-                  Compare the pattern with each text window. KMP uses prefix information to skip redundant comparisons; Rabin–Karp compares rolling hashes
-                  before checking characters.
-                </p>
-                <p>
-                  Text: {text} · Pattern: {pattern} · Matches at indices: {matches.join(', ') || 'none'}
-                </p>
-              </>
-            ) : tab === 'Code' ? (
-              <pre>{`function findMatches(text, pattern) {\n  const matches = [];\n  for (let i = 0; i <= text.length - pattern.length; i++) {\n    if (text.slice(i, i + pattern.length) === pattern) matches.push(i);\n  }\n  return matches;\n}`}</pre>
-            ) : tab === 'Practice' ? (
-              <>
-                <p>At which index does ABABC first appear in ABABACABABABC?</p>
-                <input
-                  aria-label="Practice answer"
-                  onChange={(e) => setNotice(e.target.value === '8' ? 'Correct! The pattern starts at index 8.' : 'Try comparing each five-character window.')}
-                />
-              </>
-            ) : (
-              <>
-                <p>Save your current experiment or download the step log to compare runs.</p>
-                <button onClick={download}>Download experiment CSV</button>
-              </>
-            )}
-          </section>
-        ) : (
-          <>
-            <div className="ss-workspace">
-              <div>
-                <section className="ss-card ss-visual">
-                  <h2>
-                    <Activity />
-                    String Visualization{' '}
-                    <button className="ss-icon" onClick={() => document.querySelector('.ss-visual')?.requestFullscreen()} aria-label="Full screen">
-                      <Maximize />
-                    </button>
-                  </h2>
-                  <div className="ss-playback">
-                    <button className="ss-primary" onClick={() => setPlaying(!playing)} aria-label={playing ? 'Pause' : 'Play'}>
-                      {playing ? <Pause /> : <Play fill="currentColor" />}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setPlaying(false)
-                        setStep(Math.max(0, step - 1))
-                      }}
-                      aria-label="Previous step"
-                    >
-                      <SkipBack />
-                    </button>
-                    <button onClick={() => setStep(Math.min(total - 1, step + 1))} aria-label="Next step">
-                      <SkipForward />
-                    </button>
-                    <span>
-                      Step {step + 1} / {total}
-                    </span>
-                    <input aria-label="Step timeline" type="range" min="0" max={total - 1} value={step} onChange={(e) => setStep(+e.target.value)} />
-                    <span className="ss-speed">Speed</span>
-                    <select aria-label="Speed" value={speed} onChange={(e) => setSpeed(+e.target.value)}>
-                      <option value={1000}>Slow (1000 ms)</option>
-                      <option value={520}>Medium (520 ms)</option>
-                      <option value={200}>Fast (200 ms)</option>
-                    </select>
-                  </div>
-                  <div className="ss-canvas">
-                    <div className="ss-characters" style={{ fontSize: `${zoom}%` }}>
-                      <div className="ss-character-row">
-                        <b>Text (T)</b>
-                        {text.split('').map((c, i) => (
-                          <div
-                            key={i}
-                            className={`ss-char ${i === step + 2 ? 'position' : ''} ${step > 0 && matches.includes(step) && i >= step && i < step + pattern.length ? 'matched' : ''}`}
-                          >
-                            <small>{indices ? i : ''}</small>
-                            {values ? c : '·'}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="ss-character-row ss-pattern">
-                        <b>Pattern (P)</b>
-                        {pattern.split('').map((c, i) => (
-                          <div className="ss-char" key={i}>
-                            <small>{indices ? i : ''}</small>
-                            {values ? c : '·'}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="ss-result">
-                      <Search />
-                      <span>
-                        <b>{matches.some((i) => i <= step) ? `Match found at index ${matches.find((i) => i <= step)}!` : 'No match found yet...'}</b>
-                        <br />
-                        {playing ? 'Comparing characters…' : 'Continue stepping!'}
-                      </span>
-                    </div>
-                    <div className="ss-canvas-bottom">
-                      <div className="ss-legend">
-                        {['Current position', 'Matching', 'Mismatch', 'Potential match', 'Completed match'].map((v, i) => (
-                          <span key={v}>
-                            <i style={{ background: ['#258cff', '#1a9c61', '#f43e58', '#ffb900', '#9250ff'][i] }} />
-                            {v}
-                          </span>
-                        ))}
-                      </div>
-                      <span>{zoom}%</span>
-                      <button aria-label="Zoom out" onClick={() => setZoom(Math.max(60, zoom - 10))}>
-                        <ZoomOut />
-                      </button>
-                      <button aria-label="Zoom in" onClick={() => setZoom(Math.min(130, zoom + 10))}>
-                        <ZoomIn />
-                      </button>
-                      <button aria-label="Fit canvas" onClick={() => setZoom(100)}>
+        {tx(
+          tab !== 'Visualize' ? (
+            <section className="ss-card ss-other">
+              <h2>{tx(tab, 'studios')}</h2>
+              {tx(
+                tab === 'Learn' ? (
+                  <>
+                    <h3>{tx('Find a pattern inside a string', 'studios')}</h3>
+                    <p>
+                      {tx(
+                        'Compare the pattern with each text window. KMP uses prefix information to skip redundant comparisons; Rabin–Karp compares rolling hashes before checking characters.',
+                        'studios',
+                      )}
+                    </p>
+                    <p>
+                      {tx('Text: ', 'studios')}
+                      {text}
+                      {tx(' · Pattern: ', 'studios')}
+                      {pattern}
+                      {tx(' · Matches at indices: ', 'studios')}
+                      {tx(matches.join(', ') || 'none', 'studios')}
+                    </p>
+                  </>
+                ) : tab === 'Code' ? (
+                  <pre>{`function findMatches(text, pattern) {\n  const matches = [];\n  for (let i = 0; i <= text.length - pattern.length; i++) {\n    if (text.slice(i, i + pattern.length) === pattern) matches.push(i);\n  }\n  return matches;\n}`}</pre>
+                ) : tab === 'Practice' ? (
+                  <>
+                    <p>{tx('At which index does ABABC first appear in ABABACABABABC?', 'studios')}</p>
+                    <input
+                      aria-label={tx('Practice answer', 'studios')}
+                      onChange={(e) =>
+                        setNotice(e.target.value === '8' ? 'Correct! The pattern starts at index 8.' : 'Try comparing each five-character window.')
+                      }
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p>{tx('Save your current experiment or download the step log to compare runs.', 'studios')}</p>
+                    <button onClick={download}>{tx('Download experiment CSV', 'studios')}</button>
+                  </>
+                ),
+                'studios',
+              )}
+            </section>
+          ) : (
+            <>
+              <div className="ss-workspace">
+                <div>
+                  <section className="ss-card ss-visual">
+                    <h2>
+                      <Activity />
+                      {tx('String Visualization', 'studios')}
+                      {tx(' ', 'studios')}
+                      <button
+                        className="ss-icon"
+                        onClick={() => document.querySelector('.ss-visual')?.requestFullscreen()}
+                        aria-label={tx('Full screen', 'studios')}
+                      >
                         <Maximize />
                       </button>
-                      <button
-                        aria-label="Reset"
-                        onClick={() => {
-                          setStep(0)
-                          setPlaying(false)
-                        }}
-                      >
-                        <RotateCcw />
+                    </h2>
+                    <div className="ss-playback">
+                      <button className="ss-primary" onClick={() => setPlaying(!playing)} aria-label={tx(playing ? 'Pause' : 'Play', 'studios')}>
+                        {tx(playing ? <Pause /> : <Play fill="currentColor" />, 'studios')}
                       </button>
-                    </div>
-                  </div>
-                </section>
-                <div className="ss-options">
-                  <div>
-                    <label>Visualization Options</label>
-                    <div>
-                      {['Show values', 'Show indices', 'Auto zoom', 'Fit to canvas', 'Before / After'].map((v, i) => (
-                        <label key={v}>
-                          <input
-                            type="checkbox"
-                            defaultChecked={i < 3}
-                            onChange={(e) => {
-                              if (i === 0) setValues(e.target.checked)
-                              if (i === 1) setIndices(e.target.checked)
-                              if (i === 3) setZoom(100)
-                            }}
-                          />
-                          {v}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <label>Animation Style</label>
-                    <div>
-                      <select aria-label="Animation style">
-                        <option>Detailed</option>
-                        <option>Simple</option>
+                      <button
+                        onClick={() => {
+                          setPlaying(false)
+                          setStep(Math.max(0, step - 1))
+                        }}
+                        aria-label={tx('Previous step', 'studios')}
+                      >
+                        <SkipBack />
+                      </button>
+                      <button onClick={() => setStep(Math.min(total - 1, step + 1))} aria-label={tx('Next step', 'studios')}>
+                        <SkipForward />
+                      </button>
+                      <span>
+                        {tx('Step ', 'studios')}
+                        {tx(step + 1, 'studios')} / {tx(total, 'studios')}
+                      </span>
+                      <input
+                        aria-label={tx('Step timeline', 'studios')}
+                        type="range"
+                        min="0"
+                        max={total - 1}
+                        value={step}
+                        onChange={(e) => setStep(+e.target.value)}
+                      />
+                      <span className="ss-speed">{tx('Speed', 'studios')}</span>
+                      <select aria-label={tx('Speed', 'studios')} value={speed} onChange={(e) => setSpeed(+e.target.value)}>
+                        <option value={1000}>{tx('Slow (1000 ms)', 'studios')}</option>
+                        <option value={520}>{tx('Medium (520 ms)', 'studios')}</option>
+                        <option value={200}>{tx('Fast (200 ms)', 'studios')}</option>
                       </select>
-                      <button onClick={() => setNotice('Palette: blue position, green match, purple completed match')}>◉ &nbsp; Color-blind palette</button>
+                    </div>
+                    <div className="ss-canvas">
+                      <div className="ss-characters" style={{ fontSize: `${zoom}%` }}>
+                        <div className="ss-character-row">
+                          <b>{tx('Text (T)', 'studios')}</b>
+                          {tx(
+                            text.split('').map((c, i) => (
+                              <div
+                                key={i}
+                                className={`ss-char ${i === step + 2 ? 'position' : ''} ${step > 0 && matches.includes(step) && i >= step && i < step + pattern.length ? 'matched' : ''}`}
+                              >
+                                <small>{tx(indices ? i : '', 'studios')}</small>
+                                {tx(values ? c : '·', 'studios')}
+                              </div>
+                            )),
+                            'studios',
+                          )}
+                        </div>
+                        <div className="ss-character-row ss-pattern">
+                          <b>{tx('Pattern (P)', 'studios')}</b>
+                          {tx(
+                            pattern.split('').map((c, i) => (
+                              <div className="ss-char" key={i}>
+                                <small>{tx(indices ? i : '', 'studios')}</small>
+                                {tx(values ? c : '·', 'studios')}
+                              </div>
+                            )),
+                            'studios',
+                          )}
+                        </div>
+                      </div>
+                      <div className="ss-result">
+                        <Search />
+                        <span>
+                          <b>
+                            {tx(
+                              matches.some((i) => i <= step) ? `Match found at index ${matches.find((i) => i <= step)}!` : 'No match found yet...',
+                              'studios',
+                            )}
+                          </b>
+                          <br />
+                          {tx(playing ? 'Comparing characters…' : 'Continue stepping!', 'studios')}
+                        </span>
+                      </div>
+                      <div className="ss-canvas-bottom">
+                        <div className="ss-legend">
+                          {tx(
+                            ['Current position', 'Matching', 'Mismatch', 'Potential match', 'Completed match'].map((v, i) => (
+                              <span key={v}>
+                                <i style={{ background: ['#258cff', '#1a9c61', '#f43e58', '#ffb900', '#9250ff'][i] }} />
+                                {tx(v, 'studios')}
+                              </span>
+                            )),
+                            'studios',
+                          )}
+                        </div>
+                        <span>{tx(zoom, 'studios')}%</span>
+                        <button aria-label={tx('Zoom out', 'studios')} onClick={() => setZoom(Math.max(60, zoom - 10))}>
+                          <ZoomOut />
+                        </button>
+                        <button aria-label={tx('Zoom in', 'studios')} onClick={() => setZoom(Math.min(130, zoom + 10))}>
+                          <ZoomIn />
+                        </button>
+                        <button aria-label={tx('Fit canvas', 'studios')} onClick={() => setZoom(100)}>
+                          <Maximize />
+                        </button>
+                        <button
+                          aria-label={tx('Reset', 'studios')}
+                          onClick={() => {
+                            setStep(0)
+                            setPlaying(false)
+                          }}
+                        >
+                          <RotateCcw />
+                        </button>
+                      </div>
+                    </div>
+                  </section>
+                  <div className="ss-options">
+                    <div>
+                      <label>{tx('Visualization Options', 'studios')}</label>
+                      <div>
+                        {tx(
+                          ['Show values', 'Show indices', 'Auto zoom', 'Fit to canvas', 'Before / After'].map((v, i) => (
+                            <label key={v}>
+                              <input
+                                type="checkbox"
+                                defaultChecked={i < 3}
+                                onChange={(e) => {
+                                  if (i === 0) setValues(e.target.checked)
+                                  if (i === 1) setIndices(e.target.checked)
+                                  if (i === 3) setZoom(100)
+                                }}
+                              />
+                              {tx(v, 'studios')}
+                            </label>
+                          )),
+                          'studios',
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <label>{tx('Animation Style', 'studios')}</label>
+                      <div>
+                        <select aria-label={tx('Animation style', 'studios')}>
+                          <option>{tx('Detailed', 'studios')}</option>
+                          <option>{tx('Simple', 'studios')}</option>
+                        </select>
+                        <button onClick={() => setNotice('Palette: blue position, green match, purple completed match')}>
+                          {tx('◉   Color-blind palette', 'studios')}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <section className="ss-card ss-input">
-                <h2>
-                  <SquarePen />
-                  Problem Input
-                  <select
-                    aria-label="Load example"
-                    onChange={(e) => {
-                      const [t, p] = e.target.value.split('|')
-                      setText(t)
-                      setPattern(p)
-                      setInput(t)
-                      setTarget(p)
-                      setStep(0)
-                    }}
-                  >
-                    <option value="ABABACABABABC|ABABC">Load example</option>
-                    <option value="ABABACABABABC|ABABC">KMP example</option>
-                    <option value="AABAACAADAABAABA|AABA">Repeated matches</option>
-                    <option value="HELLOWORLD|WORLD">Hello world</option>
-                  </select>
-                </h2>
-                <div className="ss-fields">
-                  <label>
-                    Text (T)
-                    <textarea value={input} onChange={(e) => setInput(e.target.value)} />
-                  </label>
-                  <label>
-                    Target
-                    <input value={target} onChange={(e) => setTarget(e.target.value)} />
-                  </label>
-                  <label>
-                    Size
-                    <input type="number" min="1" max="48" value={size} onChange={(e) => setSize(+e.target.value)} />
-                  </label>
-                </div>
-                <div className="ss-presets">
-                  {presets.map((p, i) => (
-                    <button
-                      className={i === 0 ? 'ss-primary' : ''}
-                      key={p}
-                      onClick={() => {
-                        const a = Array.from({ length: Math.min(48, Math.max(1, size)) }, () => Math.floor(Math.random() * 90) + 1)
-                        setInput(
-                          p === 'Empty'
-                            ? ''
-                            : p === 'Single'
-                              ? '42'
-                              : p === 'All Equal'
-                                ? a.map(() => 7).join(', ')
-                                : p === 'Sorted'
-                                  ? a.sort((a, b) => a - b).join(', ')
-                                  : p === 'Reverse'
-                                    ? a.sort((a, b) => b - a).join(', ')
-                                    : p === 'Negative'
-                                      ? a.map((n) => -n).join(', ')
-                                      : p === 'Duplicates'
-                                        ? a.map((n) => n % 4).join(', ')
-                                        : a.join(', '),
-                        )
+                <section className="ss-card ss-input">
+                  <h2>
+                    <SquarePen />
+                    {tx('Problem Input', 'studios')}
+                    <select
+                      aria-label={tx('Load example', 'studios')}
+                      onChange={(e) => {
+                        const [t, p] = e.target.value.split('|')
+                        setText(t)
+                        setPattern(p)
+                        setInput(t)
+                        setTarget(p)
                         setStep(0)
                       }}
                     >
-                      <Shuffle />
-                      {p}
-                    </button>
-                  ))}
-                </div>
-                <div className="ss-input-actions">
-                  <button className="ss-primary" onClick={run}>
-                    <Play fill="currentColor" />
-                    Run algorithm
-                  </button>
-                  <button onClick={() => copy(input)}>
-                    <Copy />
-                    Copy input
-                  </button>
-                  <button onClick={download}>
-                    <FileText />
-                    CSV log
-                  </button>
-                </div>
-              </section>
-            </div>
-            <div className="ss-bottom">
-              <section className="ss-card">
-                <h3>
-                  <BookOpen />
-                  Explanation
-                </h3>
-                <div className="ss-explanation">
-                  <b>{step === 0 ? 'Build prefix, Z, or rolling-hash metadata for the pattern.' : `Compare the pattern with the text at position ${step}.`}</b>
-                  <p>
-                    {step === 0
-                      ? 'Choose the active value, pivot, node, or candidate for this phase.'
-                      : matches.includes(step)
-                        ? 'Every character matches. Record this window and continue scanning.'
-                        : 'Check characters from left to right, then advance to the next window.'}
-                  </p>
-                </div>
-              </section>
-              <section className="ss-card">
-                <h3>
-                  <span>☷</span>Current Step
-                </h3>
-                {['SELECT', 'COMPARE', 'UPDATE', 'COMPLETE'].map((s, i) => (
-                  <div className={`ss-step ${i === Math.min(3, Math.floor(step / 2)) ? 'active' : ''}`} key={s}>
-                    <i>{i + 1}</i>
-                    <b>{s}</b>
-                    <span>
-                      {
-                        [
-                          'Build prefix, Z, or rolling-hash metadata for the pattern.',
-                          'Compare text and pattern.',
-                          'Report the matched window and continue scanning.',
-                          'String pattern matching suite demo complete.',
-                        ][i]
-                      }
-                    </span>
+                      <option value="ABABACABABABC|ABABC">{tx('Load example', 'studios')}</option>
+                      <option value="ABABACABABABC|ABABC">{tx('KMP example', 'studios')}</option>
+                      <option value="AABAACAADAABAABA|AABA">{tx('Repeated matches', 'studios')}</option>
+                      <option value="HELLOWORLD|WORLD">{tx('Hello world', 'studios')}</option>
+                    </select>
+                  </h2>
+                  <div className="ss-fields">
+                    <label>
+                      {tx('Text (T)', 'studios')}
+                      <textarea value={input} onChange={(e) => setInput(e.target.value)} />
+                    </label>
+                    <label>
+                      {tx('Target', 'studios')}
+                      <input value={target} onChange={(e) => setTarget(e.target.value)} />
+                    </label>
+                    <label>
+                      {tx('Size', 'studios')}
+                      <input type="number" min="1" max="48" value={size} onChange={(e) => setSize(+e.target.value)} />
+                    </label>
                   </div>
-                ))}
-              </section>
-              <section className="ss-card">
-                <h3>
-                  <BarChart3 />
-                  Experiment Metrics
-                </h3>
-                <div className="ss-metrics">
-                  {['comparisons', 'swaps', 'reads', 'writes', 'recursive calls', 'memory', 'steps'].map((m, i) => (
-                    <div key={m}>
-                      <strong>{[step + 1, 0, step * 2, 2, 0, 8, 4][i]}</strong>
-                      <small>{m}</small>
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className="ss-card ss-log">
-                <h3>
-                  <FileText />
-                  Step Log{' '}
-                  <button onClick={() => copy(`Text: ${text}\nPattern: ${pattern}\nCurrent step: ${step + 1}`)}>
-                    <Copy />
-                    Copy log
-                  </button>
-                  <button onClick={download}>Download CSV</button>
-                </h3>
-                <div>
-                  {[
-                    'Initialized text and pattern',
-                    `Text length: ${size}, Pattern length: ${pattern.length}`,
-                    'Computing prefix/Z/rolling-hash metadata',
-                    playing ? `Comparing window at index ${step}` : 'Ready to start visualization',
-                  ].map((s, i) => (
-                    <p key={i}>
-                      <time>23:50:21</time>
-                      {s}
+                  <div className="ss-presets">
+                    {tx(
+                      presets.map((p, i) => (
+                        <button
+                          className={i === 0 ? 'ss-primary' : ''}
+                          key={p}
+                          onClick={() => {
+                            const a = Array.from({ length: Math.min(48, Math.max(1, size)) }, () => Math.floor(Math.random() * 90) + 1)
+                            setInput(
+                              p === 'Empty'
+                                ? ''
+                                : p === 'Single'
+                                  ? '42'
+                                  : p === 'All Equal'
+                                    ? a.map(() => 7).join(', ')
+                                    : p === 'Sorted'
+                                      ? a.sort((a, b) => a - b).join(', ')
+                                      : p === 'Reverse'
+                                        ? a.sort((a, b) => b - a).join(', ')
+                                        : p === 'Negative'
+                                          ? a.map((n) => -n).join(', ')
+                                          : p === 'Duplicates'
+                                            ? a.map((n) => n % 4).join(', ')
+                                            : a.join(', '),
+                            )
+                            setStep(0)
+                          }}
+                        >
+                          <Shuffle />
+                          {tx(p, 'studios')}
+                        </button>
+                      )),
+                      'studios',
+                    )}
+                  </div>
+                  <div className="ss-input-actions">
+                    <button className="ss-primary" onClick={run}>
+                      <Play fill="currentColor" />
+                      {tx('Run algorithm', 'studios')}
+                    </button>
+                    <button onClick={() => copy(input)}>
+                      <Copy />
+                      {tx('Copy input', 'studios')}
+                    </button>
+                    <button onClick={download}>
+                      <FileText />
+                      {tx('CSV log', 'studios')}
+                    </button>
+                  </div>
+                </section>
+              </div>
+              <div className="ss-bottom">
+                <section className="ss-card">
+                  <h3>
+                    <BookOpen />
+                    {tx('Explanation', 'studios')}
+                  </h3>
+                  <div className="ss-explanation">
+                    <b>
+                      {tx(
+                        step === 0 ? 'Build prefix, Z, or rolling-hash metadata for the pattern.' : `Compare the pattern with the text at position ${step}.`,
+                        'studios',
+                      )}
+                    </b>
+                    <p>
+                      {tx(
+                        step === 0
+                          ? 'Choose the active value, pivot, node, or candidate for this phase.'
+                          : matches.includes(step)
+                            ? 'Every character matches. Record this window and continue scanning.'
+                            : 'Check characters from left to right, then advance to the next window.',
+                        'studios',
+                      )}
                     </p>
-                  ))}
-                </div>
-              </section>
-            </div>
-          </>
+                  </div>
+                </section>
+                <section className="ss-card">
+                  <h3>
+                    <span>☷</span>
+                    {tx('Current Step', 'studios')}
+                  </h3>
+                  {tx(
+                    ['SELECT', 'COMPARE', 'UPDATE', 'COMPLETE'].map((s, i) => (
+                      <div className={`ss-step ${i === Math.min(3, Math.floor(step / 2)) ? 'active' : ''}`} key={s}>
+                        <i>{tx(i + 1, 'studios')}</i>
+                        <b>{tx(s, 'studios')}</b>
+                        <span>
+                          {tx(
+                            [
+                              'Build prefix, Z, or rolling-hash metadata for the pattern.',
+                              'Compare text and pattern.',
+                              'Report the matched window and continue scanning.',
+                              'String pattern matching suite demo complete.',
+                            ][i],
+                            'studios',
+                          )}
+                        </span>
+                      </div>
+                    )),
+                    'studios',
+                  )}
+                </section>
+                <section className="ss-card">
+                  <h3>
+                    <BarChart3 />
+                    {tx('Experiment Metrics', 'studios')}
+                  </h3>
+                  <div className="ss-metrics">
+                    {tx(
+                      ['comparisons', 'swaps', 'reads', 'writes', 'recursive calls', 'memory', 'steps'].map((m, i) => (
+                        <div key={m}>
+                          <strong>{tx([step + 1, 0, step * 2, 2, 0, 8, 4][i], 'studios')}</strong>
+                          <small>{tx(m, 'studios')}</small>
+                        </div>
+                      )),
+                      'studios',
+                    )}
+                  </div>
+                </section>
+                <section className="ss-card ss-log">
+                  <h3>
+                    <FileText />
+                    {tx('Step Log', 'studios')}
+                    {tx(' ', 'studios')}
+                    <button onClick={() => copy(`Text: ${text}\nPattern: ${pattern}\nCurrent step: ${step + 1}`)}>
+                      <Copy />
+                      {tx('Copy log', 'studios')}
+                    </button>
+                    <button onClick={download}>{tx('Download CSV', 'studios')}</button>
+                  </h3>
+                  <div>
+                    {tx(
+                      [
+                        'Initialized text and pattern',
+                        `Text length: ${size}, Pattern length: ${pattern.length}`,
+                        'Computing prefix/Z/rolling-hash metadata',
+                        playing ? `Comparing window at index ${step}` : 'Ready to start visualization',
+                      ].map((s, i) => (
+                        <p key={i}>
+                          <time>23:50:21</time>
+                          {tx(s, 'studios')}
+                        </p>
+                      )),
+                      'studios',
+                    )}
+                  </div>
+                </section>
+              </div>
+            </>
+          ),
+          'studios',
         )}
       </main>
       <footer className="ss-footer">
-        <b>www.AimerSociety.com</b>
-        <span>AI Learning Tools</span>
-        <span className="ss-footer-right">Artificial Intelligence Medical &amp; Engineering Researchers Society</span>
-        <Heart /> Learn &nbsp; Visualize &nbsp; Innovate
+        <b>{tx('www.AimerSociety.com', 'studios')}</b>
+        <span>{tx('AI Learning Tools', 'studios')}</span>
+        <span className="ss-footer-right">{tx('Artificial Intelligence Medical & Engineering Researchers Society', 'studios')}</span>
+        <Heart />
+        {tx(' Learn   Visualize   Innovate', 'studios')}
       </footer>
-      {notice && (
-        <div className="ss-toast" role="status">
-          {notice}
-        </div>
+      {tx(
+        notice && (
+          <div className="ss-toast" role="status">
+            {tx(notice, 'studios')}
+          </div>
+        ),
+        'studios',
       )}
     </div>
   )

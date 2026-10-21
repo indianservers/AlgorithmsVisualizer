@@ -1,4 +1,8 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 export function BfsHero() {
+  useLocaleRender()
+
   return (
     <div className="bfs-hero-art">
       <svg viewBox="0 0 800 200" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
@@ -23,14 +27,15 @@ export function BfsHero() {
         <path d="M0 200C120 130 90 0 230 0S410 90 500 12 620 50 800 0V200Z" fill="#e4f2ff" opacity=".35" />
         <path d="m420 104 41-56 84 50-76 62-49-56m125-6 40-55m-40 55 85 53" stroke="#8bbaff" strokeWidth="3" opacity=".32" fill="none" />
         <path d="m420 104 41-56 84 50-76 62-49-56" stroke="#3989ff" strokeWidth="2.5" fill="none" />
-        {[
-          { x: 420, y: 104, r: 10 },
-          { x: 461, y: 48, r: 18 },
-          { x: 545, y: 98, r: 19 },
-          { x: 469, y: 160, r: 18 },
-        ].map(({ x, y, r }) => (
-          <circle key={x} cx={x} cy={y} r={r} fill="url(#bfs-orb)" stroke="#effaff" strokeWidth="2.5" />
-        ))}
+        {tx(
+          [
+            { x: 420, y: 104, r: 10 },
+            { x: 461, y: 48, r: 18 },
+            { x: 545, y: 98, r: 19 },
+            { x: 469, y: 160, r: 18 },
+          ].map(({ x, y, r }) => <circle key={x} cx={x} cy={y} r={r} fill="url(#bfs-orb)" stroke="#effaff" strokeWidth="2.5" />),
+          'studios',
+        )}
         <circle cx="585" cy="43" r="10" fill="#85b9ff" opacity=".7" />
         <circle cx="562" cy="167" r="13" fill="#9cc5ff" opacity=".5" />
         <g transform="translate(650 20) rotate(11)">
@@ -38,24 +43,28 @@ export function BfsHero() {
           <rect width="131" height="137" rx="13" fill="url(#bfs-paper)" stroke="#f4fcff" strokeWidth="1.5" />
           <rect x="19" y="17" width="35" height="19" rx="4" fill="#0874ff" />
           <text x="36" y="31" textAnchor="middle" fill="white" fontSize="14" fontWeight="700">
-            BFS
+            {tx('BFS', 'studios')}
           </text>
-          {[53, 74, 95, 116].map((y) => (
-            <g key={y}>
-              <circle cx="23" cy={y} r="5" fill="#acd0ff" />
-              <rect x="36" y={y - 3} width={y === 53 ? 76 : 63} height="7" rx="3.5" fill="#afcfff" />
-            </g>
-          ))}
+          {tx(
+            [53, 74, 95, 116].map((y) => (
+              <g key={y}>
+                <circle cx="23" cy={y} r="5" fill="#acd0ff" />
+                <rect x="36" y={y - 3} width={y === 53 ? 76 : 63} height="7" rx="3.5" fill="#afcfff" />
+              </g>
+            )),
+            'studios',
+          )}
         </g>
       </svg>
       <blockquote>
-        <b>“</b>Explore the graph level by level
+        <b>“</b>
+        {tx('Explore the graph level by level', 'studios')}
         <br />
-        and discover the shortest paths
+        {tx('and discover the shortest paths', 'studios')}
         <br />
-        in an unweighted world.”
+        {tx('in an unweighted world.”', 'studios')}
         <span />
-        <small>Graphs&nbsp; • &nbsp;Algorithms&nbsp; • &nbsp;Deeper Understanding</small>
+        <small>{tx('Graphs  •  Algorithms  •  Deeper Understanding', 'studios')}</small>
       </blockquote>
     </div>
   )

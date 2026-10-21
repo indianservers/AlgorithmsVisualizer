@@ -1,0 +1,308 @@
+[
+  {
+    "file": "src/account/AccountControl.tsx",
+    "namespace": "messages",
+    "textBindings": 0,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/account/LoginInvitation.tsx",
+    "namespace": "messages",
+    "textBindings": 6,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/App.tsx",
+    "namespace": "common",
+    "textBindings": 17,
+    "componentSubscriptions": 2
+  },
+  {
+    "file": "src/components/BottomPanel.tsx",
+    "namespace": "common",
+    "textBindings": 29,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/CommandPalette.tsx",
+    "namespace": "common",
+    "textBindings": 6,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/CompactLessonHeader.tsx",
+    "namespace": "common",
+    "textBindings": 11,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/CompareView.tsx",
+    "namespace": "common",
+    "textBindings": 42,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/Controls.tsx",
+    "namespace": "controls",
+    "textBindings": 16,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/DaaTheoryView.tsx",
+    "namespace": "common",
+    "textBindings": 0,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/DetectiveSearch.tsx",
+    "namespace": "studios",
+    "textBindings": 23,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/ErrorBoundary.tsx",
+    "namespace": "messages",
+    "textBindings": 3,
+    "componentSubscriptions": 0
+  },
+  {
+    "file": "src/components/ExplorerTraversal.tsx",
+    "namespace": "studios",
+    "textBindings": 44,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/InputAccessButton.tsx",
+    "namespace": "common",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/Layout.tsx",
+    "namespace": "common",
+    "textBindings": 8,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/LessonTabs.tsx",
+    "namespace": "navigation",
+    "textBindings": 4,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/MobileCategoryTabs.tsx",
+    "namespace": "common",
+    "textBindings": 4,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/MobileDisclosure.tsx",
+    "namespace": "common",
+    "textBindings": 3,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/NetworkStudyBoard.tsx",
+    "namespace": "common",
+    "textBindings": 31,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/PenguinVisualization.tsx",
+    "namespace": "studios",
+    "textBindings": 30,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/ProblemInputFields.tsx",
+    "namespace": "common",
+    "textBindings": 22,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/ProblemInputPanel.tsx",
+    "namespace": "common",
+    "textBindings": 16,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/RightPanel.tsx",
+    "namespace": "common",
+    "textBindings": 112,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/RouteFallback.tsx",
+    "namespace": "common",
+    "textBindings": 8,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/RouteStudyBoard.tsx",
+    "namespace": "common",
+    "textBindings": 33,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/Sidebar.tsx",
+    "namespace": "navigation",
+    "textBindings": 26,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/Skeleton.tsx",
+    "namespace": "common",
+    "textBindings": 3,
+    "componentSubscriptions": 2
+  },
+  {
+    "file": "src/components/StringSuite.tsx",
+    "namespace": "studios",
+    "textBindings": 133,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/TimelineToolbar.tsx",
+    "namespace": "controls",
+    "textBindings": 27,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/TopBar.tsx",
+    "namespace": "common",
+    "textBindings": 40,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/TraversalWorkbench.tsx",
+    "namespace": "common",
+    "textBindings": 8,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/ViewportCanvas.tsx",
+    "namespace": "controls",
+    "textBindings": 12,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/Visualizer.tsx",
+    "namespace": "common",
+    "textBindings": 248,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/components/WeightedExplorer.tsx",
+    "namespace": "studios",
+    "textBindings": 60,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BfsHero.tsx",
+    "namespace": "studios",
+    "textBindings": 7,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/DaaWorkspace.tsx",
+    "namespace": "studios",
+    "textBindings": 281,
+    "componentSubscriptions": 8
+  },
+  {
+    "file": "src/daa/DfsHero.tsx",
+    "namespace": "studios",
+    "textBindings": 8,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/DijkstraHero.tsx",
+    "namespace": "studios",
+    "textBindings": 12,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/TargetLessonScenes.tsx",
+    "namespace": "studios",
+    "textBindings": 106,
+    "componentSubscriptions": 9
+  },
+  {
+    "file": "src/daa/TargetLessonVisualization.tsx",
+    "namespace": "studios",
+    "textBindings": 183,
+    "componentSubscriptions": 13
+  },
+  {
+    "file": "src/encyclopedia/AlgorithmArticle.tsx",
+    "namespace": "common",
+    "textBindings": 96,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/encyclopedia/EncyclopediaPage.tsx",
+    "namespace": "common",
+    "textBindings": 33,
+    "componentSubscriptions": 3
+  },
+  {
+    "file": "src/encyclopedia/InputNavigation.tsx",
+    "namespace": "navigation",
+    "textBindings": 0,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/encyclopedia/PageMetadata.tsx",
+    "namespace": "common",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/home/HomeDashboard.tsx",
+    "namespace": "common",
+    "textBindings": 66,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/learning/BacktrackingStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 221,
+    "componentSubscriptions": 7
+  },
+  {
+    "file": "src/learning/DynamicProgrammingStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 287,
+    "componentSubscriptions": 6
+  },
+  {
+    "file": "src/learning/GraphLearningStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 138,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/learning/GraphSuiteLearning.tsx",
+    "namespace": "studios",
+    "textBindings": 13,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/learning/GreedyStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 252,
+    "componentSubscriptions": 5
+  },
+  {
+    "file": "src/learning/TreeLearningStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 150,
+    "componentSubscriptions": 3
+  },
+  {
+    "file": "src/studio/AlgorithmStudio.tsx",
+    "namespace": "studios",
+    "textBindings": 112,
+    "componentSubscriptions": 4
+  }
+]

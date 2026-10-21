@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/prerender-encyclopedia.mjs",
-    "check": "npm run lint && npm test && npm run build && npm run test:budget",
+    "check": "npm run lint && npm run i18n:check && npm test && npm run build && npm run test:budget",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
@@ -17,7 +17,12 @@
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots",
     "studio:generate": "node scripts/generate-studio-sources.mjs && node scripts/generate-studio-languages.mjs",
-    "test:studio-languages": "python scripts/verify-studio-languages.py"
+    "test:studio-languages": "python scripts/verify-studio-languages.py",
+    "i18n:audit": "node scripts/i18n/audit.mjs",
+    "i18n:generate": "node scripts/i18n/generate.mjs",
+    "i18n:scan": "node scripts/i18n/scan.mjs",
+    "i18n:check": "node --test scripts/i18n/validate.test.mjs && node scripts/i18n/scan.mjs && node scripts/i18n/validate.mjs",
+    "test:localization": "playwright test localization.spec.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,css,json,md,yml,yaml}": [
@@ -31,9 +36,11 @@
     "chess.js": "^1.4.0",
     "dexie": "^4.4.2",
     "framer-motion": "^12.38.0",
+    "i18next": "^26.5.4",
     "lucide-react": "^1.14.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-i18next": "^17.1.0",
     "react-router-dom": "^7.10.1"
   },
   "devDependencies": {

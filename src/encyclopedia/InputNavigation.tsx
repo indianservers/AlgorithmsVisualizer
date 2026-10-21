@@ -1,7 +1,11 @@
+// @localized-render
+import { useLocaleRender } from '../i18n/render'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 /** Follow an article's Edit input link after the destination's lazy editor is ready. */
 export function InputNavigation() {
+  useLocaleRender()
+
   const { pathname, hash } = useLocation()
   useEffect(() => {
     if (hash !== '#problem-input') return

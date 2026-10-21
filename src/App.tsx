@@ -1,3 +1,6 @@
+import { LanguageSelector } from './i18n/LanguageSelector'
+// @localized-render
+import { tx, useLocaleRender } from './i18n/render'
 import { isStudioId, needsOrderedInput, suiteExamples } from './studio/engine'
 import { CompactLessonHeader } from './components/CompactLessonHeader'
 import { isTreeLearningModule } from './learning/treeModel'
@@ -33,19 +36,23 @@ import { buildStepLogCsv, downloadBlob, downloadText as saveText, exportPngFrame
 const MAX_VISUAL_STEPS = 1000
 
 function AimerSiteFooter() {
+  useLocaleRender()
+
   return (
     <footer className="aimer-site-footer">
       <div>
-        <strong>www.AimerSociety.com</strong>
-        <span>AI Learning Tools</span>
+        <strong>{tx('www.AimerSociety.com', 'common')}</strong>
+        <span>{tx('AI Learning Tools', 'common')}</span>
       </div>
-      <p>Artificial Intelligence Medical &amp; Engineering Researchers Society Tools</p>
-      <small>All rights reserved.</small>
+      <p>{tx('Artificial Intelligence Medical & Engineering Researchers Society Tools', 'common')}</p>
+      <small>{tx('All rights reserved.', 'common')}</small>
     </footer>
   )
 }
 
 function App() {
+  useLocaleRender()
+
   const navigate = useNavigate()
   const location = useLocation()
   const { categorySlug, algorithmSlug } = useParams()
@@ -383,7 +390,7 @@ function App() {
   }
 
   const resetAll = () => {
-    if (!window.confirm('Reset the data, target, presets, and animation state?')) return
+    if (!window.confirm(tx('Reset the data, target, presets, and animation state?', 'messages'))) return
     setInputText('42, 18, 67, 9, 31, 73, 54, 26, 88, 12')
     setTarget(31)
     setSize(10)
@@ -455,7 +462,7 @@ function App() {
   }
 
   const clearLocalData = async () => {
-    if (!window.confirm('Clear local settings, notes, favorites, recent items, and saved experiments?')) return
+    if (!window.confirm(tx('Clear local settings, notes, favorites, recent items, and saved experiments?', 'messages'))) return
     localStorage.clear()
     try {
       setSaving(true)
@@ -590,11 +597,14 @@ function App() {
   )
   const toastStack = toasts.length > 0 && (
     <div className="toast-stack">
-      {toasts.map((toast) => (
-        <button className="toast" key={toast.id} type="button" onClick={() => setToasts((items) => items.filter((item) => item.id !== toast.id))}>
-          {toast.message}
-        </button>
-      ))}
+      {tx(
+        toasts.map((toast) => (
+          <button className="toast" key={toast.id} type="button" onClick={() => setToasts((items) => items.filter((item) => item.id !== toast.id))}>
+            {tx(toast.message, 'common')}
+          </button>
+        )),
+        'common',
+      )}
     </div>
   )
 
@@ -668,51 +678,57 @@ function App() {
         data-learning-tab={viewMode === 'compare' ? 'Visualization' : learningTab}
         style={{ '--page-accent': activePage.accent } as CSSProperties}
       >
-        {usesLearningStudio ? (
-          <div className="studio-toolbar">
-            <span>Interactive learning workshop</span>
-            <button onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}>{theme === 'dark' ? 'Light theme' : 'Dark theme'}</button>
-            <button onClick={() => copyText('Lesson link', window.location.href)}>Copy lesson link</button>
-          </div>
-        ) : (
-          <TopBar
-            activeModule={activeModule}
-            classroomMode={classroomMode}
-            clearLocalData={clearLocalData}
-            copyText={copyText}
-            density={density}
-            downloadText={downloadText}
-            exportJson={exportJson}
-            exportPng={exportPng}
-            exportSvg={exportSvg}
-            exportsOpen={exportsOpen}
-            focusMode={focusMode}
-            fullCanvas={fullCanvas}
-            notes={notes}
-            onFileLoad={onFileLoad}
-            openCommandPalette={() => setCommandOpen(true)}
-            pushToast={pushToast}
-            reducedMotion={reducedMotion}
-            resetUiSettings={resetUiSettings}
-            saveExperiment={saveExperiment}
-            saving={saving}
-            setClassroomMode={setClassroomMode}
-            setDensity={setDensity}
-            setExportsOpen={setExportsOpen}
-            setFocusMode={setFocusMode}
-            setFullCanvas={setFullCanvas}
-            setNotes={setNotes}
-            setReducedMotion={setReducedMotion}
-            setSettingsOpen={setSettingsOpen}
-            setSidebarCollapsed={setSidebarCollapsed}
-            setTheme={setTheme}
-            setViewMode={setViewMode}
-            settingsOpen={settingsOpen}
-            sidebarCollapsed={sidebarCollapsed}
-            stepsLength={steps.length}
-            theme={theme}
-            viewMode={viewMode}
-          />
+        {tx(
+          usesLearningStudio ? (
+            <div className="studio-toolbar">
+              <LanguageSelector />
+              <span>{tx('Interactive learning workshop', 'common')}</span>
+              <button onClick={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}>
+                {tx(theme === 'dark' ? 'Light theme' : 'Dark theme', 'common')}
+              </button>
+              <button onClick={() => copyText('Lesson link', window.location.href)}>{tx('Copy lesson link', 'common')}</button>
+            </div>
+          ) : (
+            <TopBar
+              activeModule={activeModule}
+              classroomMode={classroomMode}
+              clearLocalData={clearLocalData}
+              copyText={copyText}
+              density={density}
+              downloadText={downloadText}
+              exportJson={exportJson}
+              exportPng={exportPng}
+              exportSvg={exportSvg}
+              exportsOpen={exportsOpen}
+              focusMode={focusMode}
+              fullCanvas={fullCanvas}
+              notes={notes}
+              onFileLoad={onFileLoad}
+              openCommandPalette={() => setCommandOpen(true)}
+              pushToast={pushToast}
+              reducedMotion={reducedMotion}
+              resetUiSettings={resetUiSettings}
+              saveExperiment={saveExperiment}
+              saving={saving}
+              setClassroomMode={setClassroomMode}
+              setDensity={setDensity}
+              setExportsOpen={setExportsOpen}
+              setFocusMode={setFocusMode}
+              setFullCanvas={setFullCanvas}
+              setNotes={setNotes}
+              setReducedMotion={setReducedMotion}
+              setSettingsOpen={setSettingsOpen}
+              setSidebarCollapsed={setSidebarCollapsed}
+              setTheme={setTheme}
+              setViewMode={setViewMode}
+              settingsOpen={settingsOpen}
+              sidebarCollapsed={sidebarCollapsed}
+              stepsLength={steps.length}
+              theme={theme}
+              viewMode={viewMode}
+            />
+          ),
+          'common',
         )}
         <MobileCategoryTabs activeCategory={activeCategory} chooseCategory={chooseCategory} />
         <CommandPalette
@@ -725,214 +741,223 @@ function App() {
           run={() => setPlaying((value) => !value)}
           switchTheme={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}
         />
-        {routeChanging && <RouteTransitionSkeleton />}
-        {viewMode === 'visualize' && (
-          <CompactLessonHeader
-            title={activeModule.name}
-            description={activeModule.summary}
-            studied={completed.includes(activeModule.id)}
-            onStudy={() => toggleComplete(activeModule.id)}
-          />
+        {tx(routeChanging && <RouteTransitionSkeleton />, 'common')}
+        {tx(
+          viewMode === 'visualize' && (
+            <CompactLessonHeader
+              title={tx(activeModule.name, 'common')}
+              description={activeModule.summary}
+              studied={completed.includes(activeModule.id)}
+              onStudy={() => toggleComplete(activeModule.id)}
+            />
+          ),
+          'common',
         )}
-        {viewMode === 'compare' ? (
-          <CompareView
-            comparableModules={comparableModules}
-            comparedIds={comparedIds}
-            compareCategory={compareCategory}
-            comparisonCsv={comparisonCsv}
-            comparisonRows={comparisonRows}
-            dataMode={dataMode}
-            downloadText={downloadText}
-            inputText={inputText}
-            maxComparisonComparisons={maxComparisonComparisons}
-            maxComparisonSteps={maxComparisonSteps}
-            resetPlayback={resetPlayback}
-            setCompareCategory={setCompareCategory}
-            setComparedIds={setComparedIds}
-            setInputText={setInputText}
-            setTarget={setTarget}
-            target={target}
-            toggleComparedAlgorithm={toggleComparedAlgorithm}
-            updateRandom={updateRandom}
-          />
-        ) : (
-          <Visualizer
-            searchHistory={steps.slice(0, stepIndex)}
-            learningTab={learningTab}
-            setLearningTab={setLearningTab}
-            activeCategory={activeCategory}
-            activeId={activeId}
-            activeModule={activeModule}
-            animationQuality={animationQuality}
-            algorithmQuery={algorithmQuery}
-            canvasRef={canvasRef}
-            canvasZoom={canvasZoom}
-            chooseAlgorithm={chooseAlgorithm}
-            complexityFilter={complexityFilter}
-            controls={
-              <Controls
-                stepIndex={stepIndex}
-                activeCategory={activeCategory}
-                disabledReason={
-                  isStudioId(activeId) && inputDiagnostics.invalid.length
-                    ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
-                    : isStudioId(activeId) && inputDiagnostics.valid.length > 64
-                      ? 'Use at most 64 values.'
-                      : disabledReason
-                }
-                pauseOn={pauseOn}
-                playing={playing}
-                resetAll={resetAll}
-                resetPlayback={resetPlayback}
-                setPauseOn={setPauseOn}
-                setPlaying={setPlaying}
-                setSpeed={setSpeed}
-                setStepIndex={setStepIndex}
-                speed={speed}
-                stepsLength={steps.length}
-              />
-            }
-            copyText={copyText}
-            currentStep={currentStep}
-            dataMode={dataMode}
-            disabledReason={
-              isStudioId(activeId) && inputDiagnostics.invalid.length
-                ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
-                : isStudioId(activeId) && inputDiagnostics.valid.length > 64
-                  ? 'Use at most 64 values.'
-                  : disabledReason
-            }
-            discardedRange={discardedRange}
-            downloadText={downloadText}
-            favorites={favorites}
-            filteredModules={filteredModules}
-            hasNegativeValues={visualData.some((value) => value < 0)}
-            input={input}
-            inputDiagnostics={inputDiagnostics}
-            inputText={inputText}
-            maxMagnitude={maxMagnitude}
-            pageSections={activePage.sections}
-            pointerEntries={pointerEntries}
-            progressPercent={progressPercent}
-            recommendation={recommendation}
-            reducedMotion={reducedMotion}
-            resetFilters={resetFilters}
-            resetPlayback={resetPlayback}
-            rightPanel={
-              <RightPanel
-                activeModule={activeModule}
-                codeView={codeView}
-                completed={completed}
-                copyText={copyText}
-                correctnessText={correctnessText}
-                currentStep={currentStep}
-                difficulty={difficulty}
-                guide={guide}
-                hugeRunWarning={hugeRunWarning}
-                inputConstraints={inputConstraints}
-                learningTab={learningTab}
-                nextStep={nextStep}
-                notes={notes}
-                practiceGuess={practiceGuess}
-                practiceReveal={practiceReveal}
-                pseudoActiveIndex={pseudoActiveIndex}
-                quizScore={quizScore}
-                recommendation={recommendation}
-                reviewDueDate={reviewDueDates[activeId]}
-                resultText={resultText}
-                rightPanelWidth={rightPanelWidth}
-                setLearningTab={setLearningTab}
-                setNotes={setNotes}
-                setPracticeGuess={setPracticeGuess}
-                setPracticeReveal={setPracticeReveal}
-                setQuizScore={(updater) =>
-                  setQuizScores((scores) => ({
-                    ...scores,
-                    [activeId]: typeof updater === 'function' ? updater(scores[activeId] ?? { correct: 0, total: 0 }) : updater,
-                  }))
-                }
-                setRightPanelWidth={setRightPanelWidth}
-                setStepIndex={setStepIndex}
-                stepIndex={stepIndex}
-                stepReason={stepReason}
-                steps={steps}
-                toggleComplete={toggleComplete}
-              />
-            }
-            setAlgorithmQuery={setAlgorithmQuery}
-            setAnimationQuality={setAnimationQuality}
-            setCanvasZoom={setCanvasZoom}
-            setComplexityFilter={setComplexityFilter}
-            setInputText={setInputText}
-            setShowIndices={setShowIndices}
-            setShowValues={setShowValues}
-            setSize={setSize}
-            setStatusFilter={setStatusFilter}
-            setStepPalette={setStepPalette}
-            setShowStateComparison={setShowStateComparison}
-            setTarget={setTarget}
-            setVisualFilter={setVisualFilter}
-            showIndices={showIndices}
-            showStateComparison={showStateComparison}
-            showValues={showValues}
-            size={size}
-            startGameInteraction={startGameInteraction}
-            sortCurrentInput={sortCurrentInput}
-            sortedBoundary={sortedBoundary}
-            sortedInputRequired={sortedInputRequired}
-            sortedInputValid={sortedInputValid}
-            statusFilter={statusFilter}
-            statusLabel={statusLabel}
-            stepLogCsv={stepLogCsv}
-            stepPalette={stepPalette}
-            stepsLength={steps.length}
-            target={target}
-            toggleFavorite={toggleFavorite}
-            updateRandom={updateRandom}
-            visiblePickerModules={visiblePickerModules}
-            visualFilter={visualFilter}
-            visualItems={visualItems}
-          />
+        {tx(
+          viewMode === 'compare' ? (
+            <CompareView
+              comparableModules={comparableModules}
+              comparedIds={comparedIds}
+              compareCategory={compareCategory}
+              comparisonCsv={comparisonCsv}
+              comparisonRows={comparisonRows}
+              dataMode={dataMode}
+              downloadText={downloadText}
+              inputText={inputText}
+              maxComparisonComparisons={maxComparisonComparisons}
+              maxComparisonSteps={maxComparisonSteps}
+              resetPlayback={resetPlayback}
+              setCompareCategory={setCompareCategory}
+              setComparedIds={setComparedIds}
+              setInputText={setInputText}
+              setTarget={setTarget}
+              target={target}
+              toggleComparedAlgorithm={toggleComparedAlgorithm}
+              updateRandom={updateRandom}
+            />
+          ) : (
+            <Visualizer
+              searchHistory={steps.slice(0, stepIndex)}
+              learningTab={learningTab}
+              setLearningTab={setLearningTab}
+              activeCategory={activeCategory}
+              activeId={activeId}
+              activeModule={activeModule}
+              animationQuality={animationQuality}
+              algorithmQuery={algorithmQuery}
+              canvasRef={canvasRef}
+              canvasZoom={canvasZoom}
+              chooseAlgorithm={chooseAlgorithm}
+              complexityFilter={complexityFilter}
+              controls={
+                <Controls
+                  stepIndex={stepIndex}
+                  activeCategory={activeCategory}
+                  disabledReason={
+                    isStudioId(activeId) && inputDiagnostics.invalid.length
+                      ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
+                      : isStudioId(activeId) && inputDiagnostics.valid.length > 64
+                        ? 'Use at most 64 values.'
+                        : disabledReason
+                  }
+                  pauseOn={pauseOn}
+                  playing={playing}
+                  resetAll={resetAll}
+                  resetPlayback={resetPlayback}
+                  setPauseOn={setPauseOn}
+                  setPlaying={setPlaying}
+                  setSpeed={setSpeed}
+                  setStepIndex={setStepIndex}
+                  speed={speed}
+                  stepsLength={steps.length}
+                />
+              }
+              copyText={copyText}
+              currentStep={currentStep}
+              dataMode={dataMode}
+              disabledReason={
+                isStudioId(activeId) && inputDiagnostics.invalid.length
+                  ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
+                  : isStudioId(activeId) && inputDiagnostics.valid.length > 64
+                    ? 'Use at most 64 values.'
+                    : disabledReason
+              }
+              discardedRange={discardedRange}
+              downloadText={downloadText}
+              favorites={favorites}
+              filteredModules={filteredModules}
+              hasNegativeValues={visualData.some((value) => value < 0)}
+              input={input}
+              inputDiagnostics={inputDiagnostics}
+              inputText={inputText}
+              maxMagnitude={maxMagnitude}
+              pageSections={activePage.sections}
+              pointerEntries={pointerEntries}
+              progressPercent={progressPercent}
+              recommendation={recommendation}
+              reducedMotion={reducedMotion}
+              resetFilters={resetFilters}
+              resetPlayback={resetPlayback}
+              rightPanel={
+                <RightPanel
+                  activeModule={activeModule}
+                  codeView={codeView}
+                  completed={completed}
+                  copyText={copyText}
+                  correctnessText={correctnessText}
+                  currentStep={currentStep}
+                  difficulty={difficulty}
+                  guide={guide}
+                  hugeRunWarning={hugeRunWarning}
+                  inputConstraints={inputConstraints}
+                  learningTab={learningTab}
+                  nextStep={nextStep}
+                  notes={notes}
+                  practiceGuess={practiceGuess}
+                  practiceReveal={practiceReveal}
+                  pseudoActiveIndex={pseudoActiveIndex}
+                  quizScore={quizScore}
+                  recommendation={recommendation}
+                  reviewDueDate={reviewDueDates[activeId]}
+                  resultText={resultText}
+                  rightPanelWidth={rightPanelWidth}
+                  setLearningTab={setLearningTab}
+                  setNotes={setNotes}
+                  setPracticeGuess={setPracticeGuess}
+                  setPracticeReveal={setPracticeReveal}
+                  setQuizScore={(updater) =>
+                    setQuizScores((scores) => ({
+                      ...scores,
+                      [activeId]: typeof updater === 'function' ? updater(scores[activeId] ?? { correct: 0, total: 0 }) : updater,
+                    }))
+                  }
+                  setRightPanelWidth={setRightPanelWidth}
+                  setStepIndex={setStepIndex}
+                  stepIndex={stepIndex}
+                  stepReason={stepReason}
+                  steps={steps}
+                  toggleComplete={toggleComplete}
+                />
+              }
+              setAlgorithmQuery={setAlgorithmQuery}
+              setAnimationQuality={setAnimationQuality}
+              setCanvasZoom={setCanvasZoom}
+              setComplexityFilter={setComplexityFilter}
+              setInputText={setInputText}
+              setShowIndices={setShowIndices}
+              setShowValues={setShowValues}
+              setSize={setSize}
+              setStatusFilter={setStatusFilter}
+              setStepPalette={setStepPalette}
+              setShowStateComparison={setShowStateComparison}
+              setTarget={setTarget}
+              setVisualFilter={setVisualFilter}
+              showIndices={showIndices}
+              showStateComparison={showStateComparison}
+              showValues={showValues}
+              size={size}
+              startGameInteraction={startGameInteraction}
+              sortCurrentInput={sortCurrentInput}
+              sortedBoundary={sortedBoundary}
+              sortedInputRequired={sortedInputRequired}
+              sortedInputValid={sortedInputValid}
+              statusFilter={statusFilter}
+              statusLabel={statusLabel}
+              stepLogCsv={stepLogCsv}
+              stepPalette={stepPalette}
+              stepsLength={steps.length}
+              target={target}
+              toggleFavorite={toggleFavorite}
+              updateRandom={updateRandom}
+              visiblePickerModules={visiblePickerModules}
+              visualFilter={visualFilter}
+              visualItems={visualItems}
+            />
+          ),
+          'common',
         )}
-        {!usesLearningStudio && !(isStudioId(activeId) && learningTab === 'Visualization') && (
-          <BottomPanel
-            activeModuleId={activeModule.id}
-            copyText={copyText}
-            downloadText={downloadText}
-            finalMetrics={finalMetrics}
-            loadingSaved={loadingSaved}
-            onLoadSaved={(item) => {
-              chooseAlgorithm(item.algorithmId)
-              setInputText(item.input.join(', '))
-              setTarget(item.target)
-              setViewMode('visualize')
-              setLearningTab('Visualization')
-              resetPlayback()
-              pushToast(`${item.algorithmName} loaded`)
-              scrollToSection('.visual-canvas')
-            }}
-            openDashboard={() => {
-              setViewMode('visualize')
-              setLearningTab('Learn')
-              scrollToSection('.page-ribbon')
-            }}
-            openDataGrid={() => {
-              setViewMode('visualize')
-              setLearningTab('Visualization')
-              scrollToSection('.input-strip, .ds-input-panel')
-            }}
-            openStatistics={() => scrollToSection('.metrics-panel')}
-            openVisualizer={() => {
-              setViewMode('visualize')
-              setLearningTab('Visualization')
-              scrollToSection('.visual-canvas')
-            }}
-            saved={saved}
-            setStepIndex={setStepIndex}
-            stepIndex={stepIndex}
-            stepLogCsv={stepLogCsv}
-            steps={steps}
-          />
+        {tx(
+          !usesLearningStudio && !(isStudioId(activeId) && learningTab === 'Visualization') && (
+            <BottomPanel
+              activeModuleId={activeModule.id}
+              copyText={copyText}
+              downloadText={downloadText}
+              finalMetrics={finalMetrics}
+              loadingSaved={loadingSaved}
+              onLoadSaved={(item) => {
+                chooseAlgorithm(item.algorithmId)
+                setInputText(item.input.join(', '))
+                setTarget(item.target)
+                setViewMode('visualize')
+                setLearningTab('Visualization')
+                resetPlayback()
+                pushToast(`${item.algorithmName} loaded`)
+                scrollToSection('.visual-canvas')
+              }}
+              openDashboard={() => {
+                setViewMode('visualize')
+                setLearningTab('Learn')
+                scrollToSection('.page-ribbon')
+              }}
+              openDataGrid={() => {
+                setViewMode('visualize')
+                setLearningTab('Visualization')
+                scrollToSection('.input-strip, .ds-input-panel')
+              }}
+              openStatistics={() => scrollToSection('.metrics-panel')}
+              openVisualizer={() => {
+                setViewMode('visualize')
+                setLearningTab('Visualization')
+                scrollToSection('.visual-canvas')
+              }}
+              saved={saved}
+              setStepIndex={setStepIndex}
+              stepIndex={stepIndex}
+              stepLogCsv={stepLogCsv}
+              steps={steps}
+            />
+          ),
+          'common',
         )}
         <AimerSiteFooter />
       </section>

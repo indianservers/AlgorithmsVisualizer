@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { AlgorithmStudio, CodeExecutionPanel } from '../studio/AlgorithmStudio'
 import { isStudioId } from '../studio/engine'
 import { MobileDisclosure } from './MobileDisclosure'
@@ -261,6 +263,8 @@ export function Visualizer({
   learningTab,
   setLearningTab,
 }: VisualizerProps) {
+  useLocaleRender()
+
   const isBubble = activeId === 'bubble-sort'
   const isSorting = activeModule.category === 'Sorting'
   const [sortingCharacter, setSortingCharacter] = usePersistentState('algodrishti-sorting-character', 'penguins', persistentString)
@@ -312,7 +316,7 @@ export function Visualizer({
     return (
       <section className="lab-grid" data-learning-tab={learningTab}>
         <LessonTabs active={learningTab} onChange={setLearningTab} />
-        <Suspense fallback={<p role="status">Loading the backtracking lab…</p>}>
+        <Suspense fallback={<p role="status">{tx('Loading the backtracking lab…', 'common')}</p>}>
           <BacktrackingSuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} onTab={setLearningTab} />
         </Suspense>
       </section>
@@ -322,7 +326,7 @@ export function Visualizer({
     return (
       <section className="lab-grid" data-learning-tab={learningTab}>
         <LessonTabs active={learningTab} onChange={setLearningTab} />
-        <Suspense fallback={<p role="status">Loading the greedy lab…</p>}>
+        <Suspense fallback={<p role="status">{tx('Loading the greedy lab…', 'common')}</p>}>
           <GreedySuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} onTab={setLearningTab} />
         </Suspense>
       </section>
@@ -332,7 +336,7 @@ export function Visualizer({
     return (
       <section className="lab-grid" data-learning-tab={learningTab}>
         <LessonTabs active={learningTab} onChange={setLearningTab} />
-        <Suspense fallback={<p role="status">Loading the dynamic programming lab…</p>}>
+        <Suspense fallback={<p role="status">{tx('Loading the dynamic programming lab…', 'common')}</p>}>
           <DPSuiteLearning key={activeModule.id} module={activeModule} tab={learningTab} onTab={setLearningTab} />
         </Suspense>
       </section>
@@ -395,848 +399,1078 @@ export function Visualizer({
   return (
     <section className="lab-grid" data-learning-tab={learningTab}>
       <LessonTabs active={learningTab} onChange={setLearningTab} />
-      <MobileDisclosure key={activeModule.id} className="workbench-input" defaultOpen title="Edit problem input">
-        <h2>Problem Input</h2>
-        {activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
-          <div className={`input-strip ${isBubble ? 'bubble-compact' : ''}`}>
-            <label>
-              {isBubble ? 'Array (comma separated)' : 'Data'}
-              <textarea
-                value={inputText}
-                onChange={(event) => {
-                  setInputText(event.target.value)
-                  resetPlayback()
-                }}
-                rows={isBubble ? 1 : 2}
-              />
-            </label>
-            <label>
-              Target
-              <input
-                type="number"
-                value={target}
-                onChange={(event) => {
-                  setTarget(Number(event.target.value))
-                  resetPlayback()
-                }}
-              />
-            </label>
-            <label>
-              Size
-              <input min={4} max={48} type="number" value={size} onChange={(event) => setSize(Number(event.target.value))} />
-            </label>
-            <div className="preset-row">
-              {(isBubble
-                ? ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'empty']
-                : ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'best', 'average', 'worst', 'empty', 'single', 'all-equal', 'negative']
-              ).map((mode) => (
-                <button type="button" key={mode} className={dataMode === mode ? 'active' : ''} onClick={() => updateRandom(mode)}>
-                  <Shuffle size={14} />
-                  {isBubble ? (mode === 'empty' ? 'Clear' : mode === 'nearly' ? 'Nearly sorted' : mode[0].toUpperCase() + mode.slice(1)) : mode}
-                </button>
-              ))}
-              {isBubble && (
-                <select
-                  aria-label="More input presets"
-                  value=""
-                  onChange={(event) => {
-                    if (event.target.value) updateRandom(event.target.value)
-                  }}
-                >
-                  <option value="">More presets</option>
-                  {['best', 'average', 'worst', 'single', 'all-equal', 'negative'].map((mode) => (
-                    <option key={mode} value={mode}>
-                      {mode}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            <div className="input-messages">
-              {inputDiagnostics.invalid.length > 0 && (
-                <span>
-                  {inputDiagnostics.invalid.length} invalid tokens ignored: {inputDiagnostics.invalid.slice(0, 5).join(', ')}
-                </span>
-              )}
-              {inputDiagnostics.clipped && <span>Only the first 48 numeric values are visualized.</span>}
-              {sortedInputRequired && !sortedInputValid && (
-                <span>This algorithm requires sorted input. Sort the input first or the result may be misleading.</span>
-              )}
-              {sortedInputRequired && sortedInputValid && <span>Sorted-input requirement satisfied.</span>}
-              {disabledReason && <span>Run disabled because: {disabledReason}</span>}
-              {dataMode === 'nearly' && <span>Nearly sorted keeps most values ordered and swaps a few positions.</span>}
-            </div>
-            <div className="utility-row">
-              <button type="button" onClick={() => copyText('Input', inputText)}>
-                Copy input
-              </button>
-              {sortedInputRequired && (
-                <button type="button" onClick={sortCurrentInput}>
-                  Sort input
-                </button>
-              )}
-              <button type="button" onClick={() => downloadText(`${activeModule.id}-steps.csv`, stepLogCsv(), 'text/csv')} disabled={!stepsLength}>
-                CSV step log
-              </button>
-            </div>
-          </div>
-        )}
-
-        {activeCategory === 'Data Structures' && (
-          <div className="ds-input-panel">
-            <div>
-              <h2>Data Structure Input</h2>
-              <p>Use comma-separated values for stack, queue, and traversal teaching examples.</p>
-            </div>
-            <label>
-              Values
-              <textarea
-                value={inputText}
-                onChange={(event) => {
-                  setInputText(event.target.value)
-                  resetPlayback()
-                }}
-                rows={2}
-              />
-            </label>
-            <label>
-              Search / lookup value
-              <input
-                type="number"
-                value={target}
-                onChange={(event) => {
-                  setTarget(Number(event.target.value))
-                  resetPlayback()
-                }}
-              />
-            </label>
-            <div className="preset-row">
-              <button type="button" onClick={() => updateRandom('random')}>
-                <Shuffle size={14} />
-                Random
-              </button>
-              <button type="button" onClick={() => setInputText('8, 3, 10, 1, 6, 14, 4, 7, 13')}>
-                Tree preset
-              </button>
-              <button type="button" onClick={() => setInputText('12, 24, 36, 48, 60')}>
-                Queue preset
-              </button>
-              <button type="button" onClick={() => setInputText('5, 9, 2, 7, 1')}>
-                Stack preset
-              </button>
-            </div>
-            <div className="input-messages">
-              {inputDiagnostics.invalid.length > 0 && (
-                <span>
-                  {inputDiagnostics.invalid.length} invalid tokens ignored: {inputDiagnostics.invalid.slice(0, 5).join(', ')}
-                </span>
-              )}
-              {inputDiagnostics.clipped && <span>Only the first 48 numeric values are used.</span>}
-            </div>
-          </div>
-        )}
-
-        {activeModule.visualMode === 'Graph' && (
-          <div className="ds-input-panel">
-            <div>
-              <h2>Graph Input Editor</h2>
-              <p>Graph topology is fixed for BFS/DFS demos. Custom edge editing is planned.</p>
-            </div>
-          </div>
-        )}
-
-        {activeModule.visualMode === 'Matrix' && (
-          <div className="ds-input-panel">
-            <div>
-              <h2>{isGameBoard ? 'Game Board Setup' : 'Matrix / Grid Input'}</h2>
-              <p>
-                {isGameBoard
-                  ? 'This lesson uses one fixed game so the moves are easy to follow.'
-                  : 'Enter rows separated by semicolons. Planned grid modules will read this shape.'}
-              </p>
-            </div>
-            {isGameBoard ? (
-              <div className="game-rule-card">
-                {isChessBoard ? (
-                  <>
-                    <strong>Load a FEN, then press Run.</strong>
-                    <span>The computer lists legal moves, checks replies, scores the board, and builds a line up to 12 plies.</span>
-                    <label>
-                      Chess FEN
-                      <select
-                        value={Math.abs(Math.trunc(target)) % chessFenPresets.length}
-                        onChange={(event) => {
-                          localStorage.removeItem('algodrishti-chess-fen')
-                          setTarget(Number(event.target.value))
-                          resetPlayback()
-                        }}
-                      >
-                        {chessFenPresets.map((preset, index) => (
-                          <option key={preset.name} value={index}>
-                            {index + 1}. {preset.name}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <small>{chessFenPresets[Math.abs(Math.trunc(target)) % chessFenPresets.length]?.fen}</small>
-                    <label>
-                      Custom FEN
-                      <textarea
-                        rows={2}
-                        placeholder="Paste any legal FEN here"
-                        value={localStorage.getItem('algodrishti-chess-fen') ?? ''}
-                        onChange={(event) => {
-                          localStorage.setItem('algodrishti-chess-fen', event.target.value)
-                          setInputText(event.target.value)
-                          resetPlayback()
-                        }}
-                      />
-                    </label>
-                  </>
-                ) : (
-                  <>
-                    <strong>{gameProfile?.objective ?? 'Learn the rules, then watch the algorithm choose a move.'}</strong>
-                    <span>{gameProfile?.setup ?? 'Press Run to step through the board state and the computer decision.'}</span>
-                    {gamePresets.length > 0 && (
-                      <label>
-                        Board preset
-                        <select
-                          value={Math.abs(Math.trunc(target)) % gamePresets.length}
-                          onChange={(event) => {
-                            localStorage.removeItem(customGameKey)
-                            localStorage.removeItem(gameStateKey)
-                            setTarget(Number(event.target.value))
-                            resetPlayback()
-                          }}
-                        >
-                          {gamePresets.map((preset, index) => (
-                            <option key={preset.name} value={index}>
-                              {index + 1}. {preset.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    )}
-                    <label>
-                      Custom board
-                      <textarea
-                        rows={2}
-                        placeholder="Use comma, space, or semicolon separated cells. Use . for empty cells."
-                        value={localStorage.getItem(customGameKey) ?? ''}
-                        onChange={(event) => {
-                          localStorage.setItem(customGameKey, event.target.value)
-                          localStorage.removeItem(gameStateKey)
-                          resetPlayback()
-                          startGameInteraction()
-                        }}
-                      />
-                    </label>
-                  </>
-                )}
-              </div>
-            ) : (
+      <MobileDisclosure key={activeModule.id} className="workbench-input" defaultOpen title={tx('Edit problem input', 'common')}>
+        <h2>{tx('Problem Input', 'common')}</h2>
+        {tx(
+          activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
+            <div className={`input-strip ${isBubble ? 'bubble-compact' : ''}`}>
               <label>
-                Grid
+                {tx(isBubble ? 'Array (comma separated)' : 'Data', 'common')}
                 <textarea
                   value={inputText}
                   onChange={(event) => {
                     setInputText(event.target.value)
                     resetPlayback()
                   }}
-                  placeholder="1,0,1; 0,1,0; 1,0,1"
-                  rows={3}
+                  rows={isBubble ? 1 : 2}
                 />
               </label>
-            )}
-          </div>
+              <label>
+                {tx('Target', 'common')}
+                <input
+                  type="number"
+                  value={target}
+                  onChange={(event) => {
+                    setTarget(Number(event.target.value))
+                    resetPlayback()
+                  }}
+                />
+              </label>
+              <label>
+                {tx('Size', 'common')}
+                <input min={4} max={48} type="number" value={size} onChange={(event) => setSize(Number(event.target.value))} />
+              </label>
+              <div className="preset-row">
+                {tx(
+                  (isBubble
+                    ? ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'empty']
+                    : ['random', 'sorted', 'reverse', 'duplicates', 'nearly', 'best', 'average', 'worst', 'empty', 'single', 'all-equal', 'negative']
+                  ).map((mode) => (
+                    <button type="button" key={mode} className={dataMode === mode ? 'active' : ''} onClick={() => updateRandom(mode)}>
+                      <Shuffle size={14} />
+                      {tx(
+                        isBubble ? (mode === 'empty' ? 'Clear' : mode === 'nearly' ? 'Nearly sorted' : mode[0].toUpperCase() + mode.slice(1)) : mode,
+                        'common',
+                      )}
+                    </button>
+                  )),
+                  'common',
+                )}
+                {tx(
+                  isBubble && (
+                    <select
+                      aria-label={tx('More input presets', 'common')}
+                      value=""
+                      onChange={(event) => {
+                        if (event.target.value) updateRandom(event.target.value)
+                      }}
+                    >
+                      <option value="">{tx('More presets', 'common')}</option>
+                      {tx(
+                        ['best', 'average', 'worst', 'single', 'all-equal', 'negative'].map((mode) => (
+                          <option key={mode} value={mode}>
+                            {tx(mode, 'common')}
+                          </option>
+                        )),
+                        'common',
+                      )}
+                    </select>
+                  ),
+                  'common',
+                )}
+              </div>
+              <div className="input-messages">
+                {tx(
+                  inputDiagnostics.invalid.length > 0 && (
+                    <span>
+                      {tx(inputDiagnostics.invalid.length, 'common')}
+                      {tx(' invalid tokens ignored: ', 'common')}
+                      {tx(inputDiagnostics.invalid.slice(0, 5).join(', '), 'common')}
+                    </span>
+                  ),
+                  'common',
+                )}
+                {tx(inputDiagnostics.clipped && <span>{tx('Only the first 48 numeric values are visualized.', 'common')}</span>, 'common')}
+                {tx(
+                  sortedInputRequired && !sortedInputValid && (
+                    <span>{tx('This algorithm requires sorted input. Sort the input first or the result may be misleading.', 'common')}</span>
+                  ),
+                  'common',
+                )}
+                {tx(sortedInputRequired && sortedInputValid && <span>{tx('Sorted-input requirement satisfied.', 'common')}</span>, 'common')}
+                {tx(
+                  disabledReason && (
+                    <span>
+                      {tx('Run disabled because: ', 'common')}
+                      {tx(disabledReason, 'common')}
+                    </span>
+                  ),
+                  'common',
+                )}
+                {tx(dataMode === 'nearly' && <span>{tx('Nearly sorted keeps most values ordered and swaps a few positions.', 'common')}</span>, 'common')}
+              </div>
+              <div className="utility-row">
+                <button type="button" onClick={() => copyText('Input', inputText)}>
+                  {tx('Copy input', 'common')}
+                </button>
+                {tx(
+                  sortedInputRequired && (
+                    <button type="button" onClick={sortCurrentInput}>
+                      {tx('Sort input', 'common')}
+                    </button>
+                  ),
+                  'common',
+                )}
+                <button type="button" onClick={() => downloadText(`${activeModule.id}-steps.csv`, stepLogCsv(), 'text/csv')} disabled={!stepsLength}>
+                  {tx('CSV step log', 'common')}
+                </button>
+              </div>
+            </div>
+          ),
+          'common',
+        )}
+
+        {tx(
+          activeCategory === 'Data Structures' && (
+            <div className="ds-input-panel">
+              <div>
+                <h2>{tx('Data Structure Input', 'common')}</h2>
+                <p>{tx('Use comma-separated values for stack, queue, and traversal teaching examples.', 'common')}</p>
+              </div>
+              <label>
+                {tx('Values', 'common')}
+                <textarea
+                  value={inputText}
+                  onChange={(event) => {
+                    setInputText(event.target.value)
+                    resetPlayback()
+                  }}
+                  rows={2}
+                />
+              </label>
+              <label>
+                {tx('Search / lookup value', 'common')}
+                <input
+                  type="number"
+                  value={target}
+                  onChange={(event) => {
+                    setTarget(Number(event.target.value))
+                    resetPlayback()
+                  }}
+                />
+              </label>
+              <div className="preset-row">
+                <button type="button" onClick={() => updateRandom('random')}>
+                  <Shuffle size={14} />
+                  {tx('Random', 'common')}
+                </button>
+                <button type="button" onClick={() => setInputText('8, 3, 10, 1, 6, 14, 4, 7, 13')}>
+                  {tx('Tree preset', 'common')}
+                </button>
+                <button type="button" onClick={() => setInputText('12, 24, 36, 48, 60')}>
+                  {tx('Queue preset', 'common')}
+                </button>
+                <button type="button" onClick={() => setInputText('5, 9, 2, 7, 1')}>
+                  {tx('Stack preset', 'common')}
+                </button>
+              </div>
+              <div className="input-messages">
+                {tx(
+                  inputDiagnostics.invalid.length > 0 && (
+                    <span>
+                      {tx(inputDiagnostics.invalid.length, 'common')}
+                      {tx(' invalid tokens ignored: ', 'common')}
+                      {tx(inputDiagnostics.invalid.slice(0, 5).join(', '), 'common')}
+                    </span>
+                  ),
+                  'common',
+                )}
+                {tx(inputDiagnostics.clipped && <span>{tx('Only the first 48 numeric values are used.', 'common')}</span>, 'common')}
+              </div>
+            </div>
+          ),
+          'common',
+        )}
+
+        {tx(
+          activeModule.visualMode === 'Graph' && (
+            <div className="ds-input-panel">
+              <div>
+                <h2>{tx('Graph Input Editor', 'common')}</h2>
+                <p>{tx('Graph topology is fixed for BFS/DFS demos. Custom edge editing is planned.', 'common')}</p>
+              </div>
+            </div>
+          ),
+          'common',
+        )}
+
+        {tx(
+          activeModule.visualMode === 'Matrix' && (
+            <div className="ds-input-panel">
+              <div>
+                <h2>{tx(isGameBoard ? 'Game Board Setup' : 'Matrix / Grid Input', 'common')}</h2>
+                <p>
+                  {tx(
+                    isGameBoard
+                      ? 'This lesson uses one fixed game so the moves are easy to follow.'
+                      : 'Enter rows separated by semicolons. Planned grid modules will read this shape.',
+                    'common',
+                  )}
+                </p>
+              </div>
+              {tx(
+                isGameBoard ? (
+                  <div className="game-rule-card">
+                    {tx(
+                      isChessBoard ? (
+                        <>
+                          <strong>{tx('Load a FEN, then press Run.', 'common')}</strong>
+                          <span>{tx('The computer lists legal moves, checks replies, scores the board, and builds a line up to 12 plies.', 'common')}</span>
+                          <label>
+                            {tx('Chess FEN', 'common')}
+                            <select
+                              value={Math.abs(Math.trunc(target)) % chessFenPresets.length}
+                              onChange={(event) => {
+                                localStorage.removeItem('algodrishti-chess-fen')
+                                setTarget(Number(event.target.value))
+                                resetPlayback()
+                              }}
+                            >
+                              {tx(
+                                chessFenPresets.map((preset, index) => (
+                                  <option key={preset.name} value={index}>
+                                    {tx(index + 1, 'common')}. {tx(preset.name, 'common')}
+                                  </option>
+                                )),
+                                'common',
+                              )}
+                            </select>
+                          </label>
+                          <small>{tx(chessFenPresets[Math.abs(Math.trunc(target)) % chessFenPresets.length]?.fen, 'common')}</small>
+                          <label>
+                            {tx('Custom FEN', 'common')}
+                            <textarea
+                              rows={2}
+                              placeholder={tx('Paste any legal FEN here', 'common')}
+                              value={localStorage.getItem('algodrishti-chess-fen') ?? ''}
+                              onChange={(event) => {
+                                localStorage.setItem('algodrishti-chess-fen', event.target.value)
+                                setInputText(event.target.value)
+                                resetPlayback()
+                              }}
+                            />
+                          </label>
+                        </>
+                      ) : (
+                        <>
+                          <strong>{tx(gameProfile?.objective ?? 'Learn the rules, then watch the algorithm choose a move.', 'common')}</strong>
+                          <span>{tx(gameProfile?.setup ?? 'Press Run to step through the board state and the computer decision.', 'common')}</span>
+                          {tx(
+                            gamePresets.length > 0 && (
+                              <label>
+                                {tx('Board preset', 'common')}
+                                <select
+                                  value={Math.abs(Math.trunc(target)) % gamePresets.length}
+                                  onChange={(event) => {
+                                    localStorage.removeItem(customGameKey)
+                                    localStorage.removeItem(gameStateKey)
+                                    setTarget(Number(event.target.value))
+                                    resetPlayback()
+                                  }}
+                                >
+                                  {tx(
+                                    gamePresets.map((preset, index) => (
+                                      <option key={preset.name} value={index}>
+                                        {tx(index + 1, 'common')}. {tx(preset.name, 'common')}
+                                      </option>
+                                    )),
+                                    'common',
+                                  )}
+                                </select>
+                              </label>
+                            ),
+                            'common',
+                          )}
+                          <label>
+                            {tx('Custom board', 'common')}
+                            <textarea
+                              rows={2}
+                              placeholder={tx('Use comma, space, or semicolon separated cells. Use . for empty cells.', 'common')}
+                              value={localStorage.getItem(customGameKey) ?? ''}
+                              onChange={(event) => {
+                                localStorage.setItem(customGameKey, event.target.value)
+                                localStorage.removeItem(gameStateKey)
+                                resetPlayback()
+                                startGameInteraction()
+                              }}
+                            />
+                          </label>
+                        </>
+                      ),
+                      'common',
+                    )}
+                  </div>
+                ) : (
+                  <label>
+                    {tx('Grid', 'common')}
+                    <textarea
+                      value={inputText}
+                      onChange={(event) => {
+                        setInputText(event.target.value)
+                        resetPlayback()
+                      }}
+                      placeholder={tx('1,0,1; 0,1,0; 1,0,1', 'common')}
+                      rows={3}
+                    />
+                  </label>
+                ),
+                'common',
+              )}
+            </div>
+          ),
+          'common',
         )}
         <details className="algorithm-browser">
           <summary>
             <Search size={17} />
-            Browse {activeCategory.toLowerCase()} algorithms
-            <span>{visiblePickerModules.length} results</span>
+            {tx('Browse ', 'common')}
+            {tx(activeCategory.toLowerCase(), 'common')}
+            {tx(' algorithms', 'common')}
+            <span>
+              {tx(visiblePickerModules.length, 'common')}
+              {tx(' results', 'common')}
+            </span>
           </summary>
           <section className="category-module-map">
-            {pageSections.map((section) => {
-              const sectionModules = filteredModules
-                .filter((module) => `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()))
-                .slice(0, 4)
-              const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
-              return (
-                <article key={section}>
-                  <h2>{section}</h2>
-                  <div>
-                    {fallback.map((module) => (
-                      <button
-                        className={module.id === activeId ? 'active' : ''}
-                        key={`${section}-${module.id}`}
-                        type="button"
-                        onClick={() => chooseAlgorithm(module.id)}
-                      >
-                        {module.name}
-                      </button>
-                    ))}
-                  </div>
-                </article>
-              )
-            })}
+            {tx(
+              pageSections.map((section) => {
+                const sectionModules = filteredModules
+                  .filter((module) =>
+                    `${module.subcategory ?? ''} ${module.name} ${module.summary}`.toLowerCase().includes(section.split(' ')[0].toLowerCase()),
+                  )
+                  .slice(0, 4)
+                const fallback = sectionModules.length ? sectionModules : filteredModules.slice(0, 3)
+                return (
+                  <article key={section}>
+                    <h2>{tx(section, 'common')}</h2>
+                    <div>
+                      {tx(
+                        fallback.map((module) => (
+                          <button
+                            className={module.id === activeId ? 'active' : ''}
+                            key={`${section}-${module.id}`}
+                            type="button"
+                            onClick={() => chooseAlgorithm(module.id)}
+                          >
+                            {tx(module.name, 'common')}
+                          </button>
+                        )),
+                        'common',
+                      )}
+                    </div>
+                  </article>
+                )
+              }),
+              'common',
+            )}
           </section>
 
-          <section className="algorithm-picker" aria-label="Algorithm picker">
+          <section className="algorithm-picker" aria-label={tx('Algorithm picker', 'common')}>
             <div className="picker-search">
               <Search size={17} />
               <input
-                aria-label="Search algorithms"
-                placeholder={`Search ${activeCategory.toLowerCase()} algorithms`}
+                aria-label={tx('Search algorithms', 'common')}
+                placeholder={tx(`Search ${activeCategory.toLowerCase()} algorithms`, 'common')}
                 value={algorithmQuery}
                 onChange={(event) => setAlgorithmQuery(event.target.value)}
               />
-              <span className="picker-count">{visiblePickerModules.length} results</span>
+              <span className="picker-count">
+                {tx(visiblePickerModules.length, 'common')}
+                {tx(' results', 'common')}
+              </span>
             </div>
             <div className="picker-filters">
               <label>
-                Status
+                {tx('Status', 'common')}
                 <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
-                  <option value="all">All</option>
-                  <option value="live">Interactive</option>
-                  <option value="planned">Coming soon</option>
+                  <option value="all">{tx('All', 'common')}</option>
+                  <option value="live">{tx('Interactive', 'common')}</option>
+                  <option value="planned">{tx('Coming soon', 'common')}</option>
                 </select>
               </label>
               <label>
-                View
+                {tx('View', 'common')}
                 <select value={visualFilter} onChange={(event) => setVisualFilter(event.target.value as typeof visualFilter)}>
-                  <option value="all">All</option>
-                  {(['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
-                    <option key={mode} value={mode}>
-                      {mode}
-                    </option>
-                  ))}
+                  <option value="all">{tx('All', 'common')}</option>
+                  {tx(
+                    (['Array', 'Tree', 'Graph', 'Matrix'] as const).map((mode) => (
+                      <option key={mode} value={mode}>
+                        {tx(mode, 'common')}
+                      </option>
+                    )),
+                    'common',
+                  )}
                 </select>
               </label>
               <label>
-                Complexity
+                {tx('Complexity', 'common')}
                 <select value={complexityFilter} onChange={(event) => setComplexityFilter(event.target.value as typeof complexityFilter)}>
-                  <option value="all">All</option>
-                  <option value="log">Logarithmic</option>
-                  <option value="linear">Linear</option>
-                  <option value="nlogn">n log n</option>
-                  <option value="quadratic">Quadratic</option>
+                  <option value="all">{tx('All', 'common')}</option>
+                  <option value="log">{tx('Logarithmic', 'common')}</option>
+                  <option value="linear">{tx('Linear', 'common')}</option>
+                  <option value="nlogn">{tx('n log n', 'common')}</option>
+                  <option value="quadratic">{tx('Quadratic', 'common')}</option>
                 </select>
               </label>
               <button className="btn-reset-filters" type="button" onClick={resetFilters}>
-                Reset filters
+                {tx('Reset filters', 'common')}
               </button>
             </div>
             <div className="favorite-row">
-              {favorites
-                .map((id) => allModules.find((module) => module.id === id))
-                .filter(Boolean)
-                .map((module) => (
-                  <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
-                    Pinned: {module!.name}
-                  </button>
-                ))}
+              {tx(
+                favorites
+                  .map((id) => allModules.find((module) => module.id === id))
+                  .filter(Boolean)
+                  .map((module) => (
+                    <button key={module!.id} type="button" onClick={() => chooseAlgorithm(module!.id)}>
+                      {tx('Pinned: ', 'common')}
+                      {tx(module!.name, 'common')}
+                    </button>
+                  )),
+                'common',
+              )}
             </div>
-            {visiblePickerModules.length ? (
-              <div className="picker-grid">
-                {visiblePickerModules.map((module) => (
-                  <button
-                    className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
-                    key={module.id}
-                    onClick={() => chooseAlgorithm(module.id)}
-                    type="button"
-                  >
-                    <span>
-                      <strong>{module.name}</strong>
-                      <small>
-                        {module.subcategory ?? module.visualMode} / {module.status === 'live' ? 'interactive' : 'coming soon'}
-                      </small>
-                    </span>
-                    <em>{module.complexity.average}</em>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="empty-state">
-                <strong>No algorithms match these filters.</strong>
-                <span>Clear the search or reset filters to see the full {activeCategory.toLowerCase()} catalog.</span>
-              </div>
+            {tx(
+              visiblePickerModules.length ? (
+                <div className="picker-grid">
+                  {tx(
+                    visiblePickerModules.map((module) => (
+                      <button
+                        className={`${module.id === activeId ? 'active' : ''} ${module.status === 'planned' ? 'planned-module' : ''} cat-${module.category.toLowerCase().replaceAll(' ', '-').replaceAll('&', 'and').replaceAll('/', '-')}`}
+                        key={module.id}
+                        onClick={() => chooseAlgorithm(module.id)}
+                        type="button"
+                      >
+                        <span>
+                          <strong>{tx(module.name, 'common')}</strong>
+                          <small>
+                            {tx(module.subcategory ?? module.visualMode, 'common')} / {tx(module.status === 'live' ? 'interactive' : 'coming soon', 'common')}
+                          </small>
+                        </span>
+                        <em>{tx(module.complexity.average, 'common')}</em>
+                      </button>
+                    )),
+                    'common',
+                  )}
+                </div>
+              ) : (
+                <div className="empty-state">
+                  <strong>{tx('No algorithms match these filters.', 'common')}</strong>
+                  <span>
+                    {tx('Clear the search or reset filters to see the full ', 'common')}
+                    {tx(activeCategory.toLowerCase(), 'common')}
+                    {tx(' catalog.', 'common')}
+                  </span>
+                </div>
+              ),
+              'common',
             )}
             <button className="favorite-toggle" type="button" onClick={() => toggleFavorite(activeModule.id)}>
-              {favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite'}
+              {tx(favorites.includes(activeModule.id) ? 'Unpin favorite' : 'Pin favorite', 'common')}
             </button>
           </section>
         </details>
       </MobileDisclosure>
       <section className="canvas-zone">
-        {learningTab === 'Visualization' && suiteLinks[activeId] && (
-          <div className="daa-suite-notice">
-            <strong>This suite uses an illustrative example.</strong>
-            <p>Choose a dedicated algorithm below to edit its problem data and compute a full timeline.</p>
-            {suiteLinks[activeId].map((id) => (
-              <button type="button" key={id} onClick={() => chooseAlgorithm(id)}>
-                {allModules.find((module) => module.id === id)?.name ?? id}
-              </button>
-            ))}
-          </div>
+        {tx(
+          learningTab === 'Visualization' && suiteLinks[activeId] && (
+            <div className="daa-suite-notice">
+              <strong>{tx('This suite uses an illustrative example.', 'common')}</strong>
+              <p>{tx('Choose a dedicated algorithm below to edit its problem data and compute a full timeline.', 'common')}</p>
+              {tx(
+                suiteLinks[activeId].map((id) => (
+                  <button type="button" key={id} onClick={() => chooseAlgorithm(id)}>
+                    {tx(allModules.find((module) => module.id === id)?.name ?? id, 'common')}
+                  </button>
+                )),
+                'common',
+              )}
+            </div>
+          ),
+          'common',
         )}
         <div className="page-ribbon">
-          <span>{activeCategory} page</span>
-          <strong>{activeModule.subcategory ?? activeModule.visualMode}</strong>
-          <em>{recommendation}</em>
-          <em>{progressPercent}% category progress</em>
+          <span>
+            {tx(activeCategory, 'common')}
+            {tx(' page', 'common')}
+          </span>
+          <strong>{tx(activeModule.subcategory ?? activeModule.visualMode, 'common')}</strong>
+          <em>{tx(recommendation, 'common')}</em>
+          <em>
+            {tx(progressPercent, 'common')}
+            {tx('% category progress', 'common')}
+          </em>
         </div>
 
-        {controls}
-        {!['Graph', 'Tree'].includes(activeModule.visualMode) && (
-          <section className="visual-controls">
-            {isSorting && (
-              <div className="bubble-view-switch" role="group" aria-label="View as">
-                <span>View as</span>
-                <button type="button" aria-pressed={bubbleView !== 'icons'} onClick={() => setBubbleView('bars')}>
-                  Bars
-                </button>
-                <button type="button" aria-pressed={bubbleView === 'icons'} onClick={() => setBubbleView('icons')}>
-                  Icons
-                </button>
-              </div>
-            )}
-            {isSorting && (
-              <label className="sorting-character-picker">
-                Character
-                <select
-                  aria-label="Sorting character"
-                  value={sortingCharacters.some((option) => option.id === sortingCharacter) ? sortingCharacter : 'penguins'}
-                  onChange={(event) => {
-                    setSortingCharacter(event.target.value)
-                    setBubbleView('icons')
-                  }}
-                >
-                  {sortingCharacters.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.icon} {option.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            )}
-            <details className="display-options">
-              <summary>Display options</summary>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={activeModule.category === 'Searching' || showValues}
-                    disabled={activeModule.category === 'Searching'}
-                    onChange={(event) => setShowValues(event.target.checked)}
-                  />
-                  Show values
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={activeModule.category === 'Searching' || showIndices}
-                    disabled={activeModule.category === 'Searching'}
-                    onChange={(event) => setShowIndices(event.target.checked)}
-                  />
-                  Show indices
-                </label>
-                <label>
-                  Zoom
-                  <input min={70} max={170} step={10} type="range" value={canvasZoom} onChange={(event) => setCanvasZoom(Number(event.target.value))} />
-                  <span>{canvasZoom}%</span>
-                </label>
-                <button type="button" onClick={() => setCanvasZoom(100)}>
-                  Fit to canvas
-                </button>
-                <label>
-                  <input type="checkbox" checked={showStateComparison} onChange={(event) => setShowStateComparison(event.target.checked)} />
-                  Before/after
-                </label>
-                <label>
-                  Motion
-                  <select value={animationQuality} onChange={(event) => setAnimationQuality(event.target.value as AnimationQuality)}>
-                    <option value="off">Off</option>
-                    <option value="simple">Simple</option>
-                    <option value="detailed">Detailed</option>
-                  </select>
-                </label>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setStepPalette({
-                      compare: '#0072b2',
-                      swap: '#cc79a7',
-                      select: '#e69f00',
-                      complete: '#009e73',
-                    })
-                  }
-                >
-                  Color-blind palette
-                </button>
-                {(['compare', 'swap', 'select', 'complete'] as const).map((type) => (
-                  <label key={type}>
-                    {type}
-                    <input
-                      type="color"
-                      value={stepPalette[type] ?? (type === 'swap' ? '#7c5bb0' : type === 'complete' ? '#397b50' : type === 'select' ? '#d59a26' : '#d85f3f')}
-                      onChange={(event) => setStepPalette((value) => ({ ...value, [type]: event.target.value }))}
-                    />
+        {tx(controls, 'common')}
+        {tx(
+          !['Graph', 'Tree'].includes(activeModule.visualMode) && (
+            <section className="visual-controls">
+              {tx(
+                isSorting && (
+                  <div className="bubble-view-switch" role="group" aria-label={tx('View as', 'common')}>
+                    <span>{tx('View as', 'common')}</span>
+                    <button type="button" aria-pressed={bubbleView !== 'icons'} onClick={() => setBubbleView('bars')}>
+                      {tx('Bars', 'common')}
+                    </button>
+                    <button type="button" aria-pressed={bubbleView === 'icons'} onClick={() => setBubbleView('icons')}>
+                      {tx('Icons', 'common')}
+                    </button>
+                  </div>
+                ),
+                'common',
+              )}
+              {tx(
+                isSorting && (
+                  <label className="sorting-character-picker">
+                    {tx('Character', 'common')}
+                    <select
+                      aria-label={tx('Sorting character', 'common')}
+                      value={sortingCharacters.some((option) => option.id === sortingCharacter) ? sortingCharacter : 'penguins'}
+                      onChange={(event) => {
+                        setSortingCharacter(event.target.value)
+                        setBubbleView('icons')
+                      }}
+                    >
+                      {tx(
+                        sortingCharacters.map((option) => (
+                          <option key={option.id} value={option.id}>
+                            {tx(option.icon, 'common')} {tx(option.name, 'common')}
+                          </option>
+                        )),
+                        'common',
+                      )}
+                    </select>
                   </label>
-                ))}
-              </div>
-            </details>
-          </section>
+                ),
+                'common',
+              )}
+              <details className="display-options">
+                <summary>{tx('Display options', 'common')}</summary>
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={activeModule.category === 'Searching' || showValues}
+                      disabled={activeModule.category === 'Searching'}
+                      onChange={(event) => setShowValues(event.target.checked)}
+                    />
+                    {tx('Show values', 'common')}
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={activeModule.category === 'Searching' || showIndices}
+                      disabled={activeModule.category === 'Searching'}
+                      onChange={(event) => setShowIndices(event.target.checked)}
+                    />
+                    {tx('Show indices', 'common')}
+                  </label>
+                  <label>
+                    {tx('Zoom', 'common')}
+                    <input min={70} max={170} step={10} type="range" value={canvasZoom} onChange={(event) => setCanvasZoom(Number(event.target.value))} />
+                    <span>{tx(canvasZoom, 'common')}%</span>
+                  </label>
+                  <button type="button" onClick={() => setCanvasZoom(100)}>
+                    {tx('Fit to canvas', 'common')}
+                  </button>
+                  <label>
+                    <input type="checkbox" checked={showStateComparison} onChange={(event) => setShowStateComparison(event.target.checked)} />
+                    {tx('Before/after', 'common')}
+                  </label>
+                  <label>
+                    {tx('Motion', 'common')}
+                    <select value={animationQuality} onChange={(event) => setAnimationQuality(event.target.value as AnimationQuality)}>
+                      <option value="off">{tx('Off', 'common')}</option>
+                      <option value="simple">{tx('Simple', 'common')}</option>
+                      <option value="detailed">{tx('Detailed', 'common')}</option>
+                    </select>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setStepPalette({
+                        compare: '#0072b2',
+                        swap: '#cc79a7',
+                        select: '#e69f00',
+                        complete: '#009e73',
+                      })
+                    }
+                  >
+                    {tx('Color-blind palette', 'common')}
+                  </button>
+                  {tx(
+                    (['compare', 'swap', 'select', 'complete'] as const).map((type) => (
+                      <label key={type}>
+                        {tx(type, 'common')}
+                        <input
+                          type="color"
+                          value={
+                            stepPalette[type] ?? (type === 'swap' ? '#7c5bb0' : type === 'complete' ? '#397b50' : type === 'select' ? '#d59a26' : '#d85f3f')
+                          }
+                          onChange={(event) => setStepPalette((value) => ({ ...value, [type]: event.target.value }))}
+                        />
+                      </label>
+                    )),
+                    'common',
+                  )}
+                </div>
+              </details>
+            </section>
+          ),
+          'common',
         )}
 
         <ViewportCanvas onReset={() => setCanvasZoom(100)}>
           <div className="visual-canvas" ref={canvasRef}>
-            {activeModule.category !== 'Searching' && (
-              <div className="visual-legend persistent">
-                <span className="red" /> active
-                <span className="purple" /> swap/negative
-                <span className="green" /> complete
-                <span className="blue" /> normal
-              </div>
+            {tx(
+              activeModule.category !== 'Searching' && (
+                <div className="visual-legend persistent">
+                  <span className="red" />
+                  {tx(' active', 'common')}
+                  <span className="purple" />
+                  {tx(' swap/negative', 'common')}
+                  <span className="green" />
+                  {tx(' complete', 'common')}
+                  <span className="blue" />
+                  {tx(' normal', 'common')}
+                </div>
+              ),
+              'common',
             )}
-            {['Graph', 'Tree'].includes(activeModule.visualMode) ? (
-              <TraversalWorkbench activeModule={activeModule} currentStep={currentStep} input={input} />
-            ) : activeModule.status === 'planned' ? (
-              <div className="planned-state">
-                <Home size={34} />
-                <h2>{activeModule.name} is coming soon.</h2>
-                <p>This page is prepared with learning notes, complexity, routing, local saves, and exports. The interactive runner is the remaining piece.</p>
-                <button
-                  type="button"
-                  onClick={() =>
-                    chooseAlgorithm(allModules.find((module) => module.category === activeCategory && module.status === 'live')?.id ?? 'bubble-sort')
+            {tx(
+              ['Graph', 'Tree'].includes(activeModule.visualMode) ? (
+                <TraversalWorkbench activeModule={activeModule} currentStep={currentStep} input={input} />
+              ) : activeModule.status === 'planned' ? (
+                <div className="planned-state">
+                  <Home size={34} />
+                  <h2>
+                    {tx(activeModule.name, 'common')}
+                    {tx(' is coming soon.', 'common')}
+                  </h2>
+                  <p>
+                    {tx(
+                      'This page is prepared with learning notes, complexity, routing, local saves, and exports. The interactive runner is the remaining piece.',
+                      'common',
+                    )}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      chooseAlgorithm(allModules.find((module) => module.category === activeCategory && module.status === 'live')?.id ?? 'bubble-sort')
+                    }
+                  >
+                    {tx('Open an interactive ', 'common')}
+                    {tx(activeCategory.toLowerCase(), 'common')}
+                    {tx(' module', 'common')}
+                  </button>
+                </div>
+              ) : activeModule.visualMode === 'Matrix' ? (
+                <div
+                  className={`matrix-stage ${isGameBoard ? 'game-board-stage' : ''} ${isChessBoard ? 'chess-board-stage' : ''}`}
+                  aria-label={tx('Matrix visualization', 'common')}
+                  style={
+                    {
+                      '--matrix-columns': matrixColumns,
+                      '--matrix-rows': matrixRows,
+                      minWidth: isGameBoard ? undefined : `${canvasZoom}%`,
+                    } as CSSProperties
                   }
                 >
-                  Open an interactive {activeCategory.toLowerCase()} module
-                </button>
-              </div>
-            ) : activeModule.visualMode === 'Matrix' ? (
-              <div
-                className={`matrix-stage ${isGameBoard ? 'game-board-stage' : ''} ${isChessBoard ? 'chess-board-stage' : ''}`}
-                aria-label="Matrix visualization"
-                style={
-                  {
-                    '--matrix-columns': matrixColumns,
-                    '--matrix-rows': matrixRows,
-                    minWidth: isGameBoard ? undefined : `${canvasZoom}%`,
-                  } as CSSProperties
-                }
-              >
-                <div className="matrix-meta">
-                  <span>
-                    {matrixRows} x {matrixColumns}
-                  </span>
-                  <strong>{String(currentStep?.highlights.variables?.problem ?? activeModule.subcategory ?? 'Matrix state')}</strong>
-                  <em>{currentStep?.type ?? 'ready'}</em>
-                </div>
-                <div className="matrix-grid-view">
-                  {activeGameArrow && (
-                    <svg className="game-arrow-layer" aria-hidden="true">
-                      <defs>
-                        <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
-                          <path d="M0,0 L8,4 L0,8 Z" />
-                        </marker>
-                      </defs>
-                      <line
-                        x1={arrowPoint(activeGameArrow.from).x}
-                        y1={arrowPoint(activeGameArrow.from).y}
-                        x2={arrowPoint(activeGameArrow.to).x}
-                        y2={arrowPoint(activeGameArrow.to).y}
-                      />
-                    </svg>
-                  )}
-                  {matrixData.map((value, index) => {
-                    const active = currentStep?.highlights.indices?.includes(index)
-                    const gameSymbol = gameSymbols[index] ?? (value === 1 ? 'X' : value === -1 ? 'O' : '')
-                    const markClass = isChessBoard
-                      ? gameSymbol
-                        ? 'chess-piece'
-                        : 'empty-mark'
-                      : gameSymbol === 'X'
-                        ? 'x-mark'
-                        : gameSymbol === 'O'
-                          ? 'o-mark'
-                          : gameSymbol
-                            ? 'symbol-mark'
-                            : 'empty-mark'
-                    return (
-                      <motion.div
-                        className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${activeGameArrow?.from === index ? 'move-from' : ''} ${activeGameArrow?.to === index ? 'move-to' : ''} ${markClass}`}
-                        key={`${index}-${value}`}
-                        layout
-                        onClick={() => playGameCell(index)}
-                        transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
-                        data-legal={isGameBoard && !isChessBoard && legalTargets.includes(index) ? 'true' : undefined}
-                      >
-                        {showIndices && <small>{index}</small>}
-                        {showValues && <strong>{isGameBoard ? gameSymbol : value}</strong>}
-                      </motion.div>
-                    )
-                  })}
-                </div>
-                {isGameBoard && currentStep?.highlights.variables && (
-                  <div className="game-insight">
-                    {[
-                      'next',
-                      'preset',
-                      'sideToMove',
-                      'legalMoveCount',
-                      'move',
-                      'check',
-                      'score',
-                      'possibleMoves',
-                      'likelyReply',
-                      'bestMove',
-                      'opponentReplies',
-                      'bestLine4Ply',
-                      'planNext12Plies',
-                      'threat',
-                      'block',
-                      'result',
-                      'lesson',
-                    ].map((key) =>
-                      currentStep.highlights.variables?.[key] !== undefined ? (
-                        <span key={key}>
-                          <strong>{key}</strong>
-                          {String(currentStep.highlights.variables[key])}
-                        </span>
-                      ) : null,
-                    )}
-                  </div>
-                )}
-                {isGameBoard && gameProfile && (
-                  <section className="game-coach" aria-label="Board game learning tools">
-                    <div className="game-coach-main">
-                      <article>
-                        <span>Goal</span>
-                        <strong>{gameProfile.objective}</strong>
-                      </article>
-                      <article>
-                        <span>How computer thinks</span>
-                        <strong>{gameProfile.engine}</strong>
-                      </article>
-                      <article>
-                        <span>Practice now</span>
-                        <strong>{gameProfile.practice}</strong>
-                      </article>
-                    </div>
-                    <div className="game-coach-strip">
-                      {[
-                        ['Board', gameProfile.board],
-                        ['Search', gameProfile.depth],
-                        ['Tactic', gameProfile.tactic],
-                        ['Mistake', gameProfile.mistake],
-                        ['Turn', String(gameVariables.sideToMove ?? gameVariables.next ?? 'Step through')],
-                        ['Move', String(gameVariables.bestMove ?? gameVariables.move ?? gameVariables.check ?? 'Look at highlight')],
-                        ['Reply', String(gameVariables.likelyReply ?? gameVariables.opponentReplies ?? 'Compare opponent answer')],
-                        ['Score', String(gameVariables.score ?? gameVariables.result ?? 'Explain after Run')],
-                      ].map(([label, value]) => (
-                        <span key={label}>
-                          <strong>{label}</strong>
-                          {value}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="game-teacher-grid">
-                      {[
-                        ['Read', 'Name the pieces, empty cells, and current player.'],
-                        ['Legal', 'List only moves allowed by the rules.'],
-                        ['Threat', String(gameVariables.threat ?? gameVariables.capture ?? gameVariables.inference ?? 'Find the urgent idea.')],
-                        [
-                          'Candidates',
-                          String(gameVariables.possibleMoves ?? gameVariables.candidates ?? gameVariables.liberties ?? 'Check the highlighted options.'),
-                        ],
-                        ['Choose', String(gameVariables.bestMove ?? gameVariables.move ?? 'Pick the move with the best explanation.')],
-                        [
-                          'Plan',
-                          String(gameVariables.planNext12Plies ?? gameVariables.bestLine4Ply ?? gameVariables.algorithm ?? 'Repeat move, reply, score.'),
-                        ],
-                      ].map(([label, value]) => (
-                        <article key={label}>
-                          <span>{label}</span>
-                          <p>{value}</p>
-                        </article>
-                      ))}
-                    </div>
-                    <div className="game-upgrade-list" aria-label="Applied board game upgrades">
-                      {[
-                        'compact board',
-                        'visible symbols',
-                        'rule card',
-                        'AI thinking',
-                        'legal moves',
-                        'best move',
-                        'reply view',
-                        'score',
-                        'threats',
-                        'mistakes',
-                        'practice prompt',
-                        'plan line',
-                        'active cells',
-                        'move labels',
-                        'game objective',
-                        'board size',
-                        'search depth',
-                        'candidate list',
-                        'turn display',
-                        'teaching steps',
-                        'algorithm name',
-                        'simple wording',
-                        'mobile fit',
-                        'highlight legend',
-                        'shared layout',
-                      ].map((item) => (
-                        <span key={item}>{item}</span>
-                      ))}
-                    </div>
-                  </section>
-                )}
-                {showStateComparison && currentStep && (
-                  <div className="state-comparison matrix-comparison">
-                    <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
-                    <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
-                  </div>
-                )}
-              </div>
-            ) : activeModule.category === 'Searching' ? (
-              <DetectiveSearch
-                items={visualItems}
-                step={currentStep}
-                history={searchHistory}
-                target={target}
-                algorithmId={activeId}
-                reducedMotion={reducedMotion}
-                quality={animationQuality}
-              />
-            ) : isSorting && bubbleView === 'icons' ? (
-              <PenguinVisualization
-                items={visualItems}
-                step={currentStep}
-                reducedMotion={reducedMotion}
-                quality={animationQuality}
-                showIndices={showIndices}
-                showValues={showValues}
-                sortedCount={isBubble ? sortedBoundary : currentStep?.type === 'complete' ? visualItems.length : 0}
-                character={sortingCharacter}
-                palette={stepPalette}
-                showStateComparison={showStateComparison}
-              />
-            ) : (
-              <div
-                className={`bar-stage ${hasNegativeValues ? 'has-negatives' : ''}`}
-                aria-label="Array visualization"
-                style={
-                  {
-                    '--compare-color': stepPalette.compare ?? '#d85f3f',
-                    '--swap-color': stepPalette.swap ?? '#7c5bb0',
-                    '--select-color': stepPalette.select ?? '#d59a26',
-                    '--complete-color': stepPalette.complete ?? '#397b50',
-                    minWidth: `${canvasZoom}%`,
-                  } as CSSProperties
-                }
-              >
-                {hasNegativeValues && <div className="baseline-axis">0 baseline</div>}
-                {currentStep?.type === 'swap' && (
-                  <div className="swap-arrow" aria-label="Swap direction">
-                    ⇌
-                  </div>
-                )}
-                {sortedBoundary > 0 && <div className="sorted-region-label">sorted region</div>}
-                {showIndices && (
-                  <div className="index-ruler">
-                    {visualItems.map((item) => (
-                      <span key={`ruler-${item.id}`}>{item.index}</span>
-                    ))}
-                  </div>
-                )}
-                <div className="bar-pointer-row">
-                  {pointerEntries.map((pointer) => (
-                    <span key={pointer.key} style={{ left: `${((pointer.index + 0.5) / Math.max(visualItems.length, 1)) * 100}%` }}>
-                      {pointer.key}
+                  <div className="matrix-meta">
+                    <span>
+                      {tx(matrixRows, 'common')}
+                      {tx(' x ', 'common')}
+                      {tx(matrixColumns, 'common')}
                     </span>
-                  ))}
-                </div>
-                {visualItems.map((item) => {
-                  const active = currentStep?.highlights.indices?.includes(item.index)
-                  const discarded = discardedRange ? item.index < discardedRange.low || item.index > discardedRange.high : false
-                  return (
-                    <motion.div
-                      className={`bar-wrap ${item.value < 0 ? 'negative' : ''}`}
-                      key={item.id}
-                      layout
-                      transition={
-                        animationQuality === 'detailed'
-                          ? { duration: reducedMotion ? 0 : 0.36, type: 'spring', bounce: reducedMotion ? 0 : 0.18 }
-                          : { duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }
-                      }
-                    >
-                      <motion.div
-                        className={`bar ${active ? 'active' : ''} ${discarded ? 'discarded' : ''} ${currentStep?.type ?? ''}`}
-                        animate={{ height: `${Math.max(8, (Math.abs(item.value) / maxMagnitude) * 100)}%` }}
-                        transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : animationQuality === 'simple' ? 0.12 : 0.22 }}
-                        data-negative={item.value < 0}
-                      >
-                        {showValues && <span>{item.value}</span>}
-                      </motion.div>
-                      {showIndices && <small>{item.index}</small>}
-                    </motion.div>
-                  )
-                })}
-                {currentStep?.highlights.variables && (
-                  <div className="pointer-labels">
-                    {['low', 'mid', 'high', 'pivot', 'pivotIndex', 'min'].map((key) =>
-                      currentStep.highlights.variables?.[key] !== undefined ? (
-                        <span key={key}>
-                          {key}: {String(currentStep.highlights.variables[key])}
-                        </span>
-                      ) : null,
+                    <strong>{tx(String(currentStep?.highlights.variables?.problem ?? activeModule.subcategory ?? 'Matrix state'), 'common')}</strong>
+                    <em>{tx(currentStep?.type ?? 'ready', 'common')}</em>
+                  </div>
+                  <div className="matrix-grid-view">
+                    {tx(
+                      activeGameArrow && (
+                        <svg className="game-arrow-layer" aria-hidden="true">
+                          <defs>
+                            <marker id="chess-arrow-head" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
+                              <path d="M0,0 L8,4 L0,8 Z" />
+                            </marker>
+                          </defs>
+                          <line
+                            x1={arrowPoint(activeGameArrow.from).x}
+                            y1={arrowPoint(activeGameArrow.from).y}
+                            x2={arrowPoint(activeGameArrow.to).x}
+                            y2={arrowPoint(activeGameArrow.to).y}
+                          />
+                        </svg>
+                      ),
+                      'common',
+                    )}
+                    {tx(
+                      matrixData.map((value, index) => {
+                        const active = currentStep?.highlights.indices?.includes(index)
+                        const gameSymbol = gameSymbols[index] ?? (value === 1 ? 'X' : value === -1 ? 'O' : '')
+                        const markClass = isChessBoard
+                          ? gameSymbol
+                            ? 'chess-piece'
+                            : 'empty-mark'
+                          : gameSymbol === 'X'
+                            ? 'x-mark'
+                            : gameSymbol === 'O'
+                              ? 'o-mark'
+                              : gameSymbol
+                                ? 'symbol-mark'
+                                : 'empty-mark'
+                        return (
+                          <motion.div
+                            className={`matrix-cell ${active ? 'active' : ''} ${currentStep?.type ?? ''} ${isGameBoard ? 'game-cell' : ''} ${activeGameArrow?.from === index ? 'move-from' : ''} ${activeGameArrow?.to === index ? 'move-to' : ''} ${markClass}`}
+                            key={`${index}-${value}`}
+                            layout
+                            onClick={() => playGameCell(index)}
+                            transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }}
+                            data-legal={isGameBoard && !isChessBoard && legalTargets.includes(index) ? 'true' : undefined}
+                          >
+                            {tx(showIndices && <small>{tx(index, 'common')}</small>, 'common')}
+                            {tx(showValues && <strong>{tx(isGameBoard ? gameSymbol : value, 'common')}</strong>, 'common')}
+                          </motion.div>
+                        )
+                      }),
+                      'common',
                     )}
                   </div>
-                )}
-                {activeModule.id === 'counting-sort' && (
-                  <div className="bucket-panel">
-                    Frequency table: {String(currentStep?.highlights.variables?.counts ?? 'counts appear during counting steps')}
+                  {tx(
+                    isGameBoard && currentStep?.highlights.variables && (
+                      <div className="game-insight">
+                        {tx(
+                          [
+                            'next',
+                            'preset',
+                            'sideToMove',
+                            'legalMoveCount',
+                            'move',
+                            'check',
+                            'score',
+                            'possibleMoves',
+                            'likelyReply',
+                            'bestMove',
+                            'opponentReplies',
+                            'bestLine4Ply',
+                            'planNext12Plies',
+                            'threat',
+                            'block',
+                            'result',
+                            'lesson',
+                          ].map((key) =>
+                            currentStep.highlights.variables?.[key] !== undefined ? (
+                              <span key={key}>
+                                <strong>{tx(key, 'common')}</strong>
+                                {tx(String(currentStep.highlights.variables[key]), 'common')}
+                              </span>
+                            ) : null,
+                          ),
+                          'common',
+                        )}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    isGameBoard && gameProfile && (
+                      <section className="game-coach" aria-label={tx('Board game learning tools', 'common')}>
+                        <div className="game-coach-main">
+                          <article>
+                            <span>{tx('Goal', 'common')}</span>
+                            <strong>{tx(gameProfile.objective, 'common')}</strong>
+                          </article>
+                          <article>
+                            <span>{tx('How computer thinks', 'common')}</span>
+                            <strong>{tx(gameProfile.engine, 'common')}</strong>
+                          </article>
+                          <article>
+                            <span>{tx('Practice now', 'common')}</span>
+                            <strong>{tx(gameProfile.practice, 'common')}</strong>
+                          </article>
+                        </div>
+                        <div className="game-coach-strip">
+                          {tx(
+                            [
+                              ['Board', gameProfile.board],
+                              ['Search', gameProfile.depth],
+                              ['Tactic', gameProfile.tactic],
+                              ['Mistake', gameProfile.mistake],
+                              ['Turn', String(gameVariables.sideToMove ?? gameVariables.next ?? 'Step through')],
+                              ['Move', String(gameVariables.bestMove ?? gameVariables.move ?? gameVariables.check ?? 'Look at highlight')],
+                              ['Reply', String(gameVariables.likelyReply ?? gameVariables.opponentReplies ?? 'Compare opponent answer')],
+                              ['Score', String(gameVariables.score ?? gameVariables.result ?? 'Explain after Run')],
+                            ].map(([label, value]) => (
+                              <span key={label}>
+                                <strong>{tx(label, 'common')}</strong>
+                                {value}
+                              </span>
+                            )),
+                            'common',
+                          )}
+                        </div>
+                        <div className="game-teacher-grid">
+                          {tx(
+                            [
+                              ['Read', 'Name the pieces, empty cells, and current player.'],
+                              ['Legal', 'List only moves allowed by the rules.'],
+                              ['Threat', String(gameVariables.threat ?? gameVariables.capture ?? gameVariables.inference ?? 'Find the urgent idea.')],
+                              [
+                                'Candidates',
+                                String(gameVariables.possibleMoves ?? gameVariables.candidates ?? gameVariables.liberties ?? 'Check the highlighted options.'),
+                              ],
+                              ['Choose', String(gameVariables.bestMove ?? gameVariables.move ?? 'Pick the move with the best explanation.')],
+                              [
+                                'Plan',
+                                String(gameVariables.planNext12Plies ?? gameVariables.bestLine4Ply ?? gameVariables.algorithm ?? 'Repeat move, reply, score.'),
+                              ],
+                            ].map(([label, value]) => (
+                              <article key={label}>
+                                <span>{tx(label, 'common')}</span>
+                                <p>{value}</p>
+                              </article>
+                            )),
+                            'common',
+                          )}
+                        </div>
+                        <div className="game-upgrade-list" aria-label={tx('Applied board game upgrades', 'common')}>
+                          {tx(
+                            [
+                              'compact board',
+                              'visible symbols',
+                              'rule card',
+                              'AI thinking',
+                              'legal moves',
+                              'best move',
+                              'reply view',
+                              'score',
+                              'threats',
+                              'mistakes',
+                              'practice prompt',
+                              'plan line',
+                              'active cells',
+                              'move labels',
+                              'game objective',
+                              'board size',
+                              'search depth',
+                              'candidate list',
+                              'turn display',
+                              'teaching steps',
+                              'algorithm name',
+                              'simple wording',
+                              'mobile fit',
+                              'highlight legend',
+                              'shared layout',
+                            ].map((item) => <span key={item}>{tx(item, 'common')}</span>),
+                            'common',
+                          )}
+                        </div>
+                      </section>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    showStateComparison && currentStep && (
+                      <div className="state-comparison matrix-comparison">
+                        <span>
+                          {tx('Before: ', 'common')}
+                          {tx((currentStep.beforeState ?? []).join(', ') || 'none', 'common')}
+                        </span>
+                        <span>
+                          {tx('After: ', 'common')}
+                          {tx((currentStep.afterState ?? currentStep.dataState).join(', ') || 'none', 'common')}
+                        </span>
+                      </div>
+                    ),
+                    'common',
+                  )}
+                </div>
+              ) : activeModule.category === 'Searching' ? (
+                <DetectiveSearch
+                  items={visualItems}
+                  step={currentStep}
+                  history={searchHistory}
+                  target={target}
+                  algorithmId={activeId}
+                  reducedMotion={reducedMotion}
+                  quality={animationQuality}
+                />
+              ) : isSorting && bubbleView === 'icons' ? (
+                <PenguinVisualization
+                  items={visualItems}
+                  step={currentStep}
+                  reducedMotion={reducedMotion}
+                  quality={animationQuality}
+                  showIndices={showIndices}
+                  showValues={showValues}
+                  sortedCount={isBubble ? sortedBoundary : currentStep?.type === 'complete' ? visualItems.length : 0}
+                  character={sortingCharacter}
+                  palette={stepPalette}
+                  showStateComparison={showStateComparison}
+                />
+              ) : (
+                <div
+                  className={`bar-stage ${hasNegativeValues ? 'has-negatives' : ''}`}
+                  aria-label={tx('Array visualization', 'common')}
+                  style={
+                    {
+                      '--compare-color': stepPalette.compare ?? '#d85f3f',
+                      '--swap-color': stepPalette.swap ?? '#7c5bb0',
+                      '--select-color': stepPalette.select ?? '#d59a26',
+                      '--complete-color': stepPalette.complete ?? '#397b50',
+                      minWidth: `${canvasZoom}%`,
+                    } as CSSProperties
+                  }
+                >
+                  {tx(hasNegativeValues && <div className="baseline-axis">{tx('0 baseline', 'common')}</div>, 'common')}
+                  {tx(
+                    currentStep?.type === 'swap' && (
+                      <div className="swap-arrow" aria-label={tx('Swap direction', 'common')}>
+                        ⇌
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(sortedBoundary > 0 && <div className="sorted-region-label">{tx('sorted region', 'common')}</div>, 'common')}
+                  {tx(
+                    showIndices && (
+                      <div className="index-ruler">
+                        {tx(
+                          visualItems.map((item) => <span key={`ruler-${item.id}`}>{tx(item.index, 'common')}</span>),
+                          'common',
+                        )}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  <div className="bar-pointer-row">
+                    {tx(
+                      pointerEntries.map((pointer) => (
+                        <span key={pointer.key} style={{ left: `${((pointer.index + 0.5) / Math.max(visualItems.length, 1)) * 100}%` }}>
+                          {tx(pointer.key, 'common')}
+                        </span>
+                      )),
+                      'common',
+                    )}
                   </div>
-                )}
-                {activeModule.id === 'radix-sort' && (
-                  <div className="bucket-panel">
-                    Radix bucket: {String(currentStep?.highlights.variables?.digit ?? 'digits appear during bucket placement')}
-                  </div>
-                )}
-                {activeModule.id === 'heap-sort' && (
-                  <div className="bucket-panel">Heap relation: parent i, children 2i+1 and 2i+2. Active heap indices are highlighted.</div>
-                )}
-                {activeModule.id === 'merge-sort' && (
-                  <div className="bucket-panel">
-                    Merge range: {String(currentStep?.highlights.variables?.left ?? '-')}-{String(currentStep?.highlights.variables?.right ?? '-')}
-                  </div>
-                )}
-                {showStateComparison && currentStep && (
-                  <div className="state-comparison">
-                    <span>Before: {(currentStep.beforeState ?? []).join(', ') || 'none'}</span>
-                    <span>After: {(currentStep.afterState ?? currentStep.dataState).join(', ') || 'none'}</span>
-                  </div>
-                )}
-              </div>
+                  {tx(
+                    visualItems.map((item) => {
+                      const active = currentStep?.highlights.indices?.includes(item.index)
+                      const discarded = discardedRange ? item.index < discardedRange.low || item.index > discardedRange.high : false
+                      return (
+                        <motion.div
+                          className={`bar-wrap ${item.value < 0 ? 'negative' : ''}`}
+                          key={item.id}
+                          layout
+                          transition={
+                            animationQuality === 'detailed'
+                              ? { duration: reducedMotion ? 0 : 0.36, type: 'spring', bounce: reducedMotion ? 0 : 0.18 }
+                              : { duration: reducedMotion || animationQuality === 'off' ? 0 : 0.16 }
+                          }
+                        >
+                          <motion.div
+                            className={`bar ${active ? 'active' : ''} ${discarded ? 'discarded' : ''} ${currentStep?.type ?? ''}`}
+                            animate={{ height: `${Math.max(8, (Math.abs(item.value) / maxMagnitude) * 100)}%` }}
+                            transition={{ duration: reducedMotion || animationQuality === 'off' ? 0 : animationQuality === 'simple' ? 0.12 : 0.22 }}
+                            data-negative={item.value < 0}
+                          >
+                            {tx(showValues && <span>{item.value}</span>, 'common')}
+                          </motion.div>
+                          {tx(showIndices && <small>{tx(item.index, 'common')}</small>, 'common')}
+                        </motion.div>
+                      )
+                    }),
+                    'common',
+                  )}
+                  {tx(
+                    currentStep?.highlights.variables && (
+                      <div className="pointer-labels">
+                        {tx(
+                          ['low', 'mid', 'high', 'pivot', 'pivotIndex', 'min'].map((key) =>
+                            currentStep.highlights.variables?.[key] !== undefined ? (
+                              <span key={key}>
+                                {tx(key, 'common')}: {tx(String(currentStep.highlights.variables[key]), 'common')}
+                              </span>
+                            ) : null,
+                          ),
+                          'common',
+                        )}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    activeModule.id === 'counting-sort' && (
+                      <div className="bucket-panel">
+                        {tx('Frequency table: ', 'common')}
+                        {tx(String(currentStep?.highlights.variables?.counts ?? 'counts appear during counting steps'), 'common')}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    activeModule.id === 'radix-sort' && (
+                      <div className="bucket-panel">
+                        {tx('Radix bucket: ', 'common')}
+                        {tx(String(currentStep?.highlights.variables?.digit ?? 'digits appear during bucket placement'), 'common')}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    activeModule.id === 'heap-sort' && (
+                      <div className="bucket-panel">
+                        {tx('Heap relation: parent i, children 2i+1 and 2i+2. Active heap indices are highlighted.', 'common')}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    activeModule.id === 'merge-sort' && (
+                      <div className="bucket-panel">
+                        {tx('Merge range: ', 'common')}
+                        {tx(String(currentStep?.highlights.variables?.left ?? '-'), 'common')}-
+                        {tx(String(currentStep?.highlights.variables?.right ?? '-'), 'common')}
+                      </div>
+                    ),
+                    'common',
+                  )}
+                  {tx(
+                    showStateComparison && currentStep && (
+                      <div className="state-comparison">
+                        <span>
+                          {tx('Before: ', 'common')}
+                          {tx((currentStep.beforeState ?? []).join(', ') || 'none', 'common')}
+                        </span>
+                        <span>
+                          {tx('After: ', 'common')}
+                          {tx((currentStep.afterState ?? currentStep.dataState).join(', ') || 'none', 'common')}
+                        </span>
+                      </div>
+                    ),
+                    'common',
+                  )}
+                </div>
+              ),
+              'common',
             )}
           </div>
         </ViewportCanvas>
         <p className="workbench-step-description" aria-live="polite">
-          {currentStep?.description ?? 'Choose your input and run the algorithm.'}
+          {tx(currentStep?.description ?? 'Choose your input and run the algorithm.', 'common')}
         </p>
       </section>
-      {learningTab === 'Visualization' ? (
-        <details className="workbench-details">
-          <summary>Explanation, results & variables</summary>
-          {rightPanel}
-        </details>
-      ) : (
-        rightPanel
+      {tx(
+        learningTab === 'Visualization' ? (
+          <details className="workbench-details">
+            <summary>{tx('Explanation, results & variables', 'common')}</summary>
+            {tx(rightPanel, 'common')}
+          </details>
+        ) : (
+          rightPanel
+        ),
+        'common',
       )}
     </section>
   )

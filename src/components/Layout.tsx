@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState, type CSSProperties, type Dispatch, type ReactNode, type SetStateAction } from 'react'
 
@@ -24,6 +26,8 @@ export function Layout({
   sidebarCollapsed,
   toasts,
 }: LayoutProps) {
+  useLocaleRender()
+
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1120px)').matches)
   const drawer = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -65,27 +69,27 @@ export function Layout({
       className={`app-shell ${fullCanvas ? 'full-canvas' : ''} ${focusMode ? 'focus-mode' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''} ${mobileMenuOpen ? 'mobile-menu-open' : ''}`}
       style={{ '--right-panel-width': `${rightPanelWidth}px` } as CSSProperties}
     >
-      <button className="mobile-menu-fab" type="button" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
+      <button className="mobile-menu-fab" type="button" onClick={() => setMobileMenuOpen(true)} aria-label={tx('Open menu', 'common')}>
         <Menu size={18} />
-        Menu
+        {tx('Menu', 'common')}
       </button>
-      <button className="mobile-menu-backdrop" type="button" aria-label="Close menu" onClick={() => setMobileMenuOpen(false)} />
+      <button className="mobile-menu-backdrop" type="button" aria-label={tx('Close menu', 'common')} onClick={() => setMobileMenuOpen(false)} />
       <div
         ref={drawer}
         className="mobile-drawer-shell"
         role={isMobile && mobileMenuOpen ? 'dialog' : undefined}
         aria-modal={isMobile && mobileMenuOpen ? true : undefined}
-        aria-label={isMobile && mobileMenuOpen ? 'Algorithm navigation menu' : undefined}
+        aria-label={tx(isMobile && mobileMenuOpen ? 'Algorithm navigation menu' : undefined, 'common')}
         aria-hidden={isMobile && !mobileMenuOpen}
         inert={isMobile && !mobileMenuOpen ? true : undefined}
       >
-        <button className="mobile-drawer-close" type="button" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+        <button className="mobile-drawer-close" type="button" onClick={() => setMobileMenuOpen(false)} aria-label={tx('Close menu', 'common')}>
           <X size={18} />
         </button>
-        {sidebar}
+        {tx(sidebar, 'common')}
       </div>
-      {children}
-      {toasts}
+      {tx(children, 'common')}
+      {tx(toasts, 'common')}
     </main>
   )
 }

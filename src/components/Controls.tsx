@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import type { Dispatch, SetStateAction } from 'react'
 import { Gauge, ListRestart, RotateCcw, Square } from 'lucide-react'
 import { TimelineToolbar } from './TimelineToolbar'
@@ -34,6 +36,8 @@ export function Controls({
   stepsLength,
   stepIndex,
 }: ControlsProps) {
+  useLocaleRender()
+
   return (
     <div className="control-panel">
       <TimelineToolbar
@@ -55,38 +59,52 @@ export function Controls({
         onSpeed={setSpeed}
       />
       <details className="playback-options">
-        <summary>Playback options</summary>
+        <summary>{tx('Playback options', 'controls')}</summary>
         <div>
-          <button className="btn-stop" type="button" onClick={() => setPlaying(false)} title="Stop" aria-label="Stop">
+          <button className="btn-stop" type="button" onClick={() => setPlaying(false)} title={tx('Stop', 'controls')} aria-label={tx('Stop', 'controls')}>
             <Square size={18} />
           </button>
-          <button className="btn-reset" type="button" onClick={resetPlayback} title="Reset animation">
+          <button className="btn-reset" type="button" onClick={resetPlayback} title={tx('Reset animation', 'controls')}>
             <ListRestart size={18} />
-            Reset steps
+            {tx('Reset steps', 'controls')}
           </button>
-          <button className="btn-danger" type="button" onClick={resetAll} title="Reset data and controls">
+          <button className="btn-danger" type="button" onClick={resetAll} title={tx('Reset data and controls', 'controls')}>
             <RotateCcw size={18} />
-            Reset all
+            {tx('Reset all', 'controls')}
           </button>
           <label className="speed">
             <Gauge size={17} />
             <input min={80} max={1200} step={40} type="range" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} />
-            <span>{speed}ms</span>
+            <span>
+              {tx(speed, 'controls')}
+              {tx('ms', 'controls')}
+            </span>
           </label>
           <label className="pause-filter">
-            Pause on
+            {tx('Pause on', 'controls')}
             <select value={pauseOn} onChange={(event) => setPauseOn(event.target.value)}>
-              <option value="">none</option>
-              {['compare', 'swap', 'select', 'partition', 'merge', 'update', 'complete'].map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
+              <option value="">{tx('none', 'controls')}</option>
+              {tx(
+                ['compare', 'swap', 'select', 'partition', 'merge', 'update', 'complete'].map((type) => (
+                  <option key={type} value={type}>
+                    {tx(type, 'controls')}
+                  </option>
+                )),
+                'controls',
+              )}
             </select>
           </label>
         </div>
       </details>
-      {disabledReason && <div className="run-disabled-reason">Run disabled because: {disabledReason}</div>}
+      {tx(
+        disabledReason && (
+          <div className="run-disabled-reason">
+            {tx('Run disabled because: ', 'controls')}
+            {tx(disabledReason, 'controls')}
+          </div>
+        ),
+        'controls',
+      )}
     </div>
   )
 }

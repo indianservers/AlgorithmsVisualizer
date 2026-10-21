@@ -4,3 +4,9 @@ test-results
 playwright-report
 coverage
 public/account/vendor/libphonenumber-max.js
+
+# Generated localization resources and coverage use deterministic generator formatting.
+src/i18n/locales
+public/locales
+docs/localization/*.json
+LOCALIZATION_STATUS.md

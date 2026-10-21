@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronDown, Home, LockKeyhole, Settings2 } from 'lucide-react'
@@ -20,6 +22,8 @@ type SidebarProps = {
 }
 
 export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle = 'study', onNavigate, onExpand, recentIds = [], setIconStyle }: SidebarProps) {
+  useLocaleRender()
+
   const { pathname, key: historyKey } = useLocation()
   const routeKey = `${historyKey}:${pathname}`
   const isHome = pathname === '/'
@@ -59,9 +63,9 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
     return () => window.clearTimeout(timer)
   }, [pathname, routeKey])
   return (
-    <aside className="sidebar global-sidebar" data-icon-style={iconStyle} aria-label="AlgoDrishti sidebar">
+    <aside className="sidebar global-sidebar" data-icon-style={iconStyle} aria-label={tx('AlgoDrishti sidebar', 'navigation')}>
       <header className="sidebar-header">
-        <Link className="brand" to="/" onClick={onNavigate} aria-label="AlgoDrishti home">
+        <Link className="brand" to="/" onClick={onNavigate} aria-label={tx('AlgoDrishti home', 'navigation')}>
           <svg className="sidebar-logo" viewBox="0 0 44 44" aria-hidden="true">
             <defs>
               <linearGradient id="sidebar-logo-blue" x2="1" y2="1">
@@ -76,14 +80,14 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
             <path d="m15 29 7-14 6 14Z" fill="#edf8ff" />
           </svg>
           <div>
-            <strong>AlgoDrishti</strong>
-            <span>Visualize every step</span>
+            <strong>{tx('AlgoDrishti', 'navigation')}</strong>
+            <span>{tx('Visualize every step', 'navigation')}</span>
           </div>
         </Link>
       </header>
       <nav
         className="sidebar-navigation"
-        aria-label="Algorithm navigation"
+        aria-label={tx('Algorithm navigation', 'navigation')}
         ref={navigation}
         onScroll={(event) => {
           try {
@@ -99,100 +103,118 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
           aria-current={isHome ? 'page' : undefined}
           to="/"
           onClick={onNavigate}
-          title="Home dashboard"
+          title={tx('Home dashboard', 'navigation')}
         >
           <Home size={19} />
-          <span>Home dashboard</span>
+          <span>{tx('Home dashboard', 'navigation')}</span>
         </Link>
-        <div className="sidebar-section-label">ALGORITHMS</div>
+        <div className="sidebar-section-label">{tx('ALGORITHMS', 'navigation')}</div>
         <div className="category-list">
-          {sidebarNavigation.map(({ category, items }, index) => {
-            const open = category === expanded,
-              current = category === routeCategory,
-              panelId = `sidebar-category-${index}`
-            return (
-              <section className="sidebar-category" key={category}>
-                <button
-                  type="button"
-                  className={`sidebar-category-toggle ${current ? 'current' : ''} ${open ? 'expanded' : ''}`}
-                  aria-expanded={open}
-                  aria-controls={panelId}
-                  title={category}
-                  onClick={() => {
-                    setSelection({ route: routeKey, category: open ? undefined : category })
-                    onExpand?.()
-                  }}
-                >
-                  <span className="category-icon">{categoryIcon(category, 19)}</span>
-                  <span className="sidebar-category-label">{category}</span>
-                  <ChevronDown className="sidebar-chevron" size={14} />
-                </button>
-                <div id={panelId} className={`sidebar-accordion ${open ? 'is-open' : ''}`} inert={!open ? true : undefined} aria-hidden={!open}>
-                  <div className="sidebar-accordion-clip">
-                    <div className="sidebar-submenu">
-                      {items.map((item) => {
-                        const active = !isHome && item.aliases.some((id) => id === activeId || pathname.endsWith('/' + id))
-                        return (
-                          <Link
-                            key={item.id}
-                            ref={active ? selectedLink : undefined}
-                            className={`sidebar-algorithm ${active ? 'active' : ''}`}
-                            aria-current={active ? 'page' : undefined}
-                            to={item.path}
-                            title={item.label}
-                            onClick={(event) => {
-                              if (chooseAlgorithm && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
-                                event.preventDefault()
-                                chooseAlgorithm(item.id)
-                              }
-                              onNavigate?.()
-                            }}
-                          >
-                            {item.label}
-                          </Link>
-                        )
-                      })}
+          {tx(
+            sidebarNavigation.map(({ category, items }, index) => {
+              const open = category === expanded,
+                current = category === routeCategory,
+                panelId = `sidebar-category-${index}`
+              return (
+                <section className="sidebar-category" key={category}>
+                  <button
+                    type="button"
+                    className={`sidebar-category-toggle ${current ? 'current' : ''} ${open ? 'expanded' : ''}`}
+                    aria-expanded={open}
+                    aria-controls={panelId}
+                    title={tx(category, 'navigation')}
+                    onClick={() => {
+                      setSelection({ route: routeKey, category: open ? undefined : category })
+                      onExpand?.()
+                    }}
+                  >
+                    <span className="category-icon">{tx(categoryIcon(category, 19), 'navigation')}</span>
+                    <span className="sidebar-category-label">{tx(category, 'navigation')}</span>
+                    <ChevronDown className="sidebar-chevron" size={14} />
+                  </button>
+                  <div id={panelId} className={`sidebar-accordion ${open ? 'is-open' : ''}`} inert={!open ? true : undefined} aria-hidden={!open}>
+                    <div className="sidebar-accordion-clip">
+                      <div className="sidebar-submenu">
+                        {tx(
+                          items.map((item) => {
+                            const active = !isHome && item.aliases.some((id) => id === activeId || pathname.endsWith('/' + id))
+                            return (
+                              <Link
+                                key={item.id}
+                                ref={active ? selectedLink : undefined}
+                                className={`sidebar-algorithm ${active ? 'active' : ''}`}
+                                aria-current={active ? 'page' : undefined}
+                                to={item.path}
+                                title={tx(item.label, 'navigation')}
+                                onClick={(event) => {
+                                  if (chooseAlgorithm && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
+                                    event.preventDefault()
+                                    chooseAlgorithm(item.id)
+                                  }
+                                  onNavigate?.()
+                                }}
+                              >
+                                {tx(item.label, 'navigation')}
+                              </Link>
+                            )
+                          }),
+                          'navigation',
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            )
-          })}
+                </section>
+              )
+            }),
+            'navigation',
+          )}
         </div>
-        {recentIds.length > 0 && (
-          <details open={blueRail || undefined} className="sidebar-utilities recent-box">
-            <summary>Recently explored</summary>
-            {recentIds.slice(0, 5).map((id) => {
-              const module = allModules.find((item) => item.id === id)
-              return module ? (
-                <Link key={id} to={algorithmPath(module)} title={module.name} onClick={onNavigate}>
-                  {module.name}
-                </Link>
-              ) : null
-            })}
-          </details>
+        {tx(
+          recentIds.length > 0 && (
+            <details open={blueRail || undefined} className="sidebar-utilities recent-box">
+              <summary>{tx('Recently explored', 'navigation')}</summary>
+              {tx(
+                recentIds.slice(0, 5).map((id) => {
+                  const module = allModules.find((item) => item.id === id)
+                  return module ? (
+                    <Link key={id} to={algorithmPath(module)} title={tx(module.name, 'navigation')} onClick={onNavigate}>
+                      {tx(module.name, 'navigation')}
+                    </Link>
+                  ) : null
+                }),
+                'navigation',
+              )}
+            </details>
+          ),
+          'navigation',
         )}
-        {setIconStyle && (
-          <details open={blueRail || undefined} className="sidebar-utilities icon-style-panel">
-            <summary>
-              <Settings2 size={14} />
-              Icon style
-            </summary>
-            <div>
-              {['study', 'sim', 'neon'].map((style) => (
-                <button type="button" key={style} aria-pressed={iconStyle === style} onClick={() => setIconStyle(style)}>
-                  {style}
-                </button>
-              ))}
-            </div>
-          </details>
+        {tx(
+          setIconStyle && (
+            <details open={blueRail || undefined} className="sidebar-utilities icon-style-panel">
+              <summary>
+                <Settings2 size={14} />
+                {tx('Icon style', 'navigation')}
+              </summary>
+              <div>
+                {tx(
+                  ['study', 'sim', 'neon'].map((style) => (
+                    <button type="button" key={style} aria-pressed={iconStyle === style} onClick={() => setIconStyle(style)}>
+                      {tx(style, 'navigation')}
+                    </button>
+                  )),
+                  'navigation',
+                )}
+              </div>
+            </details>
+          ),
+          'navigation',
         )}
       </nav>
       <footer className="sidebar-footer">
         <LockKeyhole size={16} />
         <span>
-          {blueRail ? 'Browser-only workspace' : 'Learn at your own pace.'}
-          <small>{blueRail ? 'Inputs, keys, reports and experiments stay local to your browser.' : 'Your work stays in this browser.'}</small>
+          {tx(blueRail ? 'Browser-only workspace' : 'Learn at your own pace.', 'navigation')}
+          <small>{tx(blueRail ? 'Inputs, keys, reports and experiments stay local to your browser.' : 'Your work stays in this browser.', 'navigation')}</small>
         </span>
       </footer>
     </aside>

@@ -1,7 +1,11 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { ArrowRight, Network } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export function DfsHero() {
+  useLocaleRender()
+
   return (
     <div className="dfs-hero-art">
       <svg viewBox="0 0 1000 200" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
@@ -22,22 +26,24 @@ export function DfsHero() {
         <path d="M842 57V25m0 0h18l-5 5 5 5h-18" fill="#55bdff" stroke="#4a9fec" />
       </svg>
       <blockquote>
-        “Explore algorithms
+        {tx('“Explore algorithms', 'studios')}
         <br />
-        visually, build intuition
+        {tx('visually, build intuition', 'studios')}
         <br />
-        for a deeper understanding.”
+        {tx('for a deeper understanding.”', 'studios')}
       </blockquote>
       <Link to="/graphs" className="dfs-explore">
         <Network size={31} />
         <span>
-          <strong>Graphs</strong>Visualize
+          <strong>{tx('Graphs', 'studios')}</strong>
+          {tx('Visualize', 'studios')}
           <br />
-          Experiment
+          {tx('Experiment', 'studios')}
           <br />
-          Understand
+          {tx('Understand', 'studios')}
           <b>
-            Grow <ArrowRight size={15} />
+            {tx('Grow ', 'studios')}
+            <ArrowRight size={15} />
           </b>
         </span>
       </Link>

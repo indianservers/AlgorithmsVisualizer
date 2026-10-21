@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { allModules } from '../algorithms'
@@ -5,6 +7,8 @@ import { categoryPages } from '../data/catalog'
 import { articleMetadata, siteOrigin } from './metadata'
 
 export function PageMetadata() {
+  const locale = useLocaleRender()
+
   const { pathname } = useLocation()
   useEffect(() => {
     const parts = pathname.split('/').filter(Boolean)
@@ -24,7 +28,7 @@ export function PageMetadata() {
           url: siteOrigin + pathname,
           structured: null,
         }
-    document.title = meta.title
+    document.title = tx(meta.title, 'algorithms')
     for (const [selector, attribute, value] of [
       ['meta[name="description"]', 'content', meta.description],
       ['link[rel="canonical"]', 'href', meta.url],
@@ -61,6 +65,6 @@ export function PageMetadata() {
       'content',
       (parts.length > 1 && !module) || (parts.length === 1 && !category && pathname !== '/encyclopedia') ? 'noindex,follow' : 'index,follow',
     )
-  }, [pathname])
+  }, [pathname, locale])
   return null
 }

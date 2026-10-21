@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useMemo, useState } from 'react'
 import { BookOpen, GitBranch, Lightbulb, Play, RotateCcw, SkipBack, SkipForward, Target } from 'lucide-react'
@@ -176,6 +178,8 @@ const operationSteps: Record<TreeKind, string[]> = {
   ],
 }
 function TreeSnapshot({ nodes, title }: { nodes: TreeNode[]; title: string }) {
+  useLocaleRender()
+
   const layout = treeLayout(nodes)
   const childIds = new Set(nodes.flatMap((n) => n.children)),
     roots = nodes.filter((n) => !childIds.has(n.id))
@@ -186,62 +190,81 @@ function TreeSnapshot({ nodes, title }: { nodes: TreeNode[]; title: string }) {
   const levels = Math.max(0, ...roots.map((n) => depth(n.id)))
   return (
     <article className="ls-snapshot">
-      <h3>{title}</h3>
+      <h3>{tx(title, 'studios')}</h3>
       <p>
-        {nodes.length} nodes · {levels} occupied levels
+        {tx(nodes.length, 'studios')}
+        {tx(' nodes · ', 'studios')}
+        {tx(levels, 'studios')}
+        {tx(' occupied levels', 'studios')}
       </p>
       <div className="ls-diagram-scroll">
-        <svg width={layout.width} height={layout.height} role="img" aria-label={title}>
-          {nodes.flatMap((n) =>
-            n.children.map((id) => {
-              const a = layout.positions.get(n.id)!,
-                b = layout.positions.get(id)!
-              return <line className="ls-edge" key={`${n.id}-${id}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
-            }),
+        <svg width={layout.width} height={layout.height} role="img" aria-label={tx(title, 'studios')}>
+          {tx(
+            nodes.flatMap((n) =>
+              n.children.map((id) => {
+                const a = layout.positions.get(n.id)!,
+                  b = layout.positions.get(id)!
+                return <line className="ls-edge" key={`${n.id}-${id}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
+              }),
+            ),
+            'studios',
           )}
-          {nodes.map((n) => {
-            const p = layout.positions.get(n.id)!
-            return (
-              <g key={n.id}>
-                <rect
-                  x={p.x - 38}
-                  y={p.y - 22}
-                  width="76"
-                  height="44"
-                  rx="15"
-                  fill={n.tone === 'red' ? '#a9253a' : n.tone === 'black' ? '#24354e' : 'var(--ls-soft)'}
-                  stroke="var(--ls-blue)"
-                />
-                <text x={p.x} y={p.y + 5} textAnchor="middle" fill={n.tone ? '#fff' : 'var(--ls-ink)'} fontSize="15">
-                  {n.label}
-                </text>
-                {n.detail && (
-                  <text x={p.x} y={p.y + 43} textAnchor="middle" fill="var(--ls-muted)" fontSize="12">
-                    {n.detail}
+          {tx(
+            nodes.map((n) => {
+              const p = layout.positions.get(n.id)!
+              return (
+                <g key={n.id}>
+                  <rect
+                    x={p.x - 38}
+                    y={p.y - 22}
+                    width="76"
+                    height="44"
+                    rx="15"
+                    fill={n.tone === 'red' ? '#a9253a' : n.tone === 'black' ? '#24354e' : 'var(--ls-soft)'}
+                    stroke="var(--ls-blue)"
+                  />
+                  <text x={p.x} y={p.y + 5} textAnchor="middle" fill={n.tone ? '#fff' : 'var(--ls-ink)'} fontSize="15">
+                    {tx(n.label, 'studios')}
                   </text>
-                )}
-              </g>
-            )
-          })}
+                  {tx(
+                    n.detail && (
+                      <text x={p.x} y={p.y + 43} textAnchor="middle" fill="var(--ls-muted)" fontSize="12">
+                        {tx(n.detail, 'studios')}
+                      </text>
+                    ),
+                    'studios',
+                  )}
+                </g>
+              )
+            }),
+            'studios',
+          )}
         </svg>
       </div>
     </article>
   )
 }
 function TreeComparison({ values }: { values: number[] }) {
+  useLocaleRender()
+
   return (
     <div className="ls-comparison">
-      {(['bst', 'avl'] as const).map((kind) => (
-        <TreeSnapshot
-          key={kind}
-          title={kind === 'bst' ? 'BST · same insertion order' : 'AVL · same insertion order'}
-          nodes={runTree(kind, values, [], '', { type: 'build' }).frames.at(-1)!.nodes}
-        />
-      ))}
+      {tx(
+        (['bst', 'avl'] as const).map((kind) => (
+          <TreeSnapshot
+            key={kind}
+            title={tx(kind === 'bst' ? 'BST · same insertion order' : 'AVL · same insertion order', 'studios')}
+            nodes={runTree(kind, values, [], '', { type: 'build' }).frames.at(-1)!.nodes}
+          />
+        )),
+        'studios',
+      )}
     </div>
   )
 }
 export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: AlgorithmModule; tab?: LearningTab }) {
+  useLocaleRender()
+
   const kind = treeKindFor(module.id),
     guide = guides[kind]
   const [draft, setDraft] = useState(
@@ -341,399 +364,511 @@ export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: 
   const canEdit = ['bst', 'avl', 'redblack', 'heap', 'btree', 'traversal'].includes(kind),
     range = kind === 'segment' || kind === 'fenwick'
   return (
-    <section className="learning-studio tree-academy" aria-label={`${module.name} learning studio`}>
+    <section className="learning-studio tree-academy" aria-label={tx(`${module.name} learning studio`, 'studios')}>
       <header className="ls-heading">
         <div>
           <span className="ls-eyebrow">
-            <GitBranch size={16} /> TREE WORKSHOP
+            <GitBranch size={16} />
+            {tx(' TREE WORKSHOP', 'studios')}
           </span>
-          <h2>{guide.title}</h2>
-          <p>{guide.idea}</p>
+          <h2>{tx(guide.title, 'studios')}</h2>
+          <p>{tx(guide.idea, 'studios')}</p>
         </div>
-        <span className="ls-chip">{kind === 'traversal' ? '4 traversal orders' : 'Computed from your input'}</span>
+        <span className="ls-chip">{tx(kind === 'traversal' ? '4 traversal orders' : 'Computed from your input', 'studios')}</span>
       </header>
       <div className="ls-theory-grid">
         <article>
           <BookOpen size={20} />
-          <h3>Worked example</h3>
-          <p>{guide.example}</p>
+          <h3>{tx('Worked example', 'studios')}</h3>
+          <p>{tx(guide.example, 'studios')}</p>
         </article>
         <article>
           <Target size={20} />
-          <h3>Rule to preserve</h3>
-          <p>{guide.invariant}</p>
+          <h3>{tx('Rule to preserve', 'studios')}</h3>
+          <p>{tx(guide.invariant, 'studios')}</p>
         </article>
         <article>
           <Lightbulb size={20} />
-          <h3>Watch out</h3>
-          <p>{guide.pitfall}</p>
+          <h3>{tx('Watch out', 'studios')}</h3>
+          <p>{tx(guide.pitfall, 'studios')}</p>
         </article>
       </div>
-      {theoryOnly && <TreeSnapshot nodes={run.frames.at(-1)!.nodes} title="The worked structure" />}
-      {tab === 'Code' && (
-        <div className="ls-code-guide">
-          <h3>Read the operation as a sequence of decisions</h3>
-          <ol>
-            {operationSteps[kind].map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ol>
-          <h3>Connect the explanation to the implementation</h3>
-          <p>{guide.invariant}</p>
-          <p>{guide.cost}</p>
-          <p>Use the Visualization tab to test each branch with your own values, then Practice to explain the next transition.</p>
-        </div>
-      )}
-      {tab === 'Experiments' && (
-        <div className="ls-experiments">
-          <h3>Save a reproducible example</h3>
-          <p>
-            Save the current input keys, words or expression locally. Loading an input rebuilds the structure from those values; use Export trace to retain
-            every recorded snapshot.
-          </p>
-          <div className="ls-operations">
-            <button
-              onClick={() => {
-                try {
-                  const next = [{ values: run.values, words: run.words, expression: expressionUsed, createdAt: new Date().toISOString() }, ...saved].slice(0, 5)
-                  localStorage.setItem(`algodrishti-tree-inputs-${module.id}`, JSON.stringify(next))
-                  setSaved(next)
-                  setSaveMessage('Example saved in this browser.')
-                } catch {
-                  setSaveMessage('Local storage is unavailable. Export the trace instead.')
-                }
-              }}
-            >
-              Save tree input
-            </button>
-            <button
-              onClick={() => {
-                const url = URL.createObjectURL(new Blob([JSON.stringify({ moduleId: module.id, kind, ...run }, null, 2)], { type: 'application/json' }))
-                const a = document.createElement('a')
-                a.href = url
-                a.download = `${module.id}-trace.json`
-                a.click()
-                window.setTimeout(() => URL.revokeObjectURL(url), 1000)
-              }}
-            >
-              Export computed trace
-            </button>
+      {tx(theoryOnly && <TreeSnapshot nodes={run.frames.at(-1)!.nodes} title={tx('The worked structure', 'studios')} />, 'studios')}
+      {tx(
+        tab === 'Code' && (
+          <div className="ls-code-guide">
+            <h3>{tx('Read the operation as a sequence of decisions', 'studios')}</h3>
+            <ol>
+              {tx(
+                operationSteps[kind].map((line, i) => <li key={i}>{tx(line, 'studios')}</li>),
+                'studios',
+              )}
+            </ol>
+            <h3>{tx('Connect the explanation to the implementation', 'studios')}</h3>
+            <p>{tx(guide.invariant, 'studios')}</p>
+            <p>{tx(guide.cost, 'studios')}</p>
+            <p>{tx('Use the Visualization tab to test each branch with your own values, then Practice to explain the next transition.', 'studios')}</p>
           </div>
-          {saveMessage && <p role="status">{saveMessage}</p>}
-          {saved.map((item, i) => (
-            <article key={`${item.createdAt}-${i}`}>
-              <p>
-                {new Date(item.createdAt).toLocaleString()} ·{' '}
-                {kind === 'trie' ? item.words.join(', ') : kind === 'expression' ? item.expression : item.values.join(', ')}
-              </p>
+        ),
+        'studios',
+      )}
+      {tx(
+        tab === 'Experiments' && (
+          <div className="ls-experiments">
+            <h3>{tx('Save a reproducible example', 'studios')}</h3>
+            <p>
+              {tx(
+                'Save the current input keys, words or expression locally. Loading an input rebuilds the structure from those values; use Export trace to retain every recorded snapshot.',
+                'studios',
+              )}
+            </p>
+            <div className="ls-operations">
               <button
                 onClick={() => {
                   try {
-                    const next = runTree(kind, item.values, item.words, item.expression, { type: 'build' })
-                    setRun(next)
-                    setDraft(kind === 'trie' ? item.words.join(', ') : kind === 'expression' ? item.expression : item.values.join(', '))
-                    setExpressionUsed(item.expression)
-                    setCursor(next.frames.length - 1)
-                    setPlaying(false)
-                    setSaveMessage('Saved input loaded. Open Visualization to explore it.')
-                  } catch (e) {
-                    setSaveMessage(e instanceof Error ? e.message : 'Could not load this example.')
+                    const next = [{ values: run.values, words: run.words, expression: expressionUsed, createdAt: new Date().toISOString() }, ...saved].slice(
+                      0,
+                      5,
+                    )
+                    localStorage.setItem(`algodrishti-tree-inputs-${module.id}`, JSON.stringify(next))
+                    setSaved(next)
+                    setSaveMessage('Example saved in this browser.')
+                  } catch {
+                    setSaveMessage('Local storage is unavailable. Export the trace instead.')
                   }
                 }}
               >
-                Load tree example {i + 1}
+                {tx('Save tree input', 'studios')}
               </button>
-            </article>
-          ))}
-        </div>
-      )}
-      {showInteractive && (
-        <>
-          <div className="ls-editor problem-input-panel learning-input-panel">
-            <h3 className="problem-panel-title">Problem Input</h3>
-            <label>
-              {kind === 'trie' ? 'Words (comma separated)' : kind === 'expression' ? 'Arithmetic expression' : 'Keys / array values (up to 15)'}
-              <textarea rows={4} aria-label="Tree example input" value={draft} onChange={(e) => setDraft(e.target.value)} />
-            </label>
-            <button className="ls-primary" onClick={() => apply({ type: 'build' })}>
-              <Play size={16} />
-              Build example
-            </button>
-            <button
-              onClick={() => {
-                setCursor(0)
-                setPlaying(false)
-                setGuess('')
-              }}
-            >
-              <RotateCcw size={16} />
-              Replay
-            </button>
-            {['bst', 'avl', 'traversal', 'redblack', 'btree'].includes(kind) && (
-              <div className="ls-presets">
-                <span>Try a shape</span>
-                {[
-                  ['Balanced', '8,3,10,1,6,14,4,7,13'],
-                  ['Skewed', '1,2,3,4,5,6,7'],
-                  ['LL', '30,20,10'],
-                  ['LR', '30,10,20'],
-                  ['RL', '10,30,20'],
-                  ['RR', '10,20,30'],
-                ].map(([label, keys]) => (
-                  <button key={label} onClick={() => setDraft(keys)}>
-                    {label}
-                  </button>
-                ))}
-                <small>Choose a preset, then Build example.</small>
-              </div>
-            )}
-          </div>
-          <div className="ls-operations">
-            {canEdit && (
-              <>
-                <label>
-                  Key
-                  <input type="number" value={value} onChange={(e) => setValue(Number(e.target.value))} />
-                </label>
-                <button onClick={() => apply({ type: 'insert', value })}>Insert key</button>
-                {kind !== 'heap' && <button onClick={() => apply({ type: 'search', value })}>Search key</button>}
-                {['bst', 'avl', 'traversal'].includes(kind) && <button onClick={() => apply({ type: 'delete', value })}>Delete key</button>}
-                {kind === 'heap' && <button onClick={() => apply({ type: 'extract' })}>Extract minimum</button>}
-              </>
-            )}
-            {['bst', 'avl', 'traversal', 'redblack'].includes(kind) && (
-              <>
-                <label>
-                  Traversal
-                  <select aria-label="Traversal order" value={order} onChange={(e) => setOrder(e.target.value as TreeOrder)}>
-                    <option value="preorder">Preorder · root first</option>
-                    <option value="inorder">Inorder · between children</option>
-                    <option value="postorder">Postorder · root last</option>
-                    <option value="level">Level order · queue</option>
-                  </select>
-                </label>
-                <button onClick={() => apply({ type: 'traverse', order })}>Trace traversal</button>
-              </>
-            )}
-            {kind === 'trie' && (
-              <>
-                <label>
-                  Word / prefix
-                  <input value={word} onChange={(e) => setWord(e.target.value)} />
-                </label>
-                <button onClick={() => apply({ type: 'insert', text: word })}>Insert word</button>
-                <button onClick={() => apply({ type: 'search', text: word })}>Find prefix</button>
-                <button onClick={() => apply({ type: 'delete', text: word })}>Delete word</button>
-              </>
-            )}
-            {range && (
-              <>
-                <label>
-                  {kind === 'fenwick' ? 'Prefix end / update index' : 'Start / update index'}
-                  <input type="number" value={queryIndex} onChange={(e) => setQueryIndex(Number(e.target.value))} />
-                </label>
-                {kind === 'segment' && (
-                  <label>
-                    Inclusive end
-                    <input type="number" value={end} onChange={(e) => setEnd(Number(e.target.value))} />
-                  </label>
-                )}
-                <button onClick={() => apply({ type: 'query', index: queryIndex, end })}>{kind === 'fenwick' ? 'Query prefix' : 'Query range'}</button>
-                <label>
-                  New value
-                  <input type="number" value={value} onChange={(e) => setValue(Number(e.target.value))} />
-                </label>
-                <button onClick={() => apply({ type: 'update', index: queryIndex, value })}>Assign value</button>
-              </>
-            )}
-          </div>
-          {error && (
-            <p className="ls-error" role="alert">
-              {error}
-            </p>
-          )}
-          <div className="ls-stage-grid">
-            <div className="ls-diagram">
-              <div className="ls-legend">
-                <span className="active">Active</span>
-                <span>Click a node to inspect</span>
-                <span>{frame.nodes.length} nodes</span>
-              </div>
-              <div className="ls-diagram-scroll">
-                <svg width={layout.width} height={layout.height} role="img" aria-label={`${module.name} computed tree`}>
-                  {frame.nodes.flatMap((n) =>
-                    n.children.map((child) => {
-                      const a = layout.positions.get(n.id)!,
-                        b = layout.positions.get(child)!
-                      return (
-                        <line
-                          key={`${n.id}-${child}`}
-                          x1={a.x}
-                          y1={a.y + 20}
-                          x2={b.x}
-                          y2={b.y - 20}
-                          className={frame.active.includes(child) ? 'ls-edge active' : 'ls-edge'}
-                        />
-                      )
-                    }),
-                  )}
-                  {frame.nodes.map((n) => {
-                    const p = layout.positions.get(n.id)!
-                    return (
-                      <g key={n.id} className={`ls-node ${frame.active.includes(n.id) ? 'active' : ''} ${n.tone ?? ''} ${selected === n.id ? 'selected' : ''}`}>
-                        <foreignObject x={p.x - 43} y={p.y - 25} width="86" height="52">
-                          <button aria-label={`Inspect node ${n.label}`} onClick={() => setSelected(n.id)}>
-                            {n.label}
-                          </button>
-                        </foreignObject>
-                        {n.detail && (
-                          <text x={p.x} y={p.y + 43} textAnchor="middle">
-                            {n.detail}
-                          </text>
-                        )}
-                      </g>
-                    )
-                  })}
-                </svg>
-              </div>
-              <MobileDisclosure className="ls-inspector" title="Inspect current state">
-                {selectedNode ? (
-                  <>
-                    <strong>Node {selectedNode.label}</strong>
-                    <span>{selectedNode.detail ?? `Key ${selectedNode.label}`}</span>
-                    <span>Children: {selectedNode.children.map((id) => frame.nodes.find((n) => n.id === id)?.label).join(', ') || 'leaf'}</span>
-                    {selectedNode.tone && <span>Color: {selectedNode.tone}</span>}
-                  </>
-                ) : (
-                  <span>Select any node to inspect its key, children, and stored information.</span>
-                )}
-              </MobileDisclosure>
+              <button
+                onClick={() => {
+                  const url = URL.createObjectURL(new Blob([JSON.stringify({ moduleId: module.id, kind, ...run }, null, 2)], { type: 'application/json' }))
+                  const a = document.createElement('a')
+                  a.href = url
+                  a.download = `${module.id}-trace.json`
+                  a.click()
+                  window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+                }}
+              >
+                {tx('Export computed trace', 'studios')}
+              </button>
             </div>
-            <MobileDisclosure className="ls-trace" title="Trace and explanation">
-              <span className="ls-eyebrow">EXPLAIN THIS STEP</span>
-              <h3>
-                Step {cursor + 1} of {last + 1}
-              </h3>
-              <p aria-live="polite">{frame.message}</p>
-              <h4>{range ? 'Contributions' : kind === 'expression' ? 'Evaluation' : 'Output'}</h4>
-              <div className="ls-output">{frame.output.length ? frame.output.join(' → ') : 'No values emitted yet.'}</div>
-              <h4>{range ? 'Underlying array' : 'Input keys'}</h4>
-              <div className="ls-memory">
-                {kind === 'trie'
-                  ? run.words.join(' · ')
-                  : kind === 'expression'
-                    ? expressionUsed
-                    : run.values.map((v, i) => (
-                        <span key={i}>
-                          <small>{i}</small>
-                          {v}
-                        </span>
-                      ))}
-              </div>
-              <p className="ls-cost">{guide.cost}</p>
-            </MobileDisclosure>
+            {tx(saveMessage && <p role="status">{tx(saveMessage, 'studios')}</p>, 'studios')}
+            {tx(
+              saved.map((item, i) => (
+                <article key={`${item.createdAt}-${i}`}>
+                  <p>
+                    {tx(new Date(item.createdAt).toLocaleString(), 'studios')} ·{tx(' ', 'studios')}
+                    {tx(kind === 'trie' ? item.words.join(', ') : kind === 'expression' ? item.expression : item.values.join(', '), 'studios')}
+                  </p>
+                  <button
+                    onClick={() => {
+                      try {
+                        const next = runTree(kind, item.values, item.words, item.expression, { type: 'build' })
+                        setRun(next)
+                        setDraft(kind === 'trie' ? item.words.join(', ') : kind === 'expression' ? item.expression : item.values.join(', '))
+                        setExpressionUsed(item.expression)
+                        setCursor(next.frames.length - 1)
+                        setPlaying(false)
+                        setSaveMessage('Saved input loaded. Open Visualization to explore it.')
+                      } catch (e) {
+                        setSaveMessage(e instanceof Error ? e.message : 'Could not load this example.')
+                      }
+                    }}
+                  >
+                    {tx('Load tree example ', 'studios')}
+                    {tx(i + 1, 'studios')}
+                  </button>
+                </article>
+              )),
+              'studios',
+            )}
           </div>
-          <div className="ls-playback">
-            <button
-              aria-label="Previous tree step"
-              disabled={!cursor}
-              onClick={() => {
-                setCursor((i) => i - 1)
-                setPlaying(false)
-                setGuess('')
-              }}
-            >
-              <SkipBack size={18} />
-            </button>
-            <button
-              aria-label={playing && cursor < last ? 'Pause tree playback' : 'Play tree playback'}
-              disabled={cursor === last}
-              onClick={() => setPlaying((v) => !v)}
-            >
-              {playing && cursor < last ? 'Pause' : 'Play'}
-            </button>
-            <button
-              aria-label="Next tree step"
-              disabled={cursor === last}
-              onClick={() => {
-                setCursor((i) => i + 1)
-                setPlaying(false)
-                setGuess('')
-              }}
-            >
-              <SkipForward size={18} />
-            </button>
-            <label>
-              Timeline
-              <input
-                aria-label="Tree timeline"
-                type="range"
-                min="0"
-                max={last}
-                value={cursor}
-                onChange={(e) => {
-                  setCursor(Number(e.target.value))
+        ),
+        'studios',
+      )}
+      {tx(
+        showInteractive && (
+          <>
+            <div className="ls-editor problem-input-panel learning-input-panel">
+              <h3 className="problem-panel-title">{tx('Problem Input', 'studios')}</h3>
+              <label>
+                {tx(
+                  kind === 'trie' ? 'Words (comma separated)' : kind === 'expression' ? 'Arithmetic expression' : 'Keys / array values (up to 15)',
+                  'studios',
+                )}
+                <textarea rows={4} aria-label={tx('Tree example input', 'studios')} value={draft} onChange={(e) => setDraft(e.target.value)} />
+              </label>
+              <button className="ls-primary" onClick={() => apply({ type: 'build' })}>
+                <Play size={16} />
+                {tx('Build example', 'studios')}
+              </button>
+              <button
+                onClick={() => {
+                  setCursor(0)
                   setPlaying(false)
                   setGuess('')
                 }}
-              />
-            </label>
-            <label>
-              Step delay
-              <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))}>
-                <option value={1400}>Slow</option>
-                <option value={700}>Normal</option>
-                <option value={250}>Fast</option>
-              </select>
-            </label>
-          </div>
-          {cursor < last && (
-            <div className="ls-prediction">
-              <h3>Predict the next explanation</h3>
-              <div>
-                {[...new Set([run.frames[cursor + 1].message, frame.message])].sort().map((message) => (
-                  <button
-                    key={message}
-                    onClick={() => {
-                      setGuess(message)
-                      setPlaying(false)
-                    }}
-                  >
-                    {message}
-                  </button>
-                ))}
-              </div>
-              {guess && (
-                <p role="status">
-                  {guess === run.frames[cursor + 1].message
-                    ? 'Correct. Advance one step to see it happen.'
-                    : 'That describes the current state. Think about the next operation.'}
-                </p>
+              >
+                <RotateCcw size={16} />
+                {tx('Replay', 'studios')}
+              </button>
+              {tx(
+                ['bst', 'avl', 'traversal', 'redblack', 'btree'].includes(kind) && (
+                  <div className="ls-presets">
+                    <span>{tx('Try a shape', 'studios')}</span>
+                    {tx(
+                      [
+                        ['Balanced', '8,3,10,1,6,14,4,7,13'],
+                        ['Skewed', '1,2,3,4,5,6,7'],
+                        ['LL', '30,20,10'],
+                        ['LR', '30,10,20'],
+                        ['RL', '10,30,20'],
+                        ['RR', '10,20,30'],
+                      ].map(([label, keys]) => (
+                        <button key={label} onClick={() => setDraft(keys)}>
+                          {tx(label, 'studios')}
+                        </button>
+                      )),
+                      'studios',
+                    )}
+                    <small>{tx('Choose a preset, then Build example.', 'studios')}</small>
+                  </div>
+                ),
+                'studios',
               )}
             </div>
-          )}
-        </>
+            <div className="ls-operations">
+              {tx(
+                canEdit && (
+                  <>
+                    <label>
+                      {tx('Key', 'studios')}
+                      <input type="number" value={value} onChange={(e) => setValue(Number(e.target.value))} />
+                    </label>
+                    <button onClick={() => apply({ type: 'insert', value })}>{tx('Insert key', 'studios')}</button>
+                    {tx(kind !== 'heap' && <button onClick={() => apply({ type: 'search', value })}>{tx('Search key', 'studios')}</button>, 'studios')}
+                    {tx(
+                      ['bst', 'avl', 'traversal'].includes(kind) && (
+                        <button onClick={() => apply({ type: 'delete', value })}>{tx('Delete key', 'studios')}</button>
+                      ),
+                      'studios',
+                    )}
+                    {tx(kind === 'heap' && <button onClick={() => apply({ type: 'extract' })}>{tx('Extract minimum', 'studios')}</button>, 'studios')}
+                  </>
+                ),
+                'studios',
+              )}
+              {tx(
+                ['bst', 'avl', 'traversal', 'redblack'].includes(kind) && (
+                  <>
+                    <label>
+                      {tx('Traversal', 'studios')}
+                      <select aria-label={tx('Traversal order', 'studios')} value={order} onChange={(e) => setOrder(e.target.value as TreeOrder)}>
+                        <option value="preorder">{tx('Preorder · root first', 'studios')}</option>
+                        <option value="inorder">{tx('Inorder · between children', 'studios')}</option>
+                        <option value="postorder">{tx('Postorder · root last', 'studios')}</option>
+                        <option value="level">{tx('Level order · queue', 'studios')}</option>
+                      </select>
+                    </label>
+                    <button onClick={() => apply({ type: 'traverse', order })}>{tx('Trace traversal', 'studios')}</button>
+                  </>
+                ),
+                'studios',
+              )}
+              {tx(
+                kind === 'trie' && (
+                  <>
+                    <label>
+                      {tx('Word / prefix', 'studios')}
+                      <input value={word} onChange={(e) => setWord(e.target.value)} />
+                    </label>
+                    <button onClick={() => apply({ type: 'insert', text: word })}>{tx('Insert word', 'studios')}</button>
+                    <button onClick={() => apply({ type: 'search', text: word })}>{tx('Find prefix', 'studios')}</button>
+                    <button onClick={() => apply({ type: 'delete', text: word })}>{tx('Delete word', 'studios')}</button>
+                  </>
+                ),
+                'studios',
+              )}
+              {tx(
+                range && (
+                  <>
+                    <label>
+                      {tx(kind === 'fenwick' ? 'Prefix end / update index' : 'Start / update index', 'studios')}
+                      <input type="number" value={queryIndex} onChange={(e) => setQueryIndex(Number(e.target.value))} />
+                    </label>
+                    {tx(
+                      kind === 'segment' && (
+                        <label>
+                          {tx('Inclusive end', 'studios')}
+                          <input type="number" value={end} onChange={(e) => setEnd(Number(e.target.value))} />
+                        </label>
+                      ),
+                      'studios',
+                    )}
+                    <button onClick={() => apply({ type: 'query', index: queryIndex, end })}>
+                      {tx(kind === 'fenwick' ? 'Query prefix' : 'Query range', 'studios')}
+                    </button>
+                    <label>
+                      {tx('New value', 'studios')}
+                      <input type="number" value={value} onChange={(e) => setValue(Number(e.target.value))} />
+                    </label>
+                    <button onClick={() => apply({ type: 'update', index: queryIndex, value })}>{tx('Assign value', 'studios')}</button>
+                  </>
+                ),
+                'studios',
+              )}
+            </div>
+            {tx(
+              error && (
+                <p className="ls-error" role="alert">
+                  {tx(error, 'studios')}
+                </p>
+              ),
+              'studios',
+            )}
+            <div className="ls-stage-grid">
+              <div className="ls-diagram">
+                <div className="ls-legend">
+                  <span className="active">{tx('Active', 'studios')}</span>
+                  <span>{tx('Click a node to inspect', 'studios')}</span>
+                  <span>
+                    {tx(frame.nodes.length, 'studios')}
+                    {tx(' nodes', 'studios')}
+                  </span>
+                </div>
+                <div className="ls-diagram-scroll">
+                  <svg width={layout.width} height={layout.height} role="img" aria-label={tx(`${module.name} computed tree`, 'studios')}>
+                    {tx(
+                      frame.nodes.flatMap((n) =>
+                        n.children.map((child) => {
+                          const a = layout.positions.get(n.id)!,
+                            b = layout.positions.get(child)!
+                          return (
+                            <line
+                              key={`${n.id}-${child}`}
+                              x1={a.x}
+                              y1={a.y + 20}
+                              x2={b.x}
+                              y2={b.y - 20}
+                              className={frame.active.includes(child) ? 'ls-edge active' : 'ls-edge'}
+                            />
+                          )
+                        }),
+                      ),
+                      'studios',
+                    )}
+                    {tx(
+                      frame.nodes.map((n) => {
+                        const p = layout.positions.get(n.id)!
+                        return (
+                          <g
+                            key={n.id}
+                            className={`ls-node ${frame.active.includes(n.id) ? 'active' : ''} ${n.tone ?? ''} ${selected === n.id ? 'selected' : ''}`}
+                          >
+                            <foreignObject x={p.x - 43} y={p.y - 25} width="86" height="52">
+                              <button aria-label={tx(`Inspect node ${n.label}`, 'studios')} onClick={() => setSelected(n.id)}>
+                                {tx(n.label, 'studios')}
+                              </button>
+                            </foreignObject>
+                            {tx(
+                              n.detail && (
+                                <text x={p.x} y={p.y + 43} textAnchor="middle">
+                                  {tx(n.detail, 'studios')}
+                                </text>
+                              ),
+                              'studios',
+                            )}
+                          </g>
+                        )
+                      }),
+                      'studios',
+                    )}
+                  </svg>
+                </div>
+                <MobileDisclosure className="ls-inspector" title={tx('Inspect current state', 'studios')}>
+                  {tx(
+                    selectedNode ? (
+                      <>
+                        <strong>
+                          {tx('Node ', 'studios')}
+                          {tx(selectedNode.label, 'studios')}
+                        </strong>
+                        <span>{tx(selectedNode.detail ?? `Key ${selectedNode.label}`, 'studios')}</span>
+                        <span>
+                          {tx('Children: ', 'studios')}
+                          {tx(selectedNode.children.map((id) => frame.nodes.find((n) => n.id === id)?.label).join(', ') || 'leaf', 'studios')}
+                        </span>
+                        {tx(
+                          selectedNode.tone && (
+                            <span>
+                              {tx('Color: ', 'studios')}
+                              {tx(selectedNode.tone, 'studios')}
+                            </span>
+                          ),
+                          'studios',
+                        )}
+                      </>
+                    ) : (
+                      <span>{tx('Select any node to inspect its key, children, and stored information.', 'studios')}</span>
+                    ),
+                    'studios',
+                  )}
+                </MobileDisclosure>
+              </div>
+              <MobileDisclosure className="ls-trace" title={tx('Trace and explanation', 'studios')}>
+                <span className="ls-eyebrow">{tx('EXPLAIN THIS STEP', 'studios')}</span>
+                <h3>
+                  {tx('Step ', 'studios')}
+                  {tx(cursor + 1, 'studios')}
+                  {tx(' of ', 'studios')}
+                  {tx(last + 1, 'studios')}
+                </h3>
+                <p aria-live="polite">{tx(frame.message, 'studios')}</p>
+                <h4>{tx(range ? 'Contributions' : kind === 'expression' ? 'Evaluation' : 'Output', 'studios')}</h4>
+                <div className="ls-output">{tx(frame.output.length ? frame.output.join(' → ') : 'No values emitted yet.', 'studios')}</div>
+                <h4>{tx(range ? 'Underlying array' : 'Input keys', 'studios')}</h4>
+                <div className="ls-memory">
+                  {tx(
+                    kind === 'trie'
+                      ? run.words.join(' · ')
+                      : kind === 'expression'
+                        ? expressionUsed
+                        : run.values.map((v, i) => (
+                            <span key={i}>
+                              <small>{tx(i, 'studios')}</small>
+                              {tx(v, 'studios')}
+                            </span>
+                          )),
+                    'studios',
+                  )}
+                </div>
+                <p className="ls-cost">{tx(guide.cost, 'studios')}</p>
+              </MobileDisclosure>
+            </div>
+            <div className="ls-playback">
+              <button
+                aria-label={tx('Previous tree step', 'studios')}
+                disabled={!cursor}
+                onClick={() => {
+                  setCursor((i) => i - 1)
+                  setPlaying(false)
+                  setGuess('')
+                }}
+              >
+                <SkipBack size={18} />
+              </button>
+              <button
+                aria-label={tx(playing && cursor < last ? 'Pause tree playback' : 'Play tree playback', 'studios')}
+                disabled={cursor === last}
+                onClick={() => setPlaying((v) => !v)}
+              >
+                {tx(playing && cursor < last ? 'Pause' : 'Play', 'studios')}
+              </button>
+              <button
+                aria-label={tx('Next tree step', 'studios')}
+                disabled={cursor === last}
+                onClick={() => {
+                  setCursor((i) => i + 1)
+                  setPlaying(false)
+                  setGuess('')
+                }}
+              >
+                <SkipForward size={18} />
+              </button>
+              <label>
+                {tx('Timeline', 'studios')}
+                <input
+                  aria-label={tx('Tree timeline', 'studios')}
+                  type="range"
+                  min="0"
+                  max={last}
+                  value={cursor}
+                  onChange={(e) => {
+                    setCursor(Number(e.target.value))
+                    setPlaying(false)
+                    setGuess('')
+                  }}
+                />
+              </label>
+              <label>
+                {tx('Step delay', 'studios')}
+                <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))}>
+                  <option value={1400}>{tx('Slow', 'studios')}</option>
+                  <option value={700}>{tx('Normal', 'studios')}</option>
+                  <option value={250}>{tx('Fast', 'studios')}</option>
+                </select>
+              </label>
+            </div>
+            {tx(
+              cursor < last && (
+                <div className="ls-prediction">
+                  <h3>{tx('Predict the next explanation', 'studios')}</h3>
+                  <div>
+                    {tx(
+                      [...new Set([run.frames[cursor + 1].message, frame.message])].sort().map((message) => (
+                        <button
+                          key={message}
+                          onClick={() => {
+                            setGuess(message)
+                            setPlaying(false)
+                          }}
+                        >
+                          {tx(message, 'studios')}
+                        </button>
+                      )),
+                      'studios',
+                    )}
+                  </div>
+                  {tx(
+                    guess && (
+                      <p role="status">
+                        {tx(
+                          guess === run.frames[cursor + 1].message
+                            ? 'Correct. Advance one step to see it happen.'
+                            : 'That describes the current state. Think about the next operation.',
+                          'studios',
+                        )}
+                      </p>
+                    ),
+                    'studios',
+                  )}
+                </div>
+              ),
+              'studios',
+            )}
+          </>
+        ),
+        'studios',
       )}
       <div className="ls-challenge">
         <div>
-          <span className="ls-eyebrow">TRY • EXPLAIN • VERIFY</span>
-          <h3>{guide.task}</h3>
+          <span className="ls-eyebrow">{tx('TRY • EXPLAIN • VERIFY', 'studios')}</span>
+          <h3>{tx(guide.task, 'studios')}</h3>
           <details>
-            <summary>Reveal reasoning</summary>
-            <p>{guide.answer}</p>
+            <summary>{tx('Reveal reasoning', 'studios')}</summary>
+            <p>{tx(guide.answer, 'studios')}</p>
           </details>
         </div>
         <div>
-          <h3>Compare structures</h3>
-          <p>Use the same keys in a BST and an AVL tree: ordered insertion makes the BST tall, while AVL rotations keep search paths short.</p>
+          <h3>{tx('Compare structures', 'studios')}</h3>
           <p>
-            Use a heap for repeated minimum extraction, a trie for prefixes, and segment/Fenwick trees for sums. Their ordering rules solve different problems.
+            {tx('Use the same keys in a BST and an AVL tree: ordered insertion makes the BST tall, while AVL rotations keep search paths short.', 'studios')}
           </p>
-          {['bst', 'avl', 'redblack', 'traversal'].includes(kind) && (
-            <details>
-              <summary>Compare BST and AVL with these keys</summary>
-              <TreeComparison values={run.values} />
-            </details>
+          <p>
+            {tx(
+              'Use a heap for repeated minimum extraction, a trie for prefixes, and segment/Fenwick trees for sums. Their ordering rules solve different problems.',
+              'studios',
+            )}
+          </p>
+          {tx(
+            ['bst', 'avl', 'redblack', 'traversal'].includes(kind) && (
+              <details>
+                <summary>{tx('Compare BST and AVL with these keys', 'studios')}</summary>
+                <TreeComparison values={run.values} />
+              </details>
+            ),
+            'studios',
           )}
         </div>
       </div>

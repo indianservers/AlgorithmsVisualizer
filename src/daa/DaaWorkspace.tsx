@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { ProblemInputFields } from '../components/ProblemInputFields'
 import { MobileDisclosure } from '../components/MobileDisclosure'
 import { CompactLessonHeader } from '../components/CompactLessonHeader'
@@ -72,12 +74,14 @@ function ProblemEditor({
   bfsStyle?: boolean
   onValidityChange?: (error: string) => void
 }) {
+  useLocaleRender()
+
   if (!graphStyle && !traversalStyle && !bfsStyle) return <ProblemInputFields draft={input} onChange={onChange} onValidityChange={onValidityChange} />
   let parsed: Record<string, unknown>
   try {
     parsed = JSON.parse(input)
   } catch {
-    return <p>Correct the JSON input below to restore the field editor.</p>
+    return <p>{tx('Correct the JSON input below to restore the field editor.', 'studios')}</p>
   }
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null
   function update(key: string, value: unknown) {
@@ -85,136 +89,171 @@ function ProblemEditor({
   }
   return (
     <div className="daa-field-editor">
-      {Object.entries(parsed).map(([key, value]) => {
-        if (key === 'edges' && Array.isArray(value))
-          return (
-            <fieldset key={key}>
-              <legend>Graph edges</legend>
-              <p>
-                {bfsStyle
-                  ? 'Each row connects two vertices. Weights are ignored by BFS and DFS.'
-                  : traversalStyle
-                    ? 'Each row connects two vertices. Weights are ignored by DFS and used as labels.'
-                    : graphStyle
-                      ? 'Each row connects two vertices with a non-negative weight.'
-                      : 'Each row connects two vertices. Weights are ignored by BFS and DFS.'}
-              </p>
-              <div className={`edge-table-heading ${bfsStyle ? 'with-edge-number' : ''}`} aria-hidden="true">
-                {bfsStyle && <span>#</span>}
-                <span>From</span>
-                <span>To</span>
-                <span>Weight</span>
-                <span />
-              </div>
-              <div className="daa-edge-list">
-                {value.map((edge, index) => (
-                  <div className="daa-edge-row" key={index}>
-                    {bfsStyle && (
-                      <label className="bfs-edge-number">
-                        #<output>{index + 1}</output>
-                      </label>
-                    )}
-                    {['from', 'to', 'weight'].map((field) => (
-                      <label key={field}>
-                        <span className="sr-only">{field}</span>
-                        <input
-                          type="number"
-                          aria-label={`Edge ${index + 1} ${field}`}
-                          value={edge[field]}
-                          onChange={(event) =>
+      {tx(
+        Object.entries(parsed).map(([key, value]) => {
+          if (key === 'edges' && Array.isArray(value))
+            return (
+              <fieldset key={key}>
+                <legend>{tx('Graph edges', 'studios')}</legend>
+                <p>
+                  {tx(
+                    bfsStyle
+                      ? 'Each row connects two vertices. Weights are ignored by BFS and DFS.'
+                      : traversalStyle
+                        ? 'Each row connects two vertices. Weights are ignored by DFS and used as labels.'
+                        : graphStyle
+                          ? 'Each row connects two vertices with a non-negative weight.'
+                          : 'Each row connects two vertices. Weights are ignored by BFS and DFS.',
+                    'studios',
+                  )}
+                </p>
+                <div className={`edge-table-heading ${bfsStyle ? 'with-edge-number' : ''}`} aria-hidden="true">
+                  {tx(bfsStyle && <span>#</span>, 'studios')}
+                  <span>{tx('From', 'studios')}</span>
+                  <span>{tx('To', 'studios')}</span>
+                  <span>{tx('Weight', 'studios')}</span>
+                  <span />
+                </div>
+                <div className="daa-edge-list">
+                  {tx(
+                    value.map((edge, index) => (
+                      <div className="daa-edge-row" key={index}>
+                        {tx(
+                          bfsStyle && (
+                            <label className="bfs-edge-number">
+                              #<output>{tx(index + 1, 'studios')}</output>
+                            </label>
+                          ),
+                          'studios',
+                        )}
+                        {tx(
+                          ['from', 'to', 'weight'].map((field) => (
+                            <label key={field}>
+                              <span className="sr-only">{tx(field, 'studios')}</span>
+                              <input
+                                type="number"
+                                aria-label={tx(`Edge ${index + 1} ${field}`, 'studios')}
+                                value={edge[field]}
+                                onChange={(event) =>
+                                  update(
+                                    key,
+                                    value.map((item, i) => (i === index ? { ...item, [field]: Number(event.target.value) } : item)),
+                                  )
+                                }
+                              />
+                            </label>
+                          )),
+                          'studios',
+                        )}
+                        <button
+                          type="button"
+                          aria-label={tx(`Remove edge ${index + 1}`, 'studios')}
+                          onClick={() =>
                             update(
                               key,
-                              value.map((item, i) => (i === index ? { ...item, [field]: Number(event.target.value) } : item)),
+                              value.filter((_, i) => i !== index),
                             )
                           }
-                        />
-                      </label>
-                    ))}
-                    <button
-                      type="button"
-                      aria-label={`Remove edge ${index + 1}`}
-                      onClick={() =>
-                        update(
-                          key,
-                          value.filter((_, i) => i !== index),
-                        )
-                      }
-                    >
-                      {graphStyle || traversalStyle ? <Trash2 size={14} aria-hidden="true" /> : '×'}
-                    </button>
-                  </div>
-                ))}
-              </div>
-              {traversalStyle ? (
-                <div className="daa-edge-actions">
-                  <button aria-label="Add edge" type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
-                    {traversalStyle && <span aria-hidden="true">＋</span>}Add edge
-                  </button>
-                  {traversalStyle && !bfsStyle && (
-                    <button className="dfs-clear-edges" type="button" onClick={() => update(key, [])}>
-                      <Trash2 size={14} />
-                      Clear all
-                    </button>
+                        >
+                          {tx(graphStyle || traversalStyle ? <Trash2 size={14} aria-hidden="true" /> : '×', 'studios')}
+                        </button>
+                      </div>
+                    )),
+                    'studios',
                   )}
                 </div>
-              ) : (
-                <button type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
-                  Add edge
-                </button>
-              )}
-            </fieldset>
-          )
-        if (typeof value === 'boolean' && graphStyle)
-          return (
-            <div className="dijkstra-direction" key={key}>
-              <span>Graph type</span>
-              <div role="group" aria-label="Graph type">
-                {[true, false].map((directed) => (
-                  <button key={String(directed)} type="button" aria-pressed={value === directed} onClick={() => update(key, directed)}>
-                    {directed ? 'Directed' : 'Undirected'}
-                  </button>
-                ))}
+                {tx(
+                  traversalStyle ? (
+                    <div className="daa-edge-actions">
+                      <button aria-label={tx('Add edge', 'studios')} type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
+                        {tx(traversalStyle && <span aria-hidden="true">＋</span>, 'studios')}
+                        {tx('Add edge', 'studios')}
+                      </button>
+                      {tx(
+                        traversalStyle && !bfsStyle && (
+                          <button className="dfs-clear-edges" type="button" onClick={() => update(key, [])}>
+                            <Trash2 size={14} />
+                            {tx('Clear all', 'studios')}
+                          </button>
+                        ),
+                        'studios',
+                      )}
+                    </div>
+                  ) : (
+                    <button type="button" onClick={() => update(key, [...value, { from: 0, to: 1, weight: 1 }])}>
+                      {tx('Add edge', 'studios')}
+                    </button>
+                  ),
+                  'studios',
+                )}
+              </fieldset>
+            )
+          if (typeof value === 'boolean' && graphStyle)
+            return (
+              <div className="dijkstra-direction" key={key}>
+                <span>{tx('Graph type', 'studios')}</span>
+                <div role="group" aria-label={tx('Graph type', 'studios')}>
+                  {tx(
+                    [true, false].map((directed) => (
+                      <button key={String(directed)} type="button" aria-pressed={value === directed} onClick={() => update(key, directed)}>
+                        {tx(directed ? 'Directed' : 'Undirected', 'studios')}
+                      </button>
+                    )),
+                    'studios',
+                  )}
+                </div>
               </div>
+            )
+          if (typeof value === 'boolean')
+            return (
+              <label key={key}>
+                {tx(traversalStyle && !bfsStyle ? 'Graph type' : key, 'studios')}
+                <select aria-label={tx(key, 'studios')} value={String(value)} onChange={(event) => update(key, event.target.value === 'true')}>
+                  <option value="true">{tx('Directed', 'studios')}</option>
+                  <option value="false">{tx('Undirected', 'studios')}</option>
+                </select>
+                {tx(bfsStyle && <small>{tx('true for directed, false for undirected.', 'studios')}</small>, 'studios')}
+              </label>
+            )
+          if (typeof value === 'number' || typeof value === 'string')
+            return (
+              <label key={key}>
+                {tx(
+                  bfsStyle ? key : graphStyle || traversalStyle ? (key === 'vertices' ? 'Number of vertices' : key === 'source' ? 'Source vertex' : key) : key,
+                  'studios',
+                )}
+                <input
+                  aria-label={tx(key, 'studios')}
+                  type={typeof value === 'number' ? 'number' : 'text'}
+                  value={String(value)}
+                  onChange={(event) => update(key, typeof value === 'number' ? Number(event.target.value) : event.target.value)}
+                />
+                {tx(
+                  bfsStyle && (
+                    <small>
+                      {tx(key === 'vertices' ? 'Number of vertices (1–8).' : key === 'source' ? 'Start vertex; flow sink is the last vertex.' : '', 'studios')}
+                    </small>
+                  ),
+                  'studios',
+                )}
+              </label>
+            )
+          return (
+            <div key={key}>
+              <strong>{tx(key, 'studios')}</strong>
+              <ArrayField name={key} value={value} onApply={(next) => update(key, next)} />
             </div>
           )
-        if (typeof value === 'boolean')
-          return (
-            <label key={key}>
-              {traversalStyle && !bfsStyle ? 'Graph type' : key}
-              <select aria-label={key} value={String(value)} onChange={(event) => update(key, event.target.value === 'true')}>
-                <option value="true">Directed</option>
-                <option value="false">Undirected</option>
-              </select>
-              {bfsStyle && <small>true for directed, false for undirected.</small>}
-            </label>
-          )
-        if (typeof value === 'number' || typeof value === 'string')
-          return (
-            <label key={key}>
-              {bfsStyle ? key : graphStyle || traversalStyle ? (key === 'vertices' ? 'Number of vertices' : key === 'source' ? 'Source vertex' : key) : key}
-              <input
-                aria-label={key}
-                type={typeof value === 'number' ? 'number' : 'text'}
-                value={String(value)}
-                onChange={(event) => update(key, typeof value === 'number' ? Number(event.target.value) : event.target.value)}
-              />
-              {bfsStyle && (
-                <small>{key === 'vertices' ? 'Number of vertices (1–8).' : key === 'source' ? 'Start vertex; flow sink is the last vertex.' : ''}</small>
-              )}
-            </label>
-          )
-        return (
-          <div key={key}>
-            <strong>{key}</strong>
-            <ArrayField name={key} value={value} onApply={(next) => update(key, next)} />
-          </div>
-        )
-      })}
+        }),
+        'studios',
+      )}
     </div>
   )
 }
 
 function ArrayField({ name, value, onApply }: { name: string; value: unknown; onApply: (value: unknown) => void }) {
+  useLocaleRender()
+
   const matrix = Array.isArray(value) && Array.isArray(value[0])
   const [text, setText] = useState(() =>
       Array.isArray(value) ? (matrix ? value.map((row) => row.join(', ')).join('\n') : value.join(', ')) : JSON.stringify(value),
@@ -223,8 +262,8 @@ function ArrayField({ name, value, onApply }: { name: string; value: unknown; on
   return (
     <div>
       <label>
-        {matrix ? 'One row per line, numbers separated by commas' : 'Numbers separated by commas'}
-        <textarea aria-label={`${name} values`} rows={matrix ? 4 : 2} value={text} onChange={(event) => setText(event.target.value)} />
+        {tx(matrix ? 'One row per line, numbers separated by commas' : 'Numbers separated by commas', 'studios')}
+        <textarea aria-label={tx(`${name} values`, 'studios')} rows={matrix ? 4 : 2} value={text} onChange={(event) => setText(event.target.value)} />
       </label>
       <button
         type="button"
@@ -247,9 +286,10 @@ function ArrayField({ name, value, onApply }: { name: string; value: unknown; on
           }
         }}
       >
-        Apply {name}
+        {tx('Apply ', 'studios')}
+        {tx(name, 'studios')}
       </button>
-      <small role="status">{message}</small>
+      <small role="status">{tx(message, 'studios')}</small>
     </div>
   )
 }
@@ -265,7 +305,9 @@ export function StateView({
   traversalLayout?: boolean
   breadthLayout?: boolean
 }) {
-  if (!state) return <p>Run an example to see its computed states.</p>
+  useLocaleRender()
+
+  if (!state) return <p>{tx('Run an example to see its computed states.', 'studios')}</p>
   const g = state.graph
   const position = (v: number) => {
     const angle = (2 * Math.PI * v) / (g?.vertices ?? 1) - Math.PI / 2
@@ -275,180 +317,253 @@ export function StateView({
   }
   return (
     <div className="daa-state">
-      {state.matrices && (
-        <div className="daa-matrices">
-          {state.matrices.map((matrix) => (
-            <div className="daa-table-scroll" key={matrix.label}>
-              <table className="daa-table">
-                <caption>{matrix.label}</caption>
-                <tbody>
-                  {matrix.values.map((row, i) => (
-                    <tr key={i}>
-                      {row.map((value, j) => (
-                        <td key={j}>{cell(value)}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
-      )}
-      {state.values?.length && state.values.every((value) => typeof value === 'number' && Number.isFinite(value)) ? (
-        <div className="daa-value-chart" aria-label="Array value visualization">
-          {state.values.map((value, i) => (
-            <div key={i} className={state.activeIndices?.includes(i) ? 'active' : ''}>
-              <strong>{cell(value)}</strong>
-              <span style={{ height: `${20 + (Math.abs(Number(value)) / Math.max(1, ...state.values!.map((v) => Math.abs(Number(v))))) * 100}px` }} />
-              <small>{state.labels?.[i] ?? `index ${i}`}</small>
-            </div>
-          ))}
-        </div>
-      ) : null}
-      {g && (
-        <svg
-          className="daa-graph"
-          viewBox={traversalLayout ? '0 0 600 360' : spacious ? '40 12 440 380' : '0 0 520 400'}
-          role="img"
-          aria-label="Weighted graph state"
-        >
-          <defs>
-            <radialGradient id="bfs-node-fill" cx=".3" cy=".2" r=".9">
-              <stop stopColor="#fff" />
-              <stop offset="1" stopColor="#a6d5ff" />
-            </radialGradient>
-            <marker id="daa-active-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#fa6c24" />
-            </marker>
-            <marker id="daa-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="currentColor" />
-            </marker>
-          </defs>
-          {g.edges.map((e, index) => {
-            const a = position(e.from),
-              b = position(e.to),
-              dx = b.x - a.x,
-              dy = b.y - a.y,
-              len = Math.hypot(dx, dy) || 1
-            const active = g.selected?.some(([u, v]) => (u === e.from && v === e.to) || (!g.directed && u === e.to && v === e.from))
-            return (
-              <g key={index} className={active ? 'selected' : ''}>
-                {e.from === e.to ? (
-                  <path
-                    d={`M${a.x - 10},${a.y - 17} C${a.x - 70},${a.y - 80} ${a.x + 70},${a.y - 80} ${a.x + 10},${a.y - 17}`}
-                    fill="none"
-                    stroke="currentColor"
-                  />
-                ) : (
-                  <line
-                    x1={a.x + (dx / len) * 23}
-                    y1={a.y + (dy / len) * 23}
-                    x2={b.x - (dx / len) * 26}
-                    y2={b.y - (dy / len) * 26}
-                    stroke="currentColor"
-                    strokeWidth={active ? 4 : 2}
-                    markerEnd={g.directed ? ((spacious || breadthLayout) && active ? 'url(#daa-active-arrow)' : 'url(#daa-arrow)') : undefined}
-                  />
-                )}
-                <text x={(a.x + b.x) / 2 + (dy / len) * 10} y={(a.y + b.y) / 2 - (dx / len) * 10} textAnchor="middle">
-                  {e.weight}
-                </text>
-              </g>
-            )
-          })}
-          {Array.from({ length: g.vertices }, (_, v) => {
-            const p = position(v)
-            return (
-              <g
-                key={v}
-                className={
-                  breadthLayout && state.traversal?.distance
-                    ? state.traversal.distance[v] < 0
-                      ? 'bfs-unreachable-vertex'
-                      : 'bfs-discovered-vertex'
-                    : state.weightedExplorer?.current === v
-                      ? 'current-vertex'
-                      : state.weightedExplorer?.visited.includes(v) || state.traversal?.visited.includes(v)
-                        ? 'visited-vertex'
-                        : undefined
-                }
-              >
-                <circle cx={p.x} cy={p.y} r={spacious || traversalLayout ? 26 : 22} />
-                <text x={p.x} y={p.y + 5} textAnchor="middle">
-                  {v}
-                </text>
-                <text className="vertex-label" x={p.x} y={p.y + 42} textAnchor="middle">
-                  {g.labels?.[v]}
-                </text>
-              </g>
-            )
-          })}
-        </svg>
-      )}
-      {state.table && (
-        <div className="daa-table-scroll">
-          <table className="daa-table">
-            <caption>Computed table state</caption>
-            {state.columnLabels && (
-              <thead>
-                <tr>
-                  <th scope="col">State</th>
-                  {state.columnLabels.map((v, i) => (
-                    <th key={i} scope="col">
-                      {v}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+      {tx(
+        state.matrices && (
+          <div className="daa-matrices">
+            {tx(
+              state.matrices.map((matrix) => (
+                <div className="daa-table-scroll" key={matrix.label}>
+                  <table className="daa-table">
+                    <caption>{tx(matrix.label, 'studios')}</caption>
+                    <tbody>
+                      {tx(
+                        matrix.values.map((row, i) => (
+                          <tr key={i}>
+                            {tx(
+                              row.map((value, j) => <td key={j}>{tx(cell(value), 'studios')}</td>),
+                              'studios',
+                            )}
+                          </tr>
+                        )),
+                        'studios',
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )),
+              'studios',
             )}
-            <tbody>
-              {state.table.map((r, i) => (
-                <tr key={i}>
-                  <th scope="row">{state.rowLabels?.[i] ?? i}</th>
-                  {r.map((v, j) => (
-                    <td key={j}>{cell(v)}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+          </div>
+        ),
+        'studios',
       )}
-      {state.values && (
-        <div className="daa-cells">
-          {state.values.map((v, i) => (
-            <div key={i}>
-              <small>{state.labels?.[i] ?? i}</small>
-              <strong>{cell(v)}</strong>
-            </div>
-          ))}
-        </div>
+      {tx(
+        state.values?.length && state.values.every((value) => typeof value === 'number' && Number.isFinite(value)) ? (
+          <div className="daa-value-chart" aria-label={tx('Array value visualization', 'studios')}>
+            {tx(
+              state.values.map((value, i) => (
+                <div key={i} className={state.activeIndices?.includes(i) ? 'active' : ''}>
+                  <strong>{tx(cell(value), 'studios')}</strong>
+                  <span style={{ height: `${20 + (Math.abs(Number(value)) / Math.max(1, ...state.values!.map((v) => Math.abs(Number(v))))) * 100}px` }} />
+                  <small>{tx(state.labels?.[i] ?? `index ${i}`, 'studios')}</small>
+                </div>
+              )),
+              'studios',
+            )}
+          </div>
+        ) : null,
+        'studios',
       )}
-      {state.search && (
-        <div className="daa-search">
-          <p>
-            Search tree: {state.searchTotal ?? state.search.length} discovered nodes. Showing the latest 80; each recorded frame retains a window of 128 nodes
-            with parent IDs in JSON exports.
-          </p>
-          <ol>
-            {state.search.slice(-80).map((n) => (
-              <li key={n.id} className={n.pruned ? 'pruned' : ''}>
-                <strong>#{n.id}</strong> {n.parent !== undefined && <span>← parent #{n.parent} </span>}
-                {n.label}
-                {n.bound !== undefined && <span> · bound {Number(n.bound.toFixed(3))}</span>}
-                {n.pruned && <em> · pruned</em>}
-              </li>
-            ))}
-          </ol>
-        </div>
+      {tx(
+        g && (
+          <svg
+            className="daa-graph"
+            viewBox={traversalLayout ? '0 0 600 360' : spacious ? '40 12 440 380' : '0 0 520 400'}
+            role="img"
+            aria-label={tx('Weighted graph state', 'studios')}
+          >
+            <defs>
+              <radialGradient id="bfs-node-fill" cx=".3" cy=".2" r=".9">
+                <stop stopColor="#fff" />
+                <stop offset="1" stopColor="#a6d5ff" />
+              </radialGradient>
+              <marker id="daa-active-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="#fa6c24" />
+              </marker>
+              <marker id="daa-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L8,3 z" fill="currentColor" />
+              </marker>
+            </defs>
+            {tx(
+              g.edges.map((e, index) => {
+                const a = position(e.from),
+                  b = position(e.to),
+                  dx = b.x - a.x,
+                  dy = b.y - a.y,
+                  len = Math.hypot(dx, dy) || 1
+                const active = g.selected?.some(([u, v]) => (u === e.from && v === e.to) || (!g.directed && u === e.to && v === e.from))
+                return (
+                  <g key={index} className={active ? 'selected' : ''}>
+                    {tx(
+                      e.from === e.to ? (
+                        <path
+                          d={`M${a.x - 10},${a.y - 17} C${a.x - 70},${a.y - 80} ${a.x + 70},${a.y - 80} ${a.x + 10},${a.y - 17}`}
+                          fill="none"
+                          stroke="currentColor"
+                        />
+                      ) : (
+                        <line
+                          x1={a.x + (dx / len) * 23}
+                          y1={a.y + (dy / len) * 23}
+                          x2={b.x - (dx / len) * 26}
+                          y2={b.y - (dy / len) * 26}
+                          stroke="currentColor"
+                          strokeWidth={active ? 4 : 2}
+                          markerEnd={g.directed ? ((spacious || breadthLayout) && active ? 'url(#daa-active-arrow)' : 'url(#daa-arrow)') : undefined}
+                        />
+                      ),
+                      'studios',
+                    )}
+                    <text x={(a.x + b.x) / 2 + (dy / len) * 10} y={(a.y + b.y) / 2 - (dx / len) * 10} textAnchor="middle">
+                      {tx(e.weight, 'studios')}
+                    </text>
+                  </g>
+                )
+              }),
+              'studios',
+            )}
+            {tx(
+              Array.from({ length: g.vertices }, (_, v) => {
+                const p = position(v)
+                return (
+                  <g
+                    key={v}
+                    className={
+                      breadthLayout && state.traversal?.distance
+                        ? state.traversal.distance[v] < 0
+                          ? 'bfs-unreachable-vertex'
+                          : 'bfs-discovered-vertex'
+                        : state.weightedExplorer?.current === v
+                          ? 'current-vertex'
+                          : state.weightedExplorer?.visited.includes(v) || state.traversal?.visited.includes(v)
+                            ? 'visited-vertex'
+                            : undefined
+                    }
+                  >
+                    <circle cx={p.x} cy={p.y} r={spacious || traversalLayout ? 26 : 22} />
+                    <text x={p.x} y={p.y + 5} textAnchor="middle">
+                      {tx(v, 'studios')}
+                    </text>
+                    <text className="vertex-label" x={p.x} y={p.y + 42} textAnchor="middle">
+                      {tx(g.labels?.[v], 'studios')}
+                    </text>
+                  </g>
+                )
+              }),
+              'studios',
+            )}
+          </svg>
+        ),
+        'studios',
       )}
-      {state.note && <p>{state.note}</p>}
+      {tx(
+        state.table && (
+          <div className="daa-table-scroll">
+            <table className="daa-table">
+              <caption>{tx('Computed table state', 'studios')}</caption>
+              {tx(
+                state.columnLabels && (
+                  <thead>
+                    <tr>
+                      <th scope="col">{tx('State', 'studios')}</th>
+                      {tx(
+                        state.columnLabels.map((v, i) => (
+                          <th key={i} scope="col">
+                            {tx(v, 'studios')}
+                          </th>
+                        )),
+                        'studios',
+                      )}
+                    </tr>
+                  </thead>
+                ),
+                'studios',
+              )}
+              <tbody>
+                {tx(
+                  state.table.map((r, i) => (
+                    <tr key={i}>
+                      <th scope="row">{tx(state.rowLabels?.[i] ?? i, 'studios')}</th>
+                      {tx(
+                        r.map((v, j) => <td key={j}>{tx(cell(v), 'studios')}</td>),
+                        'studios',
+                      )}
+                    </tr>
+                  )),
+                  'studios',
+                )}
+              </tbody>
+            </table>
+          </div>
+        ),
+        'studios',
+      )}
+      {tx(
+        state.values && (
+          <div className="daa-cells">
+            {tx(
+              state.values.map((v, i) => (
+                <div key={i}>
+                  <small>{tx(state.labels?.[i] ?? i, 'studios')}</small>
+                  <strong>{tx(cell(v), 'studios')}</strong>
+                </div>
+              )),
+              'studios',
+            )}
+          </div>
+        ),
+        'studios',
+      )}
+      {tx(
+        state.search && (
+          <div className="daa-search">
+            <p>
+              {tx('Search tree: ', 'studios')}
+              {tx(state.searchTotal ?? state.search.length, 'studios')}
+              {tx(' discovered nodes. Showing the latest 80; each recorded frame retains a window of 128 nodes with parent IDs in JSON exports.', 'studios')}
+            </p>
+            <ol>
+              {tx(
+                state.search.slice(-80).map((n) => (
+                  <li key={n.id} className={n.pruned ? 'pruned' : ''}>
+                    <strong>#{tx(n.id, 'studios')}</strong>{' '}
+                    {tx(
+                      n.parent !== undefined && (
+                        <span>
+                          {tx('← parent #', 'studios')}
+                          {tx(n.parent, 'studios')}{' '}
+                        </span>
+                      ),
+                      'studios',
+                    )}
+                    {tx(n.label, 'studios')}
+                    {tx(
+                      n.bound !== undefined && (
+                        <span>
+                          {tx(' · bound ', 'studios')}
+                          {tx(Number(n.bound.toFixed(3)), 'studios')}
+                        </span>
+                      ),
+                      'studios',
+                    )}
+                    {tx(n.pruned && <em>{tx(' · pruned', 'studios')}</em>, 'studios')}
+                  </li>
+                )),
+                'studios',
+              )}
+            </ol>
+          </div>
+        ),
+        'studios',
+      )}
+      {tx(state.note && <p>{tx(state.note, 'studios')}</p>, 'studios')}
     </div>
   )
 }
 
 function Dashboard({ completed }: { completed: string[] }) {
+  useLocaleRender()
+
   const [filter, setFilter] = useState('all'),
     [query, setQuery] = useState('')
   const counts = { complete: 0, partial: 0, missing: 0 }
@@ -459,120 +574,156 @@ function Dashboard({ completed }: { completed: string[] }) {
   return (
     <>
       <header className="daa-header">
-        <span className="daa-eyebrow">DESIGN & ANALYSIS OF ALGORITHMS</span>
-        <h1>DAA Concept Library</h1>
-        <p>Learn the foundations of algorithm design and analysis, then explore advanced concepts at your own pace.</p>
+        <span className="daa-eyebrow">{tx('DESIGN & ANALYSIS OF ALGORITHMS', 'studios')}</span>
+        <h1>{tx('DAA Concept Library', 'studios')}</h1>
+        <p>{tx('Learn the foundations of algorithm design and analysis, then explore advanced concepts at your own pace.', 'studios')}</p>
       </header>
       <section className="daa-card">
-        <h2>Explore concepts</h2>
-        <p>Browse algorithm design, analysis and correctness lessons. Lesson coverage and your study progress are tracked separately.</p>
+        <h2>{tx('Explore concepts', 'studios')}</h2>
+        <p>{tx('Browse algorithm design, analysis and correctness lessons. Lesson coverage and your study progress are tracked separately.', 'studios')}</p>
         <div className="daa-stats">
-          <span>{counts.complete} complete</span>
-          <span>{counts.partial} partial</span>
-          <span>{counts.missing} missing</span>
-          <strong>Concept-based learning library</strong>
+          <span>
+            {tx(counts.complete, 'studios')}
+            {tx(' complete', 'studios')}
+          </span>
+          <span>
+            {tx(counts.partial, 'studios')}
+            {tx(' partial', 'studios')}
+          </span>
+          <span>
+            {tx(counts.missing, 'studios')}
+            {tx(' missing', 'studios')}
+          </span>
+          <strong>{tx('Concept-based learning library', 'studios')}</strong>
         </div>
         <div className="daa-filters">
           <label>
-            Coverage
-            <select aria-label="Coverage" value={filter} onChange={(e) => setFilter(e.target.value)}>
-              {['all', 'complete', 'partial', 'missing'].map((v) => (
-                <option key={v}>{v}</option>
-              ))}
+            {tx('Coverage', 'studios')}
+            <select aria-label={tx('Coverage', 'studios')} value={filter} onChange={(e) => setFilter(e.target.value)}>
+              {tx(
+                ['all', 'complete', 'partial', 'missing'].map((v) => <option key={v}>{tx(v, 'studios')}</option>),
+                'studios',
+              )}
             </select>
           </label>
           <label>
-            Find topic
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search concepts" />
+            {tx('Find topic', 'studios')}
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={tx('Search concepts', 'studios')} />
           </label>
         </div>
         <div className="daa-table-scroll">
           <table className="daa-coverage">
             <thead>
               <tr>
-                <th>Topic</th>
-                <th>Coverage</th>
-                <th>Pages and limitations</th>
+                <th>{tx('Topic', 'studios')}</th>
+                <th>{tx('Coverage', 'studios')}</th>
+                <th>{tx('Pages and limitations', 'studios')}</th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((t) => (
-                <tr key={t.topic}>
-                  <th scope="row">{t.topic}</th>
-                  <td>
-                    <span className={`daa-badge ${coverageFor(t, allModules)}`}>{coverageFor(t, allModules)}</span>
-                  </td>
-                  <td>
-                    {t.pages.map((id) => {
-                      const m = allModules.find((m) => m.id === id)
-                      return m ? (
-                        <Link key={id} to={algorithmPath(m)}>
-                          {m.name}
-                        </Link>
-                      ) : (
-                        <span key={id}>Missing page: {id}</span>
-                      )
-                    })}
-                    {t.limitation && <p>{t.limitation}</p>}
-                  </td>
-                </tr>
-              ))}
+              {tx(
+                rows.map((t) => (
+                  <tr key={t.topic}>
+                    <th scope="row">{tx(t.topic, 'studios')}</th>
+                    <td>
+                      <span className={`daa-badge ${coverageFor(t, allModules)}`}>{tx(coverageFor(t, allModules), 'studios')}</span>
+                    </td>
+                    <td>
+                      {tx(
+                        t.pages.map((id) => {
+                          const m = allModules.find((m) => m.id === id)
+                          return m ? (
+                            <Link key={id} to={algorithmPath(m)}>
+                              {tx(m.name, 'studios')}
+                            </Link>
+                          ) : (
+                            <span key={id}>
+                              {tx('Missing page: ', 'studios')}
+                              {tx(id, 'studios')}
+                            </span>
+                          )
+                        }),
+                        'studios',
+                      )}
+                      {tx(t.limitation && <p>{tx(t.limitation, 'studios')}</p>, 'studios')}
+                    </td>
+                  </tr>
+                )),
+                'studios',
+              )}
             </tbody>
           </table>
         </div>
       </section>
-      {[
-        ['Core learning path', core],
-        ['Advanced concepts and extensions', extensions],
-      ].map(([title, items]) => (
-        <section className="daa-card" key={String(title)}>
-          <h2>{String(title)}</h2>
-          <p>
-            Your progress: {(items as Lesson[]).filter((l) => completed.includes(l.id)).length} / {(items as Lesson[]).length} lessons marked studied.
-          </p>
-          <div className="daa-lesson-grid">
-            {(items as Lesson[]).map((l) => (
-              <Link key={l.id} to={algorithmPath(allModules.find((m) => m.id === l.id)!)}>
-                <span>{l.category}</span>
-                <strong>{l.title}</strong>
-                <small>{completed.includes(l.id) ? 'Studied' : l.theory ? 'Theory lesson' : 'Interactive algorithm'}</small>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
+      {tx(
+        [
+          ['Core learning path', core],
+          ['Advanced concepts and extensions', extensions],
+        ].map(([title, items]) => (
+          <section className="daa-card" key={String(title)}>
+            <h2>{tx(String(title), 'studios')}</h2>
+            <p>
+              {tx('Your progress: ', 'studios')}
+              {tx((items as Lesson[]).filter((l) => completed.includes(l.id)).length, 'studios')} / {tx((items as Lesson[]).length, 'studios')}
+              {tx(' lessons marked studied.', 'studios')}
+            </p>
+            <div className="daa-lesson-grid">
+              {tx(
+                (items as Lesson[]).map((l) => (
+                  <Link key={l.id} to={algorithmPath(allModules.find((m) => m.id === l.id)!)}>
+                    <span>{tx(l.category, 'studios')}</span>
+                    <strong>{tx(l.title, 'studios')}</strong>
+                    <small>{tx(completed.includes(l.id) ? 'Studied' : l.theory ? 'Theory lesson' : 'Interactive algorithm', 'studios')}</small>
+                  </Link>
+                )),
+                'studios',
+              )}
+            </div>
+          </section>
+        )),
+        'studios',
+      )}
     </>
   )
 }
 
 function TraceDisclosure({ compact, children, expanded }: { compact: boolean; children: ReactNode; expanded?: boolean }) {
+  useLocaleRender()
+
   return compact ? (
     <details className="dfs-trace-details" open={expanded}>
-      <summary>Algorithm steps & computed result</summary>
-      {children}
+      <summary>{tx('Algorithm steps & computed result', 'studios')}</summary>
+      {tx(children, 'studios')}
     </details>
   ) : (
-    <>{children}</>
+    <>{tx(children, 'studios')}</>
   )
 }
 
 function TraceExports({ onExport, onSave, icons = false }: { onExport: (format: 'json' | 'csv') => void; onSave: () => void; icons?: boolean }) {
+  useLocaleRender()
+
   return (
     <div className="daa-actions daa-trace-exports">
       <button type="button" onClick={() => onExport('json')}>
-        {icons && <Download size={16} />}Export JSON trace
+        {tx(icons && <Download size={16} />, 'studios')}
+        {tx('Export JSON trace', 'studios')}
       </button>
       <button type="button" onClick={() => onExport('csv')}>
-        {icons && <FileSpreadsheet size={16} />}Export CSV states
+        {tx(icons && <FileSpreadsheet size={16} />, 'studios')}
+        {tx('Export CSV states', 'studios')}
       </button>
       <button type="button" onClick={onSave}>
-        {icons && <Save size={16} />}Save experiment locally
+        {tx(icons && <Save size={16} />, 'studios')}
+        {tx('Save experiment locally', 'studios')}
       </button>
     </div>
   )
 }
 
 function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; completed: string[]; toggleCompleted: (id: string) => void }) {
+  useLocaleRender()
+
   const targetUiLesson = isTargetUiLesson(lesson)
   const [traversalView, setTraversalView] = usePersistentState('algodrishti-traversal-view', 'graph', persistentString)
   const isBfs = lesson.id === 'daa-bfs'
@@ -702,7 +853,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
   return (
     <div className="lesson-surface" data-learning-tab={tab}>
       <CompactLessonHeader
-        title={lesson.title}
+        title={tx(lesson.title, 'studios')}
         description={lesson.summary}
         studied={completed.includes(lesson.id)}
         onStudy={() => toggleCompleted(lesson.id)}
@@ -734,361 +885,517 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
             : ['Learn', 'Practice']
         }
       />
-      {tab === 'Learn' && (
-        <section className="daa-card">
-          <h2>Concept and worked example</h2>
-          {lesson.theory?.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-          <blockquote>{lesson.example}</blockquote>
-          {!lesson.theory && (
-            <>
-              <h2>Correctness</h2>
-              <p>{lesson.correctness}</p>
-              <h2>Complexity derivation</h2>
-              <p>
-                <strong>
-                  Time: {lesson.time} · Auxiliary/output space: {lesson.space}
-                </strong>
-              </p>
-              <p>{lesson.derivation}</p>
-            </>
-          )}
-          <h2>Assumptions and constraints</h2>
-          <p>{lesson.constraints}</p>
-          {lesson.run && (
-            <button type="button" onClick={() => setTab('Visualization')}>
-              Try the worked example
-            </button>
-          )}
-        </section>
+      {tx(
+        tab === 'Learn' && (
+          <section className="daa-card">
+            <h2>{tx('Concept and worked example', 'studios')}</h2>
+            {tx(
+              lesson.theory?.map((p, i) => <p key={i}>{tx(p, 'studios')}</p>),
+              'studios',
+            )}
+            <blockquote>{tx(lesson.example, 'studios')}</blockquote>
+            {tx(
+              !lesson.theory && (
+                <>
+                  <h2>{tx('Correctness', 'studios')}</h2>
+                  <p>{tx(lesson.correctness, 'studios')}</p>
+                  <h2>{tx('Complexity derivation', 'studios')}</h2>
+                  <p>
+                    <strong>
+                      {tx('Time: ', 'studios')}
+                      {tx(lesson.time, 'studios')}
+                      {tx(' · Auxiliary/output space: ', 'studios')}
+                      {tx(lesson.space, 'studios')}
+                    </strong>
+                  </p>
+                  <p>{tx(lesson.derivation, 'studios')}</p>
+                </>
+              ),
+              'studios',
+            )}
+            <h2>{tx('Assumptions and constraints', 'studios')}</h2>
+            <p>{tx(lesson.constraints, 'studios')}</p>
+            {tx(
+              lesson.run && (
+                <button type="button" onClick={() => setTab('Visualization')}>
+                  {tx('Try the worked example', 'studios')}
+                </button>
+              ),
+              'studios',
+            )}
+          </section>
+        ),
+        'studios',
       )}
-      {lesson.defaultInput?.vertices && (tab === 'Learn' || tab === 'Visualization') && (
-        <details className="graph-academy-wrap" open={tab === 'Learn'} key={`${lesson.id}-${tab}`}>
-          <summary>Explore the graph learning lab · build, predict, compare</summary>
-          <GraphLearningStudio key={lesson.id} lesson={lesson} />
-        </details>
+      {tx(
+        lesson.defaultInput?.vertices && (tab === 'Learn' || tab === 'Visualization') && (
+          <details className="graph-academy-wrap" open={tab === 'Learn'} key={`${lesson.id}-${tab}`}>
+            <summary>{tx('Explore the graph learning lab · build, predict, compare', 'studios')}</summary>
+            <GraphLearningStudio key={lesson.id} lesson={lesson} />
+          </details>
+        ),
+        'studios',
       )}
-      {tab === 'Visualization' && targetUiLesson && <TargetLessonVisualization lesson={lesson} />}
-      {tab === 'Visualization' && !targetUiLesson && (
-        <div className="daa-interactive-layout">
-          <MobileDisclosure className="daa-card daa-input-card" defaultOpen title="Edit input and run algorithm">
-            <div>
-              <h2>{isTraversalStudio && <Settings size={22} />}Problem Input</h2>
-              <p>
-                {isBfs
-                  ? 'Zero-based vertices and item indices; edit the fields below, then run. Validation errors appear below.'
-                  : isTraversalStudio
-                    ? 'Create your own graph, edit parameters, and run DFS.'
-                    : lesson.id === 'dijkstra'
-                      ? 'Create your own graph, edit parameters, and run Dijkstra’s algorithm.'
-                      : 'Edit the named fields below, then choose Run algorithm. Paste lists with commas, spaces, or new lines. Selection rank k starts at 1.'}
-              </p>
-              {isBfs && (
-                <select
-                  className="bfs-examples"
-                  aria-label="Load example"
-                  value=""
-                  onChange={(event) => {
-                    const example =
-                      event.target.value === 'default'
-                        ? lesson.defaultInput
-                        : event.target.value === 'branching'
-                          ? {
-                              vertices: 5,
-                              directed: false,
-                              source: 0,
-                              edges: [
-                                { from: 0, to: 1, weight: 1 },
-                                { from: 0, to: 2, weight: 1 },
-                                { from: 1, to: 3, weight: 1 },
-                                { from: 1, to: 4, weight: 1 },
-                              ],
-                            }
-                          : {
-                              vertices: 5,
-                              directed: true,
-                              source: 0,
-                              edges: [
-                                { from: 0, to: 1, weight: 2 },
-                                { from: 1, to: 2, weight: 1 },
-                                { from: 3, to: 4, weight: 1 },
-                              ],
-                            }
-                    setDraft(JSON.stringify(example, null, 2))
-                    setEditorVersion((version) => version + 1)
-                    setEditorError('')
-                    setError('')
-                  }}
-                >
-                  <option value="" disabled>
-                    Load example
-                  </option>
-                  <option value="default">Default graph</option>
-                  <option value="branching">Undirected branching graph</option>
-                  <option value="disconnected">Disconnected graph</option>
-                </select>
-              )}
-              <ProblemEditor
-                bfsStyle={isBfs}
-                traversalStyle={isTraversalStudio}
-                graphStyle={lesson.id === 'dijkstra'}
-                key={lesson.id + editorVersion}
-                input={draft}
-                onChange={setDraft}
-                onValidityChange={setEditorError}
-              />
-              <details>
-                <summary>Advanced: edit full JSON input</summary>
-                <label htmlFor="daa-input">Problem input (JSON)</label>
-                <textarea
-                  id="daa-input"
-                  value={draft}
-                  spellCheck={false}
-                  onChange={(e) => {
-                    setEditorError('')
-                    setDraft(e.target.value)
-                  }}
-                  rows={12}
+      {tx(tab === 'Visualization' && targetUiLesson && <TargetLessonVisualization lesson={lesson} />, 'studios')}
+      {tx(
+        tab === 'Visualization' && !targetUiLesson && (
+          <div className="daa-interactive-layout">
+            <MobileDisclosure className="daa-card daa-input-card" defaultOpen title={tx('Edit input and run algorithm', 'studios')}>
+              <div>
+                <h2>
+                  {tx(isTraversalStudio && <Settings size={22} />, 'studios')}
+                  {tx('Problem Input', 'studios')}
+                </h2>
+                <p>
+                  {tx(
+                    isBfs
+                      ? 'Zero-based vertices and item indices; edit the fields below, then run. Validation errors appear below.'
+                      : isTraversalStudio
+                        ? 'Create your own graph, edit parameters, and run DFS.'
+                        : lesson.id === 'dijkstra'
+                          ? 'Create your own graph, edit parameters, and run Dijkstra’s algorithm.'
+                          : 'Edit the named fields below, then choose Run algorithm. Paste lists with commas, spaces, or new lines. Selection rank k starts at 1.',
+                    'studios',
+                  )}
+                </p>
+                {tx(
+                  isBfs && (
+                    <select
+                      className="bfs-examples"
+                      aria-label={tx('Load example', 'studios')}
+                      value=""
+                      onChange={(event) => {
+                        const example =
+                          event.target.value === 'default'
+                            ? lesson.defaultInput
+                            : event.target.value === 'branching'
+                              ? {
+                                  vertices: 5,
+                                  directed: false,
+                                  source: 0,
+                                  edges: [
+                                    { from: 0, to: 1, weight: 1 },
+                                    { from: 0, to: 2, weight: 1 },
+                                    { from: 1, to: 3, weight: 1 },
+                                    { from: 1, to: 4, weight: 1 },
+                                  ],
+                                }
+                              : {
+                                  vertices: 5,
+                                  directed: true,
+                                  source: 0,
+                                  edges: [
+                                    { from: 0, to: 1, weight: 2 },
+                                    { from: 1, to: 2, weight: 1 },
+                                    { from: 3, to: 4, weight: 1 },
+                                  ],
+                                }
+                        setDraft(JSON.stringify(example, null, 2))
+                        setEditorVersion((version) => version + 1)
+                        setEditorError('')
+                        setError('')
+                      }}
+                    >
+                      <option value="" disabled>
+                        {tx('Load example', 'studios')}
+                      </option>
+                      <option value="default">{tx('Default graph', 'studios')}</option>
+                      <option value="branching">{tx('Undirected branching graph', 'studios')}</option>
+                      <option value="disconnected">{tx('Disconnected graph', 'studios')}</option>
+                    </select>
+                  ),
+                  'studios',
+                )}
+                <ProblemEditor
+                  bfsStyle={isBfs}
+                  traversalStyle={isTraversalStudio}
+                  graphStyle={lesson.id === 'dijkstra'}
+                  key={lesson.id + editorVersion}
+                  input={draft}
+                  onChange={setDraft}
+                  onValidityChange={setEditorError}
                 />
-              </details>
-              <div className="daa-actions">
-                <button aria-label="Run algorithm" type="button" onClick={start} disabled={!!editorError}>
-                  Run algorithm
-                </button>
-                <button
-                  aria-label="Reset input"
-                  type="button"
-                  onClick={() => {
-                    setDraft(JSON.stringify(lesson.defaultInput, null, 2))
-                    setEditorVersion((version) => version + 1)
-                    setEditorError('')
-                    setError('')
-                  }}
-                >
-                  Reset input
-                </button>
-              </div>
-              {error && (
-                <p role="alert" className="daa-error">
-                  {error}
-                </p>
-              )}
-            </div>
-            <details className="input-reference">
-              <summary>Input fields & constraints</summary>
-              <dl>
-                {Object.entries(lesson.defaultInput ?? {}).map(([key, value]) => (
-                  <div key={key}>
-                    <dt>{key}</dt>
-                    <dd>
-                      {key === 'edges'
-                        ? isBfs
-                          ? 'Array of {from, to, weight}.'
-                          : isTraversalStudio
-                            ? 'List of directed edges (from, to, weight); weights are labels ignored by DFS.'
-                            : 'Array of {from, to, weight}; flow uses weights as capacities.'
-                        : key === 'vertices'
-                          ? 'Number of vertices (1–8).'
-                          : key === 'source'
-                            ? 'Start vertex; flow sink is the last vertex.'
-                            : key === 'directed'
-                              ? 'true for directed, false for undirected.'
-                              : Array.isArray(value)
-                                ? 'Array matching the shape of the worked example.'
-                                : typeof value === 'string'
-                                  ? 'Editable text; decimal strings for integer multiplication.'
-                                  : 'Integer within the lesson constraints.'}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p>{lesson.constraints}</p>
-            </details>
-          </MobileDisclosure>
-          {run && (
-            <section className="daa-card daa-timeline-card">
-              <h2>
-                {isBfs ? <Network size={25} /> : isTraversalStudio && <BarChart3 size={24} />}{' '}
-                {lesson.id === 'dijkstra' || isTraversalStudio ? 'Graph Visualization' : 'Computed timeline'}
-              </h2>
-              {isTraversalStudio && (
-                <div className="dfs-legend">
-                  <span>
-                    {isBfs
-                      ? 'Step through the BFS traversal and see the frontier evolve.'
-                      : 'Step through DFS execution and see how the stack and visited set evolve.'}
-                  </span>
-                  <div>
-                    {isBfs ? (
-                      <>
-                        <i />
-                        Unvisited
-                        <i />
-                        Visited
-                        <i />
-                        Frontier
-                        <i />
-                        Unreachable
-                      </>
-                    ) : (
-                      <>
-                        <i />
-                        Unvisited
-                        <i />
-                        Current node
-                        <i />
-                        Visited
-                        <i />
-                        Pending
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
-              {lesson.id === 'dijkstra' && (
-                <div className="dijkstra-legend">
-                  <span>Step through Dijkstra’s algorithm and see how shortest paths are discovered.</span>
-                  <div>
-                    <i /> Unvisited <i /> Current node <i /> Relaxed edge <i /> Visited
-                  </div>
-                </div>
-              )}
-              {draft !== JSON.stringify(usedInput, null, 2) && (
-                <p role="status">Input has changed. Run algorithm to update this timeline; the displayed steps still use the previous input.</p>
-              )}
-              <TimelineToolbar
-                index={index}
-                count={run.steps.length}
-                playing={playing && index < last}
-                speed={speed}
-                onNavigate={(next) => {
-                  setPlaying(false)
-                  setIndex(next)
-                }}
-                onPlay={() => setPlaying((value) => !value)}
-                onSpeed={setSpeed}
-                view={
-                  (weightedExplorerMode || isExplorerTraversal) && (
-                    <div className="bubble-view-switch" role="group" aria-label="View as">
-                      <button
-                        type="button"
-                        aria-pressed={(weightedExplorerMode ? weightedView : traversalView) !== 'icons'}
-                        onClick={() => (weightedExplorerMode ? setWeightedView('graph') : setTraversalView('graph'))}
-                      >
-                        Graph
-                      </button>
-                      <button
-                        type="button"
-                        aria-pressed={(weightedExplorerMode ? weightedView : traversalView) === 'icons'}
-                        onClick={() => (weightedExplorerMode ? setWeightedView('icons') : setTraversalView('icons'))}
-                      >
-                        Icons
-                      </button>
-                    </div>
-                  )
-                }
-              />
-              <p aria-live="polite" className="daa-step-description">
-                {isBfs ? <Info size={18} /> : isTraversalStudio && <Lightbulb size={20} />} {step?.description}
-              </p>
-              {run.message && (
-                <p role="status" className="daa-error">
-                  {run.message}
-                </p>
-              )}
-              {lesson.id === 'randomized-quicksort' && (
-                <label>
-                  Sorting character
-                  <select
-                    aria-label="Sorting character"
-                    value={sortingView === 'bars' ? 'bars' : character}
-                    onChange={(event) => {
-                      if (event.target.value === 'bars') setSortingView('bars')
-                      else {
-                        setCharacter(event.target.value)
-                        setSortingView('icons')
-                      }
+                <details>
+                  <summary>{tx('Advanced: edit full JSON input', 'studios')}</summary>
+                  <label htmlFor="daa-input">{tx('Problem input (JSON)', 'studios')}</label>
+                  <textarea
+                    id="daa-input"
+                    value={draft}
+                    spellCheck={false}
+                    onChange={(e) => {
+                      setEditorError('')
+                      setDraft(e.target.value)
+                    }}
+                    rows={12}
+                  />
+                </details>
+                <div className="daa-actions">
+                  <button aria-label={tx('Run algorithm', 'studios')} type="button" onClick={start} disabled={!!editorError}>
+                    {tx('Run algorithm', 'studios')}
+                  </button>
+                  <button
+                    aria-label={tx('Reset input', 'studios')}
+                    type="button"
+                    onClick={() => {
+                      setDraft(JSON.stringify(lesson.defaultInput, null, 2))
+                      setEditorVersion((version) => version + 1)
+                      setEditorError('')
+                      setError('')
                     }}
                   >
-                    <option value="bars">Bars</option>
-                    {sortingCharacters.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.icon} {option.name}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )}
-              <ViewportCanvas>
-                {weightedExplorerMode && weightedView === 'icons' ? (
-                  <Suspense fallback={<p>Loading expedition…</p>}>
-                    <WeightedExplorer step={step} mode={weightedExplorerMode} reducedMotion={sortingReducedMotion} />
-                  </Suspense>
-                ) : isExplorerTraversal && traversalView === 'icons' ? (
-                  <Suspense fallback={<p>Loading expedition…</p>}>
-                    <ExplorerTraversal
-                      step={step}
-                      previous={run.steps[index - 1]}
-                      mode={lesson.id === 'daa-bfs' ? 'bfs' : 'dfs'}
-                      reducedMotion={sortingReducedMotion}
-                    />
-                  </Suspense>
-                ) : lesson.id === 'randomized-quicksort' && sortingView === 'icons' ? (
-                  <Suspense fallback={<p>Loading characters…</p>}>
-                    <PenguinVisualization
-                      items={(step?.state?.values ?? []).map((value, i) => ({
-                        id: `${value}-${(step?.state?.values ?? []).slice(0, i).filter((v) => v === value).length}`,
-                        index: i,
-                        value: Number(value),
-                      }))}
-                      step={step ? { ...step, highlights: { indices: step.state?.activeIndices } } : undefined}
-                      reducedMotion={sortingReducedMotion}
-                      quality="detailed"
-                      showIndices
-                      showValues
-                      sortedCount={0}
-                      palette={{}}
-                      showStateComparison={false}
-                      character={character}
-                    />
-                  </Suspense>
-                ) : (
-                  <StateView state={step?.state} spacious={lesson.id === 'dijkstra'} traversalLayout={isTraversalStudio} breadthLayout={isBfs} />
-                )}
-              </ViewportCanvas>
-              {isTraversalStudio && <TraceExports icons onExport={exportRun} onSave={saveExperiment} />}
-              <TraceDisclosure compact expanded={index === last}>
-                {lesson.id === 'dijkstra' && <h3 className="dijkstra-steps-title">Algorithm Steps</h3>}
-                <ol className="daa-pseudocode">
-                  {lesson.pseudocode.map((line, i) => (
-                    <li key={i} className={step?.type !== 'complete' && step?.pseudocodeLine === i ? 'active' : ''}>
-                      {line}
-                    </li>
-                  ))}
-                </ol>
-                <div className="daa-run-result">
-                  <details open={index === last}>
-                    <summary>Computed result · {run.status === 'complete' ? 'complete trace' : 'truncated trace'}</summary>
-                    <pre className="daa-result">{JSON.stringify(run.result, null, 2)}</pre>
-                  </details>
-                  <p>
-                    Operation counter: {step?.metrics.writes ?? 0} emitted learning events. This is not a comparison count or a complexity proof. Snapshot
-                    storage is excluded from the algorithm’s stated space bound.
-                  </p>
-                  {!isTraversalStudio && <TraceExports onExport={exportRun} onSave={saveExperiment} />}
+                    {tx('Reset input', 'studios')}
+                  </button>
                 </div>
-              </TraceDisclosure>
-            </section>
-          )}
-          {experiments.some((e) => e.lessonId === lesson.id) && (
-            <section className="daa-card">
-              <h2>Saved experiments</h2>
-              {experiments
+                {tx(
+                  error && (
+                    <p role="alert" className="daa-error">
+                      {tx(error, 'studios')}
+                    </p>
+                  ),
+                  'studios',
+                )}
+              </div>
+              <details className="input-reference">
+                <summary>{tx('Input fields & constraints', 'studios')}</summary>
+                <dl>
+                  {tx(
+                    Object.entries(lesson.defaultInput ?? {}).map(([key, value]) => (
+                      <div key={key}>
+                        <dt>{tx(key, 'studios')}</dt>
+                        <dd>
+                          {tx(
+                            key === 'edges'
+                              ? isBfs
+                                ? 'Array of {from, to, weight}.'
+                                : isTraversalStudio
+                                  ? 'List of directed edges (from, to, weight); weights are labels ignored by DFS.'
+                                  : 'Array of {from, to, weight}; flow uses weights as capacities.'
+                              : key === 'vertices'
+                                ? 'Number of vertices (1–8).'
+                                : key === 'source'
+                                  ? 'Start vertex; flow sink is the last vertex.'
+                                  : key === 'directed'
+                                    ? 'true for directed, false for undirected.'
+                                    : Array.isArray(value)
+                                      ? 'Array matching the shape of the worked example.'
+                                      : typeof value === 'string'
+                                        ? 'Editable text; decimal strings for integer multiplication.'
+                                        : 'Integer within the lesson constraints.',
+                            'studios',
+                          )}
+                        </dd>
+                      </div>
+                    )),
+                    'studios',
+                  )}
+                </dl>
+                <p>{tx(lesson.constraints, 'studios')}</p>
+              </details>
+            </MobileDisclosure>
+            {tx(
+              run && (
+                <section className="daa-card daa-timeline-card">
+                  <h2>
+                    {tx(isBfs ? <Network size={25} /> : isTraversalStudio && <BarChart3 size={24} />, 'studios')}
+                    {tx(' ', 'studios')}
+                    {tx(lesson.id === 'dijkstra' || isTraversalStudio ? 'Graph Visualization' : 'Computed timeline', 'studios')}
+                  </h2>
+                  {tx(
+                    isTraversalStudio && (
+                      <div className="dfs-legend">
+                        <span>
+                          {tx(
+                            isBfs
+                              ? 'Step through the BFS traversal and see the frontier evolve.'
+                              : 'Step through DFS execution and see how the stack and visited set evolve.',
+                            'studios',
+                          )}
+                        </span>
+                        <div>
+                          {tx(
+                            isBfs ? (
+                              <>
+                                <i />
+                                {tx('Unvisited', 'studios')}
+                                <i />
+                                {tx('Visited', 'studios')}
+                                <i />
+                                {tx('Frontier', 'studios')}
+                                <i />
+                                {tx('Unreachable', 'studios')}
+                              </>
+                            ) : (
+                              <>
+                                <i />
+                                {tx('Unvisited', 'studios')}
+                                <i />
+                                {tx('Current node', 'studios')}
+                                <i />
+                                {tx('Visited', 'studios')}
+                                <i />
+                                {tx('Pending', 'studios')}
+                              </>
+                            ),
+                            'studios',
+                          )}
+                        </div>
+                      </div>
+                    ),
+                    'studios',
+                  )}
+                  {tx(
+                    lesson.id === 'dijkstra' && (
+                      <div className="dijkstra-legend">
+                        <span>{tx('Step through Dijkstra’s algorithm and see how shortest paths are discovered.', 'studios')}</span>
+                        <div>
+                          <i />
+                          {tx(' Unvisited ', 'studios')}
+                          <i />
+                          {tx(' Current node ', 'studios')}
+                          <i />
+                          {tx(' Relaxed edge ', 'studios')}
+                          <i />
+                          {tx(' Visited', 'studios')}
+                        </div>
+                      </div>
+                    ),
+                    'studios',
+                  )}
+                  {tx(
+                    draft !== JSON.stringify(usedInput, null, 2) && (
+                      <p role="status">
+                        {tx('Input has changed. Run algorithm to update this timeline; the displayed steps still use the previous input.', 'studios')}
+                      </p>
+                    ),
+                    'studios',
+                  )}
+                  <TimelineToolbar
+                    index={index}
+                    count={run.steps.length}
+                    playing={playing && index < last}
+                    speed={speed}
+                    onNavigate={(next) => {
+                      setPlaying(false)
+                      setIndex(next)
+                    }}
+                    onPlay={() => setPlaying((value) => !value)}
+                    onSpeed={setSpeed}
+                    view={
+                      (weightedExplorerMode || isExplorerTraversal) && (
+                        <div className="bubble-view-switch" role="group" aria-label={tx('View as', 'studios')}>
+                          <button
+                            type="button"
+                            aria-pressed={(weightedExplorerMode ? weightedView : traversalView) !== 'icons'}
+                            onClick={() => (weightedExplorerMode ? setWeightedView('graph') : setTraversalView('graph'))}
+                          >
+                            {tx('Graph', 'studios')}
+                          </button>
+                          <button
+                            type="button"
+                            aria-pressed={(weightedExplorerMode ? weightedView : traversalView) === 'icons'}
+                            onClick={() => (weightedExplorerMode ? setWeightedView('icons') : setTraversalView('icons'))}
+                          >
+                            {tx('Icons', 'studios')}
+                          </button>
+                        </div>
+                      )
+                    }
+                  />
+                  <p aria-live="polite" className="daa-step-description">
+                    {tx(isBfs ? <Info size={18} /> : isTraversalStudio && <Lightbulb size={20} />, 'studios')} {tx(step?.description, 'studios')}
+                  </p>
+                  {tx(
+                    run.message && (
+                      <p role="status" className="daa-error">
+                        {tx(run.message, 'studios')}
+                      </p>
+                    ),
+                    'studios',
+                  )}
+                  {tx(
+                    lesson.id === 'randomized-quicksort' && (
+                      <label>
+                        {tx('Sorting character', 'studios')}
+                        <select
+                          aria-label={tx('Sorting character', 'studios')}
+                          value={sortingView === 'bars' ? 'bars' : character}
+                          onChange={(event) => {
+                            if (event.target.value === 'bars') setSortingView('bars')
+                            else {
+                              setCharacter(event.target.value)
+                              setSortingView('icons')
+                            }
+                          }}
+                        >
+                          <option value="bars">{tx('Bars', 'studios')}</option>
+                          {tx(
+                            sortingCharacters.map((option) => (
+                              <option key={option.id} value={option.id}>
+                                {tx(option.icon, 'studios')} {tx(option.name, 'studios')}
+                              </option>
+                            )),
+                            'studios',
+                          )}
+                        </select>
+                      </label>
+                    ),
+                    'studios',
+                  )}
+                  <ViewportCanvas>
+                    {tx(
+                      weightedExplorerMode && weightedView === 'icons' ? (
+                        <Suspense fallback={<p>{tx('Loading expedition…', 'studios')}</p>}>
+                          <WeightedExplorer step={step} mode={weightedExplorerMode} reducedMotion={sortingReducedMotion} />
+                        </Suspense>
+                      ) : isExplorerTraversal && traversalView === 'icons' ? (
+                        <Suspense fallback={<p>{tx('Loading expedition…', 'studios')}</p>}>
+                          <ExplorerTraversal
+                            step={step}
+                            previous={run.steps[index - 1]}
+                            mode={lesson.id === 'daa-bfs' ? 'bfs' : 'dfs'}
+                            reducedMotion={sortingReducedMotion}
+                          />
+                        </Suspense>
+                      ) : lesson.id === 'randomized-quicksort' && sortingView === 'icons' ? (
+                        <Suspense fallback={<p>{tx('Loading characters…', 'studios')}</p>}>
+                          <PenguinVisualization
+                            items={(step?.state?.values ?? []).map((value, i) => ({
+                              id: `${value}-${(step?.state?.values ?? []).slice(0, i).filter((v) => v === value).length}`,
+                              index: i,
+                              value: Number(value),
+                            }))}
+                            step={step ? { ...step, highlights: { indices: step.state?.activeIndices } } : undefined}
+                            reducedMotion={sortingReducedMotion}
+                            quality="detailed"
+                            showIndices
+                            showValues
+                            sortedCount={0}
+                            palette={{}}
+                            showStateComparison={false}
+                            character={character}
+                          />
+                        </Suspense>
+                      ) : (
+                        <StateView state={step?.state} spacious={lesson.id === 'dijkstra'} traversalLayout={isTraversalStudio} breadthLayout={isBfs} />
+                      ),
+                      'studios',
+                    )}
+                  </ViewportCanvas>
+                  {tx(isTraversalStudio && <TraceExports icons onExport={exportRun} onSave={saveExperiment} />, 'studios')}
+                  <TraceDisclosure compact expanded={index === last}>
+                    {tx(lesson.id === 'dijkstra' && <h3 className="dijkstra-steps-title">{tx('Algorithm Steps', 'studios')}</h3>, 'studios')}
+                    <ol className="daa-pseudocode">
+                      {tx(
+                        lesson.pseudocode.map((line, i) => (
+                          <li key={i} className={step?.type !== 'complete' && step?.pseudocodeLine === i ? 'active' : ''}>
+                            {tx(line, 'studios')}
+                          </li>
+                        )),
+                        'studios',
+                      )}
+                    </ol>
+                    <div className="daa-run-result">
+                      <details open={index === last}>
+                        <summary>
+                          {tx('Computed result · ', 'studios')}
+                          {tx(run.status === 'complete' ? 'complete trace' : 'truncated trace', 'studios')}
+                        </summary>
+                        <pre className="daa-result">{JSON.stringify(run.result, null, 2)}</pre>
+                      </details>
+                      <p>
+                        {tx('Operation counter: ', 'studios')}
+                        {tx(step?.metrics.writes ?? 0, 'studios')}
+                        {tx(
+                          ' emitted learning events. This is not a comparison count or a complexity proof. Snapshot storage is excluded from the algorithm’s stated space bound.',
+                          'studios',
+                        )}
+                      </p>
+                      {tx(!isTraversalStudio && <TraceExports onExport={exportRun} onSave={saveExperiment} />, 'studios')}
+                    </div>
+                  </TraceDisclosure>
+                </section>
+              ),
+              'studios',
+            )}
+            {tx(
+              experiments.some((e) => e.lessonId === lesson.id) && (
+                <section className="daa-card">
+                  <h2>{tx('Saved experiments', 'studios')}</h2>
+                  {tx(
+                    experiments
+                      .filter((e) => e.lessonId === lesson.id)
+                      .map((e) => (
+                        <div key={e.id} className="daa-actions">
+                          <span>{tx(new Date(e.createdAt).toLocaleString(), 'studios')}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDraft(JSON.stringify(e.input, null, 2))
+                              setUsedInput(e.input)
+                              setRun(e.run)
+                              setIndex(0)
+                              setPlaying(false)
+                              setError('')
+                            }}
+                          >
+                            {tx('Load saved trace', 'studios')}
+                          </button>
+                          <button type="button" onClick={() => setExperiments((items) => items.filter((item) => item.id !== e.id))}>
+                            {tx('Delete', 'studios')}
+                          </button>
+                        </div>
+                      )),
+                    'studios',
+                  )}
+                </section>
+              ),
+              'studios',
+            )}
+          </div>
+        ),
+        'studios',
+      )}
+      {tx(
+        tab === 'Code' && (
+          <section className="daa-card">
+            <h2>{tx('Pseudocode', 'studios')}</h2>
+            <ol>
+              {tx(
+                lesson.pseudocode.map((p, i) => <li key={i}>{tx(p, 'studios')}</li>),
+                'studios',
+              )}
+            </ol>
+            <h2>{tx('Executable implementation and helpers', 'studios')}</h2>
+            <p>
+              {tx(
+                'The source below is the actual TypeScript runner module, including shared helpers. Function names and source remain readable after production minification.',
+                'studios',
+              )}
+            </p>
+            <pre className="daa-source">
+              <code>{source}</code>
+            </pre>
+          </section>
+        ),
+        'studios',
+      )}
+      {tx(
+        tab === 'Experiments' && (
+          <section className="daa-card">
+            <h2>{tx('Experiments', 'studios')}</h2>
+            <p>
+              {tx(
+                'Save or export a computed run from Visualization. Change one input property at a time, compare the result and explain the complexity assumptions.',
+                'studios',
+              )}
+            </p>
+            <h3>{tx('Saved traces for this lesson', 'studios')}</h3>
+            {tx(
+              experiments
                 .filter((e) => e.lessonId === lesson.id)
                 .map((e) => (
-                  <div key={e.id} className="daa-actions">
-                    <span>{new Date(e.createdAt).toLocaleString()}</span>
+                  <div className="daa-actions" key={e.id}>
+                    <span>{tx(new Date(e.createdAt).toLocaleString(), 'studios')}</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -1098,123 +1405,91 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                         setIndex(0)
                         setPlaying(false)
                         setError('')
+                        setTab('Visualization')
                       }}
                     >
-                      Load saved trace
+                      {tx('Load saved trace', 'studios')}
                     </button>
                     <button type="button" onClick={() => setExperiments((items) => items.filter((item) => item.id !== e.id))}>
-                      Delete
+                      {tx('Delete', 'studios')}
                     </button>
                   </div>
-                ))}
-            </section>
-          )}
-        </div>
+                )),
+              'studios',
+            )}
+            {tx(
+              !experiments.some((e) => e.lessonId === lesson.id) && (
+                <p>{tx('No saved traces yet. Run an input in Visualization and choose Save experiment locally.', 'studios')}</p>
+              ),
+              'studios',
+            )}
+          </section>
+        ),
+        'studios',
       )}
-      {tab === 'Code' && (
-        <section className="daa-card">
-          <h2>Pseudocode</h2>
-          <ol>
-            {lesson.pseudocode.map((p, i) => (
-              <li key={i}>{p}</li>
-            ))}
-          </ol>
-          <h2>Executable implementation and helpers</h2>
-          <p>
-            The source below is the actual TypeScript runner module, including shared helpers. Function names and source remain readable after production
-            minification.
-          </p>
-          <pre className="daa-source">
-            <code>{source}</code>
-          </pre>
-        </section>
+      {tx(
+        tab === 'Practice' && (
+          <section className="daa-card">
+            <h2>{tx('Reason about the algorithm', 'studios')}</h2>
+            <p>{tx(lesson.exercise.question, 'studios')}</p>
+            <label>
+              {tx('Your reasoning', 'studios')}
+              <textarea rows={4} placeholder={tx('Write your answer before revealing the explanation', 'studios')} />
+            </label>
+            <button type="button" onClick={() => setAnswer((a) => !a)}>
+              {tx(answer ? 'Hide answer' : 'Reveal answer', 'studios')}
+            </button>
+            {tx(answer && <blockquote>{tx(lesson.exercise.answer, 'studios')}</blockquote>, 'studios')}
+            <p>{tx('Also trace the worked example by hand, identify an edge case and justify the applicable bound.', 'studios')}</p>
+          </section>
+        ),
+        'studios',
       )}
-      {tab === 'Experiments' && (
-        <section className="daa-card">
-          <h2>Experiments</h2>
-          <p>
-            Save or export a computed run from Visualization. Change one input property at a time, compare the result and explain the complexity assumptions.
-          </p>
-          <h3>Saved traces for this lesson</h3>
-          {experiments
-            .filter((e) => e.lessonId === lesson.id)
-            .map((e) => (
-              <div className="daa-actions" key={e.id}>
-                <span>{new Date(e.createdAt).toLocaleString()}</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDraft(JSON.stringify(e.input, null, 2))
-                    setUsedInput(e.input)
-                    setRun(e.run)
-                    setIndex(0)
-                    setPlaying(false)
-                    setError('')
-                    setTab('Visualization')
-                  }}
-                >
-                  Load saved trace
-                </button>
-                <button type="button" onClick={() => setExperiments((items) => items.filter((item) => item.id !== e.id))}>
-                  Delete
-                </button>
-              </div>
-            ))}
-          {!experiments.some((e) => e.lessonId === lesson.id) && <p>No saved traces yet. Run an input in Visualization and choose Save experiment locally.</p>}
-        </section>
-      )}
-      {tab === 'Practice' && (
-        <section className="daa-card">
-          <h2>Reason about the algorithm</h2>
-          <p>{lesson.exercise.question}</p>
-          <label>
-            Your reasoning
-            <textarea rows={4} placeholder="Write your answer before revealing the explanation" />
-          </label>
-          <button type="button" onClick={() => setAnswer((a) => !a)}>
-            {answer ? 'Hide answer' : 'Reveal answer'}
-          </button>
-          {answer && <blockquote>{lesson.exercise.answer}</blockquote>}
-          <p>Also trace the worked example by hand, identify an edge case and justify the applicable bound.</p>
-        </section>
-      )}
-      {saveMessage && <p role="status">{saveMessage}</p>}
+      {tx(saveMessage && <p role="status">{tx(saveMessage, 'studios')}</p>, 'studios')}
     </div>
   )
 }
 
 export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
+  useLocaleRender()
+
   if (module.category === 'Backtracking')
     return (
-      <Suspense fallback={<p role="status">Loading the backtracking lab…</p>}>
+      <Suspense fallback={<p role="status">{tx('Loading the backtracking lab…', 'studios')}</p>}>
         <BacktrackingLessonPage key={module.id} module={module} completed={completed} toggleCompleted={toggleCompleted} />
       </Suspense>
     )
   if (module.category === 'Greedy' || module.id === 'greedy-exchange')
     return (
-      <Suspense fallback={<p role="status">Loading the greedy lab…</p>}>
+      <Suspense fallback={<p role="status">{tx('Loading the greedy lab…', 'studios')}</p>}>
         <GreedyLessonPage key={module.id} module={module} completed={completed} toggleCompleted={toggleCompleted} />
       </Suspense>
     )
   if (module.category === 'Dynamic Programming')
     return (
-      <Suspense fallback={<p role="status">Loading the dynamic programming lab…</p>}>
+      <Suspense fallback={<p role="status">{tx('Loading the dynamic programming lab…', 'studios')}</p>}>
         <DPLessonPage key={module.id} module={module} completed={completed} toggleCompleted={toggleCompleted} />
       </Suspense>
     )
   return (
     <div className={`daa-workspace${module.lessonId === 'dashboard' ? '' : ' compact-daa'}`} data-lesson-id={module.lessonId}>
-      {module.lessonId === 'dashboard' && (
-        <div className="daa-top">
-          <Link to="/daa/syllabus-dashboard">← DAA concepts</Link>
-          <Link to="/sorting/bubble-sort">Algorithm visualizer</Link>
-          <AccountControl />
-        </div>
+      {tx(
+        module.lessonId === 'dashboard' && (
+          <div className="daa-top">
+            <Link to="/daa/syllabus-dashboard">{tx('← DAA concepts', 'studios')}</Link>
+            <Link to="/sorting/bubble-sort">{tx('Algorithm visualizer', 'studios')}</Link>
+            <AccountControl />
+          </div>
+        ),
+        'studios',
       )}
-      {module.lessonId === 'dashboard' ? (
-        <Dashboard completed={completed} />
-      ) : (
-        <LessonView key={module.id} lesson={lessonById.get(module.lessonId ?? module.id)!} completed={completed} toggleCompleted={toggleCompleted} />
+      {tx(
+        module.lessonId === 'dashboard' ? (
+          <Dashboard completed={completed} />
+        ) : (
+          <LessonView key={module.id} lesson={lessonById.get(module.lessonId ?? module.id)!} completed={completed} toggleCompleted={toggleCompleted} />
+        ),
+        'studios',
       )}
     </div>
   )

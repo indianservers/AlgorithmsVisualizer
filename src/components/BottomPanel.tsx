@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import type { Dispatch, SetStateAction } from 'react'
 import { FlaskConical } from 'lucide-react'
 import type { AlgorithmStep, SavedExperiment } from '../types'
@@ -40,97 +42,119 @@ export function BottomPanel({
   stepLogCsv,
   steps,
 }: BottomPanelProps) {
+  useLocaleRender()
+
   return (
     <footer className="bottom-panel">
       <section className="metrics-panel">
         <h2>
-          <FlaskConical size={18} /> Experiment Metrics
+          <FlaskConical size={18} />
+          {tx(' Experiment Metrics', 'common')}
         </h2>
         <div className="metric-row">
-          {Object.entries(finalMetrics).map(([key, value]) => (
-            <span key={key}>
-              <strong>{value ?? 0}</strong>
-              {metricLabel(key)}
-            </span>
-          ))}
+          {tx(
+            Object.entries(finalMetrics).map(([key, value]) => (
+              <span key={key}>
+                <strong>{tx(value ?? 0, 'common')}</strong>
+                {tx(metricLabel(key), 'common')}
+              </span>
+            )),
+            'common',
+          )}
           <span>
-            <strong>{steps.length}</strong> steps
+            <strong>{tx(steps.length, 'common')}</strong>
+            {tx(' steps', 'common')}
           </span>
         </div>
       </section>
       <section>
-        <h2>Step Log</h2>
+        <h2>{tx('Step Log', 'common')}</h2>
         <div className="utility-row">
           <button
             type="button"
             onClick={() => copyText('Step log', steps.map((step, index) => `${index + 1}. ${step.type}: ${step.description}`).join('\n'))}
             disabled={!steps.length}
           >
-            Copy step log
+            {tx('Copy step log', 'common')}
           </button>
           <button type="button" onClick={() => downloadText(`${activeModuleId}-steps.csv`, stepLogCsv(), 'text/csv')} disabled={!steps.length}>
-            Download CSV
+            {tx('Download CSV', 'common')}
           </button>
         </div>
         <div className="log-list">
-          {steps.length ? (
-            steps.map((step, index) => (
-              <button className={index === stepIndex ? 'active' : ''} key={step.id} onClick={() => setStepIndex(index)} type="button">
-                <span>{index + 1}</span>
-                <strong>{step.type}</strong>
-                {step.description}
-              </button>
-            ))
-          ) : (
-            <p>No step log yet. Press Run to generate timeline events.</p>
+          {tx(
+            steps.length ? (
+              steps.map((step, index) => (
+                <button className={index === stepIndex ? 'active' : ''} key={step.id} onClick={() => setStepIndex(index)} type="button">
+                  <span>{tx(index + 1, 'common')}</span>
+                  <strong>{tx(step.type, 'common')}</strong>
+                  {tx(step.description, 'common')}
+                </button>
+              ))
+            ) : (
+              <p>{tx('No step log yet. Press Run to generate timeline events.', 'common')}</p>
+            ),
+            'common',
           )}
         </div>
       </section>
       <section>
-        <h2>Saved Locally</h2>
-        {loadingSaved ? (
-          <SavedExperimentsSkeleton />
-        ) : (
-          <div className="saved-list">
-            {saved.length ? (
-              <>
-                <div className="saved-next-steps" aria-label="Quick next steps">
-                  <button type="button" onClick={openVisualizer}>
-                    Visualize
-                  </button>
-                  <button type="button" onClick={openDashboard}>
-                    Dashboard
-                  </button>
-                  <button type="button" onClick={openStatistics}>
-                    Statistics
-                  </button>
-                  <button type="button" onClick={openDataGrid}>
-                    Data Grid
-                  </button>
-                </div>
-                {saved.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      onLoadSaved(item)
-                    }}
-                    type="button"
-                  >
-                    <strong>{item.algorithmName}</strong>
-                    <span>{item.stepCount} steps. Tap to load and visualize.</span>
-                  </button>
-                ))}
-              </>
-            ) : (
-              <div className="empty-state saved-empty-state">
-                <strong>No saved experiments yet.</strong>
-                <span>Run an algorithm, then tap Save to keep it here for quick mobile access.</span>
-                <button type="button" onClick={openVisualizer}>
-                  Go to visualizer
-                </button>
-              </div>
-            )}
-          </div>
+        <h2>{tx('Saved Locally', 'common')}</h2>
+        {tx(
+          loadingSaved ? (
+            <SavedExperimentsSkeleton />
+          ) : (
+            <div className="saved-list">
+              {tx(
+                saved.length ? (
+                  <>
+                    <div className="saved-next-steps" aria-label={tx('Quick next steps', 'common')}>
+                      <button type="button" onClick={openVisualizer}>
+                        {tx('Visualize', 'common')}
+                      </button>
+                      <button type="button" onClick={openDashboard}>
+                        {tx('Dashboard', 'common')}
+                      </button>
+                      <button type="button" onClick={openStatistics}>
+                        {tx('Statistics', 'common')}
+                      </button>
+                      <button type="button" onClick={openDataGrid}>
+                        {tx('Data Grid', 'common')}
+                      </button>
+                    </div>
+                    {tx(
+                      saved.map((item) => (
+                        <button
+                          key={item.id}
+                          onClick={() => {
+                            onLoadSaved(item)
+                          }}
+                          type="button"
+                        >
+                          <strong>{tx(item.algorithmName, 'common')}</strong>
+                          <span>
+                            {tx(item.stepCount, 'common')}
+                            {tx(' steps. Tap to load and visualize.', 'common')}
+                          </span>
+                        </button>
+                      )),
+                      'common',
+                    )}
+                  </>
+                ) : (
+                  <div className="empty-state saved-empty-state">
+                    <strong>{tx('No saved experiments yet.', 'common')}</strong>
+                    <span>{tx('Run an algorithm, then tap Save to keep it here for quick mobile access.', 'common')}</span>
+                    <button type="button" onClick={openVisualizer}>
+                      {tx('Go to visualizer', 'common')}
+                    </button>
+                  </div>
+                ),
+                'common',
+              )}
+            </div>
+          ),
+          'common',
         )}
       </section>
     </footer>

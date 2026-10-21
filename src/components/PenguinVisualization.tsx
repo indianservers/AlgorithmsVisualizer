@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { Penguin, Dolphin } from './CharacterArt'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -30,6 +32,8 @@ export function PenguinVisualization({
   showStateComparison: boolean
   character?: string
 }) {
+  useLocaleRender()
+
   const ref = useRef<HTMLDivElement>(null),
     [width, setWidth] = useState(600)
   const systemReduced = useReducedMotion(),
@@ -56,109 +60,154 @@ export function PenguinVisualization({
       ref={ref}
       className="penguin-viewport"
       data-motion={noMotion ? 'off' : quality === 'simple' ? 'simple' : 'full'}
-      aria-label={`${selectedCharacter.name} array visualization`}
+      aria-label={tx(`${selectedCharacter.name} array visualization`, 'studios')}
     >
       <div className="penguin-stage" style={{ width: '100%' }}>
-        {items.map((item) => {
-          const sorted = step?.type === 'complete' || item.index >= items.length - sortedCount
-          const active = step?.highlights.indices?.includes(item.index)
-          const status = sorted
-            ? 'sorted'
-            : active && step?.type === 'swap'
-              ? 'swapping'
-              : active && ['merge', 'update'].includes(step?.type ?? '')
-                ? 'moving'
-                : active
-                  ? 'comparing'
-                  : 'normal'
-          const ratio = equal ? 0.5 : (item.value / magnitude - min) / Math.max(Number.EPSILON, max - min)
-          const height = minHeight + ratio * (maxHeight - minHeight)
-          return (
-            <motion.div
-              key={item.id}
-              layout={noMotion ? false : 'position'}
-              className={`penguin-slot ${status}`}
-              data-value={item.value}
-              data-status={status}
-              style={
-                {
-                  width: slot,
-                  '--celebrate-delay': `${Math.min(item.index * 45, 540)}ms`,
-                  '--lean': item.index % 2 ? '1' : '-1',
-                  color:
-                    status === 'sorted'
-                      ? (palette.complete ?? '#258555')
-                      : status === 'swapping'
-                        ? (palette.swap ?? '#d99718')
-                        : (palette.compare ?? '#e65f42'),
-                } as CSSProperties
-              }
-              transition={noMotion ? { duration: 0 } : quality === 'simple' ? { duration: 0.12 } : { type: 'spring', stiffness: 240, damping: 24, mass: 0.8 }}
-            >
-              {showIndices && <small className="penguin-index">{item.index}</small>}
-              <div className="penguin-standing">
-                <span className="penguin-ground-shadow" aria-hidden="true" />
-                <span key={`spark-${status}`} className="penguin-sparkles" aria-hidden="true">
-                  ✦
-                </span>
-                {countMode ? (
-                  <div
-                    key={active && !sorted ? step?.id : status}
-                    className={`count-character penguin-art ${noMotion ? 'still' : status}`}
-                    aria-label={`${item.value}: ${selectedCharacter.name}`}
-                  >
-                    <div className="count-icon-grid" style={{ gridTemplateColumns: `repeat(${Math.max(1, Math.floor((slot - 8) / 14))}, 14px)` }}>
-                      {Array.from({ length: Math.min(countLimit, Math.floor(Math.abs(item.value))) }, (_, i) => (
-                        <span aria-hidden="true" key={i}>
-                          {selectedCharacter.icon}
-                        </span>
-                      ))}
-                    </div>
-                    {item.value === 0 && <span className="count-empty">Empty</span>}
-                    {Math.floor(Math.abs(item.value)) > countLimit && (
-                      <small className="count-overflow">+{Math.floor(Math.abs(item.value)) - countLimit}</small>
-                    )}
-                    {!Number.isInteger(item.value) && <small className="count-overflow">+{Number((Math.abs(item.value) % 1).toFixed(4))} unit</small>}
-                  </div>
-                ) : selectedCharacter.id === 'dolphins' ? (
-                  <Dolphin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
-                ) : (
-                  <Penguin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
+        {tx(
+          items.map((item) => {
+            const sorted = step?.type === 'complete' || item.index >= items.length - sortedCount
+            const active = step?.highlights.indices?.includes(item.index)
+            const status = sorted
+              ? 'sorted'
+              : active && step?.type === 'swap'
+                ? 'swapping'
+                : active && ['merge', 'update'].includes(step?.type ?? '')
+                  ? 'moving'
+                  : active
+                    ? 'comparing'
+                    : 'normal'
+            const ratio = equal ? 0.5 : (item.value / magnitude - min) / Math.max(Number.EPSILON, max - min)
+            const height = minHeight + ratio * (maxHeight - minHeight)
+            return (
+              <motion.div
+                key={item.id}
+                layout={noMotion ? false : 'position'}
+                className={`penguin-slot ${status}`}
+                data-value={item.value}
+                data-status={status}
+                style={
+                  {
+                    width: slot,
+                    '--celebrate-delay': `${Math.min(item.index * 45, 540)}ms`,
+                    '--lean': item.index % 2 ? '1' : '-1',
+                    color:
+                      status === 'sorted'
+                        ? (palette.complete ?? '#258555')
+                        : status === 'swapping'
+                          ? (palette.swap ?? '#d99718')
+                          : (palette.compare ?? '#e65f42'),
+                  } as CSSProperties
+                }
+                transition={noMotion ? { duration: 0 } : quality === 'simple' ? { duration: 0.12 } : { type: 'spring', stiffness: 240, damping: 24, mass: 0.8 }}
+              >
+                {tx(showIndices && <small className="penguin-index">{tx(item.index, 'studios')}</small>, 'studios')}
+                <div className="penguin-standing">
+                  <span className="penguin-ground-shadow" aria-hidden="true" />
+                  <span key={`spark-${status}`} className="penguin-sparkles" aria-hidden="true">
+                    ✦
+                  </span>
+                  {tx(
+                    countMode ? (
+                      <div
+                        key={active && !sorted ? step?.id : status}
+                        className={`count-character penguin-art ${noMotion ? 'still' : status}`}
+                        aria-label={tx(`${item.value}: ${selectedCharacter.name}`, 'studios')}
+                      >
+                        <div className="count-icon-grid" style={{ gridTemplateColumns: `repeat(${Math.max(1, Math.floor((slot - 8) / 14))}, 14px)` }}>
+                          {tx(
+                            Array.from({ length: Math.min(countLimit, Math.floor(Math.abs(item.value))) }, (_, i) => (
+                              <span aria-hidden="true" key={i}>
+                                {tx(selectedCharacter.icon, 'studios')}
+                              </span>
+                            )),
+                            'studios',
+                          )}
+                        </div>
+                        {tx(item.value === 0 && <span className="count-empty">{tx('Empty', 'studios')}</span>, 'studios')}
+                        {tx(
+                          Math.floor(Math.abs(item.value)) > countLimit && (
+                            <small className="count-overflow">+{tx(Math.floor(Math.abs(item.value)) - countLimit, 'studios')}</small>
+                          ),
+                          'studios',
+                        )}
+                        {tx(
+                          !Number.isInteger(item.value) && (
+                            <small className="count-overflow">
+                              +{tx(Number((Math.abs(item.value) % 1).toFixed(4)), 'studios')}
+                              {tx(' unit', 'studios')}
+                            </small>
+                          ),
+                          'studios',
+                        )}
+                      </div>
+                    ) : selectedCharacter.id === 'dolphins' ? (
+                      <Dolphin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
+                    ) : (
+                      <Penguin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
+                    ),
+                    'studios',
+                  )}
+                </div>
+                {tx(
+                  (showValues || countMode) && (
+                    <strong className="penguin-value" title={tx(String(item.value), 'studios')}>
+                      {item.value}
+                    </strong>
+                  ),
+                  'studios',
                 )}
-              </div>
-              {(showValues || countMode) && (
-                <strong className="penguin-value" title={String(item.value)}>
-                  {item.value}
-                </strong>
-              )}
-              {sorted && (
-                <span className="penguin-check" aria-label="Sorted">
-                  ✓
-                </span>
-              )}
-            </motion.div>
-          )
-        })}
+                {tx(
+                  sorted && (
+                    <span className="penguin-check" aria-label={tx('Sorted', 'studios')}>
+                      ✓
+                    </span>
+                  ),
+                  'studios',
+                )}
+              </motion.div>
+            )
+          }),
+          'studios',
+        )}
       </div>
-      {countMode && (
-        <p className="penguin-scale-note">
-          One {selectedCharacter.icon} = one whole unit. Collections above 1,000 show a “+” remainder. Negative values show their magnitude; the signed label is
-          exact.
-        </p>
+      {tx(
+        countMode && (
+          <p className="penguin-scale-note">
+            {tx('One ', 'studios')}
+            {tx(selectedCharacter.icon, 'studios')}
+            {tx(' = one whole unit. Collections above 1,000 show a “+” remainder. Negative values show their magnitude; the signed label is exact.', 'studios')}
+          </p>
+        ),
+        'studios',
       )}
-      {items.some((i) => i.value < 0) && (
-        <p className="penguin-scale-note">
-          {countMode
-            ? 'Negative values keep their minus sign on the label; icon collections show magnitude.'
-            : 'Signed scale: smaller values stand shorter; all penguins share one baseline. Labels retain the exact signed values.'}
-        </p>
+      {tx(
+        items.some((i) => i.value < 0) && (
+          <p className="penguin-scale-note">
+            {tx(
+              countMode
+                ? 'Negative values keep their minus sign on the label; icon collections show magnitude.'
+                : 'Signed scale: smaller values stand shorter; all penguins share one baseline. Labels retain the exact signed values.',
+              'studios',
+            )}
+          </p>
+        ),
+        'studios',
       )}
 
-      {showStateComparison && step && (
-        <div className="state-comparison">
-          <span>Before: {(step.beforeState ?? []).join(', ')}</span>
-          <span>After: {(step.afterState ?? step.dataState).join(', ')}</span>
-        </div>
+      {tx(
+        showStateComparison && step && (
+          <div className="state-comparison">
+            <span>
+              {tx('Before: ', 'studios')}
+              {tx((step.beforeState ?? []).join(', '), 'studios')}
+            </span>
+            <span>
+              {tx('After: ', 'studios')}
+              {tx((step.afterState ?? step.dataState).join(', '), 'studios')}
+            </span>
+          </div>
+        ),
+        'studios',
       )}
     </div>
   )

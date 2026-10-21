@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect, useState, type ReactNode } from 'react'
 
 /** Keep secondary panels available on phones without crowding the visualization. */
@@ -12,6 +14,8 @@ export function MobileDisclosure({
   title: string
   defaultOpen?: boolean
 }) {
+  useLocaleRender()
+
   const [mobile, setMobile] = useState(() => window.matchMedia('(max-width: 700px)').matches)
   useEffect(() => {
     const query = window.matchMedia('(max-width: 700px)')
@@ -21,10 +25,10 @@ export function MobileDisclosure({
   }, [])
   return mobile ? (
     <details className={`${className} mobile-disclosure`} open={defaultOpen || undefined}>
-      <summary>{title}</summary>
-      {children}
+      <summary>{tx(title, 'common')}</summary>
+      {tx(children, 'common')}
     </details>
   ) : (
-    <section className={className}>{children}</section>
+    <section className={className}>{tx(children, 'common')}</section>
   )
 }

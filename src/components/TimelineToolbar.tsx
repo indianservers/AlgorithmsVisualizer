@@ -1,3 +1,5 @@
+// @localized-render
+import { tx, useLocaleRender } from '../i18n/render'
 import { SkipBack, ChevronLeft, Play, Pause, ChevronRight, SkipForward } from 'lucide-react'
 import type { ReactNode } from 'react'
 
@@ -30,18 +32,26 @@ export function TimelineToolbar({
   view?: ReactNode
   children?: ReactNode
 }) {
+  useLocaleRender()
+
   const last = Math.max(0, count - 1)
   const names = labels ?? { first: 'First', previous: 'Previous', next: 'Next', last: 'Last' }
   return (
-    <div className="workbench-toolbar" role="group" aria-label="Timeline controls">
+    <div className="workbench-toolbar" role="group" aria-label={tx('Timeline controls', 'controls')}>
       <div className="workbench-playback">
-        <button type="button" aria-label={names.first} title={names.first} disabled={!count || index === 0} onClick={() => onNavigate(0)}>
+        <button
+          type="button"
+          aria-label={tx(names.first, 'controls')}
+          title={tx(names.first, 'controls')}
+          disabled={!count || index === 0}
+          onClick={() => onNavigate(0)}
+        >
           <SkipBack size={16} />
         </button>
         <button
           type="button"
-          aria-label={names.previous}
-          title={names.previous}
+          aria-label={tx(names.previous, 'controls')}
+          title={tx(names.previous, 'controls')}
           disabled={!count || index === 0}
           onClick={() => onNavigate(Math.max(0, index - 1))}
         >
@@ -50,33 +60,39 @@ export function TimelineToolbar({
         <button
           className="workbench-play"
           type="button"
-          aria-label={playing ? 'Pause' : (playLabel ?? 'Play')}
-          title={disabledReason || (playing ? 'Pause' : (playLabel ?? 'Play'))}
+          aria-label={tx(playing ? 'Pause' : (playLabel ?? 'Play'), 'controls')}
+          title={tx(disabledReason || (playing ? 'Pause' : (playLabel ?? 'Play')), 'controls')}
           disabled={!count || !!disabledReason || (index === last && !playLabel)}
           onClick={onPlay}
         >
-          {playing ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
-          <span>{playing ? 'Pause' : (playLabel ?? 'Play')}</span>
+          {tx(playing ? <Pause size={16} /> : <Play size={16} fill="currentColor" />, 'controls')}
+          <span>{tx(playing ? 'Pause' : (playLabel ?? 'Play'), 'controls')}</span>
         </button>
         <button
           type="button"
-          aria-label={names.next}
-          title={names.next}
+          aria-label={tx(names.next, 'controls')}
+          title={tx(names.next, 'controls')}
           disabled={!count || index === last}
           onClick={() => onNavigate(Math.min(last, index + 1))}
         >
           <ChevronRight size={17} />
         </button>
-        <button type="button" aria-label={names.last} title={names.last} disabled={!count || index === last} onClick={() => onNavigate(last)}>
+        <button
+          type="button"
+          aria-label={tx(names.last, 'controls')}
+          title={tx(names.last, 'controls')}
+          disabled={!count || index === last}
+          onClick={() => onNavigate(last)}
+        >
           <SkipForward size={16} />
         </button>
       </div>
       <label className="workbench-progress step-meter">
         <span>
-          {progressLabel} {count ? index + 1 : 0}/{count}
+          {tx(progressLabel, 'controls')} {tx(count ? index + 1 : 0, 'controls')}/{tx(count, 'controls')}
         </span>
         <input
-          aria-label="Timeline step"
+          aria-label={tx('Timeline step', 'controls')}
           type="range"
           min={0}
           max={last}
@@ -86,16 +102,24 @@ export function TimelineToolbar({
         />
       </label>
       <label className="workbench-speed">
-        <span>Speed</span>
-        <select aria-label="Playback speed" value={speed} onChange={(event) => onSpeed(Number(event.target.value))}>
-          {![150, 600, 1200].includes(speed) && <option value={speed}>{speed} ms</option>}
-          <option value={1200}>Slow</option>
-          <option value={600}>Normal</option>
-          <option value={150}>Fast</option>
+        <span>{tx('Speed', 'controls')}</span>
+        <select aria-label={tx('Playback speed', 'controls')} value={speed} onChange={(event) => onSpeed(Number(event.target.value))}>
+          {tx(
+            ![150, 600, 1200].includes(speed) && (
+              <option value={speed}>
+                {tx(speed, 'controls')}
+                {tx(' ms', 'controls')}
+              </option>
+            ),
+            'controls',
+          )}
+          <option value={1200}>{tx('Slow', 'controls')}</option>
+          <option value={600}>{tx('Normal', 'controls')}</option>
+          <option value={150}>{tx('Fast', 'controls')}</option>
         </select>
       </label>
-      {view}
-      {children}
+      {tx(view, 'controls')}
+      {tx(children, 'controls')}
     </div>
   )
 }
