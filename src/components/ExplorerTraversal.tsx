@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 import type { AlgorithmStep } from '../types'
-import { Penguin } from './PenguinVisualization'
+import { Penguin } from './CharacterArt'
 import './explorer.css'
 
 type Props = { step?: AlgorithmStep; previous?: AlgorithmStep; mode: 'bfs' | 'dfs'; reducedMotion: boolean }

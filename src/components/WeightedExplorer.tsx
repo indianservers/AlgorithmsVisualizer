@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { AlgorithmStep } from '../types'
-import { Penguin } from './PenguinVisualization'
+import { Penguin } from './CharacterArt'
 import './explorer.css'
 import './weighted-explorer.css'
 import { RouteStudyBoard } from './RouteStudyBoard'

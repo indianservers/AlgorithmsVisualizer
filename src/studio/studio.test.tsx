@@ -154,11 +154,20 @@ describe('shared sorting and searching execution', () => {
 })
 
 describe('counted icon bars', () => {
-  it('renders exactly 79 units with either Apples or Dolphins', () => {
-    for (const character of ['apples', 'dolphins']) {
+  it('renders exactly 79 Apples', () => {
+    for (const character of ['apples']) {
       const html = renderToStaticMarkup(<ArrayScene input={[79]} view="icons" zoom={100} reducedMotion character={character} />)
       expect(html.match(/data-unit-icon=/g)).toHaveLength(79)
       expect(html).toContain(character === 'apples' ? 'studio-apple' : '🐬')
+    }
+  })
+  it('uses one height-scaled animal for each value', () => {
+    for (const character of ['penguins', 'dolphins']) {
+      const html = renderToStaticMarkup(<ArrayScene input={[79, 20]} view="icons" zoom={100} reducedMotion character={character} />)
+      expect(html.match(/data-scaled-character=/g)).toHaveLength(2)
+      expect(html).not.toContain('data-unit-icon=')
+      expect(html).toContain('height="190"')
+      expect(html).toContain('One ' + (character === 'penguins' ? 'penguin' : 'dolphin') + ' per value')
     }
   })
   it('counts negative magnitudes and keeps fractional or excessive values explicitly scaled', () => {

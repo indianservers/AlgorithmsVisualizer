@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import type { AlgorithmStep, AnimationQuality } from '../types'
-import { Penguin } from './PenguinVisualization'
+import { Penguin } from './CharacterArt'
 import './detective.css'
 
 type Props = {

@@ -1,3 +1,4 @@
+import { Penguin, Dolphin } from '../components/CharacterArt'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Activity, ArrowRight, BookOpen, Clock, Code2, Copy, Layers, RotateCcw, Search, Settings2, Shuffle, ZoomIn, ZoomOut } from 'lucide-react'
@@ -199,7 +200,8 @@ export function ArrayScene({
   const reduced = reducedMotion || systemReduced
   const data = step?.dataState ?? input
   const max = Math.max(...data.map(Math.abs), 1)
-  const exactIcons = view === 'icons' && data.every((v) => Number.isInteger(v) && Math.abs(v) <= 1000)
+  const scaledCharacter = view === 'icons' && ['penguins', 'dolphins'].includes(character)
+  const exactIcons = !scaledCharacter && view === 'icons' && data.every((v) => Number.isInteger(v) && Math.abs(v) <= 1000)
   const selected = sortingCharacters.find((option) => option.id === character) ?? sortingCharacters.find((option) => option.id === 'apples')!
   const columns = max <= 24 ? 2 : 4
   const variables = step?.highlights.variables ?? {}
@@ -211,16 +213,18 @@ export function ArrayScene({
     <>
       <div className="studio-scale-note">
         {view === 'icons'
-          ? exactIcons
-            ? `One ${selected.icon} = one whole unit. Each bar contains the exact count; labels retain the sign.`
-            : 'Scaled bars · exact values are labeled. Whole numbers up to 1,000 per bar show individual icons.'
+          ? scaledCharacter
+            ? `One ${selected.name === 'Penguins' ? 'penguin' : 'dolphin'} per value. Character height represents magnitude; labels show exact values.`
+            : exactIcons
+              ? `One ${selected.icon} = one whole unit. Each bar contains the exact count; labels retain the sign.`
+              : 'Scaled bars · exact values are labeled. Whole numbers up to 1,000 per bar show individual icons.'
           : 'Bar height represents magnitude · exact values are labeled.'}
-        {signed && (exactIcons ? ' Negative values show their magnitude with a signed label.' : ' Negative values extend below zero.')}
+        {signed && (exactIcons || scaledCharacter ? ' Negative values show their magnitude with a signed label.' : ' Negative values extend below zero.')}
       </div>
       <div className="studio-chart-scroll">
         <div
           data-motion={reduced ? 'off' : 'on'}
-          className={`studio-chart ${signed && !exactIcons ? 'signed' : ''}`}
+          className={`studio-chart ${signed && !exactIcons && !scaledCharacter ? 'signed' : ''}`}
           style={
             {
               '--chart-zoom': zoom / 100,
@@ -246,7 +250,7 @@ export function ArrayScene({
             const markers = Object.entries(variables)
               .filter(([key, v]) => ['i', 'j', 'mid', 'minIndex', 'low', 'high', 'k'].includes(key) && v === i)
               .map(([key]) => key)
-            const height = value === 0 ? 3 : Math.max(5, (Math.abs(value) / max) * (signed ? 115 : 190))
+            const height = value === 0 ? 3 : Math.max(5, (Math.abs(value) / max) * (signed && !scaledCharacter ? 115 : 190))
             return (
               <motion.div
                 layout={!reduced}
@@ -265,7 +269,8 @@ export function ArrayScene({
                 <div className="studio-pointer">{markers.join(' · ')}</div>
                 <strong className="studio-value">{value}</strong>
                 <div
-                  className={`studio-bar ${value < 0 ? 'negative' : ''} ${exactIcons ? 'apple-stack' : ''}`}
+                  className={`studio-bar ${value < 0 ? 'negative' : ''} ${exactIcons ? 'apple-stack' : ''} ${scaledCharacter ? 'studio-animal' : ''}`}
+                  data-scaled-character={scaledCharacter ? selected.id : undefined}
                   style={
                     {
                       height: exactIcons ? undefined : height,
@@ -274,13 +279,21 @@ export function ArrayScene({
                     } as React.CSSProperties
                   }
                 >
-                  {exactIcons
-                    ? Array.from({ length: Math.abs(value) }, (_, k) => (
-                        <span className="studio-unit-icon" data-unit-icon key={k}>
-                          {selected.id === 'apples' ? <AppleIcon id={`apple-${i}-${k}`} /> : selected.icon}
-                        </span>
-                      ))
-                    : view === 'icons' && <span className="studio-unit-icon">{selected.icon}</span>}
+                  {scaledCharacter ? (
+                    selected.id === 'penguins' ? (
+                      <Penguin height={height} status={reduced ? 'still' : state} />
+                    ) : (
+                      <Dolphin height={height} status={reduced ? 'still' : state} />
+                    )
+                  ) : exactIcons ? (
+                    Array.from({ length: Math.abs(value) }, (_, k) => (
+                      <span className="studio-unit-icon" data-unit-icon key={k}>
+                        {selected.id === 'apples' ? <AppleIcon id={`apple-${i}-${k}`} /> : selected.icon}
+                      </span>
+                    ))
+                  ) : (
+                    view === 'icons' && <span className="studio-unit-icon">{selected.icon}</span>
+                  )}
                 </div>
                 <span className="studio-index">{i}</span>
               </motion.div>

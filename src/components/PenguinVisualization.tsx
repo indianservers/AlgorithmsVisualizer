@@ -1,3 +1,4 @@
+import { Penguin, Dolphin } from './CharacterArt'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { CSSProperties } from 'react'
@@ -5,34 +6,6 @@ import type { AlgorithmStep, AnimationQuality } from '../types'
 import './penguins.css'
 
 import { sortingCharacters } from '../data/sortingCharacters'
-
-export function Penguin({ height, status }: { height: number; status: string }) {
-  return (
-    <svg viewBox="0 0 100 200" width={height / 2} height={height} className={`penguin-art ${status}`} aria-hidden="true">
-      <ellipse cx="50" cy="191" rx="35" ry="6" fill="#152c46" opacity=".14" />
-      <path className="penguin-wing left" d="M26 73 Q4 105 8 145 Q11 156 18 137 L30 108" fill="#173956" stroke="#0e253e" strokeWidth="3" />
-      <path className="penguin-wing right" d="M74 73 Q96 105 92 145 Q89 156 82 137 L70 108" fill="#173956" stroke="#0e253e" strokeWidth="3" />
-      <path d="M48 14 Q38 0 41 20 Q48 6 54 19 Q64 5 59 24" fill="#102b45" />
-      <path
-        d="M50 19 C20 19 19 52 22 76 C12 112 17 163 31 181 Q50 195 69 181 C83 163 88 112 78 76 C81 52 80 19 50 19"
-        fill="#153750"
-        stroke="#0c2239"
-        strokeWidth="3"
-      />
-      <path d="M23 78 C25 35 44 34 50 59 C56 34 75 35 77 78 Q68 89 77 121 C85 177 61 189 50 186 C39 189 15 177 23 121 Q32 89 23 78" fill="#f7fafb" />
-      <ellipse cx="37" cy="63" rx="8" ry="13" fill="#fff" />
-      <ellipse cx="63" cy="63" rx="8" ry="13" fill="#fff" />
-      <ellipse cx="39" cy="66" rx="4" ry="7" fill="#102238" />
-      <ellipse cx="61" cy="66" rx="4" ry="7" fill="#102238" />
-      <circle cx="40" cy="63" r="1.8" fill="white" />
-      <circle cx="62" cy="63" r="1.8" fill="white" />
-      <path d="M40 83 Q50 73 60 83 L50 91 Z" fill="#ffad2e" stroke="#d47710" strokeWidth="1.5" />
-      <ellipse cx="33" cy="187" rx="16" ry="6" fill="#ffac27" />
-      <ellipse cx="67" cy="187" rx="16" ry="6" fill="#ffac27" />
-      <path d="M31 102 Q22 143 33 168" fill="none" stroke="white" opacity=".65" strokeWidth="4" strokeLinecap="round" />
-    </svg>
-  )
-}
 
 export function PenguinVisualization({
   items,
@@ -76,7 +49,7 @@ export function PenguinVisualization({
     maxHeight = Math.min(240, (slot - 8) * 2),
     minHeight = Math.min(30, maxHeight * 0.45)
   const selectedCharacter = sortingCharacters.find((option) => option.id === character) ?? sortingCharacters[0]
-  const countMode = selectedCharacter.id !== 'penguins'
+  const countMode = !['penguins', 'dolphins'].includes(selectedCharacter.id)
   const countLimit = 1000
   return (
     <div
@@ -147,6 +120,8 @@ export function PenguinVisualization({
                     )}
                     {!Number.isInteger(item.value) && <small className="count-overflow">+{Number((Math.abs(item.value) % 1).toFixed(4))} unit</small>}
                   </div>
+                ) : selectedCharacter.id === 'dolphins' ? (
+                  <Dolphin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
                 ) : (
                   <Penguin key={active && !sorted ? step?.id : status} height={height} status={noMotion ? 'still' : status} />
                 )}
