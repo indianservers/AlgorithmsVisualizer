@@ -102,6 +102,7 @@ export function HomeDashboard() {
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
           </nav>
+          <Link to="/encyclopedia">Algorithm encyclopedia</Link>
           <AccountControl />
         </header>
         <div className="home-main">

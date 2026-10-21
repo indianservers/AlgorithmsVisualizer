@@ -67,7 +67,7 @@ test('guest popup preserves lesson, keyboard focus and central return URL', asyn
   else expect(fallback.searchParams.has('returnTo')).toBe(false) // Localhost is never a trusted return destination.
   await page.keyboard.press('Escape')
   await expect(trigger).toBeFocused()
-  await expect(page).toHaveURL(/#\/searching\/binary-search$/)
+  await expect(page).toHaveURL(/\/searching\/binary-search$/)
   await trigger.click()
   await page.locator('#email-toggle').click()
   await page.locator('#email-signup-tab').click()
@@ -119,7 +119,7 @@ for (const method of ['google', 'email', 'signup']) {
     const patch = writes.find((w) => w.method === 'PATCH')!
     expect(patch.uid).toBe(user.uid)
     expect(patch.body).toEqual({ interests: ['Science'], onboardingComplete: true })
-    await expect(page).toHaveURL(/#\/searching\/binary-search$/)
+    await expect(page).toHaveURL(/\/searching\/binary-search$/)
   })
 }
 
@@ -213,7 +213,7 @@ test('phone validates national number, supports invalid-code recovery and phone-
   await expect(page.locator('#profile-email')).toHaveText('Signed in with phone')
   await expect(page.locator('#phone-toggle')).toBeHidden()
   expect(await page.evaluate(() => Object.keys(localStorage).some((key) => /firebase:authUser|token/i.test(key)))).toBe(false)
-  await expect(page).toHaveURL(/#\/graphs\/daa-bfs$/)
+  await expect(page).toHaveURL(/\/graphs\/daa-bfs$/)
 })
 
 for (const viewport of [

@@ -1,0 +1,1 @@
+{ "cleanUrls": true, "rewrites": [{ "source": "/((?!assets/|account/|robots.txt|sitemap.xml|favicon.svg).*)", "destination": "/" }] }

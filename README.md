@@ -102,11 +102,13 @@ Run validation happens in `runDisabledReason(...)`:
 
 ## Routing
 
-Routes are hash-based:
+Routes use clean browser-history URLs (legacy `/#/...` links are migrated in the browser):
 
 - `/`
 - `/:categorySlug`
-- `/:categorySlug/:algorithmSlug`
+- `/:categorySlug/:algorithmSlug` (visualization)
+- `/:categorySlug/:algorithmSlug/learn` (full theory and section bookmarks)
+- `/encyclopedia` (searchable topic directory and saved articles)
 - fallback route
 
 `algorithmPath(module)` builds URLs from `categoryPages[module.category].slug` plus `module.id`. Unknown routes render `RouteFallback` using the last selected algorithm or `bubble-sort`.
@@ -194,3 +196,16 @@ session endpoint now returns 200 with credentialed CORS for the exact Algorithms
 origin. Session POST and profile PATCH preflights return 204 with the required
 headers. Real Google consent, email delivery and phone OTP still require a real
 user/provider check; automated account tests use mocked providers.
+
+## Algorithm encyclopedia and search discovery
+
+Every catalog entry has a Learn article at its clean `/category/algorithm/learn`
+URL. Articles combine original introductory notes with the catalog's authored
+examples, proofs, constraints and implementation-specific analysis. Learning
+tools and suites are labeled as overviews. See [encyclopedia architecture](docs/encyclopedia.md).
+
+`npm run build` pre-renders all articles, visualization landing pages, category
+indexes and the directory, then emits `sitemap.xml` and `robots.txt`. Generated
+HTML is build output in `dist`, not checked-in source. Vercel `cleanUrls` serves
+those HTML files at extensionless URLs, with a fallback for application routes.
+Do not restore a relative Vite asset base: nested URLs require root-relative assets.

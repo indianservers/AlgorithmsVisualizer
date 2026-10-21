@@ -19,6 +19,8 @@ export const normalizeRoutePart = (value: string) =>
 
 export const algorithmPath = (module: AlgorithmModule) => `/${categoryPages[module.category].slug}/${module.id}`
 
+export const learnPath = (module: AlgorithmModule) => `${algorithmPath(module)}/learn`
+
 export const categoryFromSlug = (slug?: string) => categories.find((category) => categoryPages[category].slug === slug)
 
 export const algorithmFromSlug = (algorithmSlug?: string) => {

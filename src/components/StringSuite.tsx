@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { InputAccessButton } from './InputAccessButton'
 import { useEffect, useState } from 'react'
 import {
@@ -49,6 +50,7 @@ export function StringSuite() {
   const [zoom, setZoom] = useState(100)
   const [indices, setIndices] = useState(true)
   const [values, setValues] = useState(true)
+  const navigate = useNavigate()
   const [tab, setTab] = useState('Visualize')
   const [studied, setStudied] = useState(false)
   const [dark, setDark] = useState(false)
@@ -214,7 +216,11 @@ export function StringSuite() {
           </span>
           <div>
             {['Learn', 'Visualize', 'Code', 'Practice', 'Experiments'].map((t) => (
-              <button key={t} className={tab === t ? 'current' : ''} onClick={() => setTab(t)}>
+              <button
+                key={t}
+                className={tab === t ? 'current' : ''}
+                onClick={() => (t === 'Learn' ? navigate('/strings/string-pattern-matching-suite/learn') : setTab(t))}
+              >
                 {t}
               </button>
             ))}

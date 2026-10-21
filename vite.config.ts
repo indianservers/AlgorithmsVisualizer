@@ -3,13 +3,17 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [react()],
   build: {
     rollupOptions: {
+      preserveEntrySignatures: false,
       output: {
+        strictExecutionOrder: true,
         codeSplitting: {
+          includeDependenciesRecursively: false,
           groups: [
+            { name: 'encyclopedia', test: /src[\\/]encyclopedia[\\/]/, priority: 125 },
             { name: 'studio-languages', test: /src[\\/]studio[\\/]languages\.generated\.json/, priority: 120 },
             { name: 'studio-source', test: /src[\\/]studio[\\/]sources\.generated\.json/, priority: 120 },
             { name: 'studio-engine', test: /src[\\/]studio[\\/](engine|kernels|trace)\.ts/, priority: 110 },
