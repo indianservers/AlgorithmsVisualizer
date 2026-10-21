@@ -1,0 +1,122 @@
+.login-invitation {
+  position: fixed;
+  z-index: 150;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  right: 18px;
+  width: min(400px, calc(100vw - 28px));
+  padding: 22px;
+  border: 1px solid #cbdcf6;
+  border-radius: 20px;
+  background: var(--surface, #fff);
+  color: var(--text, #172d50);
+  box-shadow: 0 12px 48px #12366a26;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  animation: login-invitation-enter 0.3s ease-out;
+}
+.login-invitation h2 {
+  margin: 0 22px 6px 0;
+  font-size: 18px;
+  line-height: 1.35;
+}
+.login-invitation p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.login-invitation-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: #0869e8;
+  background: #eaf3ff;
+}
+.login-invitation-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  min-width: 36px;
+  min-height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+}
+.login-invitation-actions {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.login-invitation-actions button {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid #cbdcf6;
+  border-radius: 11px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.login-invitation-actions .login-invitation-primary {
+  background: #0869e8;
+  color: white;
+  border-color: #0869e8;
+}
+.login-invitation button:focus-visible {
+  outline: 3px solid #71aaff;
+  outline-offset: 3px;
+}
+@keyframes login-invitation-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 600px) {
+  .login-invitation {
+    right: 14px;
+    padding: 18px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-invitation {
+    animation: none;
+  }
+}
+/* Keep the existing sign-in flow comfortable on phones and short desktop windows. */
+#aimer-account-root #account-dialog {
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+#aimer-account-root #account-dialog[open] {
+  animation: login-invitation-enter 0.25s ease-out;
+}
+#aimer-account-root #account-dialog button,
+#aimer-account-root #account-dialog input {
+  min-height: 44px;
+}
+@media (max-width: 600px) {
+  #aimer-account-root #account-dialog input {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #aimer-account-root #account-dialog[open] {
+    animation: none;
+  }
+}

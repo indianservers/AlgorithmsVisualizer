@@ -10,6 +10,9 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
+            { name: 'studio-languages', test: /src[\\/]studio[\\/]languages\.generated\.json/, priority: 120 },
+            { name: 'studio-source', test: /src[\\/]studio[\\/]sources\.generated\.json/, priority: 120 },
+            { name: 'studio-engine', test: /src[\\/]studio[\\/](engine|kernels|trace)\.ts/, priority: 110 },
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {

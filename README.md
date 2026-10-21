@@ -189,11 +189,8 @@ Run `npx playwright test tests/visual/account.spec.ts` for mocked provider/sessi
 checks. These do not send SMS/email or prove production shared-cookie behavior.
 Run `npm run check` for lint, unit tests, build and chunk budgets.
 
-Central deployment is still required: append the exact origin
-`https://algorithms.aimersociety.com` to the production Tools project's
-`AUTH_ALLOWED_ORIGINS`, preserve existing entries, and redeploy Tools. As verified
-on 2026-10-16, Firebase already authorizes this hostname and deployed Tools already
-lists it as a safe return host, but central session GET and POST/PATCH/DELETE
-preflights return 403 for this origin. No Firebase-admin/Vercel configuration
-credential was available here. Do not claim cross-site sign-in or SMS delivery
-works until those real-provider checks pass.
+Production connectivity was rechecked on 2026-10-21. The central anonymous
+session endpoint now returns 200 with credentialed CORS for the exact Algorithms
+origin. Session POST and profile PATCH preflights return 204 with the required
+headers. Real Google consent, email delivery and phone OTP still require a real
+user/provider check; automated account tests use mocked providers.

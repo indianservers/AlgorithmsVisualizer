@@ -1,3 +1,4 @@
+import { isStudioId, needsOrderedInput, suiteExamples } from './studio/engine'
 import { CompactLessonHeader } from './components/CompactLessonHeader'
 import { isTreeLearningModule } from './learning/treeModel'
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
@@ -112,7 +113,12 @@ function App() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'live' | 'planned'>('all')
   const [visualFilter, setVisualFilter] = useState<'all' | AlgorithmModule['visualMode']>('all')
   const [complexityFilter, setComplexityFilter] = useState<'all' | 'log' | 'linear' | 'nlogn' | 'quadratic'>('all')
-  const [selectedLearningTab, setLearningTab] = useState<LearningTab>('Learn')
+  const [selectedLearningTab, setLearningTab] = useState<LearningTab>('Visualization')
+  const [tabRoute, setTabRoute] = useState(location.pathname)
+  if (tabRoute !== location.pathname) {
+    setTabRoute(location.pathname)
+    setLearningTab('Visualization')
+  }
   const learningTab = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments'].includes(selectedLearningTab) ? selectedLearningTab : 'Learn'
   const [practiceReveal, setPracticeReveal] = useState(false)
   const [practiceGuess, setPracticeGuess] = useState('')
@@ -129,15 +135,17 @@ function App() {
 
   const guide = useMemo(() => learningGuideFor(activeModule), [activeModule])
   const inputDiagnostics = useMemo(() => getInputDiagnostics(inputText), [inputText])
-  const input = useMemo(() => inputDiagnostics.valid.slice(0, 48), [inputDiagnostics])
-  const sortedInputRequired = Boolean(activeModule.flags?.includes('Requires sorted input'))
+  const input = useMemo(() => inputDiagnostics.valid.slice(0, isStudioId(activeId) ? 64 : 48), [inputDiagnostics, activeId])
+  const sortedInputRequired = isStudioId(activeId)
+    ? needsOrderedInput(suiteExamples[activeId] ?? activeId) || activeId === 'sliding-window-two-pointers-suite'
+    : Boolean(activeModule.flags?.includes('Requires sorted input'))
   const sortedInputValid = !sortedInputRequired || isSortedAscending(input)
   const disabledReason = runDisabledReason(activeModule, input, sortedInputValid)
   const steps = useMemo(() => {
-    if (disabledReason) return []
+    if (disabledReason || (isStudioId(activeId) && (inputDiagnostics.invalid.length > 0 || inputDiagnostics.valid.length > 64))) return []
     if (gameRevision < 0) return []
     const run = activeModule.runner?.(input, target) ?? []
-    if (run.length <= MAX_VISUAL_STEPS) return run
+    if (isStudioId(activeId) || run.length <= MAX_VISUAL_STEPS) return run
     const clipped = run.slice(0, MAX_VISUAL_STEPS)
     clipped[clipped.length - 1] = {
       ...clipped[clipped.length - 1],
@@ -145,7 +153,7 @@ function App() {
       description: 'Timeline truncated at 1000 steps; this trace does not certify completion.',
     }
     return clipped
-  }, [activeModule, disabledReason, gameRevision, input, target])
+  }, [activeModule, activeId, disabledReason, gameRevision, input, inputDiagnostics, target])
   const currentStep = steps[Math.min(stepIndex, Math.max(steps.length - 1, 0))]
   const visualData = currentStep?.dataState.length ? currentStep.dataState : input
   const finalMetrics = steps.at(-1)?.metrics ?? baseMetrics
@@ -201,13 +209,19 @@ function App() {
     activeModule.category === 'Games'
       ? 'Supports presets, custom board text, and click-to-play moves'
       : !['Graph', 'Tree'].includes(activeModule.visualMode)
-        ? 'At least one numeric value'
+        ? isStudioId(activeId)
+          ? 'Zero to 64 finite values; an empty array is a valid base case.'
+          : 'At least one numeric value'
         : 'Uses graph/tree preset or numeric tree input',
     sortedInputRequired ? 'Input must be sorted ascending' : '',
-    ['counting-sort', 'radix-sort'].includes(activeModule.id) ? 'Non-negative integers only' : '',
+    activeModule.id === 'counting-sort'
+      ? 'Integer keys; range at most 10,000'
+      : activeModule.id === 'radix-sort'
+        ? 'Non-negative integers up to 1,000,000,000'
+        : '',
   ].filter(Boolean)
   const hugeRunWarning =
-    steps.length >= MAX_VISUAL_STEPS
+    !isStudioId(activeId) && steps.length >= MAX_VISUAL_STEPS
       ? `Performance warning: this run was capped at ${MAX_VISUAL_STEPS} steps.`
       : steps.length > 350
         ? `Performance warning: this run generated ${steps.length} steps.`
@@ -334,7 +348,7 @@ function App() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((event.target as HTMLElement).tagName)) return
+      if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'SUMMARY', 'A'].includes((event.target as HTMLElement).tagName)) return
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         setCommandOpen(true)
@@ -598,6 +612,7 @@ function App() {
       >
         <section className="workspace category-page">
           <DaaWorkspace
+            key={activeModule.id}
             module={activeModule}
             completed={completed}
             toggleCompleted={(id) => setCompleted((items) => (items.includes(id) ? items.filter((item) => item !== id) : [...items, id]))}
@@ -758,7 +773,13 @@ function App() {
               <Controls
                 stepIndex={stepIndex}
                 activeCategory={activeCategory}
-                disabledReason={disabledReason}
+                disabledReason={
+                  isStudioId(activeId) && inputDiagnostics.invalid.length
+                    ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
+                    : isStudioId(activeId) && inputDiagnostics.valid.length > 64
+                      ? 'Use at most 64 values.'
+                      : disabledReason
+                }
                 pauseOn={pauseOn}
                 playing={playing}
                 resetAll={resetAll}
@@ -774,7 +795,13 @@ function App() {
             copyText={copyText}
             currentStep={currentStep}
             dataMode={dataMode}
-            disabledReason={disabledReason}
+            disabledReason={
+              isStudioId(activeId) && inputDiagnostics.invalid.length
+                ? `Invalid values: ${inputDiagnostics.invalid.join(', ')}`
+                : isStudioId(activeId) && inputDiagnostics.valid.length > 64
+                  ? 'Use at most 64 values.'
+                  : disabledReason
+            }
             discardedRange={discardedRange}
             downloadText={downloadText}
             favorites={favorites}
@@ -867,7 +894,7 @@ function App() {
             visualItems={visualItems}
           />
         )}
-        {!usesLearningStudio && (
+        {!usesLearningStudio && !(isStudioId(activeId) && learningTab === 'Visualization') && (
           <BottomPanel
             activeModuleId={activeModule.id}
             copyText={copyText}

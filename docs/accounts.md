@@ -46,7 +46,16 @@ promise SMS availability there. The supplied last verified SMS policy was India
 only; current private SMS-region settings could not be queried with available
 credentials. Provider/region/quota/billing errors do not claim Phone is disabled.
 
-## Production prerequisites observed 2026-10-16
+## Production connectivity rechecked 2026-10-21
+
+The earlier origin restriction is resolved. Anonymous `GET /api/session` returns
+200 with `{"user":null}`. `OPTIONS /api/session` for POST and `OPTIONS /api/profile`
+for PATCH both return 204. All three responses allow the exact origin
+`https://algorithms.aimersociety.com` with credentials; profile preflight also
+allows Content-Type and X-Aimer-Account. These are read-only connectivity checks,
+not proof of real OAuth consent, email delivery or SMS delivery.
+
+## Historical production prerequisites observed 2026-10-16
 
 | Prerequisite                  | Evidence / result                                                                                                 |
 | ----------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -57,7 +66,7 @@ credentials. Provider/region/quota/billing errors do not claim Phone is disabled
 | Profile PATCH preflight       | OPTIONS with Content-Type and X-Aimer-Account returns 403. No profile mutation was attempted.                     |
 | Central admin access          | No usable gcloud admin credential or configured Vercel credential/token was available.                            |
 
-Required external change: append `https://algorithms.aimersociety.com` to
+The external change required at that time was to append `https://algorithms.aimersociety.com` to
 `AUTH_ALLOWED_ORIGINS` on the **central Tools Vercel project's production environment**
 without replacing its current entries, then redeploy Tools. Also apply the change
 on any intentionally integrated preview environments. Do not wildcard or reflect

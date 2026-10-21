@@ -1,0 +1,6860 @@
+{
+  "bubble-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def bubble(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    for i in range(0, n - 1):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        swapped = False",
+        "id": "reset-swapped"
+      },
+      {
+        "text": "        for j in range(0, n - i - 1):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[j] > a[j + 1]:",
+        "id": "compare"
+      },
+      {
+        "text": "                a[j], a[j + 1] = a[j + 1], a[j]",
+        "id": "swap"
+      },
+      {
+        "text": "                swapped = True",
+        "id": "set-swapped"
+      },
+      {
+        "text": "        if not (swapped):",
+        "id": "early-exit"
+      },
+      {
+        "text": "            break"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> bubble(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (int i = 0; i < n - 1; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        bool swapped = false;",
+        "id": "reset-swapped"
+      },
+      {
+        "text": "        for (int j = 0; j < n - i - 1; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[j] > a[j + 1]) {",
+        "id": "compare"
+      },
+      {
+        "text": "                std::swap(a[j], a[j + 1]);",
+        "id": "swap"
+      },
+      {
+        "text": "                swapped = true;",
+        "id": "set-swapped"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (!(swapped)) {",
+        "id": "early-exit"
+      },
+      {
+        "text": "            break;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> bubble(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (int i = 0; i < n - 1; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            boolean swapped = false;",
+        "id": "reset-swapped"
+      },
+      {
+        "text": "            for (int j = 0; j < n - i - 1; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(j)) > at(a, (int)(j + 1))) {",
+        "id": "compare"
+      },
+      {
+        "text": "                    {",
+        "id": "swap"
+      },
+      {
+        "text": "                        double temp = at(a, (int)(j));",
+        "id": "swap"
+      },
+      {
+        "text": "                        a.set((int)(j), (double)(at(a, (int)(j + 1))));",
+        "id": "swap"
+      },
+      {
+        "text": "                        a.set((int)(j + 1), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                    }",
+        "id": "swap"
+      },
+      {
+        "text": "                    swapped = true;",
+        "id": "set-swapped"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (!(swapped)) {",
+        "id": "early-exit"
+      },
+      {
+        "text": "                break;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "selection-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def selection(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    for i in range(0, n - 1):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        minIndex = i",
+        "id": "select-min"
+      },
+      {
+        "text": "        for j in range(i + 1, n):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[j] < a[minIndex]:",
+        "id": "compare"
+      },
+      {
+        "text": "                minIndex = j",
+        "id": "update-min"
+      },
+      {
+        "text": "        if minIndex != i:",
+        "id": "check-swap"
+      },
+      {
+        "text": "            a[i], a[minIndex] = a[minIndex], a[i]",
+        "id": "swap"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> selection(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (int i = 0; i < n - 1; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int minIndex = i;",
+        "id": "select-min"
+      },
+      {
+        "text": "        for (int j = i + 1; j < n; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[j] < a[minIndex]) {",
+        "id": "compare"
+      },
+      {
+        "text": "                minIndex = j;",
+        "id": "update-min"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (minIndex != i) {",
+        "id": "check-swap"
+      },
+      {
+        "text": "            std::swap(a[i], a[minIndex]);",
+        "id": "swap"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> selection(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (int i = 0; i < n - 1; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int minIndex = i;",
+        "id": "select-min"
+      },
+      {
+        "text": "            for (int j = i + 1; j < n; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(j)) < at(a, (int)(minIndex))) {",
+        "id": "compare"
+      },
+      {
+        "text": "                    minIndex = j;",
+        "id": "update-min"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (minIndex != i) {",
+        "id": "check-swap"
+      },
+      {
+        "text": "                {",
+        "id": "swap"
+      },
+      {
+        "text": "                    double temp = at(a, (int)(i));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(i), (double)(at(a, (int)(minIndex))));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(minIndex), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                }",
+        "id": "swap"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "insertion-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def insertion(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    for i in range(1, n):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        key = a[i]",
+        "id": "select-key"
+      },
+      {
+        "text": "        j = i - 1"
+      },
+      {
+        "text": "        while j >= 0:",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[j] <= key:",
+        "id": "compare"
+      },
+      {
+        "text": "                break"
+      },
+      {
+        "text": "            a[j + 1] = a[j]",
+        "id": "shift"
+      },
+      {
+        "text": "            j -= 1",
+        "id": "inner-back"
+      },
+      {
+        "text": "        a[j + 1] = key",
+        "id": "write-key"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> insertion(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (int i = 1; i < n; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        double key = a[i];",
+        "id": "select-key"
+      },
+      {
+        "text": "        int j = i - 1;"
+      },
+      {
+        "text": "        while (j >= 0) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[j] <= key) {",
+        "id": "compare"
+      },
+      {
+        "text": "                break;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            a[j + 1] = a[j];",
+        "id": "shift"
+      },
+      {
+        "text": "            j--;",
+        "id": "inner-back"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        a[j + 1] = key;",
+        "id": "write-key"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> insertion(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (int i = 1; i < n; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            double key = at(a, (int)(i));",
+        "id": "select-key"
+      },
+      {
+        "text": "            int j = i - 1;"
+      },
+      {
+        "text": "            while (j >= 0) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(j)) <= key) {",
+        "id": "compare"
+      },
+      {
+        "text": "                    break;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "                a.set((int)(j + 1), (double)(at(a, (int)(j))));",
+        "id": "shift"
+      },
+      {
+        "text": "                j--;",
+        "id": "inner-back"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            a.set((int)(j + 1), (double)(key));",
+        "id": "write-key"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "binary-insertion-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def binaryInsertion(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    for i in range(1, n):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        key = a[i]",
+        "id": "select-key"
+      },
+      {
+        "text": "        low = 0"
+      },
+      {
+        "text": "        high = i"
+      },
+      {
+        "text": "        while low < high:",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if a[mid] <= key:"
+      },
+      {
+        "text": "                low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "            else:"
+      },
+      {
+        "text": "                high = mid",
+        "id": "narrow-left"
+      },
+      {
+        "text": "        for j in range(i, low, -1):",
+        "id": "shift-loop"
+      },
+      {
+        "text": "            a[j] = a[j - 1]",
+        "id": "shift"
+      },
+      {
+        "text": "        a[low] = key",
+        "id": "write-key"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> binaryInsertion(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (int i = 1; i < n; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        double key = a[i];",
+        "id": "select-key"
+      },
+      {
+        "text": "        int low = 0;"
+      },
+      {
+        "text": "        int high = i;"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (a[mid] <= key) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "narrow-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        for (int j = i; j > low; j--) {",
+        "id": "shift-loop"
+      },
+      {
+        "text": "            a[j] = a[j - 1];",
+        "id": "shift"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        a[low] = key;",
+        "id": "write-key"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> binaryInsertion(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (int i = 1; i < n; i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            double key = at(a, (int)(i));",
+        "id": "select-key"
+      },
+      {
+        "text": "            int low = 0;"
+      },
+      {
+        "text": "            int high = i;"
+      },
+      {
+        "text": "            while (low < high) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "                if (at(a, (int)(mid)) <= key) {"
+      },
+      {
+        "text": "                    low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "                } else {"
+      },
+      {
+        "text": "                    high = mid;",
+        "id": "narrow-left"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            for (int j = i; j > low; j--) {",
+        "id": "shift-loop"
+      },
+      {
+        "text": "                a.set((int)(j), (double)(at(a, (int)(j - 1))));",
+        "id": "shift"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            a.set((int)(low), (double)(key));",
+        "id": "write-key"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "shell-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def shell(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    gap = math.floor(n / 2)"
+      },
+      {
+        "text": "    while gap > 0:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        for i in range(gap, n):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            key = a[i]",
+        "id": "select-key"
+      },
+      {
+        "text": "            j = i"
+      },
+      {
+        "text": "            while j >= gap:",
+        "id": "gap-loop"
+      },
+      {
+        "text": "                if a[j - gap] <= key:",
+        "id": "compare"
+      },
+      {
+        "text": "                    break"
+      },
+      {
+        "text": "                a[j] = a[j - gap]",
+        "id": "shift"
+      },
+      {
+        "text": "                j -= gap"
+      },
+      {
+        "text": "            a[j] = key",
+        "id": "write-key"
+      },
+      {
+        "text": "        gap = math.floor(gap / 2)"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> shell(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (int gap = int(std::floor(n / 2)); gap > 0; gap = int(std::floor(gap / 2))) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        for (int i = gap; i < n; i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            double key = a[i];",
+        "id": "select-key"
+      },
+      {
+        "text": "            int j = i;"
+      },
+      {
+        "text": "            while (j >= gap) {",
+        "id": "gap-loop"
+      },
+      {
+        "text": "                if (a[j - gap] <= key) {",
+        "id": "compare"
+      },
+      {
+        "text": "                    break;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "                a[j] = a[j - gap];",
+        "id": "shift"
+      },
+      {
+        "text": "                j -= gap;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            a[j] = key;",
+        "id": "write-key"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> shell(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (int gap = (int)Math.floor(n / 2); gap > 0; gap = (int)Math.floor(gap / 2)) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            for (int i = gap; i < n; i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                double key = at(a, (int)(i));",
+        "id": "select-key"
+      },
+      {
+        "text": "                int j = i;"
+      },
+      {
+        "text": "                while (j >= gap) {",
+        "id": "gap-loop"
+      },
+      {
+        "text": "                    if (at(a, (int)(j - gap)) <= key) {",
+        "id": "compare"
+      },
+      {
+        "text": "                        break;"
+      },
+      {
+        "text": "                    }"
+      },
+      {
+        "text": "                    a.set((int)(j), (double)(at(a, (int)(j - gap))));",
+        "id": "shift"
+      },
+      {
+        "text": "                    j -= gap;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "                a.set((int)(j), (double)(key));",
+        "id": "write-key"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "cocktail-shaker-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def cocktail(a, target):"
+      },
+      {
+        "text": "    start = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    end = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    swapped = True",
+        "id": "initialize"
+      },
+      {
+        "text": "    while swapped and start < end:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        swapped = False"
+      },
+      {
+        "text": "        for i in range(start, end):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[i] > a[i + 1]:",
+        "id": "compare-forward"
+      },
+      {
+        "text": "                a[i], a[i + 1] = a[i + 1], a[i]",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                swapped = True"
+      },
+      {
+        "text": "        if not (swapped):",
+        "id": "early-exit"
+      },
+      {
+        "text": "            break"
+      },
+      {
+        "text": "        end -= 1"
+      },
+      {
+        "text": "        swapped = False"
+      },
+      {
+        "text": "        for i in range(end - 1, (start) - 1, -1):",
+        "id": "backward-loop"
+      },
+      {
+        "text": "            if a[i] > a[i + 1]:",
+        "id": "compare-backward"
+      },
+      {
+        "text": "                a[i], a[i + 1] = a[i + 1], a[i]",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                swapped = True"
+      },
+      {
+        "text": "        start += 1"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> cocktail(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int start = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int end = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    bool swapped = true;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (swapped && start < end) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        swapped = false;"
+      },
+      {
+        "text": "        for (int i = start; i < end; i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[i] > a[i + 1]) {",
+        "id": "compare-forward"
+      },
+      {
+        "text": "                std::swap(a[i], a[i + 1]);",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                swapped = true;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (!(swapped)) {",
+        "id": "early-exit"
+      },
+      {
+        "text": "            break;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        end--;"
+      },
+      {
+        "text": "        swapped = false;"
+      },
+      {
+        "text": "        for (int i = end - 1; i >= start; i--) {",
+        "id": "backward-loop"
+      },
+      {
+        "text": "            if (a[i] > a[i + 1]) {",
+        "id": "compare-backward"
+      },
+      {
+        "text": "                std::swap(a[i], a[i + 1]);",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                swapped = true;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        start++;"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> cocktail(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int start = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int end = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        boolean swapped = true;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (swapped && start < end) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            swapped = false;"
+      },
+      {
+        "text": "            for (int i = start; i < end; i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(i)) > at(a, (int)(i + 1))) {",
+        "id": "compare-forward"
+      },
+      {
+        "text": "                    {",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                        double temp = at(a, (int)(i));",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                        a.set((int)(i), (double)(at(a, (int)(i + 1))));",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                        a.set((int)(i + 1), (double)(temp));",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                    }",
+        "id": "swap-forward"
+      },
+      {
+        "text": "                    swapped = true;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (!(swapped)) {",
+        "id": "early-exit"
+      },
+      {
+        "text": "                break;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            end--;"
+      },
+      {
+        "text": "            swapped = false;"
+      },
+      {
+        "text": "            for (int i = end - 1; i >= start; i--) {",
+        "id": "backward-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(i)) > at(a, (int)(i + 1))) {",
+        "id": "compare-backward"
+      },
+      {
+        "text": "                    {",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                        double temp = at(a, (int)(i));",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                        a.set((int)(i), (double)(at(a, (int)(i + 1))));",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                        a.set((int)(i + 1), (double)(temp));",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                    }",
+        "id": "swap-backward"
+      },
+      {
+        "text": "                    swapped = true;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            start++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "comb-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def comb(a, target):"
+      },
+      {
+        "text": "    gap = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    swapped = True",
+        "id": "initialize"
+      },
+      {
+        "text": "    while gap > 1 or swapped:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        gap = builtins.max(1, math.floor(gap / 1.3))",
+        "id": "shrink-gap"
+      },
+      {
+        "text": "        swapped = False"
+      },
+      {
+        "text": "        for i in range(0, (len(a) - gap)):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[i] > a[i + gap]:",
+        "id": "compare"
+      },
+      {
+        "text": "                a[i], a[i + gap] = a[i + gap], a[i]",
+        "id": "swap"
+      },
+      {
+        "text": "                swapped = True"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> comb(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int gap = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    bool swapped = true;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (gap > 1 || swapped) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        gap = std::max(1, int(std::floor(gap / 1.3)));",
+        "id": "shrink-gap"
+      },
+      {
+        "text": "        swapped = false;"
+      },
+      {
+        "text": "        for (int i = 0; i + gap < int(a.size()); i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[i] > a[i + gap]) {",
+        "id": "compare"
+      },
+      {
+        "text": "                std::swap(a[i], a[i + gap]);",
+        "id": "swap"
+      },
+      {
+        "text": "                swapped = true;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> comb(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int gap = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        boolean swapped = true;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (gap > 1 || swapped) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            gap = Math.max(1, (int)Math.floor(gap / 1.3));",
+        "id": "shrink-gap"
+      },
+      {
+        "text": "            swapped = false;"
+      },
+      {
+        "text": "            for (int i = 0; i + gap < a.size(); i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                if (at(a, (int)(i)) > at(a, (int)(i + gap))) {",
+        "id": "compare"
+      },
+      {
+        "text": "                    {",
+        "id": "swap"
+      },
+      {
+        "text": "                        double temp = at(a, (int)(i));",
+        "id": "swap"
+      },
+      {
+        "text": "                        a.set((int)(i), (double)(at(a, (int)(i + gap))));",
+        "id": "swap"
+      },
+      {
+        "text": "                        a.set((int)(i + gap), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                    }",
+        "id": "swap"
+      },
+      {
+        "text": "                    swapped = true;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "gnome-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def gnome(a, target):"
+      },
+      {
+        "text": "    i = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    while i < len(a):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        if i == 0:"
+      },
+      {
+        "text": "            i += 1"
+      },
+      {
+        "text": "            continue"
+      },
+      {
+        "text": "        if a[i - 1] <= a[i]:"
+      },
+      {
+        "text": "            i += 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            a[i - 1], a[i] = a[i], a[i - 1]",
+        "id": "swap"
+      },
+      {
+        "text": "            i -= 1",
+        "id": "backtrack"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> gnome(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int i = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (i < int(a.size())) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        if (i == 0) {"
+      },
+      {
+        "text": "            i++;"
+      },
+      {
+        "text": "            continue;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[i - 1] <= a[i]) {"
+      },
+      {
+        "text": "            i++;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            std::swap(a[i - 1], a[i]);",
+        "id": "swap"
+      },
+      {
+        "text": "            i--;",
+        "id": "backtrack"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> gnome(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int i = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (i < a.size()) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            if (i == 0) {"
+      },
+      {
+        "text": "                i++;"
+      },
+      {
+        "text": "                continue;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (at(a, (int)(i - 1)) <= at(a, (int)(i))) {"
+      },
+      {
+        "text": "                i++;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                {",
+        "id": "swap"
+      },
+      {
+        "text": "                    double temp = at(a, (int)(i - 1));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(i - 1), (double)(at(a, (int)(i))));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(i), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                }",
+        "id": "swap"
+      },
+      {
+        "text": "                i--;",
+        "id": "backtrack"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "quick-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def quick(a, target):"
+      },
+      {
+        "text": "    def sort(low, high):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if low >= high:",
+        "id": "base-case"
+      },
+      {
+        "text": "            return"
+      },
+      {
+        "text": "        pivot = a[high]",
+        "id": "pivot"
+      },
+      {
+        "text": "        i = low"
+      },
+      {
+        "text": "        for j in range(low, high):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[j] <= pivot:",
+        "id": "compare"
+      },
+      {
+        "text": "                a[i], a[j] = a[j], a[i]",
+        "id": "swap"
+      },
+      {
+        "text": "                i += 1"
+      },
+      {
+        "text": "        a[i], a[high] = a[high], a[i]",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(low, i - 1)",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(i + 1, high)",
+        "id": "sort-right"
+      },
+      {
+        "text": "    sort(0, len(a) - 1)",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> quick(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<void(int, int)> sort = [&](int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low >= high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        double pivot = a[high];",
+        "id": "pivot"
+      },
+      {
+        "text": "        int i = low;"
+      },
+      {
+        "text": "        for (int j = low; j < high; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[j] <= pivot) {",
+        "id": "compare"
+      },
+      {
+        "text": "                std::swap(a[i], a[j]);",
+        "id": "swap"
+      },
+      {
+        "text": "                i++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        std::swap(a[i], a[high]);",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(low, i - 1);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(i + 1, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    sort(0, int(a.size()) - 1);",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> quick(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        sort(a, target, 0, a.size() - 1);",
+        "id": "initialize"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static void sort(ArrayList<Double> a, double target, int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low >= high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        double pivot = at(a, (int)(high));",
+        "id": "pivot"
+      },
+      {
+        "text": "        int i = low;"
+      },
+      {
+        "text": "        for (int j = low; j < high; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (at(a, (int)(j)) <= pivot) {",
+        "id": "compare"
+      },
+      {
+        "text": "                {",
+        "id": "swap"
+      },
+      {
+        "text": "                    double temp = at(a, (int)(i));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(i), (double)(at(a, (int)(j))));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(j), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                }",
+        "id": "swap"
+      },
+      {
+        "text": "                i++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        {",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            double temp = at(a, (int)(i));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            a.set((int)(i), (double)(at(a, (int)(high))));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            a.set((int)(high), (double)(temp));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        }",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(a, target, low, i - 1);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(a, target, i + 1, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "merge-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def merge(a, target):"
+      },
+      {
+        "text": "    def sort(low, high):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if high - low <= 1:",
+        "id": "base-case"
+      },
+      {
+        "text": "            return"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "split"
+      },
+      {
+        "text": "        sort(low, mid)",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(mid, high)",
+        "id": "sort-right"
+      },
+      {
+        "text": "        left = a[low:mid]",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        right = a[mid:high]",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        i = 0"
+      },
+      {
+        "text": "        j = 0"
+      },
+      {
+        "text": "        k = low"
+      },
+      {
+        "text": "        while i < len(left) and j < len(right):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            takeLeft = left[i] <= right[j]",
+        "id": "compare"
+      },
+      {
+        "text": "            a[k] = (left[i] if takeLeft else right[j])",
+        "id": "merge-write"
+      },
+      {
+        "text": "            if takeLeft: i += 1",
+        "id": "merge-write"
+      },
+      {
+        "text": "            if not (takeLeft): j += 1",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "        while i < len(left):",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a[k] = left[i]",
+        "id": "write-left"
+      },
+      {
+        "text": "            i += 1",
+        "id": "write-left"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "        while j < len(right):",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a[k] = right[j]",
+        "id": "write-right"
+      },
+      {
+        "text": "            j += 1",
+        "id": "write-right"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "    sort(0, len(a))",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> merge(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<void(int, int)> sort = [&](int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (high - low <= 1) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "split"
+      },
+      {
+        "text": "        sort(low, mid);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(mid, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "        std::vector<double> left = std::vector<double>(a.begin() + low, a.begin() + mid);",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        std::vector<double> right = std::vector<double>(a.begin() + mid, a.begin() + high);",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        int i = 0;"
+      },
+      {
+        "text": "        int j = 0;"
+      },
+      {
+        "text": "        int k = low;"
+      },
+      {
+        "text": "        while (i < int(left.size()) && j < int(right.size())) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            bool takeLeft = left[i] <= right[j];",
+        "id": "compare"
+      },
+      {
+        "text": "            a[k] = (takeLeft ? left[i++] : right[j++]);",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (i < int(left.size())) {",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a[k] = left[i++];",
+        "id": "write-left"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (j < int(right.size())) {",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a[k] = right[j++];",
+        "id": "write-right"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    sort(0, int(a.size()));",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> merge(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        sort(a, target, 0, a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static void sort(ArrayList<Double> a, double target, int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (high - low <= 1) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = (int)Math.floor((low + high) / 2);",
+        "id": "split"
+      },
+      {
+        "text": "        sort(a, target, low, mid);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(a, target, mid, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "        ArrayList<Double> left = new ArrayList<>(a.subList(low, mid));",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        ArrayList<Double> right = new ArrayList<>(a.subList(mid, high));",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        int i = 0;"
+      },
+      {
+        "text": "        int j = 0;"
+      },
+      {
+        "text": "        int k = low;"
+      },
+      {
+        "text": "        while (i < left.size() && j < right.size()) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            boolean takeLeft = at(left, (int)(i)) <= at(right, (int)(j));",
+        "id": "compare"
+      },
+      {
+        "text": "            a.set((int)(k), (double)((takeLeft ? at(left, (int)(i++)) : at(right, (int)(j++)))));",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (i < left.size()) {",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a.set((int)(k), (double)(at(left, (int)(i++))));",
+        "id": "write-left"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (j < right.size()) {",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a.set((int)(k), (double)(at(right, (int)(j++))));",
+        "id": "write-right"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "heap-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def heap(a, target):"
+      },
+      {
+        "text": "    def heapify(size, root):",
+        "id": "recurse"
+      },
+      {
+        "text": "        largest = root",
+        "id": "select-root"
+      },
+      {
+        "text": "        left = 2 * root + 1"
+      },
+      {
+        "text": "        right = left + 1"
+      },
+      {
+        "text": "        if left < size:"
+      },
+      {
+        "text": "            if a[left] > a[largest]:",
+        "id": "compare-left"
+      },
+      {
+        "text": "                largest = left"
+      },
+      {
+        "text": "        if right < size:"
+      },
+      {
+        "text": "            if a[right] > a[largest]:",
+        "id": "compare-right"
+      },
+      {
+        "text": "                largest = right"
+      },
+      {
+        "text": "        if largest != root:"
+      },
+      {
+        "text": "            a[root], a[largest] = a[largest], a[root]",
+        "id": "heap-swap"
+      },
+      {
+        "text": "            heapify(size, largest)"
+      },
+      {
+        "text": "    for i in range(math.floor(len(a) / 2) - 1, (0) - 1, -1):",
+        "id": "initialize"
+      },
+      {
+        "text": "        heapify(len(a), i)"
+      },
+      {
+        "text": "    for end in range(len(a) - 1, 0, -1):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        a[0], a[end] = a[end], a[0]",
+        "id": "extract-max"
+      },
+      {
+        "text": "        heapify(end, 0)",
+        "id": "restore-heap"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> heap(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<void(int, int)> heapify = [&](int size, int root) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        int largest = root;",
+        "id": "select-root"
+      },
+      {
+        "text": "        int left = 2 * root + 1;"
+      },
+      {
+        "text": "        int right = left + 1;"
+      },
+      {
+        "text": "        if (left < size) {"
+      },
+      {
+        "text": "            if (a[left] > a[largest]) {",
+        "id": "compare-left"
+      },
+      {
+        "text": "                largest = left;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (right < size) {"
+      },
+      {
+        "text": "            if (a[right] > a[largest]) {",
+        "id": "compare-right"
+      },
+      {
+        "text": "                largest = right;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (largest != root) {"
+      },
+      {
+        "text": "            std::swap(a[root], a[largest]);",
+        "id": "heap-swap"
+      },
+      {
+        "text": "            heapify(size, largest);"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    for (int i = int(std::floor(int(a.size()) / 2)) - 1; i >= 0; i--) {",
+        "id": "initialize"
+      },
+      {
+        "text": "        heapify(int(a.size()), i);"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    for (int end = int(a.size()) - 1; end > 0; end--) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        std::swap(a[0], a[end]);",
+        "id": "extract-max"
+      },
+      {
+        "text": "        heapify(end, 0);",
+        "id": "restore-heap"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> heap(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        for (int i = (int)Math.floor(a.size() / 2) - 1; i >= 0; i--) {",
+        "id": "initialize"
+      },
+      {
+        "text": "            heapify(a, target, a.size(), i);"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        for (int end = a.size() - 1; end > 0; end--) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            {",
+        "id": "extract-max"
+      },
+      {
+        "text": "                double temp = at(a, (int)(0));",
+        "id": "extract-max"
+      },
+      {
+        "text": "                a.set((int)(0), (double)(at(a, (int)(end))));",
+        "id": "extract-max"
+      },
+      {
+        "text": "                a.set((int)(end), (double)(temp));",
+        "id": "extract-max"
+      },
+      {
+        "text": "            }",
+        "id": "extract-max"
+      },
+      {
+        "text": "            heapify(a, target, end, 0);",
+        "id": "restore-heap"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static void heapify(ArrayList<Double> a, double target, int size, int root) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        int largest = root;",
+        "id": "select-root"
+      },
+      {
+        "text": "        int left = 2 * root + 1;"
+      },
+      {
+        "text": "        int right = left + 1;"
+      },
+      {
+        "text": "        if (left < size) {"
+      },
+      {
+        "text": "            if (at(a, (int)(left)) > at(a, (int)(largest))) {",
+        "id": "compare-left"
+      },
+      {
+        "text": "                largest = left;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (right < size) {"
+      },
+      {
+        "text": "            if (at(a, (int)(right)) > at(a, (int)(largest))) {",
+        "id": "compare-right"
+      },
+      {
+        "text": "                largest = right;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (largest != root) {"
+      },
+      {
+        "text": "            {",
+        "id": "heap-swap"
+      },
+      {
+        "text": "                double temp = at(a, (int)(root));",
+        "id": "heap-swap"
+      },
+      {
+        "text": "                a.set((int)(root), (double)(at(a, (int)(largest))));",
+        "id": "heap-swap"
+      },
+      {
+        "text": "                a.set((int)(largest), (double)(temp));",
+        "id": "heap-swap"
+      },
+      {
+        "text": "            }",
+        "id": "heap-swap"
+      },
+      {
+        "text": "            heapify(a, target, size, largest);"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "counting-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def counting(a, target):"
+      },
+      {
+        "text": "    min = builtins.min([0] + a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    max = builtins.max([0] + a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    counts = [0] * (max - min + 1)",
+        "id": "allocate"
+      },
+      {
+        "text": "    for i in range(0, len(a)):",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        counts[a[i] - min] += 1",
+        "id": "count"
+      },
+      {
+        "text": "    k = 0"
+      },
+      {
+        "text": "    for bucket in range(0, len(counts)):",
+        "id": "bucket-loop"
+      },
+      {
+        "text": "        for repeat in range(0, counts[bucket]):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            a[k] = bucket + min",
+        "id": "write"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> counting(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int min = int(minValue(a));",
+        "id": "initialize"
+      },
+      {
+        "text": "    int max = int(maxValue(a));",
+        "id": "initialize"
+      },
+      {
+        "text": "    std::vector<double> counts = std::vector<double>(max - min + 1, 0);",
+        "id": "allocate"
+      },
+      {
+        "text": "    for (int i = 0; i < int(a.size()); i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        counts[a[i] - min]++;",
+        "id": "count"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    int k = 0;"
+      },
+      {
+        "text": "    for (int bucket = 0; bucket < int(counts.size()); bucket++) {",
+        "id": "bucket-loop"
+      },
+      {
+        "text": "        for (int repeat = 0; repeat < counts[bucket]; repeat++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            a[k] = bucket + min;",
+        "id": "write"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> counting(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int min = (int)(minValue(a));",
+        "id": "initialize"
+      },
+      {
+        "text": "        int max = (int)(maxValue(a));",
+        "id": "initialize"
+      },
+      {
+        "text": "        ArrayList<Double> counts = new ArrayList<>(Collections.nCopies(max - min + 1, 0.0));",
+        "id": "allocate"
+      },
+      {
+        "text": "        for (int i = 0; i < a.size(); i++) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            counts.set((int)(at(a, (int)(i)) - min), (double)(at(counts, (int)(at(a, (int)(i)) - min)) + 1));",
+        "id": "count"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int k = 0;"
+      },
+      {
+        "text": "        for (int bucket = 0; bucket < counts.size(); bucket++) {",
+        "id": "bucket-loop"
+      },
+      {
+        "text": "            for (int repeat = 0; repeat < at(counts, (int)(bucket)); repeat++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                a.set((int)(k), (double)(bucket + min));",
+        "id": "write"
+      },
+      {
+        "text": "                k++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "radix-sort": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def radix(a, target):"
+      },
+      {
+        "text": "    max = builtins.max([0] + a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    exp = 1"
+      },
+      {
+        "text": "    while math.floor(max / exp) > 0:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        buckets = [[] for _ in range(10)]",
+        "id": "buckets"
+      },
+      {
+        "text": "        for i in range(0, len(a)):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            digit = math.floor(a[i] / exp) % 10",
+        "id": "digit"
+      },
+      {
+        "text": "            buckets[digit].append(a[i])",
+        "id": "distribute"
+      },
+      {
+        "text": "        k = 0"
+      },
+      {
+        "text": "        for bucket in buckets:"
+      },
+      {
+        "text": "            for value in bucket:"
+      },
+      {
+        "text": "                a[k] = value",
+        "id": "collect"
+      },
+      {
+        "text": "                k += 1"
+      },
+      {
+        "text": "        exp *= 10"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> radix(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    double max = maxValue(a);",
+        "id": "initialize"
+      },
+      {
+        "text": "    for (double exp = 1; int(std::floor(max / exp)) > 0; exp *= 10) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        std::vector<std::vector<double>> buckets = std::vector<std::vector<double>>(10);",
+        "id": "buckets"
+      },
+      {
+        "text": "        for (int i = 0; i < int(a.size()); i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            int digit = int(std::floor(a[i] / exp)) % 10;",
+        "id": "digit"
+      },
+      {
+        "text": "            buckets[digit].push_back(a[i]);",
+        "id": "distribute"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int k = 0;"
+      },
+      {
+        "text": "        for (const auto& bucket : buckets) {"
+      },
+      {
+        "text": "            for (const auto& value : bucket) {"
+      },
+      {
+        "text": "                a[k] = value;",
+        "id": "collect"
+      },
+      {
+        "text": "                k++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> radix(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        double max = maxValue(a);",
+        "id": "initialize"
+      },
+      {
+        "text": "        for (double exp = 1; (int)Math.floor(max / exp) > 0; exp *= 10) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            ArrayList<ArrayList<Double>> buckets = makeBuckets();",
+        "id": "buckets"
+      },
+      {
+        "text": "            for (int i = 0; i < a.size(); i++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "                int digit = (int)Math.floor(at(a, (int)(i)) / exp) % 10;",
+        "id": "digit"
+      },
+      {
+        "text": "                buckets.get(digit).add(at(a, (int)(i)));",
+        "id": "distribute"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            int k = 0;"
+      },
+      {
+        "text": "            for (ArrayList<Double> bucket : buckets) {"
+      },
+      {
+        "text": "                for (double value : bucket) {"
+      },
+      {
+        "text": "                    a.set((int)(k), (double)(value));",
+        "id": "collect"
+      },
+      {
+        "text": "                    k++;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "linear-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def linear(a, target):"
+      },
+      {
+        "text": "    for i in range(0, len(a)):",
+        "id": "initialize"
+      },
+      {
+        "text": "        if a[i] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return i",
+        "id": "found"
+      },
+      {
+        "text": "    return -1",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int linear(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    for (int i = 0; i < int(a.size()); i++) {",
+        "id": "initialize"
+      },
+      {
+        "text": "        if (a[i] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return i;",
+        "id": "found"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return -1;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int linear(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        for (int i = 0; i < a.size(); i++) {",
+        "id": "initialize"
+      },
+      {
+        "text": "            if (at(a, (int)(i)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                return i;",
+        "id": "found"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return -1;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "sentinel-linear-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def sentinel(a, target):"
+      },
+      {
+        "text": "    n = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    a.append(target)",
+        "id": "sentinel"
+      },
+      {
+        "text": "    i = 0"
+      },
+      {
+        "text": "    while True:",
+        "id": "inner-loop"
+      },
+      {
+        "text": "        if a[i] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            break"
+      },
+      {
+        "text": "        i += 1"
+      },
+      {
+        "text": "    a.pop()",
+        "id": "restore"
+      },
+      {
+        "text": "    return (i if i < n else -1)",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int sentinel(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int n = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    a.push_back(target);",
+        "id": "sentinel"
+      },
+      {
+        "text": "    int i = 0;"
+      },
+      {
+        "text": "    while (true) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "        if (a[i] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            break;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        i++;"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    a.pop_back();",
+        "id": "restore"
+      },
+      {
+        "text": "    return (i < n ? i : -1);",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int sentinel(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int n = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        a.add(target);",
+        "id": "sentinel"
+      },
+      {
+        "text": "        int i = 0;"
+      },
+      {
+        "text": "        while (true) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (at(a, (int)(i)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                break;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            i++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        a.remove(a.size() - 1);",
+        "id": "restore"
+      },
+      {
+        "text": "        return (i < n ? i : -1);",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "recursive-linear-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def recursiveLinear(a, target):"
+      },
+      {
+        "text": "    def search(i):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if i >= len(a):",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1"
+      },
+      {
+        "text": "        if a[i] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return i"
+      },
+      {
+        "text": "        return search(i + 1)",
+        "id": "next-call"
+      },
+      {
+        "text": "    return search(0)",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int recursiveLinear(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<int(int)> search = [&](int i) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (i >= int(a.size())) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[i] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return i;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return search(i + 1);",
+        "id": "next-call"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    return search(0);",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int recursiveLinear(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        return search(a, target, 0);",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static int search(ArrayList<Double> a, double target, int i) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (i >= a.size()) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (at(a, (int)(i)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return i;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return search(a, target, i + 1);",
+        "id": "next-call"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "binary-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def binary(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low <= high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid",
+        "id": "found"
+      },
+      {
+        "text": "        if a[mid] < target:",
+        "id": "direction"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "move-right"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid - 1",
+        "id": "move-left"
+      },
+      {
+        "text": "    return -1",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int binary(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid;",
+        "id": "found"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[mid] < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "move-right"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid - 1;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return -1;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int binary(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                return mid;",
+        "id": "found"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "move-right"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid - 1;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return -1;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "recursive-binary-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def recursiveBinary(a, target):"
+      },
+      {
+        "text": "    def search(low, high):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if low > high:",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid"
+      },
+      {
+        "text": "        if a[mid] < target:",
+        "id": "direction"
+      },
+      {
+        "text": "            return search(mid + 1, high)"
+      },
+      {
+        "text": "        return search(low, mid - 1)",
+        "id": "recurse-left"
+      },
+      {
+        "text": "    return search(0, len(a) - 1)",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int recursiveBinary(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<int(int, int)> search = [&](int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low > high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[mid] < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "            return search(mid + 1, high);"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return search(low, mid - 1);",
+        "id": "recurse-left"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    return search(0, int(a.size()) - 1);",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int recursiveBinary(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        return search(a, target, 0, a.size() - 1);",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static int search(ArrayList<Double> a, double target, int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low > high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return -1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (at(a, (int)(mid)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (at(a, (int)(mid)) < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "            return search(a, target, mid + 1, high);"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return search(a, target, low, mid - 1);",
+        "id": "recurse-left"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "lower-bound": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def lower(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] < target:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    return low",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int lower(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] < target) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return low;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int lower(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < target) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return low;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "upper-bound": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def upper(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] <= target:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    return low",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int upper(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] <= target) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return low;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int upper(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) <= target) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return low;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "first-occurrence": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def first(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    result = -1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] < target:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    if low < len(a) and a[low] == target:",
+        "id": "confirm"
+      },
+      {
+        "text": "        result = low"
+      },
+      {
+        "text": "    return result",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int first(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    int result = -1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] < target) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    if (low < int(a.size()) && a[low] == target) {",
+        "id": "confirm"
+      },
+      {
+        "text": "        result = low;"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return result;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int first(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        int result = -1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < target) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (low < a.size() && at(a, (int)(low)) == target) {",
+        "id": "confirm"
+      },
+      {
+        "text": "            result = low;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return result;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "last-occurrence": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def last(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    result = -1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] <= target:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    if low > 0 and a[low - 1] == target:",
+        "id": "confirm"
+      },
+      {
+        "text": "        result = low - 1"
+      },
+      {
+        "text": "    return result",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int last(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    int result = -1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] <= target) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    if (low > 0 && a[low - 1] == target) {",
+        "id": "confirm"
+      },
+      {
+        "text": "        result = low - 1;"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return result;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int last(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        int result = -1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) <= target) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (low > 0 && at(a, (int)(low - 1)) == target) {",
+        "id": "confirm"
+      },
+      {
+        "text": "            result = low - 1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return result;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "rotated-sorted-array-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def rotated(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low <= high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid",
+        "id": "found"
+      },
+      {
+        "text": "        if a[low] == a[mid] and a[mid] == a[high]:",
+        "id": "duplicates"
+      },
+      {
+        "text": "            low += 1"
+      },
+      {
+        "text": "            high -= 1"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            if a[low] <= a[mid]:",
+        "id": "sorted-left"
+      },
+      {
+        "text": "                if a[low] <= target and target < a[mid]:"
+      },
+      {
+        "text": "                    high = mid - 1",
+        "id": "choose-left"
+      },
+      {
+        "text": "                else:"
+      },
+      {
+        "text": "                    low = mid + 1"
+      },
+      {
+        "text": "            else:"
+      },
+      {
+        "text": "                if a[mid] < target and target <= a[high]:"
+      },
+      {
+        "text": "                    low = mid + 1",
+        "id": "choose-right"
+      },
+      {
+        "text": "                else:"
+      },
+      {
+        "text": "                    high = mid - 1"
+      },
+      {
+        "text": "    return -1",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int rotated(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid;",
+        "id": "found"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[low] == a[mid] && a[mid] == a[high]) {",
+        "id": "duplicates"
+      },
+      {
+        "text": "            low++;"
+      },
+      {
+        "text": "            high--;"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            if (a[low] <= a[mid]) {",
+        "id": "sorted-left"
+      },
+      {
+        "text": "                if (a[low] <= target && target < a[mid]) {"
+      },
+      {
+        "text": "                    high = mid - 1;",
+        "id": "choose-left"
+      },
+      {
+        "text": "                } else {"
+      },
+      {
+        "text": "                    low = mid + 1;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                if (a[mid] < target && target <= a[high]) {"
+      },
+      {
+        "text": "                    low = mid + 1;",
+        "id": "choose-right"
+      },
+      {
+        "text": "                } else {"
+      },
+      {
+        "text": "                    high = mid - 1;"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return -1;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int rotated(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                return mid;",
+        "id": "found"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (at(a, (int)(low)) == at(a, (int)(mid)) && at(a, (int)(mid)) == at(a, (int)(high))) {",
+        "id": "duplicates"
+      },
+      {
+        "text": "                low++;"
+      },
+      {
+        "text": "                high--;"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                if (at(a, (int)(low)) <= at(a, (int)(mid))) {",
+        "id": "sorted-left"
+      },
+      {
+        "text": "                    if (at(a, (int)(low)) <= target && target < at(a, (int)(mid))) {"
+      },
+      {
+        "text": "                        high = mid - 1;",
+        "id": "choose-left"
+      },
+      {
+        "text": "                    } else {"
+      },
+      {
+        "text": "                        low = mid + 1;"
+      },
+      {
+        "text": "                    }"
+      },
+      {
+        "text": "                } else {"
+      },
+      {
+        "text": "                    if (at(a, (int)(mid)) < target && target <= at(a, (int)(high))) {"
+      },
+      {
+        "text": "                        low = mid + 1;",
+        "id": "choose-right"
+      },
+      {
+        "text": "                    } else {"
+      },
+      {
+        "text": "                        high = mid - 1;"
+      },
+      {
+        "text": "                    }"
+      },
+      {
+        "text": "                }"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return -1;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "peak-element-search": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def peak(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    if not (len(a)):",
+        "id": "empty"
+      },
+      {
+        "text": "        return -1"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] < a[mid + 1]:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    return low",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int peak(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    if (!(int(a.size()))) {",
+        "id": "empty"
+      },
+      {
+        "text": "        return -1;"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] < a[mid + 1]) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return low;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int peak(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        if ((a.size() == 0)) {",
+        "id": "empty"
+      },
+      {
+        "text": "            return -1;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < at(a, (int)(mid + 1))) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return low;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "sliding-window-two-pointers-suite": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def twoPointers(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        sum = a[low] + a[high]",
+        "id": "sum"
+      },
+      {
+        "text": "        if sum == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return [low, high]",
+        "id": "found"
+      },
+      {
+        "text": "        if sum < target:"
+      },
+      {
+        "text": "            low += 1",
+        "id": "direction"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high -= 1",
+        "id": "move-left"
+      },
+      {
+        "text": "    return []",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> twoPointers(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        double sum = a[low] + a[high];",
+        "id": "sum"
+      },
+      {
+        "text": "        if (sum == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return std::vector<double>{low, high};",
+        "id": "found"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (sum < target) {"
+      },
+      {
+        "text": "            low++;",
+        "id": "direction"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high--;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return std::vector<double>{};",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> twoPointers(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            double sum = at(a, (int)(low)) + at(a, (int)(high));",
+        "id": "sum"
+      },
+      {
+        "text": "            if (sum == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                return new ArrayList<Double>(Arrays.asList((double)(low), (double)(high)));",
+        "id": "found"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (sum < target) {"
+      },
+      {
+        "text": "                low++;",
+        "id": "direction"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high--;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return new ArrayList<Double>();",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "search-insert-position": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def lower(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a)",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low < high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] < target:"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "compare"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid",
+        "id": "move-left"
+      },
+      {
+        "text": "    return low",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int lower(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] < target) {"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return low;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int lower(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size();",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low < high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < target) {"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "compare"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return low;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "divide-and-conquer-suite": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def merge(a, target):"
+      },
+      {
+        "text": "    def sort(low, high):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if high - low <= 1:",
+        "id": "base-case"
+      },
+      {
+        "text": "            return"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "split"
+      },
+      {
+        "text": "        sort(low, mid)",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(mid, high)",
+        "id": "sort-right"
+      },
+      {
+        "text": "        left = a[low:mid]",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        right = a[mid:high]",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        i = 0"
+      },
+      {
+        "text": "        j = 0"
+      },
+      {
+        "text": "        k = low"
+      },
+      {
+        "text": "        while i < len(left) and j < len(right):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            takeLeft = left[i] <= right[j]",
+        "id": "compare"
+      },
+      {
+        "text": "            a[k] = (left[i] if takeLeft else right[j])",
+        "id": "merge-write"
+      },
+      {
+        "text": "            if takeLeft: i += 1",
+        "id": "merge-write"
+      },
+      {
+        "text": "            if not (takeLeft): j += 1",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "        while i < len(left):",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a[k] = left[i]",
+        "id": "write-left"
+      },
+      {
+        "text": "            i += 1",
+        "id": "write-left"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "        while j < len(right):",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a[k] = right[j]",
+        "id": "write-right"
+      },
+      {
+        "text": "            j += 1",
+        "id": "write-right"
+      },
+      {
+        "text": "            k += 1"
+      },
+      {
+        "text": "    sort(0, len(a))",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> merge(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<void(int, int)> sort = [&](int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (high - low <= 1) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "split"
+      },
+      {
+        "text": "        sort(low, mid);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(mid, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "        std::vector<double> left = std::vector<double>(a.begin() + low, a.begin() + mid);",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        std::vector<double> right = std::vector<double>(a.begin() + mid, a.begin() + high);",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        int i = 0;"
+      },
+      {
+        "text": "        int j = 0;"
+      },
+      {
+        "text": "        int k = low;"
+      },
+      {
+        "text": "        while (i < int(left.size()) && j < int(right.size())) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            bool takeLeft = left[i] <= right[j];",
+        "id": "compare"
+      },
+      {
+        "text": "            a[k] = (takeLeft ? left[i++] : right[j++]);",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (i < int(left.size())) {",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a[k] = left[i++];",
+        "id": "write-left"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (j < int(right.size())) {",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a[k] = right[j++];",
+        "id": "write-right"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    sort(0, int(a.size()));",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> merge(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        sort(a, target, 0, a.size());",
+        "id": "initialize"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static void sort(ArrayList<Double> a, double target, int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (high - low <= 1) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        int mid = (int)Math.floor((low + high) / 2);",
+        "id": "split"
+      },
+      {
+        "text": "        sort(a, target, low, mid);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(a, target, mid, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "        ArrayList<Double> left = new ArrayList<>(a.subList(low, mid));",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        ArrayList<Double> right = new ArrayList<>(a.subList(mid, high));",
+        "id": "copy-halves"
+      },
+      {
+        "text": "        int i = 0;"
+      },
+      {
+        "text": "        int j = 0;"
+      },
+      {
+        "text": "        int k = low;"
+      },
+      {
+        "text": "        while (i < left.size() && j < right.size()) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            boolean takeLeft = at(left, (int)(i)) <= at(right, (int)(j));",
+        "id": "compare"
+      },
+      {
+        "text": "            a.set((int)(k), (double)((takeLeft ? at(left, (int)(i++)) : at(right, (int)(j++)))));",
+        "id": "merge-write"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (i < left.size()) {",
+        "id": "left-tail"
+      },
+      {
+        "text": "            a.set((int)(k), (double)(at(left, (int)(i++))));",
+        "id": "write-left"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        while (j < right.size()) {",
+        "id": "right-tail"
+      },
+      {
+        "text": "            a.set((int)(k), (double)(at(right, (int)(j++))));",
+        "id": "write-right"
+      },
+      {
+        "text": "            k++;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "advanced-sorting-suite": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def quick(a, target):"
+      },
+      {
+        "text": "    def sort(low, high):",
+        "id": "recurse"
+      },
+      {
+        "text": "        if low >= high:",
+        "id": "base-case"
+      },
+      {
+        "text": "            return"
+      },
+      {
+        "text": "        pivot = a[high]",
+        "id": "pivot"
+      },
+      {
+        "text": "        i = low"
+      },
+      {
+        "text": "        for j in range(low, high):",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if a[j] <= pivot:",
+        "id": "compare"
+      },
+      {
+        "text": "                a[i], a[j] = a[j], a[i]",
+        "id": "swap"
+      },
+      {
+        "text": "                i += 1"
+      },
+      {
+        "text": "        a[i], a[high] = a[high], a[i]",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(low, i - 1)",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(i + 1, high)",
+        "id": "sort-right"
+      },
+      {
+        "text": "    sort(0, len(a) - 1)",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "std::vector<double> quick(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    std::function<void(int, int)> sort = [&](int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low >= high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        double pivot = a[high];",
+        "id": "pivot"
+      },
+      {
+        "text": "        int i = low;"
+      },
+      {
+        "text": "        for (int j = low; j < high; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (a[j] <= pivot) {",
+        "id": "compare"
+      },
+      {
+        "text": "                std::swap(a[i], a[j]);",
+        "id": "swap"
+      },
+      {
+        "text": "                i++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        std::swap(a[i], a[high]);",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(low, i - 1);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(i + 1, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "    };"
+      },
+      {
+        "text": "    sort(0, int(a.size()) - 1);",
+        "id": "initialize"
+      },
+      {
+        "text": "    return a;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static ArrayList<Double> quick(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        sort(a, target, 0, a.size() - 1);",
+        "id": "initialize"
+      },
+      {
+        "text": "        return a;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    static void sort(ArrayList<Double> a, double target, int low, int high) {",
+        "id": "recurse"
+      },
+      {
+        "text": "        if (low >= high) {",
+        "id": "base-case"
+      },
+      {
+        "text": "            return;"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        double pivot = at(a, (int)(high));",
+        "id": "pivot"
+      },
+      {
+        "text": "        int i = low;"
+      },
+      {
+        "text": "        for (int j = low; j < high; j++) {",
+        "id": "inner-loop"
+      },
+      {
+        "text": "            if (at(a, (int)(j)) <= pivot) {",
+        "id": "compare"
+      },
+      {
+        "text": "                {",
+        "id": "swap"
+      },
+      {
+        "text": "                    double temp = at(a, (int)(i));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(i), (double)(at(a, (int)(j))));",
+        "id": "swap"
+      },
+      {
+        "text": "                    a.set((int)(j), (double)(temp));",
+        "id": "swap"
+      },
+      {
+        "text": "                }",
+        "id": "swap"
+      },
+      {
+        "text": "                i++;"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        {",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            double temp = at(a, (int)(i));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            a.set((int)(i), (double)(at(a, (int)(high))));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "            a.set((int)(high), (double)(temp));",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        }",
+        "id": "place-pivot"
+      },
+      {
+        "text": "        sort(a, target, low, i - 1);",
+        "id": "sort-left"
+      },
+      {
+        "text": "        sort(a, target, i + 1, high);",
+        "id": "sort-right"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  },
+  "advanced-searching-suite": {
+    "Python": [
+      {
+        "text": "import math"
+      },
+      {
+        "text": "import builtins"
+      },
+      {
+        "text": "def binary(a, target):"
+      },
+      {
+        "text": "    low = 0",
+        "id": "initialize"
+      },
+      {
+        "text": "    high = len(a) - 1",
+        "id": "initialize"
+      },
+      {
+        "text": "    while low <= high:",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        mid = math.floor((low + high) / 2)",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if a[mid] == target:",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid",
+        "id": "found"
+      },
+      {
+        "text": "        if a[mid] < target:",
+        "id": "direction"
+      },
+      {
+        "text": "            low = mid + 1",
+        "id": "move-right"
+      },
+      {
+        "text": "        else:"
+      },
+      {
+        "text": "            high = mid - 1",
+        "id": "move-left"
+      },
+      {
+        "text": "    return -1",
+        "id": "return"
+      }
+    ],
+    "C++": [
+      {
+        "text": "#include <vector>"
+      },
+      {
+        "text": "#include <algorithm>"
+      },
+      {
+        "text": "#include <cmath>"
+      },
+      {
+        "text": "#include <functional>"
+      },
+      {
+        "text": "double minValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::min(v, x); return v; }"
+      },
+      {
+        "text": "double maxValue(const std::vector<double>& a) { double v = 0; for (double x : a) v = std::max(v, x); return v; }"
+      },
+      {
+        "text": "int binary(std::vector<double>& a, double target) {"
+      },
+      {
+        "text": "    int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "    int high = int(a.size()) - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "    while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "        int mid = int(std::floor((low + high) / 2));",
+        "id": "midpoint"
+      },
+      {
+        "text": "        if (a[mid] == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "            return mid;",
+        "id": "found"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        if (a[mid] < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "            low = mid + 1;",
+        "id": "move-right"
+      },
+      {
+        "text": "        } else {"
+      },
+      {
+        "text": "            high = mid - 1;",
+        "id": "move-left"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "    return -1;",
+        "id": "return"
+      },
+      {
+        "text": "}"
+      }
+    ],
+    "Java": [
+      {
+        "text": "import java.util.*;"
+      },
+      {
+        "text": "class Algorithm {"
+      },
+      {
+        "text": "    static double at(ArrayList<Double> a, int i) { return a.get(i); }"
+      },
+      {
+        "text": "    static double minValue(ArrayList<Double> a) { return Math.min(0, a.isEmpty() ? 0 : Collections.min(a)); }"
+      },
+      {
+        "text": "    static double maxValue(ArrayList<Double> a) { return Math.max(0, a.isEmpty() ? 0 : Collections.max(a)); }"
+      },
+      {
+        "text": "    static ArrayList<ArrayList<Double>> makeBuckets() { ArrayList<ArrayList<Double>> b = new ArrayList<>(); for (int i = 0; i < 10; i++) b.add(new ArrayList<>()); return b; }"
+      },
+      {
+        "text": "    static int binary(ArrayList<Double> a, double target) {"
+      },
+      {
+        "text": "        int low = 0;",
+        "id": "initialize"
+      },
+      {
+        "text": "        int high = a.size() - 1;",
+        "id": "initialize"
+      },
+      {
+        "text": "        while (low <= high) {",
+        "id": "outer-loop"
+      },
+      {
+        "text": "            int mid = (int)Math.floor((low + high) / 2);",
+        "id": "midpoint"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) == target) {",
+        "id": "compare"
+      },
+      {
+        "text": "                return mid;",
+        "id": "found"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "            if (at(a, (int)(mid)) < target) {",
+        "id": "direction"
+      },
+      {
+        "text": "                low = mid + 1;",
+        "id": "move-right"
+      },
+      {
+        "text": "            } else {"
+      },
+      {
+        "text": "                high = mid - 1;",
+        "id": "move-left"
+      },
+      {
+        "text": "            }"
+      },
+      {
+        "text": "        }"
+      },
+      {
+        "text": "        return -1;",
+        "id": "return"
+      },
+      {
+        "text": "    }"
+      },
+      {
+        "text": "}"
+      }
+    ]
+  }
+}

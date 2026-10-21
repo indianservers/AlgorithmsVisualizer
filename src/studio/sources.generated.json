@@ -1,0 +1,1715 @@
+{
+  "bubble-sort": [
+    {
+      "text": "function bubble(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let i = 0; i < n - 1; i++) {"
+    },
+    {
+      "id": "reset-swapped",
+      "text": "        let swapped = false;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let j = 0; j < n - i - 1; j++) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[j] > a[j + 1]) {"
+    },
+    {
+      "id": "swap",
+      "text": "                [a[j], a[j + 1]] = [a[j + 1], a[j]];"
+    },
+    {
+      "id": "set-swapped",
+      "text": "                swapped = true;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "early-exit",
+      "text": "        if (!swapped)"
+    },
+    {
+      "text": "            break;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "selection-sort": [
+    {
+      "text": "function selection(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let i = 0; i < n - 1; i++) {"
+    },
+    {
+      "id": "select-min",
+      "text": "        let minIndex = i;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let j = i + 1; j < n; j++) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[j] < a[minIndex]) {"
+    },
+    {
+      "id": "update-min",
+      "text": "                minIndex = j;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "check-swap",
+      "text": "        if (minIndex !== i) {"
+    },
+    {
+      "id": "swap",
+      "text": "            [a[i], a[minIndex]] = [a[minIndex], a[i]];"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "insertion-sort": [
+    {
+      "text": "function insertion(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let i = 1; i < n; i++) {"
+    },
+    {
+      "id": "select-key",
+      "text": "        const key = a[i];"
+    },
+    {
+      "text": "        let j = i - 1;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        while (j >= 0) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[j] <= key)"
+    },
+    {
+      "text": "                break;"
+    },
+    {
+      "id": "shift",
+      "text": "            a[j + 1] = a[j];"
+    },
+    {
+      "id": "inner-back",
+      "text": "            j--;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "write-key",
+      "text": "        a[j + 1] = key;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "binary-insertion-sort": [
+    {
+      "text": "function binaryInsertion(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let i = 1; i < n; i++) {"
+    },
+    {
+      "id": "select-key",
+      "text": "        const key = a[i];"
+    },
+    {
+      "text": "        let low = 0, high = i;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "            const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "            if (a[mid] <= key)"
+    },
+    {
+      "id": "compare",
+      "text": "                low = mid + 1;"
+    },
+    {
+      "text": "            else"
+    },
+    {
+      "id": "narrow-left",
+      "text": "                high = mid;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "shift-loop",
+      "text": "        for (let j = i; j > low; j--) {"
+    },
+    {
+      "id": "shift",
+      "text": "            a[j] = a[j - 1];"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "write-key",
+      "text": "        a[low] = key;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "shell-sort": [
+    {
+      "text": "function shell(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let i = gap; i < n; i++) {"
+    },
+    {
+      "id": "select-key",
+      "text": "            const key = a[i];"
+    },
+    {
+      "text": "            let j = i;"
+    },
+    {
+      "id": "gap-loop",
+      "text": "            while (j >= gap) {"
+    },
+    {
+      "id": "compare",
+      "text": "                if (a[j - gap] <= key)"
+    },
+    {
+      "text": "                    break;"
+    },
+    {
+      "id": "shift",
+      "text": "                a[j] = a[j - gap];"
+    },
+    {
+      "text": "                j -= gap;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "id": "write-key",
+      "text": "            a[j] = key;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "cocktail-shaker-sort": [
+    {
+      "text": "function cocktail(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let start = 0, end = a.length - 1, swapped = true;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (swapped && start < end) {"
+    },
+    {
+      "text": "        swapped = false;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let i = start; i < end; i++) {"
+    },
+    {
+      "id": "compare-forward",
+      "text": "            if (a[i] > a[i + 1]) {"
+    },
+    {
+      "id": "swap-forward",
+      "text": "                [a[i], a[i + 1]] = [a[i + 1], a[i]];"
+    },
+    {
+      "text": "                swapped = true;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "early-exit",
+      "text": "        if (!swapped)"
+    },
+    {
+      "text": "            break;"
+    },
+    {
+      "text": "        end--;"
+    },
+    {
+      "text": "        swapped = false;"
+    },
+    {
+      "id": "backward-loop",
+      "text": "        for (let i = end - 1; i >= start; i--) {"
+    },
+    {
+      "id": "compare-backward",
+      "text": "            if (a[i] > a[i + 1]) {"
+    },
+    {
+      "id": "swap-backward",
+      "text": "                [a[i], a[i + 1]] = [a[i + 1], a[i]];"
+    },
+    {
+      "text": "                swapped = true;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        start++;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "comb-sort": [
+    {
+      "text": "function comb(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let gap = a.length, swapped = true;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (gap > 1 || swapped) {"
+    },
+    {
+      "id": "shrink-gap",
+      "text": "        gap = Math.max(1, Math.floor(gap / 1.3));"
+    },
+    {
+      "text": "        swapped = false;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let i = 0; i + gap < a.length; i++) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[i] > a[i + gap]) {"
+    },
+    {
+      "id": "swap",
+      "text": "                [a[i], a[i + gap]] = [a[i + gap], a[i]];"
+    },
+    {
+      "text": "                swapped = true;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "gnome-sort": [
+    {
+      "text": "function gnome(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let i = 0;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (i < a.length) {"
+    },
+    {
+      "text": "        if (i === 0) {"
+    },
+    {
+      "text": "            i++;"
+    },
+    {
+      "text": "            continue;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        if (a[i - 1] <= a[i])"
+    },
+    {
+      "id": "compare",
+      "text": "            i++;"
+    },
+    {
+      "text": "        else {"
+    },
+    {
+      "id": "swap",
+      "text": "            [a[i - 1], a[i]] = [a[i], a[i - 1]];"
+    },
+    {
+      "id": "backtrack",
+      "text": "            i--;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "quick-sort": [
+    {
+      "text": "function quick(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function sort(low, high) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (low >= high)"
+    },
+    {
+      "text": "            return;"
+    },
+    {
+      "id": "pivot",
+      "text": "        const pivot = a[high];"
+    },
+    {
+      "text": "        let i = low;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let j = low; j < high; j++) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[j] <= pivot) {"
+    },
+    {
+      "id": "swap",
+      "text": "                [a[i], a[j]] = [a[j], a[i]];"
+    },
+    {
+      "text": "                i++;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "place-pivot",
+      "text": "        [a[i], a[high]] = [a[high], a[i]];"
+    },
+    {
+      "id": "sort-left",
+      "text": "        sort(low, i - 1);"
+    },
+    {
+      "id": "sort-right",
+      "text": "        sort(i + 1, high);"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "initialize",
+      "text": "    sort(0, a.length - 1);"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "merge-sort": [
+    {
+      "text": "function merge(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function sort(low, high) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (high - low <= 1)"
+    },
+    {
+      "text": "            return;"
+    },
+    {
+      "id": "split",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "sort-left",
+      "text": "        sort(low, mid);"
+    },
+    {
+      "id": "sort-right",
+      "text": "        sort(mid, high);"
+    },
+    {
+      "id": "copy-halves",
+      "text": "        const left = a.slice(low, mid), right = a.slice(mid, high);"
+    },
+    {
+      "text": "        let i = 0, j = 0, k = low;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        while (i < left.length && j < right.length) {"
+    },
+    {
+      "id": "compare",
+      "text": "            const takeLeft = left[i] <= right[j];"
+    },
+    {
+      "id": "merge-write",
+      "text": "            a[k] = takeLeft ? left[i++] : right[j++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "left-tail",
+      "text": "        while (i < left.length) {"
+    },
+    {
+      "id": "write-left",
+      "text": "            a[k] = left[i++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "right-tail",
+      "text": "        while (j < right.length) {"
+    },
+    {
+      "id": "write-right",
+      "text": "            a[k] = right[j++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "initialize",
+      "text": "    sort(0, a.length);"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "heap-sort": [
+    {
+      "text": "function heap(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function heapify(size, root) {"
+    },
+    {
+      "id": "select-root",
+      "text": "        let largest = root;"
+    },
+    {
+      "text": "        const left = 2 * root + 1, right = left + 1;"
+    },
+    {
+      "text": "        if (left < size) {"
+    },
+    {
+      "id": "compare-left",
+      "text": "            if (a[left] > a[largest])"
+    },
+    {
+      "text": "                largest = left;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        if (right < size) {"
+    },
+    {
+      "id": "compare-right",
+      "text": "            if (a[right] > a[largest])"
+    },
+    {
+      "text": "                largest = right;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        if (largest !== root) {"
+    },
+    {
+      "id": "heap-swap",
+      "text": "            [a[root], a[largest]] = [a[largest], a[root]];"
+    },
+    {
+      "text": "            heapify(size, largest);"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "initialize",
+      "text": "    for (let i = Math.floor(a.length / 2) - 1; i >= 0; i--)"
+    },
+    {
+      "text": "        heapify(a.length, i);"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let end = a.length - 1; end > 0; end--) {"
+    },
+    {
+      "id": "extract-max",
+      "text": "        [a[0], a[end]] = [a[end], a[0]];"
+    },
+    {
+      "id": "restore-heap",
+      "text": "        heapify(end, 0);"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "counting-sort": [
+    {
+      "text": "function counting(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const min = Math.min(...a, 0), max = Math.max(...a, 0);"
+    },
+    {
+      "id": "allocate",
+      "text": "    const counts = Array(max - min + 1).fill(0);"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let i = 0; i < a.length; i++) {"
+    },
+    {
+      "id": "count",
+      "text": "        counts[a[i] - min]++;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "text": "    let k = 0;"
+    },
+    {
+      "id": "bucket-loop",
+      "text": "    for (let bucket = 0; bucket < counts.length; bucket++) {"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let repeat = 0; repeat < counts[bucket]; repeat++) {"
+    },
+    {
+      "id": "write",
+      "text": "            a[k] = bucket + min;"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "radix-sort": [
+    {
+      "text": "function radix(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const max = Math.max(...a, 0);"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {"
+    },
+    {
+      "id": "buckets",
+      "text": "        const buckets = Array.from({ length: 10 }, () => []);"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let i = 0; i < a.length; i++) {"
+    },
+    {
+      "id": "digit",
+      "text": "            const digit = Math.floor(a[i] / exp) % 10;"
+    },
+    {
+      "id": "distribute",
+      "text": "            buckets[digit].push(a[i]);"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        let k = 0;"
+    },
+    {
+      "text": "        for (const bucket of buckets) {"
+    },
+    {
+      "text": "            for (const value of bucket) {"
+    },
+    {
+      "id": "collect",
+      "text": "                a[k] = value;"
+    },
+    {
+      "text": "                k++;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "linear-search": [
+    {
+      "text": "function linear(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    for (let i = 0; i < a.length; i++) {"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[i] === target) {"
+    },
+    {
+      "id": "found",
+      "text": "            return i;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return -1;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "sentinel-linear-search": [
+    {
+      "text": "function sentinel(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    const n = a.length;"
+    },
+    {
+      "id": "sentinel",
+      "text": "    a.push(target);"
+    },
+    {
+      "text": "    let i = 0;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "    while (true) {"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[i] === target)"
+    },
+    {
+      "text": "            break;"
+    },
+    {
+      "text": "        i++;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "restore",
+      "text": "    a.pop();"
+    },
+    {
+      "id": "return",
+      "text": "    return i < n ? i : -1;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "recursive-linear-search": [
+    {
+      "text": "function recursiveLinear(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function search(i) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (i >= a.length)"
+    },
+    {
+      "text": "            return -1;"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[i] === target)"
+    },
+    {
+      "text": "            return i;"
+    },
+    {
+      "id": "next-call",
+      "text": "        return search(i + 1);"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return search(0);"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "binary-search": [
+    {
+      "text": "function binary(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length - 1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low <= high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[mid] === target) {"
+    },
+    {
+      "id": "found",
+      "text": "            return mid;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "direction",
+      "text": "        if (a[mid] < target) {"
+    },
+    {
+      "id": "move-right",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        else {"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid - 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return -1;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "recursive-binary-search": [
+    {
+      "text": "function recursiveBinary(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function search(low, high) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (low > high)"
+    },
+    {
+      "text": "            return -1;"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[mid] === target)"
+    },
+    {
+      "text": "            return mid;"
+    },
+    {
+      "id": "direction",
+      "text": "        if (a[mid] < target)"
+    },
+    {
+      "text": "            return search(mid + 1, high);"
+    },
+    {
+      "id": "recurse-left",
+      "text": "        return search(low, mid - 1);"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return search(0, a.length - 1);"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "lower-bound": [
+    {
+      "text": "function lower(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] < target)"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return low;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "upper-bound": [
+    {
+      "text": "function upper(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] <= target)"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return low;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "first-occurrence": [
+    {
+      "text": "function first(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length, result = -1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] < target)"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "confirm",
+      "text": "    if (low < a.length && a[low] === target)"
+    },
+    {
+      "text": "        result = low;"
+    },
+    {
+      "id": "return",
+      "text": "    return result;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "last-occurrence": [
+    {
+      "text": "function last(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length, result = -1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] <= target)"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "confirm",
+      "text": "    if (low > 0 && a[low - 1] === target)"
+    },
+    {
+      "text": "        result = low - 1;"
+    },
+    {
+      "id": "return",
+      "text": "    return result;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "rotated-sorted-array-search": [
+    {
+      "text": "function rotated(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length - 1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low <= high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[mid] === target) {"
+    },
+    {
+      "id": "found",
+      "text": "            return mid;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "duplicates",
+      "text": "        if (a[low] === a[mid] && a[mid] === a[high]) {"
+    },
+    {
+      "text": "            low++;"
+    },
+    {
+      "text": "            high--;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "sorted-left",
+      "text": "        else if (a[low] <= a[mid]) {"
+    },
+    {
+      "text": "            if (a[low] <= target && target < a[mid])"
+    },
+    {
+      "id": "choose-left",
+      "text": "                high = mid - 1;"
+    },
+    {
+      "text": "            else"
+    },
+    {
+      "text": "                low = mid + 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        else {"
+    },
+    {
+      "text": "            if (a[mid] < target && target <= a[high])"
+    },
+    {
+      "id": "choose-right",
+      "text": "                low = mid + 1;"
+    },
+    {
+      "text": "            else"
+    },
+    {
+      "text": "                high = mid - 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return -1;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "peak-element-search": [
+    {
+      "text": "function peak(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length - 1;"
+    },
+    {
+      "id": "empty",
+      "text": "    if (!a.length)"
+    },
+    {
+      "text": "        return -1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] < a[mid + 1])"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return low;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "sliding-window-two-pointers-suite": [
+    {
+      "text": "function twoPointers(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length - 1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "sum",
+      "text": "        const sum = a[low] + a[high];"
+    },
+    {
+      "id": "compare",
+      "text": "        if (sum === target) {"
+    },
+    {
+      "id": "found",
+      "text": "            return [low, high];"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        if (sum < target)"
+    },
+    {
+      "id": "direction",
+      "text": "            low++;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high--;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return [];"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "search-insert-position": [
+    {
+      "text": "function lower(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low < high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "text": "        if (a[mid] < target)"
+    },
+    {
+      "id": "compare",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        else"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid;"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return low;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "divide-and-conquer-suite": [
+    {
+      "text": "function merge(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function sort(low, high) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (high - low <= 1)"
+    },
+    {
+      "text": "            return;"
+    },
+    {
+      "id": "split",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "sort-left",
+      "text": "        sort(low, mid);"
+    },
+    {
+      "id": "sort-right",
+      "text": "        sort(mid, high);"
+    },
+    {
+      "id": "copy-halves",
+      "text": "        const left = a.slice(low, mid), right = a.slice(mid, high);"
+    },
+    {
+      "text": "        let i = 0, j = 0, k = low;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        while (i < left.length && j < right.length) {"
+    },
+    {
+      "id": "compare",
+      "text": "            const takeLeft = left[i] <= right[j];"
+    },
+    {
+      "id": "merge-write",
+      "text": "            a[k] = takeLeft ? left[i++] : right[j++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "left-tail",
+      "text": "        while (i < left.length) {"
+    },
+    {
+      "id": "write-left",
+      "text": "            a[k] = left[i++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "right-tail",
+      "text": "        while (j < right.length) {"
+    },
+    {
+      "id": "write-right",
+      "text": "            a[k] = right[j++];"
+    },
+    {
+      "text": "            k++;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "initialize",
+      "text": "    sort(0, a.length);"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "advanced-sorting-suite": [
+    {
+      "text": "function quick(a, target) {"
+    },
+    {
+      "id": "recurse",
+      "text": "    function sort(low, high) {"
+    },
+    {
+      "id": "base-case",
+      "text": "        if (low >= high)"
+    },
+    {
+      "text": "            return;"
+    },
+    {
+      "id": "pivot",
+      "text": "        const pivot = a[high];"
+    },
+    {
+      "text": "        let i = low;"
+    },
+    {
+      "id": "inner-loop",
+      "text": "        for (let j = low; j < high; j++) {"
+    },
+    {
+      "id": "compare",
+      "text": "            if (a[j] <= pivot) {"
+    },
+    {
+      "id": "swap",
+      "text": "                [a[i], a[j]] = [a[j], a[i]];"
+    },
+    {
+      "text": "                i++;"
+    },
+    {
+      "text": "            }"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "place-pivot",
+      "text": "        [a[i], a[high]] = [a[high], a[i]];"
+    },
+    {
+      "id": "sort-left",
+      "text": "        sort(low, i - 1);"
+    },
+    {
+      "id": "sort-right",
+      "text": "        sort(i + 1, high);"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "initialize",
+      "text": "    sort(0, a.length - 1);"
+    },
+    {
+      "id": "return",
+      "text": "    return a;"
+    },
+    {
+      "text": "}"
+    }
+  ],
+  "advanced-searching-suite": [
+    {
+      "text": "function binary(a, target) {"
+    },
+    {
+      "id": "initialize",
+      "text": "    let low = 0, high = a.length - 1;"
+    },
+    {
+      "id": "outer-loop",
+      "text": "    while (low <= high) {"
+    },
+    {
+      "id": "midpoint",
+      "text": "        const mid = Math.floor((low + high) / 2);"
+    },
+    {
+      "id": "compare",
+      "text": "        if (a[mid] === target) {"
+    },
+    {
+      "id": "found",
+      "text": "            return mid;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "id": "direction",
+      "text": "        if (a[mid] < target) {"
+    },
+    {
+      "id": "move-right",
+      "text": "            low = mid + 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "        else {"
+    },
+    {
+      "id": "move-left",
+      "text": "            high = mid - 1;"
+    },
+    {
+      "text": "        }"
+    },
+    {
+      "text": "    }"
+    },
+    {
+      "id": "return",
+      "text": "    return -1;"
+    },
+    {
+      "text": "}"
+    }
+  ]
+}

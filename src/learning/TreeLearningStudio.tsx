@@ -1,3 +1,4 @@
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useMemo, useState } from 'react'
 import { BookOpen, GitBranch, Lightbulb, Play, RotateCcw, SkipBack, SkipForward, Target } from 'lucide-react'
 import type { AlgorithmModule, LearningTab } from '../types'
@@ -448,10 +449,11 @@ export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: 
       )}
       {showInteractive && (
         <>
-          <div className="ls-editor">
+          <div className="ls-editor problem-input-panel learning-input-panel">
+            <h3 className="problem-panel-title">Problem Input</h3>
             <label>
               {kind === 'trie' ? 'Words (comma separated)' : kind === 'expression' ? 'Arithmetic expression' : 'Keys / array values (up to 15)'}
-              <input aria-label="Tree example input" value={draft} onChange={(e) => setDraft(e.target.value)} />
+              <textarea rows={4} aria-label="Tree example input" value={draft} onChange={(e) => setDraft(e.target.value)} />
             </label>
             <button className="ls-primary" onClick={() => apply({ type: 'build' })}>
               <Play size={16} />
@@ -594,7 +596,7 @@ export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: 
                   })}
                 </svg>
               </div>
-              <div className="ls-inspector">
+              <MobileDisclosure className="ls-inspector" title="Inspect current state">
                 {selectedNode ? (
                   <>
                     <strong>Node {selectedNode.label}</strong>
@@ -605,9 +607,9 @@ export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: 
                 ) : (
                   <span>Select any node to inspect its key, children, and stored information.</span>
                 )}
-              </div>
+              </MobileDisclosure>
             </div>
-            <aside className="ls-trace">
+            <MobileDisclosure className="ls-trace" title="Trace and explanation">
               <span className="ls-eyebrow">EXPLAIN THIS STEP</span>
               <h3>
                 Step {cursor + 1} of {last + 1}
@@ -629,7 +631,7 @@ export function TreeLearningStudio({ module, tab = 'Visualization' }: { module: 
                       ))}
               </div>
               <p className="ls-cost">{guide.cost}</p>
-            </aside>
+            </MobileDisclosure>
           </div>
           <div className="ls-playback">
             <button

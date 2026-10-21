@@ -1,3 +1,5 @@
+import { ProblemInputPanel } from '../components/ProblemInputPanel'
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle, BarChart3, BookOpenCheck, ChevronLeft, ChevronRight, Gauge, Pause, Play, RotateCcw, Sparkles } from 'lucide-react'
 import type { AlgorithmStep } from '../types'
@@ -499,7 +501,8 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
     [speed, setSpeed] = useState(700),
     [error, setError] = useState(''),
     [n, setN] = useState(32),
-    [showAnswer, setShowAnswer] = useState(false)
+    [showAnswer, setShowAnswer] = useState(false),
+    [inputVersion, setInputVersion] = useState(0)
   const synthetic = useMemo(() => theorySteps(lesson), [lesson]),
     steps = run?.steps ?? synthetic,
     step = steps[Math.min(index, steps.length - 1)],
@@ -522,8 +525,9 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
     }
     try {
       const next = JSON.parse(draft) as DaaInput
+      const nextRun = executeLesson(lesson, next)
       setInput(next)
-      setRun(executeLesson(lesson, next))
+      setRun(nextRun)
       setIndex(0)
       setPlaying(true)
       setError('')
@@ -534,6 +538,7 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
   }
   const reset = () => {
     const original = structuredClone(sample)
+    setInputVersion((v) => v + 1)
     setDraft(JSON.stringify(original, null, 2))
     setInput(original)
     setRun(initial)
@@ -562,21 +567,37 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
           <span>computed states</span>
         </div>
       </header>
+      <ProblemInputPanel
+        key={inputVersion}
+        draft={lesson.run ? draft : undefined}
+        onChange={(next) => {
+          setDraft(next)
+          setPlaying(false)
+          setError('')
+        }}
+        onRun={execute}
+        onReset={reset}
+        error={error}
+        changed={!!lesson.run && draft !== JSON.stringify(input, null, 2)}
+      >
+        <label className="problem-example-size">
+          Example size n
+          <input
+            aria-label="Example size"
+            type="range"
+            min="8"
+            max="64"
+            step="4"
+            value={n}
+            onChange={(e) => {
+              setN(Number(e.target.value))
+              setPlaying(false)
+            }}
+          />
+          <output>{n}</output>
+        </label>
+      </ProblemInputPanel>
       <div className="tuv-controls">
-        {lesson.run ? (
-          <details>
-            <summary>Custom algorithm input</summary>
-            <textarea aria-label="Algorithm input JSON" value={draft} onChange={(e) => setDraft(e.target.value)} rows={7} />
-          </details>
-        ) : (
-          <label>
-            Example size n<input aria-label="Example size" type="range" min="8" max="64" step="4" value={n} onChange={(e) => setN(Number(e.target.value))} />
-            <output>{n}</output>
-          </label>
-        )}
-        <button className="primary" onClick={execute}>
-          <Play /> {lesson.run ? 'Run' : 'Animate concept'}
-        </button>
         <button onClick={() => setIndex((v) => Math.max(0, v - 1))} aria-label="Step back">
           <ChevronLeft />
         </button>
@@ -622,7 +643,7 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
             {step?.description}
           </p>
         </article>
-        <aside className="tuv-inspector">
+        <MobileDisclosure className="tuv-inspector" title="Step details">
           <h3>
             <Gauge /> {profile.panels[1]}
           </h3>
@@ -649,7 +670,7 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
               </li>
             ))}
           </ol>
-        </aside>
+        </MobileDisclosure>
       </div>
       <div className="tuv-summary">
         <article>
@@ -682,7 +703,7 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
           </p>
         </article>
       </div>
-      <section className="tuv-learning-deck" aria-label={`${lesson.title} learning guide`}>
+      <MobileDisclosure className="tuv-learning-deck" title="Learning guide">
         <article>
           <span className="tuv-deck-kicker">01 · Understand</span>
           <h3>Theory in plain language</h3>
@@ -725,7 +746,7 @@ export function TargetLessonVisualization({ lesson }: { lesson: Lesson }) {
             </p>
           )}
         </article>
-      </section>
+      </MobileDisclosure>
     </section>
   )
 }

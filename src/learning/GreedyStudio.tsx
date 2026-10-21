@@ -1,3 +1,4 @@
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookOpen, ChevronLeft, ChevronRight, Lightbulb, Play, RotateCcw, Sparkles, Target } from 'lucide-react'
@@ -384,100 +385,102 @@ function GreedyLab({ lesson, tab, onTab }: { lesson: Lesson; tab: LearningTab; o
       )}
       {interactive && (
         <>
-          <div className="gr-input-heading">
-            <h3>Editable example</h3>
-            <label>
-              Load a worked example
-              <select
-                aria-label="Greedy example preset"
-                value=""
-                onChange={(e) => {
-                  const next = e.target.value === 'default' ? defaults : profile.examples[Number(e.target.value)]?.input
-                  if (next) compute(next)
+          <section className="problem-input-panel learning-input-panel">
+            <div className="gr-input-heading">
+              <h3>Problem Input</h3>
+              <label>
+                Load a worked example
+                <select
+                  aria-label="Greedy example preset"
+                  value=""
+                  onChange={(e) => {
+                    const next = e.target.value === 'default' ? defaults : profile.examples[Number(e.target.value)]?.input
+                    if (next) compute(next)
+                  }}
+                >
+                  <option value="">Choose a preset…</option>
+                  <option value="default">Default worked example</option>
+                  {profile.examples.map((p, i) => (
+                    <option key={p.name} value={i}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="gr-fields">
+              {Object.entries(defaults).map(([key, value]) => (
+                <label key={key}>
+                  {greedyFields[key]}
+                  {Array.isArray(value) ? (
+                    <textarea
+                      rows={5}
+                      aria-label={`Greedy ${greedyFields[key]}`}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  ) : (
+                    <input
+                      aria-label={`Greedy ${greedyFields[key]}`}
+                      type={typeof value === 'number' ? 'number' : 'text'}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  )}
+                </label>
+              ))}
+            </div>
+            <p className="gr-help">
+              {
+                {
+                  'activity-selection': 'Enter 1–16 activities, each with start < finish. Touching endpoints are compatible.',
+                  'fractional-knapsack':
+                    'Enter 1–20 matching weights and profits. Weights must be positive integers; profits non-negative. Capacity: integer 0–100.',
+                  'job-sequencing':
+                    'Enter 1–20 matching profits and deadlines. Profits must be non-negative; deadlines: integers 0–20. Each job takes one time unit.',
+                  'huffman-coding': 'Enter 1–20 positive frequencies, each at most 1,000,000.',
+                }[lesson.id]
+              }{' '}
+              {lesson.id === 'huffman-coding'
+                ? 'All frequencies must be positive. Symbols are labeled S0, S1, … in input order.'
+                : 'Lists use commas or spaces. Original item IDs start at 0.'}
+            </p>
+            <div className="ls-operations">
+              <button
+                className="ls-primary"
+                onClick={() => {
+                  try {
+                    compute(parseGreedyFields(fields, defaults))
+                  } catch (e) {
+                    setError(e instanceof Error ? e.message : 'Check inputs.')
+                    setPlaying(false)
+                  }
                 }}
               >
-                <option value="">Choose a preset…</option>
-                <option value="default">Default worked example</option>
-                {profile.examples.map((p, i) => (
-                  <option key={p.name} value={i}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className="gr-fields">
-            {Object.entries(defaults).map(([key, value]) => (
-              <label key={key}>
-                {greedyFields[key]}
-                {key === 'intervals' ? (
-                  <textarea
-                    rows={5}
-                    aria-label={`Greedy ${greedyFields[key]}`}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                ) : (
-                  <input
-                    aria-label={`Greedy ${greedyFields[key]}`}
-                    type={typeof value === 'number' ? 'number' : 'text'}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                )}
-              </label>
-            ))}
-          </div>
-          <p className="gr-help">
-            {
-              {
-                'activity-selection': 'Enter 1–16 activities, each with start < finish. Touching endpoints are compatible.',
-                'fractional-knapsack':
-                  'Enter 1–20 matching weights and profits. Weights must be positive integers; profits non-negative. Capacity: integer 0–100.',
-                'job-sequencing':
-                  'Enter 1–20 matching profits and deadlines. Profits must be non-negative; deadlines: integers 0–20. Each job takes one time unit.',
-                'huffman-coding': 'Enter 1–20 positive frequencies, each at most 1,000,000.',
-              }[lesson.id]
-            }{' '}
-            {lesson.id === 'huffman-coding'
-              ? 'All frequencies must be positive. Symbols are labeled S0, S1, … in input order.'
-              : 'Lists use commas or spaces. Original item IDs start at 0.'}
-          </p>
-          <div className="ls-operations">
-            <button
-              className="ls-primary"
-              onClick={() => {
-                try {
-                  compute(parseGreedyFields(fields, defaults))
-                } catch (e) {
-                  setError(e instanceof Error ? e.message : 'Check inputs.')
-                  setPlaying(false)
-                }
-              }}
-            >
-              <Play size={16} />
-              Run greedy example
-            </button>
-            <button onClick={() => compute(structuredClone(defaults))}>
-              <RotateCcw size={16} />
-              Reset default
-            </button>
-            <button onClick={save}>Save greedy example</button>
-            <button onClick={exportTrace}>Export greedy trace</button>
-          </div>
-          {changed && <p role="status">Inputs edited. Run greedy example to apply changes; the diagram still shows the last successful run.</p>}
-          {error && (
-            <p className="ls-error" role="alert">
-              {error}
-            </p>
-          )}
-          {notice && <p role="status">{notice}</p>}
+                <Play size={16} />
+                Run greedy example
+              </button>
+              <button onClick={() => compute(structuredClone(defaults))}>
+                <RotateCcw size={16} />
+                Reset default
+              </button>
+              <button onClick={save}>Save greedy example</button>
+              <button onClick={exportTrace}>Export greedy trace</button>
+            </div>
+            {changed && <p role="status">Inputs edited. Run greedy example to apply changes; the diagram still shows the last successful run.</p>}
+            {error && (
+              <p className="ls-error" role="alert">
+                {error}
+              </p>
+            )}
+            {notice && <p role="status">{notice}</p>}
+          </section>
           <div className="gr-workbench">
             <div>
               <div className="gr-legend">
@@ -603,7 +606,7 @@ function GreedyLab({ lesson, tab, onTab }: { lesson: Lesson; tab: LearningTab; o
         </>
       )}
       {inspected !== undefined && ['Learn', 'Visualization', 'Practice', 'Experiments'].includes(tab) && (
-        <div className="ls-inspector">
+        <MobileDisclosure className="ls-inspector" title="Inspect current state">
           <strong>Inspect #{inspected}</strong>
           <p>
             {input.intervals
@@ -613,7 +616,7 @@ function GreedyLab({ lesson, tab, onTab }: { lesson: Lesson; tab: LearningTab; o
                 : `Profit ${input.profits![inspected]}, deadline ${input.deadlines![inspected]}`}
           </p>
           <p>{state.selected.includes(inspected) ? 'Accepted' : state.rejected.includes(inspected) ? 'Rejected' : 'Not considered yet'}</p>
-        </div>
+        </MobileDisclosure>
       )}
       {tab === 'Practice' && (
         <div className="gr-proof">
@@ -722,7 +725,7 @@ export function GreedyLessonPage({
   completed: string[]
   toggleCompleted: (id: string) => void
 }) {
-  const [tab, setTab] = useState<LearningTab>('Learn'),
+  const [tab, setTab] = useState<LearningTab>('Visualization'),
     lesson = lessons.find((l) => l.id === module.id)
   return (
     <div className="lesson-surface greedy-page daa-workspace compact-daa" data-learning-tab={tab}>

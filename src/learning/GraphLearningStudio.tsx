@@ -1,3 +1,4 @@
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { BookOpen, GitBranch, Lightbulb, Network, Play, SkipBack, SkipForward, Target } from 'lucide-react'
 import { daaLessons } from '../daa/catalog'
@@ -177,7 +178,8 @@ export function GraphLearningStudio({ lesson, theoryOnly = false }: { lesson: Le
       </div>
       {!theoryOnly && (
         <>
-          <div className="ls-editor">
+          <div className="ls-editor problem-input-panel learning-input-panel">
+            <h3 className="problem-panel-title">Problem Input</h3>
             <label>
               Example
               <select aria-label="Graph learning example" defaultValue="default" onChange={(e) => loadPreset(e.target.value)}>
@@ -375,14 +377,14 @@ export function GraphLearningStudio({ lesson, theoryOnly = false }: { lesson: Le
                   )
                 })}
               </svg>
-              <div className="ls-inspector">
+              <MobileDisclosure className="ls-inspector" title="Inspect current state">
                 <strong>Vertex {selected}</strong>
                 <span>{adjacency[selected]?.length ?? 0} outgoing / incident adjacency entries</span>
                 {!dirty && inspectLabel && <span>State: {inspectLabel}</span>}
                 <span>Neighbors: {adjacency[selected]?.map((n) => n.to).join(', ') || 'none'}</span>
-              </div>
+              </MobileDisclosure>
             </div>
-            <aside className="ls-trace">
+            <MobileDisclosure className="ls-trace" title="Trace and explanation">
               <span className="ls-eyebrow">EXPLAIN THIS STEP</span>
               <h3>{dirty ? 'Ready to recompute' : `Step ${cursor + 1} of ${steps.length}`}</h3>
               <p aria-live="polite">
@@ -429,7 +431,7 @@ export function GraphLearningStudio({ lesson, theoryOnly = false }: { lesson: Le
                 </>
               )}
               <p className="ls-cost">{lesson.derivation}</p>
-            </aside>
+            </MobileDisclosure>
           </div>
           <div className="ls-edge-list" aria-label="Editable graph edges">
             {edges.map((edge, i) => (

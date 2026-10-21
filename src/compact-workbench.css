@@ -1075,3 +1075,83 @@
     display: none;
   }
 }
+
+/* Clear primary action at every size; phone controls remain comfortable to tap. */
+.app-shell .workbench-toolbar .workbench-play {
+  min-width: 112px;
+  min-height: 44px;
+  height: auto;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.mobile-disclosure > summary {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  padding: 12px 4px;
+  cursor: pointer;
+  font-weight: 700;
+}
+@media (max-width: 700px) {
+  .app-shell .workbench-toolbar button,
+  .app-shell .lesson-tabs button,
+  .app-shell .playback-options button,
+  .app-shell .learning-studio button,
+  .app-shell .tuv-controls button,
+  .app-shell .daa-actions button {
+    min-height: 44px;
+    height: auto;
+  }
+  .app-shell .workbench-playback {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .app-shell .workbench-toolbar .workbench-progress {
+    flex-basis: 100%;
+  }
+  .app-shell .compact-daa .daa-field-editor,
+  .app-shell .ls-stage-grid,
+  .app-shell .ls-theory-grid,
+  .app-shell .ls-representations,
+  .app-shell .ls-comparison,
+  .app-shell .gr-workbench,
+  .app-shell .dp-workbench,
+  .app-shell .bt-workbench {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-shell .mobile-disclosure {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px;
+  }
+  .app-shell .compact-lesson-header h1 {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .app-shell .learning-studio,
+  .app-shell .target-visual,
+  .app-shell .compare-page {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+/* Fit character visualizations without nested scroll areas or cropped labels. */
+.app-shell .viewport-canvas:has(.penguin-viewport) {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+.app-shell .canvas-viewport-scroll:has(.penguin-viewport) {
+  overflow: visible;
+  flex: none;
+}
+.app-shell .canvas-zoom-content:has(.penguin-viewport) {
+  zoom: 1 !important;
+  min-height: 0;
+  width: 100%;
+}

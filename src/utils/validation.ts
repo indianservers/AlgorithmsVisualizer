@@ -1,7 +1,9 @@
+import { isStudioId, studioInputError } from '../studio/engine'
 import type { AlgorithmModule } from '../types'
 
 export function runDisabledReason(module: AlgorithmModule, input: number[], sortedInputValid: boolean) {
   if (module.status !== 'live' || !module.runner) return 'This module is coming soon.'
+  if (module.executionStudio && isStudioId(module.id)) return studioInputError(module.id, input)
   if (module.category === 'Games') return ''
   if (!['Graph', 'Tree'].includes(module.visualMode) && input.length === 0) return 'Enter at least one numeric value.'
   if (module.flags?.includes('Requires sorted input') && !sortedInputValid) return 'Sort the input before running this algorithm.'

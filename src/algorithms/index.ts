@@ -1,3 +1,4 @@
+import { isStudioId, runStudio } from '../studio/engine'
 import type { AlgorithmModule, AlgorithmStep, StepType } from '../types'
 
 import { daaModules } from '../daa/catalog'
@@ -5014,7 +5015,22 @@ export const algorithmModules: AlgorithmModule[] = [
 export const plannedModules: AlgorithmModule[] = []
 
 export const allModules = [
-  ...algorithmModules.map((module) => {
+  ...algorithmModules.map((original) => {
+    const module = isStudioId(original.id)
+      ? {
+          ...original,
+          executionStudio: true,
+          runner: (input: number[], target: number) => runStudio(original.id as import('../studio/engine').StudioId, input, target),
+          complexity:
+            original.id === 'bubble-sort'
+              ? { ...original.complexity, best: 'O(n)' }
+              : original.id === 'rotated-sorted-array-search'
+                ? { ...original.complexity, worst: 'O(n) with duplicates' }
+                : original.id === 'quick-sort'
+                  ? { ...original.complexity, space: 'O(log n) average; O(n) worst' }
+                  : original.complexity,
+        }
+      : original
     const replacement = daaModules.find((item) => item.id === ({ 'bfs-traversal': 'daa-bfs', 'dfs-traversal': 'daa-dfs' } as Record<string, string>)[module.id])
     return replacement ? { ...replacement, id: module.id } : { ...module, coverage: legacyStudy[module.id] ? ('complete' as const) : ('partial' as const) }
   }),

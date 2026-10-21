@@ -1,4 +1,5 @@
 import './account/bootstrap'
+import { LoginInvitation } from './account/LoginInvitation'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter, Route, Routes } from 'react-router-dom'
@@ -9,11 +10,13 @@ import { HomeDashboard } from './home/HomeDashboard.tsx'
 import { ErrorBoundary } from './components/ErrorBoundary.tsx'
 
 import './compact-workbench.css'
+import './problem-input.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
       <HashRouter>
+        <LoginInvitation />
         <Routes>
           <Route path="/" element={<HomeDashboard />} />
           <Route path="/strings/string-pattern-matching-suite" element={<StringSuite />} />

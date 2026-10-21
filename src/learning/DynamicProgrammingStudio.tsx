@@ -1,3 +1,4 @@
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useId, useMemo, useState } from 'react'
 import { BookOpen, Braces, Check, ChevronLeft, ChevronRight, Grid2X2, Lightbulb, Play, RotateCcw, Target } from 'lucide-react'
 import type { AlgorithmModule, AlgorithmStep, LearningTab } from '../types'
@@ -449,12 +450,12 @@ export function DPStudio({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
           <ProblemPicture lesson={lesson} input={input} step={run.steps.at(-1)} />
           {renderTable()}
           {selection && (
-            <div className="ls-inspector">
+            <MobileDisclosure className="ls-inspector" title="Inspect current state">
               <strong>
                 State [{selection.join(',')}] = {formatCell(shown.table?.[selection[0]]?.[selection[1]])}
               </strong>
               <span>{profile.state}</span>
-            </div>
+            </MobileDisclosure>
           )}
           <Solution lesson={lesson} input={input} result={run.result} />
           <button className="ls-primary" onClick={() => onTab?.('Visualization')}>
@@ -465,95 +466,97 @@ export function DPStudio({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
       )}
       {interactive && (
         <>
-          <div className="dp-input-heading">
-            <h3>Editable example</h3>
-            <label>
-              Load a worked example
-              <select
-                aria-label="DP example preset"
-                value=""
-                onChange={(e) => {
-                  const next = e.target.value === 'default' ? defaultInput : profile.examples[Number(e.target.value)]?.input
-                  if (next) compute(next)
+          <section className="problem-input-panel learning-input-panel">
+            <div className="dp-input-heading">
+              <h3>Problem Input</h3>
+              <label>
+                Load a worked example
+                <select
+                  aria-label="DP example preset"
+                  value=""
+                  onChange={(e) => {
+                    const next = e.target.value === 'default' ? defaultInput : profile.examples[Number(e.target.value)]?.input
+                    if (next) compute(next)
+                  }}
+                >
+                  <option value="">Choose a preset…</option>
+                  <option value="default">Default worked example</option>
+                  {profile.examples.map((example, i) => (
+                    <option key={example.name} value={i}>
+                      {example.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="dp-fields">
+              {Object.entries(defaultInput).map(([key, original]) => (
+                <label key={key}>
+                  {fieldNames[key] ?? key}
+                  {key === 'directed' ? (
+                    <select
+                      aria-label={`DP ${fieldNames[key]}`}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    >
+                      <option value="true">Directed</option>
+                      <option value="false">Undirected</option>
+                    </select>
+                  ) : Array.isArray(original) ? (
+                    <textarea
+                      aria-label={`DP ${fieldNames[key]}`}
+                      rows={4}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  ) : (
+                    <input
+                      aria-label={`DP ${fieldNames[key] ?? key}`}
+                      type={typeof original === 'number' ? 'number' : 'text'}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  )}
+                </label>
+              ))}
+            </div>
+            <div className="ls-operations dp-run-actions">
+              <button
+                className="ls-primary"
+                onClick={() => {
+                  try {
+                    compute(parseDPFields(fields, defaultInput))
+                  } catch (e) {
+                    setError(e instanceof Error ? e.message : 'Check the fields.')
+                  }
                 }}
               >
-                <option value="">Choose a preset…</option>
-                <option value="default">Default worked example</option>
-                {profile.examples.map((example, i) => (
-                  <option key={example.name} value={i}>
-                    {example.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className="dp-fields">
-            {Object.entries(defaultInput).map(([key, original]) => (
-              <label key={key}>
-                {fieldNames[key] ?? key}
-                {key === 'directed' ? (
-                  <select
-                    aria-label={`DP ${fieldNames[key]}`}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  >
-                    <option value="true">Directed</option>
-                    <option value="false">Undirected</option>
-                  </select>
-                ) : ['edges', 'a'].includes(key) ? (
-                  <textarea
-                    aria-label={`DP ${fieldNames[key]}`}
-                    rows={4}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                ) : (
-                  <input
-                    aria-label={`DP ${fieldNames[key] ?? key}`}
-                    type={typeof original === 'number' ? 'number' : 'text'}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                )}
-              </label>
-            ))}
-          </div>
-          <div className="ls-operations dp-run-actions">
-            <button
-              className="ls-primary"
-              onClick={() => {
-                try {
-                  compute(parseDPFields(fields, defaultInput))
-                } catch (e) {
-                  setError(e instanceof Error ? e.message : 'Check the fields.')
-                }
-              }}
-            >
-              <Play size={16} />
-              Run DP example
-            </button>
-            <button onClick={() => compute(structuredClone(defaultInput))}>
-              <RotateCcw size={16} />
-              Reset default
-            </button>
-            <button onClick={save}>Save DP example</button>
-            {changed && <span role="status">Inputs edited. The table still describes the last successful run; Run DP example to apply changes.</span>}
-          </div>
-          {error && (
-            <p className="ls-error" role="alert">
-              {error}
-            </p>
-          )}
-          {message && <p role="status">{message}</p>}
+                <Play size={16} />
+                Run DP example
+              </button>
+              <button onClick={() => compute(structuredClone(defaultInput))}>
+                <RotateCcw size={16} />
+                Reset default
+              </button>
+              <button onClick={save}>Save DP example</button>
+              {changed && <span role="status">Inputs edited. The table still describes the last successful run; Run DP example to apply changes.</span>}
+            </div>
+            {error && (
+              <p className="ls-error" role="alert">
+                {error}
+              </p>
+            )}
+            {message && <p role="status">{message}</p>}
+          </section>
           {run.status === 'truncated' && (
             <p className="ls-error" role="status">
               {run.message}
@@ -576,7 +579,7 @@ export function DPStudio({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
               </div>
               {renderTable()}
               {selection && (
-                <div className="ls-inspector">
+                <MobileDisclosure className="ls-inspector" title="Inspect current state">
                   <strong>
                     State [{selection.join(',')}] = {formatCell(state.table?.[selection[0]]?.[selection[1]])}
                   </strong>
@@ -591,7 +594,7 @@ export function DPStudio({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
                   >
                     View its calculation
                   </button>
-                </div>
+                </MobileDisclosure>
               )}
               {meta.stack && (
                 <div className="dp-stack">
@@ -871,7 +874,7 @@ export function DPSuiteLearning({ module, tab, onTab }: { module: AlgorithmModul
   )
 }
 export function DPLessonPage({ module, completed, toggleCompleted }: { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }) {
-  const [tab, setTab] = useState<LearningTab>('Learn'),
+  const [tab, setTab] = useState<LearningTab>('Visualization'),
     lesson = allDPLessons.find((l) => l.id === module.id)
   return (
     <div className="lesson-surface dp-page daa-workspace compact-daa" data-learning-tab={tab}>

@@ -71,12 +71,13 @@ export function PenguinVisualization({
   const min = Math.min(0, ...values),
     max = Math.max(0, ...values),
     equal = items.every((i) => i.value === items[0]?.value)
-  const slot = Math.max(32, width / Math.max(1, items.length)),
+  const columns = Math.max(1, Math.min(items.length, Math.floor(width / 56)))
+  const slot = width / columns,
     maxHeight = Math.min(240, (slot - 8) * 2),
     minHeight = Math.min(30, maxHeight * 0.45)
   const selectedCharacter = sortingCharacters.find((option) => option.id === character) ?? sortingCharacters[0]
   const countMode = selectedCharacter.id !== 'penguins'
-  const countLimit = Math.min(100, Math.max(1, Math.floor((slot - 8) / 14)) * 14)
+  const countLimit = 1000
   return (
     <div
       ref={ref}
@@ -84,7 +85,7 @@ export function PenguinVisualization({
       data-motion={noMotion ? 'off' : quality === 'simple' ? 'simple' : 'full'}
       aria-label={`${selectedCharacter.name} array visualization`}
     >
-      <div className="penguin-stage" style={{ width: Math.max(width, items.length * 32) }}>
+      <div className="penguin-stage" style={{ width: '100%' }}>
         {items.map((item) => {
           const sorted = step?.type === 'complete' || item.index >= items.length - sortedCount
           const active = step?.highlights.indices?.includes(item.index)
@@ -166,8 +167,8 @@ export function PenguinVisualization({
       </div>
       {countMode && (
         <p className="penguin-scale-note">
-          One {selectedCharacter.icon} = one whole unit. Large collections show a “+” remainder to keep the view readable. Negative values show their magnitude;
-          the signed label is exact.
+          One {selectedCharacter.icon} = one whole unit. Collections above 1,000 show a “+” remainder. Negative values show their magnitude; the signed label is
+          exact.
         </p>
       )}
       {items.some((i) => i.value < 0) && (
@@ -177,7 +178,7 @@ export function PenguinVisualization({
             : 'Signed scale: smaller values stand shorter; all penguins share one baseline. Labels retain the exact signed values.'}
         </p>
       )}
-      {items.length * 32 > width && <p className="penguin-scale-note">Scroll horizontally to inspect all values; slots keep a minimum width of 32 px.</p>}
+
       {showStateComparison && step && (
         <div className="state-comparison">
           <span>Before: {(step.beforeState ?? []).join(', ')}</span>

@@ -201,7 +201,6 @@ export function TopBar({
           <Download size={16} />
           Export
         </button>
-        <span className="pwa-status">Offline ready</span>
         <button
           className="btn-save"
           aria-label={saving ? 'Saving...' : 'Save'}

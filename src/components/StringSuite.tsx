@@ -1,3 +1,4 @@
+import { InputAccessButton } from './InputAccessButton'
 import { useEffect, useState } from 'react'
 import {
   Activity,
@@ -217,6 +218,7 @@ export function StringSuite() {
                 {t}
               </button>
             ))}
+            <InputAccessButton onOpen={() => setTab('Visualize')} />
             <button className="ss-studied" onClick={() => setStudied(!studied)}>
               {studied ? <Check /> : <Bookmark />}
               {studied ? 'Studied' : 'Mark as studied'}
@@ -489,7 +491,7 @@ export function StringSuite() {
                 <div className="ss-input-actions">
                   <button className="ss-primary" onClick={run}>
                     <Play fill="currentColor" />
-                    Run
+                    Run algorithm
                   </button>
                   <button onClick={() => copy(input)}>
                     <Copy />

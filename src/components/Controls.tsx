@@ -42,7 +42,7 @@ export function Controls({
         playing={playing}
         speed={speed}
         disabledReason={disabledReason}
-        playLabel={activeCategory === 'Sorting' ? 'Sort' : activeCategory === 'Searching' ? 'Search' : 'Run'}
+        playLabel={activeCategory === 'Sorting' ? 'Run sort' : activeCategory === 'Searching' ? 'Run search' : 'Run algorithm'}
         labels={{ first: 'Jump to first step', previous: 'Step backward', next: 'Step forward', last: 'Jump to last step' }}
         onNavigate={(index) => {
           setPlaying(false)

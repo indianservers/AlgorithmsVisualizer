@@ -1,3 +1,6 @@
+import { AlgorithmStudio, CodeExecutionPanel } from '../studio/AlgorithmStudio'
+import { isStudioId } from '../studio/engine'
+import { MobileDisclosure } from './MobileDisclosure'
 import { ViewportCanvas } from './ViewportCanvas'
 import { motion } from 'framer-motion'
 import { Home, Search, Shuffle } from 'lucide-react'
@@ -352,10 +355,47 @@ export function Visualizer({
     )
   }
 
+  if (isStudioId(activeModule.id) && learningTab === 'Code')
+    return (
+      <section className="studio-lesson">
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <CodeExecutionPanel id={activeModule.id} step={currentStep as import('../studio/trace').StudioStep} />
+      </section>
+    )
+
+  if (isStudioId(activeModule.id) && learningTab === 'Visualization')
+    return (
+      <section className="studio-lesson" data-learning-tab={learningTab}>
+        <LessonTabs active={learningTab} onChange={setLearningTab} />
+        <AlgorithmStudio
+          key={activeModule.id}
+          module={activeModule}
+          input={input}
+          inputText={inputText}
+          target={target}
+          size={size}
+          step={currentStep}
+          controls={controls}
+          reducedMotion={reducedMotion || animationQuality === 'off'}
+          disabledReason={disabledReason}
+          modules={filteredModules}
+          setInput={setInputText}
+          setTarget={setTarget}
+          setSize={setSize}
+          preset={updateRandom}
+          reset={resetPlayback}
+          copy={copyText}
+          csv={stepLogCsv}
+          download={downloadText}
+          canvasRef={canvasRef}
+        />
+      </section>
+    )
+
   return (
     <section className="lab-grid" data-learning-tab={learningTab}>
       <LessonTabs active={learningTab} onChange={setLearningTab} />
-      <section className="workbench-input" aria-label="Problem Input">
+      <MobileDisclosure key={activeModule.id} className="workbench-input" defaultOpen title="Edit problem input">
         <h2>Problem Input</h2>
         {activeModule.visualMode === 'Array' && activeCategory !== 'Data Structures' && (
           <div className={`input-strip ${isBubble ? 'bubble-compact' : ''}`}>
@@ -727,7 +767,7 @@ export function Visualizer({
             </button>
           </section>
         </details>
-      </section>
+      </MobileDisclosure>
       <section className="canvas-zone">
         {learningTab === 'Visualization' && suiteLinks[activeId] && (
           <div className="daa-suite-notice">

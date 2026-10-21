@@ -1,3 +1,4 @@
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { useEffect, useId, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BookOpen, ChevronLeft, ChevronRight, GitBranch, Lightbulb, Play, RotateCcw, Target } from 'lucide-react'
@@ -497,100 +498,102 @@ function BacktrackingLab({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
       )}
       {interactive && (
         <>
-          <div className="bt-input-heading">
-            <h3>Editable example</h3>
-            <label>
-              Load a worked example
-              <select
-                aria-label="Backtracking example preset"
-                value=""
-                onChange={(e) => {
-                  const next = e.target.value === 'default' ? defaults : profile.examples[Number(e.target.value)]?.input
-                  if (next) compute(next)
+          <section className="problem-input-panel learning-input-panel">
+            <div className="bt-input-heading">
+              <h3>Problem Input</h3>
+              <label>
+                Load a worked example
+                <select
+                  aria-label="Backtracking example preset"
+                  value=""
+                  onChange={(e) => {
+                    const next = e.target.value === 'default' ? defaults : profile.examples[Number(e.target.value)]?.input
+                    if (next) compute(next)
+                  }}
+                >
+                  <option value="">Choose a preset…</option>
+                  <option value="default">Default worked example</option>
+                  {profile.examples.map((p, i) => (
+                    <option key={p.name} value={i}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="bt-fields">
+              {Object.entries(defaults).map(([key, value]) => (
+                <label key={key}>
+                  {btFieldNames[key]}
+                  {Array.isArray(value) ? (
+                    <textarea
+                      rows={5}
+                      aria-label={`Backtracking ${btFieldNames[key]}`}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  ) : typeof value === 'boolean' ? (
+                    <select
+                      aria-label={`Backtracking ${btFieldNames[key]}`}
+                      value={fields[key]}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    >
+                      <option value="true">Directed</option>
+                      <option value="false">Undirected</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={`Backtracking ${btFieldNames[key]}`}
+                      value={fields[key]}
+                      type={typeof value === 'number' ? 'number' : 'text'}
+                      onChange={(e) => {
+                        setFields({ ...fields, [key]: e.target.value })
+                        setPlaying(false)
+                      }}
+                    />
+                  )}
+                </label>
+              ))}
+            </div>
+            <p className="bt-help">{profile.help}</p>
+            <div className="ls-operations">
+              <button
+                className="ls-primary"
+                onClick={() => {
+                  try {
+                    compute(parseBTFields(fields, defaults))
+                  } catch (e) {
+                    setError(e instanceof Error ? e.message : 'Check the fields.')
+                    setPlaying(false)
+                  }
                 }}
               >
-                <option value="">Choose a preset…</option>
-                <option value="default">Default worked example</option>
-                {profile.examples.map((p, i) => (
-                  <option key={p.name} value={i}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div className="bt-fields">
-            {Object.entries(defaults).map(([key, value]) => (
-              <label key={key}>
-                {btFieldNames[key]}
-                {key === 'edges' ? (
-                  <textarea
-                    rows={5}
-                    aria-label={`Backtracking ${btFieldNames[key]}`}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                ) : typeof value === 'boolean' ? (
-                  <select
-                    aria-label={`Backtracking ${btFieldNames[key]}`}
-                    value={fields[key]}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  >
-                    <option value="true">Directed</option>
-                    <option value="false">Undirected</option>
-                  </select>
-                ) : (
-                  <input
-                    aria-label={`Backtracking ${btFieldNames[key]}`}
-                    value={fields[key]}
-                    type={typeof value === 'number' ? 'number' : 'text'}
-                    onChange={(e) => {
-                      setFields({ ...fields, [key]: e.target.value })
-                      setPlaying(false)
-                    }}
-                  />
-                )}
-              </label>
-            ))}
-          </div>
-          <p className="bt-help">{profile.help}</p>
-          <div className="ls-operations">
-            <button
-              className="ls-primary"
-              onClick={() => {
-                try {
-                  compute(parseBTFields(fields, defaults))
-                } catch (e) {
-                  setError(e instanceof Error ? e.message : 'Check the fields.')
-                  setPlaying(false)
-                }
-              }}
-            >
-              <Play size={16} />
-              Run backtracking example
-            </button>
-            <button onClick={() => compute(structuredClone(defaults))}>
-              <RotateCcw size={16} />
-              Reset default
-            </button>
-            <button onClick={save}>Save backtracking example</button>
-            <button onClick={exportTrace}>Export backtracking trace</button>
-          </div>
-          {changed && (
-            <p role="status">Inputs edited. Run backtracking example to apply changes; the trace and solutions still reflect the last successful run.</p>
-          )}
-          {error && (
-            <p className="ls-error" role="alert">
-              {error}
-            </p>
-          )}
-          {notice && <p role="status">{notice}</p>}
+                <Play size={16} />
+                Run backtracking example
+              </button>
+              <button onClick={() => compute(structuredClone(defaults))}>
+                <RotateCcw size={16} />
+                Reset default
+              </button>
+              <button onClick={save}>Save backtracking example</button>
+              <button onClick={exportTrace}>Export backtracking trace</button>
+            </div>
+            {changed && (
+              <p role="status">Inputs edited. Run backtracking example to apply changes; the trace and solutions still reflect the last successful run.</p>
+            )}
+            {error && (
+              <p className="ls-error" role="alert">
+                {error}
+              </p>
+            )}
+            {notice && <p role="status">{notice}</p>}
+          </section>
           {run.status === 'truncated' && (
             <p className="bt-truncation" role="status">
               Teaching trace limited to {run.steps.length} events. The search and computed solutions are complete; the timeline is only a partial prefix. Use
@@ -734,7 +737,7 @@ function BacktrackingLab({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
         </>
       )}
       {inspect !== undefined && ['Learn', 'Visualization', 'Practice', 'Experiments'].includes(tab) && (
-        <div className="ls-inspector">
+        <MobileDisclosure className="ls-inspector" title="Inspect current state">
           <strong>
             {input.vertices
               ? `Vertex ${inspect}`
@@ -749,7 +752,7 @@ function BacktrackingLab({ lesson, tab, onTab }: { lesson: Lesson; tab: Learning
                 ? `Adjacent vertices: ${[...new Set(input.edges!.flatMap((e) => (e.from === inspect ? [e.to] : (!input.directed || input.colors !== undefined) && e.to === inspect ? [e.from] : [])))].join(', ') || 'none'}. Weights do not affect feasibility.`
                 : 'The solver includes or excludes this original index exactly once on each complete decision path.'}
           </p>
-        </div>
+        </MobileDisclosure>
       )}
       {tab === 'Practice' && (
         <div className="bt-proof">
@@ -871,7 +874,7 @@ export function BacktrackingLessonPage({
   completed: string[]
   toggleCompleted: (id: string) => void
 }) {
-  const [tab, setTab] = useState<LearningTab>('Learn'),
+  const [tab, setTab] = useState<LearningTab>('Visualization'),
     lesson = lessons.find((l) => l.id === module.id)
   return (
     <div className="lesson-surface bt-page daa-workspace compact-daa" data-learning-tab={tab}>

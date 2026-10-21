@@ -15,7 +15,9 @@
     "test": "vitest run --config vitest.config.ts",
     "test:budget": "node scripts/check-bundle-budget.mjs",
     "test:visual": "playwright test",
-    "test:visual:update": "playwright test --update-snapshots"
+    "test:visual:update": "playwright test --update-snapshots",
+    "studio:generate": "node scripts/generate-studio-sources.mjs && node scripts/generate-studio-languages.mjs",
+    "test:studio-languages": "python scripts/verify-studio-languages.py"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,css,json,md,yml,yaml}": [

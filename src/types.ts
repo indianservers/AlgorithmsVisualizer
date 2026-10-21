@@ -50,6 +50,7 @@ export type AlgorithmCategory =
   | 'Games'
 
 export type AlgorithmModule = {
+  executionStudio?: boolean
   lessonId?: string
   coverage?: 'complete' | 'partial' | 'missing'
   typedRunner?: (input: import('./daa/types').DaaInput) => import('./daa/types').DaaRun

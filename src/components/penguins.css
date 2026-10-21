@@ -473,3 +473,23 @@
     transition: none !important;
   }
 }
+/* Character rows grow with their contents; the page owns vertical scrolling. */
+.penguin-viewport {
+  overflow: visible;
+}
+.penguin-stage {
+  flex-wrap: wrap;
+  row-gap: 28px;
+  width: 100%;
+}
+.penguin-standing {
+  height: auto;
+  min-height: 245px;
+  padding-top: 28px;
+}
+.penguin-stage::before {
+  display: none;
+}
+.count-icon-grid {
+  max-width: 100%;
+}

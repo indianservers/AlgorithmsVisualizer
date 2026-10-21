@@ -1,0 +1,321 @@
+/* A consistent, visible place to edit algorithm data across every workspace. */
+.app-shell .lesson-tabs .input-access-button,
+.input-access-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #b4d4ff;
+  border-radius: 8px;
+  background: #eaf4ff;
+  color: #075fc7;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.app-shell .lesson-tabs .input-access-button {
+  margin-left: auto;
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  box-shadow: -6px 0 10px #fff;
+}
+.problem-input-panel,
+.learning-input-panel {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  scroll-margin-top: 16px;
+}
+.problem-input-panel {
+  padding: 18px;
+  border: 1px solid #dbe8fa;
+  border-radius: 14px;
+  background: #fff;
+  color: #172f55;
+}
+.problem-input-panel h2,
+.problem-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+.problem-input-panel h2 svg {
+  margin-left: auto;
+  color: #5a7bab;
+}
+.problem-input-hint {
+  color: #677d9e;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+.problem-input-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+.problem-input-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4e688e;
+}
+.problem-input-fields .problem-field-wide {
+  grid-column: 1 / -1;
+}
+.problem-input-fields :is(input, textarea, select),
+.app-shell .problem-input-panel :is(input:not([type='range']):not([type='checkbox']), textarea, select) {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cedff4;
+  border-radius: 8px;
+  background: #fcfdff;
+  color: #18365e;
+  font:
+    14px/1.6 ui-monospace,
+    Consolas,
+    monospace;
+}
+.problem-input-fields textarea,
+.app-shell .problem-input-panel textarea,
+.app-shell .daa-input-card textarea,
+.app-shell .workbench-input textarea {
+  min-height: 125px;
+  resize: vertical;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.problem-input-fields small {
+  font:
+    11px/1.5 ui-sans-serif,
+    sans-serif;
+  color: #7c8da7;
+}
+.problem-input-fields [aria-invalid='true'] {
+  border-color: #d44c4c;
+}
+.problem-field-error {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #b23737 !important;
+}
+.problem-input-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.problem-input-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 12px;
+  min-height: 44px;
+  border: 1px solid #cbdff9;
+  border-radius: 8px;
+  color: #285b9a;
+  background: #f5f9ff;
+  cursor: pointer;
+  font-size: 12px;
+}
+.problem-input-actions .problem-run {
+  background: #0877ff;
+  border-color: #0877ff;
+  color: #fff;
+  font-weight: 700;
+  flex: 1 1 160px;
+}
+.problem-input-actions .problem-run:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.problem-input-status {
+  color: #806221;
+  background: #fff8e7;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.problem-advanced {
+  margin-top: 12px;
+}
+.problem-advanced summary {
+  font-size: 12px;
+  color: #58769e;
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.problem-example-size {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.problem-example-size input {
+  width: 100%;
+}
+.problem-panel-title {
+  flex-basis: 100%;
+  grid-column: 1 / -1;
+}
+.learning-input-panel {
+  margin-block: 12px;
+}
+.learning-input-panel .gr-input-heading,
+.learning-input-panel .bt-input-heading,
+.learning-input-panel .dp-input-heading {
+  margin-top: 0;
+}
+.app-shell .compact-daa .daa-input-card {
+  border-color: #dbe8fa;
+  background: #fff;
+}
+.app-shell .compact-daa .daa-input-card .problem-input-fields {
+  margin-top: 12px;
+}
+.app-shell .compact-daa .daa-input-card .daa-actions > button:first-child {
+  background: #0877ff;
+  color: white;
+  padding: 11px 18px;
+  min-height: 44px;
+  font-weight: 700;
+}
+.app-shell .compact-daa .daa-input-card .problem-input-fields input {
+  height: auto;
+}
+.target-visual > .tuv-problem-input {
+  width: 100%;
+}
+.target-visual:has(> .tuv-problem-input) .tuv-main {
+  grid-template-columns: minmax(0, 1fr);
+}
+.target-visual:has(> .tuv-problem-input) > .tuv-problem-input {
+  margin: 0;
+}
+@media (min-width: 1180px) {
+  .target-visual:has(> .tuv-problem-input) {
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 29vw, 410px);
+    align-items: start;
+    column-gap: 16px;
+  }
+  .target-visual:has(> .tuv-problem-input) > * {
+    grid-column: 1;
+  }
+  .target-visual:has(> .tuv-problem-input) > .tuv-title {
+    grid-row: 1;
+  }
+  .target-visual:has(> .tuv-problem-input) > .tuv-problem-input {
+    grid-column: 2;
+    grid-row: 1 / span 8;
+    position: sticky;
+    top: 16px;
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+  }
+  .app-shell .compact-daa .daa-interactive-layout {
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 29vw, 410px);
+  }
+}
+@media (max-width: 700px) {
+  .app-shell .problem-input-panel {
+    padding: 12px;
+  }
+  .app-shell .problem-input-panel > summary {
+    font-size: 16px;
+    color: #1c579d;
+  }
+  .app-shell .problem-input-panel > summary + h2 {
+    display: none;
+  }
+  .problem-input-hint {
+    margin-top: 8px;
+  }
+  .problem-input-actions .problem-run {
+    flex-basis: 100%;
+  }
+  .problem-input-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .target-visual > .tuv-problem-input {
+    order: 0;
+  }
+}
+[data-theme='dark'] .problem-input-panel {
+  color: #e1ecff;
+  background: #192f49;
+  border-color: #365276;
+}
+[data-theme='dark'] .problem-input-fields label {
+  color: #c1d3ef;
+}
+[data-theme='dark'] .problem-input-fields :is(input, textarea, select) {
+  background: #12263d;
+  color: #e0edff;
+  border-color: #456185;
+}
+
+.lesson-navigation {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  grid-column: 1 / -1;
+  margin-bottom: 10px;
+}
+.app-shell .lesson-navigation > .lesson-tabs {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+.lesson-navigation > .input-access-button {
+  flex: 0 0 auto;
+  min-height: 44px;
+}
+
+.problem-edges {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #dce7f7;
+  border-radius: 9px;
+}
+.problem-edges legend {
+  padding: 0 4px;
+  color: #4e688e;
+  font-size: 13px;
+  font-weight: 600;
+}
+.problem-edge-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 32px;
+  align-items: end;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.problem-edge-row label span {
+  font-size: 11px;
+}
+.problem-edges button {
+  min-height: 44px;
+  padding: 8px;
+  border: 1px solid #ccdef7;
+  border-radius: 6px;
+  background: #f2f7ff;
+  color: #225ea7;
+  cursor: pointer;
+}

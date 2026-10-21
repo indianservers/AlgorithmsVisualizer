@@ -25,3 +25,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Local compiler verification artifacts
+artifacts/studio-language-check/

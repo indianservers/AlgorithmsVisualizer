@@ -1,4 +1,5 @@
 export const sortingCharacters = [
+  { id: 'dolphins', name: 'Dolphins', icon: '🐬' },
   { id: 'penguins', name: 'Penguins', icon: '🐧' },
   { id: 'bananas', name: 'Bananas', icon: '🍌' },
   { id: 'apples', name: 'Apples', icon: '🍎' },

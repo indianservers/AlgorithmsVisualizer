@@ -1,3 +1,4 @@
+import { InputAccessButton } from './InputAccessButton'
 import type { ReactNode } from 'react'
 import type { LearningTab } from '../types'
 
@@ -13,13 +14,16 @@ export function LessonTabs({
   tabs?: LearningTab[]
 }) {
   return (
-    <nav className="lesson-tabs" aria-label="Algorithm sections">
-      {tabs.map((tab) => (
-        <button type="button" key={tab} aria-pressed={active === tab} onClick={() => onChange(tab)}>
-          {icons?.[tab]}
-          {tab}
-        </button>
-      ))}
-    </nav>
+    <div className="lesson-navigation">
+      <nav className="lesson-tabs" aria-label="Algorithm sections">
+        {tabs.map((tab) => (
+          <button type="button" key={tab} aria-pressed={active === tab} onClick={() => onChange(tab)}>
+            {icons?.[tab]}
+            {tab}
+          </button>
+        ))}
+      </nav>
+      <InputAccessButton onOpen={() => onChange('Visualization')} />
+    </div>
   )
 }

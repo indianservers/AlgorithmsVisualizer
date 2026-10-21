@@ -1,3 +1,5 @@
+import { ProblemInputFields } from '../components/ProblemInputFields'
+import { MobileDisclosure } from '../components/MobileDisclosure'
 import { CompactLessonHeader } from '../components/CompactLessonHeader'
 import { TimelineToolbar } from '../components/TimelineToolbar'
 import { ViewportCanvas } from '../components/ViewportCanvas'
@@ -61,13 +63,16 @@ function ProblemEditor({
   graphStyle = false,
   traversalStyle = false,
   bfsStyle = false,
+  onValidityChange,
 }: {
   input: string
   onChange: (value: string) => void
   graphStyle?: boolean
   traversalStyle?: boolean
   bfsStyle?: boolean
+  onValidityChange?: (error: string) => void
 }) {
+  if (!graphStyle && !traversalStyle && !bfsStyle) return <ProblemInputFields draft={input} onChange={onChange} onValidityChange={onValidityChange} />
   let parsed: Record<string, unknown>
   try {
     parsed = JSON.parse(input)
@@ -596,8 +601,9 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
     [index, setIndex] = useState(0),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(600),
-    [selectedTab, setTab] = useState<LearningTab>(targetUiLesson || lesson.id === 'dijkstra' || isTraversalStudio ? 'Visualization' : 'Learn'),
+    [selectedTab, setTab] = useState<LearningTab>('Visualization'),
     [editorVersion, setEditorVersion] = useState(0),
+    [editorError, setEditorError] = useState(''),
     [answer, setAnswer] = useState(false)
   const [experiments, setExperimentState] = useState<Experiment[]>(() => {
     try {
@@ -629,6 +635,10 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
     return () => window.clearTimeout(timer)
   }, [playing, run, index, last, speed])
   function start() {
+    if (editorError) {
+      setError(editorError)
+      return
+    }
     try {
       const input: DaaInput = JSON.parse(draft)
       const result = executeLesson(lesson, input)
@@ -762,9 +772,9 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
       {tab === 'Visualization' && targetUiLesson && <TargetLessonVisualization lesson={lesson} />}
       {tab === 'Visualization' && !targetUiLesson && (
         <div className="daa-interactive-layout">
-          <section className="daa-card daa-input-card">
+          <MobileDisclosure className="daa-card daa-input-card" defaultOpen title="Edit input and run algorithm">
             <div>
-              <h2>{isTraversalStudio && <Settings size={22} />}Editable problem input</h2>
+              <h2>{isTraversalStudio && <Settings size={22} />}Problem Input</h2>
               <p>
                 {isBfs
                   ? 'Zero-based vertices and item indices; edit the fields below, then run. Validation errors appear below.'
@@ -772,7 +782,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     ? 'Create your own graph, edit parameters, and run DFS.'
                     : lesson.id === 'dijkstra'
                       ? 'Create your own graph, edit parameters, and run Dijkstra’s algorithm.'
-                      : 'Zero-based vertices and item indices; k is a one-based selection rank. Edit the named JSON fields, then run. Validation errors appear below.'}
+                      : 'Edit the named fields below, then choose Run algorithm. Paste lists with commas, spaces, or new lines. Selection rank k starts at 1.'}
               </p>
               {isBfs && (
                 <select
@@ -807,6 +817,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                             }
                     setDraft(JSON.stringify(example, null, 2))
                     setEditorVersion((version) => version + 1)
+                    setEditorError('')
                     setError('')
                   }}
                 >
@@ -822,17 +833,27 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                 bfsStyle={isBfs}
                 traversalStyle={isTraversalStudio}
                 graphStyle={lesson.id === 'dijkstra'}
-                key={lesson.id + editorVersion + JSON.stringify(usedInput)}
+                key={lesson.id + editorVersion}
                 input={draft}
                 onChange={setDraft}
+                onValidityChange={setEditorError}
               />
               <details>
                 <summary>Advanced: edit full JSON input</summary>
                 <label htmlFor="daa-input">Problem input (JSON)</label>
-                <textarea id="daa-input" value={draft} spellCheck={false} onChange={(e) => setDraft(e.target.value)} rows={12} />
+                <textarea
+                  id="daa-input"
+                  value={draft}
+                  spellCheck={false}
+                  onChange={(e) => {
+                    setEditorError('')
+                    setDraft(e.target.value)
+                  }}
+                  rows={12}
+                />
               </details>
               <div className="daa-actions">
-                <button aria-label="Run algorithm" type="button" onClick={start}>
+                <button aria-label="Run algorithm" type="button" onClick={start} disabled={!!editorError}>
                   Run algorithm
                 </button>
                 <button
@@ -841,6 +862,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                   onClick={() => {
                     setDraft(JSON.stringify(lesson.defaultInput, null, 2))
                     setEditorVersion((version) => version + 1)
+                    setEditorError('')
                     setError('')
                   }}
                 >
@@ -883,7 +905,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
               </dl>
               <p>{lesson.constraints}</p>
             </details>
-          </section>
+          </MobileDisclosure>
           {run && (
             <section className="daa-card daa-timeline-card">
               <h2>

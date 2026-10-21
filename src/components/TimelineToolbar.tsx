@@ -56,6 +56,7 @@ export function TimelineToolbar({
           onClick={onPlay}
         >
           {playing ? <Pause size={16} /> : <Play size={16} fill="currentColor" />}
+          <span>{playing ? 'Pause' : (playLabel ?? 'Play')}</span>
         </button>
         <button
           type="button"
