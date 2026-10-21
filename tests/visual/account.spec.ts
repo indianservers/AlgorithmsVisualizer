@@ -63,7 +63,8 @@ test('guest popup preserves lesson, keyboard focus and central return URL', asyn
   await trigger.click()
   await expect(page.locator('#account-dialog')).toBeVisible()
   const fallback = new URL((await page.locator('#central-login').getAttribute('href')) as string)
-  expect(fallback.searchParams.has('returnTo')).toBe(false) // localhost is never a trusted return destination
+  if (origin() === 'https://algorithms.aimersociety.com') expect(fallback.searchParams.get('returnTo')).toBe(page.url())
+  else expect(fallback.searchParams.has('returnTo')).toBe(false) // Localhost is never a trusted return destination.
   await page.keyboard.press('Escape')
   await expect(trigger).toBeFocused()
   await expect(page).toHaveURL(/#\/searching\/binary-search$/)
