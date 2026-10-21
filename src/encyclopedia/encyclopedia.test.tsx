@@ -29,7 +29,7 @@ describe('encyclopedia coverage and semantics', () => {
       expect(metadataHtml(meta)).toContain('application/ld+json')
     }
     expect(canonicals.size).toBe(allModules.length)
-  })
+  }, 15000)
   it('distinguishes selection comparison counts, optimized bubble best case, and binary insertion movement', () => {
     const get = (id: string) => encyclopediaFor(allModules.find((m) => m.id === id)!)
     expect(get('selection-sort').analysis).toContain('n(n−1)/2')

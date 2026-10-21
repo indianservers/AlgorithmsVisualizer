@@ -18,3 +18,9 @@ Inspected production screenshots of selection sort in English (desktop), Telugu 
 The registered locales are supported by the engine, not fully translated or linguistically certified. Target dictionaries contain drafts and sparse shared UI coverage; unreviewed/missing technical explanations remain the exact English source. See `LOCALIZATION_STATUS.md` and `coverage.json`. Native-speaker review, complete Phase 1 target copy and cross-platform font inspection remain outstanding. Do not interpret passing functionality tests as linguistic approval.
 
 No algorithm implementation, kernel or numeric calculation files were changed. Browser checks compare route, dataset, array order, timeline position and rendered source code before and after language changes; they also check saved language restoration, invalid/cleared storage, missing fallbacks, same-origin lazy assets, keyboard operation, RTL and native account dialogs.
+
+## Live deployment verification
+
+The deployed main commit passed all 12 localization checks against the production domain on desktop and mobile. A follow-up check found structured Greedy array textareas inheriting RTL. The fix keeps Greedy, dynamic-programming and backtracking structured editors LTR; two additional browser cases verify exact input preservation and LTR numeric order in both Arabic and Urdu. This verification does not certify target-language prose or claim complete translation coverage.
+
+The complete-catalog SSR test exceeded its old five-second timeout on a busy local run (5.17 seconds). Its timeout is now 15 seconds because it renders every article with localization subscriptions; all content, section and canonical assertions remain unchanged.

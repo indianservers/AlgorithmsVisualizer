@@ -139,3 +139,15 @@ test('standalone Strings header and inputs fit a fresh phone visit in multiple l
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), language).toBe(true)
   }
 })
+
+test('RTL structured dataset editors retain left-to-right numeric order and exact input', async ({ page }) => {
+  await page.goto('/greedy/greedy-suite')
+  const input = page.locator('.gr-fields textarea').first()
+  const before = await input.inputValue()
+  for (const language of ['Arabic', 'Urdu']) {
+    await choose(page, language)
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+    await expect(input).toHaveCSS('direction', 'ltr')
+    expect(await input.inputValue()).toBe(before)
+  }
+})

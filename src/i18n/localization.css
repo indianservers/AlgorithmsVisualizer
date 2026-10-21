@@ -288,3 +288,10 @@ html[dir='rtl'] :is(.ss-fields input, .ss-fields textarea) {
   direction: ltr;
   unicode-bidi: isolate;
 }
+
+/* Structured array editors retain numeric order under RTL labels. */
+html[dir='rtl'] :is(.gr-fields textarea, .dp-fields textarea, .bt-fields textarea) {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+}
