@@ -1,3 +1,5 @@
+import { sitemapMetadata } from '../sitemap/metadata'
+import { sitemapLocaleFromPath } from '../sitemap/routes'
 // @localized-render
 import { tx, useLocaleRender } from '../i18n/render'
 import { useEffect } from 'react'
@@ -15,19 +17,23 @@ export function PageMetadata() {
     const category = Object.entries(categoryPages).find(([, page]) => page.slug === parts[0])
     const module = allModules.find((m) => m.id === parts[1] && m.category === category?.[0])
     const learn = parts[2] === 'learn'
-    const meta = module
-      ? articleMetadata(module, learn)
-      : {
-          title:
-            pathname === '/encyclopedia'
-              ? 'Algorithm Encyclopedia — Theory & Examples | AlgoDrishti'
-              : category
-                ? `${category[0]} Algorithms & Theory | AlgoDrishti`
-                : 'AlgoDrishti — Interactive Algorithms & Data Structures',
-          description: 'Explore algorithms and data structures with definitions, theory, worked examples, complexity analysis and interactive visualizations.',
-          url: siteOrigin + pathname,
-          structured: null,
-        }
+    const mapLocale = sitemapLocaleFromPath(pathname)
+    const meta = mapLocale
+      ? sitemapMetadata(mapLocale, (source) => tx(source))
+      : module
+        ? articleMetadata(module, learn)
+        : {
+            title:
+              pathname === '/encyclopedia'
+                ? 'Algorithm Encyclopedia — Theory & Examples | AlgoDrishti'
+                : category
+                  ? `${category[0]} Algorithms & Theory | AlgoDrishti`
+                  : 'AlgoDrishti — Interactive Algorithms & Data Structures',
+            description:
+              'Explore algorithms and data structures with definitions, theory, worked examples, complexity analysis and interactive visualizations.',
+            url: siteOrigin + pathname,
+            structured: null,
+          }
     document.title = tx(meta.title, 'algorithms')
     for (const [selector, attribute, value] of [
       ['meta[name="description"]', 'content', meta.description],
@@ -63,7 +69,7 @@ export function PageMetadata() {
     }
     robots.setAttribute(
       'content',
-      (parts.length > 1 && !module) || (parts.length === 1 && !category && pathname !== '/encyclopedia') ? 'noindex,follow' : 'index,follow',
+      !mapLocale && ((parts.length > 1 && !module) || (parts.length === 1 && !category && pathname !== '/encyclopedia')) ? 'noindex,follow' : 'index,follow',
     )
   }, [pathname, locale])
   return null

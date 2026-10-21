@@ -1,3 +1,4 @@
+import { HomeSiteMap } from '../sitemap/SiteMap'
 // @localized-render
 import { tx, useLocaleRender } from '../i18n/render'
 import { AccountControl } from '../account/AccountControl'
@@ -323,6 +324,7 @@ export function HomeDashboard() {
             </Link>
           </section>
         </div>
+        <HomeSiteMap />
         <footer className="home-footer">
           <strong>{tx('Learn. Visualize. Grow.', 'common')}</strong>
           <span>{tx('Your learning progress and experiments stay in this browser.', 'common')}</span>

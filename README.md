@@ -213,3 +213,7 @@ Do not restore a relative Vite asset base: nested URLs require root-relative ass
 ## Localization
 
 English (India) remains the source default. See [LOCALIZATION_STATUS.md](LOCALIZATION_STATUS.md) for actual locale coverage and outstanding review, and [the contributor guide](docs/localization/README.md) for adding translated UI. Run `npm run i18n:check` for resource validation and `npm run test:localization` for browser behavior. Target dictionaries are partial drafts; English fallback is not counted as translated.
+
+## Sitemap and discovery
+
+The compact home-page topic map links every visualization and theory guide with catalog descriptions. Six localized HTML directories, XML discovery, JSON catalogs and AI reading guides are generated during the build. See [the sitemap guide](docs/SITEMAP.md) for URLs, translation fallbacks and maintenance.

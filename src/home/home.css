@@ -13,6 +13,7 @@
   outline-offset: 4px;
 }
 .home-header {
+  flex-wrap: wrap;
   max-width: 1320px;
   margin: auto;
   padding: 22px 24px;

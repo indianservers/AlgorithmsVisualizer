@@ -13,6 +13,7 @@ export default defineConfig({
         codeSplitting: {
           includeDependenciesRecursively: false,
           groups: [
+            { name: 'sitemap', test: /src[\\/]sitemap[\\/]/, priority: 155 },
             { name: 'localization', test: /src[\\/]i18n[\\/]|node_modules[\\/](?:i18next|react-i18next)[\\/]/, priority: 150 },
             { name: 'encyclopedia', test: /src[\\/]encyclopedia[\\/]/, priority: 125 },
             { name: 'studio-languages', test: /src[\\/]studio[\\/]languages\.generated\.json/, priority: 120 },

@@ -1,0 +1,130 @@
+.site-map {
+  color: var(--ink, #18334f);
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.site-map header {
+  margin-block-end: 12px;
+}
+.site-map h1 {
+  font-size: 24px;
+  margin: 0 0 8px;
+}
+.site-map h2 {
+  font-size: 14px !important;
+  margin: 0 0 6px;
+}
+.site-map p {
+  margin: 4px 0 8px;
+}
+.site-map-note {
+  color: var(--muted, #53647c);
+}
+.site-map a {
+  color: var(--blue, #155fb5) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+}
+.site-map a:hover {
+  text-decoration-thickness: 2px !important;
+}
+.site-map a:focus-visible,
+.site-map summary:focus-visible {
+  outline: 2px solid #4188de;
+  outline-offset: 3px;
+}
+.site-map-languages,
+.site-map-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  padding-block: 8px;
+}
+.site-map-languages [aria-current='page'] {
+  font-weight: 750;
+}
+.site-map-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 24px;
+  margin-block: 14px;
+  align-items: start;
+}
+.site-map-groups details {
+  min-width: 0;
+}
+.site-map summary {
+  cursor: pointer;
+  padding-block: 6px;
+}
+.site-map summary strong {
+  font-size: 12px;
+}
+.site-map summary span {
+  display: block;
+  margin-block-start: 3px;
+  color: var(--muted, #53647c);
+}
+.site-map-category {
+  display: inline-block;
+  padding-block: 6px;
+}
+.site-map ul {
+  padding-inline-start: 17px;
+  margin: 4px 0 12px;
+}
+.site-map li {
+  margin-block-end: 14px;
+  break-inside: avoid;
+}
+.site-map-topic {
+  font-weight: 650;
+}
+.site-map-compact {
+  border-block-start: 1px solid var(--line, #dbe5f0);
+  font-size: 11px;
+}
+.site-map-compact .site-map-groups {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.site-map-page {
+  min-height: 100vh;
+  background: var(--surface, #fff);
+}
+.site-map-brand {
+  display: block;
+  max-width: 1320px;
+  margin: auto;
+  padding: 24px 24px 0;
+  font-size: 20px;
+  color: var(--ink, #18334f);
+  font-weight: 750;
+}
+@media (max-width: 850px) {
+  .site-map-groups,
+  .site-map-compact .site-map-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 500px) {
+  .site-map {
+    padding: 20px 16px;
+    font-size: 12px;
+  }
+  .site-map-groups,
+  .site-map-compact .site-map-groups {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .site-map summary {
+    min-height: 44px;
+  }
+  .site-map-resources a,
+  .site-map-languages a {
+    padding-block: 4px;
+  }
+}

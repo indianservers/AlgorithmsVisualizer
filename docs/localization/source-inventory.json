@@ -1,5 +1,5 @@
 {
-  "sourceFiles": 101,
+  "sourceFiles": 106,
   "occurrences": [
     {
       "file": "src/account/bootstrap.ts",
@@ -38651,7 +38651,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 23,
+      "line": 28,
       "kind": "literal",
       "namespace": "common",
       "key": "s_164f3fbc",
@@ -38659,7 +38659,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 25,
+      "line": 30,
       "kind": "template",
       "namespace": "common",
       "key": "s_3eec3aab",
@@ -38667,7 +38667,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 26,
+      "line": 31,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6e09dd93",
@@ -38675,7 +38675,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 27,
+      "line": 33,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d33dcf9f",
@@ -38683,7 +38683,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 54,
+      "line": 60,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6be360f5",
@@ -38691,7 +38691,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 66,
+      "line": 72,
       "kind": "literal",
       "namespace": "common",
       "key": "s_e4d3a7b3",
@@ -38699,7 +38699,7 @@
     },
     {
       "file": "src/encyclopedia/PageMetadata.tsx",
-      "line": 66,
+      "line": 72,
       "kind": "literal",
       "namespace": "common",
       "key": "s_26363730",
@@ -41875,7 +41875,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 26,
+      "line": 27,
       "kind": "literal",
       "namespace": "common",
       "key": "s_e9971bfe",
@@ -41883,7 +41883,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 27,
+      "line": 28,
       "kind": "literal",
       "namespace": "common",
       "key": "s_8bd808c2",
@@ -41891,7 +41891,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 29,
+      "line": 30,
       "kind": "literal",
       "namespace": "common",
       "key": "s_3a69c0a3",
@@ -41899,7 +41899,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 33,
+      "line": 34,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6d9d9787",
@@ -41907,7 +41907,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 34,
+      "line": 35,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d15bacab",
@@ -41915,7 +41915,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 36,
+      "line": 37,
       "kind": "literal",
       "namespace": "common",
       "key": "s_f92a819c",
@@ -41923,7 +41923,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 40,
+      "line": 41,
       "kind": "literal",
       "namespace": "common",
       "key": "s_532aa8e3",
@@ -41931,7 +41931,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 41,
+      "line": 42,
       "kind": "literal",
       "namespace": "common",
       "key": "s_fd3cfc67",
@@ -41939,7 +41939,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 43,
+      "line": 44,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6eb20734",
@@ -41947,7 +41947,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 72,
+      "line": 73,
       "kind": "template",
       "namespace": "common",
       "key": "s_e52bbb93",
@@ -41955,7 +41955,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 92,
+      "line": 93,
       "kind": "literal",
       "namespace": "common",
       "key": "s_78814c43",
@@ -41963,7 +41963,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 93,
+      "line": 94,
       "kind": "literal",
       "namespace": "common",
       "key": "s_ca3e8540",
@@ -41971,7 +41971,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 96,
+      "line": 97,
       "kind": "literal",
       "namespace": "common",
       "key": "s_9b2b7320",
@@ -41979,7 +41979,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 98,
+      "line": 99,
       "kind": "literal",
       "namespace": "common",
       "key": "s_4d9eb2dc",
@@ -41987,7 +41987,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 100,
+      "line": 101,
       "kind": "literal",
       "namespace": "common",
       "key": "s_67ab1c5e",
@@ -41995,7 +41995,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 103,
+      "line": 104,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6d11d2b3",
@@ -42003,7 +42003,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 103,
+      "line": 104,
       "kind": "literal",
       "namespace": "common",
       "key": "s_11da010b",
@@ -42011,7 +42011,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 109,
+      "line": 110,
       "kind": "literal",
       "namespace": "common",
       "key": "s_8301c106",
@@ -42019,7 +42019,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 117,
+      "line": 118,
       "kind": "literal",
       "namespace": "common",
       "key": "s_9f3a22fe",
@@ -42027,7 +42027,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 120,
+      "line": 121,
       "kind": "literal",
       "namespace": "common",
       "key": "s_e9397b4d",
@@ -42035,7 +42035,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 122,
+      "line": 123,
       "kind": "literal",
       "namespace": "common",
       "key": "s_5804a942",
@@ -42043,7 +42043,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 124,
+      "line": 125,
       "kind": "literal",
       "namespace": "common",
       "key": "s_57d3ebe0",
@@ -42051,7 +42051,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 128,
+      "line": 129,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d8ce9abe",
@@ -42059,7 +42059,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 128,
+      "line": 129,
       "kind": "literal",
       "namespace": "common",
       "key": "s_fe0a5dbe",
@@ -42067,7 +42067,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 132,
+      "line": 133,
       "kind": "literal",
       "namespace": "common",
       "key": "s_532aa8e3",
@@ -42075,7 +42075,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 138,
+      "line": 139,
       "kind": "literal",
       "namespace": "common",
       "key": "s_4ec7c9d5",
@@ -42083,7 +42083,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 145,
+      "line": 146,
       "kind": "literal",
       "namespace": "common",
       "key": "s_584e938d",
@@ -42091,7 +42091,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 148,
+      "line": 149,
       "kind": "literal",
       "namespace": "common",
       "key": "s_71e5fd48",
@@ -42099,7 +42099,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 164,
+      "line": 165,
       "kind": "literal",
       "namespace": "common",
       "key": "s_9fbeae7f",
@@ -42107,7 +42107,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 171,
+      "line": 172,
       "kind": "literal",
       "namespace": "common",
       "key": "s_5e3271d0",
@@ -42115,7 +42115,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 172,
+      "line": 173,
       "kind": "literal",
       "namespace": "common",
       "key": "s_5d7251cc",
@@ -42123,7 +42123,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 177,
+      "line": 178,
       "kind": "literal",
       "namespace": "common",
       "key": "s_fe388a0b",
@@ -42131,7 +42131,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 180,
+      "line": 181,
       "kind": "literal",
       "namespace": "common",
       "key": "s_af08d0cd",
@@ -42139,7 +42139,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 181,
+      "line": 182,
       "kind": "literal",
       "namespace": "common",
       "key": "s_2c055526",
@@ -42147,7 +42147,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 182,
+      "line": 183,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d38e8ea1",
@@ -42155,7 +42155,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 183,
+      "line": 184,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d4a0ba8e",
@@ -42163,7 +42163,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 197,
+      "line": 198,
       "kind": "literal",
       "namespace": "common",
       "key": "s_5a32676",
@@ -42171,7 +42171,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 198,
+      "line": 199,
       "kind": "literal",
       "namespace": "common",
       "key": "s_58762f0f",
@@ -42179,7 +42179,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 200,
+      "line": 201,
       "kind": "literal",
       "namespace": "common",
       "key": "s_2e8310d4",
@@ -42187,7 +42187,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 213,
+      "line": 214,
       "kind": "literal",
       "namespace": "common",
       "key": "s_f8d1d11",
@@ -42195,7 +42195,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 226,
+      "line": 227,
       "kind": "literal",
       "namespace": "common",
       "key": "s_9e83f0dc",
@@ -42203,7 +42203,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 227,
+      "line": 228,
       "kind": "literal",
       "namespace": "common",
       "key": "s_54f9c364",
@@ -42211,7 +42211,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 232,
+      "line": 233,
       "kind": "literal",
       "namespace": "common",
       "key": "s_a9cd557c",
@@ -42219,7 +42219,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 233,
+      "line": 234,
       "kind": "literal",
       "namespace": "common",
       "key": "s_6f6116f0",
@@ -42227,7 +42227,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 244,
+      "line": 245,
       "kind": "literal",
       "namespace": "common",
       "key": "s_bef85da5",
@@ -42235,7 +42235,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 258,
+      "line": 259,
       "kind": "literal",
       "namespace": "common",
       "key": "s_e406b4fc",
@@ -42243,7 +42243,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 264,
+      "line": 265,
       "kind": "literal",
       "namespace": "common",
       "key": "s_617c747e",
@@ -42251,7 +42251,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 272,
+      "line": 273,
       "kind": "literal",
       "namespace": "common",
       "key": "s_64461288",
@@ -42259,7 +42259,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 290,
+      "line": 291,
       "kind": "literal",
       "namespace": "common",
       "key": "s_2dec8fea",
@@ -42267,7 +42267,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 291,
+      "line": 292,
       "kind": "literal",
       "namespace": "common",
       "key": "s_96d0be83",
@@ -42275,7 +42275,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 317,
+      "line": 318,
       "kind": "literal",
       "namespace": "common",
       "key": "s_d184c9ea",
@@ -42283,7 +42283,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 318,
+      "line": 319,
       "kind": "literal",
       "namespace": "common",
       "key": "s_b76875de",
@@ -42291,7 +42291,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 321,
+      "line": 322,
       "kind": "literal",
       "namespace": "common",
       "key": "s_c2ae748e",
@@ -42299,7 +42299,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 327,
+      "line": 329,
       "kind": "literal",
       "namespace": "common",
       "key": "s_f3a5a900",
@@ -42307,7 +42307,7 @@
     },
     {
       "file": "src/home/HomeDashboard.tsx",
-      "line": 328,
+      "line": 330,
       "kind": "literal",
       "namespace": "common",
       "key": "s_841deb5c",
@@ -51635,11 +51635,275 @@
     },
     {
       "file": "src/main.tsx",
-      "line": 12,
+      "line": 13,
       "kind": "literal",
       "namespace": "common",
       "key": "s_43aaf0a1",
       "text": "react-dom/client"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 9,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_65538c99",
+      "text": "Sitemap and topic directory"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 10,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_ae689724",
+      "text": "Find every algorithm, its purpose, an interactive visualization, and a detailed theory guide."
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 11,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_f870c115",
+      "text": "Descriptions not yet translated are shown in English."
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 12,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_3c0c37af",
+      "text": "Visualization"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 13,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_e8106ef0",
+      "text": "Theory guide"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 14,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_52f50eae",
+      "text": "Home"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 15,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_d28758a3",
+      "text": "Sitemap languages"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 16,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_42b97aaf",
+      "text": "Full sitemap"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 17,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_e3f25add",
+      "text": "XML sitemap"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 18,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_a04b4966",
+      "text": "Machine-readable catalog"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 19,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_7afcc4e7",
+      "text": "AI reading guide"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 42,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_78814c43",
+      "text": "AlgoDrishti"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 66,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_a32069a6",
+      "text": "@context"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 67,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_4a84a8a7",
+      "text": "@type"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 67,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_8d63cf2",
+      "text": "CollectionPage"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 68,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_de9f2792",
+      "text": "@id"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 75,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_4a84a8a7",
+      "text": "@type"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 75,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_494ed832",
+      "text": "ItemList"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 80,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_4a84a8a7",
+      "text": "@type"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 80,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_c3ac8d1a",
+      "text": "ListItem"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 83,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_4a84a8a7",
+      "text": "@type"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 83,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_ddea2072",
+      "text": "WebPage"
+    },
+    {
+      "file": "src/sitemap/catalog.ts",
+      "line": 84,
+      "kind": "literal",
+      "namespace": "navigation",
+      "key": "s_de9f2792",
+      "text": "@id"
+    },
+    {
+      "file": "src/sitemap/metadata.ts",
+      "line": 6,
+      "kind": "template",
+      "namespace": "common",
+      "key": "s_2b1e444a",
+      "text": "{{value0}} | AlgoDrishti"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 1,
+      "kind": "literal",
+      "namespace": "common",
+      "key": "s_c0339085",
+      "text": "react-dom/server"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 18,
+      "kind": "literal",
+      "namespace": "common",
+      "key": "s_9aa0e558",
+      "text": "\\u003c"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 22,
+      "kind": "jsx-text",
+      "namespace": "common",
+      "key": "s_78814c43",
+      "text": "AlgoDrishti"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 35,
+      "kind": "template",
+      "namespace": "common",
+      "key": "s_a19afd0",
+      "text": "# AlgoDrishti — {{value0}}\n\n> {{value1}}\n\n{{value2}}\n\n- [{{value3}}]({{value4}})\n- [{{value5}}]({{value6}}/sitemaps/{{value7}}.json)\n\n"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 39,
+      "kind": "template",
+      "namespace": "common",
+      "key": "s_f75fc2b6",
+      "text": "## {{value0}}\n\n{{value1}}\n\n"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 43,
+      "kind": "template",
+      "namespace": "common",
+      "key": "s_d1f368f6",
+      "text": "- [{{value0}}]({{value1}}{{value2}}): {{value3}} [{{value4}}]({{value5}}{{value6}})"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 54,
+      "kind": "literal",
+      "namespace": "common",
+      "key": "s_ae2b6c3d",
+      "text": "\n\n## Other directory languages\n\n"
+    },
+    {
+      "file": "src/sitemap/prerender.tsx",
+      "line": 57,
+      "kind": "template",
+      "namespace": "common",
+      "key": "s_483a0371",
+      "text": "- [{{value0}}]({{value1}}{{value2}})"
+    },
+    {
+      "file": "src/sitemap/SiteMap.tsx",
+      "line": 96,
+      "kind": "literal",
+      "namespace": "common",
+      "key": "s_78814c43",
+      "text": "AlgoDrishti"
     },
     {
       "file": "src/storage/db.ts",

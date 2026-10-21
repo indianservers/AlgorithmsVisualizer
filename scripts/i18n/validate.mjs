@@ -74,7 +74,10 @@ export async function validate() {
     const module = await import('data:text/javascript;base64,' + Buffer.from(output.find((item) => item.type === 'chunk').code).toString('base64'))
     routes = module.routes.map((path) => ({
       path,
-      namespaces: path === '/' || path.endsWith('/learn') || path === '/encyclopedia' ? ['common', 'navigation', 'algorithms', 'messages'] : namespaces,
+      namespaces:
+        path === '/' || path.endsWith('/learn') || path === '/encyclopedia' || path.startsWith('/sitemap')
+          ? ['common', 'navigation', 'algorithms', 'messages']
+          : namespaces,
       renderBindings: 'migrated',
       translationStatus: 'partial in non-English locales',
       englishStatus: 'source preserved',

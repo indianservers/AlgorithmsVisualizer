@@ -15,7 +15,8 @@ test('root opens the home dashboard and preserves algorithm navigation', async (
     .getByRole('link', { name: /Bubble Sort/ })
     .click()
   await expect(page).toHaveURL(/sorting\/bubble-sort/)
-  await expect(page.getByRole('heading', { name: 'Learn Bubble Sort', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Bubble Sort', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Visualization', exact: true })).toHaveAttribute('aria-pressed', 'true')
   if (test.info().project.name === 'mobile') {
     await page.getByRole('button', { name: /Open.*menu|Open navigation/i }).click()
   }

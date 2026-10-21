@@ -9,7 +9,7 @@ let templatesRequest: Promise<void> | undefined
 export function namespacesForRoute(pathname: string): Namespace[] {
   return pathname === '/'
     ? ['common', 'navigation', 'algorithms', 'messages']
-    : pathname.includes('/learn') || pathname === '/encyclopedia'
+    : pathname.includes('/learn') || pathname === '/encyclopedia' || pathname.startsWith('/sitemap')
       ? ['common', 'navigation', 'algorithms', 'messages']
       : ['common', 'navigation', 'controls', 'studios', 'algorithms', 'messages']
 }

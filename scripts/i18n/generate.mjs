@@ -2,6 +2,8 @@ import { readFile, writeFile, mkdir, cp } from 'node:fs/promises'
 import { audit, key } from './audit.mjs'
 const locales = JSON.parse(await readFile('src/i18n/languages.json', 'utf8'))
 const seeds = JSON.parse(await readFile('src/i18n/seed-translations.json', 'utf8'))
+const sitemapSeeds = JSON.parse(await readFile('scripts/i18n/sitemap-translations.json', 'utf8'))
+for (const [locale, entries] of Object.entries(sitemapSeeds)) seeds[locale] = { ...seeds[locale], ...entries }
 const { dictionaries } = await audit()
 const normalize = (value) => value.trim().toLowerCase().replace(/[:.]$/, '')
 for (const [locale] of locales) {

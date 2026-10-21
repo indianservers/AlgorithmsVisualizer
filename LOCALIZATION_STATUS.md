@@ -4,12 +4,12 @@ Default: **English (India), en-IN**. No browser/IP language detection. Source En
 
 ## Inventory
 
-- Discovered routes: **389** (home, directory, categories, visualizations, and Learn articles).
-- Routes with migrated presentation bindings: **389**.
+- Discovered routes: **395** (home, directory, categories, visualizations, and Learn articles).
+- Routes with migrated presentation bindings: **395**.
 - Routes fully translated in every target language: **0**.
-- Routes partially translated in non-English languages: **389**.
-- Source namespace keys: **5783**, from **101** source files.
-- React render files migrated: **51**, with **2992** presentation bindings.
+- Routes partially translated in non-English languages: **395**.
+- Source namespace keys: **5806**, from **106** source files.
+- React render files migrated: **51**, with **2993** presentation bindings.
 - English keys are extracted from actual source, including metadata and native account UI.
 
 ## Translation coverage
@@ -18,47 +18,47 @@ English fallback is never counted as a completed translation. Target resources a
 
 | Locale | Populated translations | Source coverage | English fallbacks | Awaiting native review |
 | --- | ---: | ---: | ---: | ---: |
-| en-IN | 5783 | 100% | 0 | 0 |
-| hi | 340 | 5.88% | 5443 | 340 |
-| te | 340 | 5.88% | 5443 | 340 |
-| ta | 52 | 0.9% | 5731 | 52 |
-| kn | 52 | 0.9% | 5731 | 52 |
-| ml | 52 | 0.9% | 5731 | 52 |
-| mr | 52 | 0.9% | 5731 | 52 |
-| bn | 52 | 0.9% | 5731 | 52 |
-| gu | 52 | 0.9% | 5731 | 52 |
-| pa | 52 | 0.9% | 5731 | 52 |
-| or | 52 | 0.9% | 5731 | 52 |
-| as | 52 | 0.9% | 5731 | 52 |
-| ur | 78 | 1.35% | 5705 | 78 |
-| ru | 340 | 5.88% | 5443 | 340 |
-| fr | 46 | 0.8% | 5737 | 46 |
-| de | 74 | 1.28% | 5709 | 74 |
-| es | 52 | 0.9% | 5731 | 52 |
-| pt | 52 | 0.9% | 5731 | 52 |
-| it | 52 | 0.9% | 5731 | 52 |
-| nl | 48 | 0.83% | 5735 | 48 |
-| pl | 52 | 0.9% | 5731 | 52 |
-| uk | 52 | 0.9% | 5731 | 52 |
-| ro | 52 | 0.9% | 5731 | 52 |
-| el | 52 | 0.9% | 5731 | 52 |
-| cs | 52 | 0.9% | 5731 | 52 |
-| sv | 52 | 0.9% | 5731 | 52 |
-| fi | 52 | 0.9% | 5731 | 52 |
-| hu | 52 | 0.9% | 5731 | 52 |
-| sw | 52 | 0.9% | 5731 | 52 |
-| am | 52 | 0.9% | 5731 | 52 |
-| ha | 49 | 0.85% | 5734 | 49 |
-| yo | 49 | 0.85% | 5734 | 49 |
-| ig | 49 | 0.85% | 5734 | 49 |
-| zu | 52 | 0.9% | 5731 | 52 |
-| xh | 52 | 0.9% | 5731 | 52 |
-| af | 52 | 0.9% | 5731 | 52 |
-| so | 49 | 0.85% | 5734 | 49 |
-| ar | 80 | 1.38% | 5703 | 80 |
-| tr | 52 | 0.9% | 5731 | 52 |
-| id | 50 | 0.86% | 5733 | 50 |
-| vi | 52 | 0.9% | 5731 | 52 |
+| en-IN | 5806 | 100% | 0 | 0 |
+| hi | 367 | 6.32% | 5439 | 367 |
+| te | 367 | 6.32% | 5439 | 367 |
+| ta | 52 | 0.9% | 5754 | 52 |
+| kn | 52 | 0.9% | 5754 | 52 |
+| ml | 52 | 0.9% | 5754 | 52 |
+| mr | 52 | 0.9% | 5754 | 52 |
+| bn | 52 | 0.9% | 5754 | 52 |
+| gu | 52 | 0.9% | 5754 | 52 |
+| pa | 52 | 0.9% | 5754 | 52 |
+| or | 52 | 0.9% | 5754 | 52 |
+| as | 52 | 0.9% | 5754 | 52 |
+| ur | 78 | 1.34% | 5728 | 78 |
+| ru | 367 | 6.32% | 5439 | 367 |
+| fr | 46 | 0.79% | 5760 | 46 |
+| de | 168 | 2.89% | 5638 | 168 |
+| es | 52 | 0.9% | 5754 | 52 |
+| pt | 52 | 0.9% | 5754 | 52 |
+| it | 52 | 0.9% | 5754 | 52 |
+| nl | 48 | 0.83% | 5758 | 48 |
+| pl | 52 | 0.9% | 5754 | 52 |
+| uk | 52 | 0.9% | 5754 | 52 |
+| ro | 52 | 0.9% | 5754 | 52 |
+| el | 52 | 0.9% | 5754 | 52 |
+| cs | 52 | 0.9% | 5754 | 52 |
+| sv | 52 | 0.9% | 5754 | 52 |
+| fi | 52 | 0.9% | 5754 | 52 |
+| hu | 52 | 0.9% | 5754 | 52 |
+| sw | 52 | 0.9% | 5754 | 52 |
+| am | 52 | 0.9% | 5754 | 52 |
+| ha | 49 | 0.84% | 5757 | 49 |
+| yo | 49 | 0.84% | 5757 | 49 |
+| ig | 49 | 0.84% | 5757 | 49 |
+| zu | 52 | 0.9% | 5754 | 52 |
+| xh | 52 | 0.9% | 5754 | 52 |
+| af | 52 | 0.9% | 5754 | 52 |
+| so | 49 | 0.84% | 5757 | 49 |
+| ar | 182 | 3.13% | 5624 | 182 |
+| tr | 52 | 0.9% | 5754 | 52 |
+| id | 50 | 0.86% | 5756 | 50 |
+| vi | 52 | 0.9% | 5754 | 52 |
 
 ## Missing keys and review queue
 
