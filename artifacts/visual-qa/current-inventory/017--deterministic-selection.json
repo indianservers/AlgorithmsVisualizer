@@ -1,0 +1,173 @@
+{
+  "reference": 17,
+  "id": "deterministic-selection",
+  "route": "/divide-and-conquer/deterministic-selection",
+  "fidelity": "not verified",
+  "runtimeErrors": [],
+  "title": "Median-of-Medians Selection",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "scrollWidth": 1672,
+  "headings": [
+    "Groups of Five",
+    "Find Medians of Each Group",
+    "Recursively Select Pivot (Median of Medians)",
+    "Guaranteed Split (≈ 3n/10 on each side)",
+    "Selection Workflow",
+    "Recurrence & Linear-Time Guarantee",
+    "Key Takeaways",
+    "Common Pitfalls",
+    "Pro Tip",
+    "Worked Example: Find the 7th Smallest (1-indexed)",
+    "Correctness and Complexity",
+    "Theory in plain language",
+    "Welcome to AIMER Society",
+    "Check your inbox",
+    "\n        Let’s tailoryour learningjourney!\n      ",
+    "What sparksyour curiosity?"
+  ],
+  "buttons": [
+    {
+      "label": "DAA Concepts",
+      "pressed": null
+    },
+    {
+      "label": "Analysis & Correctness",
+      "pressed": null
+    },
+    {
+      "label": "Divide and Conquer",
+      "pressed": null
+    },
+    {
+      "label": "Branch and Bound",
+      "pressed": null
+    },
+    {
+      "label": "Complexity Theory",
+      "pressed": null
+    },
+    {
+      "label": "DAA Extensions",
+      "pressed": null
+    },
+    {
+      "label": "Sorting",
+      "pressed": null
+    },
+    {
+      "label": "Searching",
+      "pressed": null
+    },
+    {
+      "label": "Data Structures",
+      "pressed": null
+    },
+    {
+      "label": "Graphs",
+      "pressed": null
+    },
+    {
+      "label": "Dynamic Programming",
+      "pressed": null
+    },
+    {
+      "label": "Strings",
+      "pressed": null
+    },
+    {
+      "label": "Number Theory",
+      "pressed": null
+    },
+    {
+      "label": "Backtracking",
+      "pressed": null
+    },
+    {
+      "label": "Greedy",
+      "pressed": null
+    },
+    {
+      "label": "Matrix / Grid",
+      "pressed": null
+    },
+    {
+      "label": "Games",
+      "pressed": null
+    },
+    {
+      "label": "study",
+      "pressed": "true"
+    },
+    {
+      "label": "sim",
+      "pressed": "false"
+    },
+    {
+      "label": "neon",
+      "pressed": "false"
+    },
+    {
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
+      "pressed": "false"
+    },
+    {
+      "label": "Language: English (India)",
+      "pressed": null
+    },
+    {
+      "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
+      "label": "Learn",
+      "pressed": "true"
+    },
+    {
+      "label": "Visualization",
+      "pressed": "false"
+    },
+    {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
+      "label": "Practice",
+      "pressed": "false"
+    },
+    {
+      "label": "Experiments",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Explore this worked example",
+      "pressed": null
+    },
+    {
+      "label": "Key Points",
+      "pressed": "true"
+    },
+    {
+      "label": "Assumptions & Constraints",
+      "pressed": "false"
+    },
+    {
+      "label": "Formulas",
+      "pressed": "false"
+    }
+  ]
+}

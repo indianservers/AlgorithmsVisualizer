@@ -1,0 +1,460 @@
+{
+  "reference": 39,
+  "id": "metric-tsp-approximation",
+  "route": "/daa-extensions/metric-tsp-approximation",
+  "fidelity": "not verified",
+  "runtimeErrors": [],
+  "title": "Metric TSP 2-Approximation",
+  "viewport": {
+    "width": 1586,
+    "height": 992
+  },
+  "scrollWidth": 1586,
+  "headings": [
+    "Build a graph. Explain every decision.",
+    "Theory in plain language",
+    "Worked example",
+    "Assumptions and cost",
+    "Problem Input",
+    "Step 1 of 9",
+    "Predict the next decision",
+    "Adjacency list",
+    "Weighted adjacency matrix",
+    "Construct a counterexample",
+    "Compare on the same graph",
+    "Metric TSP 2-Approximation",
+    "Problem Input ",
+    " Preorder shortcut",
+    "Procedure",
+    " Tour guarantee",
+    "Correctness",
+    "Complexity",
+    "Key insight & pitfalls",
+    "Theory in plain language",
+    "Worked example",
+    "Invariant and guarantee",
+    "Check your understanding",
+    "Welcome to AIMER Society",
+    "Check your inbox",
+    "\n        Let’s tailoryour learningjourney!\n      ",
+    "What sparksyour curiosity?"
+  ],
+  "buttons": [
+    {
+      "label": "DAA Concepts",
+      "pressed": null
+    },
+    {
+      "label": "Analysis & Correctness",
+      "pressed": null
+    },
+    {
+      "label": "Divide and Conquer",
+      "pressed": null
+    },
+    {
+      "label": "Branch and Bound",
+      "pressed": null
+    },
+    {
+      "label": "Complexity Theory",
+      "pressed": null
+    },
+    {
+      "label": "DAA Extensions",
+      "pressed": null
+    },
+    {
+      "label": "Sorting",
+      "pressed": null
+    },
+    {
+      "label": "Searching",
+      "pressed": null
+    },
+    {
+      "label": "Data Structures",
+      "pressed": null
+    },
+    {
+      "label": "Graphs",
+      "pressed": null
+    },
+    {
+      "label": "Dynamic Programming",
+      "pressed": null
+    },
+    {
+      "label": "Strings",
+      "pressed": null
+    },
+    {
+      "label": "Number Theory",
+      "pressed": null
+    },
+    {
+      "label": "Backtracking",
+      "pressed": null
+    },
+    {
+      "label": "Greedy",
+      "pressed": null
+    },
+    {
+      "label": "Matrix / Grid",
+      "pressed": null
+    },
+    {
+      "label": "Games",
+      "pressed": null
+    },
+    {
+      "label": "study",
+      "pressed": "true"
+    },
+    {
+      "label": "sim",
+      "pressed": "false"
+    },
+    {
+      "label": "neon",
+      "pressed": "false"
+    },
+    {
+      "label": "Mark as studied",
+      "pressed": "false"
+    },
+    {
+      "label": "Language: English (India)",
+      "pressed": null
+    },
+    {
+      "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Learn",
+      "pressed": "false"
+    },
+    {
+      "label": "Visualization",
+      "pressed": "true"
+    },
+    {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
+      "label": "Practice",
+      "pressed": "false"
+    },
+    {
+      "label": "Experiments",
+      "pressed": "false"
+    },
+    {
+      "label": "Edit input",
+      "pressed": null
+    },
+    {
+      "label": "Run edited graph",
+      "pressed": null
+    },
+    {
+      "label": "Add edge",
+      "pressed": null
+    },
+    {
+      "label": "Add vertex",
+      "pressed": null
+    },
+    {
+      "label": "Reset layout",
+      "pressed": null
+    },
+    {
+      "label": "Inspect vertex 0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect vertex 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect vertex 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect vertex 3",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 0 to 1 at position 0",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 1 to 2 at position 1",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 2 to 3 at position 2",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 3 to 0 at position 3",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 0 to 2 at position 4",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 1 to 3 at position 5",
+      "pressed": null
+    },
+    {
+      "label": "Previous graph step",
+      "pressed": null
+    },
+    {
+      "label": "Play graph playback",
+      "pressed": null
+    },
+    {
+      "label": "Next graph step",
+      "pressed": null
+    },
+    {
+      "label": "Replay trace",
+      "pressed": null
+    },
+    {
+      "label": "Accept 0—1 (1); DSU roots: 0,0,2,3.",
+      "pressed": null
+    },
+    {
+      "label": "Start with one island group per vertex.",
+      "pressed": null
+    },
+    {
+      "label": "Compare graph results",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 1",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 2",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 3",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 4",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 5",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 6",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 7",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 8",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 9",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 10",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 11",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 12",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 13",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 14",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 15",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 16",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 17",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 18",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 19",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 20",
+      "pressed": null
+    },
+    {
+      "label": "Remove edge 21",
+      "pressed": null
+    },
+    {
+      "label": "Add edge",
+      "pressed": null
+    },
+    {
+      "label": "Run algorithm",
+      "pressed": null
+    },
+    {
+      "label": "Reset input",
+      "pressed": null
+    },
+    {
+      "label": "Copy input",
+      "pressed": null
+    },
+    {
+      "label": "Step back",
+      "pressed": null
+    },
+    {
+      "label": "Play",
+      "pressed": null
+    },
+    {
+      "label": "Step forward",
+      "pressed": null
+    },
+    {
+      "label": "Reset",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 1",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 2",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 3",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 4",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 5",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 6",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 7",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 8",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 9",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 10",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 11",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 12",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 13",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 14",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 15",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 16",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 17",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 18",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 19",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 20",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 21",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 22",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 23",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 24",
+      "pressed": null
+    },
+    {
+      "label": "Reveal answer",
+      "pressed": null
+    }
+  ]
+}

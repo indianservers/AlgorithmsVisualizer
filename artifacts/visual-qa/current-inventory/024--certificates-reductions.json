@@ -1,0 +1,189 @@
+{
+  "reference": 24,
+  "id": "certificates-reductions",
+  "route": "/complexity-theory/certificates-reductions",
+  "fidelity": "not verified",
+  "runtimeErrors": [],
+  "title": "Decision Problems, Certificates and Reductions",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "scrollWidth": 1672,
+  "headings": [
+    "Decision Problems, Certificates and Reductions",
+    "Problem Input ",
+    " Witness check",
+    "Procedure",
+    " Reduction contract",
+    "Correctness",
+    "Complexity",
+    "Key insight & pitfalls",
+    "Theory in plain language",
+    "Worked example",
+    "Invariant and guarantee",
+    "Check your understanding",
+    "Welcome to AIMER Society",
+    "Check your inbox",
+    "\n        Let’s tailoryour learningjourney!\n      ",
+    "What sparksyour curiosity?"
+  ],
+  "buttons": [
+    {
+      "label": "DAA Concepts",
+      "pressed": null
+    },
+    {
+      "label": "Analysis & Correctness",
+      "pressed": null
+    },
+    {
+      "label": "Divide and Conquer",
+      "pressed": null
+    },
+    {
+      "label": "Branch and Bound",
+      "pressed": null
+    },
+    {
+      "label": "Complexity Theory",
+      "pressed": null
+    },
+    {
+      "label": "DAA Extensions",
+      "pressed": null
+    },
+    {
+      "label": "Sorting",
+      "pressed": null
+    },
+    {
+      "label": "Searching",
+      "pressed": null
+    },
+    {
+      "label": "Data Structures",
+      "pressed": null
+    },
+    {
+      "label": "Graphs",
+      "pressed": null
+    },
+    {
+      "label": "Dynamic Programming",
+      "pressed": null
+    },
+    {
+      "label": "Strings",
+      "pressed": null
+    },
+    {
+      "label": "Number Theory",
+      "pressed": null
+    },
+    {
+      "label": "Backtracking",
+      "pressed": null
+    },
+    {
+      "label": "Greedy",
+      "pressed": null
+    },
+    {
+      "label": "Matrix / Grid",
+      "pressed": null
+    },
+    {
+      "label": "Games",
+      "pressed": null
+    },
+    {
+      "label": "study",
+      "pressed": "true"
+    },
+    {
+      "label": "sim",
+      "pressed": "false"
+    },
+    {
+      "label": "neon",
+      "pressed": "false"
+    },
+    {
+      "label": "Mark as studied",
+      "pressed": "false"
+    },
+    {
+      "label": "Language: English (India)",
+      "pressed": null
+    },
+    {
+      "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Learn",
+      "pressed": "false"
+    },
+    {
+      "label": "Visualization",
+      "pressed": "true"
+    },
+    {
+      "label": "Practice",
+      "pressed": "false"
+    },
+    {
+      "label": "Edit input",
+      "pressed": null
+    },
+    {
+      "label": "Animate concept",
+      "pressed": null
+    },
+    {
+      "label": "Reset input",
+      "pressed": null
+    },
+    {
+      "label": "Step back",
+      "pressed": null
+    },
+    {
+      "label": "Play",
+      "pressed": null
+    },
+    {
+      "label": "Step forward",
+      "pressed": null
+    },
+    {
+      "label": "Reset",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 1",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 2",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 3",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 4",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 5",
+      "pressed": null
+    },
+    {
+      "label": "Reveal answer",
+      "pressed": null
+    }
+  ]
+}

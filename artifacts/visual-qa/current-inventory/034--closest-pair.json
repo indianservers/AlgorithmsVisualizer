@@ -1,0 +1,245 @@
+{
+  "reference": 34,
+  "id": "closest-pair",
+  "route": "/daa-extensions/closest-pair",
+  "fidelity": "not verified",
+  "runtimeErrors": [],
+  "title": "Closest Pair of Points",
+  "viewport": {
+    "width": 1586,
+    "height": 992
+  },
+  "scrollWidth": 1586,
+  "headings": [
+    "Closest Pair of Points",
+    "Problem Input ",
+    " Midpoint strip",
+    "Procedure",
+    " Closest pair",
+    "Correctness",
+    "Complexity",
+    "Key insight & pitfalls",
+    "Theory in plain language",
+    "Worked example",
+    "Invariant and guarantee",
+    "Check your understanding",
+    "Welcome to AIMER Society",
+    "Check your inbox",
+    "\n        Let’s tailoryour learningjourney!\n      ",
+    "What sparksyour curiosity?"
+  ],
+  "buttons": [
+    {
+      "label": "DAA Concepts",
+      "pressed": null
+    },
+    {
+      "label": "Analysis & Correctness",
+      "pressed": null
+    },
+    {
+      "label": "Divide and Conquer",
+      "pressed": null
+    },
+    {
+      "label": "Branch and Bound",
+      "pressed": null
+    },
+    {
+      "label": "Complexity Theory",
+      "pressed": null
+    },
+    {
+      "label": "DAA Extensions",
+      "pressed": null
+    },
+    {
+      "label": "Sorting",
+      "pressed": null
+    },
+    {
+      "label": "Searching",
+      "pressed": null
+    },
+    {
+      "label": "Data Structures",
+      "pressed": null
+    },
+    {
+      "label": "Graphs",
+      "pressed": null
+    },
+    {
+      "label": "Dynamic Programming",
+      "pressed": null
+    },
+    {
+      "label": "Strings",
+      "pressed": null
+    },
+    {
+      "label": "Number Theory",
+      "pressed": null
+    },
+    {
+      "label": "Backtracking",
+      "pressed": null
+    },
+    {
+      "label": "Greedy",
+      "pressed": null
+    },
+    {
+      "label": "Matrix / Grid",
+      "pressed": null
+    },
+    {
+      "label": "Games",
+      "pressed": null
+    },
+    {
+      "label": "study",
+      "pressed": "true"
+    },
+    {
+      "label": "sim",
+      "pressed": "false"
+    },
+    {
+      "label": "neon",
+      "pressed": "false"
+    },
+    {
+      "label": "Mark as studied",
+      "pressed": "false"
+    },
+    {
+      "label": "Language: English (India)",
+      "pressed": null
+    },
+    {
+      "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Learn",
+      "pressed": "false"
+    },
+    {
+      "label": "Visualization",
+      "pressed": "true"
+    },
+    {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
+      "label": "Practice",
+      "pressed": "false"
+    },
+    {
+      "label": "Experiments",
+      "pressed": "false"
+    },
+    {
+      "label": "Edit input",
+      "pressed": null
+    },
+    {
+      "label": "Run algorithm",
+      "pressed": null
+    },
+    {
+      "label": "Reset input",
+      "pressed": null
+    },
+    {
+      "label": "Copy input",
+      "pressed": null
+    },
+    {
+      "label": "Step back",
+      "pressed": null
+    },
+    {
+      "label": "Play",
+      "pressed": null
+    },
+    {
+      "label": "Step forward",
+      "pressed": null
+    },
+    {
+      "label": "Reset",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 1",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 2",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 3",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 4",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 5",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 6",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 7",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 8",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 9",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 10",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 11",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 12",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 13",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 14",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 15",
+      "pressed": null
+    },
+    {
+      "label": "Go to step 16",
+      "pressed": null
+    },
+    {
+      "label": "Reveal answer",
+      "pressed": null
+    }
+  ]
+}
