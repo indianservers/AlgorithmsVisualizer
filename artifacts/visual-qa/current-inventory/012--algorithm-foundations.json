@@ -11,18 +11,18 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Algorithms and Pseudocode",
-    "Problem Input ",
-    " Execution trace",
-    "Procedure",
-    " Cost model",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Pseudocode Editor",
+    "Flowchart Visualizer",
+    "Natural Language → Pseudocode",
+    "Generated Pseudocode",
+    "Worked Example: Binary Search",
+    "Example Trace (A = [2, 5, 8, 12, 16, 23], x = 12)",
+    "Output",
+    "Time & Space",
+    "Algorithm Quality Checklist",
+    "Key Takeaways",
+    "Common Pitfalls",
+    "Pro Tip",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +110,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,39 +126,31 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Start Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Quiz",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Run",
       "pressed": null
     },
     {
@@ -162,27 +158,43 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Example Input⌄",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Generate Pseudocode",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Copy generated pseudocode",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Pseudocode",
+      "pressed": "true"
+    },
+    {
+      "label": "Explanation",
+      "pressed": "false"
+    },
+    {
+      "label": "Trace Example",
+      "pressed": "false"
+    },
+    {
+      "label": "Analysis",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect binary trace step 1",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect binary trace step 2",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect binary trace step 3",
       "pressed": null
     }
   ]

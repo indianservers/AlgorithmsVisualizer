@@ -1312,7 +1312,7 @@
   .app-shell:has(.mom-page) {
     grid-template-columns: 276px minmax(0, 1fr);
   }
-  .app-shell .workspace:has(.mom-page) {
+  .app-shell .workspace.category-page:has(.mom-page) {
     padding: 11px 16px 0 14px;
     display: block;
   }
@@ -1463,7 +1463,7 @@
   }
 }
 @media (max-width: 1120px) {
-  .app-shell .workspace:has(.mom-page) {
+  .app-shell .workspace.category-page:has(.mom-page) {
     padding: 58px 14px 10px;
     display: block;
   }

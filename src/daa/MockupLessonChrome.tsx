@@ -38,7 +38,17 @@ export type MockupPageProps = {
   onToggleTheme?: () => void
 }
 
-export function MockupTabs({ active, onChange, tabs = mockupTabs }: { active: MockupTab; onChange: (tab: MockupTab) => void; tabs?: readonly MockupTab[] }) {
+export function MockupTabs({
+  active,
+  onChange,
+  tabs = mockupTabs,
+  iconOverrides,
+}: {
+  active: MockupTab
+  onChange: (tab: MockupTab) => void
+  tabs?: readonly MockupTab[]
+  iconOverrides?: Partial<Record<MockupTab, ReactNode>>
+}) {
   useLocaleRender()
   return (
     <nav className="mom-tabs" aria-label={tr('Algorithm sections')}>
@@ -46,7 +56,7 @@ export function MockupTabs({ active, onChange, tabs = mockupTabs }: { active: Mo
         const Icon = icons[mockupTabs.indexOf(tab)]
         return (
           <button key={tab} aria-pressed={active === tab} onClick={() => onChange(tab)}>
-            <Icon size={19} />
+            {iconOverrides?.[tab] ?? <Icon size={19} />}
             {tr(tab)}
           </button>
         )
@@ -67,6 +77,7 @@ export function MockupLessonChrome({
   decoration,
   categoryBadge = false,
   badges,
+  heroIcon,
 }: {
   title: string
   description: string
@@ -75,6 +86,7 @@ export function MockupLessonChrome({
   decoration?: ReactNode
   categoryBadge?: boolean
   badges?: ReactNode
+  heroIcon?: ReactNode
 } & MockupPageProps) {
   useLocaleRender()
   const navigate = useNavigate(),
@@ -130,9 +142,7 @@ export function MockupLessonChrome({
         <AccountControl />
       </div>
       <header className="mom-hero">
-        <div className="mom-hero-icon">
-          <Layers3 size={41} />
-        </div>
+        <div className="mom-hero-icon">{heroIcon ?? <Layers3 size={41} />}</div>
         <div className="mom-hero-title">
           <h1>{tr(title)}</h1>
           <p>{tr(description)}</p>

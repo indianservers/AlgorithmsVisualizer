@@ -14,6 +14,7 @@ import {
   Trash2,
   BarChart3,
   Settings,
+  RotateCcw,
   Lightbulb,
   Download,
   FileSpreadsheet,
@@ -45,11 +46,16 @@ import './daa.css'
 import './dijkstra.css'
 import './dfs.css'
 import './bfs.css'
+import './bellman-ford.css'
+import { MockupLessonChrome } from './MockupLessonChrome'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
 const MedianOfMediansLesson = lazy(() => import('./MedianOfMediansLesson').then((module) => ({ default: module.MedianOfMediansLesson })))
 const QuickselectMockupLesson = lazy(() => import('./QuickselectMockupLesson').then((module) => ({ default: module.QuickselectMockupLesson })))
 const StrassenMockupLesson = lazy(() => import('./StrassenMockupLesson').then((module) => ({ default: module.StrassenMockupLesson })))
 const MaximumSubarrayMockupLesson = lazy(() => import('./MaximumSubarrayMockupLesson').then((module) => ({ default: module.MaximumSubarrayMockupLesson })))
+const MinMaxMockupLesson = lazy(() => import('./MinMaxMockupLesson').then((module) => ({ default: module.MinMaxMockupLesson })))
+const PseudocodeMockupLesson = lazy(() => import('./PseudocodeMockupLesson').then((module) => ({ default: module.PseudocodeMockupLesson })))
+const AmortizedMockupLesson = lazy(() => import('./AmortizedMockupLesson').then((module) => ({ default: module.AmortizedMockupLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -69,6 +75,7 @@ function ProblemEditor({
   graphStyle = false,
   traversalStyle = false,
   bfsStyle = false,
+  bellmanStyle = false,
   onValidityChange,
 }: {
   input: string
@@ -76,6 +83,7 @@ function ProblemEditor({
   graphStyle?: boolean
   traversalStyle?: boolean
   bfsStyle?: boolean
+  bellmanStyle?: boolean
   onValidityChange?: (error: string) => void
 }) {
   useLocaleRender()
@@ -106,7 +114,9 @@ function ProblemEditor({
                       : traversalStyle
                         ? 'Each row connects two vertices. Weights are ignored by DFS and used as labels.'
                         : graphStyle
-                          ? 'Each row connects two vertices with a non-negative weight.'
+                          ? bellmanStyle
+                            ? 'Negative edge weights are supported.'
+                            : 'Each row connects two vertices with a non-negative weight.'
                           : 'Each row connects two vertices. Weights are ignored by BFS and DFS.',
                     'studios',
                   )}
@@ -191,6 +201,16 @@ function ProblemEditor({
                   'studios',
                 )}
               </fieldset>
+            )
+          if (typeof value === 'boolean' && bellmanStyle)
+            return (
+              <div className="bf-direction" key={key}>
+                <span>{tx('Directed graph', 'studios')}</span>
+                <button type="button" role="switch" aria-label={tx('Directed graph', 'studios')} aria-checked={value} onClick={() => update(key, !value)}>
+                  <i />
+                </button>
+                <span>{tx(value ? 'Yes (directed)' : 'No (undirected)', 'studios')}</span>
+              </div>
             )
           if (typeof value === 'boolean' && graphStyle)
             return (
@@ -303,11 +323,13 @@ export function StateView({
   spacious = false,
   traversalLayout = false,
   breadthLayout = false,
+  bellmanLayout = false,
 }: {
   state?: LearningState
   spacious?: boolean
   traversalLayout?: boolean
   breadthLayout?: boolean
+  bellmanLayout?: boolean
 }) {
   useLocaleRender()
 
@@ -315,6 +337,14 @@ export function StateView({
   const g = state.graph
   const position = (v: number) => {
     const angle = (2 * Math.PI * v) / (g?.vertices ?? 1) - Math.PI / 2
+    if (bellmanLayout && g?.vertices === 5)
+      return [
+        { x: 260, y: 46 },
+        { x: 430, y: 145 },
+        { x: 360, y: 300 },
+        { x: 160, y: 300 },
+        { x: 100, y: 155 },
+      ][v]
     return traversalLayout
       ? { x: 300 + 220 * Math.cos(angle), y: 170 + 130 * Math.sin(angle) }
       : { x: 260 + 170 * Math.cos(angle), y: 200 + 145 * Math.sin(angle) }
@@ -372,7 +402,7 @@ export function StateView({
         g && (
           <svg
             className="daa-graph"
-            viewBox={traversalLayout ? '0 0 600 360' : spacious ? '40 12 440 380' : '0 0 520 400'}
+            viewBox={bellmanLayout ? '0 0 620 365' : traversalLayout ? '0 0 600 360' : spacious ? '40 12 440 380' : '0 0 520 400'}
             role="img"
             aria-label={tx('Weighted graph state', 'studios')}
           >
@@ -444,12 +474,12 @@ export function StateView({
                             : undefined
                     }
                   >
-                    <circle cx={p.x} cy={p.y} r={spacious || traversalLayout ? 26 : 22} />
+                    <circle cx={p.x} cy={p.y} r={spacious || traversalLayout || bellmanLayout ? 26 : 22} />
                     <text x={p.x} y={p.y + 5} textAnchor="middle">
                       {tx(v, 'studios')}
                     </text>
                     <text className="vertex-label" x={p.x} y={p.y + 42} textAnchor="middle">
-                      {tx(g.labels?.[v], 'studios')}
+                      {tx(bellmanLayout && g.labels?.[v] === 'Infinity' ? 'Infinity' : g.labels?.[v], 'studios')}
                     </text>
                   </g>
                 )
@@ -725,11 +755,12 @@ function TraceExports({ onExport, onSave, icons = false }: { onExport: (format: 
   )
 }
 
-function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; completed: string[]; toggleCompleted: (id: string) => void }) {
+function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggleTheme }: Props & { lesson: Lesson }) {
   useLocaleRender()
 
   const targetUiLesson = isTargetUiLesson(lesson)
   const [traversalView, setTraversalView] = usePersistentState('algodrishti-traversal-view', 'graph', persistentString)
+  const isBellman = lesson.id === 'bellman-ford'
   const isBfs = lesson.id === 'daa-bfs'
   const isTraversalStudio = lesson.id === 'daa-dfs' || isBfs
   const isExplorerTraversal = lesson.id === 'daa-bfs' || lesson.id === 'daa-dfs'
@@ -856,16 +887,48 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
               : designSource
   return (
     <div className="lesson-surface" data-learning-tab={tab}>
-      <CompactLessonHeader
-        title={tx(lesson.title, 'studios')}
-        description={lesson.summary}
-        studied={completed.includes(lesson.id)}
-        onStudy={() => toggleCompleted(lesson.id)}
-        account={<AccountControl />}
-      />
+      {isBellman ? (
+        <>
+          <MockupLessonChrome
+            module={module}
+            completed={completed}
+            toggleCompleted={toggleCompleted}
+            theme={theme}
+            onToggleTheme={onToggleTheme}
+            title={lesson.title}
+            description={lesson.summary}
+            onStart={() => setTab('Learn')}
+            heroIcon={<Network size={34} />}
+            badges={<></>}
+            decoration={
+              <aside className="bf-topic">
+                <BookOpen size={30} />
+                <div>
+                  <strong>{tx('Single-source shortest paths', 'studios')}</strong>
+                  <p>{tx('Works with negative edge weights', 'studios')}</p>
+                </div>
+                <Info size={16} />
+              </aside>
+            }
+          />
+          <div className="bf-breadcrumb">
+            <Link to="/daa/syllabus-dashboard">{tx('⌂   Graphs', 'studios')}</Link>
+            <span>›</span>
+            <strong>{tx(lesson.title, 'studios')}</strong>
+          </div>
+        </>
+      ) : (
+        <CompactLessonHeader
+          title={tx(lesson.title, 'studios')}
+          description={lesson.summary}
+          studied={completed.includes(lesson.id)}
+          onStudy={() => toggleCompleted(lesson.id)}
+          account={<AccountControl />}
+        />
+      )}
       <LessonTabs
         icons={
-          lesson.id === 'dijkstra' || isTraversalStudio
+          lesson.id === 'dijkstra' || isTraversalStudio || isBellman
             ? {
                 Learn: <BookOpen size={16} />,
                 Visualization: isBfs ? <Eye size={16} /> : <Network size={16} />,
@@ -934,7 +997,15 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
       {tx(
         lesson.defaultInput?.vertices && (tab === 'Learn' || tab === 'Visualization') && (
           <details className="graph-academy-wrap" open={tab === 'Learn'} key={`${lesson.id}-${tab}`}>
-            <summary>{tx('Explore the graph learning lab · build, predict, compare', 'studios')}</summary>
+            <summary>
+              {isBellman && <Lightbulb size={22} />}
+              <span>
+                {tx('Explore the graph learning lab · build, predict, compare', 'studios')}
+                {isBellman && (
+                  <small>{tx('Visualize each relaxation step, see how distances change, and detect negative cycles in real time.', 'studios')}</small>
+                )}
+              </span>
+            </summary>
             <GraphLearningStudio key={lesson.id} lesson={lesson} />
           </details>
         ),
@@ -947,8 +1018,23 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
             <MobileDisclosure className="daa-card daa-input-card" defaultOpen title={tx('Edit input and run algorithm', 'studios')}>
               <div>
                 <h2>
-                  {tx(isTraversalStudio && <Settings size={22} />, 'studios')}
+                  {tx((isTraversalStudio || isBellman) && <Settings size={22} />, 'studios')}
                   {tx('Problem Input', 'studios')}
+                  {isBellman && (
+                    <button
+                      className="bf-reset"
+                      type="button"
+                      onClick={() => {
+                        setDraft(JSON.stringify(lesson.defaultInput, null, 2))
+                        setEditorVersion((v) => v + 1)
+                        setEditorError('')
+                        setError('')
+                      }}
+                    >
+                      <RotateCcw size={14} />
+                      {tx('Reset', 'studios')}
+                    </button>
+                  )}
                 </h2>
                 <p>
                   {tx(
@@ -1013,7 +1099,8 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                 <ProblemEditor
                   bfsStyle={isBfs}
                   traversalStyle={isTraversalStudio}
-                  graphStyle={lesson.id === 'dijkstra'}
+                  graphStyle={lesson.id === 'dijkstra' || isBellman}
+                  bellmanStyle={isBellman}
                   key={lesson.id + editorVersion}
                   input={draft}
                   onChange={setDraft}
@@ -1173,6 +1260,9 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     ),
                     'studios',
                   )}
+                  {isBellman && (
+                    <p className="bf-timeline-hint">{tx('Step through the algorithm to see how shortest path estimates are relaxed.', 'studios')}</p>
+                  )}
                   <TimelineToolbar
                     index={index}
                     count={run.steps.length}
@@ -1185,6 +1275,7 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     onPlay={() => setPlaying((value) => !value)}
                     onSpeed={setSpeed}
                     view={
+                      !isBellman &&
                       (weightedExplorerMode || isExplorerTraversal) && (
                         <div className="bubble-view-switch" role="group" aria-label={tx('View as', 'studios')}>
                           <button
@@ -1206,7 +1297,8 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                     }
                   />
                   <p aria-live="polite" className="daa-step-description">
-                    {tx(isBfs ? <Info size={18} /> : isTraversalStudio && <Lightbulb size={20} />, 'studios')} {tx(step?.description, 'studios')}
+                    {tx(isBellman ? <Info size={18} /> : isBfs ? <Info size={18} /> : isTraversalStudio && <Lightbulb size={20} />, 'studios')}{' '}
+                    {tx(step?.description, 'studios')}
                   </p>
                   {tx(
                     run.message && (
@@ -1280,7 +1372,13 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
                           />
                         </Suspense>
                       ) : (
-                        <StateView state={step?.state} spacious={lesson.id === 'dijkstra'} traversalLayout={isTraversalStudio} breadthLayout={isBfs} />
+                        <StateView
+                          state={step?.state}
+                          spacious={lesson.id === 'dijkstra'}
+                          traversalLayout={isTraversalStudio}
+                          breadthLayout={isBfs}
+                          bellmanLayout={isBellman}
+                        />
                       ),
                       'studios',
                     )}
@@ -1457,6 +1555,27 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
 
+  if (module.id === 'amortized-analysis')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <AmortizedMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'algorithm-foundations')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <PseudocodeMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'divide-min-max')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <MinMaxMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
   if (module.id === 'maximum-subarray')
     return (
       <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
@@ -1519,7 +1638,15 @@ export function DaaWorkspace({ module, completed, toggleCompleted, theme, onTogg
         module.lessonId === 'dashboard' ? (
           <Dashboard completed={completed} />
         ) : (
-          <LessonView key={module.id} lesson={lessonById.get(module.lessonId ?? module.id)!} completed={completed} toggleCompleted={toggleCompleted} />
+          <LessonView
+            key={module.id}
+            lesson={lessonById.get(module.lessonId ?? module.id)!}
+            completed={completed}
+            toggleCompleted={toggleCompleted}
+            module={module}
+            theme={theme}
+            onToggleTheme={onToggleTheme}
+          />
         ),
         'studios',
       )}

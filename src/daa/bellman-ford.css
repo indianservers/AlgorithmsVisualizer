@@ -1,0 +1,601 @@
+/* Bellman–Ford reference styling stays isolated from other lessons. */
+.app-shell:has([data-lesson-id='bellman-ford']) {
+  background: #f7faff;
+}
+.app-shell:has([data-lesson-id='bellman-ford']) .category-page {
+  padding: 12px 18px;
+}
+[data-lesson-id='bellman-ford'] {
+  --panel: #fff;
+  --text: #101a34;
+  --line: #dce6f7;
+  color: var(--text);
+}
+[data-lesson-id='bellman-ford'] .lesson-surface {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+[data-lesson-id='bellman-ford'] .mom-topbar {
+  order: -4;
+  height: 48px;
+  margin: -12px -18px 12px;
+  padding: 6px 18px;
+  border-bottom: 1px solid #e1e9f8;
+  background: #ffffffb3;
+  gap: 14px;
+}
+[data-lesson-id='bellman-ford'] .mom-search {
+  max-width: 595px;
+  margin-right: auto;
+}
+[data-lesson-id='bellman-ford'] .bf-breadcrumb {
+  order: -3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+[data-lesson-id='bellman-ford'] .mom-hero {
+  order: -2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 92px;
+  padding: 16px;
+  margin: 0 0 10px;
+  background: #fff;
+  border: 1px solid #dfe8f8;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px #1c4b8c04;
+}
+[data-lesson-id='bellman-ford'] .mom-hero-icon {
+  width: 62px;
+  height: 58px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #176bff, #364bff);
+  color: white;
+  display: grid;
+  place-items: center;
+}
+[data-lesson-id='bellman-ford'] .mom-hero h1 {
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  margin: 0 0 5px;
+}
+[data-lesson-id='bellman-ford'] .mom-hero-title p {
+  color: #586e98;
+  margin: 0;
+  font-size: 13px;
+}
+[data-lesson-id='bellman-ford'] .mom-badges,
+[data-lesson-id='bellman-ford'] .mom-progress,
+[data-lesson-id='bellman-ford'] .mom-start {
+  display: none;
+}
+[data-lesson-id='bellman-ford'] .bf-topic {
+  margin-left: auto;
+  min-width: 29%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #f5f8ff;
+  border: 1px solid #eef4ff;
+  border-radius: 10px;
+  padding: 12px 18px;
+  color: #0057ed;
+  font-size: 12px;
+}
+[data-lesson-id='bellman-ford'] .bf-topic p {
+  margin: 5px 0 0;
+  color: #637ba4;
+}
+.app-shell [data-lesson-id='bellman-ford'] .lesson-tabs {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .lesson-tabs button {
+  border: 1px solid #dde6f8;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 22px;
+  background: #fff;
+  color: #15233f;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .lesson-tabs button[aria-selected='true'],
+.app-shell [data-lesson-id='bellman-ford'] .lesson-tabs button.active {
+  background: #0861ff;
+  color: #fff;
+  border-color: #0861ff;
+}
+[data-lesson-id='bellman-ford'] .graph-academy-wrap {
+  width: calc((100% - 22px) * 0.706);
+  margin: 0 0 14px;
+  padding: 0;
+  border: 1px solid #dce8ff;
+  border-radius: 9px;
+  background: #edf5ff;
+}
+[data-lesson-id='bellman-ford'] .graph-academy-wrap summary {
+  padding: 10px 15px;
+  color: #0645c6;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+[data-lesson-id='bellman-ford'] .graph-academy-wrap summary::after {
+  content: '›';
+  margin-left: auto;
+  font-size: 23px;
+}
+[data-lesson-id='bellman-ford'] .graph-academy-wrap small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #627ca5;
+  margin-top: 4px;
+}
+[data-lesson-id='bellman-ford'] .graph-academy-wrap[open] {
+  width: 100%;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-interactive-layout {
+  grid-template-columns: minmax(0, 2.4fr) minmax(320px, 1fr);
+  gap: 18px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-card {
+  background: #fff;
+  border: 1px solid #dfe8f8;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 3px 8px #1c4b8c03;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-input-card {
+  margin-top: -73px;
+  padding: 18px;
+}
+[data-lesson-id='bellman-ford'] .daa-input-card h2 {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 18px;
+  margin: 0 0 20px;
+}
+[data-lesson-id='bellman-ford'] .daa-input-card h2 svg {
+  color: #0564ff;
+}
+[data-lesson-id='bellman-ford'] .daa-input-card h2 + p,
+[data-lesson-id='bellman-ford'] .input-reference,
+[data-lesson-id='bellman-ford'] fieldset > p {
+  display: none;
+}
+[data-lesson-id='bellman-ford'] .daa-field-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+[data-lesson-id='bellman-ford'] .daa-field-editor label {
+  color: #20385c;
+  font-size: 13px;
+  gap: 6px;
+}
+.app-shell [data-lesson-id='bellman-ford'] input:not([type='range']),
+.app-shell [data-lesson-id='bellman-ford'] select {
+  background: #fff;
+  color: #17223b;
+  border: 1px solid #d5e1f4;
+  border-radius: 7px;
+  min-height: 36px;
+  padding: 7px 12px;
+  width: 100%;
+}
+[data-lesson-id='bellman-ford'] fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+[data-lesson-id='bellman-ford'] legend {
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+[data-lesson-id='bellman-ford'] .edge-table-heading,
+[data-lesson-id='bellman-ford'] .daa-edge-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 32px;
+  gap: 7px;
+}
+[data-lesson-id='bellman-ford'] .edge-table-heading {
+  color: #637aa4;
+  font-size: 11px;
+  padding: 8px 8px 4px;
+  background: #f6f9ff;
+  border-radius: 8px 8px 0 0;
+}
+[data-lesson-id='bellman-ford'] .daa-edge-list {
+  background: #f6f9ff;
+  padding: 3px 8px 6px;
+  border-radius: 0 0 8px 8px;
+  display: grid;
+  gap: 4px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-edge-row input {
+  min-height: 30px;
+  height: 30px;
+  padding: 3px 9px;
+}
+[data-lesson-id='bellman-ford'] .daa-edge-row button {
+  padding: 4px;
+  min-height: 30px;
+  color: #7087ad;
+}
+[data-lesson-id='bellman-ford'] fieldset > button {
+  margin-top: 8px;
+  color: #065eff;
+  background: #f5f9ff;
+  border: 1px solid #bfd3ff;
+}
+[data-lesson-id='bellman-ford'] .bf-direction {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+[data-lesson-id='bellman-ford'] .bf-direction > span:first-child {
+  margin-right: auto;
+  font-weight: 600;
+}
+[data-lesson-id='bellman-ford'] .bf-direction button {
+  width: 49px;
+  min-height: 28px;
+  padding: 3px;
+  border: 0;
+  border-radius: 20px;
+  background: #a6b3c9;
+}
+[data-lesson-id='bellman-ford'] .bf-direction button[aria-checked='true'] {
+  background: #0764ff;
+}
+[data-lesson-id='bellman-ford'] .bf-direction i {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.15s;
+  box-shadow: 0 1px 4px #0043aa44;
+}
+[data-lesson-id='bellman-ford'] .bf-direction button[aria-checked='true'] i {
+  transform: translateX(21px);
+}
+[data-lesson-id='bellman-ford'] .daa-input-card details {
+  margin: 10px 0 14px;
+  border: 1px solid #e1e9f8;
+  border-radius: 7px;
+  padding: 8px;
+  font-size: 12px;
+  color: #536b94;
+}
+[data-lesson-id='bellman-ford'] .daa-actions {
+  display: flex;
+  gap: 10px;
+}
+[data-lesson-id='bellman-ford'] .daa-input-card .daa-actions button {
+  flex: 1;
+  color: #0556dc;
+  background: #f3f7ff;
+  border: 1px solid #bfd2fb;
+  font-size: 13px;
+}
+[data-lesson-id='bellman-ford'] .daa-input-card .daa-actions button:first-child {
+  color: white;
+  background: #0862ff;
+  border-color: #0862ff;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-timeline-card {
+  gap: 8px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .bf-timeline-hint {
+  font-size: 12px;
+  color: #637da7;
+}
+.app-shell [data-lesson-id='bellman-ford'] .workbench-toolbar {
+  background: #f7faff;
+  border: 1px solid #e4edfc;
+  border-radius: 9px;
+  padding: 7px;
+  margin-top: 3px;
+}
+[data-lesson-id='bellman-ford'] .workbench-play {
+  background: #0764ff;
+  color: white;
+}
+.app-shell [data-lesson-id='bellman-ford'] .viewport-canvas {
+  height: clamp(350px, 42vh, 490px);
+  min-height: 350px;
+  border: 1px solid #e1eafa;
+  border-radius: 10px;
+  background: radial-gradient(#dce9fc 0.8px, transparent 0.8px) 3px 3px / 14px 14px #fff;
+}
+.app-shell [data-lesson-id='bellman-ford'] .canvas-viewport-scroll {
+  height: 100%;
+}
+.app-shell [data-lesson-id='bellman-ford'] .canvas-zoom-content,
+.app-shell [data-lesson-id='bellman-ford'] .viewport-canvas .daa-state {
+  height: 100%;
+  min-height: 0;
+  display: block;
+  padding: 0;
+}
+.app-shell [data-lesson-id='bellman-ford'] .viewport-canvas .daa-state > .daa-graph {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  color: #5b7197;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-graph circle {
+  fill: url(#bfs-node-fill);
+  stroke: #0868ff;
+  stroke-width: 2;
+  filter: drop-shadow(0 2px 5px #267eff40);
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-graph text {
+  fill: #07256a;
+  font-size: 17px;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: #f0f6ff;
+  stroke-width: 7px;
+  stroke-linejoin: round;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-graph .vertex-label {
+  font-size: 11px;
+  font-weight: 400;
+  stroke: #edf5ff;
+  stroke-width: 10px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-graph .selected {
+  color: #0764ff;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-graph .current-vertex circle {
+  fill: #d9edff;
+  stroke: #0868ff;
+}
+.app-shell [data-lesson-id='bellman-ford'] .daa-step-description {
+  order: 3;
+  padding: 10px;
+  min-height: 40px;
+  background: #e8f1ff;
+  border-radius: 8px;
+  color: #083481;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.app-shell [data-lesson-id='bellman-ford'] .trace-disclosure {
+  order: 4;
+}
+[data-lesson-id='bellman-ford'] .canvas-view-tools {
+  top: auto;
+  bottom: 12px;
+}
+[data-lesson-id='bellman-ford'] .canvas-view-tools > span {
+  display: none;
+}
+[data-theme='dark'] [data-lesson-id='bellman-ford'] {
+  filter: invert(0.88) hue-rotate(180deg);
+}
+@media (max-width: 1050px) {
+  [data-lesson-id='bellman-ford'] .bf-topic {
+    min-width: 0;
+    padding: 10px;
+  }
+  [data-lesson-id='bellman-ford'] .bf-topic > svg:last-child {
+    display: none;
+  }
+  .app-shell [data-lesson-id='bellman-ford'] .daa-interactive-layout {
+    grid-template-columns: minmax(0, 1.7fr) minmax(290px, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .app-shell [data-lesson-id='bellman-ford'] .daa-interactive-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .app-shell [data-lesson-id='bellman-ford'] .daa-interactive-layout > * {
+    width: 100%;
+    margin: 0;
+  }
+  [data-lesson-id='bellman-ford'] .graph-academy-wrap {
+    width: 100%;
+  }
+  [data-lesson-id='bellman-ford'] .bf-topic {
+    display: none;
+  }
+  [data-lesson-id='bellman-ford'] .mom-topbar {
+    gap: 6px;
+  }
+  [data-lesson-id='bellman-ford'] .mom-study span {
+    display: none;
+  }
+  [data-lesson-id='bellman-ford'] .mom-hero h1 {
+    font-size: 23px;
+  }
+  .app-shell [data-lesson-id='bellman-ford'] .lesson-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .app-shell [data-lesson-id='bellman-ford'] .lesson-tabs button {
+    padding: 0 12px;
+  }
+  .app-shell [data-lesson-id='bellman-ford'] .workbench-toolbar {
+    flex-wrap: wrap;
+  }
+}
+/* Override the shared compact workbench's dense input rules. */
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-field-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card {
+  margin-top: -76px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card fieldset {
+  padding: 0;
+  border: 0;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-edge-row {
+  grid-template-columns: 1fr 1fr 1fr 32px;
+  gap: 7px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-edge-row input {
+  height: 30px;
+  min-height: 30px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-edge-row button {
+  height: 30px;
+  min-height: 30px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card .daa-actions button {
+  min-height: 42px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card h2 {
+  margin-bottom: 20px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .lesson-tabs button[aria-pressed='true'] {
+  background: #0861ff;
+  color: white;
+  border-color: #0861ff;
+  box-shadow: 0 3px 8px #0764ff20;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .input-access-button {
+  display: none;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .canvas-view-tools {
+  top: auto;
+  bottom: 12px;
+  background: transparent;
+  border: 0;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .canvas-view-tools button {
+  width: 36px;
+  height: 36px;
+  background: white;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-hero {
+  height: 92px;
+  min-height: 92px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-search input {
+  border: 0;
+  background: transparent;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-timeline-card {
+  position: relative;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .workbench-speed {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .workbench-progress {
+  flex: 1;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .dfs-trace-details {
+  order: 4;
+}
+@media (max-width: 760px) {
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card {
+    margin-top: 0;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .workbench-speed {
+    position: static;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-hero {
+    height: auto;
+  }
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .bf-reset {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #075bfa;
+  background: #f4f8ff;
+  border: 1px solid #cbdcff;
+  font-size: 12px;
+  min-height: 30px;
+  padding: 4px 10px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .canvas-view-tools {
+  position: absolute;
+  inset: auto 12px 12px auto;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card .daa-edge-list {
+  gap: 3px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-edge-row label {
+  margin: 0;
+  padding: 0;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-input-card details {
+  padding: 8px;
+}
+@media (max-width: 760px) {
+  .app-shell:has([data-lesson-id='bellman-ford']) .category-page {
+    padding: 8px;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-topbar {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    margin: 0 0 12px;
+    padding: 4px 0;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-search {
+    position: relative;
+    inset: auto;
+    order: 2;
+    flex-basis: 100%;
+    max-width: 100%;
+    margin-top: 6px;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .mom-theme {
+    margin-left: auto;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .bf-breadcrumb {
+    display: none;
+  }
+  .app-shell .compact-daa[data-lesson-id='bellman-ford'] .lesson-navigation {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .viewport-canvas {
+  position: relative;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-edge-row input:not([type='range']):not([type='checkbox']) {
+  height: 30px;
+  min-height: 30px;
+  padding: 3px 8px;
+}
+.app-shell .compact-daa[data-lesson-id='bellman-ford'] .daa-field-editor > fieldset {
+  margin: 0;
+}

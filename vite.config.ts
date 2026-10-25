@@ -22,6 +22,12 @@ export default defineConfig({
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {
+                if (id.includes('/src/daa/AmortizedMockupLesson') || id.includes('/src/daa/amortizedModel') || id.includes('/src/daa/amortized-mockup.css'))
+                  return 'amortized-mockup'
+                if (id.includes('/src/daa/PseudocodeMockupLesson') || id.includes('/src/daa/pseudocodeModel') || id.includes('/src/daa/pseudocode-mockup.css'))
+                  return 'pseudocode-mockup'
+                if (id.includes('/src/daa/MinMaxMockupLesson') || id.includes('/src/daa/minMaxModel') || id.includes('/src/daa/min-max-mockup.css'))
+                  return 'min-max-mockup'
                 if (
                   id.includes('/src/daa/MaximumSubarrayMockupLesson') ||
                   id.includes('/src/daa/maximumSubarrayModel') ||

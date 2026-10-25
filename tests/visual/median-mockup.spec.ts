@@ -18,6 +18,13 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   await expect(pageRoot.getByRole('heading', { name: 'Key Takeaways', exact: true })).toBeVisible()
   await expect(pageRoot.getByRole('heading', { name: 'Common Pitfalls', exact: true })).toBeVisible()
   await expect(pageRoot.locator('.mom-worked-example')).toContainText('7th smallest is 6')
+  if (info.project.name === 'desktop') {
+    const hero = await pageRoot.locator('.mom-hero').boundingBox()
+    expect(hero).not.toBeNull()
+    // Layout evidence only; pixel fidelity still requires image comparison.
+    for (const [key, value] of Object.entries({ x: 290, y: 65, width: 1366, height: 118 }))
+      expect(Math.abs(hero![key as keyof typeof hero] - value), `Median hero ${key}`).toBeLessThanOrEqual(3)
+  }
   await page.screenshot({ path: `artifacts/visual-qa/median-017/${info.project.name}-learn.png`, fullPage: false })
   if (process.env.MEDIAN_MEASURE === '1')
     console.log(

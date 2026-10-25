@@ -771,7 +771,7 @@
   .app-shell:has(.strassen-page) {
     grid-template-columns: 264px minmax(0, 1fr);
   }
-  .app-shell .workspace:has(.strassen-page) {
+  .app-shell .workspace.category-page:has(.mom-page.strassen-page) {
     padding: 11px 15px 0;
   }
   .app-shell:has(.strassen-page) .sidebar-header {

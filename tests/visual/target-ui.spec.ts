@@ -27,6 +27,24 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 12) {
+        await expect(visual.locator('.pc-checklist input')).toHaveCount(10)
+        await expect(visual.locator('.pc-binary-table tbody tr')).toHaveCount(3)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Run', exact: true }).click()
+        await expect(visual.locator('.pc-run-result')).toContainText('Output: 3')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 13) {
+        await expect(visual.locator('.mm-comparison-count')).toHaveText('10')
+        await expect(visual.locator('.mm-global-result')).toContainText('min(3, 2) = 2')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Next Step', exact: true }).click()
+        await expect(visual.locator('.mm-worked-stage')).toContainText('Step 2:')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 14) {
         await expect(visual.locator('.mx-candidate')).toHaveCount(3)
         await expect(visual.locator('.mx-answer')).toContainText('Maximum subarray sum: 6')

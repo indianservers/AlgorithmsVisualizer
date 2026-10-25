@@ -778,7 +778,7 @@
   .app-shell:has(.maximum-page) {
     grid-template-columns: 264px minmax(0, 1fr);
   }
-  .app-shell .workspace:has(.maximum-page) {
+  .app-shell .workspace.category-page:has(.mom-page.maximum-page) {
     padding: 11px 15px 0;
   }
   .app-shell:has(.maximum-page) .sidebar-header {

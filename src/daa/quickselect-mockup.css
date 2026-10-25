@@ -751,7 +751,7 @@
   .app-shell:has(.quickselect-page) {
     grid-template-columns: 260px minmax(0, 1fr);
   }
-  .app-shell .workspace:has(.quickselect-page) {
+  .app-shell .workspace.category-page:has(.mom-page.quickselect-page) {
     padding: 10px 14px 0 15px;
   }
   .app-shell:has(.quickselect-page) .sidebar-header {

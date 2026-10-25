@@ -11,18 +11,17 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Divide-and-Conquer Min/Max",
-    "Problem Input ",
-    " Pair comparison",
-    "Procedure",
-    " Combined answer",
+    "Array Split & Recursive Min/Max Visualizer",
+    "Combine Step",
+    "Global result (combine)",
+    "Recursion Tree & Call Stack",
+    "Worked Example",
+    "Step 1: Divide the array into two halves.",
+    "Key Ideas",
+    "Comparisons & Complexity",
     "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Assumptions and Constraints",
+    "Pro Tip",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +109,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,12 +125,16 @@
       "pressed": null
     },
     {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
-      "pressed": "false"
+      "pressed": "true"
     },
     {
       "label": "Visualization",
-      "pressed": "true"
+      "pressed": "false"
     },
     {
       "label": "Code",
@@ -142,59 +149,43 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
-    },
-    {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Recursion Tree",
+      "pressed": "true"
+    },
+    {
+      "label": "Call Stack (Trace)",
+      "pressed": "false"
+    },
+    {
+      "label": "1Initial Split",
+      "pressed": "true"
+    },
+    {
+      "label": "2Solve Left",
+      "pressed": "false"
+    },
+    {
+      "label": "3Solve Right",
+      "pressed": "false"
+    },
+    {
+      "label": "4Combine",
+      "pressed": "false"
+    },
+    {
+      "label": "5Result",
+      "pressed": "false"
+    },
+    {
+      "label": "Previous",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 3",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Next Step",
       "pressed": null
     }
   ]
