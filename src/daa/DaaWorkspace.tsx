@@ -47,13 +47,14 @@ import './dfs.css'
 import './bfs.css'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
 const MedianOfMediansLesson = lazy(() => import('./MedianOfMediansLesson').then((module) => ({ default: module.MedianOfMediansLesson })))
+const QuickselectMockupLesson = lazy(() => import('./QuickselectMockupLesson').then((module) => ({ default: module.QuickselectMockupLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
 const BacktrackingLessonPage = lazy(() => import('../learning/BacktrackingStudio').then((module) => ({ default: module.BacktrackingLessonPage })))
 import { isTargetUiLesson } from './targetUi'
 
-type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void }
+type Props = { module: AlgorithmModule; completed: string[]; toggleCompleted: (id: string) => void; theme?: string; onToggleTheme?: () => void }
 type Experiment = { id: string; lessonId: string; input: DaaInput; run: DaaRun; createdAt: string }
 const PenguinVisualization = lazy(() => import('../components/PenguinVisualization').then((module) => ({ default: module.PenguinVisualization })))
 const ExplorerTraversal = lazy(() => import('../components/ExplorerTraversal').then((module) => ({ default: module.ExplorerTraversal })))
@@ -1451,13 +1452,20 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
   )
 }
 
-export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
+export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'quickselect')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <QuickselectMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'deterministic-selection')
     return (
       <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
-        <MedianOfMediansLesson module={module} completed={completed} toggleCompleted={toggleCompleted} />
+        <MedianOfMediansLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
       </Suspense>
     )
 

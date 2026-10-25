@@ -443,16 +443,20 @@ export function MedianOfMediansLesson({
   module,
   completed,
   toggleCompleted,
+  theme: controlledTheme,
+  onToggleTheme,
 }: {
   module: AlgorithmModule
   completed: string[]
   toggleCompleted: (id: string) => void
+  theme?: string
+  onToggleTheme?: () => void
 }) {
   useLocaleRender()
   const navigate = useNavigate(),
     [tab, setTab] = useState<Tab>('Learn'),
     [query, setQuery] = useState(''),
-    [theme, setTheme] = useState(() => localStorage.getItem('algodrishti-theme') ?? 'light'),
+    [localTheme, setTheme] = useState(() => localStorage.getItem('algodrishti-theme') ?? 'light'),
     [draft, setDraft] = useState(medianReferenceValues.join(', ')),
     [rank, setRank] = useState('11'),
     [computed, setComputed] = useState(() => medianTrace(medianReferenceValues, 11)),
@@ -472,6 +476,7 @@ export function MedianOfMediansLesson({
       return []
     }
   })
+  const theme = controlledTheme ?? localTheme
   const studied = completed.includes(module.id),
     frame = computed.frames[cursor],
     matches = useMemo(
@@ -561,7 +566,11 @@ export function MedianOfMediansLesson({
             </div>
           )}
         </div>
-        <button className="mom-theme" aria-label={tr('Toggle color theme')} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        <button
+          className="mom-theme"
+          aria-label={tr('Toggle color theme')}
+          onClick={() => (onToggleTheme ? onToggleTheme() : setTheme(theme === 'dark' ? 'light' : 'dark'))}
+        >
           <Sun size={20} />
           <span>{theme === 'dark' ? <Moon size={15} /> : <i />}</span>
         </button>

@@ -18,6 +18,15 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 16) {
+        await expect(visual.locator('.qs-trace-node')).toHaveCount(4)
+        await expect(visual.locator('.qs-worked-answer')).toContainText('3rd smallest element is 7')
+        await page.screenshot({ path: resolve('artifacts/visual-qa/final/016--quickselect.png'), fullPage: false })
+        await visual.getByRole('button', { name: 'Run Step', exact: true }).click()
+        await expect(visual.locator('.qs-partition h3')).toContainText('pivot = 3')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 17) {
         await expect(visual.locator('.mom-main-grid .mom-panel')).toHaveCount(6)
         await expect(visual.locator('.mom-worked-example')).toContainText('7th smallest is 6')

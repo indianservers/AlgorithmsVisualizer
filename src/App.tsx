@@ -625,6 +625,8 @@ function App() {
             key={activeModule.id}
             module={activeModule}
             completed={completed}
+            theme={theme}
+            onToggleTheme={() => setTheme((value) => (value === 'dark' ? 'light' : 'dark'))}
             toggleCompleted={(id) => setCompleted((items) => (items.includes(id) ? items.filter((item) => item !== id) : [...items, id]))}
           />
           <AimerSiteFooter />

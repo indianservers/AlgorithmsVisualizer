@@ -22,6 +22,13 @@ export default defineConfig({
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {
+                if (
+                  id.includes('/src/daa/QuickselectMockupLesson') ||
+                  id.includes('/src/daa/quickselectModel') ||
+                  id.includes('/src/daa/quickselect-mockup.css') ||
+                  id.includes('/src/daa/MockupLessonChrome')
+                )
+                  return 'quickselect-mockup'
                 if (id.includes('/src/daa/MedianOfMediansLesson') || id.includes('/src/daa/medianModel') || id.includes('/src/daa/median-mockup.css'))
                   return 'median-mockup'
                 if (
