@@ -78,6 +78,9 @@ export function MockupLessonChrome({
   categoryBadge = false,
   badges,
   heroIcon,
+  progress,
+  startLabel = 'Start Learning',
+  searchPlaceholder = 'Search topics, e.g., dynamic programming, graph algorithms...',
 }: {
   title: string
   description: string
@@ -87,6 +90,9 @@ export function MockupLessonChrome({
   categoryBadge?: boolean
   badges?: ReactNode
   heroIcon?: ReactNode
+  progress?: { completed: number; total: number }
+  startLabel?: string
+  searchPlaceholder?: string
 } & MockupPageProps) {
   useLocaleRender()
   const navigate = useNavigate(),
@@ -107,12 +113,7 @@ export function MockupLessonChrome({
       <div className="mom-topbar">
         <div className="mom-search">
           <Search size={19} />
-          <input
-            aria-label={tr('Search topics')}
-            placeholder={tr('Search topics, e.g., dynamic programming, graph algorithms...')}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          <input aria-label={tr('Search topics')} placeholder={tr(searchPlaceholder)} value={query} onChange={(e) => setQuery(e.target.value)} />
           {query && (
             <div className="mom-search-results">
               {matches.length ? (
@@ -173,13 +174,25 @@ export function MockupLessonChrome({
         </div>
         {decoration}
         <div className="mom-progress">
-          <div style={{ background: `conic-gradient(#1677ff ${studied ? 100 : 0}%,#e1e8f2 0)` }}>
-            <b>{studied ? '100%' : '0%'}</b>
+          <div
+            style={{
+              background: `conic-gradient(#1677ff ${progress ? Math.round((100 * progress.completed) / Math.max(1, progress.total)) : studied ? 100 : 0}%,#e1e8f2 0)`,
+            }}
+          >
+            <b>{progress ? `${Math.round((100 * progress.completed) / Math.max(1, progress.total))}%` : studied ? '100%' : '0%'}</b>
           </div>
-          <span>{tr(studied ? 'Studied' : 'Not started')}</span>
+          {!progress && <span>{tr(studied ? 'Studied' : 'Not started')}</span>}
         </div>
+        {progress && (
+          <div className="mom-progress-details">
+            <b>{tr('Topic Progress')}</b>
+            <span>
+              {progress.completed} {tr('of')} {progress.total} {tr('activities')}
+            </span>
+          </div>
+        )}
         <button className="mom-start" onClick={onStart}>
-          {tr('Start Learning')}
+          {tr(startLabel)}
           <ArrowRight size={18} />
         </button>
       </header>

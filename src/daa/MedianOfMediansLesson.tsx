@@ -151,7 +151,7 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
     medians = sorted.map((g) => g[Math.floor(g.length / 2)])
   const [proof, setProof] = useState('Key Points')
   return (
-    <div className="mom-dashboard tuv-learning-deck">
+    <div className="mom-dashboard">
       <div className="mom-main-grid">
         <Panel number={1} title={tr('Groups of Five')} description="Divide the array into groups of at most 5 elements." className="mom-groups-panel">
           <div className="mom-group-list">
@@ -280,7 +280,7 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           {[
             ['Using a group size other than 5.', 'The standard 3n/10 proof may no longer apply.'],
             ['Not using three-way partitioning.', 'Can lead to incorrect handling of duplicates.'],
-            ['Forgetting to recurse on medians.', 'Pivot must come from the medians, not a random group.'],
+            ['Forgetting to recurse on medians.', 'Pivot must come from medians, not a random group.'],
             ['Off-by-one in rank after partition.', 'Adjust k correctly for the recursive side.'],
           ].map(([a, b]) => (
             <div className="mom-tip-row" key={a}>

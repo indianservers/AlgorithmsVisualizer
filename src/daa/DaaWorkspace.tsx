@@ -56,6 +56,10 @@ const MaximumSubarrayMockupLesson = lazy(() => import('./MaximumSubarrayMockupLe
 const MinMaxMockupLesson = lazy(() => import('./MinMaxMockupLesson').then((module) => ({ default: module.MinMaxMockupLesson })))
 const PseudocodeMockupLesson = lazy(() => import('./PseudocodeMockupLesson').then((module) => ({ default: module.PseudocodeMockupLesson })))
 const AmortizedMockupLesson = lazy(() => import('./AmortizedMockupLesson').then((module) => ({ default: module.AmortizedMockupLesson })))
+const GreedyExchangeMockupLesson = lazy(() => import('./GreedyExchangeMockupLesson').then((module) => ({ default: module.GreedyExchangeMockupLesson })))
+const InvariantMockupLesson = lazy(() => import('./InvariantMockupLesson').then((module) => ({ default: module.InvariantMockupLesson })))
+const MasterTheoremMockupLesson = lazy(() => import('./MasterTheoremMockupLesson').then((module) => ({ default: module.MasterTheoremMockupLesson })))
+const RecursionTreeMockupLesson = lazy(() => import('./RecursionTreeMockupLesson').then((module) => ({ default: module.RecursionTreeMockupLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -1554,6 +1558,34 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'recursion-tree')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <RecursionTreeMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'master-theorem')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <MasterTheoremMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'correctness-proofs')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <InvariantMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'greedy-exchange')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <GreedyExchangeMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'amortized-analysis')
     return (

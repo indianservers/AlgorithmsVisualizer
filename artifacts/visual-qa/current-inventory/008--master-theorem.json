@@ -11,18 +11,18 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Master Theorem",
-    "Problem Input ",
-    " Applicable case",
-    "Procedure",
-    " Asymptotic result",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Master Theorem Explorer",
+    "Identified case: Case 2",
+    "Recurrence Tree Visualization",
+    "The Three Cases of Master Theorem",
+    "Key Takeaways",
+    "Pro Tip",
+    "Worked Examples",
+    "Strassen's Matrix Multiplication",
+    "Merge Sort",
+    "Common Exceptions / Non-applicable Cases",
+    "Where the critical exponent comes from",
+    "Why the three answers differ",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +110,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,67 +126,95 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Use combine work 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Use combine work log n",
+      "pressed": "false"
+    },
+    {
+      "label": "Use combine work n",
+      "pressed": "true"
+    },
+    {
+      "label": "Use combine work n log n",
+      "pressed": "false"
+    },
+    {
+      "label": "Use combine work n²",
+      "pressed": "false"
+    },
+    {
+      "label": "Use combine work nᵏ",
+      "pressed": "false"
+    },
+    {
+      "label": "Fullscreen",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Inspect Case 1",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Inspect Case 2",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Inspect Case 3",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Explain regularity condition",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Load Strassen's Matrix Multiplication example",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "Load Merge Sort example",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "T(n) = T(n − 1) + n (decreases by 1, not n/b).",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Unequal splits (e.g., T(n) = T(n/3) + T(2n/3) + f(n)).",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Near-boundary functions without a polynomial gap.",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Case 3 without a verified regularity condition.",
       "pressed": null
     }
   ]

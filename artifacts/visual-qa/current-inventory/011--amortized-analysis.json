@@ -11,18 +11,19 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Amortized Analysis",
-    "Problem Input ",
-    " Potential method",
-    "Procedure",
-    " Aggregate chart",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Dynamic Array Resizing Visualizer",
+    "Array (size 5 / capacity 8)",
+    "Operation Timeline",
+    "Accounting Method (Stack Example)",
+    "Potential Method (Dynamic Array)",
+    "Potential (Φ)",
+    "Aggregate Analysis Chart",
+    "Key Takeaways",
+    "Common Pitfalls",
+    "Pro Tip",
+    "Worked Example: Dynamic Array Append",
+    "Analysis",
+    "Formulas, Assumptions and Interpretation",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +111,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,39 +127,35 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Start Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Push (Append)",
       "pressed": null
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Pop",
       "pressed": null
     },
     {
@@ -162,28 +163,100 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect operation 1",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect operation 2",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect operation 3",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect operation 4",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect operation 5",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect operation 6",
       "pressed": null
+    },
+    {
+      "label": "Inspect operation 7",
+      "pressed": null
+    },
+    {
+      "label": "Inspect operation 8",
+      "pressed": null
+    },
+    {
+      "label": "Inspect operation 9",
+      "pressed": null
+    },
+    {
+      "label": "Inspect operation 10",
+      "pressed": null
+    },
+    {
+      "label": "Push a stack item",
+      "pressed": null
+    },
+    {
+      "label": "Pop a stack item",
+      "pressed": null
+    },
+    {
+      "label": "Inspect amortized cost calculation",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 7",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect worked append 8",
+      "pressed": "false"
+    },
+    {
+      "label": "Key Formulas",
+      "pressed": "true"
+    },
+    {
+      "label": "Assumptions",
+      "pressed": "false"
+    },
+    {
+      "label": "Interpretation",
+      "pressed": "false"
     }
   ]
 }

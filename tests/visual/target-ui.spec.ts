@@ -27,6 +27,51 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 7) {
+        await expect(visual.locator('.rt-diagram .rt-node')).toHaveCount(13)
+        await expect(visual.locator('.rt-overall')).toHaveAttribute('data-bound', 'Θ(n^2)')
+        await captureReference()
+        await visual.getByLabel('Branch factor a', { exact: true }).fill('2')
+        await expect(visual.locator('.rt-overall')).toContainText('Θ(n log n)')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 8) {
+        await expect(visual.locator('.mt-classification h3')).toHaveText('Identified case: Case 2')
+        await expect(visual.locator('.mt-result')).toContainText('Θ(n log n)')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Use combine work n²', exact: true }).click()
+        await expect(visual.locator('.mt-classification h3')).toContainText('Case 3')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 9) {
+        await expect(visual.locator('.iv-induction-card')).toHaveCount(3)
+        await expect(visual.locator('.iv-array .midpoint')).toHaveText('37')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Next binary search step', exact: true }).click()
+        await expect(visual.locator('.iv-search-explanation')).toContainText('Found target 37 at index 8')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 10) {
+        await expect(visual.locator('.ge-selected-summary')).toContainText('{A1, A4, A6}')
+        await expect(visual.locator('.ge-knapsack-result output')).toHaveText('240')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Earliest Start', exact: true }).click()
+        await expect(visual.locator('.ge-comparison-count')).toHaveText('2')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 11) {
+        await expect(visual.locator('.am-total')).toHaveText('12')
+        await expect(visual.locator('.am-phi')).toHaveText('Φ = 2')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Push (Append)', exact: true }).click()
+        await expect(visual.locator('.am-total')).toHaveText('13')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 12) {
         await expect(visual.locator('.pc-checklist input')).toHaveCount(10)
         await expect(visual.locator('.pc-binary-table tbody tr')).toHaveCount(3)

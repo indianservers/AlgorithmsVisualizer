@@ -22,6 +22,26 @@ export default defineConfig({
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {
+                if (
+                  id.includes('/src/daa/RecursionTreeMockupLesson') ||
+                  id.includes('/src/daa/recursionTreeModel') ||
+                  id.includes('/src/daa/recursion-tree-mockup.css')
+                )
+                  return 'recursion-tree-mockup'
+                if (
+                  id.includes('/src/daa/MasterTheoremMockupLesson') ||
+                  id.includes('/src/daa/masterTheoremModel') ||
+                  id.includes('/src/daa/master-theorem-mockup.css')
+                )
+                  return 'master-theorem-mockup'
+                if (id.includes('/src/daa/InvariantMockupLesson') || id.includes('/src/daa/invariantModel') || id.includes('/src/daa/invariant-mockup.css'))
+                  return 'invariant-mockup'
+                if (
+                  id.includes('/src/daa/GreedyExchangeMockupLesson') ||
+                  id.includes('/src/daa/greedyExchangeModel') ||
+                  id.includes('/src/daa/greedy-exchange-mockup.css')
+                )
+                  return 'greedy-exchange-mockup'
                 if (id.includes('/src/daa/AmortizedMockupLesson') || id.includes('/src/daa/amortizedModel') || id.includes('/src/daa/amortized-mockup.css'))
                   return 'amortized-mockup'
                 if (id.includes('/src/daa/PseudocodeMockupLesson') || id.includes('/src/daa/pseudocodeModel') || id.includes('/src/daa/pseudocode-mockup.css'))

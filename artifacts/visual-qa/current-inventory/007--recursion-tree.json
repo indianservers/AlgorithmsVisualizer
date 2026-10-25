@@ -11,18 +11,21 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Recurrences: Recursion Trees",
-    "Problem Input ",
-    " Tree depth",
-    "Procedure",
-    " Total work",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Recursion Tree",
+    "Level Cost Summary",
+    "Level cost formula",
+    "Leaf Cost Analysis",
+    "Number of leaves",
+    "Work per leaf",
+    "Total leaf cost",
+    "Total Work",
+    "Key Takeaways",
+    "Pro Tip",
+    "Common Mistakes",
+    "Worked Example: T(n) = 4T(n/2) + n",
+    "Assumptions and Constraints",
+    "Build and sum a balanced recursion tree",
+    "The reference recurrence, corrected",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +113,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,67 +129,71 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Linear",
+      "pressed": "true"
+    },
+    {
+      "label": "Logarithmic",
+      "pressed": "false"
+    },
+    {
+      "label": "Forgetting to multiply by the number of nodes at each level (aⁱ).",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Stopping the tree too early (should go to depth log_b n).",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Incorrectly computing the leaf count (it is a^(log_b n)).",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Assuming f(n) is always the total work per level instead of per node.",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Inspect worked step 1",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Inspect worked step 2",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "Inspect worked step 3",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect worked step 4",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 3",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Visualize the decreasing-by-one chain",
       "pressed": null
     }
   ]

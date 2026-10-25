@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ClipboardCheck,
   ClipboardList,
+  CodeXml,
   Clock3,
   Coins,
   Database,
@@ -31,7 +32,7 @@ import './amortized-mockup.css'
 const tr = (s: string) => tx(s, 'studios')
 type Tab = 'Learn' | 'Visualize' | 'Practice' | 'Quiz' | 'Notes'
 const tabs: Tab[] = ['Learn', 'Visualize', 'Practice', 'Quiz', 'Notes'],
-  icons = [BookOpen, Play, ClipboardCheck, Trophy, FileText]
+  icons = [BookOpen, Play, CodeXml, Trophy, FileText]
 const worked = dynamicArrayTrace(appendOperations(8))
 function Panel({
   title,
@@ -72,8 +73,9 @@ function HeroArt() {
           <stop offset="1" stopColor="#5932ee" />
         </linearGradient>
       </defs>
+      <path d="M-80 146C-20 65 30 148 104 87S196 14 299-8L303 58C207 74 218 109 194 124S63 135 28 159Z" fill="#dcecff" opacity=".38" />
       {[0, 1, 2, 3].map((i) => (
-        <g key={i} transform={`translate(0,${-i * 20})`}>
+        <g key={i} transform={`translate(0,${-i * 18})`}>
           <path d="M59 84L100 61L141 84L100 108Z" fill={i === 3 ? '#ceefff' : '#b4a2ff'} stroke="#c3e8ff" />
           <path d="M59 84L100 108V122L59 99Z" fill={i === 3 ? 'url(#am-cube-blue)' : 'url(#am-cube-purple)'} />
           <path d="M100 108L141 84V99L100 122Z" fill={i === 3 ? '#86c5ff' : '#6743e9'} />

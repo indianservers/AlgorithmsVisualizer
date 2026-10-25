@@ -45,8 +45,8 @@
   height: 127px;
   max-width: none !important;
   position: relative;
-  left: -10px;
-  top: -2px;
+  left: -7px;
+  top: -15px;
 }
 .amortized-page .am-tabs {
   gap: 11px;
@@ -1304,13 +1304,16 @@
 @media (max-width: 600px) {
   .amortized-page .mom-topbar {
     height: auto;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 10px;
   }
   .amortized-page .mom-search {
-    grid-column: 1/-1;
+    flex-basis: 100%;
+  }
+  .amortized-page .mom-topbar > button {
+    flex-shrink: 0;
   }
   .amortized-page .mom-topbar .aimer-account-controls {
     justify-content: end;

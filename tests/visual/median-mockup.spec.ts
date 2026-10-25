@@ -18,12 +18,27 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   await expect(pageRoot.getByRole('heading', { name: 'Key Takeaways', exact: true })).toBeVisible()
   await expect(pageRoot.getByRole('heading', { name: 'Common Pitfalls', exact: true })).toBeVisible()
   await expect(pageRoot.locator('.mom-worked-example')).toContainText('7th smallest is 6')
+  for (const selector of ['.mom-takeaways', '.mom-pitfalls', '.mom-pro-tip']) {
+    const card = await pageRoot.locator(selector).boundingBox(),
+      text = await pageRoot.locator(`${selector} p`).last().boundingBox()
+    expect(text!.y + text!.height, `${selector} text fits its card`).toBeLessThanOrEqual(card!.y + card!.height)
+  }
   if (info.project.name === 'desktop') {
     const hero = await pageRoot.locator('.mom-hero').boundingBox()
     expect(hero).not.toBeNull()
     // Layout evidence only; pixel fidelity still requires image comparison.
     for (const [key, value] of Object.entries({ x: 290, y: 65, width: 1366, height: 118 }))
       expect(Math.abs(hero![key as keyof typeof hero] - value), `Median hero ${key}`).toBeLessThanOrEqual(3)
+    for (const [selector, expected] of [
+      ['.mom-dashboard', { x: 290, y: 244, width: 1366 }],
+      ['.mom-groups-panel', { x: 290, y: 244, width: 584, height: 208 }],
+      ['.mom-sort-panel', { x: 884, y: 244, width: 418, height: 208 }],
+      ['.mom-side-cards', { x: 1316, y: 244, width: 340 }],
+    ] as const) {
+      const box = await pageRoot.locator(selector).boundingBox()
+      for (const [key, value] of Object.entries(expected))
+        expect(Math.abs(box![key as keyof typeof box] - value), `Median ${selector} ${key}`).toBeLessThanOrEqual(3)
+    }
   }
   await page.screenshot({ path: `artifacts/visual-qa/median-017/${info.project.name}-learn.png`, fullPage: false })
   if (process.env.MEDIAN_MEASURE === '1')

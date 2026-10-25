@@ -11,12 +11,21 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Greedy Choice and Exchange Arguments",
-    "The exchange argument",
-    "Activity Selection",
-    "Problem Input",
-    "Step 1 of 8",
-    "Accept or reject activity 0 [1, 4]?",
+    "Activity Selection Visualizer",
+    "Greedy step-by-step",
+    "Local Choice vs Global Outcome",
+    "Selected schedule",
+    "Result",
+    "Exchange Argument (Before → After)",
+    "Optimal solution (before)",
+    "After exchange (include A1)",
+    "Worked Example: Fractional Knapsack",
+    "When Greedy Fails",
+    "Counterexample (Coin Change)",
+    "Key Takeaways",
+    "Why earliest finish is safe",
+    "Fractional exchange and its limits",
+    "Explore a coin system",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -104,7 +113,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -116,15 +129,15 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
     },
     {
-      "label": "Code",
+      "label": "Visualize",
       "pressed": "false"
     },
     {
@@ -132,79 +145,51 @@
       "pressed": "false"
     },
     {
-      "label": "Experiments",
+      "label": "Quiz",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": " Run Greedy",
       "pressed": null
     },
     {
-      "label": "Run greedy example",
+      "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Reset default",
+      "label": "Inspect greedy pick 1",
       "pressed": null
     },
     {
-      "label": "Save greedy example",
+      "label": "Inspect greedy pick 2",
       "pressed": null
     },
     {
-      "label": "Export greedy trace",
+      "label": "Inspect greedy pick 3",
       "pressed": null
     },
     {
-      "label": "Inspect activity 0",
+      "label": "Earliest Finish (Greedy)",
+      "pressed": "true"
+    },
+    {
+      "label": "Largest Duration",
+      "pressed": "false"
+    },
+    {
+      "label": "Earliest Start",
+      "pressed": "false"
+    },
+    {
+      "label": "Reset exchange argument",
       "pressed": null
     },
     {
-      "label": "Inspect activity 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect activity 2",
-      "pressed": null
-    },
-    {
-      "label": "Inspect activity 3",
-      "pressed": null
-    },
-    {
-      "label": "Inspect activity 4",
-      "pressed": null
-    },
-    {
-      "label": "Inspect activity 5",
-      "pressed": null
-    },
-    {
-      "label": "Replay greedy trace",
-      "pressed": null
-    },
-    {
-      "label": "Previous greedy step",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Next greedy step",
-      "pressed": null
-    },
-    {
-      "label": "Jump to solution",
-      "pressed": null
-    },
-    {
-      "label": "Check prediction",
-      "pressed": null
-    },
-    {
-      "label": "Reveal next decision",
+      "label": "Compare coin solutions",
       "pressed": null
     }
   ]

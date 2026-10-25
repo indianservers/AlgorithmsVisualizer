@@ -11,18 +11,19 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Induction and Loop Invariants",
-    "Problem Input ",
-    " Maintenance",
-    "Procedure",
-    " Termination",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Induction Workflow",
+    "Base Case",
+    "Induction Hypothesis",
+    "Inductive Step",
+    "Loop Invariant Checker",
+    "Binary Search Interval Visualizer",
+    "Worked Example: Insertion Sort Invariant",
+    "Common Mistakes",
+    "Proof Vocabulary",
+    "Pro Tip",
+    "Partial correctness and total correctness",
+    "Binary search",
+    "Induction and insertion sort",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +111,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,67 +127,175 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Verify P(n₀).",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Assume P(k).",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Show P(k) ⇒ P(k + 1).",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Review initialization obligation",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Review maintenance obligation",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Review termination obligation",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "Inspect array index 0, value 4",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect array index 1, value 8",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect array index 2, value 12",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect array index 3, value 16",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect array index 4, value 23",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect array index 5, value 28",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect array index 6, value 31",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 7, value 34",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 8, value 37",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 9, value 42",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 10, value 45",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 11, value 51",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 12, value 56",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 13, value 62",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 14, value 78",
+      "pressed": null
+    },
+    {
+      "label": "Inspect array index 15, value 91",
+      "pressed": null
+    },
+    {
+      "label": "Previous binary search step",
+      "pressed": null
+    },
+    {
+      "label": "Play binary search",
+      "pressed": null
+    },
+    {
+      "label": "Next binary search step",
+      "pressed": null
+    },
+    {
+      "label": "View full solution",
+      "pressed": null
+    },
+    {
+      "label": "Proving only a few base cases but not the inductive step.",
+      "pressed": null
+    },
+    {
+      "label": "Using a wrong or too weak loop invariant.",
+      "pressed": null
+    },
+    {
+      "label": "Assuming the invariant implies the postcondition without the exit condition.",
+      "pressed": null
+    },
+    {
+      "label": "Not proving termination (for loops or recursive proofs).",
+      "pressed": null
+    },
+    {
+      "label": "InductionProve P(n) for all n using base case and inductive step.",
+      "pressed": null
+    },
+    {
+      "label": "Loop InvariantA property that holds before and after every iteration.",
+      "pressed": null
+    },
+    {
+      "label": "InitializationInvariant holds initially.",
+      "pressed": null
+    },
+    {
+      "label": "MaintenanceInvariant is preserved by each iteration.",
+      "pressed": null
+    },
+    {
+      "label": "TerminationLoop finishes (variant decreases).",
+      "pressed": null
+    },
+    {
+      "label": "PostconditionDesired property on output.",
+      "pressed": null
+    },
+    {
+      "label": "See more examples",
       "pressed": null
     }
   ]
