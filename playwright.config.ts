@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test'
+const port = Number(process.env.DAA_TEST_PORT ?? 5199)
 
 export default defineConfig({
   testDir: './tests/visual',
@@ -8,16 +9,16 @@ export default defineConfig({
     },
   },
   use: {
-    baseURL: 'http://127.0.0.1:5199',
+    baseURL: `http://127.0.0.1:${port}`,
     colorScheme: 'light',
   },
   webServer: {
     command:
       process.env.DAA_TEST_PRODUCTION === '1'
-        ? 'npm run preview -- --host 127.0.0.1 --port 5199 --strictPort'
-        : 'npm run dev -- --host 127.0.0.1 --port 5199 --strictPort',
+        ? `npm run preview -- --host 127.0.0.1 --port ${port} --strictPort`
+        : `npm run dev -- --host 127.0.0.1 --port ${port} --strictPort`,
     reuseExistingServer: false,
-    url: 'http://127.0.0.1:5199',
+    url: `http://127.0.0.1:${port}`,
   },
   projects: [
     {

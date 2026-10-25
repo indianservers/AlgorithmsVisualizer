@@ -1,6 +1,7 @@
 // @localized-render
 import { tx, useLocaleRender } from '../i18n/render'
 import { Penguin, Dolphin } from '../components/CharacterArt'
+import { DetectiveSearch } from '../components/DetectiveSearch'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Activity, ArrowRight, BookOpen, Clock, Code2, Copy, Layers, RotateCcw, Search, Settings2, Shuffle, ZoomIn, ZoomOut } from 'lucide-react'
@@ -379,6 +380,7 @@ export function AlgorithmStudio({
   download,
   canvasRef,
   reducedMotion,
+  history = [],
 }: {
   module: AlgorithmModule
   input: number[]
@@ -386,6 +388,7 @@ export function AlgorithmStudio({
   target: number
   size: number
   step?: AlgorithmStep
+  history?: AlgorithmStep[]
   controls: React.ReactNode
   disabledReason: string
   modules: AlgorithmModule[]
@@ -442,60 +445,75 @@ export function AlgorithmStudio({
         </header>
         {tx(controls, 'studios')}
         <section className="studio-visual" ref={canvasRef}>
-          <div className="studio-view-toolbar">
-            <span>{tx('View as:', 'studios')}</span>
-            <div className="studio-toggle">
-              {tx(
-                ['bars', 'icons'].map((v) => (
-                  <button key={v} aria-pressed={view === v} onClick={() => setView(v)}>
-                    {tx(v === 'bars' ? 'Bars' : 'Icons', 'studios')}
-                  </button>
-                )),
-                'studios',
-              )}
-            </div>
-            <label className="studio-character">
-              {tx('Bar icons', 'studios')}
-              <select
-                aria-label={tx('Bar icons', 'studios')}
-                value={character}
-                onChange={(event) => {
-                  setCharacter(event.target.value)
-                  setView('icons')
-                }}
-              >
+          {sorting && (
+            <div className="studio-view-toolbar">
+              <span>{tx('View as:', 'studios')}</span>
+              <div className="studio-toggle">
                 {tx(
-                  sortingCharacters.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {tx(option.icon, 'studios')} {tx(option.name, 'studios')}
-                    </option>
+                  ['bars', 'icons'].map((v) => (
+                    <button key={v} aria-pressed={view === v} onClick={() => setView(v)}>
+                      {tx(v === 'bars' ? 'Bars' : 'Icons', 'studios')}
+                    </button>
                   )),
                   'studios',
                 )}
-              </select>
-            </label>
-            <div className="studio-legend">
-              <span className="active">{tx('Active', 'studios')}</span>
-              <span className="comparing">{tx('Comparing', 'studios')}</span>
-              <span className="sorted">{tx('Sorted', 'studios')}</span>
-              <span>{tx('Unsorted', 'studios')}</span>
+              </div>
+              <label className="studio-character">
+                {tx('Bar icons', 'studios')}
+                <select
+                  aria-label={tx('Bar icons', 'studios')}
+                  value={character}
+                  onChange={(event) => {
+                    setCharacter(event.target.value)
+                    setView('icons')
+                  }}
+                >
+                  {tx(
+                    sortingCharacters.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {tx(option.icon, 'studios')} {tx(option.name, 'studios')}
+                      </option>
+                    )),
+                    'studios',
+                  )}
+                </select>
+              </label>
+              <div className="studio-legend">
+                <span className="active">{tx('Active', 'studios')}</span>
+                <span className="comparing">{tx('Comparing', 'studios')}</span>
+                <span className="sorted">{tx('Sorted', 'studios')}</span>
+                <span>{tx('Unsorted', 'studios')}</span>
+              </div>
+              <div className="studio-zoom">
+                <button aria-label={tx('Zoom out', 'studios')} disabled={zoom <= 75} onClick={() => setZoom((v) => v - 25)}>
+                  <ZoomOut size={17} />
+                </button>
+                <button aria-label={tx('Zoom in', 'studios')} disabled={zoom >= 200} onClick={() => setZoom((v) => v + 25)}>
+                  <ZoomIn size={17} />
+                </button>
+                <button aria-label={tx('Fit to view', 'studios')} onClick={() => setZoom(100)}>
+                  {tx(zoom, 'studios')}%
+                </button>
+                <button aria-label={tx('Reset animation', 'studios')} onClick={reset}>
+                  <RotateCcw size={17} />
+                </button>
+              </div>
             </div>
-            <div className="studio-zoom">
-              <button aria-label={tx('Zoom out', 'studios')} disabled={zoom <= 75} onClick={() => setZoom((v) => v - 25)}>
-                <ZoomOut size={17} />
-              </button>
-              <button aria-label={tx('Zoom in', 'studios')} disabled={zoom >= 200} onClick={() => setZoom((v) => v + 25)}>
-                <ZoomIn size={17} />
-              </button>
-              <button aria-label={tx('Fit to view', 'studios')} onClick={() => setZoom(100)}>
-                {tx(zoom, 'studios')}%
-              </button>
-              <button aria-label={tx('Reset animation', 'studios')} onClick={reset}>
-                <RotateCcw size={17} />
-              </button>
-            </div>
-          </div>
-          <ArrayScene step={current} input={input} view={view} zoom={zoom} reducedMotion={reducedMotion} character={character} />
+          )}
+          {sorting ? (
+            <ArrayScene step={current} input={input} view={view} zoom={zoom} reducedMotion={reducedMotion} character={character} />
+          ) : (
+            <DetectiveSearch
+              key={module.id}
+              items={(current?.dataState ?? input).map((value, index) => ({ value, index, id: `search-${index}` }))}
+              step={current}
+              history={history}
+              target={target}
+              algorithmId={module.id}
+              reducedMotion={reducedMotion}
+              quality="detailed"
+            />
+          )}
           <div className="studio-explanation" aria-live="polite">
             <BookOpen size={22} />
             <div>

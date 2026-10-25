@@ -46,6 +46,7 @@ import './dijkstra.css'
 import './dfs.css'
 import './bfs.css'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
+const MedianOfMediansLesson = lazy(() => import('./MedianOfMediansLesson').then((module) => ({ default: module.MedianOfMediansLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -1452,6 +1453,13 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 
 export function DaaWorkspace({ module, completed, toggleCompleted }: Props) {
   useLocaleRender()
+
+  if (module.id === 'deterministic-selection')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <MedianOfMediansLesson module={module} completed={completed} toggleCompleted={toggleCompleted} />
+      </Suspense>
+    )
 
   if (module.category === 'Backtracking')
     return (

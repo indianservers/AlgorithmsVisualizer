@@ -22,6 +22,8 @@ export default defineConfig({
             { name: 'vendor-chess', test: /node_modules[\\/]chess\.js/, priority: 100 },
             {
               name(id) {
+                if (id.includes('/src/daa/MedianOfMediansLesson') || id.includes('/src/daa/medianModel') || id.includes('/src/daa/median-mockup.css'))
+                  return 'median-mockup'
                 if (
                   id.includes('/src/learning/BacktrackingStudio') ||
                   id.includes('/src/learning/backtrackingModel') ||

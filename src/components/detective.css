@@ -243,3 +243,178 @@
   font-size: 12px;
   color: var(--ink);
 }
+
+/* Shared search desk: icy blues, warm clues, and a moving detective. */
+.detective-search {
+  --detective-accent: #e59a27;
+  background: linear-gradient(155deg, color-mix(in srgb, #e4f1ff 30%, var(--panel)), var(--panel) 65%);
+  box-shadow: 0 12px 36px #2760ab08;
+  overflow: hidden;
+}
+.detective-desk-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #1670ff;
+  border-radius: 50%;
+  background: #1670ff12;
+}
+.detective-heading {
+  display: grid;
+  gap: 4px;
+}
+.detective-heading > span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.detective-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #a45b08;
+}
+.detective-track {
+  padding-top: 222px;
+}
+.detective-landscape {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  color: #7fbbd5;
+  pointer-events: none;
+}
+.detective-agent {
+  top: 70px;
+  height: 150px;
+}
+.detective-character {
+  width: 70px;
+}
+.detective-accessories {
+  width: 70px;
+  height: 140px;
+}
+.detective-beam {
+  top: 111px;
+  height: 42px;
+}
+.detective-mission {
+  position: absolute;
+  top: 20px;
+  left: 110px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: min(310px, calc(100% - 126px));
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--detective-accent) 25%, var(--line));
+  border-radius: 18px 18px 18px 4px;
+  background: color-mix(in srgb, #fff0db 35%, var(--panel));
+  box-shadow: 0 8px 24px #406a9910;
+  color: var(--ink);
+}
+.detective-mission > svg {
+  color: #1970eb;
+  flex-shrink: 0;
+}
+.detective-mission strong {
+  font-size: 18px;
+}
+.detective-mission p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.detective-number {
+  width: 100%;
+  font-family: inherit;
+  font-weight: 750;
+  color: var(--ink);
+  cursor: pointer;
+  border-color: color-mix(in srgb, #5595ff 30%, var(--line));
+  box-shadow: 0 5px 12px #2760ab08;
+}
+.detective-number:hover {
+  transform: translateY(-3px);
+  border-color: #1970eb;
+}
+.detective-number:focus-visible {
+  outline: 3px solid #1970eb;
+  outline-offset: 3px;
+}
+.detective-number[aria-pressed='true'] {
+  outline: 2px solid #1970eb;
+  outline-offset: 3px;
+}
+.detective-cell.examining .detective-mark {
+  color: #a45b08;
+  font-weight: 750;
+}
+.detective-cell.visited .detective-number {
+  background: color-mix(in srgb, #5a8cde 12%, var(--panel));
+}
+.detective-cell.eliminated .detective-number {
+  color: var(--muted);
+}
+.detective-verdict {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, #e6f1ff 20%, var(--panel));
+}
+.detective-verdict.solved {
+  border-color: #37926e66;
+  background: color-mix(in srgb, #37926e 7%, var(--panel));
+}
+.detective-verdict.missing {
+  border-color: #e59a2766;
+}
+.detective-inspection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #1970eb44;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: color-mix(in srgb, #1970eb 7%, var(--panel));
+}
+.detective-inspection > svg {
+  flex-shrink: 0;
+  color: #1970eb;
+}
+.detective-inspection button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 20px;
+}
+.detective-legend span:first-child {
+  color: #a45b08;
+}
+.detective-legend span:nth-child(2) {
+  color: #29805e;
+}
+@media (max-width: 600px) {
+  .detective-heading {
+    flex: 1;
+    min-width: 140px;
+  }
+  .detective-counter {
+    margin-left: 54px;
+  }
+  .detective-case {
+    gap: 8px 10px;
+  }
+}

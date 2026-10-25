@@ -380,6 +380,7 @@ export function Visualizer({
           size={size}
           step={currentStep}
           controls={controls}
+          history={searchHistory}
           reducedMotion={reducedMotion || animationQuality === 'off'}
           disabledReason={disabledReason}
           modules={filteredModules}
