@@ -48,6 +48,8 @@ import './bfs.css'
 import { TargetLessonVisualization } from './TargetLessonVisualization'
 const MedianOfMediansLesson = lazy(() => import('./MedianOfMediansLesson').then((module) => ({ default: module.MedianOfMediansLesson })))
 const QuickselectMockupLesson = lazy(() => import('./QuickselectMockupLesson').then((module) => ({ default: module.QuickselectMockupLesson })))
+const StrassenMockupLesson = lazy(() => import('./StrassenMockupLesson').then((module) => ({ default: module.StrassenMockupLesson })))
+const MaximumSubarrayMockupLesson = lazy(() => import('./MaximumSubarrayMockupLesson').then((module) => ({ default: module.MaximumSubarrayMockupLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -1454,6 +1456,20 @@ function LessonView({ lesson, completed, toggleCompleted }: { lesson: Lesson; co
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'maximum-subarray')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <MaximumSubarrayMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'strassen')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <StrassenMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'quickselect')
     return (

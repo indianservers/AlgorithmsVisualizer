@@ -38,12 +38,12 @@ export type MockupPageProps = {
   onToggleTheme?: () => void
 }
 
-export function MockupTabs({ active, onChange }: { active: MockupTab; onChange: (tab: MockupTab) => void }) {
+export function MockupTabs({ active, onChange, tabs = mockupTabs }: { active: MockupTab; onChange: (tab: MockupTab) => void; tabs?: readonly MockupTab[] }) {
   useLocaleRender()
   return (
     <nav className="mom-tabs" aria-label={tr('Algorithm sections')}>
-      {mockupTabs.map((tab, i) => {
-        const Icon = icons[i]
+      {tabs.map((tab) => {
+        const Icon = icons[mockupTabs.indexOf(tab)]
         return (
           <button key={tab} aria-pressed={active === tab} onClick={() => onChange(tab)}>
             <Icon size={19} />
@@ -66,7 +66,16 @@ export function MockupLessonChrome({
   onStart,
   decoration,
   categoryBadge = false,
-}: { title: string; description: string; concepts?: number; onStart: () => void; decoration?: ReactNode; categoryBadge?: boolean } & MockupPageProps) {
+  badges,
+}: {
+  title: string
+  description: string
+  concepts?: number
+  onStart: () => void
+  decoration?: ReactNode
+  categoryBadge?: boolean
+  badges?: ReactNode
+} & MockupPageProps) {
   useLocaleRender()
   const navigate = useNavigate(),
     [query, setQuery] = useState(''),
@@ -128,24 +137,28 @@ export function MockupLessonChrome({
           <h1>{tr(title)}</h1>
           <p>{tr(description)}</p>
           <div className="mom-badges">
-            <span>
-              <Clock3 />
-              {tr('10–15 min')}
-            </span>
-            <span>
-              <BarChart3 />
-              {tr('Intermediate')}
-            </span>
-            {categoryBadge && (
-              <span>
-                <Timer />
-                {tx(module.category, 'navigation')}
-              </span>
+            {badges ?? (
+              <>
+                <span>
+                  <Clock3 />
+                  {tr('10–15 min')}
+                </span>
+                <span>
+                  <BarChart3 />
+                  {tr('Intermediate')}
+                </span>
+                {categoryBadge && (
+                  <span>
+                    <Timer />
+                    {tx(module.category, 'navigation')}
+                  </span>
+                )}
+                <span>
+                  <Timer />
+                  {tr(`${concepts} key concepts`)}
+                </span>
+              </>
             )}
-            <span>
-              <Timer />
-              {tr(`${concepts} key concepts`)}
-            </span>
           </div>
         </div>
         {decoration}

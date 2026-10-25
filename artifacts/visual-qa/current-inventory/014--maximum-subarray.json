@@ -11,18 +11,21 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Maximum Subarray",
-    "Problem Input ",
-    " Recursion tree",
-    "Procedure",
-    " Midpoint crossing",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Problem Overview",
+    "Array Visualization",
+    "Current Example",
+    "Array (n = 8)",
+    "Key Takeaways",
+    "Compare the Three Cases at Each Step",
+    "Best Left Subarray",
+    "Best Right Subarray",
+    "Best Crossing Subarray",
+    "Recursion Tree (Divide and Conquer)",
+    "Worked Example",
+    "Complexity & Correctness",
+    "Midpoint Crossing Computation",
+    "Best suffix ending at mid (index 3)",
+    "Best prefix starting at mid+1 (index 4)",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +113,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,12 +129,16 @@
       "pressed": null
     },
     {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
-      "pressed": "false"
+      "pressed": "true"
     },
     {
       "label": "Visualization",
-      "pressed": "true"
+      "pressed": "false"
     },
     {
       "label": "Code",
@@ -142,31 +153,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Left half (0 … 3)",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Right half (4 … 7)",
       "pressed": null
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Run Step by Step",
       "pressed": null
     },
     {
@@ -174,43 +169,47 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect Best Left Subarray",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect Best Right Subarray",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect Best Crossing Subarray",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect suffix scan 1",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect suffix scan 2",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect suffix scan 3",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect suffix scan 4",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect prefix scan 5",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect prefix scan 6",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect prefix scan 7",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 9",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Inspect prefix scan 8",
       "pressed": null
     }
   ]

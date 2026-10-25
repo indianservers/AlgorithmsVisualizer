@@ -23,6 +23,14 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/MaximumSubarrayMockupLesson') ||
+                  id.includes('/src/daa/maximumSubarrayModel') ||
+                  id.includes('/src/daa/maximum-subarray-mockup.css')
+                )
+                  return 'maximum-subarray-mockup'
+                if (id.includes('/src/daa/StrassenMockupLesson') || id.includes('/src/daa/strassenModel') || id.includes('/src/daa/strassen-mockup.css'))
+                  return 'strassen-mockup'
+                if (
                   id.includes('/src/daa/QuickselectMockupLesson') ||
                   id.includes('/src/daa/quickselectModel') ||
                   id.includes('/src/daa/quickselect-mockup.css') ||
