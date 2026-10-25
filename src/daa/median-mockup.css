@@ -8,7 +8,7 @@
   display: block;
   margin: 0;
   color: var(--mom-ink);
-  font-family: Arial, 'Segoe UI', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   min-width: 0;
 }
@@ -16,6 +16,7 @@
   box-sizing: border-box;
 }
 .mom-page button {
+  min-height: 0;
   cursor: pointer;
   font: inherit;
   color: inherit;
@@ -161,8 +162,8 @@
   display: grid;
   grid-template-columns: 74px minmax(0, 1fr) 260px 88px 186px;
   align-items: center;
-  gap: 20px;
-  padding: 17px 20px;
+  gap: 22px;
+  padding: 10px 22px;
   height: 118px;
   border: 1px solid var(--mom-line);
   border-radius: 14px;
@@ -340,7 +341,7 @@
 .mom-panel > header {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 12px;
 }
 .mom-panel > header > svg {
@@ -404,7 +405,7 @@
 .mom-group {
   flex: 1;
   min-width: 0;
-  padding: 8px 5px 11px;
+  padding: 8px 3px 11px;
   background: #edf7ff;
   border-radius: 7px;
 }
@@ -413,7 +414,7 @@
   text-align: center;
   font-size: 11px;
   color: #086eff;
-  padding-bottom: 9px;
+  padding-bottom: 13px;
 }
 .mom-numbers {
   display: flex;
@@ -434,6 +435,24 @@
   min-width: 19px;
   line-height: 1;
   white-space: nowrap;
+}
+.mom-groups-panel .mom-numbers {
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+.mom-groups-panel .mom-numbers > span {
+  min-width: 18px;
+  padding: 5px 2px;
+}
+.mom-last-row {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1.74fr 1fr;
+  gap: 10px;
+  min-width: 0;
+}
+.mom-last-row > .mom-panel {
+  grid-column: auto;
 }
 .tone-1 {
   background: #eef9f4;
@@ -673,7 +692,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 26px;
+  margin-top: 8px;
   font-size: 10px;
 }
 .mom-flow-start {
@@ -856,7 +875,7 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.25;
 }
 .mom-tip-row p > b {
@@ -1293,8 +1312,8 @@
   .app-shell:has(.mom-page) {
     grid-template-columns: 276px minmax(0, 1fr);
   }
-  .workspace:has(> .mom-page) {
-    padding: 10px 16px 0 14px;
+  .app-shell .workspace:has(.mom-page) {
+    padding: 11px 16px 0 14px;
     display: block;
   }
   .app-shell:has(.mom-page) .sidebar-header {
@@ -1312,7 +1331,7 @@
     font-size: 12px;
   }
   .app-shell:has(.mom-page) .sidebar-category-toggle {
-    min-height: 42px;
+    min-height: 38px;
     font-size: 14px;
   }
   .app-shell:has(.mom-page) .sidebar-algorithm {
@@ -1444,7 +1463,7 @@
   }
 }
 @media (max-width: 1120px) {
-  .workspace:has(> .mom-page) {
+  .app-shell .workspace:has(.mom-page) {
     padding: 58px 14px 10px;
     display: block;
   }
@@ -1615,6 +1634,10 @@
     padding: 8px 12px;
   }
   .mom-main-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .mom-last-row {
     display: flex;
     flex-direction: column;
   }

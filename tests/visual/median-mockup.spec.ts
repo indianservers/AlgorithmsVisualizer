@@ -13,7 +13,7 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   const pageRoot = page.locator('.mom-page')
   await expect(pageRoot.getByRole('heading', { name: 'Median-of-Medians Selection', exact: true })).toBeVisible()
   await expect(pageRoot.getByRole('button', { name: 'Learn', exact: true })).toHaveAttribute('aria-pressed', 'true')
-  await expect(pageRoot.locator('.mom-main-grid>.mom-panel')).toHaveCount(6)
+  await expect(pageRoot.locator('.mom-main-grid .mom-panel')).toHaveCount(6)
   await expect(pageRoot.locator('.mom-group-list>.mom-group')).toHaveCount(5)
   await expect(pageRoot.getByRole('heading', { name: 'Key Takeaways', exact: true })).toBeVisible()
   await expect(pageRoot.getByRole('heading', { name: 'Common Pitfalls', exact: true })).toBeVisible()

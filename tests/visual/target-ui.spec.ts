@@ -19,7 +19,7 @@ test.describe('numbered target UI inventory', () => {
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
       if (target.number === 17) {
-        await expect(visual.locator('.mom-main-grid>.mom-panel')).toHaveCount(6)
+        await expect(visual.locator('.mom-main-grid .mom-panel')).toHaveCount(6)
         await expect(visual.locator('.mom-worked-example')).toContainText('7th smallest is 6')
         await page.screenshot({ path: resolve('artifacts/visual-qa/final/017--deterministic-selection.png'), fullPage: false })
         await visual.getByRole('button', { name: 'Visualization', exact: true }).click()
