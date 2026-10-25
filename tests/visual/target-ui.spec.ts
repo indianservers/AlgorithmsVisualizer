@@ -27,6 +27,51 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 18) {
+        await expect(visual.locator('.dm-stage')).toHaveCount(3)
+        await expect(visual.locator('.dm-example')).toHaveCount(4)
+        await captureReference()
+        await visual.getByLabel('Divide and combine cost', { exact: true }).selectOption('square')
+        await expect(visual.locator('.dm-recurrence-result output')).toContainText('Θ(n2)')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 3) {
+        await expect(visual.locator('.an-function-legend input')).toHaveCount(6)
+        await expect(visual.locator('.an-definitions>button')).toHaveCount(5)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Linear', exact: true }).click()
+        await expect(visual.locator('.an-plot')).toHaveAttribute('aria-label', 'Linear asymptotic growth chart')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 4) {
+        await expect(visual.locator('.cs-case-card')).toHaveCount(3)
+        await expect(visual.locator('.cs-bit-length')).toHaveText('11 bits')
+        await captureReference()
+        await visual.getByLabel('Integer value', { exact: true }).fill('1023')
+        await expect(visual.locator('.cs-bit-length')).toHaveText('10 bits')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 5) {
+        await expect(visual.locator('.lr-heat-grid button')).toHaveCount(36)
+        await expect(visual.locator('.lr-stack-table ol>li')).toHaveCount(5)
+        await captureReference()
+        await visual.getByLabel('Loop size n', { exact: true }).fill('3')
+        await expect(visual.locator('.lr-loop-result output')).toHaveText('n × n = 9')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 6) {
+        await expect(visual.locator('.sb-proof-steps>li')).toHaveCount(5)
+        await expect(visual.locator('.sb-conclusion')).toContainText('O(n log n)')
+        await captureReference()
+        await visual.getByLabel('Your guess for T(n):', { exact: true }).selectOption('linear')
+        await expect(visual.locator('.sb-conclusion')).toContainText('not certified')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 7) {
         await expect(visual.locator('.rt-diagram .rt-node')).toHaveCount(13)
         await expect(visual.locator('.rt-overall')).toHaveAttribute('data-bound', 'Θ(n^2)')

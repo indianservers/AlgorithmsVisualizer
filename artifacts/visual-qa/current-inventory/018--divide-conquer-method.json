@@ -11,18 +11,16 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Divide and Conquer: Design Method",
-    "Problem Input ",
-    " Conquer",
-    "Procedure",
-    " Combine",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "The Divide and Conquer Framework",
+    "Divide",
+    "Conquer",
+    "Combine",
+    "When to Use Divide and Conquer?",
+    "Key Principles & Assumptions",
+    "Recurrence Template Builder",
+    "Canonical Examples",
+    "Concept and Intuition",
+    "General Steps Checklist",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +108,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,68 +124,152 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Start Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Explore Divide stage",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Explore Conquer stage",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Explore Combine stage",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Answer no to design question 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Answer yes to design question 1",
+      "pressed": "true"
+    },
+    {
+      "label": "Answer no to design question 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Answer yes to design question 2",
+      "pressed": "true"
+    },
+    {
+      "label": "Answer no to design question 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Answer yes to design question 3",
+      "pressed": "true"
+    },
+    {
+      "label": "Explain design recommendation",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Divide into smaller instances of the same problem.",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Conquer recursively with clear base cases.",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "Combine subproblem solutions efficiently.",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Subproblems are (mostly) independent (non-overlapping).",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Recurrence captures the time cost accurately.",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Correctness depends on both recursive solutions and the combine step.",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Mathematical bounds are for families of inputs, not a single instance.",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Not always the best choice — overlapping subproblems may favor Dynamic Programming.",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Decrease a",
       "pressed": null
+    },
+    {
+      "label": "Increase a",
+      "pressed": null
+    },
+    {
+      "label": "Decrease b",
+      "pressed": null
+    },
+    {
+      "label": "Increase b",
+      "pressed": null
+    },
+    {
+      "label": "View all examples",
+      "pressed": null
+    },
+    {
+      "label": "Explore Merge Sort design",
+      "pressed": null
+    },
+    {
+      "label": "Explore Binary Search design",
+      "pressed": null
+    },
+    {
+      "label": "Explore Find Min and Max design",
+      "pressed": null
+    },
+    {
+      "label": "Explore Maximum Subarray design",
+      "pressed": null
+    },
+    {
+      "label": "1Define the subproblem(s) and show how to divide.",
+      "pressed": "false"
+    },
+    {
+      "label": "2Specify base case(s) and solve them directly.",
+      "pressed": "false"
+    },
+    {
+      "label": "3Write the recurrence for time (and space, if needed).",
+      "pressed": "false"
+    },
+    {
+      "label": "4Prove correctness and solve the recurrence to obtain the bound.",
+      "pressed": "false"
     }
   ]
 }

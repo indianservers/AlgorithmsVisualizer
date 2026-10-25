@@ -23,6 +23,28 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/DivideConquerMockupLesson') ||
+                  id.includes('/src/daa/divideConquerModel') ||
+                  id.includes('/src/daa/divide-conquer-mockup.css')
+                )
+                  return 'divide-conquer-mockup'
+                if (id.includes('/src/daa/AsymptoticMockupLesson') || id.includes('/src/daa/asymptoticModel') || id.includes('/src/daa/asymptotic-mockup.css'))
+                  return 'asymptotic-mockup'
+                if (id.includes('/src/daa/CaseSpaceMockupLesson') || id.includes('/src/daa/caseSpaceModel') || id.includes('/src/daa/case-space-mockup.css'))
+                  return 'case-space-mockup'
+                if (
+                  id.includes('/src/daa/LoopRecursionMockupLesson') ||
+                  id.includes('/src/daa/loopRecursionModel') ||
+                  id.includes('/src/daa/loop-recursion-mockup.css')
+                )
+                  return 'loop-recursion-mockup'
+                if (
+                  id.includes('/src/daa/SubstitutionMockupLesson') ||
+                  id.includes('/src/daa/substitutionModel') ||
+                  id.includes('/src/daa/substitution-mockup.css')
+                )
+                  return 'substitution-mockup'
+                if (
                   id.includes('/src/daa/RecursionTreeMockupLesson') ||
                   id.includes('/src/daa/recursionTreeModel') ||
                   id.includes('/src/daa/recursion-tree-mockup.css')

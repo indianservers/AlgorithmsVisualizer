@@ -90,7 +90,7 @@ export function MockupLessonChrome({
   categoryBadge?: boolean
   badges?: ReactNode
   heroIcon?: ReactNode
-  progress?: { completed: number; total: number }
+  progress?: { completed: number; total: number; unit?: 'activities' | 'subtopics' }
   startLabel?: string
   searchPlaceholder?: string
 } & MockupPageProps) {
@@ -187,7 +187,7 @@ export function MockupLessonChrome({
           <div className="mom-progress-details">
             <b>{tr('Topic Progress')}</b>
             <span>
-              {progress.completed} {tr('of')} {progress.total} {tr('activities')}
+              {progress.completed} {tr('of')} {progress.total} {tr(progress.unit ?? 'activities')}
             </span>
           </div>
         )}

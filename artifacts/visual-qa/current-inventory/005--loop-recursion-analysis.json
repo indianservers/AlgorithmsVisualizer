@@ -11,18 +11,14 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Analyzing Loops and Recursion",
-    "Problem Input ",
-    " Call stack",
-    "Procedure",
-    " Cost derivation",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Loop Iteration Visualizer",
+    "Iteration Heatmap (n = 6)",
+    "Growth Rate Comparison",
+    "Recursion Call Stack Visualizer",
+    "Recurrence Overview",
+    "Worked Examples",
+    "Assumptions and Constraints",
+    "Common Mistakes",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +106,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,39 +122,31 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Quiz",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Play loop animation",
       "pressed": null
     },
     {
@@ -162,27 +154,191 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect iteration 1: i 1, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 2: i 1, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 3: i 1, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 4: i 1, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 5: i 1, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 6: i 1, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 7: i 2, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 8: i 2, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 9: i 2, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 10: i 2, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 11: i 2, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 12: i 2, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 13: i 3, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 14: i 3, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 15: i 3, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 16: i 3, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 17: i 3, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 18: i 3, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 19: i 4, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 20: i 4, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 21: i 4, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 22: i 4, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 23: i 4, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 24: i 4, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 25: i 5, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 26: i 5, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 27: i 5, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 28: i 5, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 29: i 5, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 30: i 5, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 31: i 6, j 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 32: i 6, j 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 33: i 6, j 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 34: i 6, j 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 35: i 6, j 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect iteration 36: i 6, j 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Linear",
+      "pressed": "false"
+    },
+    {
+      "label": "Logarithmic",
+      "pressed": "true"
+    },
+    {
+      "label": "Expand stack frame fact(4)",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Expand stack frame fact(3)",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Expand stack frame fact(2)",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Expand stack frame fact(1)",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Expand stack frame fact(0)",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "View more",
+      "pressed": null
+    },
+    {
+      "label": "1Recursive FactorialT(n) = T(n − 1) + Θ(1) ⇒ Θ(n), stack Θ(n)",
+      "pressed": null
+    },
+    {
+      "label": "2Triangular Nested LoopΣᵢ₌₁ⁿ i = n(n + 1)/2 ⇒ Θ(n²)",
+      "pressed": null
+    },
+    {
+      "label": "3Binary SearchT(n) = T(n/2) + Θ(1) ⇒ Θ(log n)",
       "pressed": null
     }
   ]

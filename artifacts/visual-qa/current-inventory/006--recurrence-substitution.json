@@ -11,18 +11,13 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Recurrences: Substitution Method",
-    "Problem Input ",
-    " Expansion steps",
-    "Procedure",
-    " Boundary condition",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Recurrence Explorer",
+    "Proof Builder",
+    "Recurrence Tree (Visualization)",
+    "Key Takeaways",
+    "Concept Summary",
+    "Common Mistakes",
+    "Edge Cases & Tips",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +105,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,67 +121,99 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Worked ExampleShow that T(n) has an upper bound using substitution.T(n) = 2T(n/2) + n",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Analyze",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "T(n) = 2T(n/2) + n",
+      "pressed": "true"
+    },
+    {
+      "label": "T(n) = 3T(n/2) + n",
+      "pressed": "false"
+    },
+    {
+      "label": "T(n) = T(n - 1) + n",
+      "pressed": "false"
+    },
+    {
+      "label": "T(n) = 2T(n/2) + n log n",
+      "pressed": "false"
+    },
+    {
+      "label": "Previous proof step",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "1Guess a boundPropose a form for the solution, e.g., T(n) ≤ cn log n.",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "2Inductive hypothesisAssume T(k) ≤ ck log₂ k for smaller k.",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "3SubstitutionSubstitute the hypothesis into the recurrence.",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "4SimplificationAlgebraically simplify to get a bound in terms of n.",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "5Base caseVerify the initial cases and choose one constant.",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect worked step 1: Guess",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect worked step 2: Inductive hypothesis",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect worked step 3: Substitute",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect worked step 4: Simplify",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect worked step 5: Base case",
+      "pressed": null
+    },
+    {
+      "label": "Explore the proof",
       "pressed": null
     }
   ]

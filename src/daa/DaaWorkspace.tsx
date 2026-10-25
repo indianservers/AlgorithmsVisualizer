@@ -60,6 +60,11 @@ const GreedyExchangeMockupLesson = lazy(() => import('./GreedyExchangeMockupLess
 const InvariantMockupLesson = lazy(() => import('./InvariantMockupLesson').then((module) => ({ default: module.InvariantMockupLesson })))
 const MasterTheoremMockupLesson = lazy(() => import('./MasterTheoremMockupLesson').then((module) => ({ default: module.MasterTheoremMockupLesson })))
 const RecursionTreeMockupLesson = lazy(() => import('./RecursionTreeMockupLesson').then((module) => ({ default: module.RecursionTreeMockupLesson })))
+const SubstitutionMockupLesson = lazy(() => import('./SubstitutionMockupLesson').then((module) => ({ default: module.SubstitutionMockupLesson })))
+const LoopRecursionMockupLesson = lazy(() => import('./LoopRecursionMockupLesson').then((module) => ({ default: module.LoopRecursionMockupLesson })))
+const CaseSpaceMockupLesson = lazy(() => import('./CaseSpaceMockupLesson').then((module) => ({ default: module.CaseSpaceMockupLesson })))
+const AsymptoticMockupLesson = lazy(() => import('./AsymptoticMockupLesson').then((module) => ({ default: module.AsymptoticMockupLesson })))
+const DivideConquerMockupLesson = lazy(() => import('./DivideConquerMockupLesson').then((module) => ({ default: module.DivideConquerMockupLesson })))
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -1558,6 +1563,41 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'divide-conquer-method')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <DivideConquerMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'asymptotic-notation')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <AsymptoticMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'case-time-space-analysis')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <CaseSpaceMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'loop-recursion-analysis')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <LoopRecursionMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'recurrence-substitution')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <SubstitutionMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'recursion-tree')
     return (

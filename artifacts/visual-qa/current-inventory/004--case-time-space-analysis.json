@@ -11,18 +11,23 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Cases, Time and Auxiliary Space",
-    "Problem Input ",
-    " Operation counter",
-    "Procedure",
-    " Space accounting",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "1. Best, Average and Worst Case Comparison",
+    "Best Case",
+    "Average Case",
+    "Worst Case",
+    "3. Auxiliary Space Explorer",
+    "Call Stack",
+    "Heap",
+    "Temporary Arrays",
+    "Variables",
+    "2. Input Size Model Visualizer",
+    "Key Insight",
+    "4. Runtime vs Playback Time",
+    "Algorithm Running Time",
+    "Playback Time",
+    "5. Worked Example: Linear Search",
+    "Key Takeaways",
+    "Common Pitfalls",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +115,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,67 +131,71 @@
       "pressed": null
     },
     {
-      "label": "Learn",
-      "pressed": "false"
+      "label": "Continue Learning",
+      "pressed": null
     },
     {
-      "label": "Visualization",
+      "label": "Learn",
       "pressed": "true"
+    },
+    {
+      "label": "Visualize",
+      "pressed": "false"
     },
     {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Quiz",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Explore Best Case",
       "pressed": null
     },
     {
-      "label": "Animate concept",
+      "label": "Explore Average Case",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Explore Worst Case",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Iterative Example",
+      "pressed": "true"
+    },
+    {
+      "label": "Recursive Example",
+      "pressed": "false"
+    },
+    {
+      "label": "With Temporary Array",
+      "pressed": "false"
+    },
+    {
+      "label": "Integer Input",
+      "pressed": "true"
+    },
+    {
+      "label": "Array Input",
+      "pressed": "false"
+    },
+    {
+      "label": "String Input",
+      "pressed": "false"
+    },
+    {
+      "label": "Explore algorithm operation count",
       "pressed": null
     },
     {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
-    },
-    {
-      "label": "Reset",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 1",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 2",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 3",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Explore playback timing",
       "pressed": null
     }
   ]
