@@ -11,18 +11,19 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "0/1 Knapsack: FIFO Branch and Bound",
-    "Problem Input ",
-    " Search tree",
-    "Procedure",
-    " Incumbent and bound",
+    "Problem Overview",
+    "Items (Example Input)",
+    "Branch and Bound Tree Explorer",
+    "Incumbent (Best Profit)",
+    "Node Details",
+    "Worked Example (Capacity 5)",
+    "FIFO Queue (Frontier Order)",
+    "Upper Bound Calculator",
+    "Key Takeaways",
     "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Complexity Analysis",
+    "Assumptions and Constraints",
+    "Why fractional relaxation bounds 0/1 knapsack",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +111,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,12 +127,16 @@
       "pressed": null
     },
     {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
-      "pressed": "false"
+      "pressed": "true"
     },
     {
       "label": "Visualization",
-      "pressed": "true"
+      "pressed": "false"
     },
     {
       "label": "Code",
@@ -142,31 +151,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Edit knapsack input",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Step Forward",
       "pressed": null
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": " Auto Play",
       "pressed": null
     },
     {
@@ -174,48 +167,28 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect queued node 4",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect queued node 5",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect queued node 6",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Explain fractional upper bound",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
-      "pressed": null
+      "label": "Fractional Relaxation",
+      "pressed": "true"
     },
     {
-      "label": "Go to step 6",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 7",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 9",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 10",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
-      "pressed": null
+      "label": "Computation Steps",
+      "pressed": "false"
     }
   ]
 }

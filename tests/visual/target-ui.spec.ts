@@ -27,6 +27,42 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 22) {
+        await expect(visual.locator('.bm-tree-svg [role="button"]')).toHaveCount(7)
+        await expect(visual.locator('.bm-rule-card')).toHaveCount(2)
+        await captureReference()
+        await visual.getByLabel('Branch and bound problem type', { exact: true }).selectOption('min')
+        await expect(visual.locator('.bm-tree-svg')).toContainText('LB = 60')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 21) {
+        await expect(visual.locator('.tp-city-graph [role="button"]')).toHaveCount(5)
+        await expect(visual.locator('.tp-best-cost output')).toHaveText('40')
+        await captureReference()
+        await visual.getByLabel('Show edge weights', { exact: true }).uncheck()
+        await expect(visual.locator('.tp-city-graph rect')).toHaveCount(0)
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 20) {
+        await expect(visual.locator('.bk-stage')).toHaveCount(4)
+        await expect(visual.locator('.bk-solution-stats output')).toHaveText('11')
+        await captureReference()
+        await visual.getByLabel('Show tree bounds', { exact: true }).uncheck()
+        await expect(visual.locator('.bk-tree')).not.toContainText('b=')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 19) {
+        await expect(visual.locator('.fk-tree [role="button"]')).toHaveCount(7)
+        await expect(visual.locator('.fk-incumbent output')).toHaveText('7')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Step Forward', exact: true }).click()
+        await expect(visual.locator('.fk-count b')).toHaveText('2')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 18) {
         await expect(visual.locator('.dm-stage')).toHaveCount(3)
         await expect(visual.locator('.dm-example')).toHaveCount(4)

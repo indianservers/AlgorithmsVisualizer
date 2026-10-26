@@ -4,25 +4,27 @@
   "route": "/branch-and-bound/branch-bound-method",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Branch and Bound: Method and Bounds",
+  "title": "Branch and Bound: Method and BoundsOptimal Search",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Branch and Bound: Method and Bounds",
-    "Problem Input ",
-    " Optimistic bound",
-    "Procedure",
-    " Safe pruning",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Branching Search Tree",
+    "Incumbent vs Optimistic Bound",
+    "Pruning Rule Examples",
+    "Maximization (e.g., Knapsack)",
+    "Minimization (e.g., TSP)",
+    "Search Order Comparison",
+    "FIFO (Breadth-First)",
+    "Best-First",
+    "Key Takeaways",
+    "Worked Examples",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Node 1: Bound and Feasibility",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +112,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to TSP branch and bound",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +132,14 @@
       "pressed": null
     },
     {
+      "label": "Open TSP worked example",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +148,92 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "If UB ≤ incumbent, this node cannot improve the solution and can be pruned.",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect node 1 from FIFO order",
+      "pressed": "true"
+    },
+    {
+      "label": "Inspect node 2 from FIFO order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 3 from FIFO order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 4 from FIFO order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 5 from FIFO order",
+      "pressed": "false"
+    },
+    {
+      "label": "Show complete FIFO order",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect node 1 from best-first order",
+      "pressed": "true"
+    },
+    {
+      "label": "Inspect node 2 from best-first order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 3 from best-first order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 4 from best-first order",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect node 5 from best-first order",
+      "pressed": "false"
+    },
+    {
+      "label": "Show complete best-first order",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Try It",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "10/1 Knapsack (Maximization)Use fractional knapsack upper bounds, track incumbent and prune subtrees.",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "2TSP (Minimization)Use independently minimizing outgoing edges for lower bounds and prune tours.",
       "pressed": null
+    },
+    {
+      "label": "Mark Visualization reviewed",
+      "pressed": "false"
     }
   ]
 }

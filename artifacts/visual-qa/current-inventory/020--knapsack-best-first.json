@@ -11,18 +11,17 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "0/1 Knapsack: Best-First Branch and Bound",
-    "Problem Input ",
-    " Search tree",
-    "Procedure",
-    " Incumbent and bound",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Algorithm Overview",
+    "Problem Instance",
+    "Current Best Solution (Incumbent)",
+    "Search Tree Explorer",
+    "Priority Frontier (Best-First Order)",
+    "Fractional Knapsack Upper Bound",
+    "Worked Example: Tracing the Best-First Search",
+    "Capacity and Profit Progress",
+    "Key Takeaways",
+    "Complexity and Correctness",
+    "Branch",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +109,11 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Toggle color theme",
+      "pressed": null
+    },
+    {
+      "label": "Mark studied",
       "pressed": "false"
     },
     {
@@ -122,12 +125,16 @@
       "pressed": null
     },
     {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
-      "pressed": "false"
+      "pressed": "true"
     },
     {
       "label": "Visualization",
-      "pressed": "true"
+      "pressed": "false"
     },
     {
       "label": "Code",
@@ -142,71 +149,43 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Explore Branch principle",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Explore Bound principle",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Explore Best-First principle",
       "pressed": null
     },
     {
-      "label": "Copy input",
+      "label": "Explore Prune principle",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Edit",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Edit knapsack capacity and items",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Inspect frontier node 2",
       "pressed": null
     },
     {
-      "label": "Reset",
+      "label": "Prune",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect frontier node 3",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 3",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 6",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 7",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Inspect frontier node 6",
       "pressed": null
     }
   ]

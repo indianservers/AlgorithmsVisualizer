@@ -65,6 +65,14 @@ const LoopRecursionMockupLesson = lazy(() => import('./LoopRecursionMockupLesson
 const CaseSpaceMockupLesson = lazy(() => import('./CaseSpaceMockupLesson').then((module) => ({ default: module.CaseSpaceMockupLesson })))
 const AsymptoticMockupLesson = lazy(() => import('./AsymptoticMockupLesson').then((module) => ({ default: module.AsymptoticMockupLesson })))
 const DivideConquerMockupLesson = lazy(() => import('./DivideConquerMockupLesson').then((module) => ({ default: module.DivideConquerMockupLesson })))
+const FifoKnapsackMockupLesson = lazy(() => import('./FifoKnapsackMockupLesson').then((module) => ({ default: module.FifoKnapsackMockupLesson })))
+const BestFirstKnapsackMockupLesson = lazy(() =>
+  import('./BestFirstKnapsackMockupLesson').then((module) => ({ default: module.BestFirstKnapsackMockupLesson })),
+)
+const TspBranchMockupLesson = lazy(() => import('./TspBranchMockupLesson').then((module) => ({ default: module.TspBranchMockupLesson })))
+const BranchBoundMethodMockupLesson = lazy(() =>
+  import('./BranchBoundMethodMockupLesson').then((module) => ({ default: module.BranchBoundMethodMockupLesson })),
+)
 import { GraphLearningStudio } from '../learning/GraphLearningStudio'
 const DPLessonPage = lazy(() => import('../learning/DynamicProgrammingStudio').then((module) => ({ default: module.DPLessonPage })))
 const GreedyLessonPage = lazy(() => import('../learning/GreedyStudio').then((module) => ({ default: module.GreedyLessonPage })))
@@ -1563,6 +1571,34 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'branch-bound-method')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BranchBoundMethodMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'tsp-branch-and-bound')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <TspBranchMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'knapsack-best-first')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BestFirstKnapsackMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'knapsack-fifo')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <FifoKnapsackMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'divide-conquer-method')
     return (

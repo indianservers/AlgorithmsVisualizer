@@ -23,6 +23,18 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/BranchBoundMethodMockupLesson') ||
+                  id.includes('/src/daa/branchBoundMethodModel') ||
+                  id.includes('/src/daa/branch-bound-method-mockup.css')
+                )
+                  return 'branch-bound-method-mockup'
+                if (id.includes('/src/daa/TspBranchMockupLesson') || id.includes('/src/daa/tspBranchModel') || id.includes('/src/daa/tsp-branch-mockup.css'))
+                  return 'tsp-branch-mockup'
+                if (id.includes('/src/daa/fifoKnapsackModel') || id.includes('/src/daa/bestFirstKnapsackModel')) return 'knapsack-search-model'
+                if (id.includes('/src/daa/BestFirstKnapsackMockupLesson') || id.includes('/src/daa/best-first-knapsack-mockup.css'))
+                  return 'best-first-knapsack-mockup'
+                if (id.includes('/src/daa/FifoKnapsackMockupLesson') || id.includes('/src/daa/fifo-knapsack-mockup.css')) return 'fifo-knapsack-mockup'
+                if (
                   id.includes('/src/daa/DivideConquerMockupLesson') ||
                   id.includes('/src/daa/divideConquerModel') ||
                   id.includes('/src/daa/divide-conquer-mockup.css')

@@ -11,29 +11,19 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Build a graph. Explain every decision.",
-    "Theory in plain language",
-    "Worked example",
-    "Assumptions and cost",
-    "Problem Input",
-    "Step 1 of 13",
-    "Predict the next decision",
-    "Adjacency list",
-    "Weighted adjacency matrix",
-    "Construct a counterexample",
-    "Compare on the same graph",
-    "TSP Branch and Bound",
-    "Problem Input ",
-    " Lower bounds",
-    "Procedure",
-    " Pruned branches",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "City Graph (TSP Instance)",
+    "Branch and Bound Search Tree",
+    "Controls",
+    "Current Best Tour (Incumbent)",
+    "Distance Matrix",
+    "Lower Bound Calculator",
+    "Frontier Nodes",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Why the outgoing-edge bound is safe",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -121,7 +111,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to branch and bound overview",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -130,6 +128,14 @@
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Open branch and bound concepts",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
       "pressed": null
     },
     {
@@ -153,143 +159,19 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Run edited graph",
+      "label": "Expand Next Node",
       "pressed": null
     },
     {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Add vertex",
-      "pressed": null
-    },
-    {
-      "label": "Reset layout",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 0",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 2",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 1 at position 0",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 2 at position 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 3 at position 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 2 at position 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 3 at position 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2 to 3 at position 5",
-      "pressed": null
-    },
-    {
-      "label": "Previous graph step",
-      "pressed": null
-    },
-    {
-      "label": "Play graph playback",
-      "pressed": null
-    },
-    {
-      "label": "Next graph step",
-      "pressed": null
-    },
-    {
-      "label": "Replay trace",
-      "pressed": null
-    },
-    {
-      "label": "Expand 0,1: lower bound 70, incumbent Infinity.",
-      "pressed": null
-    },
-    {
-      "label": "Expand 0: lower bound 55, incumbent Infinity.",
-      "pressed": null
-    },
-    {
-      "label": "Compare graph results",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 5",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 6",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": " Auto Play",
       "pressed": null
     },
     {
@@ -297,60 +179,112 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Step Back",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Edit TSP distance matrix",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Edit distance between cities 1 and 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Edit distance between cities 1 and 3",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Edit distance between cities 1 and 4",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Edit distance between cities 1 and 5",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Edit distance between cities 2 and 1",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
+      "label": "Edit distance between cities 2 and 3",
       "pressed": null
     },
     {
-      "label": "Go to step 9",
+      "label": "Edit distance between cities 2 and 4",
       "pressed": null
     },
     {
-      "label": "Go to step 10",
+      "label": "Edit distance between cities 2 and 5",
       "pressed": null
     },
     {
-      "label": "Go to step 11",
+      "label": "Edit distance between cities 3 and 1",
       "pressed": null
     },
     {
-      "label": "Go to step 12",
+      "label": "Edit distance between cities 3 and 2",
       "pressed": null
     },
     {
-      "label": "Go to step 13",
+      "label": "Edit distance between cities 3 and 4",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Edit distance between cities 3 and 5",
       "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 4 and 1",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 4 and 2",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 4 and 3",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 4 and 5",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 5 and 1",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 5 and 2",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 5 and 3",
+      "pressed": null
+    },
+    {
+      "label": "Edit distance between cities 5 and 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect frontier TSP node 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect frontier TSP node 7",
+      "pressed": null
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Read the proof",
+      "pressed": null
+    },
+    {
+      "label": "Mark Visualization reviewed",
+      "pressed": "false"
     }
   ]
 }
