@@ -4,25 +4,29 @@
   "route": "/complexity-theory/three-sat-clique-reduction",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Worked Reduction: 3-SAT → Clique",
+  "title": "Worked Reduction: 3-SAT → CliqueComplexity Theory",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Worked Reduction: 3-SAT → Clique",
-    "Problem Input ",
-    " Construction graph",
-    "Procedure",
-    " Iff proof",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "3-CNF Formula and Clauses",
+    "Clause C₁",
+    "Clause C₂",
+    "Clause C₃",
+    "Graph G",
+    "Build and Explore",
+    "Select one literal from each clause (build a clique):",
+    "Animation controls",
+    "View options",
+    "Reduction Steps",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Which Pairs Become Edges?",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +114,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to certificates and reductions",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +134,14 @@
       "pressed": null
     },
     {
+      "label": "Open certificates and reductions lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +150,148 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Edit 3-CNF formula",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Edit displayed formula",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Choose x from clause 1 in formula",
+      "pressed": "true"
+    },
+    {
+      "label": "Choose y from clause 1 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose z from clause 1 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose ¬x from clause 2 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose y from clause 2 in formula",
+      "pressed": "true"
+    },
+    {
+      "label": "Choose w from clause 2 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose ¬y from clause 3 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose ¬z from clause 3 in formula",
+      "pressed": "false"
+    },
+    {
+      "label": "Choose w from clause 3 in formula",
+      "pressed": "true"
+    },
+    {
+      "label": "Select x in clause 1",
+      "pressed": "true"
+    },
+    {
+      "label": "Select y in clause 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Select z in clause 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Select ¬x in clause 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Select y in clause 2",
+      "pressed": "true"
+    },
+    {
+      "label": "Select w in clause 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Select ¬y in clause 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Select ¬z in clause 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Select w in clause 3",
+      "pressed": "true"
+    },
+    {
+      "label": "Animate Edge Construction",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Step Through Reduction",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Explain edge construction rules",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Reduction step 1: Start with 3-CNF",
+      "pressed": "true"
+    },
+    {
+      "label": "Reduction step 2: Create vertices",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 3: Add edges",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 4: Find m-clique",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 5: Correspond to assignment",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 6: Conclude",
+      "pressed": "false"
+    },
+    {
+      "label": "Try It",
       "pressed": null
+    },
+    {
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

@@ -4,25 +4,29 @@
   "route": "/complexity-theory/certificates-reductions",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Decision Problems, Certificates and Reductions",
+  "title": "Decision Problems, Certificates and ReductionsComplexity Theory",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Decision Problems, Certificates and Reductions",
-    "Problem Input ",
-    " Witness check",
-    "Procedure",
-    " Reduction contract",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Many-One Reduction",
+    "Example: CLIQUE → VERTEX COVER",
+    "Certificate Verification",
+    "Certificate for CLIQUEk = 3",
+    "Decision vs Optimization",
+    "Decision Version",
+    "Optimization Version",
+    "Example Reductions",
+    "Build and Explore",
+    "Key Takeaways",
+    "Worked Example",
+    "Reduction Workflow",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Correctness Requires Both Directions",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +114,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to complexity classes",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +134,14 @@
       "pressed": null
     },
     {
+      "label": "Open complexity classes lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +150,116 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Edit reduction instance",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "CLIQUE Certificate",
+      "pressed": "true"
+    },
+    {
+      "label": "VERTEX COVER Certificate",
+      "pressed": "false"
+    },
+    {
+      "label": "Edit selected certificate",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "E.g., VERTEX COVER(G, k)",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "E.g., Minimum Vertex Cover",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "CLIQUE ≤ₚ VERTEX COVERG, k ↦ G̅, n − kUses complement",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "VERTEX COVER ≤ₚ CLIQUEG, k ↦ G̅, n − kReverse direction",
       "pressed": null
+    },
+    {
+      "label": "3-SAT ≤ₚ CLIQUEφ ↦ Gφ, mLiteral construction",
+      "pressed": null
+    },
+    {
+      "label": "INDEPENDENT SET ≤ₚ CLIQUEG, k ↦ G̅, kComplement graph",
+      "pressed": null
+    },
+    {
+      "label": "Set graph size 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Set graph size 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Set graph size 6",
+      "pressed": "true"
+    },
+    {
+      "label": "Set graph size 7",
+      "pressed": "false"
+    },
+    {
+      "label": "Set graph size 8",
+      "pressed": "false"
+    },
+    {
+      "label": "Set source threshold 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Set source threshold 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Set source threshold 3",
+      "pressed": "true"
+    },
+    {
+      "label": "Set source threshold 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Set source threshold 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Animate Reduction Steps",
+      "pressed": null
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

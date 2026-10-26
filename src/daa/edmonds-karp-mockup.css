@@ -1,0 +1,1586 @@
+.app-shell:has(.edmonds-karp-page):not(.sidebar-collapsed) {
+  grid-template-columns: 263px minmax(0, 1fr);
+}
+.app-shell:has(.edmonds-karp-page):not(.sidebar-collapsed) > .sidebar {
+  width: 263px;
+}
+.app-shell .workspace.category-page:has(.edmonds-karp-page) {
+  padding: 11px 14px 12px 15px;
+}
+.mom-page.edmonds-karp-page {
+  font-family: Arial, sans-serif;
+  color: #091b54;
+  padding-bottom: 12px;
+}
+.edmonds-karp-page .ef-topbar {
+  height: 36px;
+  margin-bottom: 9px;
+  gap: 19px;
+  padding-left: 5px;
+}
+.edmonds-karp-page .ef-back {
+  width: 40px;
+  height: 36px;
+  padding: 5px;
+  border-radius: 8px;
+  color: #0875ff;
+  border: 1px solid #d6e6ff;
+  background: #f9fdff;
+  flex-shrink: 0;
+}
+.edmonds-karp-page .mom-search {
+  height: 36px;
+  flex: 0 1 548px;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+.edmonds-karp-page .mom-search input {
+  font-size: 13px;
+}
+.edmonds-karp-page .ef-search-key {
+  background: #edf3fb;
+  color: #6a7fa5;
+  padding: 2px 8px;
+  font-size: 12px;
+  border: 0;
+  white-space: nowrap;
+}
+.edmonds-karp-page .mom-study {
+  margin-left: auto;
+  height: 36px;
+  font-size: 13px;
+  padding: 6px 13px;
+  white-space: nowrap;
+}
+.edmonds-karp-page #account-trigger {
+  min-height: 39px;
+  border-radius: 24px;
+  font-size: 12px;
+}
+.ef-lesson-header {
+  height: 80px;
+  margin: 0 -14px 0 -10px;
+  padding: 8px 19px 8px 14px;
+  border: 1px solid #e0edff;
+  border-radius: 16px;
+  background: #ffffffdc;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 275px 175px;
+  align-items: center;
+  gap: 18px;
+}
+.edmonds-karp-page .ef-lesson-header > .ef-back {
+  height: 41px;
+  width: 43px;
+}
+.ef-lesson-header h1 {
+  font-size: 29px;
+  line-height: 34px;
+  letter-spacing: -0.6px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 3px;
+  white-space: nowrap;
+}
+.ef-lesson-header h1 > span {
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  font-weight: 400;
+  color: #075bfa;
+  background: #e8eeff;
+  border-radius: 10px;
+  padding: 5px 13px;
+}
+.ef-lesson-header p {
+  font-size: 16px;
+  color: #6077a8;
+  margin: 0;
+  white-space: nowrap;
+}
+.ef-progress {
+  font-size: 12px;
+  color: #5a70a0;
+  padding-right: 29px;
+}
+.ef-progress > div {
+  display: flex;
+  height: 7px;
+  background: #d3e2f6;
+  margin-top: 10px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+.ef-progress i {
+  height: 16px;
+  width: 16px;
+  border: 2px solid #cadbf5;
+  border-radius: 50%;
+  background: #fff;
+}
+.ef-progress i:nth-child(-n + 2) {
+  visibility: hidden;
+}
+.ef-progress i.ef-reviewed {
+  background: #0875ff;
+  border-color: #0875ff;
+}
+.edmonds-karp-page .ef-primary {
+  color: #fff;
+  background: #0875ff;
+  border: 1px solid #0667f3;
+  box-shadow: 0 3px 7px #0875ff20;
+  border-radius: 7px;
+}
+.edmonds-karp-page .ef-start {
+  height: 43px;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.edmonds-karp-page .mom-tabs {
+  height: 51px;
+  padding: 6px 6px;
+  gap: 8px;
+  margin: 0 0 10px;
+  border: 1px solid #d9e9ff;
+  border-radius: 12px;
+  background: #ffffffc9;
+}
+.edmonds-karp-page .mom-tabs button {
+  height: 38px;
+  min-width: 94px;
+  padding: 5px 24px;
+  font-size: 13px;
+  border-radius: 8px;
+  justify-content: center;
+}
+.edmonds-karp-page .mom-tabs button svg {
+  display: none;
+}
+.edmonds-karp-page .mom-tabs button:nth-child(2) {
+  min-width: 134px;
+}
+.edmonds-karp-page .mom-tabs button:nth-child(3) {
+  min-width: 88px;
+}
+.edmonds-karp-page .mom-tabs button:nth-child(4) {
+  min-width: 100px;
+}
+.edmonds-karp-page .mom-tabs button:nth-child(5) {
+  min-width: 129px;
+}
+.ef-visualization {
+  padding: 11px 15px 4px 14px;
+  border: 1px solid #d7e8ff;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #ffffffee, #fbfeffdd);
+}
+.ef-visual-heading {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  height: 53px;
+  margin-bottom: 8px;
+  padding-left: 6px;
+}
+.ef-visual-heading > svg {
+  height: 24px;
+  width: 24px;
+  color: #0875ff;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.ef-visual-heading > div:not(.ef-visual-options) {
+  width: 555px;
+  min-width: 0;
+}
+.ef-visual-heading h2 {
+  font-size: 20px;
+  line-height: 24px;
+  margin: 0 0 3px;
+}
+.ef-visual-heading p {
+  font-size: 12px;
+  line-height: 15px;
+  color: #637dab;
+  margin: 0;
+  max-width: 555px;
+}
+.ef-visual-options {
+  position: absolute;
+  left: 634px;
+  top: 3px;
+  right: 6px;
+  display: grid;
+  grid-template-columns: 184px 157px 158px 140px;
+  align-items: center;
+  gap: 22px;
+}
+.edmonds-karp-page .ef-visual-options > select {
+  width: 100%;
+  height: 36px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #123069;
+  background: #fbfdff;
+}
+.edmonds-karp-page .ef-visual-options > button {
+  height: 38px;
+  justify-content: center;
+  gap: 12px;
+  color: #0875ff;
+  font-size: 14px;
+}
+.ef-switch {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 12px;
+  color: #496491;
+  position: relative;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ef-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 35px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+.ef-switch > i {
+  width: 35px;
+  height: 19px;
+  border-radius: 20px;
+  background: #cbdced;
+  flex-shrink: 0;
+  position: relative;
+  pointer-events: none;
+}
+.ef-switch > i::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  left: 3px;
+  top: 2.5px;
+}
+.ef-switch input:checked + i {
+  background: #0875ff;
+}
+.ef-switch input:checked + i::after {
+  left: 18px;
+}
+.ef-switch input:focus-visible + i {
+  outline: 2px solid #7547ff;
+  outline-offset: 3px;
+}
+.ef-graphs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 542fr) minmax(0, 494fr) minmax(0, 313fr);
+}
+.ef-panel {
+  min-width: 0;
+  border: 1px solid #dce9fc;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(130deg, #ffffffec, #f9fcffdd);
+}
+.ef-panel > header {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  position: relative;
+  min-width: 0;
+}
+.ef-panel > header > div {
+  min-width: 0;
+}
+.ef-panel h2 {
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0 0 2px;
+}
+.ef-panel > header p {
+  font-size: 12px;
+  line-height: 16px;
+  color: #5a75a7;
+  margin: 0;
+}
+.ef-icon {
+  width: 34px;
+  height: 34px;
+  background: #e9f2ff;
+  color: #0875ff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ef-icon svg {
+  width: 23px;
+  height: 23px;
+}
+.ef-graphs-grid > .ef-panel {
+  height: 299px;
+  padding: 12px 12px 6px;
+}
+.ef-flow-panel {
+  margin-right: 12px;
+}
+.ef-residual-panel {
+  margin-right: 7px;
+  position: relative;
+}
+.ef-flow-panel > header,
+.ef-residual-panel > header {
+  height: 45px;
+  align-items: flex-start;
+}
+.ef-flow-panel .ef-icon {
+  background: #eeeaff;
+  color: #594bff;
+}
+.ef-residual-panel .ef-icon {
+  background: #e1fcec;
+  color: #00ad79;
+}
+.ef-flow-panel h2,
+.ef-residual-panel h2 {
+  padding-top: 1px;
+  font-size: 16px;
+}
+.ef-heading-detail {
+  font-size: 12px;
+  color: #244680;
+  font-weight: 400;
+}
+.ef-flow-panel > header {
+  padding-right: 180px;
+}
+.ef-flow-panel > header p {
+  white-space: nowrap;
+}
+.ef-terminal-badges {
+  position: absolute;
+  top: -1px;
+  right: -5px;
+  display: flex;
+  gap: 9px;
+}
+.ef-terminal-badges > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  padding: 6px 10px;
+  background: #e0faed;
+  color: #075d50;
+  border-radius: 9px;
+  white-space: nowrap;
+}
+.ef-terminal-badges i {
+  height: 14px;
+  width: 14px;
+  border: 1px solid white;
+  background: #18ad73;
+  border-radius: 50%;
+}
+.ef-terminal-badges > span:last-child {
+  background: #ffe5eb;
+  color: #c31941;
+}
+.ef-terminal-badges > span:last-child i {
+  background: #ff496c;
+}
+.ef-network-svg {
+  display: block;
+  width: 100%;
+  height: 211px;
+  overflow: visible;
+}
+.ef-graph-edge,
+.ef-graph-vertex {
+  cursor: pointer;
+}
+.ef-graph-edge:focus-visible,
+.ef-graph-vertex:focus-visible {
+  outline: none;
+}
+.ef-graph-edge:focus-visible path:last-of-type {
+  stroke-width: 5px;
+}
+.ef-graph-vertex:focus-visible circle {
+  stroke-width: 4px;
+}
+.ef-edge-label {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  fill: #061650;
+}
+.ef-graph-vertex circle {
+  fill: #e1eeff;
+  stroke: #163cdc;
+  stroke-width: 1.8px;
+}
+.ef-graph-vertex text {
+  fill: #081743;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.ef-source circle {
+  fill: #a2f0c0;
+  stroke: #079a62;
+}
+.ef-sink circle {
+  fill: #ffdde3;
+  stroke: #ed2147;
+}
+.ef-animated-edge path:last-of-type {
+  stroke: #f57b00;
+  stroke-width: 5px;
+  filter: drop-shadow(0 0 3px #ffbf4f);
+}
+.ef-graph-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 22px;
+  font-size: 9px;
+  color: #566d9c;
+  white-space: nowrap;
+}
+.ef-graph-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.ef-graph-legend i {
+  display: inline-block;
+  position: relative;
+  font-style: normal;
+}
+.ef-source-key,
+.ef-sink-key {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 21px;
+  color: #126c49;
+  background: #b4f2cb;
+  border: 1px solid #18a969;
+  font-size: 12px;
+}
+.ef-sink-key {
+  background: #ffe3e8;
+  color: #be2445;
+  border-color: #f2385d;
+}
+.ef-edge-key,
+.ef-augment-key,
+.ef-residual-key,
+.ef-other-key,
+.ef-current-key {
+  width: 28px;
+  height: 0;
+  border-top: 2px solid #0875ff;
+}
+.ef-edge-key::after,
+.ef-augment-key::after,
+.ef-other-key::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -5px;
+  border-left: 8px solid #0875ff;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.ef-augment-key {
+  border-color: #ff9e00;
+  width: 32px;
+}
+.ef-augment-key::after {
+  border-left-color: #ff9e00;
+}
+.ef-residual-key {
+  border-top-style: dashed;
+}
+.ef-other-key {
+  border-top-style: dashed;
+  border-color: #95a7c0;
+}
+.ef-other-key::after {
+  border-left-color: #95a7c0;
+}
+.ef-current-key {
+  border-color: #526b95;
+  width: 18px;
+}
+.ef-residual-panel .ef-graph-legend {
+  gap: 9px;
+  font-size: 8.5px;
+}
+.ef-residual-panel .ef-graph-legend > span {
+  gap: 6px;
+}
+.ef-residual-hidden {
+  position: absolute;
+  top: 145px;
+  left: 45px;
+  right: 45px;
+  padding: 10px;
+  background: #f3f8ffdd;
+  color: #345586;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 8px;
+  pointer-events: none;
+}
+.ef-animation-panel > header {
+  gap: 11px;
+  align-items: flex-start;
+  height: 36px;
+}
+.ef-animation-panel h2 {
+  font-size: 15px;
+  white-space: nowrap;
+}
+.ef-animation-panel .ef-icon {
+  width: 42px;
+  height: 40px;
+  border-radius: 15px;
+  background: #fff5de;
+  color: #ffa000;
+}
+.ef-frame-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -17px -1px 7px 55px;
+  height: 25px;
+}
+.ef-frame-nav > span {
+  margin-right: auto;
+  color: #526d9a;
+  font-size: 12px;
+}
+.edmonds-karp-page .ef-frame-nav button {
+  background: #edf4fc;
+  border: 0;
+  color: #48638b;
+  padding: 3px;
+  height: 24px;
+  width: 25px;
+}
+.edmonds-karp-page .ef-path-card {
+  background: linear-gradient(120deg, #fffcf2, #fff7df);
+  border: 1px solid #ffedbb;
+  border-radius: 12px;
+  padding: 9px 10px;
+  margin: 0;
+  color: #214171;
+  font-size: 12px;
+  font-weight: 400;
+  min-height: 110px;
+}
+.ef-path-card p {
+  font-size: 12px;
+  line-height: 17px;
+  margin: 0;
+}
+.ef-path-card p:last-child {
+  margin-top: 11px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.ef-path-card b {
+  color: #101b54;
+}
+.ef-path-card output {
+  background: #ffedaf;
+  border: 1px solid #fff;
+  border-radius: 7px;
+  padding: 5px 16px;
+  font-weight: 700;
+  color: #111;
+  margin-left: 3px;
+  font-size: 14px;
+}
+.ef-path-vertices {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+.ef-path-vertices > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.ef-path-vertices > span > b {
+  min-width: 0;
+  flex: 1;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  color: #0753db;
+  background: #dfefff;
+  font-size: 16px;
+}
+.ef-path-vertices .ef-source-chip {
+  background: #ffdee7;
+  color: #b91942;
+}
+.ef-path-vertices .ef-sink-chip {
+  background: #d9ebff;
+}
+.ef-path-vertices svg {
+  color: #5e82a7;
+  flex-shrink: 0;
+}
+.edmonds-karp-page .ef-animate {
+  height: 38px;
+  width: 100%;
+  margin-top: 8px;
+  justify-content: center;
+  gap: 13px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ef-speed {
+  display: block;
+  font-size: 12px;
+  color: #345181;
+  margin-top: 14px;
+}
+.ef-speed > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #617ba7;
+  margin-top: 7px;
+  font-size: 12px;
+}
+.ef-speed input {
+  width: 100%;
+  min-width: 0;
+  height: 6px;
+  padding: 0;
+  background: #d2e3fa;
+  accent-color: #0875ff;
+  cursor: pointer;
+}
+.ef-analysis-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 665fr) minmax(0, 367fr) minmax(0, 330fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.ef-analysis-grid > .ef-panel {
+  min-height: 204px;
+  padding: 8px 14px 12px;
+}
+.ef-analysis-grid .ef-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+.ef-analysis-grid .ef-panel > header {
+  gap: 12px;
+}
+.ef-steps-panel .ef-icon {
+  background: #eee9ff;
+  color: #7a5fff;
+}
+.ef-stage-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 6px 4px 6px;
+}
+.ef-stage-track::before {
+  content: '';
+  position: absolute;
+  height: 7px;
+  left: 0;
+  right: 0;
+  top: 12px;
+  background: #d4e3f5;
+  border-radius: 8px;
+}
+.edmonds-karp-page .ef-stage-track button {
+  position: relative;
+  background: #fff;
+  border: 1px solid #c9ddfa;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #163a82;
+  font-size: 13px;
+  font-weight: 600;
+}
+.edmonds-karp-page .ef-stage-track button[aria-pressed='true'] {
+  background: #0875ff;
+  color: white;
+  box-shadow: 0 2px 5px #0875ff44;
+}
+.ef-stage-cards {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.08fr;
+  gap: 14px;
+}
+.edmonds-karp-page .ef-stage-cards > button {
+  display: block;
+  text-align: left;
+  position: relative;
+  height: 96px;
+  padding: 9px 12px;
+  background: #f9fcff;
+  border: 1px solid #e0edfc;
+  color: #5875a6;
+  font-size: 10px;
+  line-height: 17px;
+  box-shadow: none;
+}
+.edmonds-karp-page .ef-stage-cards > button[aria-pressed='true'] {
+  border-color: #c3e2ff;
+  background: #f1f8ff;
+}
+.ef-stage-cards b {
+  display: block;
+  color: #0d3990;
+  margin-bottom: 3px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.ef-stage-cards span {
+  display: block;
+}
+.ef-stage-cards .ef-stage-path {
+  color: #234c9b;
+  font-size: 11px;
+}
+.ef-stage-arrow {
+  position: absolute;
+  right: -15px;
+  top: 35px;
+  color: #5b98ff;
+}
+.ef-cut-panel > header {
+  align-items: flex-start;
+}
+.ef-cut-panel .ef-icon {
+  color: #ff9e00;
+  background: #fff5e5;
+}
+.ef-cut-panel h2 {
+  font-size: 17px;
+  line-height: 21px;
+}
+.ef-cut-panel > header p {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.ef-cut-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.ef-cut-grid > section {
+  min-height: 132px;
+  text-align: center;
+  padding: 10px 7px;
+  background: linear-gradient(135deg, #f2faff, #e9f5ff);
+  border: 1px solid #d6edff;
+  border-radius: 10px;
+}
+.ef-cut-grid h3 {
+  font-size: 11px;
+  margin: 0 0 10px;
+  color: #0648c7;
+}
+.ef-cut-grid output {
+  display: block;
+  color: #0748ce;
+  font-size: 40px;
+  line-height: 45px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.ef-cut-grid p {
+  color: #5d79a8;
+  font-size: 11px;
+  line-height: 17px;
+  margin: 0;
+}
+.ef-cut-grid > section:last-child {
+  background: linear-gradient(135deg, #fff3f4, #ffe8ec);
+  border-color: #ffd2dc;
+}
+.ef-cut-grid > section:last-child h3,
+.ef-cut-grid > section:last-child > p {
+  color: #bd1b41;
+}
+.ef-cut-grid > section:last-child h3 {
+  margin-bottom: 6px;
+}
+.ef-cut-grid > section:last-child p {
+  margin: 3px 0;
+}
+.ef-cut-grid hr {
+  border: 0;
+  border-top: 1px solid #ffd3df;
+  margin: 6px 0;
+}
+.ef-cut-grid strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #008c64;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+}
+.ef-utilization > header {
+  padding-left: 0;
+}
+.ef-utilization h2 {
+  font-size: 13px;
+}
+.ef-utilization > header p {
+  font-size: 11px;
+}
+.ef-utilization > div {
+  display: grid;
+  gap: 0;
+  margin-top: 4px;
+}
+.edmonds-karp-page .ef-utilization button {
+  display: grid;
+  grid-template-columns: 48px 49px minmax(0, 1fr) 28px;
+  width: 100%;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  color: #3e5d93;
+  font-size: 10px;
+  height: 17px;
+}
+.ef-utilization button > span:last-child {
+  text-align: right;
+}
+.ef-utilization button > span:nth-child(2) {
+  text-align: center;
+}
+.ef-utilization button > i {
+  height: 12px;
+  border-radius: 4px;
+  background: #e8eff8;
+  overflow: hidden;
+}
+.ef-utilization button > i > i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+}
+.ef-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 339fr) minmax(0, 331fr) minmax(0, 351fr) minmax(0, 334fr);
+  gap: 8px;
+  margin-top: 9px;
+}
+.ef-footer-grid > .ef-panel {
+  min-height: 145px;
+  padding: 6px 12px 7px;
+}
+.ef-footer-grid > .ef-panel > header {
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.ef-footer-grid .ef-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+.ef-footer-grid .ef-icon svg {
+  height: 21px;
+  width: 21px;
+}
+.ef-footer-grid h2 {
+  font-size: 13px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+.ef-footer-grid ul,
+.ef-footer-grid ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ef-footer-grid p,
+.ef-footer-grid li {
+  font-size: 11px;
+  line-height: 14px;
+  color: #526c9c;
+  margin: 0;
+}
+.ef-footer-grid li {
+  position: relative;
+  padding-left: 29px;
+}
+.ef-footer-grid ul > li::before {
+  content: '•';
+  position: absolute;
+  left: 13px;
+  top: 0;
+  font-size: 18px;
+}
+.ef-footer-grid ol > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-left: 4px;
+}
+.ef-footer-grid li > i {
+  display: inline-grid;
+  place-items: center;
+  height: 14px;
+  width: 27px;
+  flex-shrink: 0;
+  background: #dfedff;
+  color: #1559af;
+  font-size: 10px;
+  border-radius: 12px;
+  font-style: normal;
+}
+.ef-takeaways {
+  background: #fffcef;
+  border-color: #ffdb7d;
+}
+.ef-takeaways .ef-icon {
+  background: #fff2cd;
+  color: #ff9c00;
+}
+.ef-takeaways li::before {
+  color: #ff9c00;
+}
+.ef-worked > header {
+  position: relative;
+}
+.edmonds-karp-page .ef-worked > header > button {
+  position: absolute;
+  right: 4px;
+  top: -2px;
+  height: 25px;
+  border-radius: 5px;
+  padding: 3px 13px;
+  font-size: 12px;
+}
+.ef-worked > p {
+  padding-left: 43px;
+}
+.ef-worked > p:last-child {
+  margin-top: 4px;
+}
+.ef-proof .ef-icon {
+  color: #00ac78;
+  background: #e5fcf1;
+}
+.ef-proof ul > li {
+  padding-left: 40px;
+  margin-bottom: 4px;
+}
+.ef-proof ul > li::before {
+  color: #254a90;
+  left: 16px;
+}
+.ef-pitfalls {
+  background: #fff5f6;
+  border-color: #ffc7d2;
+}
+.edmonds-karp-page .ef-pitfalls h2,
+.ef-pitfalls .ef-icon {
+  color: #c91c3f;
+}
+.ef-pitfalls .ef-icon {
+  background: #ffe5eb;
+}
+.ef-pitfalls li::before {
+  color: #f12a52;
+}
+.ef-review {
+  margin-top: 12px;
+}
+.ef-learning,
+.ef-practice,
+.ef-experiments {
+  display: grid;
+  gap: 16px;
+}
+.ef-learning .ef-panel,
+.ef-practice .ef-panel,
+.ef-experiments .ef-panel,
+.ef-code,
+.ef-notes {
+  padding: 20px;
+}
+.ef-learning .ef-panel > header,
+.ef-practice .ef-panel > header,
+.ef-experiments .ef-panel > header,
+.ef-code > header,
+.ef-notes > header {
+  margin-bottom: 18px;
+}
+.ef-learning p,
+.ef-practice p,
+.ef-experiments p,
+.ef-code p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+.ef-concept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+.ef-concept-grid article {
+  background: #f0f7ff;
+  border: 1px solid #d8e6fa;
+  border-radius: 12px;
+  padding: 16px;
+}
+.ef-concept-grid h3 {
+  font-size: 16px;
+}
+.ef-learning a {
+  display: block;
+  margin: 14px 0;
+}
+.ef-code pre {
+  overflow: auto;
+  background: #102440;
+  color: #d8ebff;
+  padding: 20px;
+  border-radius: 12px;
+  line-height: 1.7;
+}
+.ef-lab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ef-bfs-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+.ef-bfs-table caption {
+  text-align: left;
+  padding: 12px 0;
+  font-weight: 600;
+}
+.ef-bfs-table td,
+.ef-bfs-table th {
+  border: 1px solid #ccddf3;
+  padding: 9px;
+  text-align: left;
+}
+.edmonds-karp-page .ef-invariant-summary {
+  background: #eafbf4;
+  color: #126047;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #bce6d4;
+  border-radius: 8px;
+  padding: 12px;
+}
+.ef-notes textarea {
+  display: block;
+  width: 100%;
+  min-height: 230px;
+  padding: 15px;
+  margin: 12px 0;
+  border: 1px solid #c8dbf4;
+  border-radius: 9px;
+}
+.ef-dialog {
+  width: min(780px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid #c8dbf4;
+  border-radius: 16px;
+  background: #fbfdff;
+  color: #17325b;
+}
+.ef-dialog::backdrop {
+  background: #0b1d4c88;
+  backdrop-filter: blur(4px);
+}
+.ef-dialog h2 {
+  font-size: 22px;
+  margin: 4px 25px 16px 0;
+}
+.ef-dialog p,
+.ef-dialog li {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.ef-dialog label {
+  display: block;
+  font-size: 14px;
+  margin: 16px 0;
+}
+.ef-dialog textarea {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  margin-top: 9px;
+}
+.ef-dialog input,
+.ef-practice input {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #c8dbf4;
+  border-radius: 8px;
+  color: #17325b;
+  background: #fff;
+}
+.edmonds-karp-page .ef-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 5px;
+}
+.edmonds-karp-page button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.edmonds-karp-page) .sidebar-header {
+    padding: 14px 16px 10px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-home {
+    margin-bottom: 6px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-category-toggle {
+    min-height: 35px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-algorithm {
+    min-height: 24px;
+    font-size: 12px;
+    padding: 4px 9px;
+    line-height: 16px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-submenu {
+    max-height: 326px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-footer {
+    min-height: 42px;
+    margin: 6px 8px 0 16px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+  .app-shell:has(.edmonds-karp-page) .sidebar-footer small {
+    font-size: 9px;
+  }
+}
+@media (max-width: 1550px) {
+  .ef-lesson-header {
+    grid-template-columns: 43px minmax(0, 1fr) 155px;
+    height: auto;
+    min-height: 90px;
+    margin-right: 0;
+    gap: 12px;
+  }
+  .ef-progress {
+    display: none;
+  }
+  .ef-lesson-header h1 {
+    white-space: normal;
+    font-size: 25px;
+    line-height: 30px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ef-lesson-header p {
+    font-size: 13px;
+    white-space: normal;
+  }
+  .ef-visual-heading {
+    height: auto;
+    min-height: 90px;
+    flex-wrap: wrap;
+  }
+  .ef-visual-options {
+    position: static;
+    width: 100%;
+    grid-template-columns: 184px 157px 158px 140px;
+    gap: 15px;
+  }
+  .ef-graphs-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+  .ef-flow-panel,
+  .ef-residual-panel {
+    margin: 0;
+  }
+  .ef-graphs-grid > .ef-animation-panel {
+    grid-column: 1/-1;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 18px;
+  }
+  .ef-animation-panel > header {
+    height: 42px;
+  }
+  .ef-animation-panel .ef-frame-nav {
+    margin: 8px 0;
+  }
+  .ef-animation-panel .ef-path-card {
+    grid-row: span 2;
+  }
+  .ef-speed {
+    margin-top: 0;
+  }
+  .ef-analysis-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+  .ef-steps-panel {
+    grid-column: 1/-1;
+  }
+  .ef-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ef-terminal-badges {
+    position: static;
+    margin-top: 7px;
+  }
+  .ef-flow-panel > header {
+    padding-right: 0;
+    flex-wrap: wrap;
+    height: 74px;
+  }
+  .ef-graphs-grid > .ef-flow-panel {
+    height: 328px;
+  }
+  .ef-graphs-grid > .ef-residual-panel {
+    height: 328px;
+  }
+  .ef-residual-panel > header {
+    height: 74px;
+  }
+  .ef-graph-legend {
+    flex-wrap: wrap;
+    gap: 7px;
+    height: auto;
+    white-space: normal;
+  }
+  .ef-residual-panel .ef-graph-legend {
+    gap: 7px;
+    font-size: 9px;
+  }
+  .ef-concept-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 1050px) {
+  .ef-graphs-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ef-graphs-grid > .ef-animation-panel {
+    grid-column: auto;
+  }
+  .ef-visual-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .ef-graphs-grid > .ef-flow-panel,
+  .ef-graphs-grid > .ef-residual-panel {
+    height: auto;
+    min-height: 328px;
+  }
+  .ef-network-svg {
+    height: 240px;
+  }
+  .ef-graphs-grid > .ef-panel > header {
+    height: auto;
+    min-height: 45px;
+  }
+  .ef-terminal-badges {
+    margin-left: auto;
+    margin-top: 0;
+  }
+  .ef-graph-legend {
+    margin-top: 8px;
+  }
+  .ef-visual-heading > div:not(.ef-visual-options) {
+    width: calc(100% - 40px);
+  }
+  .ef-flow-panel > header p {
+    white-space: normal;
+  }
+}
+@media (max-width: 700px) {
+  .app-shell:has(.edmonds-karp-page):not(.sidebar-collapsed) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-shell .workspace.category-page:has(.edmonds-karp-page) {
+    padding: 10px;
+  }
+  .edmonds-karp-page .ef-topbar {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+  .ef-topbar > .ef-back {
+    display: none;
+  }
+  .edmonds-karp-page .mom-search {
+    flex-basis: 100%;
+  }
+  .edmonds-karp-page .mom-study {
+    margin-left: 0;
+  }
+  .ef-lesson-header {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px 10px;
+    margin: 0;
+  }
+  .edmonds-karp-page .ef-lesson-header > .ef-back {
+    width: 34px;
+    height: 38px;
+  }
+  .ef-lesson-header h1 {
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.3px;
+  }
+  .ef-lesson-header h1 > span {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .ef-lesson-header .ef-start {
+    grid-column: 1/-1;
+    height: 38px;
+  }
+  .edmonds-karp-page .mom-tabs {
+    flex-wrap: nowrap;
+    overflow: auto;
+    margin-top: 8px;
+    padding: 6px;
+  }
+  .edmonds-karp-page .mom-tabs button {
+    flex-shrink: 0;
+    padding: 5px 16px;
+  }
+  .ef-visualization {
+    padding: 12px 8px;
+  }
+  .ef-visual-heading {
+    padding-left: 0;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .ef-visual-heading h2 {
+    font-size: 18px;
+  }
+  .ef-visual-options {
+    gap: 12px 8px;
+    margin-top: 8px;
+  }
+  .ef-switch {
+    gap: 7px;
+    font-size: 10px;
+    white-space: normal;
+  }
+  .ef-panel {
+    padding: 10px;
+  }
+  .ef-panel h2 {
+    font-size: 14px;
+  }
+  .ef-panel > header p {
+    font-size: 11px;
+  }
+  .ef-graphs-grid > .ef-panel {
+    padding: 10px 8px;
+  }
+  .ef-flow-panel > header {
+    gap: 7px;
+  }
+  .ef-flow-panel > header p {
+    max-width: 220px;
+  }
+  .ef-terminal-badges {
+    margin-top: 5px;
+    margin-left: 41px;
+  }
+  .ef-terminal-badges > span {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+  .ef-network-svg {
+    height: 210px;
+  }
+  .ef-graph-legend {
+    gap: 10px;
+    font-size: 9px;
+  }
+  .ef-graphs-grid > .ef-animation-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ef-animation-panel .ef-frame-nav {
+    margin: 0 0 5px;
+  }
+  .ef-animation-panel .ef-path-card {
+    grid-row: auto;
+  }
+  .ef-animation-panel .ef-speed {
+    margin-top: 8px;
+  }
+  .ef-analysis-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ef-steps-panel {
+    grid-column: auto;
+  }
+  .ef-analysis-grid > .ef-panel {
+    padding: 10px;
+  }
+  .ef-stage-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .ef-stage-arrow {
+    display: none;
+  }
+  .edmonds-karp-page .ef-stage-cards > button {
+    padding: 9px;
+  }
+  .ef-cut-panel > header p {
+    white-space: normal;
+  }
+  .ef-footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ef-footer-grid h2 {
+    white-space: normal;
+  }
+  .ef-dialog {
+    padding: 22px 15px;
+  }
+  .ef-dialog h2 {
+    font-size: 19px;
+  }
+  .ef-learning .ef-panel,
+  .ef-practice .ef-panel,
+  .ef-experiments .ef-panel,
+  .ef-code,
+  .ef-notes {
+    padding: 14px;
+  }
+  .ef-practice input {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+[data-theme='dark'] .edmonds-karp-page {
+  color: #e0eaff;
+}
+[data-theme='dark'] .edmonds-karp-page :is(.ef-lesson-header, .mom-tabs, .ef-visualization, .ef-panel, .ef-dialog) {
+  color: #e0eaff;
+  background: #102139;
+  border-color: #2d486d;
+}
+[data-theme='dark'] .edmonds-karp-page :is(h1, h2, h3) {
+  color: #e0eaff;
+}
+[data-theme='dark'] .edmonds-karp-page :is(p, .ef-switch, .ef-panel > header p, .ef-footer-grid li, .ef-graph-legend) {
+  color: #acbfdf;
+}
+[data-theme='dark'] .edmonds-karp-page :is(input, textarea, select, .ef-concept-grid article) {
+  background: #142b45;
+  color: #e0eaff;
+  border-color: #36577d;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-path-card {
+  color: #e6e0bd;
+  background: #393326;
+  border-color: #685635;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-path-card b {
+  color: #e2eaff;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-cut-grid > section {
+  background: #153556;
+  border-color: #29567f;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-cut-grid > section:last-child {
+  background: #422839;
+  border-color: #6a364c;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-cut-grid output {
+  color: #8bc3ff;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-cut-grid > section:last-child p {
+  color: #ffa2bd;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-stage-cards > button {
+  background: #162d49;
+  border-color: #36577d;
+  color: #b1c6e7;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-stage-cards b,
+[data-theme='dark'] .ef-stage-path {
+  color: #a4cfff;
+}
+[data-theme='dark'] .edmonds-karp-page .ef-invariant-summary {
+  background: #153c30;
+  border-color: #286b4b;
+  color: #c4f7dd;
+}
+[data-theme='dark'] .ef-dialog::backdrop {
+  background: #000b;
+}

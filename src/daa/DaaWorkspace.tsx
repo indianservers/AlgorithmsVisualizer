@@ -70,6 +70,24 @@ const BestFirstKnapsackMockupLesson = lazy(() =>
   import('./BestFirstKnapsackMockupLesson').then((module) => ({ default: module.BestFirstKnapsackMockupLesson })),
 )
 const TspBranchMockupLesson = lazy(() => import('./TspBranchMockupLesson').then((module) => ({ default: module.TspBranchMockupLesson })))
+const CliqueCoverMockupLesson = lazy(() => import('./CliqueCoverMockupLesson').then((module) => ({ default: module.CliqueCoverMockupLesson })))
+const CookLevinMockupLesson = lazy(() => import('./CookLevinMockupLesson').then((module) => ({ default: module.CookLevinMockupLesson })))
+const EdmondsKarpMockupLesson = lazy(() => import('./EdmondsKarpMockupLesson').then((module) => ({ default: module.EdmondsKarpMockupLesson })))
+const BridgesMockupLesson = lazy(() => import('./BridgesMockupLesson').then((module) => ({ default: module.BridgesMockupLesson })))
+const ArticulationMockupLesson = lazy(() => import('./ArticulationMockupLesson').then((module) => ({ default: module.ArticulationMockupLesson })))
+const EulerianMockupLesson = lazy(() => import('./EulerianMockupLesson').then((module) => ({ default: module.EulerianMockupLesson })))
+const InversionsMockupLesson = lazy(() => import('./InversionsMockupLesson').then((module) => ({ default: module.InversionsMockupLesson })))
+const ClosestPairMockupLesson = lazy(() => import('./ClosestPairMockupLesson').then((module) => ({ default: module.ClosestPairMockupLesson })))
+const KaratsubaMockupLesson = lazy(() => import('./KaratsubaMockupLesson').then((module) => ({ default: module.KaratsubaMockupLesson })))
+const RandomQuickMockupLesson = lazy(() => import('./RandomQuickMockupLesson').then((module) => ({ default: module.RandomQuickMockupLesson })))
+const RandomSelectMockupLesson = lazy(() => import('./RandomSelectMockupLesson').then((module) => ({ default: module.RandomSelectMockupLesson })))
+const BipartiteMatchingMockupLesson = lazy(() =>
+  import('./BipartiteMatchingMockupLesson').then((module) => ({ default: module.BipartiteMatchingMockupLesson })),
+)
+const ThreeSatCliqueMockupLesson = lazy(() => import('./ThreeSatCliqueMockupLesson').then((module) => ({ default: module.ThreeSatCliqueMockupLesson })))
+const CertificatesReductionMockupLesson = lazy(() =>
+  import('./CertificatesReductionMockupLesson').then((module) => ({ default: module.CertificatesReductionMockupLesson })),
+)
 const ComplexityClassesMockupLesson = lazy(() =>
   import('./ComplexityClassesMockupLesson').then((module) => ({ default: module.ComplexityClassesMockupLesson })),
 )
@@ -1574,6 +1592,110 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'randomized-selection')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <RandomSelectMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'randomized-quicksort')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <RandomQuickMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'karatsuba')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <KaratsubaMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'closest-pair')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ClosestPairMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'counting-inversions')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <InversionsMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'eulerian-trail')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <EulerianMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'articulation-points')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ArticulationMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'bridges')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BridgesMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'bipartite-matching')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BipartiteMatchingMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'edmonds-karp')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <EdmondsKarpMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'cook-levin')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <CookLevinMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'clique-vertex-cover-reduction')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <CliqueCoverMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'three-sat-clique-reduction')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ThreeSatCliqueMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'certificates-reductions')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <CertificatesReductionMockupLesson
+          module={module}
+          completed={completed}
+          toggleCompleted={toggleCompleted}
+          theme={theme}
+          onToggleTheme={onToggleTheme}
+        />
+      </Suspense>
+    )
 
   if (module.id === 'p-np-classes')
     return (

@@ -1,0 +1,1587 @@
+.app-shell:has(.cook-levin-page):not(.sidebar-collapsed) {
+  grid-template-columns: 268px minmax(0, 1fr);
+}
+.app-shell:has(.cook-levin-page):not(.sidebar-collapsed) .sidebar {
+  width: 268px;
+}
+.app-shell .workspace.category-page:has(.cook-levin-page) {
+  padding: 10px 17px 12px 16px;
+}
+.mom-page.cook-levin-page {
+  font-family: Arial, sans-serif;
+  color: #0b1852;
+  padding-bottom: 12px;
+}
+.cook-levin-page .cl-topbar {
+  height: 36px;
+  margin-bottom: 8px;
+  gap: 20px;
+  padding-left: 3px;
+}
+.cook-levin-page .cl-back {
+  height: 36px;
+  width: 40px;
+  flex-shrink: 0;
+  padding: 5px;
+  border-radius: 8px;
+  color: #0876ff;
+  background: #f8fcff;
+  border: 1px solid #d3e6ff;
+}
+.cook-levin-page .mom-search {
+  height: 36px;
+  flex: 0 1 590px;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+.cook-levin-page .mom-search input {
+  font-size: 13px;
+}
+.cook-levin-page .cl-search-key {
+  padding: 2px 6px;
+  border: 0;
+  background: #edf3fb;
+  color: #6c82aa;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.cook-levin-page .mom-study {
+  margin-left: auto;
+  height: 36px;
+  padding: 6px 13px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.cook-levin-page #account-trigger {
+  min-height: 39px;
+  border-radius: 23px;
+  font-size: 12px;
+}
+.cl-lesson-header {
+  height: 80px;
+  margin-left: -2px;
+  margin-right: -3px;
+  border: 1px solid #e0edff;
+  border-radius: 16px;
+  background: #ffffffdf;
+  display: grid;
+  grid-template-columns: 43px minmax(0, 1fr) 272px 178px;
+  gap: 16px;
+  align-items: center;
+  padding: 8px 14px 8px 10px;
+}
+.cook-levin-page .cl-lesson-header > .cl-back {
+  height: 42px;
+  width: 44px;
+}
+.cl-lesson-header h1 {
+  font-size: 29.3px;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
+  margin: 0 0 4px;
+}
+.cl-lesson-header h1 > span {
+  font-size: 13px;
+  letter-spacing: 0;
+  font-weight: 400;
+  border-radius: 9px;
+  padding: 5px 12px;
+  color: #0057ff;
+  background: #e7f1ff;
+}
+.cl-lesson-header p {
+  font-size: 16px;
+  color: #627ba9;
+  margin: 0;
+  white-space: nowrap;
+}
+.cl-progress {
+  font-size: 12px;
+  color: #6177a4;
+  padding-right: 28px;
+}
+.cl-progress > div {
+  display: flex;
+  height: 6px;
+  background: #d6e4f6;
+  border-radius: 9px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.cl-progress i {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #c9daf5;
+  border-radius: 50%;
+  background: #fff;
+}
+.cl-progress i:nth-child(-n + 2) {
+  visibility: hidden;
+}
+.cl-progress .cl-reviewed {
+  background: #0875ff;
+  border-color: #0875ff;
+}
+.cook-levin-page .cl-primary {
+  background: #0875ff;
+  color: #fff;
+  border: 1px solid #0069ff;
+  box-shadow: 0 3px 8px #0875ff25;
+  border-radius: 7px;
+}
+.cook-levin-page .cl-start {
+  height: 45px;
+  justify-content: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.cook-levin-page .mom-tabs {
+  height: 55px;
+  margin-top: 0;
+  margin-bottom: 9px;
+  padding: 7px 10px;
+  gap: 8px;
+  background: #ffffffd9;
+  border: 1px solid #d5e7ff;
+  border-radius: 12px;
+}
+.cook-levin-page .mom-tabs button {
+  height: 38px;
+  min-width: 96px;
+  padding: 6px 23px;
+  font-size: 13px;
+  border-radius: 8px;
+  justify-content: center;
+}
+.cook-levin-page .mom-tabs button svg {
+  display: none;
+}
+.cook-levin-page .mom-tabs button:nth-child(2) {
+  min-width: 130px;
+}
+.cook-levin-page .mom-tabs button:nth-child(3) {
+  min-width: 90px;
+}
+.cook-levin-page .mom-tabs button:nth-child(4) {
+  min-width: 104px;
+}
+.cook-levin-page .mom-tabs button:nth-child(5) {
+  min-width: 130px;
+}
+.cook-levin-page .mom-tabs button:nth-child(6) {
+  min-width: 99px;
+}
+.cl-visualization {
+  border: 1px solid #d7e7ff;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #ffffffde, #f8ffffdd);
+  padding: 11px 7px 1px 15px;
+}
+.cl-visual-heading {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  height: 51px;
+  margin-bottom: 8px;
+  padding-left: 6px;
+  min-width: 0;
+}
+.cl-visual-heading > svg {
+  width: 24px;
+  height: 24px;
+  color: #086cff;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.cl-visual-heading > div:not(.cl-visual-options) {
+  min-width: 0;
+  width: 510px;
+}
+.cl-visual-heading h2 {
+  font-size: 20px;
+  line-height: 24px;
+  margin: 0 0 3px;
+}
+.cl-visual-heading p {
+  color: #627da7;
+  font-size: 12px;
+  line-height: 15px;
+  max-width: 500px;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+.cl-visual-options {
+  position: absolute;
+  left: 574px;
+  right: 8px;
+  top: 0;
+  display: grid;
+  grid-template-columns: 196px 178px 207px 115px;
+  gap: 23px;
+  align-items: center;
+}
+.cook-levin-page .cl-visual-options > select {
+  width: 100%;
+  height: 35px;
+  font-size: 11px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  color: #142c69;
+  background: #fcfdff;
+  border: 1px solid #d4e5ff;
+}
+.cook-levin-page .cl-visual-options > button {
+  height: 37px;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #086cff;
+}
+.cl-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #526c9b;
+  font-size: 12px;
+  min-width: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.cl-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 34px;
+  height: 20px;
+  left: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.cl-switch i {
+  width: 34px;
+  height: 19px;
+  border-radius: 20px;
+  background: #cbdced;
+  flex-shrink: 0;
+  position: relative;
+  pointer-events: none;
+}
+.cl-switch i::after {
+  content: '';
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  background: #fff;
+  border-radius: 50%;
+  top: 2.5px;
+  left: 3px;
+  box-shadow: 0 1px 3px #7896bd38;
+}
+.cl-switch input:checked + i {
+  background: #0875ff;
+}
+.cl-switch input:checked + i::after {
+  left: 17px;
+}
+.cl-switch input:focus-visible + i {
+  outline: 2px solid #572fff;
+  outline-offset: 3px;
+}
+.cl-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 497fr) minmax(0, 430fr) minmax(0, 402fr);
+  gap: 9px;
+}
+.cl-panel {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #dce9ff;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #ffffffdd, #f8faffdd);
+}
+.cl-panel > header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.cl-panel > header > div {
+  min-width: 0;
+}
+.cl-panel h2 {
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0 0 2px;
+}
+.cl-panel > header p {
+  font-size: 12px;
+  line-height: 15px;
+  color: #4c6696;
+  margin: 0;
+}
+.cl-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e9f3ff;
+  color: #0875ff;
+  display: grid;
+  place-items: center;
+}
+.cl-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.cl-dashboard-grid > .cl-panel {
+  height: 398px;
+}
+.cl-tableau-panel > header {
+  height: 45px;
+  margin-bottom: 8px;
+  gap: 17px;
+  position: relative;
+}
+.cl-tableau-panel h2 {
+  font-size: 14px;
+  white-space: nowrap;
+}
+.cl-tableau-panel .cl-icon {
+  background: #f0e9ff;
+  color: #8150ff;
+}
+.cook-levin-page .cl-machine-badge {
+  position: absolute;
+  right: 0;
+  top: 4px;
+  height: 31px;
+  padding: 5px 12px;
+  background: #eee7ff;
+  border: 0;
+  border-radius: 7px;
+  color: #7440ff;
+  font-size: 11px;
+  font-style: italic;
+}
+.cl-table-scroll {
+  height: 250px;
+  overflow: auto;
+  border: 1px solid #d6e3f5;
+  border-radius: 8px;
+}
+.cl-tableau {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  font-size: 12px;
+  text-align: center;
+}
+.cl-tableau th,
+.cl-tableau td {
+  height: 35.5px;
+  border-right: 1px solid #d6e3f5;
+  border-bottom: 1px solid #d6e3f5;
+  padding: 0;
+  background: #ffffff85;
+}
+.cl-tableau th:first-child {
+  width: 54px;
+}
+.cl-tableau thead th,
+.cl-tableau tbody th {
+  background: #f4f8fe;
+  font-weight: 600;
+  color: #09164f;
+}
+.cook-levin-page .cl-tableau button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  height: 34px;
+  justify-content: center;
+  font-size: 12px;
+  color: inherit;
+}
+.cl-tableau .cl-symbol {
+  background: #edfff1;
+}
+.cl-tableau .cl-head {
+  font-weight: 700;
+  font-size: 14px;
+  background: #ffe7ab;
+  color: #a44600;
+}
+.cl-tableau .cl-state-q0 {
+  background: linear-gradient(135deg, #d1e4ff, #93c8ff);
+  color: #062ae0;
+}
+.cl-tableau .cl-state-q2 {
+  background: #e9e2ff;
+  color: #4822a1;
+}
+.cl-tableau .cl-state-qa {
+  background: #a8f1b3;
+  color: #00693c;
+}
+.cl-tableau .cl-state-qr {
+  background: #ffdce2;
+  color: #b51a37;
+}
+.cl-tableau .cl-head button {
+  font-size: 14px;
+  font-weight: 700;
+}
+.cl-tableau .cl-initial-highlight:not(.cl-head) {
+  box-shadow: inset 0 2px 0 #0875ff15;
+}
+.cl-tableau .cl-transition-highlight {
+  outline: 2px solid #ffab26;
+  outline-offset: -2px;
+}
+.cl-tableau .cl-accept-highlight {
+  box-shadow: inset 0 0 0 2px #20b971;
+}
+.cl-tableau .cl-failed-cell {
+  box-shadow: inset 0 0 0 2px #e72851;
+}
+.cl-table-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: #526b98;
+}
+.cl-table-legend > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+.cl-table-legend i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+.cl-start-dot {
+  background: #aed8ff;
+  border-color: #0875ff !important;
+}
+.cl-symbol-dot {
+  background: #8cedb4;
+}
+.cl-head-dot {
+  background: #ffe3a3;
+  border-color: #ff9000 !important;
+}
+.cl-intermediate-dot {
+  background: #c7a3ff;
+}
+.cl-accept-dot {
+  background: #56ee80;
+}
+.cl-blank-dot {
+  background: #fff;
+  border-color: #a6b7d4 !important;
+}
+.cl-constraints-panel {
+  position: relative;
+}
+.cl-constraints-panel > header {
+  height: 39px;
+  margin-bottom: 7px;
+  gap: 15px;
+}
+.cl-constraints-panel h2 {
+  white-space: nowrap;
+}
+.cl-constraint-list {
+  display: grid;
+  gap: 7px;
+  grid-template-rows: 57px 52px 58px 52px;
+}
+.cook-levin-page .cl-constraint-card {
+  display: grid;
+  grid-template-columns: 29px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 6px 10px;
+  min-height: 53px;
+  background: #ffffffa8;
+  border: 1px solid #e1ecfb;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 12px;
+  color: #152c63;
+}
+.cl-constraint-card > i {
+  display: grid;
+  place-items: center;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: #0875ff;
+  color: #fff;
+  font-style: normal;
+  font-size: 14px;
+}
+.cl-constraint-card > span {
+  min-width: 0;
+}
+.cl-constraint-card b {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #0d174d;
+}
+.cl-constraint-card > span > span {
+  display: block;
+  font-size: 11px;
+  line-height: 13px;
+  color: #4c6392;
+}
+.cl-constraint-card em {
+  align-self: start;
+  background: #e5f0ff;
+  color: #086cff;
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.cl-family-initial > i {
+  background: #00a76f;
+}
+.cl-family-initial em {
+  color: #078451;
+  background: #e2f8ed;
+}
+.cl-family-transition > i {
+  background: #ff9400;
+}
+.cl-family-transition em {
+  color: #d86c00;
+  background: #fff0df;
+}
+.cl-family-accept > i {
+  background: #7b42ff;
+}
+.cl-family-accept em {
+  color: #7541ff;
+  background: #eee7ff;
+}
+.cook-levin-page .cl-constraint-failed {
+  border-color: #f0a8b8;
+}
+.cl-result-formula {
+  position: relative;
+  min-height: 70px;
+  margin-top: 14px;
+  background: #edf7ff;
+  border: 1px solid #bfdfff;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.cl-result-formula header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cl-result-formula svg {
+  height: 23px;
+  width: 23px;
+  color: #0875ff;
+  padding: 2px;
+  background: #dceeff;
+  border-radius: 5px;
+}
+.cook-levin-page .cl-result-formula button {
+  border: 0;
+  padding: 0;
+  background: none;
+  font-size: 14px;
+  color: #0753c9;
+  font-weight: 600;
+}
+.cl-result-formula p {
+  margin: 6px 115px 0 36px;
+  font-size: 13px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  white-space: nowrap;
+}
+.cl-result-formula > span {
+  position: absolute;
+  width: 115px;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  padding: 10px 12px;
+  background: #d8edff;
+  border-radius: 8px;
+  color: #0059db;
+  font-size: 11px;
+  line-height: 16px;
+}
+.cl-formula-arrow {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: -27px;
+  top: 162px;
+  color: #338aff;
+  stroke-width: 5px;
+  z-index: 1;
+  filter: drop-shadow(0 3px 4px #76afff66);
+}
+.cl-outcome-panel {
+  margin-left: 10px;
+}
+.cl-outcome-panel > header {
+  height: 41px;
+  margin-bottom: 8px;
+  gap: 13px;
+}
+.cl-outcome-panel .cl-icon {
+  background: #e3f9ef;
+  color: #00a26c;
+}
+.cl-outcome-panel > header p {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.cook-levin-page .cl-outcome-card {
+  border: 1px solid #b6ecd2;
+  border-radius: 11px;
+  padding: 15px 12px 9px;
+  background: linear-gradient(120deg, #f0fff8, #eafcf4);
+  color: #087b50;
+  min-height: 152px;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+}
+.cl-outcome-card > header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 0 3px;
+}
+.cl-outcome-card > header > svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: #35da85;
+  color: #fff;
+  fill: #35da85;
+  border-radius: 50%;
+  stroke-width: 2.5;
+}
+.cl-outcome-card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #087b50;
+}
+.cl-unsat h3 {
+  color: #d6173c;
+}
+.cl-outcome-card p {
+  font-size: 12px;
+  line-height: 17px;
+  margin: 0;
+  color: #4a638e;
+}
+.cl-outcome-card > section {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) 24px;
+  gap: 14px;
+  padding: 12px 5px 0;
+  margin-top: 8px;
+  background: #e6fcf1;
+  border-radius: 11px;
+}
+.cl-outcome-card > section > svg:first-child {
+  width: 15px;
+  height: 15px;
+  color: #0cbd68;
+  margin-top: 1px;
+}
+.cl-outcome-card b {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 3px;
+}
+.cl-outcome-card > section > svg:last-child {
+  width: 25px;
+  height: 25px;
+  align-self: center;
+  color: #428bb1;
+}
+.cook-levin-page .cl-unsat {
+  margin-top: 11px;
+  min-height: 158px;
+  background: linear-gradient(120deg, #fff6f7, #fff0f3);
+  color: #d6173c;
+  border-color: #ffd1da;
+}
+.cl-unsat > header > svg {
+  fill: #f32650;
+  background: #f32650;
+}
+.cl-unsat > section {
+  background: #ffedf1;
+}
+.cl-unsat > section > svg:first-child {
+  color: #f22650;
+}
+.cl-explore {
+  display: grid;
+  grid-template-columns: minmax(0, 722fr) minmax(0, 335fr) minmax(0, 272fr);
+  padding: 12px 20px;
+  border: 1px solid #d9e8ff;
+  border-radius: 13px;
+  background: #ffffffdf;
+  min-height: 107px;
+  margin-top: 10px;
+}
+.cl-explore-time {
+  min-width: 0;
+  padding-right: 20px;
+}
+.cl-explore-time > header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.cook-levin-page .cl-explore-time > header > button {
+  border-radius: 50%;
+  background: #0875ff;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  padding: 7px;
+  flex-shrink: 0;
+}
+.cl-explore-time h2 {
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0 0 3px;
+}
+.cl-explore-time p {
+  font-size: 12px;
+  color: #6a7fa7;
+  margin: 0;
+}
+.cl-time-track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 7px 28px 0 51px;
+}
+.cl-time-track::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 20px;
+  right: 20px;
+  height: 5px;
+  background: #cbdced;
+}
+.cook-levin-page .cl-time-track button {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  position: relative;
+  background: transparent;
+  color: #506d9c;
+  font-size: 11px;
+  width: 41px;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.cl-time-track i {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #cbdced;
+  background: #fff;
+  border-radius: 50%;
+}
+.cl-time-track button[aria-pressed='true'] i {
+  border-color: #0875ff;
+  background: #0875ff;
+}
+.cl-time-track button[aria-pressed='true'] span {
+  color: #133e8c;
+  font-weight: 600;
+}
+.cl-highlight-controls,
+.cl-playback {
+  border-left: 1px solid #d4e3fb;
+  padding-left: 25px;
+}
+.cl-highlight-controls h3,
+.cl-playback h3 {
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.cl-highlight-controls .cl-switch {
+  height: 21px;
+  font-size: 12px;
+  gap: 16px;
+}
+.cl-playback {
+  padding-left: 24px;
+}
+.cl-playback h3 {
+  margin-bottom: 14px;
+}
+.cl-playback > div {
+  display: flex;
+  gap: 10px;
+}
+.cook-levin-page .cl-playback button {
+  height: 41px;
+  width: 48px;
+  padding: 6px;
+  justify-content: center;
+  color: #0875ff;
+}
+.cook-levin-page .cl-playback .cl-primary {
+  width: 132px;
+  gap: 10px;
+  font-size: 13px;
+  color: #fff;
+}
+.cl-footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 327fr) minmax(0, 327fr) minmax(0, 328fr) minmax(0, 347fr);
+  gap: 14px;
+  margin-top: 7px;
+}
+.cl-footer-grid .cl-panel {
+  min-height: 155px;
+  padding: 7px 15px;
+}
+.cl-footer-grid .cl-panel > header {
+  gap: 15px;
+  margin-bottom: 5px;
+}
+.cl-footer-grid .cl-icon {
+  width: 26px;
+  height: 26px;
+}
+.cl-footer-grid .cl-icon svg {
+  width: 21px;
+  height: 21px;
+}
+.cl-footer-grid h2 {
+  font-size: 14px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+.cl-footer-grid p,
+.cl-footer-grid li {
+  font-size: 12px;
+  line-height: 15px;
+  margin: 0;
+  color: #4e6493;
+}
+.cl-footer-grid ul,
+.cl-footer-grid ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cl-footer-grid li {
+  display: flex;
+  gap: 13px;
+}
+.cl-footer-grid li svg {
+  width: 15px;
+  height: 15px;
+  color: #00ac78;
+  flex-shrink: 0;
+}
+.cl-footer-grid li > i {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: #cdd9e8;
+  border-radius: 50%;
+  font-size: 11px;
+  font-style: normal;
+  color: #26406a;
+}
+.cl-takeaways {
+  background: linear-gradient(110deg, #fff9e7, #fffef7);
+  border-color: #ffe7a6;
+}
+.cl-takeaways .cl-icon {
+  color: #ff9a00;
+  background: #fff2cf;
+}
+.cl-worked > header {
+  position: relative;
+}
+.cook-levin-page .cl-worked > header > button {
+  position: absolute;
+  right: 3px;
+  top: 0;
+  padding: 3px 15px;
+  font-size: 12px;
+  border-radius: 4px;
+  height: 24px;
+}
+.cl-worked > p {
+  margin-left: 39px;
+}
+.cl-worked ol {
+  margin-left: 4px;
+}
+.cl-proof {
+  background: #f2fff9;
+  border-color: #c9f0e0;
+}
+.cl-proof .cl-icon {
+  color: #00b276;
+  background: #e1f9ec;
+}
+.cl-proof li {
+  margin-bottom: 4px;
+}
+.cl-proof > p {
+  margin-left: 30px;
+}
+.cl-pitfalls {
+  background: #fff4f6;
+  border-color: #ffdae0;
+}
+.cl-pitfalls h2,
+.cl-pitfalls .cl-icon {
+  color: #bc1831;
+}
+.cl-pitfalls .cl-icon {
+  background: #ffe6ec;
+}
+.cl-pitfalls li::before {
+  content: '•';
+  color: #e4153d;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.cl-review {
+  margin-top: 14px;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.cook-levin-page) .sidebar-header {
+    padding: 14px 18px 12px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-category-toggle {
+    min-height: 39px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-section-label {
+    font-size: 11px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-footer {
+    min-height: 60px;
+    margin: 8px 14px 16px 16px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-footer small {
+    font-size: 10px;
+  }
+  .cook-levin-page .cl-tableau td button {
+    font-size: 14px;
+  }
+  .cl-table-legend {
+    gap: 12px 15px;
+  }
+  .cl-takeaways ul {
+    padding-left: 7px;
+  }
+  .cl-footer-grid h2 {
+    font-size: 14.5px;
+  }
+}
+.cl-learning,
+.cl-practice,
+.cl-experiments {
+  display: grid;
+  gap: 16px;
+}
+.cl-learning .cl-panel,
+.cl-practice .cl-panel,
+.cl-experiments .cl-panel,
+.cl-code,
+.cl-notes {
+  padding: 20px;
+}
+.cl-learning .cl-panel > header,
+.cl-practice .cl-panel > header,
+.cl-experiments .cl-panel > header,
+.cl-code > header,
+.cl-notes > header {
+  margin-bottom: 18px;
+}
+.cl-learning p,
+.cl-practice p,
+.cl-experiments p,
+.cl-code p {
+  line-height: 1.7;
+  font-size: 15px;
+}
+.cl-concept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.cl-concept-grid article {
+  padding: 16px;
+  border: 1px solid #d8e6fa;
+  background: #f0f7ff;
+  border-radius: 12px;
+}
+.cl-concept-grid h3 {
+  font-size: 16px;
+}
+.cl-code pre {
+  background: #0e2043;
+  color: #d9edff;
+  border-radius: 12px;
+  padding: 20px;
+  overflow: auto;
+  line-height: 1.6;
+}
+.cl-code button,
+.cl-lab-actions button {
+  margin: 4px 6px 4px 0;
+}
+.cl-lab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cook-levin-page .cl-candidate-summary {
+  padding: 12px;
+  color: #17335d;
+  background: #eaf4ff;
+  border: 1px solid #c8def7;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.cl-notes textarea {
+  display: block;
+  width: 100%;
+  min-height: 220px;
+  margin-bottom: 12px;
+  padding: 15px;
+  border: 1px solid #c6d9f5;
+  border-radius: 10px;
+  background: #fff;
+  color: #193056;
+}
+.cl-experiments select,
+.cl-practice input {
+  margin: 8px;
+}
+.cl-dialog {
+  width: min(820px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  border: 1px solid #c6d9f5;
+  border-radius: 16px;
+  padding: 28px;
+  color: #172c5d;
+  background: #fbfdff;
+}
+.cl-dialog::backdrop {
+  background: #0b1d4c88;
+  backdrop-filter: blur(4px);
+}
+.cook-levin-page .cl-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+}
+.cl-dialog h2 {
+  font-size: 22px;
+  margin: 4px 30px 16px 0;
+}
+.cl-dialog p {
+  line-height: 1.6;
+}
+.cl-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+  font-size: 14px;
+}
+.cl-dialog input,
+.cl-dialog select,
+.cl-practice input,
+.cl-experiments select {
+  padding: 10px;
+  background: #fff;
+  color: #172c5d;
+  border: 1px solid #c6d9f5;
+  border-radius: 7px;
+  min-width: 0;
+}
+.cl-clause-page {
+  display: grid;
+  gap: 9px;
+}
+.cl-clause-page article {
+  border: 1px solid #bde2d4;
+  border-radius: 9px;
+  background: #f0fff8;
+  padding: 12px;
+  min-width: 0;
+}
+.cl-clause-page article.cl-clause-failed {
+  border-color: #f1b2c2;
+  background: #fff0f3;
+}
+.cl-clause-page code {
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  padding: 7px 0;
+  color: #135337;
+}
+.cl-clause-page p {
+  font-size: 12px;
+  margin: 0;
+}
+.cl-clause-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.cook-levin-page button:disabled {
+  cursor: default;
+  opacity: 0.48;
+}
+@media (max-width: 1550px) {
+  .cl-lesson-header {
+    grid-template-columns: 43px minmax(0, 1fr) 180px 160px;
+    gap: 12px;
+  }
+  .cl-lesson-header h1 {
+    font-size: 25px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-lesson-header h1 > span {
+    font-size: 11px;
+  }
+  .cl-lesson-header p {
+    font-size: 13px;
+    white-space: normal;
+  }
+  .cl-visual-heading {
+    height: auto;
+    min-height: 90px;
+    flex-wrap: wrap;
+  }
+  .cl-visual-options {
+    position: static;
+    width: 100%;
+    grid-template-columns: 196px 178px 207px 115px;
+    gap: 15px;
+  }
+  .cl-dashboard-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+  .cl-outcome-panel {
+    grid-column: 1/-1;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .cl-outcome-panel > header {
+    grid-column: 1/-1;
+    margin: 0;
+  }
+  .cl-dashboard-grid > .cl-outcome-panel {
+    height: auto;
+  }
+  .cook-levin-page .cl-unsat {
+    margin-top: 0;
+  }
+  .cl-formula-arrow {
+    display: none;
+  }
+  .cl-explore {
+    grid-template-columns: 1fr 280px;
+    gap: 18px;
+  }
+  .cl-explore-time {
+    grid-column: 1/-1;
+  }
+  .cl-highlight-controls {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .cl-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1050px) {
+  .cl-lesson-header {
+    height: auto;
+    min-height: 100px;
+    grid-template-columns: 43px minmax(0, 1fr) 155px;
+  }
+  .cl-progress {
+    display: none;
+  }
+  .cl-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cl-dashboard-grid > .cl-panel {
+    height: auto;
+    min-height: 398px;
+  }
+  .cl-dashboard-grid > .cl-outcome-panel {
+    min-height: 0;
+  }
+  .cl-visual-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .cl-tableau-panel h2,
+  .cl-constraints-panel h2 {
+    white-space: normal;
+  }
+  .cl-tableau-panel > header {
+    padding-right: 110px;
+    height: auto;
+    min-height: 45px;
+  }
+  .cl-tableau-panel .cl-machine-badge {
+    top: 6px;
+  }
+  .cl-constraint-card > span > span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .cl-concept-grid {
+    grid-template-columns: 1fr;
+  }
+  .cl-topbar .mom-search {
+    flex: 1;
+  }
+}
+@media (max-width: 700px) {
+  .app-shell:has(.cook-levin-page):not(.sidebar-collapsed) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-shell .workspace.category-page:has(.cook-levin-page) {
+    padding: 10px;
+  }
+  .cook-levin-page .cl-topbar {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .cook-levin-page .cl-topbar > .cl-back {
+    display: none;
+  }
+  .cook-levin-page .mom-search {
+    flex-basis: 100%;
+  }
+  .cook-levin-page .mom-study {
+    margin-left: 0;
+  }
+  .cl-topbar #account-trigger {
+    margin-left: auto;
+  }
+  .cl-lesson-header {
+    grid-template-columns: 35px minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px 10px;
+    margin: 0;
+  }
+  .cook-levin-page .cl-lesson-header > .cl-back {
+    width: 35px;
+    height: 38px;
+  }
+  .cl-lesson-header h1 {
+    white-space: normal;
+    font-size: 23px;
+  }
+  .cl-lesson-header h1 > span {
+    padding: 3px 8px;
+  }
+  .cl-lesson-header .cl-start {
+    grid-column: 1/-1;
+    height: 38px;
+  }
+  .cook-levin-page .mom-tabs {
+    overflow-x: auto;
+    margin-top: 8px;
+    padding: 7px;
+    flex-wrap: nowrap;
+  }
+  .cook-levin-page .mom-tabs button {
+    flex-shrink: 0;
+    padding: 6px 16px;
+  }
+  .cl-visualization {
+    padding: 12px 8px;
+  }
+  .cl-visual-heading {
+    padding-left: 0;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .cl-visual-heading > div:not(.cl-visual-options) {
+    width: calc(100% - 34px);
+  }
+  .cl-visual-heading h2 {
+    font-size: 18px;
+  }
+  .cl-visual-options {
+    gap: 12px 8px;
+    margin-top: 8px;
+  }
+  .cl-switch {
+    gap: 7px;
+    font-size: 10px;
+    white-space: normal;
+  }
+  .cl-visual-options .cl-switch {
+    font-size: 10px;
+  }
+  .cl-panel {
+    padding: 10px;
+  }
+  .cl-panel > header {
+    gap: 9px;
+  }
+  .cl-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .cl-panel h2 {
+    font-size: 13px;
+    line-height: 17px;
+  }
+  .cl-panel > header p {
+    font-size: 11px;
+  }
+  .cl-tableau-panel > header {
+    padding-right: 0;
+    flex-wrap: wrap;
+  }
+  .cook-levin-page .cl-machine-badge {
+    position: static;
+    margin-left: 39px;
+  }
+  .cl-table-scroll {
+    margin-top: 12px;
+  }
+  .cl-tableau {
+    min-width: 440px;
+  }
+  .cl-table-legend {
+    gap: 10px;
+    font-size: 10px;
+  }
+  .cl-table-legend i {
+    width: 13px;
+    height: 13px;
+  }
+  .cook-levin-page .cl-constraint-card {
+    padding: 8px;
+    gap: 7px;
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+  }
+  .cl-constraint-card b {
+    font-size: 12px;
+  }
+  .cl-constraint-card > span > span {
+    font-size: 10px;
+    line-height: 13px;
+  }
+  .cl-constraint-card em {
+    font-size: 9px;
+    padding: 4px;
+  }
+  .cl-result-formula {
+    padding-bottom: 63px;
+  }
+  .cl-result-formula p {
+    margin-right: 0;
+    font-size: 12px;
+    margin-left: 0;
+  }
+  .cl-result-formula > span {
+    top: auto;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    padding: 8px;
+  }
+  .cl-outcome-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cl-outcome-panel > header p {
+    white-space: normal;
+  }
+  .cl-outcome-card > header {
+    gap: 12px;
+  }
+  .cl-explore {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px;
+    gap: 20px;
+  }
+  .cl-explore-time {
+    padding-right: 0;
+  }
+  .cl-explore-time > header {
+    gap: 10px;
+  }
+  .cl-explore-time p {
+    font-size: 11px;
+    line-height: 15px;
+  }
+  .cl-time-track {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .cook-levin-page .cl-time-track button {
+    font-size: 10px;
+    width: 29px;
+  }
+  .cl-playback {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .cl-playback h3 {
+    margin-bottom: 8px;
+  }
+  .cl-footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cl-footer-grid h2 {
+    white-space: normal;
+  }
+  .cl-dialog {
+    padding: 22px 15px;
+  }
+  .cl-dialog h2 {
+    font-size: 19px;
+  }
+  .cl-learning .cl-panel,
+  .cl-practice .cl-panel,
+  .cl-experiments .cl-panel,
+  .cl-code,
+  .cl-notes {
+    padding: 14px;
+  }
+}
+[data-theme='dark'] .cook-levin-page {
+  color: #e0eaff;
+}
+[data-theme='dark'] .cook-levin-page :is(.cl-lesson-header, .mom-tabs, .cl-visualization, .cl-panel, .cl-explore, .cl-dialog) {
+  background: #102139;
+  border-color: #2c456a;
+  color: #e0eaff;
+}
+[data-theme='dark'] .cook-levin-page :is(h1, h2, h3, .cl-constraint-card b) {
+  color: #e0eaff;
+}
+[data-theme='dark'] .cook-levin-page :is(p, .cl-switch, .cl-panel > header p, .cl-table-legend, .cl-footer-grid li) {
+  color: #acbfdf;
+}
+[data-theme='dark'] .cook-levin-page :is(.cl-tableau th, .cl-tableau td, .cl-constraint-card, .cl-concept-grid article, .cl-clause-page article) {
+  background: #162e4a;
+  border-color: #345071;
+  color: #dbe9ff;
+}
+[data-theme='dark'] .cook-levin-page :is(.cl-result-formula, .cl-candidate-summary) {
+  background: #183450;
+  border-color: #356191;
+  color: #dbe9ff;
+}
+[data-theme='dark'] .cook-levin-page :is(input, select, textarea) {
+  background: #142b45;
+  color: #e0eaff;
+  border-color: #3d5b85;
+}
+[data-theme='dark'] .cook-levin-page .cl-outcome-card {
+  background: #103b32;
+  border-color: #287c60;
+  color: #81e4b3;
+}
+[data-theme='dark'] .cook-levin-page .cl-unsat {
+  background: #401e32;
+  border-color: #85344e;
+  color: #ffa1b9;
+}
+[data-theme='dark'] .cook-levin-page .cl-outcome-card > section {
+  background: #153f35;
+}
+[data-theme='dark'] .cook-levin-page .cl-unsat > section {
+  background: #492439;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-head {
+  background: #785529;
+  color: #fff3bd;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-state-q0 {
+  background: #164985;
+  color: #c3e1ff;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-state-q2 {
+  background: #493b79;
+  color: #e6d9ff;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-state-qa {
+  background: #14643f;
+  color: #c1ffdf;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-state-qr {
+  background: #823248;
+  color: #ffe1e9;
+}
+[data-theme='dark'] .cl-dialog::backdrop {
+  background: #000b;
+}

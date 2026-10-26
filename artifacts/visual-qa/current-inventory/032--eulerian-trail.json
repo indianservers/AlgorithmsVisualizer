@@ -11,29 +11,13 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Build a graph. Explain every decision.",
-    "Theory in plain language",
-    "Worked example",
-    "Assumptions and cost",
-    "Problem Input",
-    "Step 1 of 5",
-    "Predict the next decision",
-    "Adjacency list",
-    "Weighted adjacency matrix",
-    "Construct a counterexample",
-    "Compare on the same graph",
-    "Eulerian Trail",
-    "Problem Input ",
-    " Edge stack",
-    "Procedure",
-    " Eulerian trail",
-    "Correctness",
+    "Interactive Visualization",
+    "How it works",
+    "Key insight",
+    "Current trail",
+    "Degree check",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Worked Eulerian Result",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -121,12 +105,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to articulation points",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -153,115 +137,11 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": " Start",
       "pressed": null
     },
     {
-      "label": "Run edited graph",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Add vertex",
-      "pressed": null
-    },
-    {
-      "label": "Reset layout",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 0",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 1 at position 0",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 2 at position 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2 to 0 at position 2",
-      "pressed": null
-    },
-    {
-      "label": "Previous graph step",
-      "pressed": null
-    },
-    {
-      "label": "Play graph playback",
-      "pressed": null
-    },
-    {
-      "label": "Next graph step",
-      "pressed": null
-    },
-    {
-      "label": "Replay trace",
-      "pressed": null
-    },
-    {
-      "label": "Splice 0 into reverse trail.",
-      "pressed": null
-    },
-    {
-      "label": "Splice 2 into reverse trail.",
-      "pressed": null
-    },
-    {
-      "label": "Compare graph results",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Step",
       "pressed": null
     },
     {
@@ -269,27 +149,35 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Show Eulerian step 0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Show Eulerian step 1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Show Eulerian step 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect degree vertex 0",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect degree vertex 1",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect degree vertex 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect degree vertex 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect worked Eulerian result",
       "pressed": null
     }
   ]

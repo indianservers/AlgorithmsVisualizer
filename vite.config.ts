@@ -23,6 +23,76 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/RandomSelectMockupLesson') ||
+                  id.includes('/src/daa/randomSelectLessonModel') ||
+                  id.includes('/src/daa/random-select-mockup.css')
+                )
+                  return 'random-select-mockup'
+                if (
+                  id.includes('/src/daa/RandomQuickMockupLesson') ||
+                  id.includes('/src/daa/randomQuickLessonModel') ||
+                  id.includes('/src/daa/random-quick-mockup.css')
+                )
+                  return 'random-quick-mockup'
+                if (
+                  id.includes('/src/daa/KaratsubaMockupLesson') ||
+                  id.includes('/src/daa/karatsubaLessonModel') ||
+                  id.includes('/src/daa/karatsuba-mockup.css')
+                )
+                  return 'karatsuba-mockup'
+                if (
+                  id.includes('/src/daa/ClosestPairMockupLesson') ||
+                  id.includes('/src/daa/closestPairLessonModel') ||
+                  id.includes('/src/daa/closest-pair-mockup.css')
+                )
+                  return 'closest-pair-mockup'
+                if (
+                  id.includes('/src/daa/InversionsMockupLesson') ||
+                  id.includes('/src/daa/inversionLessonModel') ||
+                  id.includes('/src/daa/inversions-mockup.css')
+                )
+                  return 'inversions-mockup'
+                if (id.includes('/src/daa/EulerianMockupLesson') || id.includes('/src/daa/eulerianLessonModel') || id.includes('/src/daa/eulerian-mockup.css'))
+                  return 'eulerian-mockup'
+                if (id.includes('/src/daa/bridgeLessonModel') || id.includes('/src/daa/articulationModel')) return 'low-link-model'
+                if (id.includes('/src/daa/ArticulationMockupLesson') || id.includes('/src/daa/articulation-mockup.css')) return 'articulation-mockup'
+                if (id.includes('/src/daa/BridgesMockupLesson') || id.includes('/src/daa/bridgeLessonModel') || id.includes('/src/daa/bridges-mockup.css'))
+                  return 'bridges-mockup'
+                if (
+                  id.includes('/src/daa/BipartiteMatchingMockupLesson') ||
+                  id.includes('/src/daa/bipartiteMatchingModel') ||
+                  id.includes('/src/daa/bipartite-matching-mockup.css')
+                )
+                  return 'bipartite-matching-mockup'
+                if (
+                  id.includes('/src/daa/EdmondsKarpMockupLesson') ||
+                  id.includes('/src/daa/edmondsKarpModel') ||
+                  id.includes('/src/daa/edmonds-karp-mockup.css')
+                )
+                  return 'edmonds-karp-mockup'
+                if (id.includes('/src/daa/CookLevinMockupLesson') || id.includes('/src/daa/cookLevinModel') || id.includes('/src/daa/cook-levin-mockup.css'))
+                  return 'cook-levin-mockup'
+                if (id.includes('/src/daa/certificatesReductionModel')) return 'graph-reduction-model'
+                if (
+                  id.includes('/src/daa/CliqueCoverMockupLesson') ||
+                  id.includes('/src/daa/cliqueCoverModel') ||
+                  id.includes('/src/daa/clique-cover-mockup.css')
+                )
+                  return 'clique-cover-mockup'
+                if (
+                  id.includes('/src/daa/ThreeSatCliqueMockupLesson') ||
+                  id.includes('/src/daa/threeSatCliqueModel') ||
+                  id.includes('/src/daa/three-sat-clique-mockup.css')
+                )
+                  return 'three-sat-clique-mockup'
+                if (id.includes('/src/daa/complexityClassesModel')) return 'complexity-certificate-model'
+                if (
+                  id.includes('/src/daa/CertificatesReductionMockupLesson') ||
+                  id.includes('/src/daa/certificatesReductionModel') ||
+                  id.includes('/src/daa/certificates-reduction-mockup.css')
+                )
+                  return 'certificates-reduction-mockup'
+                if (
                   id.includes('/src/daa/ComplexityClassesMockupLesson') ||
                   id.includes('/src/daa/complexityClassesModel') ||
                   id.includes('/src/daa/complexity-classes-mockup.css')

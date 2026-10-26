@@ -11,18 +11,14 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Randomized Quicksort",
-    "Problem Input ",
-    " Partition state",
-    "Procedure",
-    " Recursion trace",
-    "Correctness",
+    "Interactive Visualization",
+    "Current subarray (indices 0 … 8)",
+    "How it works",
+    "Pivot info",
+    "Recursion tree (subarray ranges)",
+    "Partition summary",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Seeded Quicksort Result",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +106,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to Karatsuba multiplication",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +138,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Shuffle",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Step partition",
       "pressed": null
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Auto play",
       "pressed": null
     },
     {
@@ -174,63 +154,103 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect quicksort value 0: 7",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect quicksort value 1: 2",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect quicksort value 2: 9",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect quicksort value 3: 4",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect quicksort value 4: 3",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect quicksort value 5: 8",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect quicksort value 6: 1",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
+      "label": "Inspect quicksort value 7: 6",
       "pressed": null
     },
     {
-      "label": "Go to step 9",
+      "label": "Inspect quicksort value 8: 5",
       "pressed": null
     },
     {
-      "label": "Go to step 10",
+      "label": "Less than pivot",
       "pressed": null
     },
     {
-      "label": "Go to step 11",
+      "label": "Inspect less value 1",
       "pressed": null
     },
     {
-      "label": "Go to step 12",
+      "label": "Inspect less value 6",
       "pressed": null
     },
     {
-      "label": "Go to step 13",
+      "label": "Equal to pivot",
       "pressed": null
     },
     {
-      "label": "Go to step 14",
+      "label": "Inspect equal value 4",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Greater than pivot",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 7",
+      "pressed": null
+    },
+    {
+      "label": "Inspect greater value 8",
+      "pressed": null
+    },
+    {
+      "label": "Inspect partition group 0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect partition group 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect partition group 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect randomized quicksort result",
       "pressed": null
     }
   ]

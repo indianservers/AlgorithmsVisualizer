@@ -11,18 +11,19 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Karatsuba Multiplication",
-    "Problem Input ",
-    " Three products",
-    "Procedure",
-    " Recombination",
-    "Correctness",
+    "Interactive Visualization",
+    "Split x = 1234",
+    "Split y = 5678",
+    "Z0",
+    "Z1",
+    "Z2",
+    "Result",
+    "Recursion tree (first level)",
+    "How it works",
+    "Formula",
+    "Intermediate products",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Exact Karatsuba Recombination",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +111,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to closest pair",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +143,27 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Increase first number",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Decrease first number",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Increase second number",
       "pressed": null
     },
     {
-      "label": "Copy input",
+      "label": "Decrease second number",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Step split",
       "pressed": null
     },
     {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Compute",
       "pressed": null
     },
     {
@@ -174,31 +171,35 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect Karatsuba product z0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect Karatsuba product z1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect Karatsuba product z2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect Karatsuba recombination",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect Karatsuba result",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect intermediate product z0",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect intermediate product z1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect intermediate product z2",
       "pressed": null
     }
   ]

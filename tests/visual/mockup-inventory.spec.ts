@@ -9,6 +9,7 @@ import { algorithmPath } from '../../src/utils/routing'
 // Every target still requires explicit expected-versus-delivered inspection and interaction checks.
 test.describe('full mockup inventory evidence', () => {
   test.beforeEach(async ({ page }) => {
+    await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
     await page.addInitScript(() => localStorage.setItem('algodrishti-onboarded', 'true'))
   })
   for (const [id, profile] of Object.entries(targetProfiles))

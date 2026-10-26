@@ -11,18 +11,14 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Randomized Selection",
-    "Problem Input ",
-    " Rank comparison",
-    "Procedure",
-    " Selected value",
-    "Correctness",
+    "Interactive Visualization",
+    "Step 2: Partition around pivot 7",
+    "How it works",
+    "Target rank",
+    "Current pivot",
+    "Step-by-step state",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Selected Value",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +106,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to randomized quicksort",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +138,67 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Shuffle",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Explain target rank",
       "pressed": null
     },
     {
-      "label": "Reset input",
+      "label": "Explain quickselect seed",
       "pressed": null
     },
     {
-      "label": "Copy input",
+      "label": "Random",
       "pressed": null
     },
     {
-      "label": "Step back",
+      "label": "Inspect selection value 1: 3",
       "pressed": null
     },
     {
-      "label": "Play",
+      "label": "Inspect selection value 3: 5",
       "pressed": null
     },
     {
-      "label": "Step forward",
+      "label": "Inspect selection value 4: 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 6: 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 9: 6",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 8: 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 7: 7",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 2: 12",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 5: 9",
+      "pressed": null
+    },
+    {
+      "label": "Inspect selection value 0: 8",
+      "pressed": null
+    },
+    {
+      "label": "Start / Run",
+      "pressed": null
+    },
+    {
+      "label": "Step",
       "pressed": null
     },
     {
@@ -174,31 +206,31 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Show selection partition 0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Show selection partition 1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Show selection partition 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Show selection partition 3",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Show selection partition 4",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Show selection partition 5",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect quickselect example result",
       "pressed": null
     }
   ]

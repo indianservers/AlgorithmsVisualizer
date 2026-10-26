@@ -10,6 +10,10 @@ const targets = Object.entries(targetProfiles)
   .sort((a, b) => a.number - b.number)
 
 test.describe('numbered target UI inventory', () => {
+  test.beforeEach(async ({ page }) => {
+    // Analytics is unrelated to lesson rendering and can stall the page/font load event.
+    await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
+  })
   for (const target of targets)
     test(`${String(target.number).padStart(3, '0')} ${target.id}`, async ({ page }, testInfo) => {
       await page.setViewportSize(target.number >= 31 && target.number <= 40 ? { width: 1586, height: 992 } : { width: 1672, height: 941 })
@@ -27,6 +31,137 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 37) {
+        await expect(visual.locator('.rs-pivot-info dd')).toHaveText(['7', '6', '7', '6', '3'])
+        await expect(visual.locator('.rs-cell')).toHaveCount(10)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Start / Run', exact: true }).click()
+        await expect(visual.locator('.rs-diagram h3')).toHaveText('Step 1: Choose random pivot 7')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 36) {
+        await expect(visual.locator('.rq-pivot-tag')).toHaveText('Pivot (3)')
+        await expect(visual.locator('.rq-cell')).toHaveCount(9)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Step partition', exact: true }).click()
+        await expect(visual.locator('.rq-group-0 .rq-group-values button')).toHaveText(['1', '2'])
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 35) {
+        await expect(visual.locator('.kt-result')).toContainText('1234 × 5678 = 7006652')
+        await expect(visual.locator('.kt-product')).toHaveCount(3)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Step split', exact: true }).click()
+        await expect(visual.locator('.kt-product strong')).toHaveText(['Pending', 'Pending', 'Pending'])
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 34) {
+        await expect(visual.locator('.cp-point')).toHaveCount(20)
+        await expect(visual.locator('.cp-nearest')).toContainText('5.83')
+        await captureReference()
+        await visual.getByLabel('Closest-pair example', { exact: true }).selectOption('duplicates')
+        await expect(visual.locator('.cp-nearest')).toContainText('0.00')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 33) {
+        await expect(visual.locator('.iv-count')).toHaveText('3')
+        await expect(visual.locator('.iv-ledger tbody tr')).toHaveCount(3)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Step merge', exact: true }).click()
+        await expect(visual.locator('.iv-comparison')).toHaveText('3 ≤ 4')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 32) {
+        await expect(visual.locator('.eu-vertex')).toHaveCount(4)
+        await expect(visual.locator('.eu-edge')).toHaveCount(4)
+        await expect(visual.locator('.eu-active-edge')).toHaveAttribute('data-euler-edge', '1')
+        await captureReference()
+        await visual.getByLabel('Eulerian graph example', { exact: true }).selectOption('open')
+        await expect(visual.locator('.eu-degree-status')).toContainText('Open Eulerian trail exists')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 31) {
+        await expect(visual.locator('.ap-vertex')).toHaveCount(7)
+        await expect(visual.locator('.ap-cut-vertex')).toHaveAttribute('aria-label', 'Inspect articulation vertex 3')
+        await captureReference()
+        await visual.getByLabel('Articulation graph example', { exact: true }).selectOption('cycle')
+        await expect(visual.locator('.ap-cut-vertex')).toHaveCount(0)
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 30) {
+        await expect(visual.locator('.br-vertex')).toHaveCount(6)
+        await expect(visual.locator('.br-bridge-edge')).toHaveAttribute('data-bridge-edge', '3')
+        await expect(visual.locator('.br-values-table tbody tr')).toHaveCount(6)
+        await captureReference()
+        await visual.getByLabel('Bridge graph example', { exact: true }).selectOption('parallel')
+        await expect(visual.locator('.br-bridge-edge')).toHaveAttribute('data-bridge-edge', '2')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 29) {
+        await expect(visual.locator('.bp-before-diagram .bp-vertex')).toHaveCount(6)
+        await expect(visual.locator('.bp-before-diagram .bp-matched-edge')).toHaveCount(2)
+        await expect(visual.locator('.bp-after-diagram .bp-matched-edge')).toHaveCount(3)
+        await captureReference()
+        await visual.getByLabel('Bipartite graph example', { exact: true }).selectOption('reroute')
+        await expect(visual.locator('.bp-before-diagram .bp-path-edge')).toHaveCount(3)
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 28) {
+        await expect(visual.locator('.ef-flow-svg .ef-graph-vertex')).toHaveCount(6)
+        await expect(visual.locator('.ef-flow-svg [data-flow-edge]')).toHaveCount(8)
+        await expect(visual.locator('.ef-cut-grid output')).toHaveText('11')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Next augmentation', exact: true }).click()
+        await expect(visual.locator('.ef-path-card output')).toHaveText('5')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 27) {
+        await expect(visual.locator('.cl-tableau tbody tr')).toHaveCount(6)
+        await expect(visual.locator('.cl-constraint-card')).toHaveCount(4)
+        await expect(visual.getByRole('status')).toContainText('SATISFIABLE')
+        await captureReference()
+        await visual.getByLabel('Cook-Levin example', { exact: true }).selectOption('short')
+        await expect(visual.getByRole('status')).toContainText('T is too short')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 26) {
+        await expect(visual.locator('.cv-graph-source [data-graph-edge]')).toHaveCount(11)
+        await expect(visual.locator('.cv-graph-target [data-graph-edge]')).toHaveCount(4)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Select clique vertex 3', exact: true }).click()
+        await expect(visual.locator('.cv-validation')).toContainText('This does not prove the instance is NO')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 25) {
+        await expect(visual.locator('.st-vertex')).toHaveCount(9)
+        await expect(visual.locator('[data-graph-edge]')).toHaveCount(23)
+        await captureReference()
+        await visual.getByLabel('Show contradictory edges', { exact: true }).check()
+        await expect(visual.locator('.st-forbidden-link')).toHaveCount(4)
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 24) {
+        await expect(visual.locator('.rd-graph-source [role="button"]')).toHaveCount(6)
+        await expect(visual.locator('.rd-certificate-status')).toContainText('Certificate is valid')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Toggle source certificate vertex 3', exact: true }).click()
+        await expect(visual.locator('.rd-certificate-status')).toContainText('Certificate rejected')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 23) {
         await expect(visual.locator('.cx-class-map [role="button"]')).toHaveCount(4)
         await expect(visual.getByRole('radio')).toHaveCount(6)

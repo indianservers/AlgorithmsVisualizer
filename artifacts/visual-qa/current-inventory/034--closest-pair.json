@@ -11,18 +11,13 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Closest Pair of Points",
-    "Problem Input ",
-    " Midpoint strip",
-    "Procedure",
-    " Closest pair",
-    "Correctness",
+    "Interactive Visualization",
+    "How it works",
+    "Nearest pair (current)",
+    "Recursive split (recursion tree)",
+    "Strip check",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Closest-Pair Result",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +105,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to counting inversions",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +137,11 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Generate points",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Step divide",
       "pressed": null
     },
     {
@@ -174,71 +149,39 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect strip check 0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect strip check 1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect strip check 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect strip check 3",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect strip check 4",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect strip check 5",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect strip check 6",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
+      "label": "Inspect strip check 7",
       "pressed": null
     },
     {
-      "label": "Go to step 9",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 10",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 11",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 12",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 13",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 14",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 15",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 16",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Inspect closest-pair result",
       "pressed": null
     }
   ]

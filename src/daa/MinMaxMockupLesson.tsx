@@ -1,5 +1,5 @@
 // @localized-render
-import { useEffect, useId, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
@@ -419,6 +419,7 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
     [cursor, setCursor] = useState(-1),
     [treeTab, setTreeTab] = useState<'tree' | 'stack'>('tree'),
     [draft, setDraft] = useState(minMaxExample.join(', ')),
+    [customMode, setCustomMode] = useState(false),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(700),
     [error, setError] = useState(''),
@@ -428,6 +429,15 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
   const node = run.nodes.find((n) => n.id === selected) ?? run.root,
     frame = cursor >= 0 ? run.frames[cursor] : undefined,
     root = run.root
+  const arrayEditor = useRef<HTMLTextAreaElement>(null)
+  function focusArrayEditor() {
+    arrayEditor.current?.focus()
+    arrayEditor.current?.select()
+    arrayEditor.current?.scrollIntoView({ block: 'center' })
+  }
+  useEffect(() => {
+    if (customMode && (tab === 'Learn' || tab === 'Visualization')) focusArrayEditor()
+  }, [customMode, tab])
   useEffect(() => {
     if (!playing) return
     const timer = window.setTimeout(() => {
@@ -511,6 +521,7 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
   const powerOfTwo = (run.values.length & (run.values.length - 1)) === 0,
     comparisonCount = tab === 'Visualization' ? (frame?.comparisons ?? 0) : run.comparisons
   const sampleIndex = samples.findIndex((s) => JSON.stringify(s.values) === JSON.stringify(run.values))
+  const customArray = customMode || sampleIndex < 0
   const shown = step === 1 && root.left ? root.left : step === 2 && root.right ? root.right : root
   const workedTitle = !root.left
     ? root.lo === root.hi
@@ -572,7 +583,7 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
       )}
       {(tab === 'Learn' || tab === 'Visualization') && (
         <>
-          {tab === 'Visualization' && (
+          {(tab === 'Visualization' || customArray) && (
             <Panel
               className="mm-lab"
               title={tr('Interactive recursive min/max trace')}
@@ -581,7 +592,7 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
             >
               <label className="mm-input-label">
                 {tr('Editable array')}
-                <textarea rows={2} aria-label={tr('Min/max dataset')} value={draft} onChange={(e) => setDraft(e.target.value)} />
+                <textarea ref={arrayEditor} rows={2} aria-label={tr('Min/max dataset')} value={draft} onChange={(e) => setDraft(e.target.value)} />
               </label>
               <div className="mm-toolbar">
                 <button onClick={() => apply()}>{tr('Apply array')}</button>
@@ -632,12 +643,14 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
                     {tr('Sample Array')}
                     <select
                       aria-label={tr('Min/max sample array')}
-                      value={sampleIndex < 0 ? 'custom' : String(sampleIndex)}
+                      value={customArray ? 'custom' : String(sampleIndex)}
                       onChange={(e) => {
                         if (e.target.value === 'custom') {
+                          setCustomMode(true)
                           open('Visualization')
                           return
                         }
+                        setCustomMode(false)
                         apply(samples[Number(e.target.value)].values)
                       }}
                     >
@@ -647,7 +660,13 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
                       <option value="custom">{tr('Custom array…')}</option>
                     </select>
                   </label>
-                  <button onClick={() => apply(minMaxExample)}>
+                  {customArray && <button onClick={focusArrayEditor}>{tr('Edit custom array')}</button>}
+                  <button
+                    onClick={() => {
+                      setCustomMode(false)
+                      apply(minMaxExample)
+                    }}
+                  >
                     <RotateCcw size={16} />
                     {tr('Reset')}
                   </button>
@@ -941,6 +960,7 @@ export function MinMaxMockupLesson(props: MockupPageProps) {
               <button
                 key={s.name}
                 onClick={() => {
+                  setCustomMode(false)
                   apply(s.values)
                   open('Learn')
                 }}

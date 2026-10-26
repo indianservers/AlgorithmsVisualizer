@@ -11,29 +11,17 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Build a graph. Explain every decision.",
-    "Theory in plain language",
-    "Worked example",
-    "Assumptions and cost",
-    "Problem Input",
-    "Step 1 of 6",
-    "Predict the next decision",
-    "Adjacency list",
-    "Weighted adjacency matrix",
-    "Construct a counterexample",
-    "Compare on the same graph",
-    "Graph Bridges",
-    "Problem Input ",
-    " Discovery / low",
-    "Procedure",
-    " Bridge criterion",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Graph G (original)",
+    "DFS Traversal Order",
+    "Node Details",
+    "Low-link Values Table",
+    "Edges Classification",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Complexity",
+    "Common Mistakes",
+    "Prove a Bridge by Removing It",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -121,7 +109,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to bipartite matching",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -130,6 +126,14 @@
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Open bipartite matching lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
       "pressed": null
     },
     {
@@ -153,200 +157,168 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
-    },
-    {
-      "label": "Run edited graph",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Add vertex",
-      "pressed": null
-    },
-    {
-      "label": "Reset layout",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 0",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 2",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 3",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 1 at position 0",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 2 at position 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 2 at position 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 3 at position 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2 to 3 at position 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3 to 4 at position 5",
-      "pressed": null
-    },
-    {
-      "label": "Previous graph step",
-      "pressed": null
-    },
-    {
-      "label": "Play graph playback",
-      "pressed": null
-    },
-    {
-      "label": "Next graph step",
-      "pressed": null
-    },
-    {
-      "label": "Replay trace",
-      "pressed": null
-    },
-    {
-      "label": "Finish 3: discovery=3, low=1.",
-      "pressed": null
-    },
-    {
-      "label": "Finish 4: discovery=4, low=4.",
-      "pressed": null
-    },
-    {
-      "label": "Compare graph results",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 5",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 6",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 7",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 8",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 9",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Previous DFS step",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Play DFS playback",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Next DFS step",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "DFS step 1: Start DFS at vertex 1",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 2: Visit vertex 2 from 1",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 3: Visit vertex 3 from 2",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 4: Explore 3 → 1 (back edge)",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 5: Visit vertex 4 from 3",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 6: Backtrack to 3 from 4",
+      "pressed": "true"
+    },
+    {
+      "label": "DFS step 7: Visit vertex 5 from 3",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 8: Visit vertex 6 from 5",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 9: Explore 6 → 3 (back edge)",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 10: Backtrack to 5 from 6",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 11: Backtrack to 3 from 5",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 12: Backtrack to 2 from 3",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 13: Backtrack to 1 from 2",
+      "pressed": "false"
+    },
+    {
+      "label": "DFS step 14: DFS complete",
+      "pressed": "false"
+    },
+    {
+      "label": "Previous DFS vertex",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Next DFS vertex",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect DFS child 4",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect DFS child 5",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
+      "label": "Inspect incident bridge 3 — 4",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect low-link vertex 1",
       "pressed": null
+    },
+    {
+      "label": "Inspect low-link vertex 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect low-link vertex 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect low-link vertex 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect low-link vertex 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect low-link vertex 6",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tree edge 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tree edge 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tree edge 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tree edge 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tree edge 7",
+      "pressed": null
+    },
+    {
+      "label": "Inspect back edge 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect back edge 6",
+      "pressed": null
+    },
+    {
+      "label": "Inspect bridge edge 4",
+      "pressed": null
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Explore articulation points",
+      "pressed": null
+    },
+    {
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

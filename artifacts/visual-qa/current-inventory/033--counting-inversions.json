@@ -11,18 +11,14 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Counting Inversions",
-    "Problem Input ",
-    " Inversion ledger",
-    "Procedure",
-    " Merge state",
-    "Correctness",
+    "Interactive Visualization",
+    "How it works",
+    "Key insight",
+    "Current state",
+    "Current inversions",
+    "Merge state",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Inversion Example Result",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +106,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to Eulerian trail",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +138,11 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Step merge",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Shuffle array",
       "pressed": null
     },
     {
@@ -174,39 +150,19 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect inversion pair 1, 4",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect inversion pair 2, 4",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect inversion pair 3, 4",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 6",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 7",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Inspect inversion example result",
       "pressed": null
     }
   ]

@@ -4,36 +4,27 @@
   "route": "/daa-extensions/edmonds-karp",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Ford–Fulkerson / Edmonds–Karp",
+  "title": "Ford–Fulkerson / Edmonds–KarpDAA Extension",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Build a graph. Explain every decision.",
-    "Theory in plain language",
-    "Worked example",
-    "Assumptions and cost",
-    "Problem Input",
-    "Step 1 of 4",
-    "Predict the next decision",
-    "Adjacency list",
-    "Weighted adjacency matrix",
-    "Construct a counterexample",
-    "Compare on the same graph",
-    "Ford–Fulkerson / Edmonds–Karp",
-    "Problem Input ",
-    " Augmenting path",
-    "Procedure",
-    " Max-flow / min-cut",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Flow Network (current flow / capacity)",
+    "Residual Graph (for BFS)",
+    "Augmenting Path & Animation",
+    "Step-by-Step Augmentations",
+    "Max-Flow / Min-Cut",
+    "Maximum Flow Value",
+    "Minimum Cut",
+    "Capacity Utilization",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Worked Augmentations",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -121,7 +112,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to Cook-Levin",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -130,6 +129,14 @@
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Open Cook-Levin lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
       "pressed": null
     },
     {
@@ -153,180 +160,96 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
-    },
-    {
-      "label": "Run edited graph",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Add vertex",
-      "pressed": null
-    },
-    {
-      "label": "Reset layout",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 0",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 2",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 1 at position 0",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 2 at position 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 2 at position 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 3 at position 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2 to 3 at position 4",
-      "pressed": null
-    },
-    {
-      "label": "Previous graph step",
-      "pressed": null
-    },
-    {
-      "label": "Play graph playback",
-      "pressed": null
-    },
-    {
-      "label": "Next graph step",
-      "pressed": null
-    },
-    {
-      "label": "Replay trace",
-      "pressed": null
-    },
-    {
-      "label": "BFS augmenting path adds 2; flow = 2. Reverse residual edges allow cancellation.",
-      "pressed": null
-    },
-    {
-      "label": "BFS augmenting path adds 2; flow = 4. Reverse residual edges allow cancellation.",
-      "pressed": null
-    },
-    {
-      "label": "Compare graph results",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 5",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 6",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 7",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 8",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 9",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 10",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Previous augmentation",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Next augmentation",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": " Animate Flow Update",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Augmentation stage 1",
+      "pressed": "true"
+    },
+    {
+      "label": "Augmentation stage 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Augmentation stage 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Augmentation stage 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Find augmenting path",
+      "pressed": "true"
+    },
+    {
+      "label": "Update flow",
+      "pressed": "false"
+    },
+    {
+      "label": "Repeat BFS",
+      "pressed": "false"
+    },
+    {
+      "label": "No more paths",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect utilization S to 1",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect utilization S to 3",
       "pressed": null
+    },
+    {
+      "label": "Inspect utilization 1 to 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect utilization 1 to 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect utilization 4 to 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect utilization 2 to T",
+      "pressed": null
+    },
+    {
+      "label": "Inspect utilization 3 to 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect utilization 4 to T",
+      "pressed": null
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

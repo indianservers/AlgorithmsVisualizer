@@ -1,0 +1,1285 @@
+.app-shell:has(.inversions-page):not(.sidebar-collapsed) {
+  grid-template-columns: 270px minmax(0, 1fr);
+}
+.app-shell:has(.inversions-page):not(.sidebar-collapsed) > .sidebar {
+  width: 270px;
+}
+.app-shell .workspace.category-page:has(.inversions-page) {
+  padding: 18px 15px 1px 14px;
+  display: block;
+}
+.mom-page.inversions-page {
+  font-family: Arial, sans-serif;
+  color: #0a194c;
+  padding-bottom: 0;
+}
+.iv-topbar {
+  height: 47px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.inversions-page .iv-back {
+  width: 44px;
+  height: 39px;
+  flex-shrink: 0;
+  padding: 5px;
+  border: 1px solid #cce0ff;
+  border-radius: 10px;
+  background: #f3f9ff;
+  color: #0875ff;
+}
+.iv-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  min-width: 0;
+}
+.iv-title-row h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 35px;
+  letter-spacing: -0.6px;
+  white-space: nowrap;
+}
+.iv-title-row p {
+  font-size: 13px;
+  line-height: 18px;
+  color: #5a72a3;
+  margin: 0;
+}
+.inversions-page .mom-study {
+  margin-left: auto;
+  padding: 6px 12px;
+  white-space: nowrap;
+  font-size: 13px;
+  min-width: 130px;
+  height: 38px;
+}
+.inversions-page #account-trigger {
+  min-height: 47px;
+  border-radius: 25px;
+  font-size: 13px;
+  width: 190px;
+}
+.iv-topbar .aimer-account-controls {
+  margin-left: -8px;
+}
+.inversions-page .mom-tabs {
+  height: 51px;
+  padding: 4px;
+  gap: 6px;
+  margin: 0 0 10px;
+  background: #ffffffd9;
+  border: 1px solid #d7e6ff;
+  border-radius: 12px;
+}
+.inversions-page .mom-tabs button {
+  height: 41px;
+  min-width: 73px;
+  padding: 7px 17px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  justify-content: center;
+}
+.inversions-page .mom-tabs button svg {
+  display: none;
+}
+.inversions-page .mom-tabs button:nth-child(2) {
+  min-width: 126px;
+}
+.inversions-page .mom-tabs button[aria-pressed='true'] {
+  background: linear-gradient(120deg, #0875df, #0094e8);
+}
+.iv-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 887fr) minmax(0, 386fr);
+  gap: 14px;
+}
+.iv-visualization {
+  height: 493px;
+  padding: 11px 12px 12px;
+  border: 1px solid #dce9fc;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #ffffffed, #f8fcffdd);
+  min-width: 0;
+}
+.iv-visual-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  height: 50px;
+  margin-bottom: 13px;
+}
+.iv-main-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #0875ff;
+  background: linear-gradient(130deg, #e1f1ff, #d8ecff);
+  border-radius: 12px;
+}
+.iv-main-icon svg {
+  width: 27px;
+  height: 27px;
+}
+.iv-visual-heading > div {
+  min-width: 0;
+  flex: 1;
+  padding-top: 1px;
+}
+.iv-visual-heading h2 {
+  font-size: 20px;
+  line-height: 25px;
+  margin: 0 0 4px;
+}
+.iv-visual-heading p {
+  font-size: 13px;
+  line-height: 18px;
+  color: #607aab;
+  margin: 0;
+  white-space: nowrap;
+}
+.inversions-page .iv-visual-heading select {
+  width: 165px;
+  height: 42px;
+  flex-shrink: 0;
+  padding: 7px 15px;
+  border-radius: 10px;
+  color: #2b4d82;
+  background: #f3f8ff;
+  font-size: 13px;
+}
+.iv-graph-canvas {
+  height: 341px;
+  border: 1px solid #dceaff;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at center, #fff, #f4f9ff);
+  min-width: 0;
+}
+.iv-diagram-scroll {
+  height: 100%;
+  min-width: 0;
+}
+.iv-diagram-scroll:focus-visible {
+  outline: 2px solid #83b9ff;
+  outline-offset: 2px;
+}
+.iv-diagram {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.iv-diagram text {
+  font-family: Arial, sans-serif;
+  fill: #071950;
+}
+.iv-diagram .iv-half-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+.iv-diagram .iv-list-glyph {
+  font-size: 23px;
+  font-weight: 700;
+  fill: #0080ff;
+}
+.iv-diagram .iv-red-text {
+  fill: #bb0031;
+}
+.iv-cell {
+  cursor: pointer;
+}
+.iv-cell rect {
+  fill: #e1f1ff;
+  stroke: #9bc8ff;
+}
+.iv-cell text {
+  font-size: 18px;
+  font-weight: 700;
+}
+.iv-cell.iv-red rect {
+  fill: #fff2f6;
+  stroke: #ffb1c2;
+}
+.iv-cell.iv-red text {
+  fill: #3b1025;
+}
+.iv-cell.iv-selected rect {
+  fill: #078aff;
+  stroke: #006bdf;
+  stroke-width: 2px;
+  filter: drop-shadow(0 3px 4px #0875ff36);
+}
+.iv-cell.iv-selected text {
+  fill: white;
+}
+.iv-cell.iv-red.iv-selected rect {
+  fill: #ff4c70;
+  stroke: #ff315d;
+  filter: drop-shadow(0 3px 4px #ff315d33);
+}
+.iv-cell:focus-visible {
+  outline: none;
+}
+.iv-cell:focus-visible rect {
+  stroke: #7046e9;
+  stroke-width: 3px;
+}
+.iv-pointer text {
+  font-size: 14px;
+  font-weight: 700;
+}
+.iv-pointer path {
+  fill: #123e9c;
+}
+.iv-right-pointer text,
+.iv-right-pointer path {
+  fill: #b4002c;
+}
+.iv-compare,
+.iv-addition {
+  cursor: pointer;
+}
+.iv-compare rect {
+  fill: #edf7ff;
+  stroke: #c2ddff;
+}
+.iv-compare text {
+  font-size: 15px;
+  font-weight: 700;
+}
+.iv-compare text:last-child {
+  font-size: 17px;
+}
+.iv-addition rect {
+  fill: #ffe7ed;
+  stroke: #ffa6bc;
+}
+.iv-addition text {
+  fill: #b90029;
+  font-size: 14px;
+}
+.iv-addition text:nth-child(2) {
+  font-weight: 700;
+}
+.iv-addition .iv-pair-preview {
+  font-size: 13px;
+}
+.iv-no-add rect {
+  fill: #edf8ef;
+  stroke: #b0ddbf;
+}
+.iv-no-add text {
+  fill: #14693e;
+}
+.iv-diagram .iv-output-title {
+  fill: #536f9d;
+  font-size: 14px;
+  font-weight: 600;
+}
+.iv-output-cells rect {
+  fill: #eaf4fe;
+  stroke: #bfdcff;
+}
+.iv-output-cells text {
+  font-size: 19px;
+  font-weight: 700;
+}
+.iv-output-cells .iv-latest-right rect {
+  fill: #ffedf3;
+  stroke: #ffb3c9;
+}
+.iv-output-cells .iv-latest-right text {
+  fill: #6e1433;
+}
+.iv-controls {
+  height: 42px;
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.inversions-page .iv-controls > button {
+  height: 42px;
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: center;
+  border-radius: 8px;
+  gap: 14px;
+  padding: 7px 10px;
+  flex-shrink: 0;
+}
+.inversions-page .iv-primary {
+  background: linear-gradient(120deg, #0875df, #008ee8);
+  color: #fff;
+  border: 1px solid #0073d5;
+  border-radius: 8px;
+  box-shadow: 0 3px 7px #0875ff24;
+}
+.iv-controls .iv-step {
+  width: 152px;
+}
+.iv-controls .iv-shuffle {
+  width: 154px;
+}
+.iv-shuffle svg {
+  color: #0875ff;
+}
+.iv-controls .iv-reset {
+  width: 115px;
+}
+.iv-divider {
+  height: 25px;
+  width: 1px;
+  background: #d2e1f8;
+  margin: 0 8px 0 10px;
+  flex-shrink: 0;
+}
+.iv-size {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #536f9d;
+  white-space: nowrap;
+}
+.iv-size select {
+  width: 83px;
+  height: 40px;
+  font-size: 14px;
+  background: #fff;
+}
+.iv-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #536f9d;
+  font-size: 13px;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.iv-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 48px;
+  height: 26px;
+  margin: 0;
+  cursor: pointer;
+}
+.iv-switch i {
+  width: 48px;
+  height: 26px;
+  border-radius: 26px;
+  background: #cbdced;
+  position: relative;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.iv-switch i::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 2.5px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #fff;
+}
+.iv-switch input:checked + i {
+  background: #0875ff;
+}
+.iv-switch input:checked + i::after {
+  left: 24px;
+}
+.iv-switch input:focus-visible + i {
+  outline: 2px solid #7445ff;
+  outline-offset: 3px;
+}
+.iv-explanation-column {
+  display: grid;
+  grid-template-rows: 344px 140px;
+  gap: 11px;
+  min-width: 0;
+}
+.iv-panel {
+  padding: 12px;
+  border: 1px solid #dce9fc;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #ffffffec, #f9fcffdd);
+  min-width: 0;
+}
+.iv-panel > header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 0;
+}
+.iv-panel h2 {
+  font-size: 20px;
+  line-height: 25px;
+  margin: 0;
+}
+.iv-icon {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  color: #0875ff;
+  background: #dceeff;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.iv-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.iv-how {
+  padding: 12px 13px;
+}
+.iv-how header {
+  gap: 10px;
+  height: 30px;
+}
+.iv-how ol {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin: 10px 3px 0 6px;
+  padding: 0;
+}
+.iv-how li {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 21px;
+  min-height: 36px;
+}
+.iv-how li > i {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #eef6ff, #d3e7ff);
+  color: #0875ff;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal;
+  flex-shrink: 0;
+}
+.iv-how li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 35px;
+  bottom: -10px;
+  border-left: 1px dashed #cbdcf5;
+}
+.iv-how p {
+  margin: 0;
+  padding-top: 0;
+  font-size: 15px;
+  line-height: 21px;
+  color: #506c9b;
+}
+.iv-insight {
+  padding: 11px 19px;
+  background: #fff9e9;
+  border-color: #ffe6b5;
+}
+.iv-insight header {
+  gap: 13px;
+  height: 35px;
+}
+.iv-insight .iv-icon {
+  width: 36px;
+  height: 36px;
+  color: #ffa000;
+  background: #fff0c9;
+}
+.iv-insight p {
+  font-size: 15px;
+  line-height: 20px;
+  color: #5a729f;
+  margin: 8px 0 0;
+}
+.iv-bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 337fr) minmax(0, 525fr) minmax(0, 405fr);
+  gap: 10px;
+  margin-top: 9px;
+}
+.iv-bottom-grid > .iv-panel {
+  height: 193px;
+  padding: 9px 12px 10px;
+}
+.iv-bottom-grid .iv-panel > header {
+  height: 29px;
+  gap: 14px;
+}
+.iv-bottom-grid h2 {
+  font-size: 18px;
+  line-height: 24px;
+}
+.iv-state dl,
+.iv-merge-state dl {
+  margin: 5px 1px 0;
+  display: grid;
+  gap: 4px;
+}
+.iv-state dl {
+  margin-left: 13px;
+}
+.iv-state dl > div,
+.iv-merge-state dl > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.iv-state dt,
+.iv-merge-state dt {
+  flex: 1;
+  font-size: 14px;
+  line-height: 19px;
+  color: #526d9e;
+}
+.iv-state dd,
+.iv-merge-state dd {
+  margin: 0;
+  min-width: 90px;
+  min-height: 29px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  background: #f1f5fa;
+  border-radius: 6px;
+  padding: 3px 6px;
+}
+.iv-state .iv-count {
+  height: 35px;
+  font-size: 22px;
+  color: #dd0033;
+  background: #ffeaf0;
+}
+.iv-state .iv-comparison {
+  color: #0875ff;
+  background: #e4f1ff;
+}
+.iv-state .iv-added {
+  color: #dd0033;
+  background: #ffeaf0;
+  font-size: 18px;
+}
+.iv-state .iv-merge-step {
+  color: #0875ff;
+  min-height: 25px;
+}
+.iv-merge-state dl {
+  gap: 3px;
+  margin-top: 7px;
+}
+.iv-merge-state dl > div {
+  border: 1px solid #e2ebf9;
+  border-radius: 5px;
+  padding: 0 0 0 14px;
+}
+.iv-merge-state dd {
+  min-width: 79px;
+  min-height: 29px;
+  border-radius: 4px;
+}
+.iv-merge-state .iv-state-0 {
+  color: #0875ff;
+  background: #e4f1ff;
+}
+.iv-merge-state .iv-state-1 {
+  color: #dd0033;
+  background: #ffeaf0;
+}
+.iv-ledger-scroll {
+  margin-top: 5px;
+  max-height: 137px;
+  overflow: auto;
+  border: 1px solid #d8e6fa;
+  border-radius: 8px;
+  scrollbar-width: thin;
+}
+.iv-ledger {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: center;
+  color: #223e76;
+  font-size: 13px;
+  background: #fff;
+}
+.iv-ledger :is(th, td) {
+  height: 27px;
+  padding: 0 5px;
+  border-right: 1px solid #dce6f6;
+  border-bottom: 1px solid #dce6f6;
+}
+.iv-ledger th {
+  height: 26px;
+  background: #f1f5fc;
+  font-size: 13px;
+  font-weight: 600;
+}
+.iv-ledger th:nth-child(1) {
+  width: 11%;
+}
+.iv-ledger th:nth-child(2) {
+  width: 28%;
+}
+.iv-ledger th:nth-child(3) {
+  width: 26%;
+}
+.iv-ledger tr.iv-new-pair {
+  background: #ffe4eb;
+  color: #bf0030;
+}
+.iv-ledger td button {
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border-radius: 3px;
+  min-height: 23px;
+  font: inherit;
+}
+.iv-ledger td button:hover {
+  text-decoration: underline;
+}
+.iv-complexity {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 9px 12px;
+  border: 1px solid #dce9fc;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #ffffffec, #f9fcffdd);
+  height: 89px;
+  margin-top: 11px;
+}
+.iv-complexity > .iv-icon {
+  width: 36px;
+  height: 40px;
+  margin-top: 6px;
+}
+.iv-complexity > .iv-icon svg {
+  width: 27px;
+  height: 27px;
+}
+.iv-complexity > div {
+  flex: 1;
+  min-width: 0;
+}
+.iv-complexity h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 22px;
+}
+.iv-complexity strong {
+  display: block;
+  font-size: 14px;
+  color: #4d6c9e;
+  line-height: 19px;
+}
+.iv-complexity p {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: #5877a6;
+  line-height: 18px;
+}
+.inversions-page .iv-example-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 532px;
+  max-width: 48%;
+  height: 73px;
+  flex-shrink: 0;
+  margin-top: -1px;
+  padding: 9px 16px;
+  border: 0;
+  border-left: 1px solid #edf3fc;
+  background: #ebf5ff;
+  border-radius: 10px;
+  color: #0875ff;
+  text-align: left;
+}
+.iv-example-result > svg {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  fill: #0875ff;
+  color: #fff;
+  stroke-width: 2.5;
+  margin-top: 5px;
+}
+.iv-example-result span {
+  flex: 1;
+  min-width: 0;
+}
+.iv-example-result b {
+  font-size: 14px;
+  line-height: 18px;
+}
+.iv-example-result p {
+  font-size: 14px;
+  color: #25477f;
+  margin: 7px 0 2px;
+}
+.iv-example-result small {
+  display: block;
+  font-size: 13px;
+  color: #5676a5;
+  line-height: 17px;
+}
+.app-shell:has(.inversions-page) .aimer-site-footer {
+  height: 49px;
+  margin-top: 8px;
+  margin-left: -10px;
+  padding: 8px 30px;
+  border-radius: 0 0 3px 3px;
+  grid-template-columns: 260px minmax(0, 1fr) 160px;
+  gap: 12px;
+}
+.app-shell:has(.inversions-page) .aimer-site-footer strong {
+  font-size: 14px;
+}
+.app-shell:has(.inversions-page) .aimer-site-footer span {
+  font-size: 10px;
+}
+.app-shell:has(.inversions-page) .aimer-site-footer p {
+  font-size: 13px;
+}
+.app-shell:has(.inversions-page) .aimer-site-footer small {
+  font-size: 12px;
+}
+.iv-learning,
+.iv-experiments {
+  display: grid;
+  gap: 14px;
+}
+.iv-learning .iv-panel,
+.iv-code,
+.iv-practice,
+.iv-experiments .iv-panel {
+  padding: 24px;
+}
+.iv-learning p,
+.iv-code p,
+.iv-practice p,
+.iv-experiments p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #526c99;
+}
+.iv-concepts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.iv-concepts article {
+  padding: 16px;
+  border: 1px solid #dce9fc;
+  border-radius: 12px;
+  background: #f5faff;
+}
+.iv-concepts h3 {
+  margin: 0;
+  color: #1258a9;
+  font-size: 17px;
+}
+.iv-code pre {
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid #d4e3f7;
+  background: #edf5ff;
+  border-radius: 12px;
+  overflow: auto;
+  color: #173969;
+  font:
+    14px/1.8 Consolas,
+    monospace;
+}
+.iv-lab-actions,
+.iv-merge-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+.iv-experiments label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.iv-experiments textarea {
+  width: 100%;
+  min-height: 130px;
+}
+.iv-experiments label:has(textarea) {
+  display: block;
+}
+.iv-experiments label textarea {
+  margin-top: 10px;
+}
+.inversions-page .iv-run-summary {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #b5dfc8;
+  background: #eafaef;
+  color: #17633f;
+}
+.iv-practice input {
+  width: 100px;
+  margin: 10px 14px 10px 0;
+}
+.iv-practice-array {
+  font-weight: 700;
+  color: #0c438b !important;
+}
+.iv-dialog {
+  width: min(660px, calc(100vw - 28px));
+  max-height: 85vh;
+  padding: 28px;
+  color: #16335c;
+  background: #fff;
+  border: 1px solid #cee0f5;
+  border-radius: 18px;
+  box-shadow: 0 20px 80px #17386444;
+  overflow: auto;
+}
+.iv-dialog::backdrop {
+  background: #061f4477;
+  backdrop-filter: blur(3px);
+}
+.inversions-page .iv-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+  height: 34px;
+  padding: 5px;
+  border: 1px solid #c9def7;
+  border-radius: 50%;
+}
+.iv-dialog h2 {
+  margin: 0 34px 16px 0;
+  font-size: 23px;
+}
+.iv-dialog p,
+.iv-dialog li {
+  font-size: 15px;
+  line-height: 1.75;
+}
+.iv-dialog textarea {
+  width: 100%;
+  min-height: 130px;
+  margin: 10px 0 16px;
+  font:
+    15px/1.6 Consolas,
+    monospace;
+}
+.iv-dialog [role='alert'] {
+  color: #b90033;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.inversions-page) .sidebar-header {
+    padding: 22px 19px 16px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .app-shell:has(.inversions-page) .brand strong {
+    font-size: 23px;
+  }
+  .app-shell:has(.inversions-page) .brand span {
+    font-size: 12px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-home {
+    margin-bottom: 8px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-category-toggle {
+    min-height: 43px;
+    font-size: 14px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-algorithm {
+    min-height: 33px;
+    padding: 7px 9px 7px 31px;
+    line-height: 19px;
+    font-size: 13px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-submenu {
+    max-height: 437px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .app-shell:has(.inversions-page) .sidebar-footer {
+    min-height: 62px;
+    margin: 10px 13px 49px 18px;
+    padding: 12px;
+    font-size: 12px;
+  }
+  .app-shell:has(.inversions-page) .sidebar-footer small {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1499px) {
+  .iv-topbar {
+    gap: 12px;
+  }
+  .iv-title-row {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .iv-title-row h1 {
+    font-size: 25px;
+  }
+  .iv-title-row p {
+    font-size: 12px;
+  }
+  .inversions-page #account-trigger {
+    width: auto;
+    min-width: 160px;
+  }
+  .iv-top-grid {
+    grid-template-columns: 1fr;
+  }
+  .iv-explanation-column {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 12px;
+  }
+  .iv-how,
+  .iv-insight {
+    min-height: 210px;
+  }
+  .iv-bottom-grid {
+    margin-top: 12px;
+  }
+  .iv-controls {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 42px;
+  }
+  .iv-visualization {
+    height: auto;
+    min-height: 493px;
+    padding-bottom: 15px;
+  }
+  .iv-visual-heading p {
+    white-space: normal;
+  }
+  .iv-complexity {
+    height: auto;
+    min-height: 110px;
+  }
+  .inversions-page .iv-example-result {
+    height: auto;
+    min-height: 90px;
+  }
+  .app-shell:has(.inversions-page) .aimer-site-footer {
+    height: auto;
+    min-height: 50px;
+    margin-left: 0;
+  }
+}
+@media (max-width: 1050px) {
+  .iv-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 94px;
+  }
+  .iv-title-row {
+    flex: 1;
+  }
+  .iv-topbar .mom-study {
+    margin-left: 0;
+  }
+  .iv-topbar .aimer-account-controls {
+    margin-left: auto;
+  }
+  .iv-explanation-column {
+    grid-template-columns: 1fr;
+  }
+  .iv-how,
+  .iv-insight {
+    min-height: 0;
+  }
+  .iv-visual-heading {
+    height: auto;
+    min-height: 64px;
+  }
+  .iv-visual-heading h2 {
+    font-size: 19px;
+  }
+  .iv-visual-heading p {
+    font-size: 12px;
+  }
+  .iv-bottom-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .iv-bottom-grid > .iv-merge-state {
+    grid-column: 1/-1;
+    height: auto;
+  }
+  .iv-merge-state dl {
+    grid-template-columns: 1fr 1fr;
+  }
+  .iv-complexity {
+    flex-wrap: wrap;
+  }
+  .inversions-page .iv-example-result {
+    width: 100%;
+    max-width: 100%;
+  }
+  .iv-concepts {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .app-shell:has(.inversions-page) {
+    display: block;
+  }
+  .app-shell .workspace.category-page:has(.inversions-page) {
+    padding: 12px 10px 8px;
+  }
+  .iv-topbar {
+    gap: 10px;
+  }
+  .iv-title-row h1 {
+    font-size: 23px;
+    white-space: normal;
+    line-height: 28px;
+  }
+  .iv-title-row p {
+    margin-top: 7px;
+  }
+  .inversions-page .iv-back {
+    width: 35px;
+  }
+  .inversions-page .mom-study {
+    min-width: 124px;
+    height: 39px;
+  }
+  .inversions-page #account-trigger {
+    min-width: 165px;
+    min-height: 42px;
+  }
+  .inversions-page .mom-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .inversions-page .mom-tabs button {
+    flex-shrink: 0;
+  }
+  .iv-visualization {
+    padding: 12px 10px;
+  }
+  .iv-visual-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .iv-main-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .iv-visual-heading > div {
+    flex-basis: calc(100% - 56px);
+  }
+  .iv-visual-heading h2 {
+    font-size: 18px;
+  }
+  .inversions-page .iv-visual-heading select {
+    margin-left: 54px;
+    height: 40px;
+  }
+  .iv-graph-canvas {
+    height: 341px;
+  }
+  .iv-diagram-scroll {
+    overflow: auto;
+    overscroll-behavior-x: contain;
+  }
+  .iv-diagram {
+    min-width: 820px;
+  }
+  .iv-controls {
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .inversions-page .iv-controls > button {
+    width: auto;
+    min-width: 110px;
+    flex: 1;
+    font-size: 13px;
+    gap: 8px;
+  }
+  .iv-controls .iv-shuffle {
+    min-width: 130px;
+  }
+  .iv-divider {
+    display: none;
+  }
+  .iv-size {
+    gap: 9px;
+  }
+  .iv-switch {
+    margin-left: 0;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .iv-switch i,
+  .iv-switch input {
+    width: 43px;
+  }
+  .iv-switch input:checked + i::after {
+    left: 19px;
+  }
+  .iv-explanation-column {
+    display: grid;
+  }
+  .iv-how p,
+  .iv-insight p {
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .iv-how ol {
+    gap: 16px;
+  }
+  .iv-how li {
+    gap: 14px;
+  }
+  .iv-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+  .iv-bottom-grid > .iv-panel {
+    height: auto;
+    min-height: 193px;
+  }
+  .iv-bottom-grid > .iv-merge-state {
+    grid-column: auto;
+  }
+  .iv-merge-state dl {
+    grid-template-columns: 1fr;
+  }
+  .iv-ledger-scroll {
+    max-height: 210px;
+  }
+  .iv-complexity {
+    padding: 14px;
+    gap: 12px;
+  }
+  .iv-complexity > div {
+    flex-basis: calc(100% - 50px);
+  }
+  .iv-complexity h2 {
+    font-size: 18px;
+  }
+  .iv-complexity strong {
+    font-size: 13px;
+  }
+  .inversions-page .iv-example-result {
+    padding: 12px;
+    gap: 12px;
+  }
+  .iv-example-result p {
+    line-height: 21px;
+  }
+  .app-shell:has(.inversions-page) .aimer-site-footer {
+    grid-template-columns: 1fr;
+    padding: 18px;
+    text-align: left;
+  }
+  .app-shell:has(.inversions-page) .aimer-site-footer :is(p, small) {
+    text-align: left;
+  }
+  .iv-learning .iv-panel,
+  .iv-code,
+  .iv-practice,
+  .iv-experiments .iv-panel {
+    padding: 16px;
+  }
+  .iv-experiments label {
+    flex-wrap: wrap;
+  }
+  .iv-dialog {
+    padding: 24px 16px;
+  }
+  .iv-dialog h2 {
+    font-size: 20px;
+  }
+  .iv-panel h2 {
+    font-size: 19px;
+  }
+}
+[data-theme='dark'] .inversions-page {
+  color: #e0eaff;
+}
+[data-theme='dark'] .inversions-page :is(.mom-tabs, .iv-visualization, .iv-panel, .iv-dialog, .iv-graph-canvas, .iv-complexity) {
+  background: #102139;
+  color: #e0eaff;
+  border-color: #2d486d;
+}
+[data-theme='dark'] .inversions-page :is(h1, h2, h3) {
+  color: #e0eaff;
+}
+[data-theme='dark'] .inversions-page :is(p, dt, .iv-size, .iv-switch) {
+  color: #acbfdf;
+}
+[data-theme='dark'] .inversions-page :is(input, textarea, select, .iv-concepts article, .iv-code pre, .iv-ledger) {
+  background: #142b45;
+  color: #e0eaff;
+  border-color: #36577d;
+}
+[data-theme='dark'] .inversions-page .iv-ledger :is(th, td) {
+  color: #d6e5ff;
+  border-color: #2b466c;
+  background: transparent;
+}
+[data-theme='dark'] .inversions-page .iv-ledger th {
+  background: #1c3758;
+}
+[data-theme='dark'] .inversions-page .iv-ledger tr.iv-new-pair {
+  background: #512739;
+}
+[data-theme='dark'] .inversions-page .iv-example-result {
+  background: #193653;
+  border-color: #385c84;
+}
+[data-theme='dark'] .inversions-page .iv-insight {
+  background: #3a3325;
+  border-color: #665537;
+}
+[data-theme='dark'] .inversions-page .iv-run-summary {
+  color: #c3f3de;
+  background: #193b31;
+  border-color: #357052;
+}
+[data-theme='dark'] .iv-dialog::backdrop {
+  background: #000b;
+}

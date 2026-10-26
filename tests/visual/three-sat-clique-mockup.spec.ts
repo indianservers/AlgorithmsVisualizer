@@ -1,0 +1,182 @@
+import { test, expect, type Page } from '@playwright/test'
+const root = (page: Page) => page.locator('.three-sat-page')
+test.beforeEach(async ({ page }) => {
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
+  await page.addInitScript(() => {
+    localStorage.setItem('algodrishti-onboarded', 'true')
+    localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
+  })
+  await page.goto('/complexity-theory/three-sat-clique-reduction')
+  await expect(root(page)).toBeVisible()
+})
+test('025 reference layout includes every component and an actual 23-edge graph', async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  for (const heading of [
+    'Interactive Visualization',
+    '3-CNF Formula and Clauses',
+    'Graph G',
+    'Build and Explore',
+    'Reduction Steps',
+    'Key Takeaways',
+    'Worked Example',
+    'Correctness & Complexity',
+    'Common Pitfalls',
+  ])
+    await expect(root(page).getByRole('heading', { name: heading, exact: true })).toBeVisible()
+  await expect(root(page).locator('.st-vertex')).toHaveCount(9)
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(23)
+  await expect(root(page).locator('.st-selected-edge')).toHaveCount(3)
+  await expect(root(page).locator('.st-selection-status')).toContainText('Valid 3-clique')
+  await expect(root(page).locator('.st-clause')).toHaveCount(3)
+  await expect(root(page).locator('.st-step-track button')).toHaveCount(6)
+  if (info.project.name === 'desktop')
+    for (const [selector, expected] of [
+      ['.st-lesson-header', { x: 288, y: 54, width: 1384, height: 78 }],
+      ['.mom-tabs', { x: 290, y: 132, width: 1366, height: 54 }],
+      ['.st-formula-panel', { x: 303, y: 280, width: 378, height: 394 }],
+      ['.st-graph-panel', { x: 692, y: 280, width: 572, height: 397 }],
+      ['.st-build-panel', { x: 1275, y: 280, width: 377, height: 392 }],
+      ['.st-reduction-steps', { x: 290, y: 689, width: 1366, height: 128 }],
+      ['.st-footer-grid', { x: 290, y: 825, width: 1366 }],
+    ] as const) {
+      const box = await root(page).locator(selector).boundingBox()
+      for (const [key, value] of Object.entries(expected)) expect(Math.abs(box![key as keyof typeof box] - value), `${selector} ${key}`).toBeLessThanOrEqual(2)
+    }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  await page.screenshot({ path: `artifacts/visual-qa/three-sat-025/${info.project.name}-visualization.png` })
+})
+test('025 literal selectors, graph selection and worked decoding stay consistent', async ({ page }) => {
+  await root(page).getByRole('button', { name: 'Select ¬x in clause 2', exact: true }).click()
+  await expect(root(page).locator('.st-selection-status')).toBeVisible()
+  await expect(root(page).locator('.st-selection-status')).toContainText('Rejected clique')
+  await expect(root(page).locator('.st-worked')).toContainText('No assignment is decoded')
+  await root(page).getByRole('button', { name: 'Choose y from clause 2 in graph', exact: true }).focus()
+  await page.keyboard.press('Enter')
+  await expect(root(page).locator('.st-selection-status')).toContainText('Valid 3-clique')
+  await root(page).getByRole('button', { name: 'Try It', exact: true }).click()
+  await expect(page.getByRole('dialog')).toContainText('IDs {1, 5, 9}')
+  await expect(page.getByRole('dialog')).toContainText('x = True, y = True, z = False, w = True')
+  await page.getByRole('button', { name: 'Close 3-SAT dialog', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Select y in clause 2', exact: true }).click()
+  await expect(root(page).locator('.st-selection-status')).toContainText('missing choice is not proof')
+})
+test('025 view toggles distinguish forbidden helper links from graph edges', async ({ page }) => {
+  await root(page).getByLabel('Show contradictory edges', { exact: true }).check()
+  await expect(root(page).locator('.st-forbidden-link')).toHaveCount(4)
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(23)
+  await root(page).getByLabel('Show forbidden links (x and ¬x)', { exact: true }).uncheck()
+  await expect(root(page).locator('.st-forbidden-link')).toHaveCount(0)
+  await root(page).getByLabel('Highlight selected clique', { exact: true }).uncheck()
+  await expect(root(page).locator('.st-selected-edge')).toHaveCount(0)
+  await expect(root(page).locator('.st-selection-status')).toContainText('Valid 3-clique')
+  await root(page).getByLabel('Show vertex labels', { exact: true }).uncheck()
+  await expect(root(page).locator('.st-vertex text')).toHaveCount(0)
+  await root(page).getByRole('button', { name: 'Explain edge construction rules', exact: true }).click()
+  await expect(page.getByRole('dialog')).toContainText('They are not graph edges')
+  await page.getByRole('button', { name: 'Close 3-SAT dialog', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Reset', exact: true }).click()
+  await expect(root(page).locator('.st-selected-edge')).toHaveCount(3)
+  await expect(root(page).locator('.st-vertex text')).toHaveCount(18)
+})
+test('025 custom formula opens an editor, rejects invalid clauses and builds repeated occurrences', async ({ page }) => {
+  await root(page).getByLabel('3-SAT example formula', { exact: true }).selectOption('custom')
+  const dialog = page.getByRole('dialog'),
+    input = dialog.getByLabel('3-CNF formula input', { exact: true })
+  await expect(input).toBeFocused()
+  await input.fill('x y')
+  await dialog.getByRole('button', { name: 'Apply formula', exact: true }).click()
+  await expect(dialog.getByRole('alert')).toContainText('exactly 3 literals')
+  await input.fill('(x OR x OR x) AND (NOT x OR NOT x OR NOT x)')
+  await dialog.getByRole('button', { name: 'Apply formula', exact: true }).click()
+  await expect(root(page).getByLabel('3-SAT example formula', { exact: true })).toHaveValue('custom')
+  await expect(root(page).locator('.st-vertex')).toHaveCount(6)
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(0)
+  await expect(root(page).locator('.st-selection-status')).toContainText('Rejected clique')
+  await root(page).getByLabel('Show contradictory edges', { exact: true }).check()
+  await expect(root(page).locator('.st-forbidden-link')).toHaveCount(9)
+  await root(page).getByRole('button', { name: 'Reset', exact: true }).click()
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(23)
+})
+test('025 edge animation and six-step playback show real construction stages', async ({ page }) => {
+  await root(page).getByRole('button', { name: 'Animate Edge Construction', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Pause edge construction', exact: true }).click()
+  const count = await root(page).locator('[data-graph-edge]').count()
+  expect(count).toBeLessThan(23)
+  await root(page).getByLabel('Edge construction speed', { exact: true }).selectOption('50')
+  await root(page).getByRole('button', { name: 'Resume edge construction', exact: true }).click()
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(23, { timeout: 8000 })
+  await root(page).getByRole('button', { name: 'Reduction step 1: Start with 3-CNF', exact: true }).click()
+  await expect(root(page).locator('.st-vertex')).toHaveCount(0)
+  await root(page).getByRole('button', { name: 'Next reduction step', exact: true }).click()
+  await expect(root(page).locator('.st-vertex')).toHaveCount(9)
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(0)
+  await root(page).getByRole('button', { name: 'Step Through Reduction', exact: true }).click()
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(23)
+  await root(page).getByRole('button', { name: 'Reduction step 5: Correspond to assignment', exact: true }).click()
+  await expect(root(page).locator('.st-step-explanation')).toContainText('Every clause is true')
+  await root(page).getByRole('button', { name: 'Previous reduction step', exact: true }).click()
+  await expect(root(page).locator('.st-step-explanation')).toContainText('Step 4')
+  await root(page).getByRole('button', { name: 'Reduction step 6: Conclude', exact: true }).click()
+  await expect(root(page).getByRole('button', { name: 'Next reduction step', exact: true })).toBeDisabled()
+})
+test('025 laboratory verifies arbitrary candidates and separates search from construction', async ({ page }) => {
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Experiments', exact: true }).click()
+  await root(page).getByLabel('Candidate clique IDs', { exact: true }).fill('1, 2, 9')
+  await root(page).getByRole('button', { name: 'Verify candidate clique', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('Rejected certificate')
+  await root(page).getByLabel('Candidate clique IDs', { exact: true }).fill('1,5,9')
+  await root(page).getByRole('button', { name: 'Verify candidate clique', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('Accepted m-clique')
+  await root(page).getByRole('button', { name: 'Find assignment by bounded enumeration', exact: true }).click()
+  await expect(root(page).getByRole('status').first()).toContainText('separate from the polynomial construction')
+  await root(page).getByRole('button', { name: 'Find clique by bounded search', exact: true }).click()
+  await expect(root(page).getByRole('status').first()).toContainText('decoded assignment satisfies')
+  await root(page).getByRole('button', { name: 'Edit 3-CNF formula', exact: true }).click()
+  await page.getByLabel('3-CNF formula input', { exact: true }).fill('x x x; -x -x -x')
+  await page.getByRole('button', { name: 'Apply formula', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Find assignment by bounded enumeration', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('all 2 assignments')
+  await root(page).getByRole('button', { name: 'Find clique by bounded search', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('no m-clique exists')
+})
+test('025 theory, code, prediction challenges and persistent notes work in dark mode', async ({ page }, info) => {
+  await root(page).getByRole('button', { name: 'Start Learning', exact: true }).click()
+  await expect(root(page).getByRole('heading', { name: 'From Clauses to a Clique', exact: true })).toBeVisible()
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Code', exact: true }).click()
+  await expect(root(page).locator('pre')).toContainText('O(m²)')
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Practice', exact: true }).click()
+  await root(page).getByLabel('Predicted clique size', { exact: true }).fill('9')
+  await root(page).getByRole('button', { name: 'Check prediction', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('Try again')
+  await root(page).getByLabel('Predicted clique size', { exact: true }).fill('3')
+  await root(page).getByRole('button', { name: 'Check prediction', exact: true }).click()
+  await expect(root(page).getByRole('status')).toContainText('Correct')
+  await root(page).getByRole('button', { name: 'Do not add an edge', exact: true }).click()
+  await expect(root(page).getByRole('status').last()).toContainText('Correct: no edge')
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await root(page).getByLabel('3-SAT reduction notes', { exact: true }).fill('One occurrence per clause; no contradictory pair.')
+  await root(page).locator('.st-review').click()
+  await root(page).getByRole('button', { name: 'Toggle color theme', exact: true }).click()
+  await page.reload()
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await expect(root(page).getByLabel('3-SAT reduction notes', { exact: true })).toHaveValue('One occurrence per clause; no contradictory pair.')
+  await expect(root(page).locator('.st-review')).toHaveAttribute('aria-pressed', 'true')
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Visualization', exact: true }).click()
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.screenshot({ path: `artifacts/visual-qa/three-sat-025/${info.project.name}-dark.png` })
+})
+test('025 maximum-size formulas scroll internally and stay within responsive viewports', async ({ page }, info) => {
+  await root(page).getByRole('button', { name: 'Edit 3-CNF formula', exact: true }).click()
+  await page.getByLabel('3-CNF formula input', { exact: true }).fill(Array(6).fill('x y z').join(';'))
+  await page.getByRole('button', { name: 'Apply formula', exact: true }).click()
+  await expect(root(page).locator('.st-vertex')).toHaveCount(18)
+  await expect(root(page).locator('[data-graph-edge]')).toHaveCount(135)
+  await expect(root(page).locator('.st-choice-row')).toHaveCount(6)
+  for (const width of info.project.name === 'desktop' ? [1280, 1024, 768] : [393, 320]) {
+    await page.setViewportSize({ width, height: 941 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  }
+  const graph = await root(page).locator('.st-graph-scroll').boundingBox(),
+    steps = await root(page).locator('.st-reduction-steps').boundingBox()
+  expect(graph!.y + graph!.height).toBeLessThan(steps!.y)
+})

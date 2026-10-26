@@ -4,25 +4,27 @@
   "route": "/complexity-theory/cook-levin",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Cook–Levin Theorem Overview",
+  "title": "Cook–Levin Theorem OverviewComplexity Theory",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Cook–Levin Theorem Overview",
-    "Problem Input ",
-    " Local constraints",
-    "Procedure",
-    " SAT encoding",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Nondeterministic Computation (TM Tableau)",
+    "Local Constraints → Boolean Formula",
+    "SAT Outcome",
+    "SATISFIABLE",
+    "UNSATISFIABLE",
+    "Explore the Tableau",
+    "Highlight constraints:",
+    "Playback",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Proof Structure",
+    "Concepts and Pitfalls",
+    "Worked Example: Strings Ending in 1",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +112,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to Clique to Vertex Cover",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +132,14 @@
       "pressed": null
     },
     {
+      "label": "Open Clique to Vertex Cover lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +148,288 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Edit teaching machine input",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Show tableau row 0",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect tableau cell t=0, i=-2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect tableau cell t=0, i=-1",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect tableau cell t=0, i=0",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect tableau cell t=0, i=1",
       "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=0, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=0, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=0, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau row 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=-2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=-1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=1, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau row 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=-2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=-1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=2, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau row 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=-2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=-1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=3, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau row 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=-2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=-1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=4, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau row 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=-2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=-1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect tableau cell t=5, i=4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect Cell Variables clauses",
+      "pressed": null
+    },
+    {
+      "label": "Inspect Initial Configuration clauses",
+      "pressed": null
+    },
+    {
+      "label": "Inspect Transition Constraints clauses",
+      "pressed": null
+    },
+    {
+      "label": "Inspect Accepting State clauses",
+      "pressed": null
+    },
+    {
+      "label": "Inspect generated CNF formula",
+      "pressed": null
+    },
+    {
+      "label": "Start tableau playback",
+      "pressed": null
+    },
+    {
+      "label": "Show tableau time 0",
+      "pressed": "true"
+    },
+    {
+      "label": "Show tableau time 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Show tableau time 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Show tableau time 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Show tableau time 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Show tableau time 5",
+      "pressed": "false"
+    },
+    {
+      "label": " Play steps",
+      "pressed": null
+    },
+    {
+      "label": "Previous tableau step",
+      "pressed": null
+    },
+    {
+      "label": "Next tableau step",
+      "pressed": null
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

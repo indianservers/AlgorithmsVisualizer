@@ -4,25 +4,27 @@
   "route": "/complexity-theory/clique-vertex-cover-reduction",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "Worked Reduction: Clique → Vertex Cover",
+  "title": "Worked Reduction: Clique → Vertex CoverComplexity Theory",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "Worked Reduction: Clique → Vertex Cover",
-    "Problem Input ",
-    " Complement relation",
-    "Procedure",
-    " Certificate mapping",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Graph G (original)",
+    "Reduction: Take Complement",
+    "Graph H (complement)",
+    "Build and Explore",
+    "Select clique vertices in G (k = 3)",
+    "Construction options",
+    "Size Mapping",
+    "Reduction Steps",
+    "Key Takeaways",
+    "Worked Example",
+    "Correctness & Complexity",
+    "Common Pitfalls",
+    "Both Directions of the Reduction",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +112,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to 3-SAT to Clique",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +132,14 @@
       "pressed": null
     },
     {
+      "label": "Open 3-SAT to Clique lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +148,88 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Edit graph and threshold",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Select clique vertex 1",
+      "pressed": "true"
+    },
+    {
+      "label": "Select clique vertex 2",
+      "pressed": "true"
+    },
+    {
+      "label": "Select clique vertex 3",
+      "pressed": "true"
+    },
+    {
+      "label": "Select clique vertex 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Select clique vertex 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Select clique vertex 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Animate Reduction Steps",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Reduction step 1: Start with G",
+      "pressed": "true"
+    },
+    {
+      "label": "Reduction step 2: Choose a clique",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 3: Construct complement",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 4: Find independent set",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 5: Take vertex cover",
+      "pressed": "false"
+    },
+    {
+      "label": "Reduction step 6: Conclude",
+      "pressed": "false"
+    },
+    {
+      "label": "Try It",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
-      "pressed": null
+      "label": "Mark section reviewed",
+      "pressed": "false"
     }
   ]
 }

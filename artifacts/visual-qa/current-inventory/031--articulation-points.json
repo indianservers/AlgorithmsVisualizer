@@ -11,29 +11,12 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Build a graph. Explain every decision.",
-    "Theory in plain language",
-    "Worked example",
-    "Assumptions and cost",
-    "Problem Input",
-    "Step 1 of 6",
-    "Predict the next decision",
-    "Adjacency list",
-    "Weighted adjacency matrix",
-    "Construct a counterexample",
-    "Compare on the same graph",
-    "Articulation Points",
-    "Problem Input ",
-    " Root condition",
-    "Procedure",
-    " Non-root condition",
-    "Correctness",
+    "Interactive Visualization",
+    "How it works",
+    "Key insight",
+    "Traversal state",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Vertex 3",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -121,12 +104,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to graph bridges",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -153,159 +136,11 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": " Start DFS",
       "pressed": null
     },
     {
-      "label": "Run edited graph",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Add vertex",
-      "pressed": null
-    },
-    {
-      "label": "Reset layout",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 0",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 1",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 2",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 3",
-      "pressed": null
-    },
-    {
-      "label": "Inspect vertex 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 1 at position 0",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 0 to 2 at position 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 2 at position 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1 to 3 at position 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2 to 3 at position 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3 to 4 at position 5",
-      "pressed": null
-    },
-    {
-      "label": "Previous graph step",
-      "pressed": null
-    },
-    {
-      "label": "Play graph playback",
-      "pressed": null
-    },
-    {
-      "label": "Next graph step",
-      "pressed": null
-    },
-    {
-      "label": "Replay trace",
-      "pressed": null
-    },
-    {
-      "label": "Finish 3: discovery=3, low=1.",
-      "pressed": null
-    },
-    {
-      "label": "Finish 4: discovery=4, low=4.",
-      "pressed": null
-    },
-    {
-      "label": "Compare graph results",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 1",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 2",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 3",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 4",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 5",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 6",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 7",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 8",
-      "pressed": null
-    },
-    {
-      "label": "Remove edge 9",
-      "pressed": null
-    },
-    {
-      "label": "Add edge",
-      "pressed": null
-    },
-    {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Step",
       "pressed": null
     },
     {
@@ -313,39 +148,35 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect traversal vertex 0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect traversal vertex 1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect traversal vertex 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect traversal vertex 3",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect traversal vertex 4",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect traversal vertex 5",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect traversal vertex 6",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Inspect selected vertex removal",
       "pressed": null
     }
   ]
