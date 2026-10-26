@@ -167,3 +167,27 @@ test('023 supports theory, code, predictions, notes, search and dark mode withou
   await root(page).getByRole('button', { name: 'Focus topic search', exact: true }).click()
   await expect(root(page).locator('.mom-search input')).toBeFocused()
 })
+
+test('023 long edited formulas expand the certificate panel and remain usable across viewport sizes', async ({ page }, info) => {
+  const dialog = await editor(page)
+  await dialog.getByLabel('Certificate instance input', { exact: true }).fill(Array(12).fill('1 2 3 4 5 6 7 8').join(';'))
+  await dialog.getByRole('button', { name: 'Apply certificate example', exact: true }).click()
+  await expect(root(page).locator('.cx-assignments button')).toHaveCount(8)
+  await expect(root(page).locator('.cx-certificate-result')).toContainText('Valid certificate')
+  const panel = await root(page).locator('.cx-certificates').boundingBox(),
+    content = await root(page).locator('.cx-certificate-content').boundingBox(),
+    footer = await root(page).locator('.cx-footer-grid').boundingBox()
+  expect(content!.y + content!.height).toBeLessThanOrEqual(panel!.y + panel!.height)
+  expect(panel!.y + panel!.height).toBeLessThan(footer!.y)
+  if (info.project.name === 'desktop')
+    for (const width of [1280, 1024, 768]) {
+      await page.setViewportSize({ width, height: 941 })
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    }
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Toggle color theme', exact: true }).click()
+  await root(page).locator('.mom-tabs').getByRole('button', { name: 'Visualization', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Reset', exact: true }).click()
+  await expect(root(page).locator('.cx-certificate-result')).toContainText('Valid certificate')
+  await page.screenshot({ path: `artifacts/visual-qa/complexity-023/${info.project.name}-dark-visualization.png` })
+})

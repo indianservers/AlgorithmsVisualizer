@@ -1363,14 +1363,14 @@
 }
 @media (min-width: 1500px) {
   .app-shell:has(.complexity-classes-page) .sidebar-header {
-    padding: 12px 18px 18px;
+    padding: 12px 18px 10px;
   }
   .app-shell:has(.complexity-classes-page) .sidebar-home {
     margin-bottom: 6px;
     font-size: 14px;
   }
   .app-shell:has(.complexity-classes-page) .sidebar-category-toggle {
-    min-height: 39px;
+    min-height: 37px;
     font-size: 14px;
   }
   .app-shell:has(.complexity-classes-page) .sidebar-algorithm {
@@ -1407,4 +1407,129 @@
   border-radius: 12px;
   padding: 12px;
   text-align: center;
+}
+.cx-details h2 {
+  font-size: 14px;
+}
+.cx-details > header > .cx-badge {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+.cx-details > header {
+  margin-bottom: 14px;
+}
+.cx-detail-fields {
+  padding-left: 3px;
+}
+.cx-detail-fields h3 {
+  font-size: 13px;
+}
+.cx-detail-fields p {
+  font-size: 13px;
+}
+.cx-certificate-content dl {
+  font-size: 12px;
+}
+.cx-certificate-content dd.cx-formula {
+  font-size: 12px;
+}
+.cx-certificate-body {
+  padding-left: 11px;
+  padding-right: 110px;
+}
+.cx-certificate-result {
+  right: 2px;
+  top: 23px;
+}
+.cx-version-grid dl {
+  font-size: 11px;
+}
+.cx-version-grid article {
+  padding: 7px 11px;
+}
+.cx-version-grid h3 {
+  margin-bottom: 7px;
+}
+@media (min-width: 1551px) {
+  .cx-switch {
+    font-size: 12px;
+  }
+  .cx-visual-options {
+    gap: 27px;
+  }
+}
+@media (max-width: 1000px) {
+  .cx-certificate-content dl {
+    font-size: 10px;
+  }
+  .cx-certificate-body {
+    padding-left: 3px;
+    padding-right: 91px;
+  }
+  .cx-certificate-content dd.cx-formula {
+    font-size: 10px;
+  }
+  .cx-version-grid dl {
+    font-size: 10px;
+  }
+}
+.cx-middle-grid > .cx-panel {
+  height: auto;
+  min-height: 221px;
+}
+.cx-certificate-content dd.cx-formula {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.cx-certificate-body {
+  min-height: 124px;
+}
+@media (max-width: 1000px) {
+  .cx-certificate-body {
+    min-height: 150px;
+  }
+}
+[data-theme='dark'] .complexity-classes-page .mom-tabs {
+  background: #162a48;
+  border-color: #35527c;
+}
+[data-theme='dark'] .complexity-classes-page .cx-certificate-tabs button,
+[data-theme='dark'] .complexity-classes-page .cx-comparison > nav button {
+  background: #203b5e;
+  color: #dcecff;
+  border-color: #45638a;
+}
+[data-theme='dark'] .complexity-classes-page .cx-certificate-tabs button[aria-pressed='true'],
+[data-theme='dark'] .complexity-classes-page .cx-comparison > nav button[aria-pressed='true'] {
+  background: #0875ff;
+  color: #fff;
+}
+[data-theme='dark'] .complexity-classes-page .cx-map-panel {
+  background: #eaf2ff;
+}
+[data-theme='dark'] .cx-visual-heading p,
+[data-theme='dark'] .cx-switch,
+[data-theme='dark'] .cx-reduction-legend,
+[data-theme='dark'] .cx-lesson-header p {
+  color: #bbcee9;
+}
+[data-theme='dark'] .cx-version-grid article h3 {
+  color: #94c7ff;
+}
+[data-theme='dark'] .cx-version-grid article:nth-child(2) h3 {
+  color: #ffa9bf;
+}
+[data-theme='dark'] .cx-certificate-result.cx-valid {
+  background: #11483f;
+  color: #b7ffe2;
+}
+[data-theme='dark'] .cx-certificate-result.cx-invalid {
+  background: #592c3b;
+  color: #ffd4dd;
+}
+[data-theme='dark'] .cx-worked-result {
+  background: #1b3a60;
+}
+.cx-middle-grid > .cx-panel {
+  padding-bottom: 1px;
 }

@@ -245,9 +245,9 @@
     "actual": "023--p-np-classes.png",
     "dimensionsMatch": true,
     "totalPixels": 1573352.0,
-    "differentPixels": 1564981.0,
-    "differentPixelPercent": 99.468,
-    "meanAbsoluteRgbError": 16.594,
+    "differentPixels": 1564918.0,
+    "differentPixelPercent": 99.4639,
+    "meanAbsoluteRgbError": 16.0426,
     "exactMatch": false,
     "status": "visual differences remain"
   },

@@ -854,7 +854,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
           <h3>{tr('Decision version (in NP)')}</h3>
           <dl>
             <dt>{tr('Input:')}</dt>
-            <dd>{tr(comparison === 'tsp' ? 'Weighted graph G, integer k' : 'Graph G, integer k')}</dd>
+            <dd>{tr('Graph G, integer k')}</dd>
             <dt>{tr('Question:')}</dt>
             <dd>{tr(comparison === 'tsp' ? 'Is there a tour of cost ≤ k?' : 'Is there a cover of size ≤ k?')}</dd>
             <dt>{tr('Complexity:')}</dt>
@@ -862,7 +862,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               <Badge value="NP-Complete" />
             </dd>
             <dt>{tr('Certificate:')}</dt>
-            <dd>{tr(comparison === 'tsp' ? 'A tour with cost ≤ k, verifiable in polynomial time' : 'At most k vertices covering every edge')}</dd>
+            <dd>{tr(comparison === 'tsp' ? 'Tour cost ≤ k; polynomial check' : 'At most k vertices covering every edge')}</dd>
           </dl>
         </article>
         <article>
@@ -877,7 +877,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               <Badge value="NP-Hard" />
             </dd>
             <dt>{tr('Certificate:')}</dt>
-            <dd>{tr('A candidate can be checked; optimality is a separate claim.')}</dd>
+            <dd>{tr('Candidate check ≠ optimality proof.')}</dd>
           </dl>
         </article>
       </div>
