@@ -90,5 +90,7 @@ describe('complexity class explorer and real certificate verifiers', () => {
     const unsat = buildComplexityReduction([[1], [-1]], [true])
     expect(unsat.cliqueValid).toBe(false)
     expect(unsat.coverValid).toBe(false)
+    expect(() => buildComplexityReduction([[-1]], [])).toThrow()
+    for (const invalid of [[], [[0]], [[9]], [[1, 2, 3, 4]]]) expect(() => buildComplexityReduction(invalid, [true])).toThrow()
   })
 })

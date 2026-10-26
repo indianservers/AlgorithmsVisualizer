@@ -4,25 +4,31 @@
   "route": "/complexity-theory/p-np-classes",
   "fidelity": "not verified",
   "runtimeErrors": [],
-  "title": "P, NP, NP-Hard and NP-Complete",
+  "title": "P, NP, NP-Hard and NP-CompleteComplexity Theory",
   "viewport": {
     "width": 1672,
     "height": 941
   },
   "scrollWidth": 1672,
   "headings": [
-    "P, NP, NP-Hard and NP-Complete",
-    "Problem Input ",
-    " Certificate examples",
-    "Procedure",
-    " Reduction map",
-    "Correctness",
-    "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Interactive Visualization",
+    "Classify a Problem",
+    "SAT (Boolean Satisfiability)",
+    "Description",
+    "Why in NP?",
+    "Why NP-Hard?",
+    "Applications",
+    "Certificate Examples",
+    "SAT certificate (candidate assignment)",
+    "Reductions Between Problems",
+    "Decision vs Optimization",
+    "Decision version (in NP)",
+    "Optimization version",
+    "Key Takeaways",
+    "Worked Example",
+    "Definitions & Correctness",
+    "Common Misconceptions",
+    "Edit Certificate Example",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,7 +116,15 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
+      "label": "Back to branch and bound method",
+      "pressed": null
+    },
+    {
+      "label": "Focus topic search",
+      "pressed": null
+    },
+    {
+      "label": " Mark studied",
       "pressed": "false"
     },
     {
@@ -122,6 +136,14 @@
       "pressed": null
     },
     {
+      "label": "Open branch and bound method lesson",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
+      "pressed": null
+    },
+    {
       "label": "Learn",
       "pressed": "false"
     },
@@ -130,60 +152,176 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
-      "pressed": null
+      "label": "Experiments",
+      "pressed": "false"
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
-      "pressed": null
+      "label": "Notes",
+      "pressed": "false"
     },
     {
       "label": "Reset",
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Graph connectivity",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Spanning tree cost ≤ k",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Shortest path (nonneg.)",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "SAT / 3-SAT",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Clique (decision)",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Vertex Cover (decision)",
       "pressed": null
+    },
+    {
+      "label": "Hamiltonian Cycle",
+      "pressed": null
+    },
+    {
+      "label": "Integer factoring (decision)",
+      "pressed": null
+    },
+    {
+      "label": "Graph isomorphism",
+      "pressed": null
+    },
+    {
+      "label": "TSP (decision version)",
+      "pressed": null
+    },
+    {
+      "label": "TSP (optimization)",
+      "pressed": null
+    },
+    {
+      "label": "Halting problem",
+      "pressed": null
+    },
+    {
+      "label": "Minimum cover (opt.)",
+      "pressed": null
+    },
+    {
+      "label": "SAT (Boolean Satisfiability)",
+      "pressed": null
+    },
+    {
+      "label": "TSP (Decision: tour cost ≤ k?)",
+      "pressed": null
+    },
+    {
+      "label": "TSP (Optimization: min tour)",
+      "pressed": null
+    },
+    {
+      "label": "Vertex Cover (Decision)",
+      "pressed": null
+    },
+    {
+      "label": "Graph Connectivity",
+      "pressed": null
+    },
+    {
+      "label": "Integer Factorization (Decision)",
+      "pressed": null
+    },
+    {
+      "label": "Edit certificate example",
+      "pressed": null
+    },
+    {
+      "label": "SAT",
+      "pressed": "true"
+    },
+    {
+      "label": "Vertex Cover",
+      "pressed": "false"
+    },
+    {
+      "label": "TSP (Decision)",
+      "pressed": "false"
+    },
+    {
+      "label": "Clique",
+      "pressed": "false"
+    },
+    {
+      "label": "Toggle SAT variable x1",
+      "pressed": "true"
+    },
+    {
+      "label": "Toggle SAT variable x2",
+      "pressed": "false"
+    },
+    {
+      "label": "Toggle SAT variable x3",
+      "pressed": "true"
+    },
+    {
+      "label": "3-SAT(NP-Complete)",
+      "pressed": null
+    },
+    {
+      "label": "Clique(NP-Complete)",
+      "pressed": null
+    },
+    {
+      "label": "Vertex Cover(NP-Complete)",
+      "pressed": null
+    },
+    {
+      "label": "TSP (Decision)(NP-Complete)",
+      "pressed": null
+    },
+    {
+      "label": "Explain reduction from 3-SAT to Clique",
+      "pressed": null
+    },
+    {
+      "label": "Explain reduction from Clique to Vertex Cover",
+      "pressed": null
+    },
+    {
+      "label": "Explain reduction from Clique to TSP decision",
+      "pressed": null
+    },
+    {
+      "label": "Traveling Salesman Problem (TSP)",
+      "pressed": "true"
+    },
+    {
+      "label": "Vertex Cover",
+      "pressed": "false"
+    },
+    {
+      "label": "Try It",
+      "pressed": null
+    },
+    {
+      "label": "Mark Visualization reviewed",
+      "pressed": "false"
     }
   ]
 }

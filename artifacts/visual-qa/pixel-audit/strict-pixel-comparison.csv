@@ -19,7 +19,7 @@
 "20","020--branch-and-bound--0-1-knapsack-best-first-branch-and-bound.png","020--knapsack-best-first.png","True","1573352","1557906","99.0183","14.3985","False","visual differences remain"
 "21","021--branch-and-bound--tsp-branch-and-bound.png","021--tsp-branch-and-bound.png","True","1573352","1551340","98.6009","12.6975","False","visual differences remain"
 "22","022--branch-and-bound--branch-and-bound-method-and-bounds.png","022--branch-bound-method.png","True","1573352","1557639","99.0013","13.4663","False","visual differences remain"
-"23","023--complexity-theory--p-np-np-hard-and-np-complete.png","023--p-np-classes.png","True","1573352","1566190","99.5448","20.7875","False","visual differences remain"
+"23","023--complexity-theory--p-np-np-hard-and-np-complete.png","023--p-np-classes.png","True","1573352","1564981","99.468","16.594","False","visual differences remain"
 "24","024--complexity-theory--decision-problems-certificates-and-reductions.png","024--certificates-reductions.png","True","1573352","1556921","98.9557","19.5774","False","visual differences remain"
 "25","025--complexity-theory--worked-reduction-3-sat-to-clique.png","025--three-sat-clique-reduction.png","True","1573352","1559744","99.1351","18.227","False","visual differences remain"
 "26","026--complexity-theory--worked-reduction-clique-to-vertex-cover.png","026--clique-vertex-cover-reduction.png","True","1573352","1562613","99.3174","17.0343","False","visual differences remain"

@@ -70,6 +70,9 @@ const BestFirstKnapsackMockupLesson = lazy(() =>
   import('./BestFirstKnapsackMockupLesson').then((module) => ({ default: module.BestFirstKnapsackMockupLesson })),
 )
 const TspBranchMockupLesson = lazy(() => import('./TspBranchMockupLesson').then((module) => ({ default: module.TspBranchMockupLesson })))
+const ComplexityClassesMockupLesson = lazy(() =>
+  import('./ComplexityClassesMockupLesson').then((module) => ({ default: module.ComplexityClassesMockupLesson })),
+)
 const BranchBoundMethodMockupLesson = lazy(() =>
   import('./BranchBoundMethodMockupLesson').then((module) => ({ default: module.BranchBoundMethodMockupLesson })),
 )
@@ -1571,6 +1574,13 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'p-np-classes')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ComplexityClassesMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'branch-bound-method')
     return (

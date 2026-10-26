@@ -1,0 +1,1410 @@
+.app-shell .workspace.category-page:has(.complexity-classes-page) {
+  padding: 9px 10px 12px 14px;
+}
+.mom-page.complexity-classes-page {
+  font-family: Arial, sans-serif;
+  padding-bottom: 12px;
+  color: #0b1855;
+}
+.complexity-classes-page .cx-topbar {
+  height: 34px;
+  margin-bottom: 8px;
+  gap: 18px;
+  padding-left: 3px;
+}
+.complexity-classes-page .cx-back {
+  width: 40px;
+  height: 34px;
+  padding: 5px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  color: #0875ff;
+  background: #f8fcff;
+  border: 1px solid #d3e5ff;
+}
+.complexity-classes-page .mom-search {
+  height: 34px;
+  flex: 0 1 565px;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+.complexity-classes-page .mom-search input {
+  font-size: 13px;
+}
+.complexity-classes-page .cx-search-key {
+  padding: 2px 6px;
+  border: 0;
+  background: #edf3fb;
+  color: #6b80a8;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.complexity-classes-page .mom-study {
+  margin-left: auto;
+  height: 34px;
+  padding: 6px 13px;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  white-space: nowrap;
+}
+.complexity-classes-page #account-trigger {
+  min-height: 40px;
+  border-radius: 24px;
+  font-size: 12px;
+}
+.cx-lesson-header {
+  height: 78px;
+  margin-left: -2px;
+  margin-right: -10px;
+  border: 1px solid #e0edff;
+  border-radius: 16px;
+  background: #ffffffd9;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 313px 172px;
+  gap: 16px;
+  align-items: center;
+  padding: 8px 18px 8px 8px;
+}
+.complexity-classes-page .cx-lesson-header > .cx-back {
+  height: 42px;
+  width: 44px;
+}
+.cx-lesson-header h1 {
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.7px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  margin: 0 0 4px;
+}
+.cx-lesson-header h1 > span {
+  font-size: 13px;
+  letter-spacing: 0;
+  font-weight: 400;
+  border: 1px solid #d0e0ff;
+  border-radius: 20px;
+  padding: 3px 9px;
+  color: #0057ff;
+}
+.cx-lesson-header p {
+  font-size: 16px;
+  color: #6177a4;
+  margin: 0;
+  white-space: nowrap;
+}
+.cx-section-progress {
+  font-size: 12px;
+  color: #6177a4;
+  padding-right: 40px;
+}
+.cx-section-progress > div {
+  display: flex;
+  height: 6px;
+  background: #d6e4f6;
+  border-radius: 9px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.cx-section-progress i {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #d1e0f8;
+  border-radius: 50%;
+  background: #fff;
+}
+.cx-section-progress i:first-child {
+  visibility: hidden;
+}
+.cx-section-progress .cx-section-done {
+  background: #0876ff;
+  border-color: #0876ff;
+}
+.complexity-classes-page .cx-primary {
+  background: #0875ff;
+  color: #fff;
+  border: 1px solid #0069ff;
+  box-shadow: 0 3px 8px #0875ff24;
+  border-radius: 7px;
+}
+.complexity-classes-page .cx-start {
+  height: 41px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.complexity-classes-page .mom-tabs {
+  height: 52px;
+  margin-top: -1px;
+  margin-bottom: 10px;
+  padding: 6px 7px;
+  gap: 8px;
+  background: #ffffffc9;
+  border: 1px solid #d5e7ff;
+  border-radius: 12px;
+}
+.complexity-classes-page .mom-tabs button {
+  height: 37px;
+  min-width: 93px;
+  padding: 6px 23px;
+  font-size: 12px;
+  border-radius: 8px;
+  justify-content: center;
+}
+.complexity-classes-page .mom-tabs button svg {
+  display: none;
+}
+.cx-visualization {
+  border: 1px solid #cfe2ff;
+  border-radius: 12px;
+  background: #ffffffbf;
+  padding: 9px;
+}
+.cx-visual-heading {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  height: 43px;
+  margin-bottom: 9px;
+  padding-left: 10px;
+}
+.cx-visual-heading > svg {
+  color: #0876ff;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.cx-visual-heading h2 {
+  font-size: 18px;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.cx-visual-heading p {
+  font-size: 13px;
+  color: #566d9d;
+  margin: 0;
+  white-space: nowrap;
+}
+.cx-visual-options {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+  align-self: flex-start;
+}
+.cx-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #415b8b;
+  white-space: nowrap;
+  height: 35px;
+  cursor: pointer;
+}
+.cx-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.cx-switch i {
+  display: block;
+  width: 33px;
+  height: 19px;
+  background: #a9bbd4;
+  border-radius: 15px;
+  position: relative;
+  flex-shrink: 0;
+}
+.cx-switch i:after {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  left: 3px;
+  top: 3px;
+}
+.cx-switch input:checked + i {
+  background: #0875ff;
+}
+.cx-switch input:checked + i:after {
+  left: 17px;
+}
+.cx-switch input:focus-visible + i {
+  outline: 2px solid #153eff;
+  outline-offset: 3px;
+}
+.complexity-classes-page .cx-visual-options > button {
+  height: 35px;
+  width: 107px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #005cff;
+  background: #fbfdff;
+}
+.cx-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 723fr) minmax(0, 285fr) minmax(0, 338fr);
+  gap: 9px;
+}
+.cx-panel {
+  min-width: 0;
+  border: 1px solid #d6e7ff;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #fff, #f7fbff);
+  padding: 9px;
+}
+.cx-top-grid > .cx-panel {
+  height: 343px;
+}
+.cx-panel > header {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 8px;
+  min-width: 0;
+}
+.cx-panel > header > div {
+  min-width: 0;
+  flex: 1;
+}
+.cx-panel h2 {
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 0 0 2px;
+  font-weight: 700;
+}
+.cx-panel header p {
+  font-size: 11px;
+  line-height: 1.3;
+  color: #6276a2;
+  margin: 0;
+  white-space: nowrap;
+}
+.cx-icon {
+  color: #086dff;
+  background: #eaf4ff;
+  border-radius: 7px;
+  padding: 3px;
+  display: flex;
+  flex-shrink: 0;
+}
+.cx-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.cx-map-panel {
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(120deg, #f9fffc, #fff6ff);
+}
+.cx-map-scroll {
+  height: 100%;
+  overflow: auto;
+}
+.cx-map-inner {
+  height: 343px;
+  min-width: 620px;
+  position: relative;
+}
+.cx-class-map {
+  width: 100%;
+  height: 343px;
+  display: block;
+}
+.cx-class-map [role='button'] {
+  cursor: pointer;
+}
+.cx-class-map [role='button']:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 3px #006dff);
+}
+.cx-map-note {
+  position: absolute;
+  top: 8px;
+  left: 29%;
+  width: 46%;
+  font-size: 10px;
+  color: #506792;
+  text-align: center;
+  margin: 0;
+  pointer-events: none;
+}
+.cx-example-box {
+  position: absolute;
+  border: 1px solid;
+  border-radius: 9px;
+  padding: 8px 11px;
+  font-size: 11px;
+  line-height: 1.25;
+}
+.cx-example-box b {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 2px;
+}
+.cx-example-box button {
+  display: block;
+  text-align: left;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.25;
+  color: inherit !important;
+}
+.cx-example-box button:before {
+  content: '• ';
+}
+.cx-example-box button:hover {
+  text-decoration: underline;
+}
+.cx-example-p {
+  left: 1.2%;
+  top: 19px;
+  width: 186px;
+  background: #e6fff3;
+  color: #006b27;
+  border-color: #91ebbf;
+}
+.cx-example-npc {
+  right: 1%;
+  top: 19px;
+  width: 179px;
+  background: #f5e9ff;
+  color: #6200b6;
+  border-color: #dfbdff;
+}
+.cx-example-np {
+  left: 1.2%;
+  top: 240px;
+  width: 186px;
+  background: #edf5ff;
+  color: #003bc8;
+  border-color: #bdd8ff;
+}
+.cx-example-hard {
+  right: 1%;
+  top: 240px;
+  width: 151px;
+  background: #fff1e9;
+  color: #a50013;
+  border-color: #ffd0aa;
+}
+.cx-classifier {
+  padding: 9px 0;
+}
+.cx-classifier > header {
+  padding: 0 10px;
+  height: 39px;
+  margin-bottom: 8px;
+  gap: 7px;
+}
+.cx-classifier h2 {
+  font-size: 14px;
+}
+.cx-classifier header p {
+  font-size: 9px;
+}
+.complexity-classes-page .cx-classifier [role='radio'] {
+  width: 100%;
+  height: 39px;
+  border: 0;
+  border-top: 1px solid #e0ebfc;
+  border-radius: 0;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 6px 12px;
+  background: transparent;
+  box-shadow: none;
+}
+.complexity-classes-page .cx-classifier [aria-checked='true'] {
+  background: #e9f2ff;
+}
+.cx-classifier [role='radio'] > span:not(.cx-badge) {
+  flex: 1;
+  font-size: 10.5px;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+.cx-classifier [role='radio'] i {
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid #b8ccee;
+  background: #fff;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.cx-classifier [aria-checked='true'] i {
+  border: 5px solid #0876ff;
+}
+.cx-badge {
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.cx-badge-np-complete {
+  background: #efddff;
+  border-color: #ddbdff;
+  color: #7100e4;
+}
+.cx-badge-np-hard {
+  background: #ffe7eb;
+  border-color: #ffc4cd;
+  color: #dc1733;
+}
+.cx-badge-p {
+  background: #ddffed;
+  border-color: #a2edc6;
+  color: #007338;
+}
+.cx-badge-np {
+  background: #e0efff;
+  border-color: #a4ceff;
+  color: #003cff;
+}
+.cx-classifier .cx-badge {
+  font-size: 9px;
+  padding: 4px 6px;
+}
+.cx-details {
+  overflow: auto;
+}
+.cx-details > header {
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.cx-details .cx-icon {
+  padding: 0;
+  background: transparent;
+}
+.cx-details h2 {
+  font-size: 12px;
+  letter-spacing: -0.2px;
+}
+.cx-details > header > .cx-badge {
+  font-size: 10px;
+  padding: 4px 6px;
+}
+.cx-detail-fields > section {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cx-detail-fields > section > svg {
+  width: 20px;
+  height: 20px;
+  color: #0076ff;
+  flex-shrink: 0;
+}
+.cx-detail-fields > section:nth-child(2) > svg {
+  color: #15bc84;
+}
+.cx-detail-fields > section:nth-child(3) > svg {
+  color: #ffbd00;
+}
+.cx-detail-fields h3 {
+  margin: 0 0 3px;
+  font-size: 12px;
+}
+.cx-detail-fields p {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #4b6292;
+  margin: 0;
+}
+.cx-middle-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 467fr) minmax(0, 422fr) minmax(0, 459fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.cx-middle-grid > .cx-panel {
+  height: 221px;
+  padding: 8px;
+}
+.cx-middle-grid .cx-panel > header {
+  height: 34px;
+  margin-bottom: 7px;
+}
+.cx-edit {
+  margin-left: auto;
+  padding: 4px !important;
+}
+.cx-certificate-tabs,
+.cx-comparison > nav {
+  display: flex;
+  gap: 4px;
+  height: 29px;
+  margin-bottom: 7px;
+}
+.complexity-classes-page .cx-certificate-tabs button,
+.complexity-classes-page .cx-comparison > nav button {
+  flex: 1;
+  padding: 4px 3px;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 7px;
+  white-space: nowrap;
+  background: #fff;
+}
+.complexity-classes-page .cx-certificate-tabs button[aria-pressed='true'],
+.complexity-classes-page .cx-comparison > nav button[aria-pressed='true'] {
+  background: #0875ff;
+  color: #fff;
+  box-shadow: none;
+}
+.cx-certificate-body {
+  position: relative;
+  border-top: 1px solid #e8effa;
+  padding: 4px 109px 3px 3px;
+  min-height: 124px;
+}
+.cx-certificate-body h3 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  margin: 0 0 9px;
+}
+.cx-certificate-body h3 svg {
+  color: #005cff;
+}
+.cx-certificate-content dl,
+.cx-version-grid dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 8px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.25;
+}
+.cx-certificate-content dt,
+.cx-version-grid dt {
+  font-weight: 700;
+}
+.cx-certificate-content dd,
+.cx-version-grid dd {
+  margin: 0;
+  color: #344d7b;
+  min-width: 0;
+}
+.cx-formula {
+  font-family: Georgia, serif;
+  white-space: nowrap;
+  font-style: italic;
+}
+.cx-assignments {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cx-assignments > span {
+  white-space: nowrap;
+  font-size: 10px;
+}
+.complexity-classes-page .cx-truth {
+  padding: 2px 5px;
+  font-size: 10px;
+  line-height: 1.3;
+  border: 0;
+  box-shadow: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
+.complexity-classes-page .cx-truth.cx-true {
+  background: #d0f8e4;
+  color: #00854b;
+  box-shadow: none;
+}
+.complexity-classes-page .cx-truth.cx-false {
+  background: #ffe0e0;
+  color: #b61b24;
+  box-shadow: none;
+}
+.cx-certificate-result {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  width: 105px;
+  min-height: 97px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px 5px;
+  gap: 4px;
+  font-size: 9px;
+  line-height: 1.2;
+}
+.cx-certificate-result svg {
+  width: 29px;
+  height: 29px;
+  margin-bottom: 3px;
+}
+.cx-certificate-result b {
+  font-weight: 500;
+}
+.cx-valid {
+  background: #e6fbf3;
+  color: #008e64;
+}
+.cx-invalid {
+  background: #fff0f1;
+  color: #bf273c;
+}
+.cx-small-graph {
+  width: 110px;
+  height: 83px;
+  flex-shrink: 0;
+}
+.cx-graph-certificate {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+}
+.cx-graph-certificate p {
+  margin: 4px 0;
+}
+.cx-graph-certificate .cx-small-graph {
+  width: 85px;
+}
+.cx-reduction-map {
+  position: relative;
+  height: 127px;
+}
+.complexity-classes-page .cx-reduction-node {
+  position: absolute;
+  width: 27%;
+  height: 48px;
+  padding: 5px 2px;
+  background: #f4e8ff;
+  border-color: #e1c5ff;
+  border-radius: 8px;
+  color: #310778;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+.cx-reduction-node span {
+  font-size: 10px;
+}
+.cx-reduction-sat {
+  left: 2%;
+  top: 0;
+}
+.cx-reduction-clique {
+  left: 38%;
+  top: 0;
+}
+.cx-reduction-cover {
+  left: 74%;
+  top: 0;
+}
+.complexity-classes-page .cx-reduction-tsp {
+  left: 35%;
+  top: 74px;
+  width: 32%;
+  background: #e5efff;
+  border-color: #c3d9ff;
+  color: #0036ca;
+}
+.complexity-classes-page .cx-reduction-arrow {
+  position: absolute;
+  width: 9%;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #004bff;
+  font-size: 30px;
+  line-height: 1;
+}
+.cx-arrow-one {
+  left: 29%;
+  top: 9px;
+}
+.cx-arrow-two {
+  left: 65%;
+  top: 9px;
+}
+.cx-arrow-three {
+  left: 47%;
+  top: 46px;
+}
+.cx-reduction-legend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #526a99;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.cx-reduction-legend span {
+  font-size: 24px;
+  color: #086aff;
+}
+.cx-version-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.cx-version-grid article {
+  border: 1px solid #d8ebff;
+  border-radius: 8px;
+  background: #f0f9ff;
+  padding: 7px 11px;
+  min-height: 133px;
+}
+.cx-version-grid article:nth-child(2) {
+  border-color: #ffdde4;
+  background: #fff3f5;
+}
+.cx-version-grid h3 {
+  font-size: 12px;
+  color: #003bd9;
+  margin: 0 0 6px;
+  white-space: nowrap;
+}
+.cx-version-grid article:nth-child(2) h3 {
+  color: #a50012;
+}
+.cx-version-grid dl {
+  font-size: 10px;
+  gap: 3px 6px;
+  line-height: 1.2;
+}
+.cx-version-grid .cx-badge {
+  padding: 2px 6px;
+  font-size: 9px;
+}
+.cx-footer-grid {
+  display: grid;
+  grid-template-columns: 344fr 322fr 358fr 312fr;
+  gap: 9px;
+  margin: 6px 9px 0;
+}
+.cx-footer-grid .cx-panel {
+  padding: 6px 9px;
+  min-height: 155px;
+  font-size: 11px;
+  line-height: 1.2;
+}
+.cx-footer-grid .cx-panel > header {
+  margin-bottom: 1px;
+  gap: 9px;
+}
+.cx-footer-grid h2 {
+  font-size: 13px;
+}
+.cx-footer-grid ul {
+  margin: 0;
+  padding-left: 22px;
+  color: #4b5879;
+}
+.cx-takeaways {
+  background: linear-gradient(120deg, #fff9df, #fffef8);
+  border-color: #ffecad;
+}
+.cx-definitions {
+  background: linear-gradient(120deg, #eafff7, #f6fffb);
+  border-color: #c3efe1;
+}
+.cx-misconceptions {
+  background: linear-gradient(120deg, #fff1f3, #fff9fa);
+  border-color: #ffd4dd;
+}
+.cx-misconceptions li svg {
+  color: #e82038;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.cx-worked > b {
+  display: block;
+  margin: 0 0 6px 30px;
+  font-size: 10px;
+}
+.cx-worked > header button {
+  font-size: 11px;
+  padding: 2px 14px;
+}
+.cx-worked ol {
+  padding: 0;
+  list-style: none;
+  margin: 0 0 4px 3px;
+  color: #536791;
+}
+.cx-worked li {
+  display: flex;
+  gap: 10px;
+  margin: 3px 0;
+}
+.cx-worked li > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #0875ff;
+  color: #fff;
+  font-size: 9px;
+}
+.cx-review {
+  margin: 12px 9px;
+}
+.cx-learning,
+.cx-practice,
+.cx-experiments {
+  display: grid;
+  gap: 14px;
+}
+.cx-learning > .cx-panel,
+.cx-practice > .cx-panel,
+.cx-experiments > .cx-panel,
+.complexity-classes-page .cx-code,
+.complexity-classes-page .cx-notes {
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.cx-learning h2,
+.cx-practice h2,
+.cx-experiments h2,
+.cx-code h2,
+.cx-notes h2 {
+  font-size: 20px;
+}
+.cx-concept-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+.cx-concept-grid article {
+  padding: 15px;
+  border: 1px solid #d9e6ff;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+.cx-code pre {
+  padding: 20px;
+  background: #101d3d;
+  color: #d9eaff;
+  white-space: pre-wrap;
+  border-radius: 12px;
+  overflow: auto;
+}
+.cx-notes textarea {
+  width: 100%;
+  min-height: 240px;
+}
+.cx-practice button,
+.cx-experiments button,
+.cx-learning button {
+  margin: 5px;
+}
+.cx-dialog {
+  width: min(760px, calc(100vw - 24px));
+  max-height: 85vh;
+  overflow: auto;
+  padding: 26px;
+  border: 1px solid #c4d8ff;
+  border-radius: 18px;
+  color: #122357;
+  background: #fff;
+  box-shadow: 0 20px 90px #1037654d;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.cx-dialog::backdrop {
+  background: #132e5a80;
+  backdrop-filter: blur(3px);
+}
+.cx-close {
+  float: right;
+  padding: 5px;
+  display: flex;
+}
+.cx-dialog h2 {
+  padding-right: 30px;
+  margin: 0 0 15px;
+  font-size: 22px;
+}
+.cx-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 12px 0;
+}
+.cx-dialog input,
+.cx-dialog textarea,
+.cx-dialog select {
+  padding: 9px;
+  border: 1px solid #bacfeb;
+  border-radius: 7px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #f8fbff;
+  color: inherit;
+}
+.cx-dialog textarea {
+  min-height: 100px;
+  font-family: monospace;
+}
+.cx-dialog .cx-primary {
+  padding: 8px 15px;
+  background: #0875ff;
+  color: white;
+  border: 0;
+  border-radius: 7px;
+}
+.cx-dialog [role='alert'] {
+  color: #b41931;
+}
+.cx-worked-assignment {
+  display: flex;
+  gap: 12px;
+}
+.cx-worked-graphs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 15px 0;
+}
+.cx-worked-graphs > section {
+  border: 1px solid #d1e3ff;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+.cx-worked-graphs .cx-small-graph {
+  width: 100%;
+  height: 180px;
+}
+.cx-worked-result {
+  padding: 12px;
+  background: #edf7ff;
+  border-radius: 10px;
+}
+[data-theme='dark'] .complexity-classes-page .cx-panel,
+[data-theme='dark'] .cx-lesson-header,
+[data-theme='dark'] .cx-dialog,
+[data-theme='dark'] .cx-concept-grid article {
+  background: #142747;
+  border-color: #314d78;
+  color: #e6efff;
+}
+[data-theme='dark'] .complexity-classes-page {
+  color: #edf3ff;
+}
+[data-theme='dark'] .cx-visualization {
+  background: #102039;
+  border-color: #35517c;
+}
+[data-theme='dark'] .cx-detail-fields p,
+[data-theme='dark'] .cx-panel header p,
+[data-theme='dark'] .cx-footer-grid ul {
+  color: #bdcce9;
+}
+[data-theme='dark'] .cx-certificate-content dd,
+[data-theme='dark'] .cx-version-grid dd {
+  color: #b4c9ed;
+}
+[data-theme='dark'] .cx-version-grid article {
+  background: #183c58;
+}
+[data-theme='dark'] .cx-version-grid article:nth-child(2) {
+  background: #482b3c;
+}
+[data-theme='dark'] .cx-map-panel {
+  background: #eaf2ff;
+}
+[data-theme='dark'] .cx-classifier [role='radio'] {
+  color: #d9e9ff;
+}
+[data-theme='dark'] .complexity-classes-page .cx-classifier [aria-checked='true'] {
+  background: #234a7e;
+}
+[data-theme='dark'] .cx-map-note {
+  color: #334c78;
+}
+@media (min-width: 1200px) {
+  .app-shell:has(.complexity-classes-page) {
+    grid-template-columns: 264px minmax(0, 1fr);
+  }
+  .app-shell:has(.complexity-classes-page) > .sidebar {
+    width: 264px;
+  }
+}
+@media (max-width: 1550px) and (min-width: 1001px) {
+  .cx-lesson-header {
+    grid-template-columns: 42px minmax(0, 1fr) 172px;
+  }
+  .cx-section-progress {
+    display: none;
+  }
+  .cx-lesson-header h1 {
+    font-size: 25px;
+  }
+  .cx-lesson-header h1 > span {
+    font-size: 10px;
+  }
+  .cx-lesson-header p {
+    font-size: 13px;
+  }
+  .cx-visual-heading {
+    height: auto;
+    min-height: 65px;
+    flex-wrap: wrap;
+  }
+  .cx-visual-options {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  .cx-top-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+  .cx-top-grid > .cx-details {
+    grid-column: 1/-1;
+    height: auto;
+  }
+  .cx-detail-fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+  .cx-middle-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cx-middle-grid > .cx-comparison {
+    grid-column: 1/-1;
+  }
+  .cx-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 1000px) {
+  .app-shell .workspace.category-page:has(.complexity-classes-page) {
+    padding: 10px;
+  }
+  .complexity-classes-page .cx-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .complexity-classes-page .mom-search {
+    flex: 1;
+    min-width: 150px;
+  }
+  .complexity-classes-page .mom-study {
+    margin-left: 0;
+    font-size: 11px !important;
+  }
+  .cx-lesson-header {
+    height: auto;
+    min-height: 140px;
+    margin: 0;
+    padding: 12px;
+    grid-template-columns: 35px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .cx-lesson-header h1 {
+    font-size: 21px;
+    white-space: normal;
+    display: block;
+    letter-spacing: -0.4px;
+  }
+  .cx-lesson-header h1 > span {
+    display: inline-block;
+    font-size: 10px;
+    margin-top: 5px;
+  }
+  .cx-lesson-header p {
+    font-size: 12px;
+    white-space: normal;
+  }
+  .cx-section-progress {
+    padding-right: 10px;
+    grid-column: 2;
+  }
+  .complexity-classes-page .cx-start {
+    grid-column: 2;
+    font-size: 13px;
+    height: 35px;
+  }
+  .complexity-classes-page .mom-tabs {
+    height: auto;
+    overflow: auto;
+    flex-wrap: nowrap;
+    gap: 5px;
+    padding: 6px;
+    margin-top: 7px;
+  }
+  .complexity-classes-page .mom-tabs button {
+    min-width: 83px;
+    padding: 6px 13px;
+    flex-shrink: 0;
+  }
+  .cx-visualization {
+    padding: 8px;
+  }
+  .cx-visual-heading {
+    height: auto;
+    flex-wrap: wrap;
+    padding-left: 0;
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+  .cx-visual-heading > div:not(.cx-visual-options) {
+    flex: 1;
+    min-width: 0;
+  }
+  .cx-visual-heading h2 {
+    font-size: 17px;
+  }
+  .cx-visual-heading p {
+    font-size: 11px;
+    white-space: normal;
+  }
+  .cx-visual-options {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+  .cx-switch {
+    font-size: 10px;
+    gap: 5px;
+  }
+  .complexity-classes-page .cx-visual-options > button {
+    width: 100%;
+  }
+  .cx-top-grid,
+  .cx-middle-grid,
+  .cx-footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .cx-top-grid > .cx-panel {
+    height: auto;
+    min-height: 320px;
+  }
+  .cx-top-grid > .cx-map-panel {
+    height: 343px;
+  }
+  .cx-classifier [role='radio'] > span:not(.cx-badge) {
+    font-size: 11px;
+  }
+  .cx-middle-grid > .cx-panel {
+    height: auto;
+    min-height: 221px;
+  }
+  .cx-certificate-body {
+    padding-right: 91px;
+    min-height: 150px;
+  }
+  .cx-certificate-result {
+    width: 85px;
+  }
+  .cx-certificate-content dl {
+    font-size: 10px;
+    gap: 5px;
+  }
+  .cx-formula {
+    white-space: normal;
+  }
+  .cx-assignments {
+    gap: 4px;
+  }
+  .cx-footer-grid {
+    margin-inline: 0;
+  }
+  .cx-footer-grid .cx-panel {
+    min-height: 145px;
+    font-size: 12px;
+  }
+  .cx-concept-grid {
+    grid-template-columns: 1fr;
+  }
+  .cx-worked-graphs {
+    grid-template-columns: 1fr;
+  }
+  .cx-learning > .cx-panel,
+  .cx-practice > .cx-panel,
+  .cx-experiments > .cx-panel,
+  .complexity-classes-page .cx-code,
+  .complexity-classes-page .cx-notes {
+    padding: 12px;
+  }
+  .cx-reduction-legend {
+    font-size: 9px;
+    white-space: normal;
+  }
+  .cx-version-grid article {
+    padding: 7px;
+  }
+  .cx-version-grid h3 {
+    font-size: 10px;
+  }
+  .cx-panel header p {
+    white-space: normal;
+  }
+  .cx-graph-certificate {
+    flex-direction: column;
+  }
+  .cx-graph-certificate .cx-small-graph {
+    height: 60px;
+  }
+  .cx-dialog {
+    padding: 18px;
+  }
+}
+.complexity-classes-page {
+  font-family: Arial, sans-serif;
+}
+.cx-example-box ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cx-example-box li {
+  margin: 0;
+  padding: 0;
+}
+.cx-example-box button {
+  line-height: 1.3 !important;
+}
+.cx-example-box button:before {
+  content: '• ';
+  margin-right: 3px;
+}
+.cx-example-box b {
+  font-size: 12px;
+}
+.cx-visualization {
+  padding-bottom: 0;
+  border-bottom: 0;
+  background: linear-gradient(110deg, #faffff, #f9fbff);
+}
+.complexity-classes-page .mom-tabs button:nth-child(2) {
+  min-width: 130px;
+}
+.complexity-classes-page .mom-tabs button:nth-child(3) {
+  min-width: 91px;
+}
+.complexity-classes-page .mom-tabs button:nth-child(4) {
+  min-width: 101px;
+}
+.complexity-classes-page .mom-tabs button:nth-child(5) {
+  min-width: 139px;
+}
+.complexity-classes-page .mom-tabs button:nth-child(6) {
+  min-width: 88px;
+}
+.cx-certificate-tabs {
+  margin-bottom: 7px;
+}
+.cx-reduction-map {
+  padding-top: 6px;
+}
+.cx-reduction-sat,
+.cx-reduction-clique,
+.cx-reduction-cover {
+  top: 6px;
+}
+.cx-arrow-one,
+.cx-arrow-two {
+  top: 15px;
+}
+.cx-arrow-three {
+  top: 52px;
+}
+.complexity-classes-page .cx-reduction-tsp {
+  top: 80px;
+}
+.cx-classifier header p {
+  font-size: 9px;
+}
+.cx-footer-grid {
+  margin-left: 10px;
+  margin-right: 8px;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.complexity-classes-page) .sidebar-header {
+    padding: 12px 18px 18px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-home {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-category-toggle {
+    min-height: 39px;
+    font-size: 14px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-algorithm {
+    min-height: 32px;
+    font-size: 12px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-footer {
+    min-height: 56px;
+    margin: 8px 12px 48px 17px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-footer small {
+    font-size: 10px;
+  }
+}
+.cx-switch {
+  position: relative;
+}
+.cx-switch input {
+  left: 0;
+  top: 8px;
+  width: 33px;
+  height: 19px;
+  margin: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.cx-switch i {
+  pointer-events: none;
+}
+.cx-worked-graphs > article {
+  border: 1px solid #d1e3ff;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}

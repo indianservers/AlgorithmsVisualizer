@@ -56,7 +56,7 @@ import {
   type CertificateGraph,
   type ComplexityClass,
 } from './complexityClassesModel'
-// Draft lesson: add its dedicated stylesheet when connecting it to DaaWorkspace.
+import './complexity-classes-mockup.css'
 
 const tr = (s: string) => tx(s, 'studios'),
   tabs: MockupTab[] = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments', 'Notes']

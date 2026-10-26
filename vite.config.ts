@@ -23,6 +23,12 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/ComplexityClassesMockupLesson') ||
+                  id.includes('/src/daa/complexityClassesModel') ||
+                  id.includes('/src/daa/complexity-classes-mockup.css')
+                )
+                  return 'complexity-classes-mockup'
+                if (
                   id.includes('/src/daa/BranchBoundMethodMockupLesson') ||
                   id.includes('/src/daa/branchBoundMethodModel') ||
                   id.includes('/src/daa/branch-bound-method-mockup.css')

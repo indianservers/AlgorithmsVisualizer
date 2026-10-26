@@ -207,7 +207,14 @@ export const workedThreeSat: Cnf = [
   [1, 2, -3],
 ]
 export function buildComplexityReduction(clauses: Cnf, assignment: boolean[]) {
-  if (clauses.some((row) => !row.length || row.length > 3)) throw new Error('This construction expects 3-CNF with 1–3 literals per clause.')
+  if (
+    !clauses.length ||
+    clauses.length > 12 ||
+    clauses.some((row) => !row.length || row.length > 3 || row.some((literal) => !Number.isInteger(literal) || !literal || Math.abs(literal) > 8))
+  )
+    throw new Error('Use 1–12 clauses with 1–3 signed variable IDs 1–8 each.')
+  if (assignment.length !== satVariableCount(clauses) || assignment.some((value) => typeof value !== 'boolean'))
+    throw new Error('Supply one Boolean value for every variable.')
   const literals = clauses.flatMap((row, clause) => row.map((literal) => ({ clause, literal }))),
     edges: [number, number][] = [],
     complement: [number, number][] = []

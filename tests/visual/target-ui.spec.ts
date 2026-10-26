@@ -27,6 +27,15 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 23) {
+        await expect(visual.locator('.cx-class-map [role="button"]')).toHaveCount(4)
+        await expect(visual.getByRole('radio')).toHaveCount(6)
+        await captureReference()
+        await visual.getByRole('radio', { name: 'Graph Connectivity', exact: true }).click()
+        await expect(visual.locator('.cx-details>header .cx-badge')).toHaveText('P')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 22) {
         await expect(visual.locator('.bm-tree-svg [role="button"]')).toHaveCount(7)
         await expect(visual.locator('.bm-rule-card')).toHaveCount(2)
