@@ -31,6 +31,53 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 42) {
+        await expect(visual.locator('.rd-copy-piece strong')).toHaveText(['2', '3', '2', '3'])
+        await expect(visual.locator('.rd-final-reliability > strong')).toHaveText('0.8656')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Inspect DP state R[4][10]', exact: true }).click()
+        await expect(visual.getByRole('dialog')).toContainText('chosen copies for stage 4: 3')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 41) {
+        await expect(visual.locator('.sa-array-banner .sa-pill')).toHaveText(['5', '3', '1', '0', '4', '2'])
+        await expect(visual.locator('.sa-rank tbody tr')).toHaveCount(6)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Compare suffix order 2', exact: true }).click()
+        await expect(visual.locator('.sa-step-detail h3')).toHaveText('Step 2: Next suffix')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 40) {
+        await expect(visual.locator('.bm-text-cell')).toHaveCount(24)
+        await expect(visual.locator('.bm-state dd')).toHaveText(['11', 'I', '2', 'A', 'rightmost(I) = -1', '3', '12'])
+        await captureReference()
+        await visual.getByRole('button', { name: 'Reset', exact: true }).click()
+        await expect(visual.locator('.bm-callout-title')).toHaveText('Compare from right to left')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 39) {
+        await expect(visual.locator('.mt-city')).toHaveCount(7)
+        await expect(visual.locator('.mt-mst-edge')).toHaveCount(6)
+        await expect(visual.locator('.mt-tour-cost strong')).toHaveText('18.9')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Reset', exact: true }).click()
+        await expect(visual.locator('.mt-mst-edge')).toHaveCount(0)
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 38) {
+        await expect(visual.locator('.vc-vertex')).toHaveCount(6)
+        await expect(visual.locator('.vc-matching-edge')).toHaveCount(2)
+        await expect(visual.locator('.vc-chosen')).toContainText('Cover size: 4')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Reset', exact: true }).click()
+        await expect(visual.locator('.vc-summary dd')).toHaveText(['6', '8', '0', '8', '0'])
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 37) {
         await expect(visual.locator('.rs-pivot-info dd')).toHaveText(['7', '6', '7', '6', '3'])
         await expect(visual.locator('.rs-cell')).toHaveCount(10)

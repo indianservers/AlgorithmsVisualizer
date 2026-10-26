@@ -11,18 +11,16 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Suffix Array",
-    "Problem Input ",
-    " Lexicographic sort",
-    "Procedure",
-    " Suffix array",
+    "Input String",
+    "All Suffixes",
+    "Sorted Suffixes (Suffix Array)",
+    "Step-by-Step Lexicographic Comparison",
+    "Step 1: Smallest suffix",
+    "LCP Array and Rank Insight",
+    "Rank Array (position of each index in SA)",
+    "Visualization: Sorted Order",
     "Correctness",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +108,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to Boyer–Moore",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +140,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Use example: banana",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Animate Build",
       "pressed": null
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Compare",
       "pressed": null
     },
     {
@@ -174,15 +156,279 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect unsorted suffix 0",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Read suffix starting at 0",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect unsorted suffix 1",
+      "pressed": null
+    },
+    {
+      "label": "Read suffix starting at 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect unsorted suffix 2",
+      "pressed": null
+    },
+    {
+      "label": "Read suffix starting at 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect unsorted suffix 3",
+      "pressed": null
+    },
+    {
+      "label": "Read suffix starting at 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect unsorted suffix 4",
+      "pressed": null
+    },
+    {
+      "label": "Read suffix starting at 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect unsorted suffix 5",
+      "pressed": null
+    },
+    {
+      "label": "Read suffix starting at 5",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 5",
+      "pressed": null
+    },
+    {
+      "label": "a",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 3",
+      "pressed": null
+    },
+    {
+      "label": "ana",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 1",
+      "pressed": null
+    },
+    {
+      "label": "anana",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 0",
+      "pressed": null
+    },
+    {
+      "label": "banana",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 4",
+      "pressed": null
+    },
+    {
+      "label": "na",
+      "pressed": null
+    },
+    {
+      "label": "Show suffix order 6",
+      "pressed": null
+    },
+    {
+      "label": "Inspect sorted suffix 2",
+      "pressed": null
+    },
+    {
+      "label": "nana",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect suffix array entry 6",
+      "pressed": null
+    },
+    {
+      "label": "Compare suffix order 1",
+      "pressed": "true"
+    },
+    {
+      "label": "Compare suffix order 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Compare suffix order 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Compare suffix order 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Compare suffix order 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Compare suffix order 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Inspect winning suffix 5",
+      "pressed": null
+    },
+    {
+      "label": "Compare suffix 5 with 3",
+      "pressed": null
+    },
+    {
+      "label": "Compare suffix 5 with 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect LCP suffix 6",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 1",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 2",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 3",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 4",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 5",
+      "pressed": null
+    },
+    {
+      "label": "Explain LCP at order 6",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 0",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 1",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect rank of index 5",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 1",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 2",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 3",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 4",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 5",
+      "pressed": null
+    },
+    {
+      "label": "View sorted order 6",
       "pressed": null
     }
   ]

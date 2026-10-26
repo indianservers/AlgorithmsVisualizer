@@ -81,6 +81,11 @@ const ClosestPairMockupLesson = lazy(() => import('./ClosestPairMockupLesson').t
 const KaratsubaMockupLesson = lazy(() => import('./KaratsubaMockupLesson').then((module) => ({ default: module.KaratsubaMockupLesson })))
 const RandomQuickMockupLesson = lazy(() => import('./RandomQuickMockupLesson').then((module) => ({ default: module.RandomQuickMockupLesson })))
 const RandomSelectMockupLesson = lazy(() => import('./RandomSelectMockupLesson').then((module) => ({ default: module.RandomSelectMockupLesson })))
+const VertexCoverMockupLesson = lazy(() => import('./VertexCoverMockupLesson').then((module) => ({ default: module.VertexCoverMockupLesson })))
+const MetricTspMockupLesson = lazy(() => import('./MetricTspMockupLesson').then((module) => ({ default: module.MetricTspMockupLesson })))
+const BoyerMooreMockupLesson = lazy(() => import('./BoyerMooreMockupLesson').then((module) => ({ default: module.BoyerMooreMockupLesson })))
+const SuffixArrayMockupLesson = lazy(() => import('./SuffixArrayMockupLesson').then((module) => ({ default: module.SuffixArrayMockupLesson })))
+const ReliabilityMockupLesson = lazy(() => import('./ReliabilityMockupLesson').then((module) => ({ default: module.ReliabilityMockupLesson })))
 const BipartiteMatchingMockupLesson = lazy(() =>
   import('./BipartiteMatchingMockupLesson').then((module) => ({ default: module.BipartiteMatchingMockupLesson })),
 )
@@ -1592,6 +1597,41 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'reliability-design')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ReliabilityMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'suffix-array')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <SuffixArrayMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'boyer-moore')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BoyerMooreMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'metric-tsp-approximation')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <MetricTspMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'vertex-cover-approximation')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <VertexCoverMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'randomized-selection')
     return (

@@ -11,18 +11,13 @@
   },
   "scrollWidth": 1586,
   "headings": [
-    "Boyer–Moore: Bad-Character Rule",
-    "Problem Input ",
-    " Pattern alignment",
-    "Procedure",
-    " Safe shift",
-    "Correctness",
+    "Interactive Visualization",
+    "How it works",
+    "Bad-character rule (key idea)",
+    "Bad-character table (rightmost occurrence)",
+    "Current alignment state",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Example result",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +105,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Back to metric TSP",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": " Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -142,31 +137,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Swap text and pattern",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
+      "label": "Start",
       "pressed": null
     },
     {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Step",
       "pressed": null
     },
     {
@@ -174,39 +153,35 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect rightmost E",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect rightmost P",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect rightmost X",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect rightmost L",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect rightmost A",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect missing-character lookup",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect rightmost M",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Explain shift amount",
       "pressed": null
     }
   ]

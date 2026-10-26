@@ -1,0 +1,37 @@
+{
+  "target": 38,
+  "route": "/daa-extensions/vertex-cover-approximation",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\038--daa-extensions--vertex-cover-2-approximation.png",
+  "status": "Visual differences remain; full 45-page goal is incomplete",
+  "unitTests": 757,
+  "unitFiles": 57,
+  "browserTestsPassed": 21,
+  "browserTestsSkipped": 1,
+  "browserSkipReason": "Reference inventory capture is desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 64,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 22.5643,
+  "afterMeanAbsoluteRgbError": 10.8635,
+  "pixelIdenticalPages": 0,
+  "totalTargets": 45,
+  "referenceInconsistenciesCorrected": [
+    "Blue chosen edges shared an endpoint, invalidating the matching",
+    "Vertex degrees, total edges and coverage counts disagreed with the drawn graph",
+    "Chosen vertices, history and completion banner disagreed"
+  ],
+  "interactiveFeatures": [
+    "Step and reset",
+    "Manual uncovered-edge choices",
+    "Graph and vertex inspectors with keyboard input",
+    "Six presets and validated editable JSON",
+    "Matching and uncovered-edge filters",
+    "Trace history and timed playback",
+    "Exact optimum and approximation certificate",
+    "Theory and worked examples",
+    "Prediction challenge",
+    "Persistent notes, language and theme preferences"
+  ]
+}

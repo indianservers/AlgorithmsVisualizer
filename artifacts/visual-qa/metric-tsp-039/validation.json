@@ -1,0 +1,39 @@
+{
+  "target": 39,
+  "route": "/daa-extensions/metric-tsp-approximation",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\039--daa-extensions--metric-tsp-2-approximation.png",
+  "status": "Visual differences remain; full 45-page goal is incomplete",
+  "unitTests": 762,
+  "unitFiles": 58,
+  "combinedBrowserTestsPassed": 42,
+  "combinedBrowserTestsScope": "038 and 039",
+  "combinedBrowserTestsSkipped": 2,
+  "skipReason": "Reference inventory captures are desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 65,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 23.3735,
+  "afterMeanAbsoluteRgbError": 11.8959,
+  "pixelIdenticalPages": 0,
+  "totalTargets": 45,
+  "referenceCorrections": [
+    "Exact metric distances determine every edge weight and total",
+    "Hamiltonian tour includes all seven cities, including city 3",
+    "MST, doubled walk, shortcut cost and ratio share one model",
+    "Equal-weight tie-breaking selects the same six MST edges as the reference"
+  ],
+  "interactions": [
+    "Generate metric and stage controls",
+    "Partial MST and doubled DFS walk sliders",
+    "Independent graph-layer visibility controls",
+    "Keyboard-accessible city and edge inspectors",
+    "Editable JSON for Euclidean, Manhattan and validated matrix metrics",
+    "Starting city and DFS neighbor-order changes",
+    "Exact Held-Karp optimum and individual shortcut proof certificates",
+    "Theory, worked examples and prediction challenge",
+    "Stage playback with speed controls",
+    "Persistent notes, language and theme preferences"
+  ]
+}

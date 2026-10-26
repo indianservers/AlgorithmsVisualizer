@@ -1,0 +1,36 @@
+{
+  "target": 42,
+  "route": "/daa-extensions/reliability-design",
+  "status": "Visual differences remain; full visual-match goal is incomplete",
+  "unitTests": 780,
+  "unitFiles": 61,
+  "productionBrowserTestsPassed": 42,
+  "productionBrowserTestsSkipped": 2,
+  "browserScope": "041 and 042, desktop and mobile",
+  "skipReason": "Reference inventory capture is desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 68,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 20.5337,
+  "afterMeanAbsoluteRgbError": 14.245,
+  "pixelIdenticalPagesInInventory": 0,
+  "inventoryTargets": 45,
+  "defaultCopies": [2, 3, 2, 3],
+  "defaultReliability": 0.8655558912,
+  "referenceCorrections": [
+    "Allocation, stage probabilities, budget curve and table values follow the actual recurrence",
+    "Infeasible states are distinct from feasible zero reliability",
+    "Capacity may remain unused when additional copies cannot improve reliability"
+  ],
+  "interactions": [
+    "Validated editable stage count, budget and probability inputs",
+    "Step-by-step DP fill with pause, resume, speed and event navigation",
+    "Stage, budget, allocation and transition inspectors",
+    "Worked theory, executable examples, code and prediction challenge",
+    "Persistent notes and six-section learning progress",
+    "Responsive local scrolling, dark mode and keyboard navigation"
+  ],
+  "modelVerification": "120 small exhaustive allocation comparisons, transition certificates, endpoint and numerical-stability checks"
+}

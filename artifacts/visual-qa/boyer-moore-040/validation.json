@@ -1,0 +1,44 @@
+{
+  "target": 40,
+  "route": "/daa-extensions/boyer-moore",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\040--daa-extensions--boyer-moore-bad-character-rule.png",
+  "status": "Visual differences remain; full 45-page goal is incomplete",
+  "unitTests": 768,
+  "unitFiles": 59,
+  "combinedBrowserTestsPassed": 63,
+  "combinedBrowserTestsScope": "038, 039 and 040",
+  "combinedBrowserTestsSkipped": 3,
+  "skipReason": "Reference inventory captures are desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 66,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 20.3769,
+  "afterMeanAbsoluteRgbError": 11.3956,
+  "pixelIdenticalPages": 0,
+  "totalTargets": 45,
+  "referenceCorrections": [
+    "All 24 text characters, including all four spaces, are displayed and counted",
+    "The worked comparison is I versus A, not a false M versus M mismatch",
+    "Rightmost I = -1 gives shift max(1, 2 - (-1)) = 3 and next alignment 12",
+    "Matches and comparisons use a single validated trace"
+  ],
+  "interactions": [
+    "Editable text and pattern with atomic validation and swap",
+    "Per-comparison playback, manual steps, speed and reset",
+    "Rightmost-table, character and shift proof inspectors",
+    "Index and mismatch display toggles",
+    "Trace slider, history and result navigation",
+    "Overlapping matches, Unicode code-point indices, spaces and empty inputs",
+    "Fifty-character traces use local scrolling and retain the final alignment",
+    "Clear theory, worked examples, code and prediction challenge",
+    "Persistent notes, language and theme preferences"
+  ],
+  "modelVerification": [
+    "500 generated cases compared to an independent naive matcher",
+    "Every retained mismatch and matched suffix is verified",
+    "No skipped alignment contains a match",
+    "Overlaps, Unicode, zero-length and maximum-size inputs checked"
+  ]
+}

@@ -23,6 +23,36 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/ReliabilityMockupLesson') ||
+                  id.includes('/src/daa/reliabilityLessonModel') ||
+                  id.includes('/src/daa/reliability-mockup.css')
+                )
+                  return 'reliability-mockup'
+                if (
+                  id.includes('/src/daa/SuffixArrayMockupLesson') ||
+                  id.includes('/src/daa/suffixArrayLessonModel') ||
+                  id.includes('/src/daa/suffix-array-mockup.css')
+                )
+                  return 'suffix-array-mockup'
+                if (
+                  id.includes('/src/daa/BoyerMooreMockupLesson') ||
+                  id.includes('/src/daa/boyerMooreLessonModel') ||
+                  id.includes('/src/daa/boyer-moore-mockup.css')
+                )
+                  return 'boyer-moore-mockup'
+                if (
+                  id.includes('/src/daa/MetricTspMockupLesson') ||
+                  id.includes('/src/daa/metricTspLessonModel') ||
+                  id.includes('/src/daa/metric-tsp-mockup.css')
+                )
+                  return 'metric-tsp-mockup'
+                if (
+                  id.includes('/src/daa/VertexCoverMockupLesson') ||
+                  id.includes('/src/daa/vertexCoverLessonModel') ||
+                  id.includes('/src/daa/vertex-cover-mockup.css')
+                )
+                  return 'vertex-cover-mockup'
+                if (
                   id.includes('/src/daa/RandomSelectMockupLesson') ||
                   id.includes('/src/daa/randomSelectLessonModel') ||
                   id.includes('/src/daa/random-select-mockup.css')
