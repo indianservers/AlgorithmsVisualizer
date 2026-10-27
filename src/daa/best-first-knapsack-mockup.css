@@ -3,6 +3,7 @@
 }
 .best-knapsack-page {
   padding-bottom: 12px;
+  font-family: Arial, sans-serif !important;
 }
 .best-knapsack-page .mom-topbar {
   height: 37px;
@@ -1462,5 +1463,220 @@
   }
   .bk-practice > .bk-panel {
     padding: 14px;
+  }
+}
+/* Reference 020 typography and spacing, isolated from the shared lesson chrome. */
+@media (min-width: 1500px) {
+  .best-knapsack-page .mom-hero {
+    font-family: system-ui, sans-serif;
+  }
+  .best-knapsack-page #account-trigger {
+    width: 132px;
+    min-width: 132px;
+    padding-inline: 7px;
+    min-height: 39px;
+    height: 39px;
+    gap: 4px;
+  }
+  .best-knapsack-page #account-label {
+    font:
+      9.5px Arial,
+      sans-serif;
+    max-width: none;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+  .best-knapsack-page .account-avatar {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+  }
+  .best-knapsack-page .bk-hero-art {
+    top: 9px;
+    height: 113px;
+  }
+  .best-knapsack-page .mom-study {
+    width: 117px;
+    padding-inline: 8px;
+  }
+  .best-knapsack-page .mom-tabs {
+    gap: 9px;
+  }
+  .best-knapsack-page .mom-tabs button {
+    font-size: 13px;
+    padding-inline: 20px;
+  }
+  .best-knapsack-page .mom-tabs button:nth-child(2) {
+    min-width: 138px;
+  }
+  .best-knapsack-page .mom-tabs button:nth-child(3) {
+    min-width: 100px;
+  }
+  .best-knapsack-page .mom-tabs button:nth-child(4) {
+    min-width: 132px;
+  }
+  .best-knapsack-page .mom-tabs button:nth-child(5) {
+    min-width: 139px;
+  }
+  .best-knapsack-page .bk-panel h2 {
+    font-size: 17px;
+    letter-spacing: -0.6px;
+  }
+  .best-knapsack-page .bk-overview h2 {
+    font-size: 20px;
+  }
+  .best-knapsack-page .bk-frontier h2,
+  .best-knapsack-page .bk-worked h2,
+  .best-knapsack-page .bk-progress h2,
+  .best-knapsack-page .bk-takeaways h2,
+  .best-knapsack-page .bk-correctness h2 {
+    font-size: 16px;
+  }
+  .best-knapsack-page .bk-frontier > header {
+    gap: 8px;
+  }
+  .best-knapsack-page .bk-frontier .bk-icon {
+    width: 32px;
+  }
+  .best-knapsack-page .bk-overview > p {
+    font-size: 13px;
+    max-width: 430px;
+    margin-bottom: 15px;
+  }
+  .best-knapsack-page .bk-stage b {
+    font-size: 13px;
+  }
+  .best-knapsack-page .bk-stage p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .best-knapsack-page .bk-stages {
+    gap: 13px;
+  }
+  .best-knapsack-page .bk-stage {
+    gap: 8px;
+  }
+  .best-knapsack-page .bk-instance th {
+    font-size: 12px;
+  }
+  .best-knapsack-page .bk-instance td {
+    font-size: 12px;
+    height: 26px;
+  }
+  .best-knapsack-page .bk-capacity {
+    margin-top: 6px;
+    min-height: 34px;
+    gap: 7px;
+  }
+  .best-knapsack-page .bk-capacity b {
+    font-size: 12px;
+    padding-left: 17px;
+  }
+  .best-knapsack-page .bk-solution-stats span {
+    font-size: 12px;
+  }
+  .best-knapsack-page .bk-solution-stats {
+    margin-top: 7px;
+  }
+  .best-knapsack-page .bk-incumbent-tip {
+    font-size: 13px !important;
+    line-height: 18px;
+  }
+  .best-knapsack-page .bk-upper-bound > p {
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 6px;
+  }
+  .best-knapsack-page .bk-upper-bound td {
+    font-size: 11px;
+    padding: 2px 3px;
+  }
+  .best-knapsack-page .bk-upper-bound th {
+    font-size: 10px;
+  }
+  .best-knapsack-page .bk-bound-result {
+    font-size: 14px;
+  }
+  .best-knapsack-page .bk-bound-result > span {
+    font-size: 11px;
+  }
+  .best-knapsack-page .bk-worked > p {
+    font-size: 11px;
+    line-height: 15px;
+  }
+  .best-knapsack-page .bk-worked th,
+  .best-knapsack-page .bk-worked td {
+    font-size: 10px;
+  }
+  .best-knapsack-page .bk-worked td {
+    height: 18px;
+    padding-block: 2px;
+  }
+  .best-knapsack-page .bk-worked > header {
+    min-height: 27px;
+    height: 27px;
+    margin-bottom: -4px;
+    align-items: start;
+  }
+  .best-knapsack-page .bk-worked > header .bk-icon {
+    width: 34px;
+    height: 30px;
+    margin-top: -4px;
+  }
+  .best-knapsack-page .bk-frontier h2 {
+    font-size: 14px;
+    letter-spacing: -0.65px;
+    white-space: nowrap;
+  }
+  .best-knapsack-page .bk-progress-line {
+    margin-bottom: 8px;
+  }
+  .best-knapsack-page .bk-bottom-grid > .bk-panel {
+    min-height: 171px;
+  }
+  .best-knapsack-page .bk-progress-line {
+    font-size: 11px;
+  }
+  .best-knapsack-page .bk-progress-line b {
+    font-size: 11px;
+    min-width: 29px;
+  }
+  .best-knapsack-page .bk-progress-line small {
+    font-size: 10px;
+  }
+  .best-knapsack-page .bk-progress-line > div {
+    margin-top: 3px;
+  }
+  .best-knapsack-page .bk-search-stats {
+    margin-top: 7px;
+  }
+  .best-knapsack-page .bk-search-stats > div {
+    padding-block: 5px;
+  }
+  .best-knapsack-page .bk-takeaways li {
+    line-height: 15px;
+  }
+  .best-knapsack-page .bk-takeaways {
+    padding-block: 4px !important;
+  }
+  .best-knapsack-page .bk-correctness {
+    padding-block: 2px !important;
+    min-height: 72px;
+  }
+  .best-knapsack-page .bk-correctness p {
+    font-size: 11.5px;
+    line-height: 13px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar {
+    font-family: Arial, sans-serif;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-algorithm {
+    min-height: 34px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-header {
+    padding-bottom: 9px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-category-toggle {
+    min-height: 39px;
   }
 }

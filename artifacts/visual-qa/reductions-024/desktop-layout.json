@@ -1,0 +1,145 @@
+[
+  {
+    "selector": "rd-lesson-header",
+    "x": 278,
+    "y": 54,
+    "width": 1392,
+    "height": 79,
+    "top": 54,
+    "right": 1670,
+    "bottom": 133,
+    "left": 278
+  },
+  {
+    "selector": "mom-tabs",
+    "x": 280,
+    "y": 133,
+    "width": 1376,
+    "height": 56,
+    "top": 133,
+    "right": 1656,
+    "bottom": 189,
+    "left": 280
+  },
+  {
+    "selector": "rd-top-grid",
+    "x": 292,
+    "y": 266,
+    "width": 1354,
+    "height": 338,
+    "top": 266,
+    "right": 1646,
+    "bottom": 604,
+    "left": 292
+  },
+  {
+    "selector": "rd-panel rd-construction",
+    "x": 292,
+    "y": 266,
+    "width": 459,
+    "height": 338,
+    "top": 266,
+    "right": 751,
+    "bottom": 604,
+    "left": 292
+  },
+  {
+    "selector": "rd-panel rd-example",
+    "x": 759,
+    "y": 266,
+    "width": 524,
+    "height": 338,
+    "top": 266,
+    "right": 1283,
+    "bottom": 604,
+    "left": 759
+  },
+  {
+    "selector": "rd-panel rd-certification",
+    "x": 1291,
+    "y": 266,
+    "width": 355,
+    "height": 338,
+    "top": 266,
+    "right": 1646,
+    "bottom": 604,
+    "left": 1291
+  },
+  {
+    "selector": "rd-bottom-grid",
+    "x": 292,
+    "y": 611,
+    "width": 1354,
+    "height": 193,
+    "top": 611,
+    "right": 1646,
+    "bottom": 804,
+    "left": 292
+  },
+  {
+    "selector": "rd-footer-grid",
+    "x": 292,
+    "y": 810,
+    "width": 1354,
+    "height": 128.9375,
+    "top": 810,
+    "right": 1646,
+    "bottom": 938.9375,
+    "left": 292
+  },
+  {
+    "selector": "rd-panel rd-takeaways",
+    "x": 292,
+    "y": 810,
+    "width": 357,
+    "height": 128.9375,
+    "top": 810,
+    "right": 649,
+    "bottom": 938.9375,
+    "left": 292
+  },
+  {
+    "selector": "rd-panel rd-worked",
+    "x": 657,
+    "y": 810,
+    "width": 314,
+    "height": 128.9375,
+    "top": 810,
+    "right": 971,
+    "bottom": 938.9375,
+    "left": 657
+  },
+  {
+    "selector": "rd-panel rd-workflow",
+    "x": 979,
+    "y": 810,
+    "width": 215,
+    "height": 128.9375,
+    "top": 810,
+    "right": 1194,
+    "bottom": 938.9375,
+    "left": 979
+  },
+  {
+    "selector": "rd-panel rd-correctness",
+    "x": 1202,
+    "y": 810,
+    "width": 232,
+    "height": 128.9375,
+    "top": 810,
+    "right": 1434,
+    "bottom": 938.9375,
+    "left": 1202
+  },
+  {
+    "selector": "rd-panel rd-pitfalls",
+    "x": 1442,
+    "y": 810,
+    "width": 204,
+    "height": 128.9375,
+    "top": 810,
+    "right": 1646,
+    "bottom": 938.9375,
+    "left": 1442
+  }
+]

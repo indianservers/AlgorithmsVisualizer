@@ -1,0 +1,53 @@
+{
+  "target": 20,
+  "route": "/branch-and-bound/knapsack-best-first",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/020--branch-and-bound--0-1-knapsack-best-first-branch-and-bound.png",
+  "viewport": {
+    "height": 941,
+    "width": 1672
+  },
+  "changes": [
+    "Refined panel typography, icon choices, tab widths, tables, capacity strip and progress layout.",
+    "Aligned sidebar and account controls; retained language selection in Experiments.",
+    "Resized native SVG hero art and kept the final teaching panel fully within the reference viewport."
+  ],
+  "functionality": [
+    "Editable 20-item input and validation",
+    "Exact fractional bounds and highest-bound queue ordering",
+    "Keyboard tree inspection, bound switch and principle explanations",
+    "Playback, stale-frontier pruning, budgeted searches and pagination",
+    "Prediction challenges, persistent notes and language dialog"
+  ],
+  "checks": {
+    "finalProduction": "21 passed, 1 inventory mobile skip for 020",
+    "fullCheck": "Passed: lint, localization, 808 unit tests across 66 files, TypeScript, production build, prerender and bundle budget",
+    "productionRegression": "57 passed, 3 inventory mobile skips for 017/020/028",
+    "geometry": "All ten main panels checked; last correctness panel ends at y=936 within the 941px viewport."
+  },
+  "visual": {
+    "afterMeanAbsoluteRgbError": 13.7632,
+    "allTargets": 45,
+    "status": "Visual differences remain; full objective is not achieved.",
+    "exactMatch": false,
+    "exactMatches": 0,
+    "beforeMeanAbsoluteRgbError": 14.3985
+  },
+  "referenceDataDeviations": [
+    "Items 1 and 2 have total profit 11, not the illustrated 7.",
+    "Density order is 1, 3, 2, 4; the fractional root bound is 12, not 13.",
+    "The computed seven-node tree and one remaining frontier entry are preserved instead of the inconsistent reference topology and queue counts.",
+    "Node bounds, incumbent, trace, progress and counters derive from the same algorithm snapshot."
+  ],
+  "evidence": [
+    "desktop-learn.png",
+    "mobile-learn.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../../visual-qa/current-inventory/020--knapsack-best-first.png",
+    "../pixel-audit/020--overlay.png",
+    "../pixel-audit/020--difference.png"
+  ],
+  "disposition": "Local changes only; no new commit or push during this goal continuation."
+}

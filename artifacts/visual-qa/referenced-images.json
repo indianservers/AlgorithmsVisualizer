@@ -14,7 +14,7 @@
     "identicalReference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\017--divide-and-conquer--median-of-medians-selection.png",
     "sha256BothFiles": "6C74B0B9DC23F17E6781E8EAC8791FEDC1E7DE1A038B5E9C038047A20AE128AB",
     "coverage": "Included in the 45-image target audit as target 017; not an additional unique target",
-    "currentMeanAbsoluteRgbError": 13.9019,
+    "currentMeanAbsoluteRgbError": 13.1842,
     "exactMatch": false
   },
   "fullGoalStatus": "Incomplete; the numbered target directory and both original attachments are accounted for, but none of the 45 current inventory renders is pixel-identical."

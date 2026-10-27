@@ -3,20 +3,20 @@
   "route": "/daa-extensions/bin-packing",
   "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\044--daa-extensions--bin-packing-first-fit-decreasing.png",
   "status": "Visual differences remain; full visual-match goal is incomplete",
-  "unitTests": 790,
-  "unitFiles": 63,
-  "regressionBrowserTestsPassed": 46,
-  "regressionScope": "043 and 044, desktop and mobile",
+  "unitTests": 808,
+  "unitFiles": 66,
+  "regressionBrowserTestsPassed": 38,
+  "regressionScope": "017 and 044, desktop and mobile",
   "finalPageBrowserTestsPassed": 23,
   "finalPageBrowserTestsSkipped": 1,
   "skipReason": "Reference inventory capture is desktop-only",
   "productionBuild": "passed",
   "lint": "passed",
   "localization": "passed",
-  "bundleChunks": 70,
+  "bundleChunks": 73,
   "bundleBudget": "passed",
   "beforeMeanAbsoluteRgbError": 27.4906,
-  "afterMeanAbsoluteRgbError": 13.8985,
+  "afterMeanAbsoluteRgbError": 13.2546,
   "pixelIdenticalPagesInInventory": 0,
   "inventoryTargets": 45,
   "referenceCorrections": [
@@ -58,5 +58,31 @@
     "Sixty small instances checked against exhaustive assignment search for exact optimality",
     "Counterexample [6,5,3,2,2,2] uses three FFD bins but has a verified two-bin optimum"
   ],
-  "layoutVerification": "Eleven main desktop bounds within two pixels of the reference; first bin aligned at y=283; desktop and mobile overflow and three-digit item-label containment checked"
+  "layoutVerification": "Eleven main desktop bounds within two pixels of the reference; first bin aligned at y=283; desktop and mobile overflow and three-digit item-label containment checked",
+  "secondRefinement": {
+    "unitFiles": 66,
+    "productionBrowserPassed": 38,
+    "metricMeaning": "Mean absolute RGB-channel difference; not a visual-match percentage",
+    "remaining": "All 45 target captures still differ. The full visual-match objective remains active.",
+    "verification": [
+      "All eleven recorded reference panel bounds remain within two pixels",
+      "First result bar aligns at y=736 within two pixels",
+      "Remaining-capacity labels stay inside every default timeline card",
+      "Six-bin feasible default, duplicate identities, 24-bin scrolling, empty input and invalid edits remain correct",
+      "Placement pagination, animation, inspectors, quality certificates, predictions, notes, search and dark mode passed"
+    ],
+    "changes": [
+      "Reference-like light-blue workspace gradient and top-panel title positions",
+      "Visible native capacity spinner, stronger speed label and reference-scaled item bars",
+      "Summary icon sizing, full-bin load emphasis and sidebar row spacing",
+      "Placement cards override inherited button gaps so probe checks and result bars stay visible",
+      "Cards with at least two probes reserve additional trace space",
+      "Footer explanations use condensed typography that fits the reference layout"
+    ],
+    "unitTests": 808,
+    "beforeMeanAbsoluteRgbError": 13.8985,
+    "productionBrowserSkipped": 2,
+    "afterMeanAbsoluteRgbError": 13.2546,
+    "disposition": "Local and uncommitted"
+  }
 }

@@ -2,19 +2,19 @@
   "target": 42,
   "route": "/daa-extensions/reliability-design",
   "status": "Visual differences remain; full visual-match goal is incomplete",
-  "unitTests": 780,
-  "unitFiles": 61,
-  "productionBrowserTestsPassed": 42,
+  "unitTests": 808,
+  "unitFiles": 66,
+  "productionBrowserTestsPassed": 40,
   "productionBrowserTestsSkipped": 2,
-  "browserScope": "041 and 042, desktop and mobile",
+  "browserScope": "023 and 042, desktop and mobile; final 042-only pass: 21 tests passed, one inventory mobile skip",
   "skipReason": "Reference inventory capture is desktop-only",
   "productionBuild": "passed",
   "lint": "passed",
   "localization": "passed",
-  "bundleChunks": 68,
+  "bundleChunks": 73,
   "bundleBudget": "passed",
   "beforeMeanAbsoluteRgbError": 20.5337,
-  "afterMeanAbsoluteRgbError": 14.245,
+  "afterMeanAbsoluteRgbError": 13.2907,
   "pixelIdenticalPagesInInventory": 0,
   "inventoryTargets": 45,
   "defaultCopies": [2, 3, 2, 3],
@@ -32,5 +32,33 @@
     "Persistent notes and six-section learning progress",
     "Responsive local scrolling, dark mode and keyboard navigation"
   ],
-  "modelVerification": "120 small exhaustive allocation comparisons, transition certificates, endpoint and numerical-stability checks"
+  "modelVerification": "120 small exhaustive allocation comparisons, transition certificates, endpoint and numerical-stability checks",
+  "refinement": {
+    "geometry": "Ten dashboard panels checked within two pixels of the recorded reference bounds; Home and expected lower navigation categories remain visible",
+    "changes": [
+      "Reference-sized native chart/table header icons and colored recurrence icon",
+      "Sidebar header, category and item spacing; fresh reference viewport established before route navigation",
+      "Input heading, always-visible native numeric steppers, Run DP and secondary action widths",
+      "Parallel-copy diagram rows aligned at common top and bottom positions while retaining the actual copy counts",
+      "Filled success indicators, allocation total typography and proof premise highlighting",
+      "Phase-marker centers and recurrence explanation line spacing"
+    ],
+    "beforeMeanAbsoluteRgbError": 14.245,
+    "evidence": [
+      "desktop-default.png",
+      "mobile-default.png",
+      "desktop-layout.json",
+      "mobile-layout.json",
+      "desktop-dark.png",
+      "mobile-dark.png",
+      "production-final.log",
+      "check-refinement.log",
+      "../pixel-audit/042--overlay.png",
+      "../pixel-audit/042--difference.png"
+    ],
+    "metricMeaning": "Mean absolute RGB-channel difference, not a visual-match percentage",
+    "remaining": "All 45 captures still have nonzero pixel differences. Full goal remains active.",
+    "disposition": "Local and uncommitted",
+    "afterMeanAbsoluteRgbError": 13.2907
+  }
 }

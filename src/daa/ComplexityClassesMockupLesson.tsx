@@ -153,6 +153,15 @@ function SmallGraph({ graph, chosen, cover = false }: { graph: CertificateGraph;
     </svg>
   )
 }
+function ReductionArrow({ vertical = false }: { vertical?: boolean }) {
+  return (
+    <svg className={vertical ? 'cx-arrow-glyph cx-arrow-vertical' : 'cx-arrow-glyph'} viewBox="0 0 36 24" aria-hidden="true">
+      <path d="M2 12H24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeDasharray="4 3" />
+      <path d="M23 6 34 12 23 18Z" fill="currentColor" />
+      {vertical && <circle cx="8" cy="12" r="2" fill="#122450" />}
+    </svg>
+  )
+}
 function ClassMap({
   examples,
   arrows,
@@ -214,19 +223,30 @@ function ClassMap({
               <ellipse {...regions.np} fill="black" />
               <ellipse {...regions.complete} fill="white" />
             </mask>
-            <linearGradient id={`${clip}-pink`} x2="0" y2="1">
-              <stop stopColor="#ffe1e9" />
-              <stop offset="1" stopColor="#ffd8e1" />
-            </linearGradient>
-            <linearGradient id={`${clip}-blue`} x2="0" y2="1">
-              <stop stopColor="#dbe8ff" />
-              <stop offset="1" stopColor="#d0e6ff" />
-            </linearGradient>
+            <radialGradient id={`${clip}-pink`} gradientUnits="userSpaceOnUse" cx="315" cy="135" r="245">
+              <stop stopColor="#fff5f8" />
+              <stop offset=".45" stopColor="#ffdde5" />
+              <stop offset="1" stopColor="#ffcfda" />
+            </radialGradient>
+            <radialGradient id={`${clip}-blue`} cx="50%" cy="50%" r="60%">
+              <stop stopColor="#f4faff" />
+              <stop offset=".6" stopColor="#deecfe" />
+              <stop offset="1" stopColor="#bad3fe" />
+            </radialGradient>
+            <radialGradient id={`${clip}-purple`} cx="35%" cy="25%" r="80%">
+              <stop stopColor="#f4dcfe" />
+              <stop offset=".5" stopColor="#f4d2fe" />
+              <stop offset="1" stopColor="#eebefe" />
+            </radialGradient>
+            <radialGradient id={`${clip}-green`} cx="50%" cy="35%" r="70%">
+              <stop stopColor="#f2fff8" />
+              <stop offset="1" stopColor="#c8f7df" />
+            </radialGradient>
           </defs>
           <ellipse className="cx-hard-region" {...regions.envelope} fill={`url(#${clip}-pink)`} stroke="#ff718e" mask={`url(#${hardMask})`} />
           <ellipse className="cx-np-region" {...regions.np} fill={`url(#${clip}-blue)`} stroke="#287cff" />
-          <ellipse className="cx-complete-region" {...regions.complete} fill="#e5c6ff" stroke="#ae5cff" strokeDasharray="5 3" />
-          <ellipse {...regions.p} fill="#d5fbe7" stroke="#66d794" />
+          <ellipse className="cx-complete-region" {...regions.complete} fill={`url(#${clip}-purple)`} stroke="#ae5cff" strokeDasharray="5 3" />
+          <ellipse {...regions.p} fill={`url(#${clip}-green)`} stroke="#66d794" />
           {classButton('P', 264, 200, 54)}
           {classButton('NP', 300, 112, 64)}
           {classButton('NP-Complete', 418, 180, 124)}
@@ -659,7 +679,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
       <div className="cx-detail-fields">
         {[
           ['Description', profile.description, Info],
-          ['Why in NP?', profile.membership, CheckCircle2],
+          ['Why in NP?', profile.membership, Check],
           ['Why NP-Hard?', profile.hardness, Star],
           ['Applications', profile.applications, Settings],
         ].map(([title, text, Icon]) => {
@@ -789,7 +809,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
           )}
         </div>
         <div className={`cx-certificate-result ${resultValid ? 'cx-valid' : 'cx-invalid'}`} role="status">
-          <CheckCircle2 />
+          {resultValid ? <Check /> : <X />}
           <b>{tr(resultValid ? 'Valid certificate' : 'Rejected certificate')}</b>
           <span>{tr('verifies in polynomial time')}</span>
         </div>
@@ -827,30 +847,34 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               aria-label={tr('Explain reduction from 3-SAT to Clique')}
               onClick={() => reductionInfo('sat-clique')}
             >
-              {'→'}
+              <ReductionArrow />
             </button>
             <button
               className="cx-reduction-arrow cx-arrow-two"
               aria-label={tr('Explain reduction from Clique to Vertex Cover')}
               onClick={() => reductionInfo('clique-cover')}
             >
-              {'→'}
+              <ReductionArrow />
             </button>
             <button
               className="cx-reduction-arrow cx-arrow-three"
               aria-label={tr('Explain reduction from Clique to TSP decision')}
               onClick={() => reductionInfo('clique-tsp')}
             >
-              {'↓'}
+              <ReductionArrow vertical />
             </button>
           </>
         )}
       </div>
       <div className="cx-reduction-legend">
-        <span>{'→'}</span>
+        <span>
+          <ReductionArrow />
+        </span>
         {tr('Polynomial-time reduction (A ≤ₚ B)')}
-        <span>{'⇢'}</span>
-        {tr('Composition is transitive')}
+        <span>
+          <ReductionArrow />
+        </span>
+        {tr('Also reduces to (transitive)')}
       </div>
     </Panel>
   )

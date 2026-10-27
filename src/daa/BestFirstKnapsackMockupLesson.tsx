@@ -23,6 +23,7 @@ import {
   X,
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import { advanceBest, bestCertified, createBest, defaultBest, type BestState } from './bestFirstKnapsackModel'
@@ -393,7 +394,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
   const instance = (
     <Panel
       title={tr('Problem Instance')}
-      icon={<ListOrdered />}
+      icon={<ClipboardList />}
       className="bk-instance"
       action={
         <button className="bk-edit" onClick={edit}>
@@ -704,6 +705,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
     <div className="mom-page target-visual best-knapsack-page" data-target="20">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('0/1 Knapsack: Best-First Branch and Bound')}
         description={tr('Use a fractional-knapsack upper bound to prune the search tree and explore the most promising node first.')}
         concepts={5}
@@ -731,6 +733,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
         }}
       />
       <MockupTabs
+        iconOverrides={{ Practice: <Code2 />, Experiments: <FileText /> }}
         active={tab}
         onChange={(next) => {
           setPlaying(false)
@@ -909,6 +912,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <div className="bk-experiments">
+          <LanguageSelector />
           <Panel title={tr('Experiment Controls')} icon={<TrendingUp />}>
             <p>
               {tr(

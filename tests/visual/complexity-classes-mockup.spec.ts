@@ -55,6 +55,7 @@ test('023 includes every dashboard component and reference panel positions', asy
       ['.mom-tabs', { x: 278, y: 128, width: 1384, height: 52 }],
       ['.cx-top-grid', { x: 288, y: 252, width: 1364, height: 343 }],
       ['.cx-middle-grid', { x: 288, y: 603, width: 1364, height: 221 }],
+      ['.cx-version-grid', { x: 1202, y: 690, width: 448, height: 133 }],
       ['.cx-footer-grid', { x: 288, y: 830 }],
     ] as const) {
       const box = await root(page).locator(selector).boundingBox()

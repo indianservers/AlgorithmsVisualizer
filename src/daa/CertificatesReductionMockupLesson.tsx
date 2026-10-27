@@ -1,5 +1,5 @@
 // @localized-render
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
@@ -25,6 +25,7 @@ import {
   Settings,
   ShieldCheck,
   Shield,
+  Scale,
   SkipBack,
   SkipForward,
   Sun,
@@ -36,6 +37,7 @@ import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -120,19 +122,39 @@ function ReductionGraph({
   onSelect: (v: number) => void
   labels?: string[]
 }) {
+  const gradient = useId()
   const points =
     graph.n === 6
-      ? [
-          [110, 30],
-          [52, 75],
-          [170, 75],
-          [40, 133],
-          [110, 148],
-          [184, 133],
-        ]
+      ? role === 'source'
+        ? [
+            [110, 28],
+            [52, 73],
+            [170, 73],
+            [38, 131],
+            [110, 148],
+            [184, 131],
+          ]
+        : [
+            [111, 28],
+            [53, 73],
+            [172, 73],
+            [46, 124],
+            [111, 144],
+            [176, 131],
+          ]
       : Array.from({ length: graph.n }, (_, i) => [110 + 76 * Math.sin((i * 2 * Math.PI) / graph.n), 88 - 67 * Math.cos((i * 2 * Math.PI) / graph.n)])
   return (
     <svg className={`rd-graph rd-graph-${role}`} viewBox="0 0 220 172" aria-label={label}>
+      <defs>
+        <radialGradient id={`${gradient}-plain`} cx="35%" cy="25%">
+          <stop stopColor="#fff" />
+          <stop offset="1" stopColor="#e4edff" />
+        </radialGradient>
+        <radialGradient id={`${gradient}-selected`} cx="35%" cy="25%">
+          <stop stopColor={role === 'source' ? '#fff0ba' : '#c6ffd9'} />
+          <stop offset="1" stopColor={role === 'source' ? '#ffd36a' : '#61f18b'} />
+        </radialGradient>
+      </defs>
       {graph.edges.map(([a, b]) => (
         <line
           key={`${a}-${b}`}
@@ -163,8 +185,8 @@ function ReductionGraph({
           <circle
             cx={x}
             cy={y}
-            r={graph.n > 6 ? 12 : 14}
-            fill={selected.includes(i) ? (role === 'source' ? '#ffe07b' : '#7cf5a1') : '#eff5ff'}
+            r={graph.n > 6 ? 12 : 15}
+            fill={`url(#${gradient}-${selected.includes(i) ? 'selected' : 'plain'})`}
             stroke={selected.includes(i) ? (role === 'source' ? '#ff8a16' : '#25bf70') : '#8eafed'}
             strokeWidth="1.2"
           />
@@ -669,7 +691,9 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
           <div className="rd-certificate-card">
             <h3>
               <Shield size={18} />
-              {tr(`Certificate for ${certificateSide === 'source' ? result.example.source : result.example.target}`)}
+              {tr(
+                `Certificate for ${certificateSide === 'source' ? result.example.source : result.example.target}${kind !== 'sat-clique' && certificateSide === 'source' ? '(G, k)' : ''}`,
+              )}
               <span>{`k = ${certificateSide === 'source' ? result.sourceK : result.targetK}`}</span>
               <button
                 aria-label={tr('Edit selected certificate')}
@@ -686,7 +710,10 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
               ) : (
                 <>
                   {tr('set of vertices ')}
-                  <SetLabel vertices={selectedVertices} />
+                  <span className="rd-witness-set">
+                    {'S = '}
+                    <SetLabel vertices={selectedVertices} />
+                  </span>
                 </>
               )}
             </p>
@@ -694,7 +721,7 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
               {checks.map((check, i) => (
                 <div className={check.valid ? 'rd-check-pass' : 'rd-check-fail'} key={i}>
                   {check.valid ? <CheckCircle2 /> : <X />}
-                  <span>{tr(check.label)}</span>
+                  <span className={i > 0 && check.label === checks[i - 1].label ? 'rd-repeated-check-label' : undefined}>{tr(check.label)}</span>
                   <b>{tr(check.detail)}</b>
                 </div>
               ))}
@@ -711,7 +738,7 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
     </Panel>
   )
   const versions = (
-    <Panel title={tr('Decision vs Optimization')} subtitle={tr('Connected but distinct problems.')} icon={<ArrowLeftRight />} className="rd-versions">
+    <Panel title={tr('Decision vs Optimization')} subtitle={tr('Connected but distinct problems.')} icon={<Scale />} className="rd-versions">
       <div>
         <article>
           <h3>{tr('Decision Version')}</h3>
@@ -967,7 +994,7 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="rd-lesson-header">
         <button className="rd-back" aria-label={tr('Open complexity classes lesson')} onClick={() => navigate('/complexity-theory/p-np-classes')}>
@@ -1186,6 +1213,7 @@ export function CertificatesReductionMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Reduction Proof Notes')} icon={<BookOpen />} className="rd-notes">
+          <LanguageSelector />
           <label>
             {tr('State f, the target threshold, both proof directions and a running-time bound.')}
             <textarea aria-label={tr('Reduction proof notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

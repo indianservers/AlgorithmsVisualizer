@@ -33,6 +33,61 @@
     "left": 14
   },
   {
+    "className": "mom-group tone-0",
+    "x": 25,
+    "y": 520.515625,
+    "width": 111,
+    "height": 67,
+    "top": 520.515625,
+    "right": 136,
+    "bottom": 587.515625,
+    "left": 25
+  },
+  {
+    "className": "mom-group tone-1",
+    "x": 141,
+    "y": 520.515625,
+    "width": 111,
+    "height": 67,
+    "top": 520.515625,
+    "right": 252,
+    "bottom": 587.515625,
+    "left": 141
+  },
+  {
+    "className": "mom-group tone-2",
+    "x": 257,
+    "y": 520.515625,
+    "width": 111,
+    "height": 67,
+    "top": 520.515625,
+    "right": 368,
+    "bottom": 587.515625,
+    "left": 257
+  },
+  {
+    "className": "mom-group tone-3",
+    "x": 25,
+    "y": 592.515625,
+    "width": 150,
+    "height": 67,
+    "top": 592.515625,
+    "right": 175,
+    "bottom": 659.515625,
+    "left": 25
+  },
+  {
+    "className": "mom-group tone-4",
+    "x": 180,
+    "y": 592.515625,
+    "width": 150,
+    "height": 67,
+    "top": 592.515625,
+    "right": 330,
+    "bottom": 659.515625,
+    "left": 180
+  },
+  {
     "className": "mom-panel mom-sort-panel",
     "x": 14,
     "y": 692.515625,
@@ -125,21 +180,76 @@
     "x": 14,
     "y": 2337.453125,
     "width": 365,
-    "height": 202.28125,
+    "height": 216.28125,
     "top": 2337.453125,
     "right": 379,
-    "bottom": 2539.734375,
+    "bottom": 2553.734375,
     "left": 14
+  },
+  {
+    "className": "",
+    "x": 25,
+    "y": 2443.734375,
+    "width": 100,
+    "height": 65,
+    "top": 2443.734375,
+    "right": 125,
+    "bottom": 2508.734375,
+    "left": 25
+  },
+  {
+    "className": "",
+    "x": 143,
+    "y": 2443.734375,
+    "width": 100,
+    "height": 65,
+    "top": 2443.734375,
+    "right": 243,
+    "bottom": 2508.734375,
+    "left": 143
+  },
+  {
+    "className": "",
+    "x": 261,
+    "y": 2443.734375,
+    "width": 100,
+    "height": 65,
+    "top": 2443.734375,
+    "right": 361,
+    "bottom": 2508.734375,
+    "left": 261
+  },
+  {
+    "className": "",
+    "x": 379,
+    "y": 2443.734375,
+    "width": 100,
+    "height": 65,
+    "top": 2443.734375,
+    "right": 479,
+    "bottom": 2508.734375,
+    "left": 379
+  },
+  {
+    "className": "",
+    "x": 497,
+    "y": 2443.734375,
+    "width": 100,
+    "height": 65,
+    "top": 2443.734375,
+    "right": 597,
+    "bottom": 2508.734375,
+    "left": 497
   },
   {
     "className": "mom-panel mom-correctness",
     "x": 14,
-    "y": 2549.734375,
+    "y": 2563.734375,
     "width": 365,
     "height": 189.296875,
-    "top": 2549.734375,
+    "top": 2563.734375,
     "right": 379,
-    "bottom": 2739.03125,
+    "bottom": 2753.03125,
     "left": 14
   }
 ]

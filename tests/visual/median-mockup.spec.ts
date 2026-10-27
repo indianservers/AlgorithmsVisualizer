@@ -20,6 +20,9 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   await expect(pageRoot.getByRole('heading', { name: 'Key Takeaways', exact: true })).toBeVisible()
   await expect(pageRoot.getByRole('heading', { name: 'Common Pitfalls', exact: true })).toBeVisible()
   await expect(pageRoot.locator('.mom-worked-example')).toContainText('7th smallest is 6')
+  await expect(pageRoot.locator('.mom-worked-stages > div')).toHaveCount(5)
+  await expect(pageRoot.locator('.mom-worked-stages')).toContainText('L = [2, 4, 5, 3, 1, 0]')
+  await expect(pageRoot.locator('.mom-worked-stages')).toContainText('E = [6], |E| = 1')
   for (const selector of ['.mom-takeaways', '.mom-pitfalls', '.mom-pro-tip']) {
     const card = await pageRoot.locator(selector).boundingBox(),
       text = await pageRoot.locator(`${selector} p`).last().boundingBox()
@@ -41,6 +44,8 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
       ['.mom-workflow-panel', { x: 291, y: 618, width: 636, height: 180 }],
       ['.mom-recurrence-panel', { x: 936, y: 618, width: 366, height: 180 }],
       ['.mom-bottom-grid', { x: 291, y: 808, width: 1365 }],
+      ['.mom-groups-panel .mom-group:first-child', { x: 306, y: 311, height: 76 }],
+      ['.mom-worked-stages > div:first-child', { x: 308, y: 872, width: 106, height: 66 }],
     ] as const) {
       const box = await pageRoot.locator(selector).boundingBox()
       for (const [key, value] of Object.entries(expected))
@@ -50,7 +55,9 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   mkdirSync('artifacts/visual-qa/median-017', { recursive: true })
   await page.screenshot({ path: `artifacts/visual-qa/median-017/${info.project.name}-learn.png`, fullPage: false })
   const layout = await pageRoot
-    .locator('.mom-hero,.mom-tabs,.mom-main-grid>.mom-panel,.mom-last-row>.mom-panel,.mom-side-cards>article,.mom-bottom-grid>.mom-panel')
+    .locator(
+      '.mom-hero,.mom-tabs,.mom-main-grid>.mom-panel,.mom-last-row>.mom-panel,.mom-side-cards>article,.mom-bottom-grid>.mom-panel,.mom-groups-panel .mom-group,.mom-worked-stages>div',
+    )
     .evaluateAll((elements) => elements.map((e) => ({ className: e.className, ...e.getBoundingClientRect().toJSON() })))
   writeFileSync(`artifacts/visual-qa/median-017/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (process.env.MEDIAN_MEASURE === '1')

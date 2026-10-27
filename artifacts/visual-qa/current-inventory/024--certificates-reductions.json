@@ -15,7 +15,7 @@
     "Many-One Reduction",
     "Example: CLIQUE → VERTEX COVER",
     "Certificate Verification",
-    "Certificate for CLIQUEk = 3",
+    "Certificate for CLIQUE(G, k)k = 3",
     "Decision vs Optimization",
     "Decision Version",
     "Optimization Version",
@@ -124,10 +124,6 @@
     {
       "label": " Mark studied",
       "pressed": "false"
-    },
-    {
-      "label": "Language: English (India)",
-      "pressed": null
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",

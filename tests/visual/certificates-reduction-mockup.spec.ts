@@ -1,6 +1,9 @@
 import { test, expect, type Page } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const root = (page: Page) => page.locator('.reductions-page')
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop' && /reference positions|lesson styles/.test(info.title)) await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -32,6 +35,12 @@ test('024 contains every dashboard component at reference positions', async ({ p
   await expect(root(page).locator('.rd-certificate-status')).toContainText('instance is YES')
   await expect(root(page).locator('.rd-target-card>footer')).toContainText('{4, 5, 6}')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/reductions-024', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/reductions-024/${info.project.name}-visualization.png` })
+  const geometry = await root(page)
+    .locator('.rd-lesson-header,.mom-tabs,.rd-top-grid,.rd-bottom-grid,.rd-footer-grid,.rd-top-grid>.rd-panel,.rd-footer-grid>.rd-panel')
+    .evaluateAll((elements) => elements.map((element) => ({ selector: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/reductions-024/${info.project.name}-layout.json`, JSON.stringify(geometry, null, 2))
   if (info.project.name === 'desktop')
     for (const [selector, expected] of [
       ['.rd-lesson-header', { x: 278, y: 54, width: 1392, height: 79 }],
@@ -44,6 +53,22 @@ test('024 contains every dashboard component at reference positions', async ({ p
       for (const [key, value] of Object.entries(expected)) expect(Math.abs(box![key as keyof typeof box] - value), `${selector} ${key}`).toBeLessThanOrEqual(2)
     }
   await page.screenshot({ path: `artifacts/visual-qa/reductions-024/${info.project.name}-visualization.png` })
+})
+
+test('024 lesson styles preserve both dashboards after client-side navigation', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'Reference geometry uses the desktop viewport.')
+  await page.getByRole('navigation', { name: 'Algorithm navigation', exact: true }).getByRole('button', { name: 'DAA Extensions', exact: true }).click()
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/reliability-design"]').click()
+  await expect(page.locator('.reliability-design-page')).toBeVisible()
+  const reliability = await page.locator('.reliability-design-page .rd-problem').boundingBox()
+  expect(Math.abs(reliability!.width - 868), 'Reliability retains its own two-column layout').toBeLessThanOrEqual(2)
+  await page.getByRole('navigation', { name: 'Algorithm navigation', exact: true }).getByRole('button', { name: 'Complexity Theory', exact: true }).click()
+  await page.locator('.sidebar-algorithm[href="/complexity-theory/certificates-reductions"]').click()
+  await expect(root(page)).toBeVisible()
+  const reductions = await root(page).locator('.rd-top-grid').boundingBox()
+  expect(Math.abs(reductions!.height - 338), 'Reduction panels retain their reference height').toBeLessThanOrEqual(2)
+  await expect(root(page).locator('.rd-certification')).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
 })
 test('024 distinguishes invalid certificates from NO and verifies the actual complement edges', async ({ page }) => {
   await root(page).getByLabel('Show yes/no mapping', { exact: true }).check()
@@ -155,6 +180,9 @@ test('024 theory, code, predictions, worked proof, notes and dark mode remain us
   await expect(page.getByRole('dialog')).toContainText('at least k vertices')
   await page.getByRole('button', { name: 'Close reduction dialog', exact: true }).click()
   await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await root(page).getByLabel('Reduction proof notes', { exact: true }).fill('Prove both directions; finding certificates is separate.')
   await root(page).locator('.rd-review').click()
   await root(page).getByRole('button', { name: 'Toggle color theme', exact: true }).click()

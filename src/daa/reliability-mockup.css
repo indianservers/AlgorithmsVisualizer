@@ -13,7 +13,7 @@
   color: #0b1d58;
   padding-bottom: 0;
 }
-.rd-toolbar {
+:where(.reliability-design-page) .rd-toolbar {
   height: 37px;
   display: flex;
   align-items: center;
@@ -30,7 +30,7 @@
   color: #137aff;
   flex-shrink: 0;
 }
-.rd-topic-search {
+:where(.reliability-design-page) .rd-topic-search {
   position: relative;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@
   border-radius: 8px;
   color: #7596c9;
 }
-.rd-topic-search input {
+:where(.reliability-design-page) .rd-topic-search input {
   min-width: 0;
   flex: 1;
   border: 0;
@@ -54,11 +54,11 @@
     14px Arial,
     sans-serif;
 }
-.rd-topic-search input::placeholder {
+:where(.reliability-design-page) .rd-topic-search input::placeholder {
   color: #5c7aaa;
   opacity: 1;
 }
-.rd-topic-search kbd {
+:where(.reliability-design-page) .rd-topic-search kbd {
   padding: 5px 9px;
   background: #eef5ff;
   border-radius: 6px;
@@ -66,7 +66,7 @@
   color: #7187b3;
   white-space: nowrap;
 }
-.rd-topic-results {
+:where(.reliability-design-page) .rd-topic-results {
   position: absolute;
   left: 0;
   right: 0;
@@ -88,7 +88,7 @@
   font-size: 14px;
   color: #1a477d;
 }
-.rd-topic-results p {
+:where(.reliability-design-page) .rd-topic-results p {
   padding: 10px;
   font-size: 13px;
 }
@@ -106,7 +106,7 @@
   border-radius: 24px;
   font-size: 13px;
 }
-.rd-hero {
+:where(.reliability-design-page) .rd-hero {
   height: 72px;
   margin: 8px -14px 1px -9px;
   padding: 0 15px;
@@ -120,16 +120,16 @@
   width: 42px;
   height: 40px;
 }
-.rd-heading {
+:where(.reliability-design-page) .rd-heading {
   min-width: 0;
   flex: 1;
 }
-.rd-heading > div {
+:where(.reliability-design-page) .rd-heading > div {
   display: flex;
   align-items: center;
   gap: 11px;
 }
-.rd-heading h1 {
+:where(.reliability-design-page) .rd-heading h1 {
   font-size: 31.5px;
   line-height: 36px;
   letter-spacing: -0.7px;
@@ -137,7 +137,7 @@
   margin: 0;
   white-space: nowrap;
 }
-.rd-heading > div > span {
+:where(.reliability-design-page) .rd-heading > div > span {
   font-size: 13px;
   font-weight: 600;
   color: #0069fa;
@@ -152,25 +152,25 @@
   color: #5d78aa;
   margin: 0;
 }
-.rd-section-progress {
+:where(.reliability-design-page) .rd-section-progress {
   width: 235px;
   flex-shrink: 0;
   align-self: center;
   transform: translateY(2px);
 }
-.rd-section-progress > span {
+:where(.reliability-design-page) .rd-section-progress > span {
   display: block;
   font-size: 12px;
   color: #5370a5;
   margin-bottom: 9px;
 }
-.rd-progress-track {
+:where(.reliability-design-page) .rd-progress-track {
   height: 8px;
   position: relative;
   background: #d3e2f6;
   border-radius: 6px;
 }
-.rd-progress-track > i {
+:where(.reliability-design-page) .rd-progress-track > i {
   display: block;
   max-width: 100%;
   height: 100%;
@@ -252,23 +252,23 @@
   background: linear-gradient(120deg, #0078ff, #008bff);
   border-color: #007aff;
 }
-.rd-top-grid {
+:where(.reliability-design-page) .rd-top-grid {
   display: grid;
   grid-template-columns: minmax(0, 868fr) minmax(0, 507fr);
   gap: 9px;
 }
-.rd-panel {
+:where(.reliability-design-page) .rd-panel {
   min-width: 0;
   border: 1px solid #d3e5fe;
   border-radius: 12px;
   background: linear-gradient(120deg, #ffffffed, #f8fcffdd);
 }
-.rd-panel > header {
+:where(.reliability-design-page) .rd-panel > header {
   display: flex;
   align-items: flex-start;
   gap: 15px;
 }
-.rd-icon {
+:where(.reliability-design-page) .rd-icon {
   width: 28px;
   height: 29px;
   color: #007bff;
@@ -283,14 +283,14 @@
   margin: 0;
   color: #081750;
 }
-.rd-problem {
+:where(.reliability-design-page) .rd-problem {
   height: 345px;
   padding: 14px 15px 8px;
 }
-.rd-problem-heading {
+:where(.reliability-design-page) .rd-problem-heading {
   height: 70px;
 }
-.rd-problem-heading h2 {
+:where(.reliability-design-page) .rd-problem-heading h2 {
   font-size: 20px;
   margin-top: -2px;
 }
@@ -300,13 +300,13 @@
   color: #5a77aa;
   margin: 3px 0 0;
 }
-.rd-problem-body {
+:where(.reliability-design-page) .rd-problem-body {
   display: grid;
   grid-template-columns: 238px minmax(0, 1fr);
   gap: 12px;
   min-width: 0;
 }
-.rd-input {
+:where(.reliability-design-page) .rd-input {
   height: 251px;
   padding: 10px 11px 5px;
   border: 1px solid #d4e7ff;
@@ -314,13 +314,13 @@
   background: #eff8ffb8;
   min-width: 0;
 }
-.rd-input h3 {
+:where(.reliability-design-page) .rd-input h3 {
   font-size: 14px;
   line-height: 18px;
   margin: 0 0 1px;
   color: #0072ff;
 }
-.rd-input label {
+:where(.reliability-design-page) .rd-input label {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -331,10 +331,10 @@
   margin-top: 6px;
   white-space: nowrap;
 }
-.rd-input label:first-of-type {
+:where(.reliability-design-page) .rd-input label:first-of-type {
   margin-top: 0;
 }
-.rd-input input[type='number'] {
+:where(.reliability-design-page) .rd-input input[type='number'] {
   width: 83px;
   height: 30px;
   padding: 4px 8px;
@@ -345,13 +345,13 @@
   font-size: 15px;
   min-width: 0;
 }
-.rd-input label.rd-probability-input {
+:where(.reliability-design-page) .rd-input label.rd-probability-input {
   display: block;
   margin-top: 12px;
   font-size: 12px;
   line-height: 16px;
 }
-.rd-probability-input input {
+:where(.reliability-design-page) .rd-probability-input input {
   display: block;
   width: 100%;
   height: 29px;
@@ -366,7 +366,7 @@
   margin-top: 4px;
   min-width: 0;
 }
-.rd-input > small {
+:where(.reliability-design-page) .rd-input > small {
   display: block;
   font-size: 10px;
   color: #5e7db4;
@@ -390,7 +390,7 @@
   padding: 5px 10px;
   box-shadow: 0 2px 5px #b5d5fa;
 }
-.rd-input-actions {
+:where(.reliability-design-page) .rd-input-actions {
   display: flex;
   gap: 7px;
   margin-top: 6px;
@@ -410,7 +410,7 @@
   font-size: 11px;
   white-space: nowrap;
 }
-.rd-system-scroll {
+:where(.reliability-design-page) .rd-system-scroll {
   overflow: auto;
   min-width: 0;
   height: 251px;
@@ -418,53 +418,53 @@
   border-radius: 11px;
   background: #ffffff66;
 }
-.rd-system {
+:where(.reliability-design-page) .rd-system {
   display: block;
   height: 251px;
   font-family: Arial, sans-serif;
 }
-.rd-system-title {
+:where(.reliability-design-page) .rd-system-title {
   font-size: 13px;
   font-weight: 700;
   fill: #06134e;
 }
-.rd-flow-line {
+:where(.reliability-design-page) .rd-flow-line {
   stroke: #0078ff;
   stroke-width: 2;
 }
-.rd-stage {
+:where(.reliability-design-page) .rd-stage {
   cursor: pointer;
   outline: none;
 }
-.rd-stage:focus-visible > rect:nth-of-type(2) {
+:where(.reliability-design-page) .rd-stage:focus-visible > rect:nth-of-type(2) {
   stroke: #d29e00;
   stroke-width: 3;
 }
-.rd-stage-title {
+:where(.reliability-design-page) .rd-stage-title {
   font-size: 12px;
   font-weight: 700;
 }
-.rd-component-letter {
+:where(.reliability-design-page) .rd-component-letter {
   font-size: 12px;
 }
-.rd-stage-caption {
+:where(.reliability-design-page) .rd-stage-caption {
   font-size: 12px;
   fill: #123277;
 }
-.rd-system-result {
+:where(.reliability-design-page) .rd-system-result {
   font-size: 11px;
   fill: #122356;
   font-weight: 600;
 }
-.rd-chart {
+:where(.reliability-design-page) .rd-chart {
   height: 345px;
   padding: 14px 15px 17px;
 }
-.rd-chart > header {
+:where(.reliability-design-page) .rd-chart > header {
   height: 54px;
   gap: 15px;
 }
-.rd-chart h2 {
+:where(.reliability-design-page) .rd-chart h2 {
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -487,13 +487,13 @@
   margin: 4px 0 0;
   white-space: nowrap;
 }
-.rd-chart-scroll {
+:where(.reliability-design-page) .rd-chart-scroll {
   min-width: 0;
   overflow: auto;
   margin-top: -10px;
   padding-top: 10px;
 }
-.rd-budget-chart {
+:where(.reliability-design-page) .rd-budget-chart {
   display: block;
   width: 100%;
   min-width: 474px;
@@ -501,66 +501,66 @@
   font-family: Arial, sans-serif;
   overflow: visible;
 }
-.rd-grid-line {
+:where(.reliability-design-page) .rd-grid-line {
   stroke: #dfebfc;
   stroke-width: 1;
 }
-.rd-axis {
+:where(.reliability-design-page) .rd-axis {
   stroke: #93acd1;
   stroke-width: 1.2;
   fill: none;
 }
-.rd-curve-line {
+:where(.reliability-design-page) .rd-curve-line {
   fill: none;
   stroke: #087aff;
   stroke-width: 2.2;
 }
-.rd-chart-guide {
+:where(.reliability-design-page) .rd-chart-guide {
   stroke: #449aff;
   stroke-width: 1;
   stroke-dasharray: 7 6;
 }
-.rd-chart-tick {
+:where(.reliability-design-page) .rd-chart-tick {
   font-size: 12px;
   fill: #254d89;
 }
-.rd-chart-label {
+:where(.reliability-design-page) .rd-chart-label {
   font-size: 13px;
   fill: #123476;
 }
-.rd-chart-point {
+:where(.reliability-design-page) .rd-chart-point {
   cursor: pointer;
   outline: none;
 }
-.rd-chart-point:focus-visible circle {
+:where(.reliability-design-page) .rd-chart-point:focus-visible circle {
   stroke: #e0a500;
   stroke-width: 3;
 }
-.rd-chart-tooltip rect {
+:where(.reliability-design-page) .rd-chart-tooltip rect {
   fill: #fffffff5;
   stroke: #d4e5fb;
   filter: drop-shadow(0 3px 5px #7e9bc133);
 }
-.rd-chart-tooltip text {
+:where(.reliability-design-page) .rd-chart-tooltip text {
   font-size: 12px;
   font-weight: 600;
   fill: #0b1b54;
 }
-.rd-middle-grid {
+:where(.reliability-design-page) .rd-middle-grid {
   display: grid;
   grid-template-columns: minmax(0, 769fr) minmax(0, 606fr);
   gap: 9px;
   margin-top: 11px;
 }
-.rd-table-panel {
+:where(.reliability-design-page) .rd-table-panel {
   height: 248px;
   padding: 10px 7px 14px 13px;
 }
-.rd-table-panel > header {
+:where(.reliability-design-page) .rd-table-panel > header {
   gap: 18px;
   min-height: 40px;
 }
-.rd-table-panel h2 {
+:where(.reliability-design-page) .rd-table-panel h2 {
   font-size: 18px;
   line-height: 23px;
   margin-top: -2px;
@@ -571,14 +571,14 @@
   color: #5b78ad;
   margin: 1px 0 0;
 }
-.rd-table-scroll {
+:where(.reliability-design-page) .rd-table-scroll {
   height: 178px;
   overflow: auto;
   border: 1px solid #bcd9f8;
   border-radius: 8px;
   margin-top: 3px;
 }
-.rd-table-scroll table {
+:where(.reliability-design-page) .rd-table-scroll table {
   border-collapse: collapse;
   width: 100%;
   table-layout: fixed;
@@ -586,7 +586,7 @@
   font-size: 12px;
   color: #15345e;
 }
-.rd-table-scroll th {
+:where(.reliability-design-page) .rd-table-scroll th {
   background: linear-gradient(#eff7ff, #dfeeff);
   height: 29px;
   border-right: 1px solid #d7e6fc;
@@ -597,17 +597,17 @@
   top: 0;
   z-index: 1;
 }
-.rd-table-scroll th:first-child {
+:where(.reliability-design-page) .rd-table-scroll th:first-child {
   width: 60px;
 }
-.rd-table-scroll tbody th {
+:where(.reliability-design-page) .rd-table-scroll tbody th {
   position: sticky;
   left: 0;
   top: auto;
   background: #f3f9ff;
   z-index: 2;
 }
-.rd-table-scroll td {
+:where(.reliability-design-page) .rd-table-scroll td {
   height: 29.4px;
   padding: 0;
   border-right: 1px solid #ffffffe6;
@@ -638,22 +638,22 @@
   background: #ffffffbb;
   color: #0c2b78;
 }
-.rd-recurrence {
+:where(.reliability-design-page) .rd-recurrence {
   height: 250px;
   padding: 10px 11px 5px 15px;
 }
-.rd-recurrence > header {
+:where(.reliability-design-page) .rd-recurrence > header {
   height: 40px;
   gap: 13px;
 }
-.rd-recurrence .rd-icon {
+:where(.reliability-design-page) .rd-recurrence .rd-icon {
   width: 28px;
   height: 29px;
   background: #ede6ff;
   border-radius: 50%;
   color: #7455f7;
 }
-.rd-recurrence h2 {
+:where(.reliability-design-page) .rd-recurrence h2 {
   font-size: 18px;
   line-height: 23px;
   margin-top: -2px;
@@ -664,14 +664,14 @@
   color: #5c78ad;
   margin: 1px 0 0;
 }
-.rd-phases {
+:where(.reliability-design-page) .rd-phases {
   height: 53px;
   display: flex;
   justify-content: space-around;
   position: relative;
   margin-top: -6px;
 }
-.rd-phases:before {
+:where(.reliability-design-page) .rd-phases:before {
   content: '';
   position: absolute;
   top: 14px;
@@ -695,7 +695,7 @@
   font-size: 11px;
   box-shadow: none;
 }
-.rd-phases b {
+:where(.reliability-design-page) .rd-phases b {
   width: 31px;
   height: 31px;
   border: 1px solid #bdd6fb;
@@ -707,17 +707,17 @@
   place-items: center;
   font-weight: 500;
 }
-.rd-phases button[aria-pressed='true'] b {
+:where(.reliability-design-page) .rd-phases button[aria-pressed='true'] b {
   color: #fff;
   background: linear-gradient(#2e9bff, #0073ff);
   border-color: #0075ff;
   box-shadow: 0 1px 9px #9bc6ff;
 }
-.rd-phases button[aria-pressed='true'] span {
+:where(.reliability-design-page) .rd-phases button[aria-pressed='true'] span {
   font-weight: 600;
   color: #173d9e;
 }
-.rd-transition {
+:where(.reliability-design-page) .rd-transition {
   height: 141px;
   border: 1px solid #d6e8ff;
   border-radius: 8px;
@@ -726,13 +726,13 @@
   padding: 6px 8px;
   margin-top: 4px;
 }
-.rd-transition h3 {
+:where(.reliability-design-page) .rd-transition h3 {
   font-size: 13px;
   line-height: 18px;
   color: #0077ff;
   margin: 0;
 }
-.rd-formula {
+:where(.reliability-design-page) .rd-formula {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -744,7 +744,7 @@
   white-space: nowrap;
   color: #224c97;
 }
-.rd-max {
+:where(.reliability-design-page) .rd-max {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -752,11 +752,11 @@
   line-height: 21px;
   padding-top: 8px;
 }
-.rd-max small {
+:where(.reliability-design-page) .rd-max small {
   font-size: 10px;
   line-height: 12px;
 }
-.rd-transition ul {
+:where(.reliability-design-page) .rd-transition ul {
   margin: 2px 0 0;
   padding-left: 27px;
   font-size: 12px;
@@ -769,48 +769,48 @@
   color: #365b91;
   margin: 5px 0;
 }
-.rd-mini-candidates {
+:where(.reliability-design-page) .rd-mini-candidates {
   overflow: auto;
   max-height: 82px;
   border: 1px solid #cfdef3;
   border-radius: 5px;
 }
-.rd-mini-candidates table {
+:where(.reliability-design-page) .rd-mini-candidates table {
   border-collapse: collapse;
   width: 100%;
   font-size: 11px;
   text-align: center;
   color: #224b80;
 }
-.rd-mini-candidates :is(th, td) {
+:where(.reliability-design-page) .rd-mini-candidates :is(th, td) {
   padding: 3px 6px;
   border-bottom: 1px solid #d7e4f8;
 }
-.rd-mini-candidates th {
+:where(.reliability-design-page) .rd-mini-candidates th {
   position: sticky;
   top: 0;
   background: #edf5ff;
 }
-.rd-bottom-grid {
+:where(.reliability-design-page) .rd-bottom-grid {
   display: grid;
   grid-template-columns: minmax(0, 769fr) minmax(0, 316fr) minmax(0, 281fr);
   gap: 9px;
   margin-top: 8px;
 }
-.rd-allocation {
+:where(.reliability-design-page) .rd-allocation {
   height: 136px;
   padding: 8px 15px 5px;
 }
-.rd-allocation > header {
+:where(.reliability-design-page) .rd-allocation > header {
   gap: 14px;
   height: 33px;
 }
-.rd-allocation .rd-icon {
+:where(.reliability-design-page) .rd-allocation .rd-icon {
   color: #f4a000;
   width: 29px;
   height: 28px;
 }
-.rd-allocation h2 {
+:where(.reliability-design-page) .rd-allocation h2 {
   font-size: 15px;
   line-height: 20px;
 }
@@ -820,22 +820,22 @@
   color: #5876ac;
   margin: 0;
 }
-.rd-allocation-body {
+:where(.reliability-design-page) .rd-allocation-body {
   display: grid;
   grid-template-columns: minmax(0, 506fr) minmax(0, 218fr);
   gap: 12px;
   margin-top: 5px;
 }
-.rd-copy-scroll {
+:where(.reliability-design-page) .rd-copy-scroll {
   overflow: auto;
   min-width: 0;
   height: 84px;
 }
-.rd-copy-cards {
+:where(.reliability-design-page) .rd-copy-cards {
   display: flex;
   height: 84px;
 }
-.rd-copy-piece {
+:where(.reliability-design-page) .rd-copy-piece {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -854,26 +854,26 @@
   font-family: Arial, sans-serif;
   box-shadow: none;
 }
-.rd-copy-piece > b,
-.rd-copy-piece button > b {
+:where(.reliability-design-page) .rd-copy-piece > b,
+:where(.reliability-design-page) .rd-copy-piece button > b {
   font-size: 12px;
   line-height: 14px;
   color: #163052;
 }
-.rd-copy-piece small {
+:where(.reliability-design-page) .rd-copy-piece small {
   font-size: 11px;
   line-height: 12px;
 }
-.rd-copy-piece strong {
+:where(.reliability-design-page) .rd-copy-piece strong {
   font-size: 24px;
   line-height: 25px;
   font-weight: 600;
 }
-.rd-copy-piece span {
+:where(.reliability-design-page) .rd-copy-piece span {
   font-size: 11px;
   line-height: 12px;
 }
-.rd-copy-piece > svg {
+:where(.reliability-design-page) .rd-copy-piece > svg {
   width: 20px;
   color: #007aff;
   margin: 0 5px 0 0;
@@ -896,52 +896,52 @@
   font-family: Arial, sans-serif;
   box-shadow: none;
 }
-.rd-final-reliability > span {
+:where(.reliability-design-page) .rd-final-reliability > span {
   display: flex;
   align-items: center;
   gap: 8px;
   white-space: nowrap;
 }
-.rd-final-reliability svg {
+:where(.reliability-design-page) .rd-final-reliability svg {
   color: #00ab67;
 }
-.rd-final-reliability b {
+:where(.reliability-design-page) .rd-final-reliability b {
   font-size: 13px;
   color: #164c50;
 }
-.rd-final-reliability strong {
+:where(.reliability-design-page) .rd-final-reliability strong {
   font-size: 29px;
   line-height: 32px;
   color: #087b72;
 }
-.rd-final-reliability small {
+:where(.reliability-design-page) .rd-final-reliability small {
   font-size: 12px;
   line-height: 16px;
 }
-.rd-correctness,
-.rd-complexity {
+:where(.reliability-design-page) .rd-correctness,
+:where(.reliability-design-page) .rd-complexity {
   height: 134px;
   margin-top: 2px;
   padding: 6px 8px;
   overflow: hidden;
 }
-.rd-correctness > header {
+:where(.reliability-design-page) .rd-correctness > header {
   gap: 7px;
   position: relative;
   z-index: 1;
   min-height: 24px;
 }
-.rd-correctness .rd-icon {
+:where(.reliability-design-page) .rd-correctness .rd-icon {
   color: #00aa55;
   width: 28px;
   height: 24px;
 }
-.rd-correctness h2,
-.rd-complexity h2 {
+:where(.reliability-design-page) .rd-correctness h2,
+:where(.reliability-design-page) .rd-complexity h2 {
   font-size: 14px;
   line-height: 20px;
 }
-.rd-correctness > div {
+:where(.reliability-design-page) .rd-correctness > div {
   display: flex;
   gap: 10px;
   border: 1px solid #dbf8e8;
@@ -953,7 +953,7 @@
   margin-right: 3px;
   height: 111px;
 }
-.rd-correctness > div > svg {
+:where(.reliability-design-page) .rd-correctness > div > svg {
   color: #00aa62;
   flex-shrink: 0;
   margin-top: 4px;
@@ -964,18 +964,18 @@
   color: #2b7180;
   margin: 0;
 }
-.rd-complexity > header {
+:where(.reliability-design-page) .rd-complexity > header {
   gap: 9px;
   min-height: 24px;
 }
-.rd-complexity .rd-icon {
+:where(.reliability-design-page) .rd-complexity .rd-icon {
   width: 28px;
   height: 25px;
 }
-.rd-complexity > div {
+:where(.reliability-design-page) .rd-complexity > div {
   margin-left: 39px;
 }
-.rd-complexity b {
+:where(.reliability-design-page) .rd-complexity b {
   font-size: 13px;
   line-height: 17px;
   color: #153c85;
@@ -1001,7 +1001,7 @@
 .app-shell:has(.reliability-design-page) .aimer-site-footer {
   display: none;
 }
-.rd-has-feedback {
+:where(.reliability-design-page) .rd-has-feedback {
   height: auto;
   min-height: 345px;
 }
@@ -1025,16 +1025,16 @@
   font-size: 14px;
   line-height: 22px;
 }
-.rd-learning,
-.rd-experiments {
+:where(.reliability-design-page) .rd-learning,
+:where(.reliability-design-page) .rd-experiments {
   display: grid;
   gap: 14px;
 }
-.rd-learning .rd-panel,
-.rd-experiments .rd-panel,
-.rd-code,
-.rd-practice,
-.rd-notes {
+:where(.reliability-design-page) .rd-learning .rd-panel,
+:where(.reliability-design-page) .rd-experiments .rd-panel,
+:where(.reliability-design-page) .rd-code,
+:where(.reliability-design-page) .rd-practice,
+:where(.reliability-design-page) .rd-notes {
   padding: 24px;
 }
 .reliability-design-page :is(.rd-learning, .rd-experiments, .rd-code, .rd-practice, .rd-notes, .rd-dialog) p {
@@ -1042,10 +1042,10 @@
   line-height: 1.75;
   color: #36517a;
 }
-.rd-learning h3 {
+:where(.reliability-design-page) .rd-learning h3 {
   font-size: 19px;
 }
-.rd-code pre {
+:where(.reliability-design-page) .rd-code pre {
   padding: 20px;
   border: 1px solid #cadef8;
   border-radius: 10px;
@@ -1082,8 +1082,8 @@
     sans-serif;
   resize: vertical;
 }
-.rd-practice select,
-.rd-experiments select {
+:where(.reliability-design-page) .rd-practice select,
+:where(.reliability-design-page) .rd-experiments select {
   padding: 9px 11px;
   border: 1px solid #c7ddfa;
   border-radius: 8px;
@@ -1094,26 +1094,26 @@
   color: #24477d;
   background: #fff;
 }
-.rd-experiment-controls,
-.rd-budget-list {
+:where(.reliability-design-page) .rd-experiment-controls,
+:where(.reliability-design-page) .rd-budget-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
   margin: 12px 0;
 }
-.rd-fill-range {
+:where(.reliability-design-page) .rd-fill-range {
   display: block;
   font-size: 14px;
   margin: 15px 0;
 }
-.rd-fill-range input {
+:where(.reliability-design-page) .rd-fill-range input {
   display: block;
   width: 100%;
   accent-color: #007aff;
   margin: 12px 0;
 }
-.rd-dialog {
+:where(.reliability-design-page) .rd-dialog {
   width: 720px;
   max-width: calc(100vw - 28px);
   border: 1px solid #bfd7f7;
@@ -1122,13 +1122,13 @@
   background: #fff;
   color: #173a6b;
 }
-.rd-dialog::backdrop {
+:where(.reliability-design-page) .rd-dialog::backdrop {
   background: #00173266;
 }
-.rd-dialog h2 {
+:where(.reliability-design-page) .rd-dialog h2 {
   padding-right: 24px;
 }
-.rd-close {
+:where(.reliability-design-page) .rd-close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -1139,31 +1139,31 @@
   color: #345e93;
   cursor: pointer;
 }
-.rd-candidate-scroll {
+:where(.reliability-design-page) .rd-candidate-scroll {
   overflow: auto;
   max-height: 420px;
   border: 1px solid #cfdef5;
   border-radius: 9px;
   margin-top: 15px;
 }
-.rd-candidate-scroll table {
+:where(.reliability-design-page) .rd-candidate-scroll table {
   border-collapse: collapse;
   width: 100%;
   min-width: 570px;
   font-size: 13px;
   text-align: center;
 }
-.rd-candidate-scroll :is(th, td) {
+:where(.reliability-design-page) .rd-candidate-scroll :is(th, td) {
   border-bottom: 1px solid #d9e6f9;
   padding: 8px;
 }
-.rd-candidate-scroll th {
+:where(.reliability-design-page) .rd-candidate-scroll th {
   position: sticky;
   top: 0;
   background: #edf5ff;
   color: #2e5084;
 }
-.rd-best-candidate {
+:where(.reliability-design-page) .rd-best-candidate {
   background: #dff8ea;
   font-weight: 600;
 }
@@ -1223,13 +1223,13 @@
   }
 }
 @media (max-width: 1499px) {
-  .rd-heading h1 {
+  :where(.reliability-design-page) .rd-heading h1 {
     font-size: 27px;
   }
-  .rd-heading p {
+  :where(.reliability-design-page) .rd-heading p {
     font-size: 13px !important;
   }
-  .rd-section-progress {
+  :where(.reliability-design-page) .rd-section-progress {
     width: 180px;
   }
   .reliability-design-page .rd-continue {
@@ -1237,117 +1237,117 @@
     margin-left: 8px;
     font-size: 14px;
   }
-  .rd-heading > div {
+  :where(.reliability-design-page) .rd-heading > div {
     flex-wrap: wrap;
     gap: 2px 9px;
   }
-  .rd-heading > div > span {
+  :where(.reliability-design-page) .rd-heading > div > span {
     font-size: 11px;
     padding: 3px 9px;
   }
-  .rd-hero {
+  :where(.reliability-design-page) .rd-hero {
     min-height: 72px;
     height: auto;
     padding-top: 7px;
     padding-bottom: 7px;
   }
-  .rd-problem {
+  :where(.reliability-design-page) .rd-problem {
     height: auto;
     min-height: 345px;
   }
-  .rd-problem-heading {
+  :where(.reliability-design-page) .rd-problem-heading {
     height: auto;
     min-height: 70px;
   }
-  .rd-problem-heading p {
+  :where(.reliability-design-page) .rd-problem-heading p {
     font-size: 11px !important;
     line-height: 16px !important;
   }
-  .rd-problem-body {
+  :where(.reliability-design-page) .rd-problem-body {
     grid-template-columns: 220px minmax(0, 1fr);
   }
-  .rd-chart header p {
+  :where(.reliability-design-page) .rd-chart header p {
     white-space: normal;
     font-size: 12px !important;
   }
-  .rd-formula {
+  :where(.reliability-design-page) .rd-formula {
     font-size: 15px;
     gap: 7px;
   }
-  .rd-max {
+  :where(.reliability-design-page) .rd-max {
     font-size: 17px;
   }
-  .rd-transition ul {
+  :where(.reliability-design-page) .rd-transition ul {
     font-size: 10.5px;
     line-height: 15px;
   }
-  .rd-allocation-body {
+  :where(.reliability-design-page) .rd-allocation-body {
     grid-template-columns: minmax(0, 1fr) 190px;
     gap: 8px;
   }
-  .rd-final-reliability b {
+  :where(.reliability-design-page) .rd-final-reliability b {
     font-size: 11px;
   }
-  .rd-final-reliability strong {
+  :where(.reliability-design-page) .rd-final-reliability strong {
     font-size: 27px;
   }
-  .rd-correctness p {
+  :where(.reliability-design-page) .rd-correctness p {
     font-size: 10.5px !important;
     line-height: 13px !important;
   }
-  .rd-complexity > div {
+  :where(.reliability-design-page) .rd-complexity > div {
     margin-left: 0;
   }
-  .rd-toolbar .rd-topic-search {
+  :where(.reliability-design-page) .rd-toolbar .rd-topic-search {
     width: 450px;
   }
 }
 @media (max-width: 1150px) {
-  .rd-top-grid,
-  .rd-middle-grid {
+  :where(.reliability-design-page) .rd-top-grid,
+  :where(.reliability-design-page) .rd-middle-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .rd-chart {
+  :where(.reliability-design-page) .rd-chart {
     height: 345px;
   }
-  .rd-bottom-grid {
+  :where(.reliability-design-page) .rd-bottom-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-  .rd-allocation {
+  :where(.reliability-design-page) .rd-allocation {
     grid-column: 1/-1;
   }
-  .rd-correctness,
-  .rd-complexity {
+  :where(.reliability-design-page) .rd-correctness,
+  :where(.reliability-design-page) .rd-complexity {
     height: auto;
     min-height: 134px;
   }
-  .rd-section-progress {
+  :where(.reliability-design-page) .rd-section-progress {
     display: none;
   }
-  .rd-hero {
+  :where(.reliability-design-page) .rd-hero {
     gap: 12px;
   }
-  .rd-heading {
+  :where(.reliability-design-page) .rd-heading {
     flex: 1;
   }
-  .rd-toolbar .rd-topic-search {
+  :where(.reliability-design-page) .rd-toolbar .rd-topic-search {
     flex: 1;
     min-width: 0;
   }
-  .rd-toolbar {
+  :where(.reliability-design-page) .rd-toolbar {
     height: auto;
     min-height: 37px;
   }
-  .rd-recurrence {
+  :where(.reliability-design-page) .rd-recurrence {
     height: 250px;
   }
-  .rd-formula {
+  :where(.reliability-design-page) .rd-formula {
     font-size: 18px;
   }
-  .rd-transition ul {
+  :where(.reliability-design-page) .rd-transition ul {
     font-size: 12px;
   }
-  .rd-correctness p {
+  :where(.reliability-design-page) .rd-correctness p {
     font-size: 12px !important;
     line-height: 16px !important;
   }
@@ -1359,20 +1359,20 @@
   .app-shell .workspace.category-page:has(.reliability-design-page) {
     padding: 12px;
   }
-  .rd-toolbar {
+  :where(.reliability-design-page) .rd-toolbar {
     flex-wrap: wrap;
     margin-left: 0;
     gap: 10px;
   }
-  .rd-toolbar .rd-topic-search {
+  :where(.reliability-design-page) .rd-toolbar .rd-topic-search {
     flex-basis: calc(100% - 55px);
     width: auto;
     max-width: calc(100% - 53px);
   }
-  .rd-topic-search input {
+  :where(.reliability-design-page) .rd-topic-search input {
     font-size: 12px;
   }
-  .rd-topic-search kbd {
+  :where(.reliability-design-page) .rd-topic-search kbd {
     display: none;
   }
   .reliability-design-page .rd-toolbar .mom-study {
@@ -1387,24 +1387,24 @@
     min-height: 36px;
     font-size: 12px;
   }
-  .rd-hero {
+  :where(.reliability-design-page) .rd-hero {
     margin: 10px 0 8px;
     padding: 12px;
     flex-wrap: wrap;
     gap: 10px;
   }
-  .rd-heading {
+  :where(.reliability-design-page) .rd-heading {
     flex-basis: calc(100% - 55px);
   }
-  .rd-heading h1 {
+  :where(.reliability-design-page) .rd-heading h1 {
     font-size: 24px;
     line-height: 28px;
     white-space: normal;
   }
-  .rd-heading > div > span {
+  :where(.reliability-design-page) .rd-heading > div > span {
     font-size: 11px;
   }
-  .rd-heading p {
+  :where(.reliability-design-page) .rd-heading p {
     font-size: 12px !important;
     line-height: 17px !important;
     margin-top: 3px !important;
@@ -1429,120 +1429,120 @@
   .reliability-design-page .mom-tabs button:nth-child(2) {
     min-width: 110px;
   }
-  .rd-problem-body {
+  :where(.reliability-design-page) .rd-problem-body {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
-  .rd-problem-heading {
+  :where(.reliability-design-page) .rd-problem-heading {
     min-height: 98px;
     margin-bottom: 8px;
   }
-  .rd-problem-heading h2 {
+  :where(.reliability-design-page) .rd-problem-heading h2 {
     font-size: 18px;
   }
-  .rd-problem-heading p {
+  :where(.reliability-design-page) .rd-problem-heading p {
     font-size: 12px !important;
     line-height: 17px !important;
   }
-  .rd-input {
+  :where(.reliability-design-page) .rd-input {
     width: 100%;
     height: 251px;
   }
-  .rd-system-scroll {
+  :where(.reliability-design-page) .rd-system-scroll {
     width: 100%;
     height: 251px;
   }
-  .rd-problem {
+  :where(.reliability-design-page) .rd-problem {
     padding: 12px;
   }
-  .rd-chart {
+  :where(.reliability-design-page) .rd-chart {
     padding: 14px 12px 17px;
   }
-  .rd-chart h2 {
+  :where(.reliability-design-page) .rd-chart h2 {
     font-size: 18px;
   }
-  .rd-chart > header {
+  :where(.reliability-design-page) .rd-chart > header {
     gap: 10px;
   }
-  .rd-budget-chart {
+  :where(.reliability-design-page) .rd-budget-chart {
     min-width: 474px;
   }
-  .rd-table-panel h2,
-  .rd-recurrence h2 {
+  :where(.reliability-design-page) .rd-table-panel h2,
+  :where(.reliability-design-page) .rd-recurrence h2 {
     font-size: 16px;
     line-height: 21px;
   }
-  .rd-table-panel header p,
-  .rd-recurrence header p {
+  :where(.reliability-design-page) .rd-table-panel header p,
+  :where(.reliability-design-page) .rd-recurrence header p {
     font-size: 11px !important;
     line-height: 15px !important;
   }
-  .rd-table-panel {
+  :where(.reliability-design-page) .rd-table-panel {
     padding-top: 10px;
   }
-  .rd-table-panel > header {
+  :where(.reliability-design-page) .rd-table-panel > header {
     height: auto;
     min-height: 48px;
     gap: 10px;
   }
-  .rd-table-scroll {
+  :where(.reliability-design-page) .rd-table-scroll {
     height: 170px;
   }
-  .rd-recurrence {
+  :where(.reliability-design-page) .rd-recurrence {
     padding-left: 12px;
     padding-right: 12px;
     height: 270px;
   }
-  .rd-recurrence > header {
+  :where(.reliability-design-page) .rd-recurrence > header {
     height: 50px;
     gap: 10px;
   }
-  .rd-transition {
+  :where(.reliability-design-page) .rd-transition {
     height: 151px;
   }
-  .rd-formula {
+  :where(.reliability-design-page) .rd-formula {
     font-size: 13px;
     gap: 5px;
     justify-content: flex-start;
   }
-  .rd-max {
+  :where(.reliability-design-page) .rd-max {
     font-size: 15px;
   }
-  .rd-max small {
+  :where(.reliability-design-page) .rd-max small {
     font-size: 8px;
   }
-  .rd-transition ul {
+  :where(.reliability-design-page) .rd-transition ul {
     font-size: 10px;
     line-height: 14px;
     padding-left: 18px;
   }
-  .rd-phases button {
+  :where(.reliability-design-page) .rd-phases button {
     min-width: 60px !important;
     font-size: 10px !important;
     padding: 0 4px !important;
   }
-  .rd-bottom-grid {
+  :where(.reliability-design-page) .rd-bottom-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .rd-allocation {
+  :where(.reliability-design-page) .rd-allocation {
     grid-column: auto;
     height: auto;
     min-height: 270px;
     padding: 10px 12px;
   }
-  .rd-allocation > header {
+  :where(.reliability-design-page) .rd-allocation > header {
     height: auto;
     min-height: 40px;
     gap: 10px;
   }
-  .rd-allocation h2 {
+  :where(.reliability-design-page) .rd-allocation h2 {
     font-size: 14px;
   }
-  .rd-allocation header p {
+  :where(.reliability-design-page) .rd-allocation header p {
     font-size: 11px !important;
     line-height: 15px !important;
   }
-  .rd-allocation-body {
+  :where(.reliability-design-page) .rd-allocation-body {
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     margin-top: 8px;
@@ -1551,47 +1551,47 @@
     top: 0;
     height: 108px;
   }
-  .rd-final-reliability b {
+  :where(.reliability-design-page) .rd-final-reliability b {
     font-size: 13px;
   }
-  .rd-correctness,
-  .rd-complexity {
+  :where(.reliability-design-page) .rd-correctness,
+  :where(.reliability-design-page) .rd-complexity {
     min-height: 145px;
     height: auto;
     overflow: visible;
   }
-  .rd-correctness > div {
+  :where(.reliability-design-page) .rd-correctness > div {
     min-height: 111px;
     height: auto;
     margin-top: -4px;
   }
-  .rd-complexity > div {
+  :where(.reliability-design-page) .rd-complexity > div {
     margin-left: 39px;
   }
-  .rd-complexity p {
+  :where(.reliability-design-page) .rd-complexity p {
     font-size: 12px !important;
     line-height: 16px !important;
   }
-  .rd-learning .rd-panel,
-  .rd-experiments .rd-panel,
-  .rd-code,
-  .rd-practice,
-  .rd-notes {
+  :where(.reliability-design-page) .rd-learning .rd-panel,
+  :where(.reliability-design-page) .rd-experiments .rd-panel,
+  :where(.reliability-design-page) .rd-code,
+  :where(.reliability-design-page) .rd-practice,
+  :where(.reliability-design-page) .rd-notes {
     padding: 16px;
   }
-  .rd-experiment-controls button {
+  :where(.reliability-design-page) .rd-experiment-controls button {
     font-size: 12px !important;
   }
-  .rd-dialog {
+  :where(.reliability-design-page) .rd-dialog {
     padding: 20px;
   }
-  .rd-dialog p {
+  :where(.reliability-design-page) .rd-dialog p {
     overflow-wrap: anywhere;
   }
-  .rd-dialog h2 {
+  :where(.reliability-design-page) .rd-dialog h2 {
     font-size: 18px;
   }
-  .rd-dialog button {
+  :where(.reliability-design-page) .rd-dialog button {
     max-width: 100%;
   }
 }
@@ -1613,73 +1613,166 @@
   border-color: #3d5a80;
   color: #dceaff;
 }
-[data-theme='dark'] .rd-input label,
-[data-theme='dark'] .rd-input small {
+[data-theme='dark'] :where(.reliability-design-page) .rd-input label,
+[data-theme='dark'] :where(.reliability-design-page) .rd-input small {
   color: #b4c9e7;
 }
-[data-theme='dark'] .rd-topic-search input::placeholder {
+[data-theme='dark'] :where(.reliability-design-page) .rd-topic-search input::placeholder {
   color: #aac3e8;
 }
-[data-theme='dark'] .rd-topic-search kbd {
+[data-theme='dark'] :where(.reliability-design-page) .rd-topic-search kbd {
   background: #284464;
   color: #c5d9f6;
 }
-[data-theme='dark'] .rd-system-title,
-[data-theme='dark'] .rd-stage-caption {
+[data-theme='dark'] :where(.reliability-design-page) .rd-system-title,
+[data-theme='dark'] :where(.reliability-design-page) .rd-stage-caption {
   fill: #d8e9ff;
 }
-[data-theme='dark'] .rd-chart-tick,
-[data-theme='dark'] .rd-chart-label {
+[data-theme='dark'] :where(.reliability-design-page) .rd-chart-tick,
+[data-theme='dark'] :where(.reliability-design-page) .rd-chart-label {
   fill: #bbd1f3;
 }
-[data-theme='dark'] .rd-grid-line {
+[data-theme='dark'] :where(.reliability-design-page) .rd-grid-line {
   stroke: #344f73;
 }
-[data-theme='dark'] .rd-chart-tooltip rect {
+[data-theme='dark'] :where(.reliability-design-page) .rd-chart-tooltip rect {
   fill: #203856;
   stroke: #45658d;
 }
-[data-theme='dark'] .rd-chart-tooltip text {
+[data-theme='dark'] :where(.reliability-design-page) .rd-chart-tooltip text {
   fill: #e4efff;
 }
-[data-theme='dark'] .rd-table-scroll tbody th,
-[data-theme='dark'] .rd-table-scroll thead th {
+[data-theme='dark'] :where(.reliability-design-page) .rd-table-scroll tbody th,
+[data-theme='dark'] :where(.reliability-design-page) .rd-table-scroll thead th {
   background: #223c5d;
   color: #d5e5ff;
   border-color: #3d577b;
 }
-[data-theme='dark'] .rd-formula,
-[data-theme='dark'] .rd-transition ul {
+[data-theme='dark'] :where(.reliability-design-page) .rd-formula,
+[data-theme='dark'] :where(.reliability-design-page) .rd-transition ul {
   color: #c4d8f6;
 }
-[data-theme='dark'] .rd-phases button[aria-pressed='true'] span {
+[data-theme='dark'] :where(.reliability-design-page) .rd-phases button[aria-pressed='true'] span {
   color: #abd1ff;
 }
-[data-theme='dark'] .rd-mini-candidates table {
+[data-theme='dark'] :where(.reliability-design-page) .rd-mini-candidates table {
   color: #d1e2fc;
 }
-[data-theme='dark'] .rd-mini-candidates th,
-[data-theme='dark'] .rd-candidate-scroll th {
+[data-theme='dark'] :where(.reliability-design-page) .rd-mini-candidates th,
+[data-theme='dark'] :where(.reliability-design-page) .rd-candidate-scroll th {
   background: #243e61;
   color: #dbe9ff;
 }
-[data-theme='dark'] .rd-final-reliability {
+[data-theme='dark'] :where(.reliability-design-page) .rd-final-reliability {
   background: linear-gradient(120deg, #193f35, #1e4c40);
   border-color: #3b7c62;
 }
-[data-theme='dark'] .rd-final-reliability :is(b, strong, small) {
+[data-theme='dark'] :where(.reliability-design-page) .rd-final-reliability :is(b, strong, small) {
   color: #b2ebd4;
 }
-[data-theme='dark'] .rd-correctness > div {
+[data-theme='dark'] :where(.reliability-design-page) .rd-correctness > div {
   background: #193e35;
   border-color: #346d55;
 }
-[data-theme='dark'] .rd-complexity b {
+[data-theme='dark'] :where(.reliability-design-page) .rd-complexity b {
   color: #c0d7fc;
 }
-[data-theme='dark'] .rd-best-candidate {
+[data-theme='dark'] :where(.reliability-design-page) .rd-best-candidate {
   background: #1d4b3d;
 }
-[data-theme='dark'] .rd-candidate-scroll :is(th, td) {
+[data-theme='dark'] :where(.reliability-design-page) .rd-candidate-scroll :is(th, td) {
   border-color: #3a5478;
+}
+/* Target 042 details; all values continue to come from the DP model. */
+.reliability-design-page .rd-final-reliability svg,
+.reliability-design-page .rd-correctness > div > svg {
+  color: white;
+  background: linear-gradient(135deg, #20d180, #00aa61);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 2px 7px #00a75d28;
+}
+.reliability-design-page .rd-proof-premise {
+  color: #00784a;
+}
+[data-theme='dark'] .reliability-design-page .rd-proof-premise {
+  color: #91ebbf;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.reliability-design-page) .sidebar-header {
+    padding-top: 11px;
+    padding-bottom: 10px;
+  }
+  .app-shell:has(.reliability-design-page) .sidebar-navigation {
+    overflow-anchor: none;
+  }
+  .app-shell:has(.reliability-design-page) .sidebar-section-label {
+    padding-top: 7px;
+    padding-bottom: 8px;
+  }
+  .app-shell:has(.reliability-design-page) .sidebar-category-toggle {
+    min-height: 32px;
+  }
+  .app-shell:has(.reliability-design-page) .sidebar-algorithm {
+    font-family: inherit;
+    font-size: 13px;
+    padding-left: 34px;
+    min-height: 26px;
+    padding-block: 4px;
+  }
+  .reliability-design-page .mom-tabs button[aria-pressed='true'] {
+    box-shadow:
+      0 0 0 3px #e1efff,
+      inset 0 0 0 1px #56a6ff;
+  }
+  .reliability-design-page .rd-input h3 {
+    transform: translateY(-4px);
+  }
+  .reliability-design-page .rd-input input[type='number']::-webkit-inner-spin-button {
+    opacity: 1;
+  }
+  .reliability-design-page .rd-input-actions > button:first-child {
+    flex: 1.2;
+  }
+  .reliability-design-page .rd-run {
+    margin-top: 8px;
+  }
+  .reliability-design-page .rd-recurrence .rd-icon svg {
+    fill: #9075ff;
+    stroke: #6250ed;
+    padding: 2px;
+    border-radius: 50%;
+    background: #ece8ff;
+  }
+  .reliability-design-page .rd-final-reliability {
+    gap: 4px;
+  }
+  .reliability-design-page .rd-final-reliability strong {
+    font-size: 32px;
+    line-height: 34px;
+  }
+  .reliability-design-page .rd-copy-piece > svg {
+    stroke-width: 3;
+    width: 18px;
+  }
+  .reliability-design-page .rd-correctness p {
+    font-size: 12.5px;
+    line-height: 14px;
+  }
+  .reliability-design-page .rd-proof-premise {
+    display: block;
+  }
+  .reliability-design-page .rd-phases button:first-child {
+    transform: translateX(-3px);
+  }
+  .reliability-design-page .rd-phases button:nth-child(2) {
+    transform: translateX(-7px);
+  }
+  .reliability-design-page .rd-phases button:nth-child(3) {
+    transform: translateX(-13px);
+  }
+  .reliability-design-page .rd-transition ul {
+    margin-top: 6px;
+    line-height: 17px;
+  }
 }

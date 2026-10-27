@@ -81,6 +81,7 @@ export function MockupLessonChrome({
   progress,
   startLabel = 'Start Learning',
   searchPlaceholder = 'Search topics, e.g., dynamic programming, graph algorithms...',
+  showLanguage = true,
 }: {
   title: string
   description: string
@@ -93,6 +94,7 @@ export function MockupLessonChrome({
   progress?: { completed: number; total: number; unit?: 'activities' | 'subtopics' }
   startLabel?: string
   searchPlaceholder?: string
+  showLanguage?: boolean
 } & MockupPageProps) {
   useLocaleRender()
   const navigate = useNavigate(),
@@ -140,7 +142,7 @@ export function MockupLessonChrome({
           {studied ? <Check size={16} /> : <Bookmark size={16} />}
           <span>{tr(studied ? 'Studied' : 'Mark studied')}</span>
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={showLanguage} />
       </div>
       <header className="mom-hero">
         <div className="mom-hero-icon">{heroIcon ?? <Layers3 size={41} />}</div>

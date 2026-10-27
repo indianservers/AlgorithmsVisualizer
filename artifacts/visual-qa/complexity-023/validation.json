@@ -4,15 +4,15 @@
   "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\023--complexity-theory--p-np-np-hard-and-np-complete.png",
   "status": "Visual differences remain; full visual-match goal is incomplete",
   "beforeMeanAbsoluteRgbError": 16.0426,
-  "afterMeanAbsoluteRgbError": 14.2741,
+  "afterMeanAbsoluteRgbError": 13.7423,
   "metricMeaning": "Mean absolute RGB-channel difference on the full 1672×941 image; not a fidelity percentage",
   "inventoryTargets": 45,
   "pixelIdenticalInventoryTargets": 0,
   "unitTests": 808,
   "unitFiles": 66,
-  "productionBrowserTestsPassed": 46,
+  "productionBrowserTestsPassed": 40,
   "productionBrowserTestsSkipped": 2,
-  "productionBrowserScope": "023 and 047, desktop and mobile",
+  "productionBrowserScope": "020 and 023, desktop and mobile; followed by a final 023-only pass of 19 tests and one inventory mobile skip",
   "skipReason": "Each reference inventory capture runs only on desktop",
   "pageBrowserTestsPassed": 19,
   "lint": "passed",
@@ -29,7 +29,13 @@
     "SAT descriptions, certificate wording, editable truth chips and verification status styled closer to the source",
     "Header account controls, language selector moved to Notes, progress markers and sidebar spacing",
     "Reduction-node positions, decision/optimization comparison, footer text, icons, colors and insets",
-    "Default dashboard keeps the reference's panel heights while long edited CNFs expand the certificate row"
+    "Default dashboard keeps the reference's panel heights while long edited CNFs expand the certificate row",
+    "Second refinement: radial SVG shading sampled against the reference in all four class regions",
+    "Native dashed reduction arrows with filled heads preserve clickable explanation controls and reduction-direction semantics",
+    "Certificate indicators display a check for accepted witnesses and an X for rejected witnesses",
+    "Selected-tab outline, classifier icon, progress line and sidebar typography aligned more closely",
+    "Footer heading insets and list spacing now reveal all four worked-example steps in the reference viewport",
+    "Decision/optimization comparison fits at x=1202, y=690, width=448, height=133; verified within two pixels"
   ],
   "interactionVerification": [
     "All six problem classifications and four class inspectors",
@@ -42,6 +48,15 @@
     "Long twelve-clause/eight-variable CNFs remain inside their panel without overlapping the footer",
     "Document overflow checked at desktop, mobile and 1280/1024/768-pixel viewport widths"
   ],
-  "geometryVerification": "Reference hero, tab strip, top grid, middle grid and footer origins checked within two pixels; desktop and mobile layout metadata saved",
-  "remainingWork": "Typography, icon details, source text differences and other pixels still differ. All 45 target renders require further comparison; no exact-match completion claim is supported."
+  "geometryVerification": "Reference hero, tab strip, top grid, middle grid, comparison grid and footer origins checked within two pixels; desktop and mobile layout metadata saved",
+  "remainingWork": "Typography, icon details, source text differences and other pixels still differ. All 45 target renders require further comparison; no exact-match completion claim is supported.",
+  "secondRefinement": {
+    "remaining": "Visual differences persist across all 45 targets; the full objective remains active.",
+    "fullCheck": "808 tests across 66 files; lint, localization, TypeScript, build, prerender and bundle budget passed",
+    "finalProductionTestsPassed": 19,
+    "beforeMeanAbsoluteRgbError": 14.2741,
+    "disposition": "Local and uncommitted",
+    "afterMeanAbsoluteRgbError": 13.7423,
+    "finalProductionTestsSkipped": 1
+  }
 }

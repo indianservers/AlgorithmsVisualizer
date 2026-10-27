@@ -1,0 +1,86 @@
+[
+  {
+    "panel": "mom-hero",
+    "x": 10,
+    "y": 112,
+    "width": 373,
+    "height": 230
+  },
+  {
+    "panel": "mom-tabs",
+    "x": 10,
+    "y": 352,
+    "width": 373,
+    "height": 73
+  },
+  {
+    "panel": "mom-panel bk-panel bk-overview",
+    "x": 10,
+    "y": 435,
+    "width": 373,
+    "height": 395.5625
+  },
+  {
+    "panel": "mom-panel bk-panel bk-instance",
+    "x": 10,
+    "y": 836.5625,
+    "width": 373,
+    "height": 232
+  },
+  {
+    "panel": "mom-panel bk-panel bk-incumbent",
+    "x": 10,
+    "y": 1074.5625,
+    "width": 373,
+    "height": 232
+  },
+  {
+    "panel": "mom-panel bk-panel bk-tree-panel",
+    "x": 10,
+    "y": 1315.5625,
+    "width": 373,
+    "height": 330
+  },
+  {
+    "panel": "mom-panel bk-panel bk-frontier",
+    "x": 10,
+    "y": 1651.5625,
+    "width": 373,
+    "height": 266
+  },
+  {
+    "panel": "mom-panel bk-panel bk-upper-bound",
+    "x": 10,
+    "y": 1923.5625,
+    "width": 373,
+    "height": 266
+  },
+  {
+    "panel": "mom-panel bk-panel bk-worked",
+    "x": 10,
+    "y": 2198.5625,
+    "width": 373,
+    "height": 220
+  },
+  {
+    "panel": "mom-panel bk-panel bk-progress",
+    "x": 10,
+    "y": 2424.5625,
+    "width": 373,
+    "height": 180
+  },
+  {
+    "panel": "mom-panel bk-panel bk-takeaways",
+    "x": 10,
+    "y": 2610.5625,
+    "width": 373,
+    "height": 101.1875
+  },
+  {
+    "panel": "mom-panel bk-panel bk-correctness",
+    "x": 10,
+    "y": 2718.75,
+    "width": 373,
+    "height": 81.890625
+  }
+]

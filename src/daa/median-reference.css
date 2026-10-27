@@ -504,3 +504,86 @@
   border-radius: 6px;
   padding: 3px;
 }
+@media (min-width: 1551px) {
+  .median-reference-page .mom-group {
+    padding-bottom: 17px;
+  }
+  .median-reference-page .mom-group > b {
+    padding-bottom: 15px;
+  }
+  .median-reference-page .mom-side-cards h2 {
+    margin-bottom: 7px;
+  }
+  .median-reference-page .mom-tip-row p > b {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .median-reference-page .mom-sorted-row .mom-numbers {
+    border-radius: 5px;
+    background: #f4f8ff;
+    min-height: 25px;
+    gap: 2px;
+  }
+  .median-reference-page .mom-sorted-row .mom-numbers span {
+    background: transparent;
+    padding-block: 4px;
+  }
+  .median-reference-page .mom-sorted-row.tone-1 .mom-numbers {
+    background: #f0fcf7;
+  }
+  .median-reference-page .mom-sorted-row.tone-2 .mom-numbers {
+    background: #fff5e9;
+  }
+  .median-reference-page .mom-sorted-row.tone-3 .mom-numbers {
+    background: #f2eaff;
+  }
+  .median-reference-page .mom-sorted-row.tone-4 .mom-numbers {
+    background: linear-gradient(90deg, #f4f8ff 33px, transparent 33px);
+  }
+  .median-reference-page .mom-split.compact {
+    transform: translateX(-23px);
+  }
+  .median-reference-page .mom-split.compact > div {
+    transform: translateY(11px);
+  }
+  .median-reference-page .mom-hero-split > span {
+    transform: translate(-12px, 11px);
+  }
+  .median-reference-page .mom-worked-stages {
+    display: grid;
+    grid-template-columns: 106fr 104fr 118fr 194fr 116fr;
+    gap: 24px;
+    margin-inline: 2px;
+    padding-top: 8px;
+  }
+  .median-reference-page .mom-worked-stages > div {
+    padding: 6px 4px;
+    min-height: 66px;
+    gap: 3px;
+  }
+  .median-reference-page .mom-worked-stages > div strong {
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 400;
+    white-space: pre-line;
+  }
+  .median-reference-page .mom-worked-stages > div:nth-child(2) strong {
+    font-weight: 700;
+  }
+  .median-reference-page .mom-worked-stages > div:last-child strong {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .median-reference-page .mom-correctness-columns p {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .median-reference-page .mom-correctness-columns b {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .median-reference-page .mom-correctness-columns p:first-child svg {
+    fill: #0ba56b;
+    color: white;
+  }
+}

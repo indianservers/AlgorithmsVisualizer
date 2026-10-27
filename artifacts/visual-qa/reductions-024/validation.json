@@ -1,0 +1,68 @@
+{
+  "target": 24,
+  "route": "/complexity-theory/certificates-reductions",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/024--complexity-theory--decision-problems-certificates-and-reductions.png",
+  "viewport": {
+    "height": 941,
+    "width": 1672
+  },
+  "status": "Visual differences remain; full 45-page goal is incomplete",
+  "beforeMeanAbsoluteRgbError": 13.9976,
+  "afterMeanAbsoluteRgbError": 13.509,
+  "metricMeaning": "Full-image mean RGB-channel difference, not a visual-match percentage",
+  "inventoryTargets": 45,
+  "pixelIdenticalPages": 0,
+  "checks": {
+    "typecheck": "passed",
+    "bundleBudget": "73 chunks passed",
+    "build": "passed",
+    "browserScope": "024 and 042 desktop/mobile, including client-side navigation regression",
+    "unitTests": 808,
+    "localization": "passed",
+    "prerenderedPages": 394,
+    "lint": "passed",
+    "skipReason": "Two mobile inventory captures and one desktop-only navigation geometry case",
+    "productionBrowserPassed": 39,
+    "productionBrowserSkipped": 3,
+    "unitFiles": 66
+  },
+  "refinements": [
+    "Unique radial SVG node fills and reference-aligned source/target vertex centers",
+    "Header account controls and progress markers; language selection preserved in Notes",
+    "Certificate title, set notation, check rows and result styling",
+    "Footer heading sizes, proof text and workflow spacing",
+    "Decision panel icon, example captions and parameter-control spacing"
+  ],
+  "navigationRegression": {
+    "scopedReductionSelectors": 392,
+    "fix": "Scope generic rd-prefixed selectors to each lesson using zero-specificity :where selectors",
+    "before": "After 024 → 042 → 024 navigation, the reduction top row grew from 338px to 685px",
+    "after": "Both dashboards retain their reference geometry after client-side navigation",
+    "scopedReliabilitySelectors": 262
+  },
+  "interactionVerification": [
+    "All four transformations execute and preserve their own source/target semantics",
+    "Certificate checking and rejection remain distinct from bounded instance search",
+    "Graph editing validates atomically; keyboard selection, size controls, playback and reset work",
+    "Prediction feedback, theory, code, proof inspectors and persistent notes verified",
+    "Relocated language selector opens and closes correctly",
+    "Dark mode and mobile document overflow checked"
+  ],
+  "mathematicalDifferences": [
+    "The actual complement graph is rendered instead of copying inconsistent reference edges",
+    "CLIQUE accepts at least k vertices; VERTEX COVER accepts at most k vertices",
+    "Failed candidate certificates do not prove an instance is NO"
+  ],
+  "evidence": [
+    "desktop-visualization.png",
+    "mobile-visualization.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../current-inventory/024--certificates-reductions.png",
+    "../pixel-audit/024--overlay.png",
+    "../pixel-audit/024--difference.png"
+  ],
+  "disposition": "Local changes only; no new commit or push in this continuation"
+}

@@ -10,13 +10,11 @@ import {
   Play,
   Pause,
   RotateCw,
-  BarChart3,
   LineChart,
   Table2,
   Settings,
   Trophy,
   Lightbulb,
-  CheckCircle2,
   CircleHelp,
   X,
 } from 'lucide-react'
@@ -43,6 +41,28 @@ function Panel({ title, icon, children, className = '' }: { title: string; icon:
       </header>
       {children}
     </section>
+  )
+}
+function ReliabilityBars() {
+  return (
+    <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+      <rect x="3" y="13" width="5" height="12" rx="1" fill="#007aff" />
+      <rect x="10" y="3" width="6" height="22" rx="1" fill="#126dff" />
+      <rect x="18" y="9" width="6" height="16" rx="1" fill="#449cff" />
+    </svg>
+  )
+}
+function ReliabilityTableIcon() {
+  return (
+    <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+      <rect x="3" y="3" width="22" height="22" rx="4" fill="#0082ff" />
+      {[7, 12, 17].map((y) => (
+        <g key={y} fill="white">
+          <rect x="6" y={y} width="3" height="3" rx=".5" />
+          <rect x="11" y={y} width="11" height="3" rx=".5" />
+        </g>
+      ))}
+    </svg>
   )
 }
 export function ReliabilityMockupLesson(props: MockupPageProps) {
@@ -308,7 +328,7 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
             <section className={`rd-panel rd-problem${pending || error ? ' rd-has-feedback' : ''}`}>
               <header className="rd-problem-heading">
                 <span className="rd-icon">
-                  <BarChart3 size={28} />
+                  <ReliabilityBars />
                 </span>
                 <div>
                   <h2>{tr('Problem Visualization')}</h2>
@@ -401,7 +421,7 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
                       const x = 28 + i * 120,
                         k = complete && run.optimum.feasible ? run.optimum.copies[i] : 1,
                         visible = k <= 3 ? Array.from({ length: k }, (_, j) => j + 1) : [1, 2, k],
-                        ys = k === 1 ? [111] : k === 2 ? [84, 143] : [70, 103, 151]
+                        ys = k === 1 ? [111] : k === 2 ? [70, 151] : [70, 103, 151]
                       return (
                         <g
                           key={i}
@@ -444,7 +464,7 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
                           )}
                           <line x1={x + 90} x2={i === n - 1 ? n * 120 + 26 : x + 118} y1="123" y2="123" markerEnd="url(#rd-flow)" className="rd-flow-line" />
                           <text x={x + 45} y="205" textAnchor="middle" className="rd-stage-caption">
-                            {tr(`Unit p: ${p}`)}
+                            {tr(`Reliability: ${p}`)}
                           </text>
                           <text x={x + 45} y="224" textAnchor="middle" className="rd-stage-caption">
                             {tr(complete && run.optimum.feasible ? `Copies: ${k}` : 'Copies: ≥ 1')}
@@ -584,7 +604,7 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
             <section className="rd-panel rd-table-panel">
               <header>
                 <span className="rd-icon">
-                  <Table2 size={26} />
+                  <ReliabilityTableIcon />
                 </span>
                 <div>
                   <h2>{tr('DP Table (Best Reliability R[i][b])')}</h2>
@@ -767,7 +787,7 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
                   </div>
                   <button className="rd-final-reliability" onClick={() => setModal('allocation')}>
                     <span>
-                      <CheckCircle2 size={24} />
+                      <Check size={24} />
                       <b>{tr('Final System Reliability')}</b>
                     </span>
                     <strong>{fixed(run.optimum.reliability)}</strong>
@@ -782,15 +802,14 @@ export function ReliabilityMockupLesson(props: MockupPageProps) {
             </section>
             <Panel className="rd-correctness" title={tr('Correctness')} icon={<Lightbulb size={24} />}>
               <div>
-                <CheckCircle2 size={24} />
+                <Check size={24} />
                 <p>
-                  {tr(
-                    'A stage with k independent identical copies succeeds with probability 1 − (1 − p)ᵏ. Series-stage reliabilities multiply. Trying every feasible k and combining with an optimal previous-stage budget gives the optimum.',
-                  )}
+                  <span className="rd-proof-premise">{tr('A stage with k independent identical copies succeeds with probability 1 − (1 − p)ᵏ.')}</span>
+                  {tr(' Series-stage reliabilities multiply. Trying every feasible k and combining with an optimal previous-stage budget gives the optimum.')}
                 </p>
               </div>
             </Panel>
-            <Panel className="rd-complexity" title={tr('Complexity')} icon={<BarChart3 size={25} />}>
+            <Panel className="rd-complexity" title={tr('Complexity')} icon={<ReliabilityBars />}>
               <div>
                 <b>{tr('Time: O(nB²)')}</b>
                 <button aria-label={tr('Explain reliability model assumptions')} onClick={() => setModal('assumptions')}>

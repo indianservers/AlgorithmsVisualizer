@@ -1494,3 +1494,89 @@
   background: #244162;
   border-color: #4b6c93;
 }
+/* Reference 044 refinements preserve the feasible packing and its trace. */
+:root:not([data-theme='dark']) .app-shell .workspace.category-page:has(.bin-packing-page) {
+  background: linear-gradient(180deg, #eaf4fe 0, #f1f7fd 200px, #f1f8fe 55%, #eef5fd 100%);
+}
+@media (min-width: 1500px) {
+  .bin-packing-page .bp-top-grid > .bp-panel > header .bp-icon,
+  .bin-packing-page .bp-items h2,
+  .bin-packing-page .bp-bins h2,
+  .bin-packing-page .bp-summary h2 {
+    transform: translateY(-3px);
+  }
+  .bin-packing-page .bp-speed-label {
+    font-weight: 600;
+  }
+  .bin-packing-page .bp-bin-title {
+    gap: 5px;
+  }
+  .bin-packing-page .bp-input h2,
+  .bin-packing-page .bp-timeline h2 {
+    font-size: 17px;
+  }
+  .bin-packing-page .bp-input h2 {
+    transform: translateY(-3px);
+  }
+  .bin-packing-page .bp-summary h2 {
+    font-size: 16.5px;
+  }
+  .bin-packing-page .bp-input .bp-icon svg {
+    fill: #1586ff;
+    stroke: #006aff;
+    stroke-width: 1.5;
+  }
+  .bin-packing-page .bp-capacity-label input::-webkit-inner-spin-button {
+    opacity: 1;
+  }
+  .bin-packing-page .bp-item-bar > i {
+    transform: scaleX(0.94);
+    transform-origin: left;
+  }
+  .bin-packing-page .bp-bin-used .bp-bin-title > span {
+    color: #d42035;
+    font-weight: 600;
+  }
+  .bin-packing-page .bp-stat-bins .bp-stat-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+  .bin-packing-page .bp-stat-items .bp-stat-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .bin-packing-page .bp-placement-card {
+    gap: 0;
+  }
+  .bin-packing-page .bp-placement-card h3 {
+    font-size: 13px;
+  }
+  .bin-packing-page .bp-placement-result {
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+  .bin-packing-page .bp-placement-detail {
+    flex: 0 0 46px;
+    margin-top: 9px;
+  }
+  .bin-packing-page .bp-many-probes .bp-placement-detail {
+    flex-basis: 53px;
+  }
+  .bin-packing-page .bp-placement-detail small {
+    font-size: 10px;
+    line-height: 11px;
+  }
+  .bin-packing-page .bp-placement-remaining {
+    margin-top: 7px;
+  }
+  .bin-packing-page .bp-bottom-grid p {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: 13.5px;
+  }
+  .bin-packing-page .bp-correctness .bp-icon {
+    box-shadow: none;
+  }
+  .app-shell:has(.bin-packing-page) .sidebar-algorithm {
+    min-height: 27px;
+  }
+}

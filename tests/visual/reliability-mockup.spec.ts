@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const root = (p: Page) => p.locator('.reliability-design-page'),
   button = (p: Page, name: string) => root(p).getByRole('button', { name, exact: true }),
   tab = (p: Page, name: string) => button(p, name).click(),
@@ -10,7 +10,8 @@ async function apply(p: Page, n: string, b: string, probabilities: string) {
   await root(p).getByLabel('Stage probabilities', { exact: true }).fill(probabilities)
   await button(p, 'Run DP').click()
 }
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop' && info.title.includes('042 default panels')) await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -38,7 +39,16 @@ test('042 default panels synchronize the recurrence, chart and optimal copy allo
   await expect(button(page, 'Inspect DP state R[4][10]')).toHaveText('0.866')
   await expect(button(page, 'Inspect DP state R[4][3]')).toHaveText('–')
   await expect(root(page).locator('.rd-component-letter')).toHaveCount(10)
+  mkdirSync('artifacts/visual-qa/reliability-042', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/reliability-042/${info.project.name}-default.png` })
+  const geometry = await page
+    .locator('.reliability-design-page .rd-panel,.rd-toolbar,.rd-hero,.reliability-design-page .mom-tabs,.sidebar-navigation,.sidebar-home,.sidebar-submenu')
+    .evaluateAll((elements) =>
+      elements.map((e) => ({ selector: e.className, ...e.getBoundingClientRect().toJSON(), scrollTop: e.scrollTop, scrollHeight: e.scrollHeight })),
+    )
+  writeFileSync(`artifacts/visual-qa/reliability-042/${info.project.name}-layout.json`, JSON.stringify(geometry, null, 2))
   if (info.project.name === 'desktop') {
+    await expect(page.locator('.sidebar-home')).toBeInViewport()
     for (const [selector, expected] of [
       ['.rd-toolbar', { x: 278, y: 11, width: 1380, height: 37 }],
       ['.rd-hero', { x: 265, y: 56, width: 1407, height: 72 }],

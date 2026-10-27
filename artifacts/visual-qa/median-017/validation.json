@@ -5,16 +5,16 @@
   "alsoReferencedAs": "Original attachment image-2.png; its SHA-256 matches this reference exactly",
   "status": "Visual differences remain; full visual-match goal is incomplete",
   "beforeMeanAbsoluteRgbError": 15.3518,
-  "afterMeanAbsoluteRgbError": 13.9019,
+  "afterMeanAbsoluteRgbError": 13.1842,
   "metricMeaning": "Mean absolute RGB-channel difference on the full 1672×941 image, not a fidelity percentage",
   "inventoryTargets": 45,
   "pixelIdenticalInventoryTargets": 0,
   "unitTests": 808,
   "unitFiles": 66,
-  "productionBrowserTestsPassed": 61,
+  "productionBrowserTestsPassed": 33,
   "productionBrowserTestsSkipped": 3,
-  "productionBrowserScope": "017, 023 and 047; desktop and mobile",
-  "skipReason": "Each reference inventory capture runs only on desktop",
+  "productionBrowserScope": "017 and 024 desktop/mobile, including the 024/042 client-side navigation regression",
+  "skipReason": "Two desktop-only inventory captures skip mobile; the cross-route reference geometry case also skips mobile",
   "pageBrowserTestsPassed": 15,
   "lint": "passed",
   "localization": "passed",
@@ -29,7 +29,13 @@
     "Separate second-row proportions for recursive pivot and split-guarantee panels",
     "Workflow box sizes and branching connector, recurrence typography and correctness tabs",
     "Reference panel heights and sidebar width at the reference viewport",
-    "Language control remains available in Notes while the header matches the mockup's account controls"
+    "Language control remains available in Notes while the header matches the mockup's account controls",
+    "Second refinement: worked-example stages use reference-like unequal widths, 66px cards and explicit L/E sets",
+    "The equal-block decision explicitly shows E=[6], |E|=1 and 6<7≤7, returning 6",
+    "Group cards match the reference height; sorted groups use continuous tinted rows with aligned medians",
+    "Hero cubes have stronger shading and source-aligned sizes; split dots and caption repositioned",
+    "Side-card heading emphasis and concise pitfall explanations fit their fixed cards",
+    "Correctness text and success indicator are enlarged while preserving responsive layouts"
   ],
   "newInteractions": [
     "Every original and sorted group can be inspected with pointer or keyboard",
@@ -54,6 +60,17 @@
     "Finite-size split bounds retain additive rounding constants instead of asserting an exact 3n/10 bound for every small input"
   ],
   "layoutVerification": "Hero and nine dashboard/strip bounds checked against reference coordinates within three pixels; desktop and mobile layout metadata saved",
-  "regressionEvidence": "Targets 023 and 047 retain mean RGB errors 14.2741 and 12.69 respectively, with their production interactions passing",
-  "remainingWork": "Typography, icon details, source-text differences and other pixels remain. No full-scope exact-match claim is supported; all 45 target renders still differ."
+  "regressionEvidence": "33 production browser tests passed across 017/024; target 024 and the client-side 024/042 layout regression remain functional",
+  "remainingWork": "Typography, icon details, source-text differences and other pixels remain. No full-scope exact-match claim is supported; all 45 target renders still differ.",
+  "secondRefinement": {
+    "browserPassed": 33,
+    "browserSkipped": 3,
+    "beforeMeanAbsoluteRgbError": 13.9019,
+    "unitFiles": 66,
+    "afterMeanAbsoluteRgbError": 13.1842,
+    "fullObjective": "Incomplete; all 45 captures still differ from the references",
+    "referenceGeometry": "Added 76px group-card and 66px worked-stage checks; existing hero and dashboard bounds remain verified",
+    "unitTests": 808,
+    "disposition": "Local and uncommitted"
+  }
 }

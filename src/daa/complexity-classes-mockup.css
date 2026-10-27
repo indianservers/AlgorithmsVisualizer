@@ -1999,3 +1999,94 @@
 [data-theme='dark'] .complexity-classes-page .cx-misconceptions h2 {
   color: #ffb3c4;
 }
+.complexity-classes-page .cx-arrow-glyph {
+  width: 36px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+}
+.complexity-classes-page .cx-arrow-vertical {
+  transform: rotate(90deg);
+  width: 27px;
+  height: 24px;
+}
+.complexity-classes-page .cx-reduction-legend .cx-arrow-glyph {
+  width: 30px;
+  height: 20px;
+}
+@media (min-width: 1551px) {
+  .complexity-classes-page .cx-section-progress {
+    transform: translateY(-3px);
+  }
+  .complexity-classes-page .mom-tabs button {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .complexity-classes-page .mom-tabs button[aria-pressed='true'] {
+    box-shadow:
+      0 0 0 3px #e1efff,
+      inset 0 0 0 1px #49a6ff;
+  }
+  .complexity-classes-page .cx-classifier .cx-icon {
+    width: 29px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+  }
+  .complexity-classes-page .cx-classifier header p {
+    font-size: 10px;
+  }
+  .complexity-classes-page .cx-certificate-result.cx-valid > svg {
+    padding: 6px;
+    box-shadow: inset 0 1px 2px #008c4540;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-algorithm {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: 13px;
+    padding-left: 34px;
+    padding-right: 3px;
+  }
+  .complexity-classes-page .cx-footer-grid .cx-panel > header {
+    min-height: 22px;
+    height: 22px;
+    margin-bottom: 1px;
+    align-items: start;
+  }
+  .complexity-classes-page .cx-footer-grid .cx-icon {
+    padding: 2px;
+    transform: translateY(-1px);
+  }
+  .complexity-classes-page .cx-footer-grid h2 {
+    padding-top: 3px;
+  }
+  .complexity-classes-page .cx-worked > b {
+    margin-top: -2px;
+  }
+  .complexity-classes-page .cx-worked ol {
+    margin-left: 20px;
+    font-size: 10.5px;
+    letter-spacing: -0.2px;
+  }
+  .complexity-classes-page .cx-worked li {
+    gap: 12px;
+  }
+  .complexity-classes-page .cx-version-grid {
+    margin-right: -7px;
+    transform: translateY(1px);
+  }
+  .complexity-classes-page .cx-version-grid article {
+    padding-left: 12px;
+    padding-right: 8px;
+    min-height: 133px;
+  }
+  .complexity-classes-page .cx-version-grid dl {
+    font-size: 12px;
+    line-height: 14px;
+    grid-template-columns: 63px minmax(0, 1fr);
+  }
+  .complexity-classes-page .cx-version-grid dd:last-child {
+    font-size: 10.5px;
+    line-height: 12px;
+    letter-spacing: -0.15px;
+  }
+}

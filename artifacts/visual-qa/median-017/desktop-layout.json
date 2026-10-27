@@ -33,6 +33,61 @@
     "left": 291
   },
   {
+    "className": "mom-group tone-0",
+    "x": 306,
+    "y": 311,
+    "width": 115.640625,
+    "height": 76,
+    "top": 311,
+    "right": 421.640625,
+    "bottom": 387,
+    "left": 306
+  },
+  {
+    "className": "mom-group tone-1",
+    "x": 426.640625,
+    "y": 311,
+    "width": 105.125,
+    "height": 76,
+    "top": 311,
+    "right": 531.765625,
+    "bottom": 387,
+    "left": 426.640625
+  },
+  {
+    "className": "mom-group tone-2",
+    "x": 536.765625,
+    "y": 311,
+    "width": 110.390625,
+    "height": 76,
+    "top": 311,
+    "right": 647.15625,
+    "bottom": 387,
+    "left": 536.765625
+  },
+  {
+    "className": "mom-group tone-3",
+    "x": 652.15625,
+    "y": 311,
+    "width": 112.5,
+    "height": 76,
+    "top": 311,
+    "right": 764.65625,
+    "bottom": 387,
+    "left": 652.15625
+  },
+  {
+    "className": "mom-group tone-4",
+    "x": 769.65625,
+    "y": 311,
+    "width": 90.421875,
+    "height": 76,
+    "top": 311,
+    "right": 860.078125,
+    "bottom": 387,
+    "left": 769.65625
+  },
+  {
     "className": "mom-panel mom-sort-panel",
     "x": 884.578125,
     "y": 245,
@@ -125,21 +180,76 @@
     "x": 291,
     "y": 808,
     "width": 770.9375,
-    "height": 151,
+    "height": 164,
     "top": 808,
     "right": 1061.9375,
-    "bottom": 959,
+    "bottom": 972,
     "left": 291
+  },
+  {
+    "className": "",
+    "x": 308,
+    "y": 872,
+    "width": 106.484375,
+    "height": 66,
+    "top": 872,
+    "right": 414.484375,
+    "bottom": 938,
+    "left": 308
+  },
+  {
+    "className": "",
+    "x": 438.484375,
+    "y": 872,
+    "width": 104.46875,
+    "height": 66,
+    "top": 872,
+    "right": 542.953125,
+    "bottom": 938,
+    "left": 438.484375
+  },
+  {
+    "className": "",
+    "x": 566.953125,
+    "y": 872,
+    "width": 118.546875,
+    "height": 66,
+    "top": 872,
+    "right": 685.5,
+    "bottom": 938,
+    "left": 566.953125
+  },
+  {
+    "className": "",
+    "x": 709.5,
+    "y": 872,
+    "width": 194.890625,
+    "height": 66,
+    "top": 872,
+    "right": 904.390625,
+    "bottom": 938,
+    "left": 709.5
+  },
+  {
+    "className": "",
+    "x": 928.390625,
+    "y": 872,
+    "width": 116.53125,
+    "height": 66,
+    "top": 872,
+    "right": 1044.921875,
+    "bottom": 938,
+    "left": 928.390625
   },
   {
     "className": "mom-panel mom-correctness",
     "x": 1071.9375,
     "y": 808,
     "width": 584.046875,
-    "height": 151,
+    "height": 164,
     "top": 808,
     "right": 1655.984375,
-    "bottom": 959,
+    "bottom": 972,
     "left": 1071.9375
   }
 ]

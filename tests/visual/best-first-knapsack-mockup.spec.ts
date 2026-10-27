@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
 test.beforeEach(async ({ page }) => {
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -34,7 +36,18 @@ test('020 dashboard preserves every reference panel and derives consistent value
   await expect(root.locator('.bk-frontier-count b')).toHaveText('1')
   await expect(root.locator('.bk-search-stats')).toContainText('7Total nodes3Expanded2Pruned1Solution')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  await page.screenshot({ path: `artifacts/visual-qa/best-first-020/${info.project.name}-learn.png` })
+  const layout = await root.locator('.bk-panel, .mom-hero, .mom-tabs').evaluateAll((elements) =>
+    elements.map((element) => {
+      const box = element.getBoundingClientRect()
+      return { panel: element.className, x: box.x, y: box.y, width: box.width, height: box.height }
+    }),
+  )
+  mkdirSync('artifacts/visual-qa/best-first-020', { recursive: true })
+  writeFileSync(`artifacts/visual-qa/best-first-020/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop') {
+    const footer = await root.locator('.bk-correctness').boundingBox()
+    expect(footer!.y + footer!.height, 'The final teaching panel fits the reference viewport').toBeLessThanOrEqual(941)
     for (const [selector, expected] of [
       ['.mom-hero', { x: 280, y: 61, width: 1383, height: 129 }],
       ['.mom-tabs', { x: 280, y: 200, height: 33 }],
@@ -44,8 +57,8 @@ test('020 dashboard preserves every reference panel and derives consistent value
       ['.bk-tree-panel', { x: 280, y: 486, width: 641, height: 266 }],
       ['.bk-frontier', { x: 927, y: 486, width: 327, height: 266 }],
       ['.bk-upper-bound', { x: 1260, y: 486, width: 403, height: 266 }],
-      ['.bk-worked', { x: 280, y: 761, width: 609, height: 180 }],
-      ['.bk-progress', { x: 895, y: 761, width: 360, height: 180 }],
+      ['.bk-worked', { x: 280, y: 761, width: 609, height: 171 }],
+      ['.bk-progress', { x: 895, y: 761, width: 360, height: 171 }],
     ] as const) {
       const box = await root.locator(selector).boundingBox()
       for (const [key, value] of Object.entries(expected)) expect(Math.abs(box![key as keyof typeof box] - value), `${selector} ${key}`).toBeLessThanOrEqual(2)
@@ -161,6 +174,9 @@ test('020 prediction challenges explain wrong answers and the exact solution', a
 test('020 experiments inspect every generated node, accept 20 items, and save notes', async ({ page }) => {
   const root = page.locator('.best-knapsack-page')
   await root.getByRole('button', { name: 'Experiments', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await expect(root.locator('.bk-experiments tbody tr')).toHaveCount(7)
   await root.getByRole('button', { name: 'Inspect generated best-first node 5', exact: true }).click()
   await expect(root.getByRole('heading', { name: 'Selected Node Details', exact: true })).toBeVisible()

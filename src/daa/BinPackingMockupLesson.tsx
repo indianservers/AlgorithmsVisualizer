@@ -504,7 +504,7 @@ export function BinPackingMockupLesson(props: MockupPageProps) {
               {timelineFrames.map((f) => (
                 <div className="bp-timeline-piece" key={f.count}>
                   <button
-                    className={`bp-placement-card ${cursor === f.count ? 'bp-selected-placement' : ''}`}
+                    className={`bp-placement-card ${cursor === f.count ? 'bp-selected-placement' : ''} ${f.probes.length >= 2 ? 'bp-many-probes' : ''}`}
                     aria-label={`${tr('Show placement')} ${f.count}`}
                     aria-pressed={cursor === f.count}
                     style={tint(f.item!.rank)}

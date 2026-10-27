@@ -52,7 +52,7 @@
   border-radius: 23px;
   font-size: 12px;
 }
-.rd-lesson-header {
+:where(.reductions-page) .rd-lesson-header {
   height: 79px;
   margin-left: -2px;
   margin-right: -14px;
@@ -69,7 +69,7 @@
   height: 43px;
   width: 44px;
 }
-.rd-lesson-header h1 {
+:where(.reductions-page) .rd-lesson-header h1 {
   font-size: 30px;
   line-height: 1.15;
   letter-spacing: -0.8px;
@@ -79,7 +79,7 @@
   white-space: nowrap;
   margin: 0 0 4px;
 }
-.rd-lesson-header h1 > span {
+:where(.reductions-page) .rd-lesson-header h1 > span {
   font-size: 13px;
   letter-spacing: 0;
   font-weight: 400;
@@ -88,18 +88,18 @@
   color: #0057ff;
   background: #e7f1ff;
 }
-.rd-lesson-header p {
+:where(.reductions-page) .rd-lesson-header p {
   font-size: 16px;
   color: #627ba9;
   margin: 0;
   white-space: nowrap;
 }
-.rd-progress {
+:where(.reductions-page) .rd-progress {
   font-size: 12px;
   color: #6177a4;
   padding-right: 26px;
 }
-.rd-progress > div {
+:where(.reductions-page) .rd-progress > div {
   display: flex;
   height: 6px;
   background: #d6e4f6;
@@ -108,17 +108,17 @@
   align-items: center;
   justify-content: space-between;
 }
-.rd-progress i {
+:where(.reductions-page) .rd-progress i {
   width: 15px;
   height: 15px;
   border: 2px solid #c9daf5;
   border-radius: 50%;
   background: #fff;
 }
-.rd-progress i:first-child {
+:where(.reductions-page) .rd-progress i:first-child {
   visibility: hidden;
 }
-.rd-progress .rd-reviewed {
+:where(.reductions-page) .rd-progress .rd-reviewed {
   background: #0875ff;
   border-color: #0875ff;
 }
@@ -171,14 +171,14 @@
 .reductions-page .mom-tabs button:nth-child(5) {
   min-width: 128px;
 }
-.rd-visualization {
+:where(.reductions-page) .rd-visualization {
   border: 1px solid #d7e7ff;
   border-bottom: 0;
   border-radius: 12px;
   background: linear-gradient(120deg, #ffffffde, #faffffdd);
   padding: 11px 9px 0 11px;
 }
-.rd-visual-heading {
+:where(.reductions-page) .rd-visual-heading {
   display: flex;
   align-items: flex-start;
   gap: 11px;
@@ -187,37 +187,37 @@
   padding-left: 9px;
   min-width: 0;
 }
-.rd-visual-heading > svg {
+:where(.reductions-page) .rd-visual-heading > svg {
   width: 23px;
   height: 23px;
   color: #086cff;
   flex-shrink: 0;
   margin-top: 1px;
 }
-.rd-visual-heading > div:not(.rd-visual-options) {
+:where(.reductions-page) .rd-visual-heading > div:not(.rd-visual-options) {
   min-width: 0;
   flex: 1;
 }
-.rd-visual-heading h2 {
+:where(.reductions-page) .rd-visual-heading h2 {
   font-size: 18px;
   line-height: 1.2;
   margin: 0 0 4px;
 }
-.rd-visual-heading p {
+:where(.reductions-page) .rd-visual-heading p {
   color: #5d73a1;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   max-width: 510px;
 }
-.rd-visual-options {
+:where(.reductions-page) .rd-visual-options {
   display: flex;
   align-items: center;
   gap: 32px;
   margin-left: auto;
   flex-shrink: 0;
 }
-.rd-visual-options > label:not(.rd-switch) {
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch) {
   position: relative;
   width: 254px;
   display: flex;
@@ -227,20 +227,20 @@
   white-space: nowrap;
   height: 34px;
 }
-.rd-visual-options > label:not(.rd-switch) > select {
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch) > select {
   position: absolute;
   inset: 0;
   width: 254px;
   opacity: 0;
   cursor: pointer;
 }
-.rd-visual-options > label:not(.rd-switch) {
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch) {
   border: 1px solid #d6e5ff;
   border-radius: 8px;
   padding: 7px 12px;
   font-size: 0;
 }
-.rd-switch {
+:where(.reductions-page) .rd-switch {
   position: relative;
   display: flex;
   align-items: center;
@@ -251,7 +251,7 @@
   height: 34px;
   cursor: pointer;
 }
-.rd-switch input {
+:where(.reductions-page) .rd-switch input {
   position: absolute;
   left: 0;
   top: 7px;
@@ -262,7 +262,7 @@
   z-index: 2;
   cursor: pointer;
 }
-.rd-switch i {
+:where(.reductions-page) .rd-switch i {
   display: block;
   width: 33px;
   height: 19px;
@@ -272,7 +272,7 @@
   flex-shrink: 0;
   pointer-events: none;
 }
-.rd-switch i:after {
+:where(.reductions-page) .rd-switch i:after {
   content: '';
   position: absolute;
   width: 13px;
@@ -282,13 +282,13 @@
   left: 3px;
   top: 3px;
 }
-.rd-switch input:checked + i {
+:where(.reductions-page) .rd-switch input:checked + i {
   background: #0875ff;
 }
-.rd-switch input:checked + i:after {
+:where(.reductions-page) .rd-switch input:checked + i:after {
   left: 17px;
 }
-.rd-switch input:focus-visible + i {
+:where(.reductions-page) .rd-switch input:focus-visible + i {
   outline: 2px solid #075bff;
   outline-offset: 3px;
 }
@@ -303,45 +303,45 @@
   font-size: 12px;
   background: #fbfdff;
 }
-.rd-top-grid {
+:where(.reductions-page) .rd-top-grid {
   display: grid;
   grid-template-columns: minmax(0, 459fr) minmax(0, 524fr) minmax(0, 355fr);
   gap: 8px;
 }
-.rd-panel {
+:where(.reductions-page) .rd-panel {
   min-width: 0;
   padding: 10px;
   border: 1px solid #dce9ff;
   border-radius: 11px;
   background: linear-gradient(125deg, #fff, #f8fcff);
 }
-.rd-top-grid > .rd-panel {
+:where(.reductions-page) .rd-top-grid > .rd-panel {
   height: 338px;
 }
-.rd-panel > header {
+:where(.reductions-page) .rd-panel > header {
   display: flex;
   align-items: flex-start;
   gap: 9px;
   margin-bottom: 8px;
   min-width: 0;
 }
-.rd-panel > header > div {
+:where(.reductions-page) .rd-panel > header > div {
   flex: 1;
   min-width: 0;
 }
-.rd-panel h2 {
+:where(.reductions-page) .rd-panel h2 {
   font-size: 16px;
   line-height: 1.2;
   margin: 0 0 3px;
   letter-spacing: -0.2px;
 }
-.rd-panel header p {
+:where(.reductions-page) .rd-panel header p {
   font-size: 12px;
   line-height: 1.4;
   color: #5c72a1;
   margin: 0;
 }
-.rd-icon {
+:where(.reductions-page) .rd-icon {
   color: #086dff;
   background: #eaf5ff;
   border-radius: 8px;
@@ -349,7 +349,7 @@
   display: flex;
   flex-shrink: 0;
 }
-.rd-icon svg {
+:where(.reductions-page) .rd-icon svg {
   width: 22px;
   height: 22px;
 }
@@ -361,24 +361,24 @@
   color: #537fb7;
   flex-shrink: 0;
 }
-.rd-construction {
+:where(.reductions-page) .rd-construction {
   position: relative;
   background: linear-gradient(125deg, #fff7ff, #fffcfc);
   padding: 10px 17px 15px;
 }
-.rd-construction > header {
+:where(.reductions-page) .rd-construction > header {
   height: 43px;
   margin-left: -5px;
   position: relative;
 }
-.rd-construction .rd-icon {
+:where(.reductions-page) .rd-construction .rd-icon {
   background: #f5e8ff;
   color: #7914ff;
 }
-.rd-construction h2 {
+:where(.reductions-page) .rd-construction h2 {
   padding-right: 58px;
 }
-.rd-relation {
+:where(.reductions-page) .rd-relation {
   position: absolute;
   left: 211px;
   top: 5px;
@@ -387,19 +387,19 @@
   font-style: italic;
   color: #ed1536;
 }
-.rd-transform {
+:where(.reductions-page) .rd-transform {
   display: grid;
   grid-template-columns: 1fr 30px 1.13fr 30px 1fr;
   align-items: start;
   margin-top: 24px;
   height: 137px;
 }
-.rd-transform > div {
+:where(.reductions-page) .rd-transform > div {
   min-width: 0;
   position: relative;
   text-align: center;
 }
-.rd-transform > div > b {
+:where(.reductions-page) .rd-transform > div > b {
   height: 81px;
   display: flex;
   flex-direction: column;
@@ -413,7 +413,7 @@
   padding: 8px 1px;
   gap: 0;
 }
-.rd-transform > div:nth-of-type(2) > b {
+:where(.reductions-page) .rd-transform > div:nth-of-type(2) > b {
   height: 69px;
   margin-top: 12px;
   background: linear-gradient(135deg, #fff2ff, #ecdfff);
@@ -421,17 +421,17 @@
   color: #6811b4;
   font-size: 12px;
 }
-.rd-transform > div:nth-of-type(3) > b {
+:where(.reductions-page) .rd-transform > div:nth-of-type(3) > b {
   background: linear-gradient(135deg, #f2fff8, #d5fbe7);
   border-color: #84eaa6;
 }
-.rd-transform > svg {
+:where(.reductions-page) .rd-transform > svg {
   color: #0071ff;
   width: 30px;
   height: 22px;
   margin-top: 32px;
 }
-.rd-transform p {
+:where(.reductions-page) .rd-transform p {
   font-size: 12px;
   line-height: 1.45;
   color: #6680af;
@@ -440,11 +440,11 @@
   left: 0;
   right: 0;
 }
-.rd-transform > div.rd-step-active > b {
+:where(.reductions-page) .rd-transform > div.rd-step-active > b {
   outline: 3px solid #73acff;
   outline-offset: 3px;
 }
-.rd-iff {
+:where(.reductions-page) .rd-iff {
   height: 77px;
   border: 1px solid #ffe3ab;
   border-radius: 9px;
@@ -454,12 +454,12 @@
   padding: 15px 6px 7px;
   font-size: 14px;
 }
-.rd-iff > span {
+:where(.reductions-page) .rd-iff > span {
   font-family: Georgia, serif;
   font-style: italic;
   font-size: 17px;
 }
-.rd-iff p {
+:where(.reductions-page) .rd-iff p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -469,15 +469,15 @@
   font-size: 19px;
   font-family: Georgia, serif;
 }
-.rd-iff i {
+:where(.reductions-page) .rd-iff i {
   background: #fff0e5;
   border-radius: 5px;
   padding: 2px 8px;
 }
-.rd-iff b {
+:where(.reductions-page) .rd-iff b {
   font-weight: 400;
 }
-.rd-yesno {
+:where(.reductions-page) .rd-yesno {
   position: absolute;
   left: 17px;
   right: 17px;
@@ -490,49 +490,49 @@
   font-weight: 700;
   font-size: 13px;
 }
-.rd-yesno small {
+:where(.reductions-page) .rd-yesno small {
   display: block;
   font-size: 10px;
   font-weight: 400;
   margin-top: 3px;
 }
-.rd-example {
+:where(.reductions-page) .rd-example {
   padding: 10px 6px 7px;
 }
-.rd-example > header {
+:where(.reductions-page) .rd-example > header {
   height: 57px;
   margin-bottom: 10px;
   padding: 0 5px;
   gap: 8px;
 }
-.rd-example > header p {
+:where(.reductions-page) .rd-example > header p {
   max-width: 450px;
   font-size: 13px;
   line-height: 1.4;
 }
-.rd-example > header .rd-icon {
+:where(.reductions-page) .rd-example > header .rd-icon {
   padding: 1px;
 }
-.rd-example h2 {
+:where(.reductions-page) .rd-example h2 {
   font-size: 16px;
 }
-.rd-graph-pair {
+:where(.reductions-page) .rd-graph-pair {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
   gap: 4px;
 }
-.rd-graph-pair > article {
+:where(.reductions-page) .rd-graph-pair > article {
   height: 251px;
   border: 1px solid #ffe4e8;
   border-radius: 10px;
   background: linear-gradient(130deg, #fff5f7, #fffaf5);
   overflow: hidden;
 }
-.rd-graph-pair > article.rd-target-card {
+:where(.reductions-page) .rd-graph-pair > article.rd-target-card {
   border-color: #d8f4e8;
   background: linear-gradient(120deg, #f7fffb, #f0fff8);
 }
-.rd-graph-pair article > header {
+:where(.reductions-page) .rd-graph-pair article > header {
   height: 28px;
   display: flex;
   align-items: center;
@@ -541,11 +541,11 @@
   font-size: 11px;
   white-space: nowrap;
 }
-.rd-graph-pair article > header > svg {
+:where(.reductions-page) .rd-graph-pair article > header > svg {
   color: #0877ff;
   flex-shrink: 0;
 }
-.rd-graph-pair article > header > span {
+:where(.reductions-page) .rd-graph-pair article > header > span {
   font-size: 9px;
   font-weight: 600;
   color: #be1230;
@@ -554,25 +554,25 @@
   padding: 5px 5px;
   margin-left: auto;
 }
-.rd-graph-pair .rd-target-card > header > span {
+:where(.reductions-page) .rd-graph-pair .rd-target-card > header > span {
   color: #00632e;
   background: #d5fae5;
   font-size: 8px;
   padding: 5px 3px;
 }
-.rd-graph {
+:where(.reductions-page) .rd-graph {
   display: block;
   width: 100%;
   height: 172px;
 }
-.rd-graph [role='button'] {
+:where(.reductions-page) .rd-graph [role='button'] {
   cursor: pointer;
 }
-.rd-graph [role='button']:focus-visible {
+:where(.reductions-page) .rd-graph [role='button']:focus-visible {
   outline: none;
   filter: drop-shadow(0 0 3px #006eff);
 }
-.rd-graph-pair article > footer {
+:where(.reductions-page) .rd-graph-pair article > footer {
   margin: 0 10px;
   border: 1px solid #ffedbe;
   border-radius: 8px;
@@ -583,25 +583,25 @@
   font-size: 11px;
   line-height: 1.45;
 }
-.rd-graph-pair article > footer b {
+:where(.reductions-page) .rd-graph-pair article > footer b {
   font-weight: 600;
 }
-.rd-graph-pair article > footer p {
+:where(.reductions-page) .rd-graph-pair article > footer p {
   margin: 0;
   color: #314e83;
   font-size: 11px;
 }
-.rd-graph-pair .rd-target-card > footer {
+:where(.reductions-page) .rd-graph-pair .rd-target-card > footer {
   border-color: #d6f2e4;
   background: #eefff6;
 }
-.rd-complement-arrow {
+:where(.reductions-page) .rd-complement-arrow {
   padding-top: 75px;
   text-align: center;
   font-size: 11px;
   line-height: 1.4;
 }
-.rd-complement-arrow > svg {
+:where(.reductions-page) .rd-complement-arrow > svg {
   display: block;
   width: 39px;
   height: 39px;
@@ -609,7 +609,7 @@
   margin: 10px auto 0;
   color: #0875ff;
 }
-.rd-formula-card {
+:where(.reductions-page) .rd-formula-card {
   height: 172px;
   padding: 12px 8px;
   font-family: Georgia, serif;
@@ -619,7 +619,7 @@
   justify-content: center;
   gap: 12px;
 }
-.rd-assignment {
+:where(.reductions-page) .rd-assignment {
   display: flex;
   gap: 3px;
   flex-wrap: wrap;
@@ -639,27 +639,27 @@
   color: #007c4c;
   box-shadow: none;
 }
-.rd-certification {
+:where(.reductions-page) .rd-certification {
   padding: 10px 11px;
 }
-.rd-certification > header {
+:where(.reductions-page) .rd-certification > header {
   height: 34px;
   margin-bottom: 8px;
   gap: 7px;
 }
-.rd-certification > header p {
+:where(.reductions-page) .rd-certification > header p {
   font-size: 11px;
   white-space: nowrap;
   letter-spacing: -0.2px;
 }
-.rd-certification .rd-icon {
+:where(.reductions-page) .rd-certification .rd-icon {
   background: #e3fff2;
   color: #06b574;
 }
-.rd-certification h2 {
+:where(.reductions-page) .rd-certification h2 {
   font-size: 16px;
 }
-.rd-certification > nav {
+:where(.reductions-page) .rd-certification > nav {
   height: 43px;
   padding: 5px;
   border: 1px solid #d9e8ff;
@@ -682,25 +682,25 @@
   color: #fff;
   box-shadow: none;
 }
-.rd-certificate-card {
+:where(.reductions-page) .rd-certificate-card {
   border: 1px solid #efe0ff;
   background: linear-gradient(125deg, #fff8ff, #fcfbff);
   border-radius: 10px;
   padding: 8px;
   min-height: 176px;
 }
-.rd-certificate-card h3 {
+:where(.reductions-page) .rd-certificate-card h3 {
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 12px;
   margin: 0 0 8px;
 }
-.rd-certificate-card h3 > svg {
+:where(.reductions-page) .rd-certificate-card h3 > svg {
   color: #ffad00;
   flex-shrink: 0;
 }
-.rd-certificate-card h3 > span {
+:where(.reductions-page) .rd-certificate-card h3 > span {
   color: #de1945;
   background: #ffe9ef;
   border-radius: 6px;
@@ -710,15 +710,15 @@
   white-space: nowrap;
   margin-left: auto;
 }
-.rd-certificate-card > p {
+:where(.reductions-page) .rd-certificate-card > p {
   font-size: 12px;
   margin-bottom: 6px;
   white-space: nowrap;
 }
-.rd-certificate-card > p > b {
+:where(.reductions-page) .rd-certificate-card > p > b {
   font-size: 11px;
 }
-.rd-checks {
+:where(.reductions-page) .rd-checks {
   background: #f7fcff;
   border: 1px solid #e0eefb;
   border-radius: 8px;
@@ -726,24 +726,24 @@
   max-height: 108px;
   overflow: auto;
 }
-.rd-checks > div {
+:where(.reductions-page) .rd-checks > div {
   display: flex;
   align-items: center;
   gap: 7px;
   min-height: 25px;
   font-size: 11px;
 }
-.rd-checks svg {
+:where(.reductions-page) .rd-checks svg {
   width: 16px;
   height: 16px;
   color: #25c487;
   flex-shrink: 0;
 }
-.rd-checks > div > span {
+:where(.reductions-page) .rd-checks > div > span {
   flex: 1;
   min-width: 0;
 }
-.rd-checks b {
+:where(.reductions-page) .rd-checks b {
   font-size: 10px;
   font-weight: 500;
   color: #008745;
@@ -752,17 +752,17 @@
   padding: 3px 7px;
   white-space: nowrap;
 }
-.rd-checks .rd-check-fail {
+:where(.reductions-page) .rd-checks .rd-check-fail {
   color: #be2443;
 }
-.rd-checks .rd-check-fail svg {
+:where(.reductions-page) .rd-checks .rd-check-fail svg {
   color: #d72b4b;
 }
-.rd-checks .rd-check-fail b {
+:where(.reductions-page) .rd-checks .rd-check-fail b {
   color: #bd1940;
   background: #ffe5e9;
 }
-.rd-certificate-status {
+:where(.reductions-page) .rd-certificate-status {
   height: 38px;
   margin: 8px 0 0;
   border: 1px solid;
@@ -774,55 +774,55 @@
   font-size: 12px;
   white-space: nowrap;
 }
-.rd-certificate-status > svg {
+:where(.reductions-page) .rd-certificate-status > svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
-.rd-valid {
+:where(.reductions-page) .rd-valid {
   border-color: #b3edd4;
   background: #e3fff0;
   color: #006936;
 }
-.rd-invalid {
+:where(.reductions-page) .rd-invalid {
   border-color: #ffcad5;
   background: #fff0f3;
   color: #b51a3d;
 }
-.rd-hidden-certificates {
+:where(.reductions-page) .rd-hidden-certificates {
   font-size: 14px;
   line-height: 1.6;
   padding: 20px;
   color: #5d73a1;
 }
-.rd-bottom-grid {
+:where(.reductions-page) .rd-bottom-grid {
   display: grid;
   grid-template-columns: minmax(0, 480fr) minmax(0, 528fr) minmax(0, 328fr);
   gap: 9px;
   margin-top: 7px;
 }
-.rd-bottom-grid > .rd-panel {
+:where(.reductions-page) .rd-bottom-grid > .rd-panel {
   min-height: 193px;
   padding: 9px 10px;
 }
-.rd-bottom-grid .rd-panel h2 {
+:where(.reductions-page) .rd-bottom-grid .rd-panel h2 {
   font-size: 14px;
 }
-.rd-bottom-grid .rd-panel > header {
+:where(.reductions-page) .rd-bottom-grid .rd-panel > header {
   height: 35px;
   margin-bottom: 8px;
   gap: 8px;
 }
-.rd-bottom-grid .rd-icon {
+:where(.reductions-page) .rd-bottom-grid .rd-icon {
   padding: 0;
   background: transparent;
 }
-.rd-versions > div {
+:where(.reductions-page) .rd-versions > div {
   display: grid;
   grid-template-columns: minmax(0, 180fr) 76px minmax(0, 188fr);
   gap: 8px;
 }
-.rd-versions article {
+:where(.reductions-page) .rd-versions article {
   min-height: 128px;
   background: linear-gradient(135deg, #f0faff, #e5f2ff);
   border: 1px solid #a6cfff;
@@ -830,28 +830,28 @@
   padding: 10px 14px;
   font-size: 11px;
 }
-.rd-versions article:nth-child(3) {
+:where(.reductions-page) .rd-versions article:nth-child(3) {
   background: linear-gradient(135deg, #fcf7ff, #f2eaff);
   border-color: #c99aff;
 }
-.rd-versions h3 {
+:where(.reductions-page) .rd-versions h3 {
   font-size: 14px;
   color: #0058ec;
   margin: 0 0 5px;
 }
-.rd-versions article:nth-child(3) h3 {
+:where(.reductions-page) .rd-versions article:nth-child(3) h3 {
   color: #7513bb;
 }
-.rd-versions article i {
+:where(.reductions-page) .rd-versions article i {
   font-size: 11px;
   white-space: nowrap;
 }
-.rd-versions article p {
+:where(.reductions-page) .rd-versions article p {
   font-size: 11px;
   margin-top: 16px;
   padding-top: 0;
 }
-.rd-versions article button {
+:where(.reductions-page) .rd-versions article button {
   padding: 5px 10px;
   border: 0;
   background: #d8ebff;
@@ -861,11 +861,11 @@
   margin-top: 10px;
   white-space: nowrap;
 }
-.rd-versions article:nth-child(3) button {
+:where(.reductions-page) .rd-versions article:nth-child(3) button {
   background: #ead7ff;
   color: #7512c5;
 }
-.rd-versions > div > div {
+:where(.reductions-page) .rd-versions > div > div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -875,29 +875,29 @@
   font-size: 11px;
   line-height: 1.4;
 }
-.rd-versions > div > div > svg {
+:where(.reductions-page) .rd-versions > div > div > svg {
   width: 42px;
   height: 35px;
   color: #426bb2;
   stroke-width: 3;
 }
-.rd-versions > small {
+:where(.reductions-page) .rd-versions > small {
   display: block;
   font-size: 9px;
   margin-top: 3px;
   color: #5a76a8;
 }
-.rd-examples-list > header {
+:where(.reductions-page) .rd-examples-list > header {
   position: relative;
 }
-.rd-examples-list > header > div {
+:where(.reductions-page) .rd-examples-list > header > div {
   padding-right: 195px;
 }
-.rd-examples-list > header p {
+:where(.reductions-page) .rd-examples-list > header p {
   font-size: 10px;
   white-space: nowrap;
 }
-.rd-examples-list > header > select {
+:where(.reductions-page) .rd-examples-list > header > select {
   position: absolute;
   right: 0;
   top: -1px;
@@ -907,7 +907,7 @@
   font-size: 10px;
   color: #173274;
 }
-.rd-examples-list [role='radiogroup'] {
+:where(.reductions-page) .rd-examples-list [role='radiogroup'] {
   display: grid;
   gap: 0;
 }
@@ -930,7 +930,7 @@
   background: #edf5ff;
   border: 1px solid #cbdfff;
 }
-.rd-examples-list [role='radio'] > i {
+:where(.reductions-page) .rd-examples-list [role='radio'] > i {
   width: 14px;
   height: 14px;
   border: 1.5px solid #8ca9d8;
@@ -938,67 +938,67 @@
   flex-shrink: 0;
   background: #fff;
 }
-.rd-examples-list [aria-checked='true'] > i {
+:where(.reductions-page) .rd-examples-list [aria-checked='true'] > i {
   border: 4px solid #0876ff;
 }
-.rd-examples-list [role='radio'] > span {
+:where(.reductions-page) .rd-examples-list [role='radio'] > span {
   flex: 1;
   min-width: 0;
   line-height: 1.2;
 }
-.rd-examples-list b {
+:where(.reductions-page) .rd-examples-list b {
   font-size: 10px;
 }
-.rd-examples-list small {
+:where(.reductions-page) .rd-examples-list small {
   display: block;
   font-size: 11px;
   color: #46658f;
   font-family: Georgia, serif;
   font-style: italic;
 }
-.rd-examples-list em {
+:where(.reductions-page) .rd-examples-list em {
   font-style: normal;
   border-radius: 5px;
   padding: 6px 8px;
   font-size: 10px;
   white-space: nowrap;
 }
-.rd-hint-0 {
+:where(.reductions-page) .rd-hint-0 {
   background: #ffe7ee;
   color: #fa476c;
 }
-.rd-hint-1 {
+:where(.reductions-page) .rd-hint-1 {
   background: #e4f0ff;
   color: #0055fc;
 }
-.rd-hint-2 {
+:where(.reductions-page) .rd-hint-2 {
   background: #f1e4ff;
   color: #8c39ed;
 }
-.rd-hint-3 {
+:where(.reductions-page) .rd-hint-3 {
   background: #dffbed;
   color: #008440;
 }
-.rd-controls .rd-icon {
+:where(.reductions-page) .rd-controls .rd-icon {
   color: #8b1cff;
 }
-.rd-controls > header p {
+:where(.reductions-page) .rd-controls > header p {
   font-size: 11px;
   white-space: nowrap;
 }
-.rd-parameter-grid {
+:where(.reductions-page) .rd-parameter-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   min-height: 62px;
 }
-.rd-parameter-grid fieldset {
+:where(.reductions-page) .rd-parameter-grid fieldset {
   min-width: 0;
   border: 0;
   padding: 0;
   margin: 0;
 }
-.rd-parameter-grid legend {
+:where(.reductions-page) .rd-parameter-grid legend {
   font-size: 11px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -1037,7 +1037,7 @@
   font-weight: 600;
   margin-top: 18px;
 }
-.rd-playback {
+:where(.reductions-page) .rd-playback {
   margin-top: 12px;
   border: 1px solid #d3e4ff;
   border-radius: 9px;
@@ -1045,92 +1045,92 @@
   background: #eff6ff;
   font-size: 12px;
 }
-.rd-playback > div {
+:where(.reductions-page) .rd-playback > div {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.rd-playback button {
+:where(.reductions-page) .rd-playback button {
   padding: 5px;
 }
-.rd-playback p {
+:where(.reductions-page) .rd-playback p {
   line-height: 1.45;
   margin-top: 7px;
 }
-.rd-footer-grid {
+:where(.reductions-page) .rd-footer-grid {
   display: grid;
   grid-template-columns: minmax(0, 357fr) minmax(0, 314fr) minmax(0, 215fr) minmax(0, 232fr) minmax(0, 204fr);
   gap: 8px;
   margin: 6px 10px 0 12px;
 }
-.rd-footer-grid > .rd-panel {
+:where(.reductions-page) .rd-footer-grid > .rd-panel {
   min-height: 128px;
   padding: 6px 9px;
   font-size: 10px;
   line-height: 1.22;
 }
-.rd-footer-grid .rd-panel > header {
+:where(.reductions-page) .rd-footer-grid .rd-panel > header {
   gap: 7px;
   margin-bottom: 3px;
   align-items: center;
 }
-.rd-footer-grid h2 {
+:where(.reductions-page) .rd-footer-grid h2 {
   font-size: 12px;
   white-space: nowrap;
 }
-.rd-footer-grid .rd-icon {
+:where(.reductions-page) .rd-footer-grid .rd-icon {
   padding: 1px;
 }
-.rd-footer-grid .rd-icon svg {
+:where(.reductions-page) .rd-footer-grid .rd-icon svg {
   width: 18px;
   height: 18px;
 }
-.rd-footer-grid ul {
+:where(.reductions-page) .rd-footer-grid ul {
   margin: 0;
   padding-left: 20px;
   color: #3f557f;
 }
-.rd-footer-grid li {
+:where(.reductions-page) .rd-footer-grid li {
   margin: 2px 0;
 }
-.rd-takeaways {
+:where(.reductions-page) .rd-takeaways {
   border-color: #ffe3a2;
   background: linear-gradient(135deg, #fff9df, #fffef8);
 }
-.rd-takeaways .rd-icon {
+:where(.reductions-page) .rd-takeaways .rd-icon {
   background: #fff5be;
   color: #ffac00;
 }
-.rd-worked > header > button {
+:where(.reductions-page) .rd-worked > header > button {
   font-size: 11px;
   padding: 3px 11px;
   white-space: nowrap;
 }
-.rd-worked > b {
+:where(.reductions-page) .rd-worked > b {
   font-size: 10px;
   margin-left: 28px;
   display: block;
 }
-.rd-worked ol {
+:where(.reductions-page) .rd-worked ol {
   margin: 2px 0 0;
   padding-left: 38px;
   color: #45608e;
   font-size: 10px;
 }
-.rd-workflow ol {
+:where(.reductions-page) .rd-workflow ol {
   margin: 0;
   padding-left: 0;
   list-style: none;
   font-size: 9px;
   color: #445d89;
 }
-.rd-workflow li {
+:where(.reductions-page) .rd-workflow li {
   display: flex;
   align-items: center;
   gap: 7px;
   margin-bottom: 4px;
 }
-.rd-workflow li > span {
+:where(.reductions-page) .rd-workflow li > span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1142,43 +1142,43 @@
   color: #0874ff;
   font-size: 9px;
 }
-.rd-correctness ul {
+:where(.reductions-page) .rd-correctness ul {
   padding: 0;
   list-style: none;
   font-size: 9px;
 }
-.rd-correctness li {
+:where(.reductions-page) .rd-correctness li {
   display: flex;
   gap: 7px;
   align-items: flex-start;
   margin-bottom: 5px;
 }
-.rd-correctness li > svg {
+:where(.reductions-page) .rd-correctness li > svg {
   width: 13px;
   height: 13px;
   color: #1cc38b;
   flex-shrink: 0;
 }
-.rd-pitfalls {
+:where(.reductions-page) .rd-pitfalls {
   background: linear-gradient(135deg, #fff3f6, #fff9fa);
   border-color: #ffd3dd;
 }
-.rd-pitfalls h2 {
+:where(.reductions-page) .rd-pitfalls h2 {
   color: #b51429;
 }
-.rd-pitfalls .rd-icon {
+:where(.reductions-page) .rd-pitfalls .rd-icon {
   background: #ffe6ec;
   color: #e82245;
 }
-.rd-pitfalls ul {
+:where(.reductions-page) .rd-pitfalls ul {
   font-size: 9px;
   line-height: 1.1;
   padding-left: 24px;
 }
-.rd-review {
+:where(.reductions-page) .rd-review {
   margin: 12px;
 }
-.rd-message {
+:where(.reductions-page) .rd-message {
   padding: 12px;
   margin: 12px;
   border: 1px solid #b8d8ff;
@@ -1187,48 +1187,48 @@
   font-size: 13px;
   line-height: 1.6;
 }
-.rd-learning,
-.rd-practice,
-.rd-experiments {
+:where(.reductions-page) .rd-learning,
+:where(.reductions-page) .rd-practice,
+:where(.reductions-page) .rd-experiments {
   display: grid;
   gap: 14px;
 }
-.rd-learning > .rd-panel,
-.rd-practice > .rd-panel,
-.rd-experiments > .rd-panel,
+:where(.reductions-page) .rd-learning > .rd-panel,
+:where(.reductions-page) .rd-practice > .rd-panel,
+:where(.reductions-page) .rd-experiments > .rd-panel,
 .reductions-page .rd-code,
 .reductions-page .rd-notes {
   padding: 20px;
   font-size: 14px;
   line-height: 1.65;
 }
-.rd-learning h2,
-.rd-practice h2,
-.rd-experiments h2,
-.rd-code h2,
-.rd-notes h2 {
+:where(.reductions-page) .rd-learning h2,
+:where(.reductions-page) .rd-practice h2,
+:where(.reductions-page) .rd-experiments h2,
+:where(.reductions-page) .rd-code h2,
+:where(.reductions-page) .rd-notes h2 {
   font-size: 20px;
 }
-.rd-concept-grid {
+:where(.reductions-page) .rd-concept-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 20px;
 }
-.rd-concept-grid article {
+:where(.reductions-page) .rd-concept-grid article {
   padding: 15px;
   border: 1px solid #d8e7ff;
   border-radius: 10px;
   background: #f7fbff;
 }
-.rd-learning h3 {
+:where(.reductions-page) .rd-learning h3 {
   margin: 16px 0 8px;
 }
-.rd-learning p,
-.rd-experiments p {
+:where(.reductions-page) .rd-learning p,
+:where(.reductions-page) .rd-experiments p {
   margin-bottom: 12px;
 }
-.rd-code pre {
+:where(.reductions-page) .rd-code pre {
   padding: 20px;
   background: #101d3d;
   color: #daebff;
@@ -1236,40 +1236,40 @@
   border-radius: 12px;
   overflow: auto;
 }
-.rd-practice label {
+:where(.reductions-page) .rd-practice label {
   display: grid;
   gap: 6px;
   margin-bottom: 15px;
 }
-.rd-practice input {
+:where(.reductions-page) .rd-practice input {
   width: 150px;
 }
-.rd-notes textarea {
+:where(.reductions-page) .rd-notes textarea {
   display: block;
   width: 100%;
   min-height: 240px;
 }
-.rd-lab-buttons {
+:where(.reductions-page) .rd-lab-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
   margin: 15px 0;
 }
-.rd-lab-checks {
+:where(.reductions-page) .rd-lab-checks {
   max-height: 350px;
   overflow: auto;
   padding: 12px;
   background: #f0f7ff;
   border-radius: 10px;
 }
-.rd-experiments select {
+:where(.reductions-page) .rd-experiments select {
   min-width: 240px;
 }
-.rd-experiments button[aria-pressed='true'] {
+:where(.reductions-page) .rd-experiments button[aria-pressed='true'] {
   background: #0875ff;
   color: #fff;
 }
-.rd-dialog {
+:where(.reductions-page) .rd-dialog {
   width: min(750px, calc(100vw - 24px));
   max-height: 85vh;
   overflow: auto;
@@ -1282,28 +1282,28 @@
   font-size: 14px;
   line-height: 1.6;
 }
-.rd-dialog::backdrop {
+:where(.reductions-page) .rd-dialog::backdrop {
   background: #132e5a80;
   backdrop-filter: blur(3px);
 }
-.rd-close {
+:where(.reductions-page) .rd-close {
   float: right;
   padding: 5px;
   display: flex;
 }
-.rd-dialog h2 {
+:where(.reductions-page) .rd-dialog h2 {
   padding-right: 30px;
   margin: 0 0 15px;
   font-size: 22px;
 }
-.rd-dialog label {
+:where(.reductions-page) .rd-dialog label {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin: 12px 0;
 }
-.rd-dialog input,
-.rd-dialog textarea {
+:where(.reductions-page) .rd-dialog input,
+:where(.reductions-page) .rd-dialog textarea {
   padding: 9px;
   border: 1px solid #b9cfed;
   border-radius: 7px;
@@ -1312,32 +1312,32 @@
   background: #f8fbff;
   color: inherit;
 }
-.rd-dialog textarea {
+:where(.reductions-page) .rd-dialog textarea {
   min-height: 110px;
   font-family: monospace;
 }
-.rd-dialog .rd-primary {
+:where(.reductions-page) .rd-dialog .rd-primary {
   padding: 8px 15px;
   background: #0875ff;
   color: #fff;
   border: 0;
   border-radius: 7px;
 }
-.rd-dialog [role='alert'] {
+:where(.reductions-page) .rd-dialog [role='alert'] {
   color: #bd2140;
 }
 [data-theme='dark'] .reductions-page {
   color: #e5f0ff;
 }
 [data-theme='dark'] .reductions-page .rd-panel,
-[data-theme='dark'] .rd-lesson-header,
-[data-theme='dark'] .rd-dialog,
-[data-theme='dark'] .rd-concept-grid article {
+[data-theme='dark'] :where(.reductions-page) .rd-lesson-header,
+[data-theme='dark'] :where(.reductions-page) .rd-dialog,
+[data-theme='dark'] :where(.reductions-page) .rd-concept-grid article {
   background: #142747;
   border-color: #34527b;
   color: #e6f0ff;
 }
-[data-theme='dark'] .rd-visualization {
+[data-theme='dark'] :where(.reductions-page) .rd-visualization {
   background: #102039;
   border-color: #34527b;
 }
@@ -1345,38 +1345,38 @@
   background: #162a48;
   border-color: #34527b;
 }
-[data-theme='dark'] .rd-lesson-header p,
-[data-theme='dark'] .rd-visual-heading p,
-[data-theme='dark'] .rd-panel header p,
-[data-theme='dark'] .rd-switch,
-[data-theme='dark'] .rd-footer-grid ul,
-[data-theme='dark'] .rd-worked ol,
-[data-theme='dark'] .rd-workflow ol {
+[data-theme='dark'] :where(.reductions-page) .rd-lesson-header p,
+[data-theme='dark'] :where(.reductions-page) .rd-visual-heading p,
+[data-theme='dark'] :where(.reductions-page) .rd-panel header p,
+[data-theme='dark'] :where(.reductions-page) .rd-switch,
+[data-theme='dark'] :where(.reductions-page) .rd-footer-grid ul,
+[data-theme='dark'] :where(.reductions-page) .rd-worked ol,
+[data-theme='dark'] :where(.reductions-page) .rd-workflow ol {
   color: #b9cce9;
 }
-[data-theme='dark'] .rd-transform p {
+[data-theme='dark'] :where(.reductions-page) .rd-transform p {
   color: #bbd1f1;
 }
-[data-theme='dark'] .rd-transform b,
-[data-theme='dark'] .rd-iff,
-[data-theme='dark'] .rd-graph-pair article,
-[data-theme='dark'] .rd-versions article {
+[data-theme='dark'] :where(.reductions-page) .rd-transform b,
+[data-theme='dark'] :where(.reductions-page) .rd-iff,
+[data-theme='dark'] :where(.reductions-page) .rd-graph-pair article,
+[data-theme='dark'] :where(.reductions-page) .rd-versions article {
   color: #102858;
 }
-[data-theme='dark'] .rd-certificate-card {
+[data-theme='dark'] :where(.reductions-page) .rd-certificate-card {
   background: #1c2d4c;
   border-color: #435274;
 }
-[data-theme='dark'] .rd-checks {
+[data-theme='dark'] :where(.reductions-page) .rd-checks {
   background: #142d4b;
   border-color: #3a587e;
 }
-[data-theme='dark'] .rd-valid {
+[data-theme='dark'] :where(.reductions-page) .rd-valid {
   background: #104b40;
   border-color: #2a7961;
   color: #b0ffdc;
 }
-[data-theme='dark'] .rd-invalid {
+[data-theme='dark'] :where(.reductions-page) .rd-invalid {
   background: #572c3a;
   border-color: #9d5268;
   color: #ffd1dd;
@@ -1396,19 +1396,19 @@
 [data-theme='dark'] .reductions-page .rd-examples-list [aria-checked='true'] {
   background: #244775;
 }
-[data-theme='dark'] .rd-examples-list small {
+[data-theme='dark'] :where(.reductions-page) .rd-examples-list small {
   color: #bbd1ee;
 }
-[data-theme='dark'] .rd-lab-checks,
-[data-theme='dark'] .rd-playback,
-[data-theme='dark'] .rd-message {
+[data-theme='dark'] :where(.reductions-page) .rd-lab-checks,
+[data-theme='dark'] :where(.reductions-page) .rd-playback,
+[data-theme='dark'] :where(.reductions-page) .rd-message {
   background: #203c61;
   color: #deedff;
 }
-[data-theme='dark'] .rd-pitfalls h2 {
+[data-theme='dark'] :where(.reductions-page) .rd-pitfalls h2 {
   color: #ffa7bb;
 }
-[data-theme='dark'] .rd-yesno {
+[data-theme='dark'] :where(.reductions-page) .rd-yesno {
   background: #104b40;
   color: #b0ffdc;
 }
@@ -1447,115 +1447,115 @@
   }
 }
 @media (max-width: 1550px) and (min-width: 1001px) {
-  .rd-lesson-header {
+  :where(.reductions-page) .rd-lesson-header {
     grid-template-columns: 42px minmax(0, 1fr) 170px;
   }
-  .rd-progress {
+  :where(.reductions-page) .rd-progress {
     display: none;
   }
-  .rd-lesson-header h1 {
+  :where(.reductions-page) .rd-lesson-header h1 {
     font-size: 24px;
     white-space: normal;
   }
-  .rd-lesson-header h1 > span {
+  :where(.reductions-page) .rd-lesson-header h1 > span {
     font-size: 10px;
     white-space: nowrap;
   }
-  .rd-lesson-header p {
+  :where(.reductions-page) .rd-lesson-header p {
     font-size: 12px;
     white-space: normal;
   }
-  .rd-visual-heading {
+  :where(.reductions-page) .rd-visual-heading {
     height: auto;
     min-height: 75px;
     flex-wrap: wrap;
   }
-  .rd-visual-options {
+  :where(.reductions-page) .rd-visual-options {
     width: 100%;
     justify-content: flex-end;
     gap: 20px;
   }
-  .rd-top-grid {
+  :where(.reductions-page) .rd-top-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   }
-  .rd-top-grid > .rd-certification {
+  :where(.reductions-page) .rd-top-grid > .rd-certification {
     grid-column: 1/-1;
     height: auto;
   }
-  .rd-certification .rd-checks {
+  :where(.reductions-page) .rd-certification .rd-checks {
     max-height: 150px;
   }
-  .rd-bottom-grid {
+  :where(.reductions-page) .rd-bottom-grid {
     grid-template-columns: 1fr 1.1fr;
   }
-  .rd-bottom-grid > .rd-controls {
+  :where(.reductions-page) .rd-bottom-grid > .rd-controls {
     grid-column: 1/-1;
   }
-  .rd-parameter-grid {
+  :where(.reductions-page) .rd-parameter-grid {
     max-width: 460px;
   }
-  .rd-footer-grid {
+  :where(.reductions-page) .rd-footer-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  .rd-examples-list > header > div {
+  :where(.reductions-page) .rd-examples-list > header > div {
     padding-right: 0;
   }
-  .rd-examples-list > header > select {
+  :where(.reductions-page) .rd-examples-list > header > select {
     width: 150px;
     font-size: 9px;
   }
-  .rd-examples-list > header p {
+  :where(.reductions-page) .rd-examples-list > header p {
     white-space: normal;
     padding-right: 150px;
   }
-  .rd-examples-list em {
+  :where(.reductions-page) .rd-examples-list em {
     font-size: 9px;
     padding: 5px;
   }
-  .rd-transform {
+  :where(.reductions-page) .rd-transform {
     grid-template-columns: 1fr 22px 1.1fr 22px 1fr;
   }
-  .rd-transform > svg {
+  :where(.reductions-page) .rd-transform > svg {
     width: 22px;
   }
-  .rd-transform > div > b {
+  :where(.reductions-page) .rd-transform > div > b {
     font-size: 12px;
   }
-  .rd-transform > div:nth-of-type(2) > b {
+  :where(.reductions-page) .rd-transform > div:nth-of-type(2) > b {
     font-size: 10px;
   }
-  .rd-transform p {
+  :where(.reductions-page) .rd-transform p {
     font-size: 10px;
   }
-  .rd-relation {
+  :where(.reductions-page) .rd-relation {
     left: auto;
     right: 0;
   }
-  .rd-graph-pair {
+  :where(.reductions-page) .rd-graph-pair {
     grid-template-columns: minmax(0, 1fr) 43px minmax(0, 1fr);
   }
-  .rd-graph-pair article > header {
+  :where(.reductions-page) .rd-graph-pair article > header {
     font-size: 9px;
     padding: 6px 3px;
   }
-  .rd-graph-pair article > header > span {
+  :where(.reductions-page) .rd-graph-pair article > header > span {
     font-size: 7px;
     padding: 3px;
   }
-  .rd-graph-pair .rd-target-card > header > span {
+  :where(.reductions-page) .rd-graph-pair .rd-target-card > header > span {
     font-size: 6px;
   }
-  .rd-complement-arrow {
+  :where(.reductions-page) .rd-complement-arrow {
     font-size: 9px;
   }
-  .rd-complement-arrow > svg {
+  :where(.reductions-page) .rd-complement-arrow > svg {
     width: 28px;
   }
-  .rd-graph-pair article > footer {
+  :where(.reductions-page) .rd-graph-pair article > footer {
     margin-inline: 3px;
     font-size: 10px;
   }
-  .rd-graph-pair article > footer p {
+  :where(.reductions-page) .rd-graph-pair article > footer p {
     font-size: 9px;
   }
 }
@@ -1577,7 +1577,7 @@
     margin-left: 0;
     font-size: 11px !important;
   }
-  .rd-lesson-header {
+  :where(.reductions-page) .rd-lesson-header {
     height: auto;
     min-height: 150px;
     margin: 0;
@@ -1585,22 +1585,22 @@
     grid-template-columns: 35px minmax(0, 1fr);
     gap: 10px;
   }
-  .rd-lesson-header h1 {
+  :where(.reductions-page) .rd-lesson-header h1 {
     font-size: 21px;
     white-space: normal;
     display: block;
     letter-spacing: -0.4px;
   }
-  .rd-lesson-header h1 > span {
+  :where(.reductions-page) .rd-lesson-header h1 > span {
     display: inline-block;
     font-size: 10px;
     margin-top: 5px;
   }
-  .rd-lesson-header p {
+  :where(.reductions-page) .rd-lesson-header p {
     font-size: 12px;
     white-space: normal;
   }
-  .rd-progress {
+  :where(.reductions-page) .rd-progress {
     padding-right: 10px;
     grid-column: 2;
   }
@@ -1622,296 +1622,296 @@
     padding: 6px 13px;
     flex-shrink: 0;
   }
-  .rd-visualization {
+  :where(.reductions-page) .rd-visualization {
     padding: 8px;
   }
-  .rd-visual-heading {
+  :where(.reductions-page) .rd-visual-heading {
     height: auto;
     flex-wrap: wrap;
     padding-left: 0;
     gap: 7px;
     margin-bottom: 12px;
   }
-  .rd-visual-heading > div:not(.rd-visual-options) {
+  :where(.reductions-page) .rd-visual-heading > div:not(.rd-visual-options) {
     flex: 1;
     min-width: 0;
   }
-  .rd-visual-heading h2 {
+  :where(.reductions-page) .rd-visual-heading h2 {
     font-size: 17px;
   }
-  .rd-visual-heading p {
+  :where(.reductions-page) .rd-visual-heading p {
     font-size: 11px;
     white-space: normal;
   }
-  .rd-visual-options {
+  :where(.reductions-page) .rd-visual-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
     gap: 5px;
   }
-  .rd-visual-options > label:not(.rd-switch) {
+  :where(.reductions-page) .rd-visual-options > label:not(.rd-switch) {
     grid-column: 1/-1;
     width: 100%;
     margin-bottom: 5px;
   }
-  .rd-visual-options > label:not(.rd-switch) > select {
+  :where(.reductions-page) .rd-visual-options > label:not(.rd-switch) > select {
     width: 100%;
   }
-  .rd-visual-options > button {
+  :where(.reductions-page) .rd-visual-options > button {
     width: 100% !important;
     grid-column: 1/-1;
   }
-  .rd-switch {
+  :where(.reductions-page) .rd-switch {
     font-size: 10px;
     gap: 6px;
   }
-  .rd-top-grid,
-  .rd-bottom-grid,
-  .rd-footer-grid {
+  :where(.reductions-page) .rd-top-grid,
+  :where(.reductions-page) .rd-bottom-grid,
+  :where(.reductions-page) .rd-footer-grid {
     grid-template-columns: 1fr;
   }
-  .rd-top-grid > .rd-panel {
+  :where(.reductions-page) .rd-top-grid > .rd-panel {
     height: auto;
     min-height: 338px;
   }
-  .rd-construction {
+  :where(.reductions-page) .rd-construction {
     min-height: 338px;
     padding: 10px 12px 15px;
   }
-  .rd-construction > header {
+  :where(.reductions-page) .rd-construction > header {
     margin-left: 0;
   }
-  .rd-construction h2 {
+  :where(.reductions-page) .rd-construction h2 {
     font-size: 15px;
   }
-  .rd-relation {
+  :where(.reductions-page) .rd-relation {
     left: auto;
     right: 0;
     font-size: 14px;
   }
-  .rd-transform {
+  :where(.reductions-page) .rd-transform {
     grid-template-columns: 1fr 20px 1.1fr 20px 1fr;
   }
-  .rd-transform > div > b {
+  :where(.reductions-page) .rd-transform > div > b {
     font-size: 11px;
   }
-  .rd-transform > div:nth-of-type(2) > b {
+  :where(.reductions-page) .rd-transform > div:nth-of-type(2) > b {
     font-size: 10px;
   }
-  .rd-transform > svg {
+  :where(.reductions-page) .rd-transform > svg {
     width: 20px;
   }
-  .rd-transform p {
+  :where(.reductions-page) .rd-transform p {
     font-size: 10px;
   }
-  .rd-iff {
+  :where(.reductions-page) .rd-iff {
     font-size: 12px;
   }
-  .rd-iff > span {
+  :where(.reductions-page) .rd-iff > span {
     font-size: 15px;
   }
-  .rd-iff p {
+  :where(.reductions-page) .rd-iff p {
     font-size: 18px;
   }
-  .rd-example > header {
+  :where(.reductions-page) .rd-example > header {
     height: auto;
     min-height: 57px;
   }
-  .rd-example > header p {
+  :where(.reductions-page) .rd-example > header p {
     font-size: 11px;
   }
-  .rd-example h2 {
+  :where(.reductions-page) .rd-example h2 {
     font-size: 13px;
   }
-  .rd-graph-pair {
+  :where(.reductions-page) .rd-graph-pair {
     grid-template-columns: minmax(0, 1fr) 39px minmax(0, 1fr);
     gap: 3px;
   }
-  .rd-graph-pair article > header {
+  :where(.reductions-page) .rd-graph-pair article > header {
     font-size: 9px;
     white-space: normal;
     flex-wrap: wrap;
     height: 42px;
     padding: 5px;
   }
-  .rd-graph-pair article > header > svg {
+  :where(.reductions-page) .rd-graph-pair article > header > svg {
     display: none;
   }
-  .rd-graph-pair article > header > span {
+  :where(.reductions-page) .rd-graph-pair article > header > span {
     font-size: 8px;
     padding: 2px 4px;
     margin-left: 0;
   }
-  .rd-graph-pair .rd-target-card > header > span {
+  :where(.reductions-page) .rd-graph-pair .rd-target-card > header > span {
     font-size: 7px;
   }
-  .rd-graph-pair > article {
+  :where(.reductions-page) .rd-graph-pair > article {
     height: auto;
     min-height: 251px;
   }
-  .rd-graph {
+  :where(.reductions-page) .rd-graph {
     height: 152px;
   }
-  .rd-complement-arrow {
+  :where(.reductions-page) .rd-complement-arrow {
     font-size: 8px;
     padding-top: 83px;
   }
-  .rd-complement-arrow > svg {
+  :where(.reductions-page) .rd-complement-arrow > svg {
     width: 26px;
     height: 30px;
   }
-  .rd-graph-pair article > footer {
+  :where(.reductions-page) .rd-graph-pair article > footer {
     margin-inline: 3px;
     font-size: 9px;
     min-height: 52px;
   }
-  .rd-graph-pair article > footer p {
+  :where(.reductions-page) .rd-graph-pair article > footer p {
     font-size: 9px;
   }
-  .rd-certification > header p {
+  :where(.reductions-page) .rd-certification > header p {
     font-size: 9px;
     white-space: normal;
   }
-  .rd-certification h2 {
+  :where(.reductions-page) .rd-certification h2 {
     font-size: 15px;
   }
-  .rd-certification > nav button {
+  :where(.reductions-page) .rd-certification > nav button {
     font-size: 9px !important;
   }
-  .rd-certificate-card h3 {
+  :where(.reductions-page) .rd-certificate-card h3 {
     font-size: 11px;
   }
-  .rd-certificate-card > p {
-    font-size: 11px;
-    white-space: normal;
-  }
-  .rd-certificate-status {
+  :where(.reductions-page) .rd-certificate-card > p {
     font-size: 11px;
     white-space: normal;
   }
-  .rd-bottom-grid > .rd-panel {
+  :where(.reductions-page) .rd-certificate-status {
+    font-size: 11px;
+    white-space: normal;
+  }
+  :where(.reductions-page) .rd-bottom-grid > .rd-panel {
     min-height: 193px;
   }
-  .rd-versions > div {
+  :where(.reductions-page) .rd-versions > div {
     grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
     gap: 4px;
   }
-  .rd-versions article {
+  :where(.reductions-page) .rd-versions article {
     padding: 9px 6px;
   }
-  .rd-versions h3 {
+  :where(.reductions-page) .rd-versions h3 {
     font-size: 12px;
   }
-  .rd-versions article i {
+  :where(.reductions-page) .rd-versions article i {
     white-space: normal;
     font-size: 10px;
   }
-  .rd-versions article button {
+  :where(.reductions-page) .rd-versions article button {
     font-size: 8px;
     padding: 5px;
     white-space: normal;
   }
-  .rd-versions > div > div {
+  :where(.reductions-page) .rd-versions > div > div {
     font-size: 9px;
   }
-  .rd-versions > div > div > svg {
+  :where(.reductions-page) .rd-versions > div > div > svg {
     width: 30px;
   }
-  .rd-versions article p {
+  :where(.reductions-page) .rd-versions article p {
     font-size: 10px;
   }
-  .rd-examples-list > header {
+  :where(.reductions-page) .rd-examples-list > header {
     height: auto !important;
     min-height: 35px;
     margin-bottom: 8px !important;
   }
-  .rd-examples-list > header > select {
+  :where(.reductions-page) .rd-examples-list > header > select {
     position: static;
     width: 130px;
     font-size: 8px;
     padding: 5px 3px;
     height: 30px;
   }
-  .rd-examples-list > header > div {
+  :where(.reductions-page) .rd-examples-list > header > div {
     padding-right: 0;
   }
-  .rd-examples-list > header p {
+  :where(.reductions-page) .rd-examples-list > header p {
     font-size: 9px;
     white-space: normal;
   }
-  .rd-examples-list h2 {
+  :where(.reductions-page) .rd-examples-list h2 {
     font-size: 13px !important;
   }
-  .rd-examples-list [role='radio'] {
+  :where(.reductions-page) .rd-examples-list [role='radio'] {
     gap: 8px !important;
     padding-inline: 5px !important;
     min-height: 40px;
     height: auto !important;
   }
-  .rd-examples-list b {
+  :where(.reductions-page) .rd-examples-list b {
     font-size: 9px;
   }
-  .rd-examples-list em {
+  :where(.reductions-page) .rd-examples-list em {
     font-size: 8px;
     padding: 5px;
   }
-  .rd-examples-list small {
+  :where(.reductions-page) .rd-examples-list small {
     font-size: 10px;
   }
-  .rd-controls > header p {
+  :where(.reductions-page) .rd-controls > header p {
     font-size: 10px;
     white-space: normal;
   }
-  .rd-parameter-grid {
+  :where(.reductions-page) .rd-parameter-grid {
     gap: 8px;
   }
-  .rd-parameter-grid legend {
+  :where(.reductions-page) .rd-parameter-grid legend {
     font-size: 10px;
   }
-  .rd-footer-grid {
+  :where(.reductions-page) .rd-footer-grid {
     margin-inline: 0;
   }
-  .rd-footer-grid > .rd-panel {
+  :where(.reductions-page) .rd-footer-grid > .rd-panel {
     min-height: 145px;
     font-size: 12px;
   }
-  .rd-footer-grid h2 {
+  :where(.reductions-page) .rd-footer-grid h2 {
     font-size: 14px;
   }
-  .rd-footer-grid ul,
-  .rd-worked ol,
-  .rd-worked > b,
-  .rd-workflow ol {
+  :where(.reductions-page) .rd-footer-grid ul,
+  :where(.reductions-page) .rd-worked ol,
+  :where(.reductions-page) .rd-worked > b,
+  :where(.reductions-page) .rd-workflow ol {
     font-size: 11px;
     line-height: 1.4;
   }
-  .rd-workflow li {
+  :where(.reductions-page) .rd-workflow li {
     margin-bottom: 7px;
   }
-  .rd-correctness li {
+  :where(.reductions-page) .rd-correctness li {
     margin-bottom: 7px;
   }
-  .rd-concept-grid {
+  :where(.reductions-page) .rd-concept-grid {
     grid-template-columns: 1fr;
   }
-  .rd-learning > .rd-panel,
-  .rd-practice > .rd-panel,
-  .rd-experiments > .rd-panel,
+  :where(.reductions-page) .rd-learning > .rd-panel,
+  :where(.reductions-page) .rd-practice > .rd-panel,
+  :where(.reductions-page) .rd-experiments > .rd-panel,
   .reductions-page .rd-code,
   .reductions-page .rd-notes {
     padding: 12px;
   }
-  .rd-dialog {
+  :where(.reductions-page) .rd-dialog {
     padding: 18px;
   }
 }
-.rd-visual-options > label:not(.rd-switch) {
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch) {
   border: 0;
   padding: 0;
   font-size: 12px;
 }
-.rd-visual-options > label:not(.rd-switch):before,
-.rd-visual-options > label:not(.rd-switch):after {
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch):before,
+:where(.reductions-page) .rd-visual-options > label:not(.rd-switch):after {
   content: none;
 }
 .reductions-page .rd-visual-options > label:not(.rd-switch) > select {
@@ -1927,76 +1927,76 @@
   background: #fcfdff;
   font-weight: 600;
 }
-.rd-bottom-grid > .rd-panel {
+:where(.reductions-page) .rd-bottom-grid > .rd-panel {
   padding-bottom: 0;
 }
-.rd-examples-list > header {
+:where(.reductions-page) .rd-examples-list > header {
   height: 32px !important;
 }
-.rd-versions > small {
+:where(.reductions-page) .rd-versions > small {
   margin-top: 1px;
 }
-.rd-construction > header {
+:where(.reductions-page) .rd-construction > header {
   padding-top: 6px;
   gap: 17px;
 }
-.rd-relation {
+:where(.reductions-page) .rd-relation {
   left: 215px;
   top: 10px;
 }
-.rd-transform {
+:where(.reductions-page) .rd-transform {
   margin-top: 32px;
 }
-.rd-footer-grid .rd-workflow ol {
+:where(.reductions-page) .rd-footer-grid .rd-workflow ol {
   font-size: 8px;
 }
-.rd-workflow li {
+:where(.reductions-page) .rd-workflow li {
   gap: 6px;
   margin-bottom: 3px;
 }
-.rd-workflow li:last-child {
+:where(.reductions-page) .rd-workflow li:last-child {
   margin-bottom: 0;
 }
-.rd-correctness li:last-child {
+:where(.reductions-page) .rd-correctness li:last-child {
   margin-bottom: 0;
 }
-.rd-certificate-status.rd-valid > svg {
+:where(.reductions-page) .rd-certificate-status.rd-valid > svg {
   fill: #20c583;
   color: white;
 }
-.rd-check-pass > svg {
+:where(.reductions-page) .rd-check-pass > svg {
   fill: #25c487;
   color: white;
 }
-.rd-visualization[data-step='0'] .rd-source-card,
-.rd-visualization[data-step='1'] .rd-complement-arrow,
-.rd-visualization[data-step='2'] .rd-target-card,
-.rd-visualization[data-step='3'] .rd-certificate-card,
-.rd-visualization[data-step='4'] .rd-checks,
-.rd-visualization[data-step='5'] .rd-iff {
+:where(.reductions-page) .rd-visualization[data-step='0'] .rd-source-card,
+:where(.reductions-page) .rd-visualization[data-step='1'] .rd-complement-arrow,
+:where(.reductions-page) .rd-visualization[data-step='2'] .rd-target-card,
+:where(.reductions-page) .rd-visualization[data-step='3'] .rd-certificate-card,
+:where(.reductions-page) .rd-visualization[data-step='4'] .rd-checks,
+:where(.reductions-page) .rd-visualization[data-step='5'] .rd-iff {
   outline: 3px solid #69a9ff;
   outline-offset: 2px;
 }
 @media (min-width: 1551px) {
-  .rd-lesson-header h1 {
+  :where(.reductions-page) .rd-lesson-header h1 {
     font-size: 28.5px;
   }
 }
 @media (max-width: 1000px) {
-  .rd-relation {
+  :where(.reductions-page) .rd-relation {
     left: auto;
     top: 10px;
   }
-  .rd-construction > header {
+  :where(.reductions-page) .rd-construction > header {
     gap: 9px;
   }
-  .rd-transform {
+  :where(.reductions-page) .rd-transform {
     margin-top: 32px;
   }
-  .rd-footer-grid .rd-workflow ol {
+  :where(.reductions-page) .rd-footer-grid .rd-workflow ol {
     font-size: 11px;
   }
-  .rd-workflow li {
+  :where(.reductions-page) .rd-workflow li {
     margin-bottom: 7px;
   }
 }
@@ -2011,34 +2011,34 @@
 .reductions-page .rd-certificate-status.rd-invalid {
   color: #b51a3d;
 }
-.rd-checks > div {
+:where(.reductions-page) .rd-checks > div {
   font-size: 12px;
 }
-.rd-certificate-card > p {
+:where(.reductions-page) .rd-certificate-card > p {
   font-size: 13px;
 }
-.rd-certificate-card h3 {
+:where(.reductions-page) .rd-certificate-card h3 {
   font-size: 13px;
 }
-.rd-footer-grid .rd-takeaways ul,
-.rd-footer-grid .rd-worked ol {
+:where(.reductions-page) .rd-footer-grid .rd-takeaways ul,
+:where(.reductions-page) .rd-footer-grid .rd-worked ol {
   font-size: 11px;
   line-height: 1.2;
 }
-.rd-footer-grid .rd-worked > b {
+:where(.reductions-page) .rd-footer-grid .rd-worked > b {
   font-size: 11px;
 }
 @media (max-width: 1000px) {
-  .rd-checks > div {
+  :where(.reductions-page) .rd-checks > div {
     font-size: 11px;
   }
-  .rd-certificate-card > p {
+  :where(.reductions-page) .rd-certificate-card > p {
     font-size: 11px;
   }
-  .rd-certificate-card h3 {
+  :where(.reductions-page) .rd-certificate-card h3 {
     font-size: 11px;
   }
-  .rd-footer-grid .rd-worked ol {
+  :where(.reductions-page) .rd-footer-grid .rd-worked ol {
     font-size: 11px;
   }
 }
@@ -2048,25 +2048,25 @@
 [data-theme='dark'] .reductions-page .rd-certificate-status.rd-invalid {
   color: #ffd1dd;
 }
-.rd-worked ol > li {
+:where(.reductions-page) .rd-worked ol > li {
   margin: 0;
 }
 @media (min-width: 1551px) {
-  .rd-footer-grid h2 {
+  :where(.reductions-page) .rd-footer-grid h2 {
     font-size: 12px;
   }
 }
-.rd-pitfalls li {
+:where(.reductions-page) .rd-pitfalls li {
   margin: 1px 0;
 }
-.rd-footer-grid .rd-pitfalls ul {
+:where(.reductions-page) .rd-footer-grid .rd-pitfalls ul {
   line-height: 1.05;
 }
 @media (max-width: 1000px) {
-  .rd-footer-grid .rd-pitfalls ul {
+  :where(.reductions-page) .rd-footer-grid .rd-pitfalls ul {
     line-height: 1.4;
   }
-  .rd-pitfalls li {
+  :where(.reductions-page) .rd-pitfalls li {
     margin: 3px 0;
   }
 }
@@ -2081,7 +2081,145 @@
 [data-theme='dark'] .reductions-page .rd-versions article p {
   color: #344c78;
 }
-[data-theme='dark'] .rd-versions > small,
-[data-theme='dark'] .rd-progress {
+[data-theme='dark'] :where(.reductions-page) .rd-versions > small,
+[data-theme='dark'] :where(.reductions-page) .rd-progress {
   color: #bcd0ec;
+}
+/* Target 024 details stay local when other lesson styles are already loaded. */
+.reductions-page .rd-witness-set {
+  color: #138fa5;
+  font:
+    15px Georgia,
+    serif;
+}
+.reductions-page .rd-repeated-check-label {
+  opacity: 0;
+}
+@media (min-width: 1551px) {
+  .reductions-page .rd-topbar {
+    gap: 17px;
+  }
+  .reductions-page #account-trigger {
+    width: 201px;
+    min-height: 40px;
+  }
+  .reductions-page .mom-study {
+    min-width: 134px;
+  }
+  .reductions-page .mom-tabs button[aria-pressed='true'] {
+    box-shadow:
+      0 0 0 3px #e1efff,
+      inset 0 0 0 1px #53a5ff;
+  }
+  .reductions-page .rd-progress {
+    transform: translateY(-2px);
+  }
+  .reductions-page .rd-progress i:nth-child(2) {
+    visibility: hidden;
+  }
+  .reductions-page .rd-progress i:nth-child(3) {
+    transform: translateX(13px);
+  }
+  .reductions-page .rd-progress i:nth-child(4) {
+    transform: translateX(8px);
+  }
+  .reductions-page .rd-progress i:nth-child(5) {
+    transform: translateX(4px);
+  }
+  .reductions-page .rd-visual-options {
+    gap: 32px;
+  }
+  .reductions-page .rd-visual-options > button {
+    margin-right: 8px;
+  }
+  .reductions-page .rd-visual-options > .rd-switch {
+    font-size: 12px;
+  }
+  .reductions-page .rd-example > header p {
+    max-width: 305px;
+  }
+  .reductions-page .rd-graph-pair article > header {
+    font-size: 12px;
+  }
+  .reductions-page .rd-graph-pair article > header > span {
+    font-size: 10px;
+  }
+  .reductions-page .rd-graph-pair article > footer {
+    transform: translateY(-4px);
+    font-size: 12px;
+  }
+  .reductions-page .rd-graph-pair article > footer p {
+    font-size: 12px;
+  }
+  .reductions-page .rd-complement-arrow > svg {
+    margin-top: 1px;
+  }
+  .reductions-page .rd-certification > header p {
+    font-size: 11.5px;
+  }
+  .reductions-page .rd-certification > nav button {
+    font-size: 11px;
+  }
+  .reductions-page .rd-certification > nav button:first-child {
+    flex: 0.83;
+  }
+  .reductions-page .rd-certificate-card h3 {
+    font-size: 13.5px;
+  }
+  .reductions-page .rd-certificate-card > p {
+    margin-bottom: 7px;
+  }
+  .reductions-page .rd-certificate-card > p > b {
+    font-size: 13px;
+  }
+  .reductions-page .rd-checks svg {
+    width: 18px;
+    height: 18px;
+  }
+  .reductions-page .rd-certificate-status {
+    font-size: 13px;
+  }
+  .reductions-page .rd-footer-grid h2 {
+    font-size: 13px;
+  }
+  .reductions-page .rd-footer-grid .rd-takeaways h2,
+  .reductions-page .rd-footer-grid .rd-worked h2 {
+    font-size: 14px;
+  }
+  .reductions-page .rd-footer-grid .rd-panel > header {
+    margin-bottom: 5px;
+  }
+  .reductions-page .rd-footer-grid .rd-worked > header {
+    margin-bottom: 2px;
+  }
+  .reductions-page .rd-footer-grid .rd-workflow ol,
+  .reductions-page .rd-footer-grid .rd-correctness ul {
+    font-size: 9.5px;
+    line-height: 12px;
+  }
+  .reductions-page .rd-footer-grid .rd-correctness li > svg {
+    fill: #1cc38b;
+    color: white;
+  }
+  .reductions-page .rd-footer-grid .rd-worked > header > button {
+    font-size: 12px;
+  }
+  .reductions-page .rd-versions article button {
+    font-size: 11px;
+    padding-inline: 8px;
+  }
+  .reductions-page .rd-parameter-grid legend {
+    margin-bottom: 12px;
+  }
+  .reductions-page .rd-footer-grid .rd-workflow ol {
+    font-size: 8.5px;
+    letter-spacing: -0.1px;
+  }
+  .reductions-page .rd-graph-pair .rd-target-card > header > b {
+    font-size: 11.5px;
+    letter-spacing: -0.35px;
+  }
+  .reductions-page .rd-graph-pair .rd-target-card > header > span {
+    font-size: 9px;
+  }
 }

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const root = (p: Page) => p.locator('.bin-packing-page'),
   button = (p: Page, name: string) => root(p).getByRole('button', { name, exact: true }),
   tab = (p: Page, name: string) => button(p, name).click(),
@@ -9,7 +9,8 @@ async function apply(p: Page, cap: string, items: string) {
   await root(p).getByLabel('Packing item sizes', { exact: true }).fill(items)
   await button(p, 'Auto Pack').click()
 }
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop' && info.title.includes('044 all mockup')) await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -39,7 +40,20 @@ test('044 all mockup panels use a feasible default packing with six bins and twe
   await expect(root(page).locator('.bp-bin-title > span')).toHaveText(['(10 / 10)', '(10 / 10)', '(10 / 10)', '(10 / 10)', '(9 / 10)', '(5 / 10)'])
   await expect(root(page).locator('.bp-utilization small')).toHaveText(['100%', '100%', '100%', '100%', '90%', '50%'])
   await expect(root(page).locator('.mom-tabs button')).toHaveCount(6)
+  mkdirSync('artifacts/visual-qa/bin-packing-044', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/bin-packing-044/${info.project.name}-default.png` })
+  const geometry = await root(page)
+    .locator('.bp-panel,.bp-toolbar,.bp-hero,.mom-tabs,.bp-placement-result,.bp-placement-detail')
+    .evaluateAll((elements) => elements.map((element) => ({ selector: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/bin-packing-044/${info.project.name}-layout.json`, JSON.stringify(geometry, null, 2))
   if (info.project.name === 'desktop') {
+    const result = await root(page).locator('.bp-placement-result').first().boundingBox()
+    expect(Math.abs(result!.y - 736), 'The first placement result matches the reference row').toBeLessThanOrEqual(2)
+    for (const card of await root(page).locator('.bp-placement-card').all()) {
+      const box = await card.boundingBox(),
+        remaining = await card.locator('.bp-placement-remaining').boundingBox()
+      expect(remaining!.y + remaining!.height, 'Placement content stays inside its card').toBeLessThanOrEqual(box!.y + box!.height)
+    }
     for (const [selector, expected] of [
       ['.bp-toolbar', { x: 282, y: 11, width: 1376, height: 37 }],
       ['.bp-hero', { x: 269, y: 56, width: 1403, height: 76 }],

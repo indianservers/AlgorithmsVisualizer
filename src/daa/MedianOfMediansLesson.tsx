@@ -406,9 +406,9 @@ function LearnDashboard({ onExplore }: { onExplore: (phase?: MedianFrame['phase'
             {tr('Common Pitfalls')}
           </h2>
           {[
-            ['Using a group size other than 5.', 'The standard 3n/10 proof may no longer apply.'],
+            ['Using group size other than 5.', 'The 3n/10 guarantee may not hold.'],
             ['Not using three-way partitioning.', 'Can lead to incorrect handling of duplicates.'],
-            ['Forgetting to recurse on medians.', 'Pivot must come from medians, not a random group.'],
+            ['Forgetting to recurse on medians.', 'Pivot must be the median of medians.'],
             ['Off-by-one in rank after partition.', 'Adjust k correctly for the recursive side.'],
           ].map(([a, b]) => (
             <div className="mom-tip-row" key={a}>
@@ -441,11 +441,11 @@ function LearnDashboard({ onExplore }: { onExplore: (phase?: MedianFrame['phase'
         >
           <div className="mom-worked-stages">
             {[
-              ['Group into 5s', 'M = [5, 6, 11]'],
-              ['Median of M', '6 is the pivot'],
-              ['Partition around 6', '|L| = 6, |E| = 1'],
-              ['Rank 7 is in E', '6 < 7 ≤ 7'],
-              ['Result', '7th smallest is 6'],
+              ['Group into 5s and find medians', 'M = [5, 6, 11]'],
+              ['Median of M', 'is 6 (pivot)'],
+              ['Partition around 6', 'L = [2, 4, 5, 3, 1, 0]\n|L| = 6'],
+              ['Rank 7 is in E', 'E = [6], |E| = 1\n6 < 7 ≤ 7 ⇒ return 6'],
+              ['Result', '7th smallest\nis 6'],
             ].map(([title, body], i) => (
               <div
                 key={title}
@@ -783,11 +783,11 @@ export function MedianOfMediansLesson({
             </defs>
             {[
               [8, 17, 31],
-              [0, 57, 43],
-              [245, 29, 38],
-              [171, 2, 42],
+              [0, 51, 52],
+              [259, 29, 42],
+              [160, 11, 42],
             ].map(([x, y, s], i) => (
-              <g key={i} transform={`translate(${x} ${y})`} opacity={i === 3 ? 0.12 : 0.7}>
+              <g key={i} transform={`translate(${x} ${y})`} opacity={i === 3 ? 0.12 : 0.9}>
                 <path d={`M0 ${s / 4}L${s / 2} 0L${s} ${s / 4}L${s / 2} ${s / 2}Z`} fill="url(#median-cube-top)" />
                 <path d={`M0 ${s / 4}L${s / 2} ${s / 2}V${s * 1.08}L0 ${s * 0.82}Z`} fill="url(#median-cube-left)" />
                 <path d={`M${s / 2} ${s / 2}L${s} ${s / 4}V${s * 0.82}L${s / 2} ${s * 1.08}Z`} fill="url(#median-cube-right)" />
