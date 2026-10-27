@@ -5,15 +5,17 @@ The home page ends with a compact topic map: 11px on desktop, 12px on phones, wi
 ## Published resources
 
 - `/sitemap`: full English (India) HTML directory.
-- `/sitemap/hi`, `/sitemap/te`, `/sitemap/ru`, `/sitemap/ar`, `/sitemap/de`: localized directory headings, navigation and category descriptions. Individual algorithm descriptions retain exact English where a translation is missing. HTML `lang` attributes and JSON language fields identify the fallback; technical algorithm names may remain English.
-- `/sitemap.xml`: all 395 canonical HTML URLs, including the six real directory variants. Reciprocal `hreflang` annotations apply only to those directory pages. No nonexistent translated algorithm URLs are advertised.
+- `/sitemap/<locale>`: directories for all 40 non-English languages configured in `src/i18n/languages.json`, plus the default English directory (41 total). Headings, navigation, category descriptions and all 185 algorithm summaries have local translations. Technical algorithm names and identifiers may retain their established English spelling. Arabic and Urdu use right-to-left page layout.
+- `/sitemap.xml`: all 430 canonical HTML URLs, including the 41 directory variants. Each directory has 41 reciprocal language alternates and an `x-default` alternate. Existing algorithm URLs remain canonical destinations.
 - `/sitemap.json`: English machine-readable catalog; `/sitemaps/<locale>.json` provides each directory language with stable identifiers, purpose descriptions, theory and visualization URLs, complexity, and per-field language tags.
 - `/llms.txt`: linked reading guide for AI agents; `/sitemaps/<locale>.txt` provides language-specific versions.
 - `/robots.txt`: advertises the XML sitemap and retains the existing crawl policy.
 
 Full directory documents are generated as readable static HTML, including self-canonical metadata, reciprocal language alternates and `CollectionPage`/`ItemList` JSON-LD. They do not require the application JavaScript bundle. Selecting a directory language also preserves that explicit preference when returning to the interactive application with JavaScript enabled.
 
-The catalog is derived from `allModules`, category metadata and existing route helpers. Add new lessons to the normal application catalog; do not maintain a separate SEO-only list. Regenerate resources with `npm run i18n:generate` before building. The build regenerates HTML, XML, JSON and text from the same catalog. Sitemap-specific translation drafts live in `scripts/i18n/sitemap-translations.json` and merge into the existing six-namespace translation resources; they require the same native review as other target-language drafts.
+The catalog is derived from `allModules`, category metadata and existing route helpers. Add new lessons to the normal application catalog; do not maintain a separate SEO-only list. Regenerate resources with `npm run i18n:generate` before building. The build regenerates HTML, XML, JSON and text from the same catalog. Sitemap translations live in `scripts/i18n/sitemap-translations.json` and merge into the existing six-namespace translation resources. The build rejects missing or unchanged English descriptions in every non-English directory. Catalog text is explicitly extracted into a namespace loaded by the homepage, including computed descriptions excluded by the general code-string heuristic.
+
+The 7,400 non-English algorithm-summary entries were machine-translated with Google Translate during maintenance, with targeted technical corrections. They are checked-in text; visitors never call a translation service. Native-speaker review of these technical translations is still outstanding. `python scripts/i18n/translate-sitemap.py` resumes generation for missing source strings; existing curated translations are retained. Review and edit the seed file before running resource generation. Full encyclopedia article translation is a separate scope; the translated sitemap links to the existing theory routes.
 
 ## Validation
 
@@ -23,4 +25,6 @@ The XML follows the [Sitemaps protocol](https://www.sitemaps.org/protocol.html).
 
 ### Executed verification
 
-Production build, TypeScript, ESLint, translation/resource validation, all 568 unit tests and the 23 JavaScript chunk budgets passed. Across the production-browser runs, all 32 distinct home, sitemap, encyclopedia and localization cases passed on desktop/mobile after the home assertion and tablet header fixes. All six directory languages were read with JavaScript disabled; XML parsed successfully, catalog counts matched the live algorithm catalog, and English fallback fields retained language tags. Desktop compact-footer and Arabic phone screenshots are saved in `artifacts/`.
+Earlier six-language release: 568 unit tests and 32 desktop/mobile browser cases passed. The expanded suite now checks all 41 static directory pages without JavaScript, all algorithm-description language tags, reciprocal alternates and Arabic/Urdu direction. Publication is also blocked by a unit test if translation coverage is incomplete. Compact-footer and Arabic phone screenshots are saved in Playwright's per-test output directories.
+
+Expanded release: 809 unit tests and the production build passed. All 30 scoped home, encyclopedia, localization and sitemap browser cases passed across desktop/mobile runs; the final eight sitemap and language-state cases passed together. Static validation checked all 41 catalogs, 7,400 non-English algorithm-description fields, matching text guides and 430 XML URLs. The existing all-categories selector smoke test still fails on FIFO knapsack in both viewports because its selector is rendered only on a secondary tab; that lesson was not changed by this release.

@@ -56,7 +56,7 @@
   {
     "file": "src/components/DetectiveSearch.tsx",
     "namespace": "studios",
-    "textBindings": 23,
+    "textBindings": 28,
     "componentSubscriptions": 1
   },
   {
@@ -198,15 +198,111 @@
     "componentSubscriptions": 1
   },
   {
+    "file": "src/daa/AmortizedMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ApproximationGuaranteeMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ArticulationMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/AsymptoticMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BestFirstKnapsackMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
     "file": "src/daa/BfsHero.tsx",
     "namespace": "studios",
     "textBindings": 7,
     "componentSubscriptions": 1
   },
   {
+    "file": "src/daa/BinPackingMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BipartiteMatchingMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BoyerMooreMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BranchBoundMethodMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/BridgesMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/CaseSpaceMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/CertificatesReductionMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/CliqueCoverMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ClosestPairMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ComplexityClassesMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/CookLevinMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
     "file": "src/daa/DaaWorkspace.tsx",
     "namespace": "studios",
-    "textBindings": 281,
+    "textBindings": 336,
     "componentSubscriptions": 8
   },
   {
@@ -222,6 +318,168 @@
     "componentSubscriptions": 1
   },
   {
+    "file": "src/daa/DivideConquerMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/EdmondsKarpMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/EulerianMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ExpectedAnalysisMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/FFTMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/FifoKnapsackMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/GreedyExchangeMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/InvariantMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/InversionsMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/KaratsubaMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/LinearProgrammingMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/LoopRecursionMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MasterTheoremMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MaximumSubarrayMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MedianOfMediansLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MetricTspMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MinMaxMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/MockupLessonChrome.tsx",
+    "namespace": "studios",
+    "textBindings": 3,
+    "componentSubscriptions": 2
+  },
+  {
+    "file": "src/daa/PseudocodeMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/QuickselectMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/RandomQuickMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/RandomSelectMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/RecursionTreeMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/ReliabilityMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/StrassenMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/SubstitutionMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/SuffixArrayMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
+  },
+  {
     "file": "src/daa/TargetLessonScenes.tsx",
     "namespace": "studios",
     "textBindings": 106,
@@ -232,6 +490,24 @@
     "namespace": "studios",
     "textBindings": 183,
     "componentSubscriptions": 13
+  },
+  {
+    "file": "src/daa/ThreeSatCliqueMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/TspBranchMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 2,
+    "componentSubscriptions": 1
+  },
+  {
+    "file": "src/daa/VertexCoverMockupLesson.tsx",
+    "namespace": "studios",
+    "textBindings": 1,
+    "componentSubscriptions": 1
   },
   {
     "file": "src/encyclopedia/AlgorithmArticle.tsx",

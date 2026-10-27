@@ -13,6 +13,15 @@ export function buildSitemapAssets(dictionaries: Record<string, Record<string, s
   for (const locale of sitemapLocales) {
     const resources = dictionaries[locale] ?? {}
     const t = (source: string) => resources[sourceKey(source)] ?? source
+    if (locale !== 'en-IN') {
+      const required = [
+        ...Object.values(sitemapCopy),
+        ...sitemapGroups.flatMap((group) => [group.description, ...group.lessons.map((lesson) => lesson.description)]),
+      ]
+      for (const source of required) {
+        if (!t(source).trim() || t(source) === source) throw new Error(`Missing sitemap translation [${locale}]: ${source}`)
+      }
+    }
     const meta = sitemapMetadata(locale, t)
     const alternates = [...sitemapLocales.map((code) => ({ code, href: origin + sitemapPath(code) })), { code: 'x-default', href: origin + '/sitemap' }]
     const head = `<title>${escapeHtml(meta.title)}</title><meta name="description" content="${escapeHtml(meta.description)}"><link rel="canonical" href="${meta.url}">${alternates.map((a) => `<link rel="alternate" hreflang="${a.code}" href="${a.href}">`).join('')}<link rel="alternate" type="application/json" href="${origin}/sitemaps/${locale}.json"><meta property="og:title" content="${escapeHtml(meta.title)}"><meta property="og:description" content="${escapeHtml(meta.description)}"><meta property="og:url" content="${meta.url}"><script type="application/ld+json">${JSON.stringify(meta.structured).replaceAll('<', '\\u003c')}</script>`
@@ -32,7 +41,7 @@ export function buildSitemapAssets(dictionaries: Record<string, Record<string, s
       files.push({ path: '/sitemap.json', text: catalog })
     }
     const readingGuide =
-      `# AlgoDrishti — ${t(sitemapCopy.title)}\n\n> ${t(sitemapCopy.intro)}\n\n${t(sitemapCopy.fallback)}\n\n- [${t(sitemapCopy.directory)}](${meta.url})\n- [${t(sitemapCopy.json)}](${origin}/sitemaps/${locale}.json)\n\n` +
+      `# AlgoDrishti — ${t(sitemapCopy.title)}\n\n> ${t(sitemapCopy.intro)}\n\n- [${t(sitemapCopy.directory)}](${meta.url})\n- [${t(sitemapCopy.json)}](${origin}/sitemaps/${locale}.json)\n\n` +
       sitemapGroups
         .map(
           (group) =>

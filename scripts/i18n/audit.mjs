@@ -1,6 +1,7 @@
 import ts from 'typescript'
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { rolldown } from 'rolldown'
 const namespaces = ['common', 'navigation', 'studios', 'algorithms', 'controls', 'messages']
 export function key(text) {
   let hash = 2166136261
@@ -171,6 +172,21 @@ export async function audit() {
       }
       visit(tree)
     }
+  }
+  // Public catalog summaries can be computed from runner metadata or contain
+  // semicolons that the generic code-string heuristic deliberately excludes.
+  // Register the actual sitemap text explicitly, in a homepage-loaded namespace.
+  const catalogBundle = await rolldown({ input: 'src/sitemap/catalog.ts', platform: 'node', logLevel: 'silent' })
+  try {
+    const { output } = await catalogBundle.generate({ format: 'esm' })
+    const catalog = await import('data:text/javascript;base64,' + Buffer.from(output.find((item) => item.type === 'chunk').code).toString('base64'))
+    for (const text of Object.values(catalog.sitemapCopy)) add(text, 'src/sitemap/catalog.ts', 'sitemap-copy', 0)
+    for (const group of catalog.sitemapGroups) {
+      for (const text of [group.name, group.description, ...group.lessons.map((lesson) => lesson.description)])
+        add(text, 'src/sitemap/catalog.ts', 'sitemap-description', 0)
+    }
+  } finally {
+    await catalogBundle.close()
   }
   for (const text of JSON.parse(await readFile('src/i18n/selector-source.json', 'utf8'))) add(text, 'src/i18n/LanguageSelector.tsx', 'selector', 0)
   await mkdir('src/i18n/locales/en-IN', { recursive: true })

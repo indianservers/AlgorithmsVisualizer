@@ -1,4 +1,6 @@
-export const sitemapLocales = ['en-IN', 'hi', 'te', 'ru', 'ar', 'de'] as const
+import { languages } from '../i18n/languages'
+
+export const sitemapLocales = languages.map(({ code }) => code)
 export type SitemapLocale = (typeof sitemapLocales)[number]
 export function sitemapPath(locale: string) {
   return locale === 'en-IN' ? '/sitemap' : `/sitemap/${locale}`

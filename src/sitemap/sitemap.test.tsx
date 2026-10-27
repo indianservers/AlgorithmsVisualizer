@@ -4,7 +4,7 @@ import { sitemapCatalog, sitemapGroups } from './catalog'
 import { buildSitemapAssets } from './prerender'
 import { sitemapLocaleFromPath, sitemapLocales, sitemapPath } from './routes'
 
-const resourceFiles = import.meta.glob<Record<string, string>>('../i18n/locales/{en-IN,hi,te,ru,ar,de}/*.json', { eager: true, import: 'default' })
+const resourceFiles = import.meta.glob<Record<string, string>>('../i18n/locales/*/*.json', { eager: true, import: 'default' })
 
 describe('crawlable multilingual sitemap', () => {
   it('covers the complete live catalog once with original descriptions and both destinations', () => {
@@ -20,20 +20,20 @@ describe('crawlable multilingual sitemap', () => {
     expect(catalog.interfaceLanguages).toHaveLength(41)
     expect(catalog.categories[0].lessons[0].description.language).toBe('en-IN')
   })
-  it('creates six translated, self-canonical directories with reciprocal language links and explicit English fallbacks', async () => {
+  it('creates 41 translated, self-canonical directories with reciprocal language links and no English description fallbacks', async () => {
     const resources = Object.fromEntries(
       sitemapLocales.map((locale) => [
         locale,
         Object.assign(
           {},
           ...Object.entries(resourceFiles)
-            .filter(([path]) => path.startsWith(`../i18n/locales/${locale}/`))
+            .filter(([path]) => path.startsWith(`../i18n/locales/${locale}/`) && /\/(common|navigation|algorithms|messages)\.json$/.test(path))
             .map(([, values]) => values),
         ),
       ]),
     )
     const assets = buildSitemapAssets(resources)
-    expect(assets.pages).toHaveLength(6)
+    expect(assets.pages).toHaveLength(41)
     expect(assets.home.match(/class="site-map-topic"/g)).toHaveLength(allModules.length)
     for (const locale of sitemapLocales) {
       const page = assets.pages.find((item) => item.locale === locale)!
@@ -44,7 +44,10 @@ describe('crawlable multilingual sitemap', () => {
       expect(catalog.categories.flatMap((group: { lessons: unknown[] }) => group.lessons)).toHaveLength(allModules.length)
       if (locale !== 'en-IN') {
         expect(catalog.description.language).toBe(locale)
-        for (const group of catalog.categories) expect(group.description.language).toBe(locale)
+        for (const group of catalog.categories) {
+          expect(group.description.language).toBe(locale)
+          for (const lesson of group.lessons) expect(lesson.description.language).toBe(locale)
+        }
       }
     }
     expect(assets.pages.find((page) => page.locale === 'te')!.body).toContain('సైట్‌మ్యాప్')
@@ -56,5 +59,8 @@ describe('crawlable multilingual sitemap', () => {
     expect(sitemapLocaleFromPath('/sitemap/te')).toBe('te')
     expect(sitemapLocaleFromPath('/sitemap/not-a-language')).toBeUndefined()
     expect(sitemapLocaleFromPath('/sorting/selection-sort')).toBeUndefined()
+  })
+  it('blocks publication when a non-English directory would fall back to English', () => {
+    expect(() => buildSitemapAssets({})).toThrow('Missing sitemap translation [hi]')
   })
 })

@@ -4,12 +4,12 @@ Default: **English (India), en-IN**. No browser/IP language detection. Source En
 
 ## Inventory
 
-- Discovered routes: **395** (home, directory, categories, visualizations, and Learn articles).
-- Routes with migrated presentation bindings: **395**.
+- Discovered routes: **430** (home, directory, categories, visualizations, and Learn articles).
+- Routes with migrated presentation bindings: **430**.
 - Routes fully translated in every target language: **0**.
-- Routes partially translated in non-English languages: **395**.
-- Source namespace keys: **5806**, from **106** source files.
-- React render files migrated: **51**, with **2993** presentation bindings.
+- Routes partially translated in non-English languages: **430**.
+- Source namespace keys: **12211**, from **197** source files.
+- React render files migrated: **97**, with **3115** presentation bindings.
 - English keys are extracted from actual source, including metadata and native account UI.
 
 ## Translation coverage
@@ -18,47 +18,47 @@ English fallback is never counted as a completed translation. Target resources a
 
 | Locale | Populated translations | Source coverage | English fallbacks | Awaiting native review |
 | --- | ---: | ---: | ---: | ---: |
-| en-IN | 5806 | 100% | 0 | 0 |
-| hi | 367 | 6.32% | 5439 | 367 |
-| te | 367 | 6.32% | 5439 | 367 |
-| ta | 52 | 0.9% | 5754 | 52 |
-| kn | 52 | 0.9% | 5754 | 52 |
-| ml | 52 | 0.9% | 5754 | 52 |
-| mr | 52 | 0.9% | 5754 | 52 |
-| bn | 52 | 0.9% | 5754 | 52 |
-| gu | 52 | 0.9% | 5754 | 52 |
-| pa | 52 | 0.9% | 5754 | 52 |
-| or | 52 | 0.9% | 5754 | 52 |
-| as | 52 | 0.9% | 5754 | 52 |
-| ur | 78 | 1.34% | 5728 | 78 |
-| ru | 367 | 6.32% | 5439 | 367 |
-| fr | 46 | 0.79% | 5760 | 46 |
-| de | 168 | 2.89% | 5638 | 168 |
-| es | 52 | 0.9% | 5754 | 52 |
-| pt | 52 | 0.9% | 5754 | 52 |
-| it | 52 | 0.9% | 5754 | 52 |
-| nl | 48 | 0.83% | 5758 | 48 |
-| pl | 52 | 0.9% | 5754 | 52 |
-| uk | 52 | 0.9% | 5754 | 52 |
-| ro | 52 | 0.9% | 5754 | 52 |
-| el | 52 | 0.9% | 5754 | 52 |
-| cs | 52 | 0.9% | 5754 | 52 |
-| sv | 52 | 0.9% | 5754 | 52 |
-| fi | 52 | 0.9% | 5754 | 52 |
-| hu | 52 | 0.9% | 5754 | 52 |
-| sw | 52 | 0.9% | 5754 | 52 |
-| am | 52 | 0.9% | 5754 | 52 |
-| ha | 49 | 0.84% | 5757 | 49 |
-| yo | 49 | 0.84% | 5757 | 49 |
-| ig | 49 | 0.84% | 5757 | 49 |
-| zu | 52 | 0.9% | 5754 | 52 |
-| xh | 52 | 0.9% | 5754 | 52 |
-| af | 52 | 0.9% | 5754 | 52 |
-| so | 49 | 0.84% | 5757 | 49 |
-| ar | 182 | 3.13% | 5624 | 182 |
-| tr | 52 | 0.9% | 5754 | 52 |
-| id | 50 | 0.86% | 5756 | 50 |
-| vi | 52 | 0.9% | 5754 | 52 |
+| en-IN | 12211 | 100% | 0 | 0 |
+| hi | 707 | 5.79% | 11504 | 707 |
+| te | 707 | 5.79% | 11504 | 707 |
+| ta | 463 | 3.79% | 11748 | 463 |
+| kn | 463 | 3.79% | 11748 | 463 |
+| ml | 463 | 3.79% | 11748 | 463 |
+| mr | 463 | 3.79% | 11748 | 463 |
+| bn | 463 | 3.79% | 11748 | 463 |
+| gu | 463 | 3.79% | 11748 | 463 |
+| pa | 463 | 3.79% | 11748 | 463 |
+| or | 463 | 3.79% | 11748 | 463 |
+| as | 463 | 3.79% | 11748 | 463 |
+| ur | 497 | 4.07% | 11714 | 497 |
+| ru | 707 | 5.79% | 11504 | 707 |
+| fr | 457 | 3.74% | 11754 | 457 |
+| de | 485 | 3.97% | 11726 | 485 |
+| es | 463 | 3.79% | 11748 | 463 |
+| pt | 463 | 3.79% | 11748 | 463 |
+| it | 463 | 3.79% | 11748 | 463 |
+| nl | 459 | 3.76% | 11752 | 459 |
+| pl | 463 | 3.79% | 11748 | 463 |
+| uk | 463 | 3.79% | 11748 | 463 |
+| ro | 459 | 3.76% | 11752 | 459 |
+| el | 459 | 3.76% | 11752 | 459 |
+| cs | 463 | 3.79% | 11748 | 463 |
+| sv | 459 | 3.76% | 11752 | 459 |
+| fi | 463 | 3.79% | 11748 | 463 |
+| hu | 463 | 3.79% | 11748 | 463 |
+| sw | 463 | 3.79% | 11748 | 463 |
+| am | 463 | 3.79% | 11748 | 463 |
+| ha | 460 | 3.77% | 11751 | 460 |
+| yo | 456 | 3.73% | 11755 | 456 |
+| ig | 460 | 3.77% | 11751 | 460 |
+| zu | 463 | 3.79% | 11748 | 463 |
+| xh | 463 | 3.79% | 11748 | 463 |
+| af | 463 | 3.79% | 11748 | 463 |
+| so | 460 | 3.77% | 11751 | 460 |
+| ar | 499 | 4.09% | 11712 | 499 |
+| tr | 463 | 3.79% | 11748 | 463 |
+| id | 461 | 3.78% | 11750 | 461 |
+| vi | 463 | 3.79% | 11748 | 463 |
 
 ## Missing keys and review queue
 

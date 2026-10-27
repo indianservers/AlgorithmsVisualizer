@@ -38,7 +38,7 @@ try {
       .replace(/<link[^>]*rel="modulepreload"[^>]*>/g, '')
       .replace(/<title>[\s\S]*?<\/title>/, '')
       .replace(/<meta\s+name="description"[^>]*>/, '')
-      .replace(/<html[^>]*>/, `<html lang="${page.locale}" dir="${page.locale === 'ar' ? 'rtl' : 'ltr'}">`)
+      .replace(/<html[^>]*>/, `<html lang="${page.locale}" dir="${page.locale === 'ar' || page.locale === 'ur' ? 'rtl' : 'ltr'}">`)
       .replace('</head>', page.head + '</head>')
       .replace('<div id="root"></div>', `<div id="root">${page.body}</div>`)
       .replace('</body>', `<script>try{localStorage.setItem('algodrishti-language',${JSON.stringify(page.locale)})}catch{}</script></body>`)

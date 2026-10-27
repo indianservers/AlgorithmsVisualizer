@@ -8,7 +8,6 @@ export type SitemapTranslate = (source: string) => string
 export const sitemapCopy = {
   title: 'Sitemap and topic directory',
   intro: 'Find every algorithm, its purpose, an interactive visualization, and a detailed theory guide.',
-  fallback: 'Descriptions not yet translated are shown in English.',
   visualization: 'Visualization',
   theory: 'Theory guide',
   home: 'Home',
@@ -69,7 +68,7 @@ export function sitemapSchema(locale: string, t: SitemapTranslate, path: string)
     url: origin + path,
     name: t(sitemapCopy.title),
     description: t(sitemapCopy.intro),
-    inLanguage: locale === 'en-IN' ? 'en-IN' : [locale, 'en-IN'],
+    inLanguage: locale,
     isAccessibleForFree: true,
     mainEntity: {
       '@type': 'ItemList',
@@ -85,7 +84,9 @@ export function sitemapSchema(locale: string, t: SitemapTranslate, path: string)
             url: origin + lesson.theoryPath,
             name: t(lesson.name),
             description: t(lesson.description),
-            inLanguage: t(lesson.description) === lesson.description ? 'en-IN' : locale,
+            // The directory description is localized; the linked theory page
+            // still uses its existing English canonical URL and article text.
+            inLanguage: 'en-IN',
           },
         })),
     },

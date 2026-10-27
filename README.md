@@ -216,4 +216,4 @@ English (India) remains the source default. See [LOCALIZATION_STATUS.md](LOCALIZ
 
 ## Sitemap and discovery
 
-The compact home-page topic map links every visualization and theory guide with catalog descriptions. Six localized HTML directories, XML discovery, JSON catalogs and AI reading guides are generated during the build. See [the sitemap guide](docs/SITEMAP.md) for URLs, translation fallbacks and maintenance.
+The compact home-page topic map links every visualization and theory guide with catalog descriptions. All 41 language directories include translated algorithm summaries, XML discovery, JSON catalogs and AI reading guides generated during the build. Missing non-English sitemap descriptions fail the build. See [the sitemap guide](docs/SITEMAP.md) for URLs, translation review status and maintenance.

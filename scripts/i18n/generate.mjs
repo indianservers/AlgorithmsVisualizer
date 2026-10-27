@@ -11,14 +11,14 @@ for (const [locale] of locales) {
   if (locale !== 'en-IN')
     for (const [ns, source] of Object.entries(dictionaries)) {
       const lookup = new Map(Object.entries(seeds[locale] ?? {}).map(([english, value]) => [normalize(english), value]))
-      // Existing reviewed/manual entries take precedence over newly generated seed coverage.
+      // Explicit sitemap entries are authoritative; preserve other reviewed/manual entries.
       let previous = {}
       try {
         previous = JSON.parse(await readFile(`src/i18n/locales/${locale}/${ns}.json`, 'utf8'))
       } catch {}
       const translated = {}
       for (const [id, english] of Object.entries(source)) {
-        const candidate = previous[id] ?? lookup.get(normalize(english))
+        const candidate = sitemapSeeds[locale]?.[english] ?? previous[id] ?? lookup.get(normalize(english))
         if (candidate && candidate !== english) {
           const leading = english.match(/^\s*/)[0],
             trailing = english.match(/\s*$/)[0]

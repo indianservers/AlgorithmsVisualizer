@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test'
 import { allModules } from '../../src/algorithms'
+import { readFileSync } from 'node:fs'
+
+const sitemapLocales = (JSON.parse(readFileSync(new URL('../../src/i18n/languages.json', import.meta.url), 'utf8')) as string[][]).map(([code]) => code)
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('algodrishti-onboarded', 'true'))
@@ -12,7 +15,7 @@ test('home footer is compact, complete, multilingual and usable on a phone', asy
   await page.goto('/')
   const map = page.locator('.site-map-compact')
   await map.scrollIntoViewIfNeeded()
-  await map.screenshot({ path: `artifacts/home-sitemap-${test.info().project.name}.png` })
+  await map.screenshot({ path: test.info().outputPath('home-sitemap.png') })
   expect(await map.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize))).toBeLessThanOrEqual(12)
   await expect(map.locator('.site-map-topic')).toHaveCount(allModules.length)
   await map
@@ -25,6 +28,13 @@ test('home footer is compact, complete, multilingual and usable on a phone', asy
   await page.locator('.language-search input').fill('Telugu')
   await page.getByRole('option').filter({ hasText: 'Telugu' }).click()
   await expect(map).toContainText('సైట్‌మ్యాప్ మరియు అంశాల సూచిక')
+  await expect(
+    map
+      .locator('li')
+      .filter({ has: page.locator('a[href="/sorting/selection-sort"]') })
+      .locator('p'),
+  ).toHaveAttribute('lang', 'te')
+  await expect(map).not.toContainText('Selects the minimum remaining value and moves it into place.')
   await page.setViewportSize({ width: 320, height: 850 })
   await map.scrollIntoViewIfNeeded()
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
@@ -32,23 +42,22 @@ test('home footer is compact, complete, multilingual and usable on a phone', asy
 test('localized directories are readable and descriptive without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 850 } })
   const page = await context.newPage()
-  for (const [locale, title] of [
-    ['en-IN', 'Sitemap and topic directory'],
-    ['te', 'సైట్‌మ్యాప్'],
-    ['hi', 'साइटमैप'],
-    ['ru', 'Карта сайта'],
-    ['ar', 'خريطة الموقع'],
-    ['de', 'Sitemap und Themenverzeichnis'],
-  ]) {
+  for (const locale of sitemapLocales) {
     await page.goto(locale === 'en-IN' ? `${baseURL}/sitemap.html` : `${baseURL}/sitemap/${locale}.html`)
-    await expect(page.locator('h1')).toContainText(title)
-    if (locale === 'ar') await page.screenshot({ path: `artifacts/sitemap-arabic-${test.info().project.name}.png` })
+    await expect(page.locator('h1')).not.toBeEmpty()
+    if (locale !== 'en-IN') await expect(page.locator('h1')).not.toHaveText('Sitemap and topic directory')
+    if (locale === 'ar') await page.screenshot({ path: test.info().outputPath('sitemap-arabic.png') })
     await expect(page.locator('html')).toHaveAttribute('lang', locale)
     await expect(page.locator('.site-map-topic')).toHaveCount(allModules.length)
     await expect(page.locator('script[type="module"]')).toHaveCount(0)
-    await expect(page.locator('link[hreflang]')).toHaveCount(7)
+    await expect(page.locator('link[hreflang]')).toHaveCount(42)
+    await expect(page.locator('html')).toHaveAttribute('dir', locale === 'ar' || locale === 'ur' ? 'rtl' : 'ltr')
     const schema = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}')
     expect(schema.mainEntity.numberOfItems).toBe(allModules.length)
+    for (const entry of schema.mainEntity.itemListElement) {
+      expect(entry.item.inLanguage).toBe('en-IN')
+      if (locale !== 'en-IN') expect(allModules.some((module) => module.summary === entry.item.description)).toBe(false)
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
   }
   await context.close()

@@ -20,7 +20,6 @@ export function SiteMapContent({ locale, translate, compact = false }: { locale:
       <header>
         {compact ? <h2>{t(copy.title)}</h2> : <h1>{t(copy.title)}</h1>}
         <p>{t(copy.intro)}</p>
-        <p className="site-map-note">{t(copy.fallback)}</p>
       </header>
       <nav className="site-map-languages" aria-label={t(copy.languages)}>
         {sitemapLocales.map((code) => {
