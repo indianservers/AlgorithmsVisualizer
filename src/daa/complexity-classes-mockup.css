@@ -1533,3 +1533,469 @@
 .cx-middle-grid > .cx-panel {
   padding-bottom: 1px;
 }
+/* Reference 023 refinements: retain native controls and certificate computation. */
+:root:not([data-theme='dark']) .app-shell:has(.complexity-classes-page) {
+  background: linear-gradient(125deg, #e8f4ff, #f3faff 65%, #eef9ff);
+}
+.complexity-classes-page #account-trigger {
+  width: 190px;
+  min-height: 42px;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+.complexity-classes-page .mom-study {
+  min-width: 139px;
+}
+.cx-section-progress i:nth-child(2) {
+  visibility: hidden;
+}
+.cx-map-note {
+  top: 1px;
+  left: 0;
+  width: 100%;
+  font-size: 9px;
+  line-height: 11px;
+  white-space: nowrap;
+}
+.complexity-classes-page .cx-example-box button {
+  font-size: 12px !important;
+  line-height: 15px;
+}
+.cx-example-box b {
+  font-size: 13px;
+  line-height: 15px;
+}
+.cx-example-box {
+  padding: 8px 11px;
+}
+.cx-example-p {
+  height: 83px;
+}
+.cx-example-npc {
+  height: 94px;
+}
+.cx-example-np,
+.cx-example-hard {
+  height: 94px;
+}
+.cx-example-hard {
+  width: 151px;
+}
+.complexity-classes-page .cx-classifier [role='radio'] > span:not(.cx-badge) {
+  font-size: 11.5px;
+  letter-spacing: -0.25px;
+}
+.cx-classifier .cx-badge {
+  font-size: 10px;
+  padding: 4px 8px;
+}
+.cx-classifier > header {
+  gap: 9px;
+  padding-left: 12px;
+}
+.cx-classifier h2 {
+  font-size: 14px;
+}
+.cx-details {
+  background: linear-gradient(125deg, #f9fcff, #f0f7ff);
+}
+.cx-details h2 {
+  font-size: 14px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+.cx-details > header {
+  gap: 7px;
+  margin-bottom: 11px;
+}
+.cx-details > header > .cx-badge {
+  font-size: 11px;
+  padding: 4px 9px;
+}
+.cx-detail-fields h3 {
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+.cx-detail-fields p {
+  font-size: 13px;
+  line-height: 17px;
+}
+.cx-detail-fields > section {
+  margin-bottom: 12px;
+  gap: 9px;
+}
+.cx-detail-fields > section:nth-child(2) > svg {
+  background: #22c58c;
+  border-radius: 50%;
+  color: white;
+  padding: 2px;
+}
+.cx-detail-fields > section:nth-child(3) > svg {
+  fill: #ffdf8b;
+  stroke: #ffa600;
+}
+.cx-middle-grid {
+  grid-template-columns: minmax(0, 459fr) minmax(0, 430fr) minmax(0, 459fr);
+}
+.cx-middle-grid .cx-panel > header {
+  height: 34px;
+}
+.cx-panel header p {
+  font-size: 11.5px;
+}
+.complexity-classes-page .cx-certificate-tabs button,
+.complexity-classes-page .cx-comparison > nav button {
+  font-size: 11px;
+  font-weight: 600;
+}
+.complexity-classes-page .cx-certificate-tabs button:first-child {
+  flex: 0 0 100px;
+}
+.complexity-classes-page .cx-comparison > nav button:first-child {
+  flex: 1.6;
+}
+.cx-certificate-body {
+  padding-top: 7px;
+  padding-left: 3px;
+}
+.cx-certificate-body h3 {
+  font-size: 13px;
+  line-height: 17px;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+.cx-certificate-content dl {
+  font-size: 12px;
+  line-height: 15px;
+  gap: 7px 8px;
+}
+.cx-assignments > span {
+  font-size: 11px;
+}
+.complexity-classes-page .cx-truth {
+  font-size: 11px;
+  padding: 3px 5px;
+}
+.cx-certificate-result {
+  top: 23px;
+  min-height: 95px;
+  font-size: 10px;
+  gap: 0;
+  padding: 12px 5px 6px;
+  color: #005c45;
+}
+.cx-certificate-result svg {
+  width: 29px;
+  height: 29px;
+  margin-bottom: 8px;
+}
+.cx-certificate-result.cx-valid svg {
+  background: #18c789;
+  color: white;
+  border-radius: 50%;
+  padding: 3px;
+}
+.cx-version-grid dl {
+  font-size: 11.5px;
+  line-height: 14px;
+  gap: 3px 7px;
+}
+.cx-version-grid article {
+  padding: 8px 11px;
+}
+.cx-version-grid .cx-badge {
+  font-size: 10px;
+}
+.cx-footer-grid .cx-panel {
+  font-size: 11.5px;
+  line-height: 13px;
+}
+.cx-worked > b {
+  margin-top: -5px;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+}
+.cx-reduction-legend {
+  font-size: 10.5px;
+}
+@media (min-width: 1551px) {
+  .complexity-classes-page .cx-topbar {
+    gap: 17px;
+  }
+  .cx-lesson-header h1 {
+    font-size: 29px;
+    letter-spacing: -0.7px;
+  }
+  .cx-visual-heading h2 {
+    font-size: 17px;
+    line-height: 22px;
+    margin-bottom: 1px;
+  }
+  .cx-visual-options {
+    gap: 34px;
+    margin-top: 0;
+  }
+  .complexity-classes-page .cx-visual-options > button {
+    margin-left: 1px;
+  }
+  .cx-visual-heading > svg {
+    width: 24px;
+    height: 24px;
+  }
+  .cx-classifier > header {
+    margin-bottom: 8px;
+  }
+  .cx-reduction-map {
+    margin-top: 4px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-header {
+    padding: 10px 16px 15px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .app-shell:has(.complexity-classes-page) .brand {
+    gap: 12px;
+  }
+  .app-shell:has(.complexity-classes-page) .brand strong {
+    font-size: 22px;
+  }
+  .app-shell:has(.complexity-classes-page) .brand span {
+    font-size: 12px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-category-toggle {
+    font-size: 14px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-home {
+    font-size: 14px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-algorithm {
+    font-size: 12px;
+    padding-left: 31px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-footer {
+    font-size: 11px;
+    min-height: 56px;
+    margin-bottom: 47px;
+  }
+}
+@media (max-width: 1550px) and (min-width: 1001px) {
+  .cx-middle-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 1000px) {
+  .cx-middle-grid {
+    grid-template-columns: 1fr;
+  }
+  .cx-classifier header p,
+  .cx-details h2 {
+    white-space: normal;
+  }
+  .complexity-classes-page .cx-classifier [role='radio'] > span:not(.cx-badge) {
+    font-size: 11px;
+    white-space: normal;
+  }
+  .cx-certificate-body h3 {
+    white-space: normal;
+  }
+  .cx-certificate-content dl {
+    font-size: 11px;
+    gap: 7px 5px;
+  }
+  .cx-assignments > span {
+    font-size: 10px;
+  }
+  .complexity-classes-page .cx-truth {
+    font-size: 10px;
+  }
+  .cx-map-note {
+    font-size: 8px;
+  }
+  .complexity-classes-page .cx-certificate-tabs button:first-child {
+    flex: 1;
+  }
+}
+.cx-example-box b {
+  font-size: 12.5px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+.cx-classifier > header p {
+  font-size: 9px;
+  white-space: nowrap;
+}
+.cx-version-grid dl {
+  font-size: 11px;
+  line-height: 13px;
+}
+.cx-certificate-body {
+  padding-left: 12px;
+}
+.cx-certificate-result {
+  right: -6px;
+}
+.cx-certificate-content dd.cx-formula {
+  margin-left: -24px;
+  white-space: nowrap;
+}
+@media (min-width: 1551px) {
+  .cx-lesson-header h1 {
+    font-size: 30px;
+    letter-spacing: -0.85px;
+  }
+  .complexity-classes-page .cx-lesson-header p {
+    font-size: 16.5px;
+  }
+  .cx-middle-grid > .cx-panel {
+    height: 221px;
+  }
+}
+@media (max-width: 1000px) {
+  .cx-certificate-body {
+    padding-left: 3px;
+  }
+  .cx-certificate-result {
+    right: 0;
+  }
+  .cx-certificate-content dd.cx-formula {
+    margin-left: 0;
+    white-space: normal;
+  }
+}
+.cx-certificate-content dd.cx-formula {
+  white-space: normal;
+}
+.cx-certificate-content dd:last-child {
+  font-size: 11.5px;
+}
+.complexity-classes-page .cx-certificate-result {
+  color: #005c45;
+}
+.cx-version-grid dl {
+  line-height: 12px;
+}
+.cx-version-grid article {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.cx-middle-grid:has(.cx-expanded-certificate) > .cx-panel {
+  height: auto;
+}
+.cx-takeaways > .cx-panel,
+.cx-takeaways .cx-icon {
+  background: #fff2cf;
+  color: #ffab00;
+}
+.cx-takeaways > header {
+  gap: 7px !important;
+}
+.cx-takeaways ul {
+  padding-left: 30px;
+}
+.cx-worked > header {
+  gap: 12px !important;
+}
+.cx-worked > b {
+  margin-left: 41px;
+  margin-top: -8px;
+}
+.cx-worked ol {
+  margin-left: 15px;
+  font-size: 11px;
+}
+.cx-worked li {
+  gap: 13px;
+  line-height: 14px;
+}
+.cx-definitions > header {
+  gap: 15px !important;
+}
+.cx-definitions .cx-icon {
+  background: #ddfaef;
+  color: #00a982;
+}
+.cx-definitions ul {
+  padding-left: 42px;
+}
+.cx-misconceptions h2 {
+  color: #9b001c;
+}
+.cx-misconceptions .cx-icon {
+  background: #ffe1e7;
+  color: #df002a;
+}
+.cx-misconceptions ul {
+  padding-left: 36px;
+}
+.cx-assignments > span {
+  font-size: 12px;
+}
+.complexity-classes-page .cx-truth {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 7px;
+}
+@media (max-width: 1000px) {
+  .cx-worked > b {
+    margin-left: 30px;
+  }
+  .cx-worked ol {
+    margin-left: 3px;
+  }
+  .cx-worked li {
+    gap: 10px;
+  }
+  .cx-definitions ul,
+  .cx-misconceptions ul,
+  .cx-takeaways ul {
+    padding-left: 22px;
+  }
+  .cx-assignments > span {
+    font-size: 10px;
+  }
+  .complexity-classes-page .cx-truth {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+}
+@media (min-width: 1551px) {
+  .cx-visual-heading > div:not(.cx-visual-options) {
+    padding-top: 2px;
+  }
+  .cx-visual-heading > svg {
+    margin-top: 4px;
+  }
+  .cx-visual-options {
+    margin-right: 10px;
+  }
+  .cx-switch {
+    font-size: 11px;
+    transform: translateY(-3px);
+  }
+  .complexity-classes-page .cx-visual-options > button {
+    margin-top: 1px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-header {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .complexity-classes-page .cx-reduction-node {
+    width: 26%;
+  }
+  .cx-reduction-clique {
+    left: 37%;
+  }
+  .cx-reduction-cover {
+    left: 72%;
+  }
+  .complexity-classes-page .cx-reduction-tsp {
+    left: 34%;
+    width: 32%;
+  }
+}
+[data-theme='dark'] .complexity-classes-page .cx-misconceptions h2 {
+  color: #ffb3c4;
+}

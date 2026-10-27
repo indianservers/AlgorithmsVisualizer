@@ -33,6 +33,7 @@ import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -40,6 +41,7 @@ import {
   certificateGraph,
   certificateMatrix,
   complexityProblems,
+  complexityMapRegions,
   formatCnf,
   parseCertificateGraph,
   parseCertificateIds,
@@ -167,6 +169,8 @@ function ClassMap({
   onExample: (name: string, text: string) => void
 }) {
   const clip = useId()
+  const hardMask = `${clip}-hard`,
+    regions = complexityMapRegions
   const classButton = (name: ComplexityClass, x: number, y: number, w: number) => (
     <g
       role="button"
@@ -201,22 +205,34 @@ function ClassMap({
           viewBox="0 0 723 343"
           preserveAspectRatio="none"
           aria-label={tr('Schematic complexity class map; P versus NP remains open')}
+          aria-describedby={`${clip}-note`}
         >
           <defs>
-            <clipPath id={clip}>
-              <ellipse cx="317" cy="186" rx="175" ry="111" />
-            </clipPath>
+            <mask id={hardMask} maskUnits="userSpaceOnUse" x="0" y="0" width="723" height="343">
+              <rect width="723" height="343" fill="black" />
+              <ellipse {...regions.envelope} fill="white" />
+              <ellipse {...regions.np} fill="black" />
+              <ellipse {...regions.complete} fill="white" />
+            </mask>
+            <linearGradient id={`${clip}-pink`} x2="0" y2="1">
+              <stop stopColor="#ffe1e9" />
+              <stop offset="1" stopColor="#ffd8e1" />
+            </linearGradient>
+            <linearGradient id={`${clip}-blue`} x2="0" y2="1">
+              <stop stopColor="#dbe8ff" />
+              <stop offset="1" stopColor="#d0e6ff" />
+            </linearGradient>
           </defs>
-          <ellipse cx="485" cy="173" rx="136" ry="161" fill="#ffe4eb" stroke="#ff8da4" />
-          <ellipse cx="317" cy="186" rx="175" ry="111" fill="#d8e9ff" stroke="#287cff" />
-          <ellipse cx="485" cy="173" rx="136" ry="161" fill="#e8caff" stroke="#ae5cff" strokeDasharray="5 3" clipPath={`url(#${clip})`} />
-          <ellipse cx="264" cy="214" rx="87" ry="46" fill="#d5fbe7" stroke="#66d794" />
+          <ellipse className="cx-hard-region" {...regions.envelope} fill={`url(#${clip}-pink)`} stroke="#ff718e" mask={`url(#${hardMask})`} />
+          <ellipse className="cx-np-region" {...regions.np} fill={`url(#${clip}-blue)`} stroke="#287cff" />
+          <ellipse className="cx-complete-region" {...regions.complete} fill="#e5c6ff" stroke="#ae5cff" strokeDasharray="5 3" />
+          <ellipse {...regions.p} fill="#d5fbe7" stroke="#66d794" />
           {classButton('P', 264, 200, 54)}
           {classButton('NP', 300, 112, 64)}
           {classButton('NP-Complete', 418, 180, 124)}
           {classButton('NP-Hard', 543, 162, 98)}
           {descriptions && (
-            <g fill="#15376a" fontSize="11.5" textAnchor="middle" pointerEvents="none">
+            <g fill="#15376a" fontSize="12" textAnchor="middle" pointerEvents="none">
               <text x="300" y="134">
                 <tspan x="300">{tr('Solutions verifiable')}</tspan>
                 <tspan x="300" dy="15">
@@ -271,7 +287,9 @@ function ClassMap({
             </g>
           )}
         </svg>
-        <p className="cx-map-note">{tr('Schematic assumes P ≠ NP; equality remains open.')}</p>
+        <p id={`${clip}-note`} className="cx-map-note">
+          {tr('NP: blue, green, purple. NP-hard: pink, purple. Schematic assumes P ≠ NP; equality remains open.')}
+        </p>
         {examples && (
           <>
             <div className="cx-example-box cx-example-p">
@@ -289,7 +307,7 @@ function ClassMap({
                       )
                     }
                   >
-                    {tr('Spanning tree cost ≤ k')}
+                    {tr('Minimum spanning tree')}
                   </button>
                 </li>
                 <li>
@@ -301,7 +319,7 @@ function ClassMap({
                       )
                     }
                   >
-                    {tr('Shortest path (nonneg.)')}
+                    {tr('Shortest path (decision)')}
                   </button>
                 </li>
               </ul>
@@ -366,9 +384,9 @@ function ClassMap({
             </div>
             <div className="cx-example-box cx-example-hard">
               <b>
-                {tr('NP-Hard')}
+                {tr('Examples in NP-Hard')}
                 <br />
-                {tr('(not always in NP)')}
+                {tr('(outside NP)')}
               </b>
               <ul>
                 <li>
@@ -673,9 +691,9 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
   const certificatePanel = (
     <Panel
       title={tr('Certificate Examples')}
-      subtitle={tr('See what a polynomial-size yes certificate looks like.')}
+      subtitle={tr('See what a polynomial-size certificate looks like for problems in NP.')}
       icon={<FileText />}
-      className="cx-certificates"
+      className={`cx-certificates ${certificate === 'sat' && formatCnf(clauses).length > 50 ? 'cx-expanded-certificate' : ''}`}
       action={
         <button className="cx-edit" aria-label={tr('Edit certificate example')} onClick={editCertificate}>
           <Pencil size={14} />
@@ -694,7 +712,9 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
           <LockKeyhole size={15} />
           {tr(
             certificate === 'sat'
-              ? 'SAT certificate (candidate assignment)'
+              ? sat.valid
+                ? 'SAT certificate (yes-instance)'
+                : 'SAT certificate (candidate assignment)'
               : certificate === 'cover'
                 ? 'Vertex Cover certificate'
                 : certificate === 'tour'
@@ -714,7 +734,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               <dd className="cx-assignments">
                 {assignment.map((value, i) => (
                   <span key={i}>
-                    {`x${i + 1} = `}
+                    {`x${String(i + 1).replace(/[0-9]/g, (d) => '₀₁₂₃₄₅₆₇₈₉'[Number(d)])} = `}
                     <Truth
                       value={value}
                       label={tr(`Toggle SAT variable x${i + 1}`)}
@@ -727,7 +747,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               <dd>
                 {tr(
                   sat.valid
-                    ? `All ${clauses.length} clauses are true; ${sat.literals} literals checked in O(|φ|).`
+                    ? 'Substitute the assignment into φ and check it satisfies all clauses in polynomial time (O(|φ|)).'
                     : `This assignment fails clause ${sat.checks.find((c) => !c.satisfied)!.index + 1}. It does not prove the formula unsatisfiable.`,
                 )}
               </dd>
@@ -771,7 +791,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
         <div className={`cx-certificate-result ${resultValid ? 'cx-valid' : 'cx-invalid'}`} role="status">
           <CheckCircle2 />
           <b>{tr(resultValid ? 'Valid certificate' : 'Rejected certificate')}</b>
-          <span>{tr('Checked in polynomial time')}</span>
+          <span>{tr('verifies in polynomial time')}</span>
         </div>
       </div>
     </Panel>
@@ -837,7 +857,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
   const comparisonPanel = (
     <Panel
       title={tr('Decision vs Optimization')}
-      subtitle={tr('Same problem, different versions can have different classifications.')}
+      subtitle={tr('Same problem, different versions can have different complexity.')}
       icon={<Scale />}
       className="cx-comparison"
     >
@@ -862,7 +882,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
               <Badge value="NP-Complete" />
             </dd>
             <dt>{tr('Certificate:')}</dt>
-            <dd>{tr(comparison === 'tsp' ? 'Tour cost ≤ k; polynomial check' : 'At most k vertices covering every edge')}</dd>
+            <dd>{tr(comparison === 'tsp' ? 'A tour (permutation) verifiable in polynomial time' : 'At most k vertices covering every edge')}</dd>
           </dl>
         </article>
         <article>
@@ -888,9 +908,9 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
       <Panel title={tr('Key Takeaways')} icon={<Lightbulb />} className="cx-takeaways">
         <ul>
           {[
-            'P ⊆ NP: an efficient solver also gives a verifier.',
-            'NP-complete = in NP and NP-hard.',
-            'NP-hard tasks need not belong to NP.',
+            'P ⊆ NP: problems solvable in polynomial time are verifiable in polynomial time.',
+            'NP-complete: in NP and NP-hard (hardest problems in NP).',
+            'NP-hard: at least as hard as every problem in NP, may lie outside NP.',
             'Whether P = NP remains open.',
           ].map((s) => (
             <li key={s}>{tr(s)}</li>
@@ -910,10 +930,10 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
         <b>{tr('Reduce 3-SAT to Vertex Cover')}</b>
         <ol>
           {[
-            'Create one vertex per literal occurrence.',
-            'Connect compatible literals from different clauses.',
-            'Choose one true literal per clause: an m-clique.',
-            'Complement the graph; other n−m vertices cover it.',
+            'Construct a graph G from a 3-CNF formula φ.',
+            'Show φ is satisfiable ⇔ G has a vertex cover of size k.',
+            'Prove the reduction runs in polynomial time.',
+            'Conclude Vertex Cover is NP-complete (since 3-SAT is).',
           ].map((s, i) => (
             <li key={i}>
               <span>{i + 1}</span>
@@ -925,9 +945,10 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
       <Panel title={tr('Definitions & Correctness')} icon={<BarChart3 />} className="cx-definitions">
         <ul>
           {[
-            'P: polynomial-time decision algorithm.',
-            'NP: polynomial-length yes certificate and verifier.',
-            'NP-hard: every NP language reduces to it.',
+            'P: decision problems solvable in polynomial time.',
+            'NP: decision problems with polynomial-time verifiable certificates.',
+            'NP-hard: every problem in NP reduces to it.',
+            'NP-complete: in NP and NP-hard.',
             'To prove NP-complete: membership plus a known hard problem reduced to the new problem.',
           ].map((s) => (
             <li key={s}>{tr(s)}</li>
@@ -998,7 +1019,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="cx-lesson-header">
         <button className="cx-back" aria-label={tr('Open branch and bound method lesson')} onClick={() => navigate('/branch-and-bound/branch-bound-method')}>
@@ -1227,6 +1248,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
             <textarea aria-label={tr('Complexity theory notes')} rows={8} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
           <p>{tr('Notes and reviewed sections are saved automatically in this browser.')}</p>
+          <LanguageSelector />
           <button
             aria-label={tr('Toggle color theme')}
             onClick={() => (props.onToggleTheme ? props.onToggleTheme() : setFallbackTheme(theme === 'dark' ? 'light' : 'dark'))}

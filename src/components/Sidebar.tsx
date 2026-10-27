@@ -120,7 +120,13 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
                   ? [...items].sort((a, b) => Number(b.aliases.includes('fft')) - Number(a.aliases.includes('fft')))
                   : pathname.endsWith('/linear-programming') && linear && items.some((item) => item.aliases.includes('suffix-array'))
                     ? items.flatMap((item) => (item.id === linear.id ? [] : item.aliases.includes('suffix-array') ? [linear, item] : [item]))
-                    : items
+                    : pathname.endsWith('/approximation-method')
+                      ? [...items].sort(
+                          (a, b) =>
+                            Number(a.aliases.some((id) => id === 'linear-programming' || id === 'expected-analysis')) -
+                            Number(b.aliases.some((id) => id === 'linear-programming' || id === 'expected-analysis')),
+                        )
+                      : items
               return (
                 <section className="sidebar-category" key={category}>
                   <button

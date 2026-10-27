@@ -31,6 +31,15 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 47) {
+        await expect(visual.locator('.ag-selected')).toHaveCount(6)
+        await expect(visual.locator('.ag-bar-value')).toHaveText(['4', '6', '8'])
+        await captureReference()
+        await visual.getByRole('button', { name: 'Reset', exact: true }).click()
+        await expect(visual.locator('.ag-selected')).toHaveCount(0)
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 46) {
         await expect(visual.locator('.lp-vertex-table tbody td:last-child')).toHaveText(['0', '6', '8', '10'])
         await expect(visual.locator('.lp-relaxation-table tbody tr').last().locator('td').nth(1)).toHaveText('0')

@@ -65,6 +65,8 @@ describe('047 approximation algorithms and guarantees', () => {
     const r = runApproximationGuarantee('metric-tsp', guaranteeTsp)
     expect(guaranteeFeasible(r, r.final)).toBe(true)
     expect(r.final.alg).toBeCloseTo(tourCost(r.tsp!.tour, r.tsp!.distances))
+    expect(r.final.alg).toBeCloseTo(3 * Math.sqrt(5) + 2 * Math.sqrt(10) + Math.sqrt(8) + 3, 12)
+    expect(guaranteeFeasible(r, { ...r.final, tour: [0, 1, 1, 2, 3, 4, 5, 6, 0] })).toBe(false)
     expect(r.tsp!.mstCost).toBeLessThanOrEqual(r.optimum + 1e-8)
     expect(r.final.alg).toBeLessThanOrEqual(2 * r.optimum + 1e-8)
     expect(r.tsp!.shortcuts.every((s) => s.direct <= s.walkCost + 1e-8)).toBe(true)

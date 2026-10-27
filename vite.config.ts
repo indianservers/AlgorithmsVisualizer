@@ -23,6 +23,12 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/ApproximationGuaranteeMockupLesson') ||
+                  id.includes('/src/daa/approximationGuaranteeLessonModel') ||
+                  id.includes('/src/daa/approximation-guarantee-mockup.css')
+                )
+                  return 'approximation-guarantee-mockup'
+                if (
                   id.includes('/src/daa/LinearProgrammingMockupLesson') ||
                   id.includes('/src/daa/linearProgrammingLessonModel') ||
                   id.includes('/src/daa/linear-programming-mockup.css')
@@ -223,7 +229,12 @@ export default defineConfig({
                   id.includes('/src/daa/MockupLessonChrome')
                 )
                   return 'quickselect-mockup'
-                if (id.includes('/src/daa/MedianOfMediansLesson') || id.includes('/src/daa/medianModel') || id.includes('/src/daa/median-mockup.css'))
+                if (
+                  id.includes('/src/daa/MedianOfMediansLesson') ||
+                  id.includes('/src/daa/medianModel') ||
+                  id.includes('/src/daa/median-mockup.css') ||
+                  id.includes('/src/daa/median-reference.css')
+                )
                   return 'median-mockup'
                 if (
                   id.includes('/src/learning/BacktrackingStudio') ||

@@ -19,7 +19,7 @@
     "Why NP-Hard?",
     "Applications",
     "Certificate Examples",
-    "SAT certificate (candidate assignment)",
+    "SAT certificate (yes-instance)",
     "Reductions Between Problems",
     "Decision vs Optimization",
     "Decision version (in NP)",
@@ -128,10 +128,6 @@
       "pressed": "false"
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
-    },
-    {
       "label": "\n    \n        \n        Continue to login\n  ",
       "pressed": null
     },
@@ -176,11 +172,11 @@
       "pressed": null
     },
     {
-      "label": "Spanning tree cost ≤ k",
+      "label": "Minimum spanning tree",
       "pressed": null
     },
     {
-      "label": "Shortest path (nonneg.)",
+      "label": "Shortest path (decision)",
       "pressed": null
     },
     {

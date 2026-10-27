@@ -1,4 +1,19 @@
 export type ComplexityClass = 'P' | 'NP' | 'NP-Hard' | 'NP-Complete'
+// Colored regions define membership. The NP-hard region has a hole for
+// non-complete NP problems; its outer contour alone is not a containment claim.
+export const complexityMapRegions = {
+  envelope: { cx: 364, cy: 172, rx: 237, ry: 161 },
+  np: { cx: 315, cy: 186, rx: 175, ry: 111 },
+  p: { cx: 264, cy: 214, rx: 87, ry: 46 },
+  complete: { cx: 418, cy: 192, rx: 69, ry: 67 },
+}
+export function complexityMapMembership(x: number, y: number) {
+  const inside = (r: { cx: number; cy: number; rx: number; ry: number }) => ((x - r.cx) / r.rx) ** 2 + ((y - r.cy) / r.ry) ** 2 <= 1
+  const np = inside(complexityMapRegions.np),
+    p = inside(complexityMapRegions.p),
+    complete = np && inside(complexityMapRegions.complete)
+  return { P: p, NP: np, 'NP-Complete': complete, 'NP-Hard': (inside(complexityMapRegions.envelope) && !np) || complete }
+}
 export type ComplexityProblem = {
   id: string
   name: string
@@ -15,10 +30,10 @@ export const complexityProblems: ComplexityProblem[] = [
     name: 'SAT (Boolean Satisfiability)',
     badge: 'NP-Complete',
     kind: 'decision',
-    description: 'Given a Boolean formula φ, does any assignment make it true?',
-    membership: 'An assignment uses one bit per variable; checking the formula takes polynomial time in its size.',
-    hardness: 'Every NP language reduces to SAT in polynomial time (Cook–Levin).',
-    applications: 'NP-completeness proofs, verification, planning and scheduling.',
+    description: 'Given a Boolean formula φ, does there exist an assignment that satisfies φ?',
+    membership: 'A satisfying assignment is a polynomial-size certificate that can be verified in polynomial time.',
+    hardness: 'Every problem in NP can be reduced to SAT (e.g., via Cook–Levin theorem).',
+    applications: 'Basis for many NP-completeness proofs, verification, planning, scheduling.',
   },
   {
     id: 'tsp-decision',

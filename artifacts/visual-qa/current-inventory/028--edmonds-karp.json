@@ -124,10 +124,6 @@
       "pressed": "false"
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
-    },
-    {
       "label": "\n    \n        \n        Continue to login\n  ",
       "pressed": null
     },
@@ -166,6 +162,10 @@
     {
       "label": "Reset",
       "pressed": null
+    },
+    {
+      "label": "Toggle residual graph from legend",
+      "pressed": "true"
     },
     {
       "label": "Previous augmentation",

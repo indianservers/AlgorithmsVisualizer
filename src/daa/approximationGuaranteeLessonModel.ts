@@ -235,6 +235,7 @@ export function guaranteeFeasible(run: ReturnType<typeof runApproximationGuarant
   if (run.mode === 'max-cut') return frame.partition.length === run.graph.vertices && frame.partition.every((s) => s === 0 || s === 1)
   const cities = frame.tour.length === 1 ? frame.tour : frame.tour.slice(0, -1)
   return (
+    cities.length === run.graph.vertices &&
     new Set(cities).size === run.graph.vertices &&
     cities.every((v) => Number.isInteger(v) && v >= 0 && v < run.graph.vertices) &&
     (frame.tour.length === 1 || frame.tour[0] === frame.tour.at(-1))

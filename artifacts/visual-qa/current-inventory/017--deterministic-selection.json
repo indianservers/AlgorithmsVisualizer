@@ -118,10 +118,6 @@
       "pressed": "false"
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
-    },
-    {
       "label": "\n    \n        \n        Continue to login\n  ",
       "pressed": null
     },
@@ -152,6 +148,18 @@
     {
       "label": "Notes",
       "pressed": "false"
+    },
+    {
+      "label": "Explain Recursively Select Pivot (Median of Medians)",
+      "pressed": null
+    },
+    {
+      "label": "Explain Guaranteed Split (≈ 3n/10 on each side)",
+      "pressed": null
+    },
+    {
+      "label": "Explain Recurrence & Linear-Time Guarantee",
+      "pressed": null
     },
     {
       "label": "Explore this worked example",

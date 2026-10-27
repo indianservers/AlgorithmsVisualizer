@@ -1,5 +1,5 @@
 // @localized-render
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   AlertTriangle,
@@ -26,15 +26,18 @@ import {
   Sparkles,
   Sun,
   Timer,
+  X,
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { medianGroups, medianReferenceValues, medianTrace, parseMedianValues, type MedianFrame } from './medianModel'
 import modelSource from './medianModel.ts?raw'
 import type { AlgorithmModule } from '../types'
 import './median-mockup.css'
+import './median-reference.css'
 
 const tabs = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments', 'Notes'] as const
 type Tab = (typeof tabs)[number]
@@ -57,17 +60,33 @@ function Panel({
   description,
   children,
   className = '',
+  onExplain,
+  icon,
 }: {
   number?: number
   title: string
   description?: string
   children: ReactNode
   className?: string
+  onExplain?: () => void
+  icon?: ReactNode
 }) {
   return (
     <article className={`mom-panel ${className}`}>
       <header>
-        {number ? <b className="mom-number">{number}</b> : <BarChart3 size={23} />}
+        {onExplain ? (
+          <button
+            className={`median-explain ${number ? 'median-explain-number' : 'median-explain-icon'}`}
+            aria-label={tr(`Explain ${title}`)}
+            onClick={onExplain}
+          >
+            {number ? <b className="mom-number">{number}</b> : (icon ?? <BarChart3 size={23} />)}
+          </button>
+        ) : number ? (
+          <b className="mom-number">{number}</b>
+        ) : (
+          (icon ?? <BarChart3 size={23} />)
+        )}
         <div>
           <h2>{tr(title)}</h2>
           {description && <p>{tr(description)}</p>}
@@ -106,10 +125,30 @@ function Split({ compact = false }: { compact?: boolean }) {
     </div>
   )
 }
-function Workflow() {
+function Workflow({ onExplain }: { onExplain: (condition: string, action: string) => void }) {
   return (
     <div className="mom-workflow">
-      <div className="mom-flow-start">
+      <div
+        className="mom-flow-start"
+        role="button"
+        tabIndex={0}
+        aria-label={tr('Explain pivot selection and partitioning')}
+        onClick={() =>
+          onExplain(
+            'Select a pivot, then partition',
+            'Recursively select the median of the group medians. Partition every original value into L (< p), E (= p), or R (> p). Rank k is one-based.',
+          )
+        }
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            onExplain(
+              'Select a pivot, then partition',
+              'Recursively select the median of the group medians. Partition every original value into L (< p), E (= p), or R (> p). Rank k is one-based.',
+            )
+          }
+        }}
+      >
         <span>
           {tr('Array A')}
           <small>{tr('Select rank k')}</small>
@@ -125,13 +164,44 @@ function Workflow() {
           <small>{tr('partition')}</small>
         </span>
       </div>
+      <svg className="median-workflow-fork" viewBox="0 0 25 100" aria-hidden="true">
+        <defs>
+          <marker id="median-flow-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+            <path d="M0 0L5 2.5L0 5" fill="#004fc3" />
+          </marker>
+        </defs>
+        {['M0 50H8V10Q8 0 18 0H24', 'M8 50H24', 'M8 50V90Q8 100 18 100H24'].map((d) => (
+          <path key={d} d={d} fill="none" stroke="#004fc3" markerEnd="url(#median-flow-arrow)" />
+        ))}
+      </svg>
       <div className="mom-flow-branches">
         {[
           ['k ≤ |L|', 'Recurse on L', 'blue'],
           ['|L| < k ≤ |L| + |E|', 'Return pivot', 'purple'],
           ['k > |L| + |E|', 'Recurse on R', 'green'],
         ].map(([condition, action, color]) => (
-          <div key={condition}>
+          <div
+            key={condition}
+            role="button"
+            tabIndex={0}
+            aria-label={tr(`Explain workflow branch ${condition}`)}
+            onClick={() =>
+              onExplain(
+                condition,
+                color === 'green'
+                  ? 'Recurse on R with k′ = k − |L| − |E|. The rank decreases because the lower and equal blocks are skipped.'
+                  : color === 'blue'
+                    ? 'Recurse on L with the same rank k. The requested value lies among the |L| smaller values.'
+                    : 'Return the pivot. The equal block occupies ranks |L|+1 through |L|+|E|, including duplicates.',
+              )
+            }
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                e.currentTarget.click()
+              }
+            }}
+          >
             <span className={color}>{condition}</span>
             <ArrowRight />
             <span className={color}>
@@ -145,18 +215,42 @@ function Workflow() {
   )
 }
 
-function LearnDashboard({ onExplore }: { onExplore: () => void }) {
+function LearnDashboard({ onExplore }: { onExplore: (phase?: MedianFrame['phase']) => void }) {
   const groups = medianGroups(medianReferenceValues),
     sorted = groups.map((g) => [...g].sort((a, b) => a - b)),
     medians = sorted.map((g) => g[Math.floor(g.length / 2)])
-  const [proof, setProof] = useState('Key Points')
+  const [proof, setProof] = useState('Key Points'),
+    [inspector, setInspector] = useState<{ title: string; body: string } | null>(null),
+    dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (inspector && !dialog.current?.open) dialog.current?.showModal()
+  }, [inspector])
+  const explain = (title: string, body: string) => setInspector({ title, body }),
+    inspectGroup = (i: number) =>
+      explain(
+        `Group ${i + 1}: median ${medians[i]}`,
+        `Original order: [${groups[i].join(', ')}]. Sorted order: [${sorted[i].join(', ')}]. Choose zero-based index ${Math.floor(sorted[i].length / 2)} to obtain ${medians[i]}. A final incomplete group is still allowed; rounding contributes an additive constant to the split bound.`,
+      )
   return (
     <div className="mom-dashboard">
       <div className="mom-main-grid">
         <Panel number={1} title={tr('Groups of Five')} description="Divide the array into groups of at most 5 elements." className="mom-groups-panel">
           <div className="mom-group-list">
             {groups.map((g, i) => (
-              <div className={`mom-group tone-${i}`} key={i}>
+              <div
+                className={`mom-group tone-${i}`}
+                key={i}
+                role="button"
+                tabIndex={0}
+                aria-label={tr(`Inspect group ${i + 1}`)}
+                onClick={() => inspectGroup(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    inspectGroup(i)
+                  }
+                }}
+              >
                 <b>
                   {tr('Group')} {i + 1}
                 </b>
@@ -174,7 +268,20 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           <div className="mom-sorted-groups">
             <div>
               {sorted.map((g, i) => (
-                <div className={`mom-sorted-row tone-${i}`} key={i}>
+                <div
+                  className={`mom-sorted-row tone-${i}`}
+                  key={i}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={tr(`Inspect sorted group ${i + 1}`)}
+                  onClick={() => inspectGroup(i)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      inspectGroup(i)
+                    }
+                  }}
+                >
                   <b>
                     {'G'}
                     {i + 1}
@@ -198,6 +305,12 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           title={tr('Recursively Select Pivot (Median of Medians)')}
           description="The medians form a smaller array. Recursively find its median to use as pivot."
           className="mom-pivot-panel"
+          onExplain={() =>
+            explain(
+              'Why recurse on medians?',
+              'For these 21 values, the group medians are [5, 6, 11, 17, 19]. Their median is 11. Selecting this median recursively gives the pivot guarantee; choosing an arbitrary group median does not. The medians form a smaller selection problem of size ⌈n/5⌉.',
+            )
+          }
         >
           <div className="mom-pivot-flow">
             <div>
@@ -216,9 +329,14 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           title={tr('Guaranteed Split (≈ 3n/10 on each side)')}
           description="At least half the medians are ≥ pivot and half are ≤ pivot. Each full median group contributes three elements."
           className="mom-guarantee-panel"
+          onExplain={() =>
+            explain(
+              'The split guarantee includes rounding',
+              'Among the group medians, at least half are at most the pivot and at least half are at least the pivot. Each full group with such a median contributes three values on that side. The last incomplete group and rounding require a constant adjustment: at least 3n/10 − O(1) values on either side. These counts use ≤ and ≥, so duplicates are handled by the equal block.',
+            )
+          }
         >
           <Split />
-          <small className="mom-rounding">{tr('Schematic bound; incomplete groups and rounding contribute O(1).')}</small>
         </Panel>
         <div className="mom-last-row">
           <Panel
@@ -227,9 +345,19 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
             description="Use the pivot to partition and recurse on the appropriate side."
             className="mom-workflow-panel"
           >
-            <Workflow />
+            <Workflow onExplain={explain} />
           </Panel>
-          <Panel title={tr('Recurrence & Linear-Time Guarantee')} description="The running time satisfies:" className="mom-recurrence-panel">
+          <Panel
+            title={tr('Recurrence & Linear-Time Guarantee')}
+            description="The running time satisfies:"
+            className="mom-recurrence-panel"
+            onExplain={() =>
+              explain(
+                'Why the running time is linear',
+                'There are two recursive calls: one on about n/5 medians and one on at most 7n/10 + O(1) remaining values. Their fractions sum to 9/10 < 1. Grouping, sorting constant-size groups and partitioning cost O(n) per call, giving T(n) = O(n). The learning trace stores extra snapshots beyond the algorithm’s working space.',
+              )
+            }
+          >
             <div className="mom-formula">{tr('T(n) ≤ T(⌈n/5⌉) + T(7n/10 + O(1)) + O(n)')}</div>
             <ul>
               {[
@@ -309,6 +437,7 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           title={tr('Worked Example: Find the 7th Smallest (1-indexed)')}
           description="Find the 7th smallest in A = [7, 2, 9, 4, 5, 12, 3, 8, 6, 1, 11, 13, 0, 10, 14] (n = 15)."
           className="mom-worked-example"
+          icon={<FileText size={23} />}
         >
           <div className="mom-worked-stages">
             {[
@@ -318,14 +447,26 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
               ['Rank 7 is in E', '6 < 7 ≤ 7'],
               ['Result', '7th smallest is 6'],
             ].map(([title, body], i) => (
-              <div key={title}>
+              <div
+                key={title}
+                role="button"
+                tabIndex={0}
+                aria-label={tr(`Explore worked example step ${i + 1}`)}
+                onClick={() => onExplore((['groups', 'pivot', 'partition', 'recurse', 'answer'] as const)[i])}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    e.currentTarget.click()
+                  }
+                }}
+              >
                 <b>{i + 1}</b>
                 <span>{tr(title)}</span>
                 <strong>{tr(body)}</strong>
               </div>
             ))}
           </div>
-          <button className="mom-example-link" onClick={onExplore}>
+          <button className="mom-example-link" onClick={() => onExplore()}>
             {tr('Explore this worked example')}
             <ArrowRight size={14} />
           </button>
@@ -376,6 +517,24 @@ function LearnDashboard({ onExplore }: { onExplore: () => void }) {
           )}
         </p>
       </section>
+      {inspector && (
+        <dialog
+          ref={dialog}
+          className="median-inspector"
+          onCancel={() => setInspector(null)}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setInspector(null)
+          }}
+        >
+          <header>
+            <h2>{tr(inspector.title)}</h2>
+            <button aria-label={tr('Close median inspector')} onClick={() => setInspector(null)}>
+              <X size={20} />
+            </button>
+          </header>
+          <p>{tr(inspector.body)}</p>
+        </dialog>
+      )}
     </div>
   )
 }
@@ -542,7 +701,7 @@ export function MedianOfMediansLesson({
     window.setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
   return (
-    <div className="mom-page target-visual" data-target="17" data-mockup-page="median-of-medians">
+    <div className="mom-page target-visual median-reference-page" data-target="17" data-mockup-page="median-of-medians">
       <div className="mom-topbar">
         <div className="mom-search">
           <Search size={19} />
@@ -578,7 +737,7 @@ export function MedianOfMediansLesson({
           {studied ? <Check size={16} /> : <Bookmark size={16} />}
           <span>{tr(studied ? 'Studied' : 'Mark studied')}</span>
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="mom-hero">
         <div className="mom-hero-icon">
@@ -607,6 +766,34 @@ export function MedianOfMediansLesson({
           </div>
         </div>
         <div className="mom-hero-split">
+          <svg className="median-hero-cubes" viewBox="0 0 284 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="median-cube-top">
+                <stop stopColor="#b9f4ff" />
+                <stop offset="1" stopColor="#74d4ff" />
+              </linearGradient>
+              <linearGradient id="median-cube-left" x2="0" y2="1">
+                <stop stopColor="#70c9ff" />
+                <stop offset="1" stopColor="#67a8f4" />
+              </linearGradient>
+              <linearGradient id="median-cube-right" x2="0" y2="1">
+                <stop stopColor="#73c9ff" />
+                <stop offset="1" stopColor="#4091eb" />
+              </linearGradient>
+            </defs>
+            {[
+              [8, 17, 31],
+              [0, 57, 43],
+              [245, 29, 38],
+              [171, 2, 42],
+            ].map(([x, y, s], i) => (
+              <g key={i} transform={`translate(${x} ${y})`} opacity={i === 3 ? 0.12 : 0.7}>
+                <path d={`M0 ${s / 4}L${s / 2} 0L${s} ${s / 4}L${s / 2} ${s / 2}Z`} fill="url(#median-cube-top)" />
+                <path d={`M0 ${s / 4}L${s / 2} ${s / 2}V${s * 1.08}L0 ${s * 0.82}Z`} fill="url(#median-cube-left)" />
+                <path d={`M${s / 2} ${s / 2}L${s} ${s / 4}V${s * 0.82}L${s / 2} ${s * 1.08}Z`} fill="url(#median-cube-right)" />
+              </g>
+            ))}
+          </svg>
           <Split compact />
           <span>
             {tr('Guaranteed split')}
@@ -645,9 +832,14 @@ export function MedianOfMediansLesson({
       </nav>
       {tab === 'Learn' && (
         <LearnDashboard
-          onExplore={() => {
+          onExplore={(phase) => {
             run(medianReferenceValues.slice(0, 15), 7)
             switchTab('Visualization')
+            if (phase) {
+              const next = medianTrace(medianReferenceValues.slice(0, 15), 7),
+                index = next.frames.findIndex((f) => f.depth === 0 && f.phase === phase)
+              if (index >= 0) go(index)
+            }
           }}
         />
       )}
@@ -850,6 +1042,7 @@ export function MedianOfMediansLesson({
       )}
       {tab === 'Notes' && (
         <Panel title={tr('Your lesson notes')} description="Notes are stored in this browser. Algorithm state is not changed by writing notes.">
+          <LanguageSelector />
           <textarea
             aria-label={tr('Lesson notes')}
             rows={12}

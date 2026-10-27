@@ -1,0 +1,59 @@
+{
+  "target": 17,
+  "route": "/divide-and-conquer/deterministic-selection",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\017--divide-and-conquer--median-of-medians-selection.png",
+  "alsoReferencedAs": "Original attachment image-2.png; its SHA-256 matches this reference exactly",
+  "status": "Visual differences remain; full visual-match goal is incomplete",
+  "beforeMeanAbsoluteRgbError": 15.3518,
+  "afterMeanAbsoluteRgbError": 13.9019,
+  "metricMeaning": "Mean absolute RGB-channel difference on the full 1672×941 image, not a fidelity percentage",
+  "inventoryTargets": 45,
+  "pixelIdenticalInventoryTargets": 0,
+  "unitTests": 808,
+  "unitFiles": 66,
+  "productionBrowserTestsPassed": 61,
+  "productionBrowserTestsSkipped": 3,
+  "productionBrowserScope": "017, 023 and 047; desktop and mobile",
+  "skipReason": "Each reference inventory capture runs only on desktop",
+  "pageBrowserTestsPassed": 15,
+  "lint": "passed",
+  "localization": "passed",
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "prerenderedPages": 394,
+  "bundleBudget": "passed for 73 chunks",
+  "refinements": [
+    "Dedicated target-017 stylesheet leaves the shared mockup chrome unchanged",
+    "Native SVG cube illustration, hero proportions, icon position, badges and typography",
+    "Reference-width group cards, incomplete-group alignment, sorted rows and medians column",
+    "Separate second-row proportions for recursive pivot and split-guarantee panels",
+    "Workflow box sizes and branching connector, recurrence typography and correctness tabs",
+    "Reference panel heights and sidebar width at the reference viewport",
+    "Language control remains available in Notes while the header matches the mockup's account controls"
+  ],
+  "newInteractions": [
+    "Every original and sorted group can be inspected with pointer or keyboard",
+    "Group inspectors show original order, sorted order, median index and incomplete-group reasoning",
+    "Native explanation buttons preserve panel-heading semantics while opening pivot, split and recurrence proofs",
+    "Workflow branches explain the exact one-based rank inequality and rank update",
+    "Each worked-example stage seeks the corresponding computed root frame",
+    "Inspector dialogs support explicit close, Escape and backdrop dismissal"
+  ],
+  "interactionVerification": [
+    "Worked example seeks the actual partition |L|=6, |E|=1, |R|=8 and returns the seventh-smallest value 6",
+    "Custom negative inputs and invalid ranks preserve the last valid computed answer",
+    "Sixty duplicate values with rank sixty return 7 through the equal block",
+    "Sixty-one values are rejected without replacing the valid run",
+    "Prediction feedback, source display, playback, saved experiments and JSON export remain functional",
+    "Notes, studied state and theme persist; mobile document overflow remains absent"
+  ],
+  "referenceCorrectionsPreserved": [
+    "The worked input is a permutation of 0 through 14, so its seventh-smallest value is 6, not the reference's 7",
+    "Rank 7 lies in the equal block for pivot 6; it does not recurse right",
+    "The fourth group is labelled Group 4 rather than repeating Group 5",
+    "Finite-size split bounds retain additive rounding constants instead of asserting an exact 3n/10 bound for every small input"
+  ],
+  "layoutVerification": "Hero and nine dashboard/strip bounds checked against reference coordinates within three pixels; desktop and mobile layout metadata saved",
+  "regressionEvidence": "Targets 023 and 047 retain mean RGB errors 14.2741 and 12.69 respectively, with their production interactions passing",
+  "remainingWork": "Typography, icon details, source-text differences and other pixels remain. No full-scope exact-match claim is supported; all 45 target renders still differ."
+}

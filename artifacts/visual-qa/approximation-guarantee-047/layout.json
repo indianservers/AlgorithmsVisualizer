@@ -1,0 +1,100 @@
+[
+  {
+    "selector": ".ag-toolbar",
+    "x": 279,
+    "y": 10,
+    "width": 1376,
+    "height": 45
+  },
+  {
+    "selector": ".ag-hero",
+    "x": 269,
+    "y": 55,
+    "width": 1403,
+    "height": 70
+  },
+  {
+    "selector": ".mom-tabs",
+    "x": 279,
+    "y": 125,
+    "width": 1376,
+    "height": 50
+  },
+  {
+    "selector": ".ag-ratio",
+    "x": 279,
+    "y": 186,
+    "width": 624.453125,
+    "height": 203
+  },
+  {
+    "selector": ".ag-selector",
+    "x": 913.453125,
+    "y": 186,
+    "width": 363.265625,
+    "height": 203
+  },
+  {
+    "selector": ".ag-controls",
+    "x": 1286.71875,
+    "y": 186,
+    "width": 368.28125,
+    "height": 203
+  },
+  {
+    "selector": ".ag-graph",
+    "x": 279,
+    "y": 399,
+    "width": 714.46875,
+    "height": 253
+  },
+  {
+    "selector": ".ag-guarantee",
+    "x": 1003.46875,
+    "y": 399,
+    "width": 651.53125,
+    "height": 253
+  },
+  {
+    "selector": ".ag-how",
+    "x": 279,
+    "y": 662,
+    "width": 501.625,
+    "height": 163
+  },
+  {
+    "selector": ".ag-schemes",
+    "x": 790.625,
+    "y": 662,
+    "width": 427.6875,
+    "height": 163
+  },
+  {
+    "selector": ".ag-takeaways",
+    "x": 1228.3125,
+    "y": 662,
+    "width": 426.6875,
+    "height": 163
+  },
+  {
+    "selector": ".ag-correctness",
+    "x": 279,
+    "y": 835,
+    "width": 608.4375,
+    "height": 98
+  },
+  {
+    "selector": ".ag-complexity",
+    "x": 897.4375,
+    "y": 835,
+    "width": 320.234375,
+    "height": 98
+  },
+  {
+    "selector": ".ag-pitfalls",
+    "x": 1227.671875,
+    "y": 835,
+    "width": 427.328125,
+    "height": 98
+  }
+]

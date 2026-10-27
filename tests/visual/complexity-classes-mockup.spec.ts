@@ -1,6 +1,8 @@
 import { test, expect, type Page } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
 test.beforeEach(async ({ page }) => {
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -33,6 +35,20 @@ test('023 includes every dashboard component and reference panel positions', asy
   await expect(root(page).locator('.cx-certificate-result')).toContainText('Valid certificate')
   await expect(root(page).locator('.cx-map-note')).toContainText('equality remains open')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/complexity-023', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/complexity-023/${info.project.name}-visualization.png` })
+  const geometry = await root(page)
+    .locator('.cx-lesson-header,.mom-tabs,.cx-top-grid,.cx-middle-grid,.cx-middle-grid>.cx-panel,.cx-footer-grid,.cx-version-grid')
+    .evaluateAll((elements) =>
+      elements.map((e) => ({
+        selector: e.className,
+        ...e.getBoundingClientRect().toJSON(),
+        computedHeight: getComputedStyle(e).height,
+        minHeight: getComputedStyle(e).minHeight,
+        boxSizing: getComputedStyle(e).boxSizing,
+      })),
+    )
+  writeFileSync(`artifacts/visual-qa/complexity-023/${info.project.name}-layout.json`, JSON.stringify(geometry, null, 2))
   if (info.project.name === 'desktop')
     for (const [selector, expected] of [
       ['.cx-lesson-header', { x: 276, y: 51, width: 1396, height: 78 }],
@@ -44,7 +60,6 @@ test('023 includes every dashboard component and reference panel positions', asy
       const box = await root(page).locator(selector).boundingBox()
       for (const [key, value] of Object.entries(expected)) expect(Math.abs(box![key as keyof typeof box] - value), `${selector} ${key}`).toBeLessThanOrEqual(2)
     }
-  await page.screenshot({ path: `artifacts/visual-qa/complexity-023/${info.project.name}-visualization.png` })
 })
 test('023 classifies problem versions and checks factor certificates using exact inputs', async ({ page }) => {
   await root(page).getByRole('radio', { name: 'TSP (Optimization: min tour)', exact: true }).click()

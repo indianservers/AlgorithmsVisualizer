@@ -1,0 +1,145 @@
+[
+  {
+    "selector": "ef-lesson-header",
+    "x": 10,
+    "y": 108,
+    "width": 373,
+    "height": 191,
+    "top": 108,
+    "right": 383,
+    "bottom": 299,
+    "left": 10
+  },
+  {
+    "selector": "mom-tabs",
+    "x": 10,
+    "y": 307,
+    "width": 373,
+    "height": 51,
+    "top": 307,
+    "right": 383,
+    "bottom": 358,
+    "left": 10
+  },
+  {
+    "selector": "ef-visualization",
+    "x": 10,
+    "y": 368,
+    "width": 373,
+    "height": 1266,
+    "top": 368,
+    "right": 383,
+    "bottom": 1634,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-flow-panel",
+    "x": 19,
+    "y": 569,
+    "width": 355,
+    "height": 372,
+    "top": 569,
+    "right": 374,
+    "bottom": 941,
+    "left": 19
+  },
+  {
+    "selector": "ef-panel ef-residual-panel",
+    "x": 19,
+    "y": 953,
+    "width": 355,
+    "height": 328,
+    "top": 953,
+    "right": 374,
+    "bottom": 1281,
+    "left": 19
+  },
+  {
+    "selector": "ef-panel ef-animation-panel",
+    "x": 19,
+    "y": 1293,
+    "width": 355,
+    "height": 328,
+    "top": 1293,
+    "right": 374,
+    "bottom": 1621,
+    "left": 19
+  },
+  {
+    "selector": "ef-panel ef-steps-panel",
+    "x": 10,
+    "y": 1640,
+    "width": 373,
+    "height": 298,
+    "top": 1640,
+    "right": 383,
+    "bottom": 1938,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-cut-panel",
+    "x": 10,
+    "y": 1946,
+    "width": 373,
+    "height": 204,
+    "top": 1946,
+    "right": 383,
+    "bottom": 2150,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-utilization",
+    "x": 10,
+    "y": 2158,
+    "width": 373,
+    "height": 204,
+    "top": 2158,
+    "right": 383,
+    "bottom": 2362,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-takeaways",
+    "x": 10,
+    "y": 2371,
+    "width": 373,
+    "height": 146,
+    "top": 2371,
+    "right": 383,
+    "bottom": 2517,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-worked",
+    "x": 10,
+    "y": 2525,
+    "width": 373,
+    "height": 150,
+    "top": 2525,
+    "right": 383,
+    "bottom": 2675,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-proof",
+    "x": 10,
+    "y": 2683,
+    "width": 373,
+    "height": 145,
+    "top": 2683,
+    "right": 383,
+    "bottom": 2828,
+    "left": 10
+  },
+  {
+    "selector": "ef-panel ef-pitfalls",
+    "x": 10,
+    "y": 2836,
+    "width": 373,
+    "height": 145,
+    "top": 2836,
+    "right": 383,
+    "bottom": 2981,
+    "left": 10
+  }
+]

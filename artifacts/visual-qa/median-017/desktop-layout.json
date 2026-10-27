@@ -1,0 +1,145 @@
+[
+  {
+    "className": "mom-hero",
+    "x": 291,
+    "y": 65,
+    "width": 1365,
+    "height": 119,
+    "top": 65,
+    "right": 1656,
+    "bottom": 184,
+    "left": 291
+  },
+  {
+    "className": "mom-tabs",
+    "x": 291,
+    "y": 196,
+    "width": 1365,
+    "height": 39,
+    "top": 196,
+    "right": 1656,
+    "bottom": 235,
+    "left": 291
+  },
+  {
+    "className": "mom-panel mom-groups-panel",
+    "x": 291,
+    "y": 245,
+    "width": 584.078125,
+    "height": 208,
+    "top": 245,
+    "right": 875.078125,
+    "bottom": 453,
+    "left": 291
+  },
+  {
+    "className": "mom-panel mom-sort-panel",
+    "x": 884.578125,
+    "y": 245,
+    "width": 417.421875,
+    "height": 208,
+    "top": 245,
+    "right": 1302,
+    "bottom": 453,
+    "left": 884.578125
+  },
+  {
+    "className": "mom-panel mom-pivot-panel",
+    "x": 291,
+    "y": 463,
+    "width": 561.578125,
+    "height": 145,
+    "top": 463,
+    "right": 852.578125,
+    "bottom": 608,
+    "left": 291
+  },
+  {
+    "className": "mom-panel mom-guarantee-panel",
+    "x": 862.578125,
+    "y": 463,
+    "width": 439.421875,
+    "height": 145,
+    "top": 463,
+    "right": 1302,
+    "bottom": 608,
+    "left": 862.578125
+  },
+  {
+    "className": "mom-panel mom-workflow-panel",
+    "x": 291,
+    "y": 618,
+    "width": 635.65625,
+    "height": 180,
+    "top": 618,
+    "right": 926.65625,
+    "bottom": 798,
+    "left": 291
+  },
+  {
+    "className": "mom-panel mom-recurrence-panel",
+    "x": 936.65625,
+    "y": 618,
+    "width": 365.328125,
+    "height": 180,
+    "top": 618,
+    "right": 1301.984375,
+    "bottom": 798,
+    "left": 936.65625
+  },
+  {
+    "className": "mom-takeaways",
+    "x": 1316,
+    "y": 245,
+    "width": 340,
+    "height": 208,
+    "top": 245,
+    "right": 1656,
+    "bottom": 453,
+    "left": 1316
+  },
+  {
+    "className": "mom-pitfalls",
+    "x": 1316,
+    "y": 462.5,
+    "width": 340,
+    "height": 197,
+    "top": 462.5,
+    "right": 1656,
+    "bottom": 659.5,
+    "left": 1316
+  },
+  {
+    "className": "mom-pro-tip",
+    "x": 1316,
+    "y": 669,
+    "width": 340,
+    "height": 129,
+    "top": 669,
+    "right": 1656,
+    "bottom": 798,
+    "left": 1316
+  },
+  {
+    "className": "mom-panel mom-worked-example",
+    "x": 291,
+    "y": 808,
+    "width": 770.9375,
+    "height": 151,
+    "top": 808,
+    "right": 1061.9375,
+    "bottom": 959,
+    "left": 291
+  },
+  {
+    "className": "mom-panel mom-correctness",
+    "x": 1071.9375,
+    "y": 808,
+    "width": 584.046875,
+    "height": 151,
+    "top": 808,
+    "right": 1655.984375,
+    "bottom": 959,
+    "left": 1071.9375
+  }
+]

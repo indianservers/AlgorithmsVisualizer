@@ -4,6 +4,8 @@ import {
   certificateGraph,
   certificateMatrix,
   complexityProblems,
+  complexityMapMembership,
+  complexityMapRegions,
   parseCertificateGraph,
   parseCertificateIds,
   parseCertificateMatrix,
@@ -19,6 +21,19 @@ import {
 } from './complexityClassesModel'
 
 describe('complexity class explorer and real certificate verifiers', () => {
+  it('keeps P outside the NP-hard colored region and makes the purple region the intersection', () => {
+    expect(complexityMapMembership(264, 214)).toEqual({ P: true, NP: true, 'NP-Hard': false, 'NP-Complete': false })
+    expect(complexityMapMembership(300, 112)).toEqual({ P: false, NP: true, 'NP-Hard': false, 'NP-Complete': false })
+    expect(complexityMapMembership(418, 192)).toEqual({ P: false, NP: true, 'NP-Hard': true, 'NP-Complete': true })
+    expect(complexityMapMembership(543, 162)).toEqual({ P: false, NP: false, 'NP-Hard': true, 'NP-Complete': false })
+    for (let angle = 0; angle < Math.PI * 2; angle += 0.01) {
+      const p = complexityMapRegions.complete,
+        point = complexityMapMembership(p.cx + p.rx * 0.999 * Math.cos(angle), p.cy + p.ry * 0.999 * Math.sin(angle))
+      expect(point.NP).toBe(true)
+      expect(point['NP-Hard']).toBe(true)
+      expect(point.P).toBe(false)
+    }
+  })
   it('keeps decision and optimization classifications distinct without claiming P ≠ NP', () => {
     expect(complexityProblems).toHaveLength(6)
     expect(complexityProblems.find((p) => p.id === 'tsp-decision')?.badge).toBe('NP-Complete')

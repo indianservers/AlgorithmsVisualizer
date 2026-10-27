@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { persistentString, usePersistentState } from '../hooks/usePersistentState'
@@ -111,20 +112,20 @@ function FlowGraph({
       n.vertices === 6
         ? (residual
             ? [
-                [50, 108],
-                [190, 36],
-                [360, 36],
-                [190, 180],
-                [360, 180],
-                [500, 108],
+                [51, 108],
+                [189, 36],
+                [354, 36],
+                [189, 180],
+                [354, 180],
+                [491, 108],
               ]
             : [
-                [56, 108],
-                [200, 36],
-                [370, 36],
-                [200, 180],
-                [370, 180],
-                [505, 108],
+                [57, 108],
+                [201, 36],
+                [369, 36],
+                [201, 180],
+                [369, 180],
+                [499, 108],
               ])[i]
         : i === n.source
           ? [50, 108]
@@ -135,6 +136,7 @@ function FlowGraph({
     arcs: ResidualArc[] = residual ? (showResidual ? frame.residual : []) : n.edges.map((e, edge) => ({ ...e, edge, reverse: false })),
     pathKey = (a: ResidualArc) => `${a.edge}:${a.reverse}`,
     pathSet = new Set(frame.path.map(pathKey))
+  const radius = (vertex: number) => (n.vertices !== 6 ? 25 : vertex === n.source || vertex === n.sink ? (residual ? 28 : 25) : residual ? 25 : 23)
   return (
     <svg
       className={`ef-network-svg ${residual ? 'ef-residual-svg' : 'ef-flow-svg'}`}
@@ -143,6 +145,16 @@ function FlowGraph({
       aria-label={tr(residual ? 'Residual network with positive capacities' : 'Directed flow network')}
     >
       <defs>
+        {[
+          ['node', '#ffffff', '#dceaff'],
+          ['source', '#c2ffda', '#8beab5'],
+          ['sink', '#fff0f3', '#ffced8'],
+        ].map(([name, start, end]) => (
+          <radialGradient key={name} id={`${key}-${name}`} cx=".3" cy=".2" r=".9">
+            <stop stopColor={start} />
+            <stop offset="1" stopColor={end} />
+          </radialGradient>
+        ))}
         {[
           ['blue', '#0875ff'],
           ['orange', '#ffa000'],
@@ -167,10 +179,10 @@ function FlowGraph({
           cy = (ay + by) / 2 + (dx / distance) * bend,
           da = Math.hypot(cx - ax, cy - ay),
           db = Math.hypot(bx - cx, by - cy),
-          x1 = ax + ((cx - ax) * 26) / da,
-          y1 = ay + ((cy - ay) * 26) / da,
-          x2 = bx - ((bx - cx) * 27) / db,
-          y2 = by - ((by - cy) * 27) / db,
+          x1 = ax + ((cx - ax) * (radius(arc.from) + 1)) / da,
+          y1 = ay + ((cy - ay) * (radius(arc.from) + 1)) / da,
+          x2 = bx - ((bx - cx) * (radius(arc.to) + 2)) / db,
+          y2 = by - ((by - cy) * (radius(arc.to) + 2)) / db,
           pathIndex = frame.path.findIndex((a) => pathKey(a) === pathKey(arc)),
           active = residual && pathSet.has(pathKey(arc)),
           cut = !residual && !frame.path.length && run.cutEdges.includes(arc.edge),
@@ -228,7 +240,7 @@ function FlowGraph({
             }
           }}
         >
-          <circle cx={x} cy={y} r="25" />
+          <circle cx={x} cy={y} r={radius(vertex)} style={{ fill: `url(#${key}-${vertex === n.source ? 'source' : vertex === n.sink ? 'sink' : 'node'})` }} />
           {labels && (
             <text x={x} y={y + 6} textAnchor="middle">
               {flowVertexLabel(n, vertex)}
@@ -529,7 +541,7 @@ export function EdmondsKarpMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="ef-lesson-header">
         <button className="ef-back" aria-label={tr('Open Cook-Levin lesson')} onClick={() => navigate('/complexity-theory/cook-levin')}>
@@ -601,7 +613,7 @@ export function EdmondsKarpMockupLesson(props: MockupPageProps) {
                     {tr('Flow Network')} <span className="ef-heading-detail">{tr('(current flow / capacity)')}</span>
                   </>
                 }
-                subtitle={tr(`Directed graph with capacities and current flow: ${frame.value}.`)}
+                subtitle={tr(`Directed graph: capacities and current flow: ${frame.value}.`)}
                 icon={<Network />}
                 className="ef-flow-panel"
                 action={
@@ -635,6 +647,15 @@ export function EdmondsKarpMockupLesson(props: MockupPageProps) {
                     <i className="ef-current-key" />
                     {tr('Current flow')}
                   </span>
+                  <button
+                    className="ef-legend-toggle"
+                    aria-label={tr('Toggle residual graph from legend')}
+                    aria-pressed={showResidual}
+                    onClick={() => setShowResidual(!showResidual)}
+                  >
+                    <i className="ef-residual-key" />
+                    {tr('Residual edge')}
+                  </button>
                 </div>
               </Panel>
               <Panel
@@ -966,6 +987,7 @@ export function EdmondsKarpMockupLesson(props: MockupPageProps) {
             <textarea aria-label={tr('Maximum-flow notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
           <p>{tr('Your notes and reviewed sections are saved in this browser.')}</p>
+          <LanguageSelector />
           <button
             aria-label={tr('Toggle color theme')}
             onClick={() => (props.onToggleTheme ? props.onToggleTheme() : setLocalTheme(theme === 'dark' ? 'light' : 'dark'))}

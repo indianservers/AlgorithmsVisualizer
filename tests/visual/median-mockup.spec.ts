@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 test.beforeEach(async ({ page }) => {
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -27,20 +29,30 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
     const hero = await pageRoot.locator('.mom-hero').boundingBox()
     expect(hero).not.toBeNull()
     // Layout evidence only; pixel fidelity still requires image comparison.
-    for (const [key, value] of Object.entries({ x: 290, y: 65, width: 1366, height: 118 }))
+    for (const [key, value] of Object.entries({ x: 291, y: 65, width: 1365, height: 119 }))
       expect(Math.abs(hero![key as keyof typeof hero] - value), `Median hero ${key}`).toBeLessThanOrEqual(3)
     for (const [selector, expected] of [
-      ['.mom-dashboard', { x: 290, y: 244, width: 1366 }],
-      ['.mom-groups-panel', { x: 290, y: 244, width: 584, height: 208 }],
-      ['.mom-sort-panel', { x: 884, y: 244, width: 418, height: 208 }],
-      ['.mom-side-cards', { x: 1316, y: 244, width: 340 }],
+      ['.mom-dashboard', { x: 291, y: 245, width: 1365 }],
+      ['.mom-groups-panel', { x: 291, y: 245, width: 584, height: 208 }],
+      ['.mom-sort-panel', { x: 884, y: 245, width: 418, height: 208 }],
+      ['.mom-side-cards', { x: 1316, y: 245, width: 340 }],
+      ['.mom-pivot-panel', { x: 291, y: 463, width: 561, height: 145 }],
+      ['.mom-guarantee-panel', { x: 861, y: 463, width: 441, height: 145 }],
+      ['.mom-workflow-panel', { x: 291, y: 618, width: 636, height: 180 }],
+      ['.mom-recurrence-panel', { x: 936, y: 618, width: 366, height: 180 }],
+      ['.mom-bottom-grid', { x: 291, y: 808, width: 1365 }],
     ] as const) {
       const box = await pageRoot.locator(selector).boundingBox()
       for (const [key, value] of Object.entries(expected))
         expect(Math.abs(box![key as keyof typeof box] - value), `Median ${selector} ${key}`).toBeLessThanOrEqual(3)
     }
   }
+  mkdirSync('artifacts/visual-qa/median-017', { recursive: true })
   await page.screenshot({ path: `artifacts/visual-qa/median-017/${info.project.name}-learn.png`, fullPage: false })
+  const layout = await pageRoot
+    .locator('.mom-hero,.mom-tabs,.mom-main-grid>.mom-panel,.mom-last-row>.mom-panel,.mom-side-cards>article,.mom-bottom-grid>.mom-panel')
+    .evaluateAll((elements) => elements.map((e) => ({ className: e.className, ...e.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/median-017/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (process.env.MEDIAN_MEASURE === '1')
     console.log(
       JSON.stringify(
@@ -79,6 +91,63 @@ test('017 opens the reference Learn dashboard with all teaching components', asy
   await expect(pageRoot.locator('.mom-proof-content')).toContainText('one-based')
   await pageRoot.getByRole('button', { name: 'Formulas', exact: true }).click()
   await expect(pageRoot.locator('.mom-proof-content')).toContainText('k′')
+})
+
+test('017 groups, split proof and workflow branches support inspection and keyboard access', async ({ page }) => {
+  await page.goto('/divide-and-conquer/deterministic-selection')
+  const root = page.locator('.median-reference-page'),
+    close = () => root.getByRole('button', { name: 'Close median inspector', exact: true }).click()
+  await root.getByRole('button', { name: 'Inspect group 1', exact: true }).click()
+  await expect(root.getByRole('dialog')).toContainText('Sorted order: [2, 4, 5, 7, 9]')
+  await close()
+  await root.getByRole('button', { name: 'Inspect sorted group 5', exact: true }).focus()
+  await page.keyboard.press('Enter')
+  await expect(root.getByRole('dialog')).toContainText('median 19')
+  await page.keyboard.press('Escape')
+  await root.getByRole('button', { name: 'Explain Recursively Select Pivot (Median of Medians)', exact: true }).click()
+  await expect(root.getByRole('dialog')).toContainText('Their median is 11')
+  await close()
+  await root.getByRole('button', { name: 'Explain Guaranteed Split (≈ 3n/10 on each side)', exact: true }).click()
+  await expect(root.getByRole('dialog')).toContainText('constant adjustment')
+  await close()
+  for (const [name, expected] of [
+    ['k ≤ |L|', 'same rank k'],
+    ['|L| < k ≤ |L| + |E|', 'including duplicates'],
+    ['k > |L| + |E|', 'k′ = k − |L| − |E|'],
+  ]) {
+    await root.getByRole('button', { name: `Explain workflow branch ${name}`, exact: true }).click()
+    await expect(root.getByRole('dialog')).toContainText(expected)
+    await close()
+  }
+  await root.getByRole('button', { name: 'Explain Recurrence & Linear-Time Guarantee', exact: true }).click()
+  await expect(root.getByRole('dialog')).toContainText('9/10 < 1')
+  await close()
+})
+
+test('017 worked-example stage links seek actual root frames', async ({ page }) => {
+  await page.goto('/divide-and-conquer/deterministic-selection')
+  const root = page.locator('.median-reference-page')
+  await root.getByRole('button', { name: 'Explore worked example step 3', exact: true }).click()
+  await expect(root.locator('.mom-frame-reason')).toContainText('|L|=6, |E|=1, |R|=8')
+  await expect(root.getByLabel('Selection rank (k)')).toHaveValue('7')
+  await root.getByRole('button', { name: 'Learn', exact: true }).click()
+  await root.getByRole('button', { name: 'Explore worked example step 5', exact: true }).click()
+  await expect(root.locator('.mom-frame-reason')).toHaveText('The 7th smallest value is 6.')
+})
+
+test('017 maximum duplicate inputs and extreme ranks preserve equal-block selection', async ({ page }) => {
+  await page.goto('/divide-and-conquer/deterministic-selection')
+  const root = page.locator('.median-reference-page')
+  await root.getByRole('button', { name: 'Visualization', exact: true }).click()
+  await root.getByLabel('Median dataset').fill(Array(60).fill('7').join(','))
+  await root.getByLabel('Selection rank (k)').fill('60')
+  await root.getByRole('button', { name: 'Run algorithm', exact: true }).click()
+  await root.getByRole('button', { name: 'Show computed answer', exact: true }).click()
+  await expect(root.locator('.mom-answer')).toHaveText('k = 60 → 7')
+  await root.getByLabel('Median dataset').fill(Array(61).fill('7').join(','))
+  await root.getByRole('button', { name: 'Run algorithm', exact: true }).click()
+  await expect(root.getByRole('alert')).toContainText('1–60')
+  await expect(root.locator('.mom-answer')).toHaveText('k = 60 → 7')
 })
 test('017 worked example, editable inputs, predictions and real source work', async ({ page }) => {
   await page.goto('/divide-and-conquer/deterministic-selection')

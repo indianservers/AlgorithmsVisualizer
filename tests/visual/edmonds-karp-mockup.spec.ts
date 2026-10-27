@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test'
 import { flowExample } from '../../src/daa/edmondsKarpModel'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const root = (p: Page) => p.locator('.edmonds-karp-page')
 const button = (p: Page, name: string) => root(p).getByRole('button', { name, exact: true })
 const tab = (p: Page, name: string) => button(p, name).click()
@@ -35,7 +36,13 @@ test('028 includes reference components, exact main panel anchors and consistent
   await expect(root(page).locator('.ef-cut-grid output')).toHaveText('11')
   await expect(root(page).locator('.ef-cut-grid')).toContainText('S-side: { S, 1, 3 }')
   await expect(root(page).locator('.ef-utilization button')).toHaveCount(8)
-  if (info.project.name === 'desktop')
+  mkdirSync('artifacts/visual-qa/edmonds-karp-028', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/edmonds-karp-028/${info.project.name}-default.png`, fullPage: info.project.name === 'mobile' })
+  const layout = await root(page)
+    .locator('.ef-lesson-header,.mom-tabs,.ef-visualization,.ef-graphs-grid>.ef-panel,.ef-analysis-grid>.ef-panel,.ef-footer-grid>.ef-panel')
+    .evaluateAll((elements) => elements.map((e) => ({ selector: e.className, ...e.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/edmonds-karp-028/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
+  if (info.project.name === 'desktop') {
     for (const [selector, expected] of [
       ['.ef-lesson-header', { x: 268, y: 56, width: 1404, height: 80 }],
       ['.mom-tabs', { x: 278, y: 136, width: 1380, height: 51 }],
@@ -50,6 +57,37 @@ test('028 includes reference components, exact main panel anchors and consistent
       for (const key of ['x', 'y', 'width'] as const) expect(Math.abs(box![key] - expected[key])).toBeLessThanOrEqual(2)
       if (selector !== '.ef-footer-grid') expect(Math.abs(box!.height - expected.height)).toBeLessThanOrEqual(2)
     }
+    for (const [selector, centers] of [
+      [
+        '.ef-flow-svg',
+        [
+          [357, 429],
+          [493, 362],
+          [651, 362],
+          [493, 496],
+          [651, 496],
+          [774, 429],
+        ],
+      ],
+      [
+        '.ef-residual-svg',
+        [
+          [889, 428],
+          [1008, 362],
+          [1151, 362],
+          [1008, 496],
+          [1151, 496],
+          [1270, 428],
+        ],
+      ],
+    ] as const) {
+      for (let i = 0; i < centers.length; i++) {
+        const box = await root(page).locator(`${selector} .ef-graph-vertex circle`).nth(i).boundingBox()
+        expect(Math.abs(box!.x + box!.width / 2 - centers[i][0])).toBeLessThanOrEqual(3)
+        expect(Math.abs(box!.y + box!.height / 2 - centers[i][1])).toBeLessThanOrEqual(3)
+      }
+    }
+  }
   await button(page, 'Next augmentation').click()
   await expect(root(page).locator('.ef-path-card output')).toHaveText('5')
 })
@@ -84,6 +122,12 @@ test('028 animation actually updates flow and residual capacities at the chosen 
   await expect(root(page).locator('.ef-flow-panel > header')).toContainText('current flow: 0')
 })
 test('028 residual and label toggles work and vertices expose BFS metadata', async ({ page }) => {
+  await expect(button(page, 'Toggle residual graph from legend')).toHaveAttribute('aria-pressed', 'true')
+  await button(page, 'Toggle residual graph from legend').click()
+  await expect(root(page).getByLabel('Show residual graph', { exact: true })).not.toBeChecked()
+  await expect(root(page).locator('.ef-residual-svg [data-flow-edge]')).toHaveCount(0)
+  await button(page, 'Toggle residual graph from legend').click()
+  await expect(root(page).getByLabel('Show residual graph', { exact: true })).toBeChecked()
   await root(page).getByLabel('Show residual graph', { exact: true }).uncheck()
   await expect(root(page).locator('.ef-residual-svg [data-flow-edge]')).toHaveCount(0)
   await expect(root(page).locator('.ef-residual-hidden')).toBeVisible()

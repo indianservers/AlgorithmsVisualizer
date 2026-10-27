@@ -89,6 +89,9 @@ const ReliabilityMockupLesson = lazy(() => import('./ReliabilityMockupLesson').t
 const FFTMockupLesson = lazy(() => import('./FFTMockupLesson').then((module) => ({ default: module.FFTMockupLesson })))
 const BinPackingMockupLesson = lazy(() => import('./BinPackingMockupLesson').then((module) => ({ default: module.BinPackingMockupLesson })))
 const ExpectedAnalysisMockupLesson = lazy(() => import('./ExpectedAnalysisMockupLesson').then((module) => ({ default: module.ExpectedAnalysisMockupLesson })))
+const ApproximationGuaranteeMockupLesson = lazy(() =>
+  import('./ApproximationGuaranteeMockupLesson').then((module) => ({ default: module.ApproximationGuaranteeMockupLesson })),
+)
 const LinearProgrammingMockupLesson = lazy(() =>
   import('./LinearProgrammingMockupLesson').then((module) => ({ default: module.LinearProgrammingMockupLesson })),
 )
@@ -1603,6 +1606,19 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'approximation-method')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ApproximationGuaranteeMockupLesson
+          module={module}
+          completed={completed}
+          toggleCompleted={toggleCompleted}
+          theme={theme}
+          onToggleTheme={onToggleTheme}
+        />
+      </Suspense>
+    )
 
   if (module.id === 'linear-programming')
     return (
