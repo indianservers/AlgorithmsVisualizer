@@ -86,6 +86,12 @@ const MetricTspMockupLesson = lazy(() => import('./MetricTspMockupLesson').then(
 const BoyerMooreMockupLesson = lazy(() => import('./BoyerMooreMockupLesson').then((module) => ({ default: module.BoyerMooreMockupLesson })))
 const SuffixArrayMockupLesson = lazy(() => import('./SuffixArrayMockupLesson').then((module) => ({ default: module.SuffixArrayMockupLesson })))
 const ReliabilityMockupLesson = lazy(() => import('./ReliabilityMockupLesson').then((module) => ({ default: module.ReliabilityMockupLesson })))
+const FFTMockupLesson = lazy(() => import('./FFTMockupLesson').then((module) => ({ default: module.FFTMockupLesson })))
+const BinPackingMockupLesson = lazy(() => import('./BinPackingMockupLesson').then((module) => ({ default: module.BinPackingMockupLesson })))
+const ExpectedAnalysisMockupLesson = lazy(() => import('./ExpectedAnalysisMockupLesson').then((module) => ({ default: module.ExpectedAnalysisMockupLesson })))
+const LinearProgrammingMockupLesson = lazy(() =>
+  import('./LinearProgrammingMockupLesson').then((module) => ({ default: module.LinearProgrammingMockupLesson })),
+)
 const BipartiteMatchingMockupLesson = lazy(() =>
   import('./BipartiteMatchingMockupLesson').then((module) => ({ default: module.BipartiteMatchingMockupLesson })),
 )
@@ -1597,6 +1603,34 @@ function LessonView({ lesson, completed, toggleCompleted, module, theme, onToggl
 
 export function DaaWorkspace({ module, completed, toggleCompleted, theme, onToggleTheme }: Props) {
   useLocaleRender()
+
+  if (module.id === 'linear-programming')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <LinearProgrammingMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'expected-analysis')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <ExpectedAnalysisMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'bin-packing')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <BinPackingMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
+
+  if (module.id === 'fft')
+    return (
+      <Suspense fallback={<p role="status">{tx('Loading lesson…', 'studios')}</p>}>
+        <FFTMockupLesson module={module} completed={completed} toggleCompleted={toggleCompleted} theme={theme} onToggleTheme={onToggleTheme} />
+      </Suspense>
+    )
 
   if (module.id === 'reliability-design')
     return (

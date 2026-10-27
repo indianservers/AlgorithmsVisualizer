@@ -1,0 +1,62 @@
+{
+  "target": 44,
+  "route": "/daa-extensions/bin-packing",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\044--daa-extensions--bin-packing-first-fit-decreasing.png",
+  "status": "Visual differences remain; full visual-match goal is incomplete",
+  "unitTests": 790,
+  "unitFiles": 63,
+  "regressionBrowserTestsPassed": 46,
+  "regressionScope": "043 and 044, desktop and mobile",
+  "finalPageBrowserTestsPassed": 23,
+  "finalPageBrowserTestsSkipped": 1,
+  "skipReason": "Reference inventory capture is desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 70,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 27.4906,
+  "afterMeanAbsoluteRgbError": 13.8985,
+  "pixelIdenticalPagesInInventory": 0,
+  "inventoryTargets": 45,
+  "referenceCorrections": [
+    "Default item volume is 54; capacity-10 bins require at least six bins",
+    "All bin stacks, timeline placements and summary totals follow actual first-fit decreasing decisions",
+    "No overflowing bin, negative remaining capacity or infeasible two-bin summary is shown",
+    "Additional bins and their utilization remain accessible by local scrolling"
+  ],
+  "defaultPacking": [
+    [9, 1],
+    [8, 2],
+    [7, 3],
+    [6, 4],
+    [5, 4],
+    [3, 2]
+  ],
+  "defaultLoads": [10, 10, 10, 10, 9, 5],
+  "defaultVolume": 54,
+  "defaultLowerBound": 6,
+  "defaultExactOptimum": 6,
+  "defaultUtilization": 0.9,
+  "interactions": [
+    "Validated editable capacity and up to twenty-four item sizes",
+    "Auto Pack, animated placement, pause, resume, speed and reset",
+    "Six-section navigation with persistent progress and notes",
+    "Stable identities for equal-size items",
+    "Sorted-item, bin, placement and packing-quality inspectors",
+    "Full paginated placement timeline and explicit rejected-bin certificates",
+    "Current-snapshot bin counts, item totals and per-bin utilization",
+    "Exact quality certificates for up to twelve items and honest lower bounds for larger inputs",
+    "Theory, worked example, pseudocode, prediction and greedy counterexample",
+    "Empty, duplicate, exact-fill and maximum-size experiment presets",
+    "Keyboard topic search, language preferences and dark mode",
+    "Local scrolling for large item lists, bin arrays and placement timelines"
+  ],
+  "modelVerification": [
+    "180 generated instances compared with an independent first-fit implementation",
+    "Every snapshot checked for capacity feasibility, item conservation and first-feasible-bin selection",
+    "Sixty small instances checked against exhaustive assignment search for exact optimality",
+    "Counterexample [6,5,3,2,2,2] uses three FFD bins but has a verified two-bin optimum"
+  ],
+  "layoutVerification": "Eleven main desktop bounds within two pixels of the reference; first bin aligned at y=283; desktop and mobile overflow and three-digit item-label containment checked"
+}

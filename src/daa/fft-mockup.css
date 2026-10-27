@@ -1,0 +1,1409 @@
+.app-shell:has(.fft-page):not(.sidebar-collapsed) {
+  grid-template-columns: 263px minmax(0, 1fr);
+}
+.app-shell:has(.fft-page):not(.sidebar-collapsed) > .sidebar {
+  width: 263px;
+}
+.app-shell .workspace.category-page:has(.fft-page) {
+  padding: 12px 14px 9px 20px;
+  display: block;
+}
+.app-shell:has(.fft-page) .aimer-site-footer {
+  display: none;
+}
+.mom-page.fft-page {
+  font-family: Arial, sans-serif;
+  color: #0a1656;
+  padding: 0;
+}
+.fft-page * {
+  box-sizing: border-box;
+}
+.fft-toolbar {
+  height: 37px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.fft-page .fft-back {
+  width: 42px;
+  height: 37px;
+  flex-shrink: 0;
+  border: 1px solid #cbdffc;
+  border-radius: 8px;
+  color: #006eff;
+  background: #f8fcff;
+  padding: 5px;
+}
+.fft-search {
+  width: 543px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border: 1px solid #cbdffc;
+  border-radius: 8px;
+  color: #6e87b9;
+  background: #ffffffb0;
+  position: relative;
+}
+.fft-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font:
+    14px Arial,
+    sans-serif;
+  color: #173c70;
+}
+.fft-search input::placeholder {
+  color: #617cb1;
+  opacity: 1;
+}
+.fft-search kbd {
+  white-space: nowrap;
+  padding: 4px 10px;
+  background: #eaf2fd;
+  border-radius: 5px;
+  font:
+    14px Arial,
+    sans-serif;
+}
+.fft-page .fft-toolbar .mom-study {
+  margin-left: auto;
+  height: 37px;
+  padding: 5px 10px;
+  font-size: 13px;
+  min-width: 131px;
+  background: #f7fbff;
+  color: #0065ff;
+  border: 1px solid #c9dcfc;
+  border-radius: 8px;
+  white-space: nowrap;
+  gap: 8px;
+}
+.fft-page #account-trigger {
+  width: 182px;
+  min-height: 39px;
+  font-size: 13px;
+  border-radius: 24px;
+}
+.fft-search-results {
+  position: absolute;
+  z-index: 20;
+  top: 42px;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  border: 1px solid #cbdffc;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px #17356822;
+  background: #fff;
+}
+.fft-page .fft-search-results button {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  color: #23477e;
+}
+.fft-hero {
+  height: 75px;
+  margin-top: 9px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: #ffffffb0;
+  border-radius: 12px;
+}
+.fft-page .fft-hero .fft-back {
+  width: 47px;
+  height: 45px;
+}
+.fft-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fft-title h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.8px;
+  color: #080e47;
+}
+.fft-title > span {
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #e4efff;
+  color: #0067ff;
+  white-space: nowrap;
+}
+.fft-page .fft-hero p {
+  margin: 1px 0 0;
+  color: #5f77ac;
+  font-size: 15px;
+  line-height: 21px;
+}
+.fft-page .mom-tabs {
+  height: 52px;
+  padding: 6px;
+  gap: 8px;
+  border: 1px solid #cdddff;
+  border-radius: 12px;
+  margin: 0 0 13px;
+  background: #ffffffb8;
+}
+.fft-page .mom-tabs button {
+  min-width: 95px;
+  height: 39px;
+  padding: 8px 20px;
+  border-radius: 7px;
+  border: 1px solid #cdddff;
+  color: #07184e;
+  background: #ffffffa8;
+  font-size: 13px;
+  gap: 0;
+}
+.fft-page .mom-tabs button svg {
+  display: none;
+}
+.fft-page .mom-tabs button:nth-child(2) {
+  min-width: 124px;
+}
+.fft-page .mom-tabs button:nth-child(4) {
+  min-width: 107px;
+}
+.fft-page .mom-tabs button:nth-child(5) {
+  min-width: 137px;
+}
+.fft-page .mom-tabs button[aria-pressed='true'] {
+  color: #fff;
+  background: linear-gradient(#0877ff, #0060ff);
+  box-shadow: 0 0 0 3px #d5e8ff;
+  border-color: #006bff;
+}
+.fft-panel {
+  min-width: 0;
+  background: #ffffffcb;
+  border: 1px solid #d3e5fc;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.fft-panel > header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 32px;
+  padding: 7px 15px 0;
+}
+.fft-panel h2 {
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0;
+  color: #071352;
+  letter-spacing: -0.2px;
+}
+.fft-icon {
+  color: #007dff;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e4f3ff;
+}
+.fft-icon svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 2.5;
+}
+.fft-page :is(input, select, textarea) {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  border: 1px solid #c6d9f5;
+  border-radius: 5px;
+  color: #07184e;
+  background: #ffffffbd;
+  min-width: 0;
+}
+.fft-page :is(input, select) {
+  height: 34px;
+  padding: 5px 11px;
+}
+.fft-page select {
+  appearance: auto;
+}
+.fft-page button {
+  cursor: pointer;
+}
+.fft-page button:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+.fft-page :is(button, input, select, textarea, [role='button']):focus-visible {
+  outline: 3px solid #f2a900;
+  outline-offset: 2px;
+}
+.fft-input {
+  height: 112px;
+  margin-bottom: 8px;
+  overflow: visible;
+}
+.fft-controls {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  padding: 0 20px 8px 54px;
+}
+.fft-type {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 208px;
+  flex-shrink: 0;
+  color: #0c1c59;
+  font-size: 13px;
+}
+.fft-type select {
+  width: 208px;
+}
+.fft-controls fieldset {
+  height: 71px;
+  border: 1px solid #e0edff;
+  border-radius: 11px;
+  padding: 8px 14px;
+  min-width: 0;
+  margin: -8px 0 0 -1px;
+  flex: 1;
+  position: relative;
+}
+.fft-controls legend {
+  padding: 0;
+  font-size: 13px;
+  position: absolute;
+  top: 8px;
+}
+.fft-parameters {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 4px;
+  height: 50px;
+}
+.fft-parameters > label:not(.fft-size) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #47689f;
+}
+.fft-parameters i {
+  font-family: Georgia, serif;
+}
+.fft-parameters input {
+  width: 48px;
+  padding: 5px 10px;
+  appearance: textfield;
+}
+.fft-parameters input::-webkit-inner-spin-button {
+  appearance: none;
+}
+.fft-parameters label:nth-child(3) {
+  margin-left: 8px;
+}
+.fft-parameters .fft-size {
+  border-left: 1px solid #e8effa;
+  padding-left: 16px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 130px;
+  max-width: 161px;
+  margin-left: 3px;
+}
+.fft-size select {
+  width: 100%;
+}
+.fft-page .fft-primary {
+  background: linear-gradient(#087cff, #0065ff);
+  color: white;
+  border: 1px solid #076eff;
+  border-radius: 9px;
+  padding: 12px 18px;
+  gap: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.fft-page .fft-animate {
+  width: 162px;
+  height: 54px;
+  flex-shrink: 0;
+  font-size: 15px;
+  margin-top: -8px;
+  box-shadow: 0 5px 11px #087cff15;
+}
+.fft-page .fft-spectrum-toggle {
+  padding: 0;
+  gap: 10px;
+  color: #2e4c85;
+  border: 0;
+  background: none;
+  font-weight: 400;
+  font-size: 13px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+.fft-spectrum-toggle > span:first-child {
+  width: 38px;
+  height: 21px;
+  background: #dce7f7;
+  box-shadow: inset 0 1px 4px #13519a30;
+  border-radius: 20px;
+  position: relative;
+}
+.fft-spectrum-toggle > span:first-child::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px #1a4e9630;
+}
+.fft-spectrum-toggle[aria-checked='true'] > span:first-child {
+  background: #0877ff;
+}
+.fft-spectrum-toggle[aria-checked='true'] > span:first-child::after {
+  left: 19px;
+}
+.fft-page .fft-reset {
+  width: 137px;
+  height: 49px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #cadcfa;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #ffffffb0;
+  color: #0069ff;
+  margin-top: -8px;
+}
+.fft-error {
+  color: #a31932 !important;
+  background: #fff0f3;
+  padding: 8px 16px;
+  border: 1px solid #ffc7d1;
+  border-radius: 7px;
+  position: relative;
+  z-index: 4;
+  margin: -2px 0 8px;
+  font-size: 13px;
+}
+.fft-input:has(.fft-error) {
+  height: auto;
+  min-height: 113px;
+}
+.fft-page .fft-custom-input {
+  height: auto;
+  min-height: 113px;
+}
+.fft-custom-samples {
+  display: grid;
+  grid-template-columns: 155px minmax(0, 1fr) 135px;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 20px 14px 54px;
+  font-size: 13px;
+}
+.fft-custom-samples textarea {
+  height: 65px;
+  padding: 10px;
+  resize: vertical;
+}
+.fft-page .fft-custom-samples button {
+  border: 1px solid #bdd6fb;
+  background: #edf6ff;
+  color: #0056c9;
+  border-radius: 7px;
+  padding: 10px;
+}
+.fft-chart-row {
+  display: grid;
+  grid-template-columns: 534fr 500fr 326fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.fft-chart-row > .fft-panel {
+  height: 211px;
+}
+.fft-chart-row .fft-panel > header {
+  height: 33px;
+}
+.fft-chart-row .fft-panel > svg[viewBox] {
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+.fft-spectrum .fft-icon {
+  background: #eee7ff;
+  color: #823aff;
+}
+.fft-math-heading {
+  position: absolute;
+  top: 7px;
+  left: 220px;
+  font:
+    italic 18px Georgia,
+    serif;
+  color: #142b68;
+}
+.fft-spectrum .fft-math-heading {
+  left: 227px;
+}
+.fft-grid {
+  stroke: #e1e9f6;
+  stroke-width: 1;
+}
+.fft-axis {
+  stroke: #6a7da7;
+  stroke-width: 1.2;
+}
+.fft-tick {
+  fill: #274681;
+  font:
+    11px Arial,
+    sans-serif;
+}
+.fft-axis-label {
+  fill: #163b79;
+  font:
+    13px Arial,
+    sans-serif;
+}
+.fft-chart-point,
+.fft-bin,
+.fft-node,
+.fft-butterfly {
+  cursor: pointer;
+}
+.fft-chart-point:hover circle:last-child,
+.fft-bin:hover circle,
+.fft-node:hover circle:last-of-type {
+  stroke: #f5b400;
+  stroke-width: 3;
+}
+.fft-spectrum-hidden {
+  min-height: 160px;
+  display: grid;
+  place-content: center;
+  padding: 20px;
+  font-size: 14px;
+}
+.fft-page .fft-spectrum-hidden button {
+  color: #0065ff;
+  background: #edf5ff;
+  border: 1px solid #c3dafa;
+  border-radius: 7px;
+  padding: 10px;
+}
+.fft-details > header {
+  gap: 12px;
+}
+.fft-details .fft-icon {
+  border-radius: 4px;
+  background: none;
+}
+.fft-detail-box {
+  background: #edf7ff;
+  border: 1px solid #e8f2ff;
+  border-radius: 9px;
+  margin: 6px 14px 0;
+  padding: 9px 14px;
+  height: 150px;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.fft-page .fft-detail-box p {
+  margin: 9px 0 0;
+  font-size: 13px;
+  color: #071b60;
+  line-height: 20px;
+}
+.fft-page .fft-detail-box .fft-signal-formula {
+  font:
+    italic 14px Georgia,
+    serif;
+  margin: 1px 0 9px;
+  white-space: normal;
+}
+.fft-detail-box b {
+  margin-right: 5px;
+}
+.fft-detail-box p span {
+  font-family: Georgia, serif;
+}
+.fft-computation-row {
+  display: grid;
+  grid-template-columns: 574fr 397fr 389fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.fft-computation-row > .fft-panel {
+  height: 289px;
+}
+.fft-computation-row .fft-panel > header {
+  padding-top: 5px;
+  height: 34px;
+}
+.fft-network > header {
+  gap: 14px;
+}
+.fft-stage-pills {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 0 26px 0 63px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.fft-page .fft-stage-pills button {
+  flex: 1;
+  border: 0;
+  border-radius: 22px;
+  background: #eaf4ff;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 8px 12px;
+  white-space: nowrap;
+  line-height: 15px;
+  color: #06174d;
+  min-width: 130px;
+}
+.fft-page .fft-stage-pills button[aria-pressed='true'] {
+  color: #005dfd;
+  background: #d5e9ff;
+}
+.fft-network-scroll {
+  height: 211px;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.fft-network-scroll svg {
+  display: block;
+  max-width: none;
+}
+.fft-network-label {
+  font:
+    14px Georgia,
+    serif;
+  fill: #17366d;
+}
+.fft-active-butterfly line {
+  stroke-width: 2;
+  opacity: 1;
+}
+.fft-butterfly line {
+  pointer-events: none;
+}
+.fft-butterfly:hover line {
+  stroke: #cc8a00;
+  stroke-width: 2.5;
+}
+.fft-twiddle > header {
+  gap: 12px;
+  padding-left: 15px;
+}
+.fft-twiddle h2 {
+  font-size: 14px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+.fft-formula {
+  margin: 7px 14px 9px;
+  height: 78px;
+  border: 1px solid #ffe6b3;
+  background: #fff9eb;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px 8px;
+}
+.fft-formula > div {
+  font:
+    italic 21px Georgia,
+    serif;
+}
+.fft-formula span {
+  color: #007aff;
+}
+.fft-formula em {
+  color: #f29a00;
+}
+.fft-formula strong {
+  color: #ff334f;
+  font-weight: 400;
+}
+.fft-page .fft-formula p {
+  font:
+    italic 15px Georgia,
+    serif;
+  margin: 13px 0 0;
+  color: #163367;
+}
+.fft-even-odd {
+  display: flex;
+  gap: 9px;
+  margin: 0 14px 10px;
+  height: 62px;
+}
+.fft-page .fft-even-odd button {
+  width: calc(50% - 4.5px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  gap: 8px;
+  border: 1px solid #bfdcff;
+  border-radius: 8px;
+  background: #edf8ff;
+  color: #0064f4;
+  padding: 9px 12px;
+  min-width: 0;
+}
+.fft-even-odd b {
+  font-size: 13px;
+}
+.fft-even-odd small {
+  font-size: 10px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fft-page .fft-even-odd button:nth-child(2) {
+  color: #a81443;
+  border-color: #ffc6d7;
+  background: #fff0f4;
+}
+.fft-page .fft-twiddle-box {
+  width: calc(100% - 28px);
+  height: 76px;
+  margin: 0 14px;
+  border: 1px solid #c6eee1;
+  border-radius: 8px;
+  padding: 9px 13px;
+  background: #eafbf3;
+  color: #006841;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  gap: 13px;
+}
+.fft-twiddle-box b {
+  font-size: 13px;
+}
+.fft-twiddle-box span {
+  font:
+    italic 16px Georgia,
+    serif;
+  color: #18416a;
+  text-align: center;
+  white-space: nowrap;
+}
+.fft-steps > header {
+  gap: 12px;
+  padding-left: 17px;
+}
+.fft-steps .fft-icon {
+  color: #7541ff;
+  background: #f0e7ff;
+  border-radius: 3px;
+}
+.fft-step-list {
+  margin: 10px 14px 0;
+  height: 186px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  position: relative;
+}
+.fft-step-list::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 25px;
+  border-left: 3px solid #dce8f7;
+}
+.fft-page .fft-step-list button {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  height: 46px;
+  padding: 2px 10px;
+  gap: 20px;
+  border: 0;
+  background: transparent;
+  border-radius: 7px;
+  position: relative;
+}
+.fft-step-list button > span {
+  flex-shrink: 0;
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #7591bd;
+  box-shadow: 0 0 0 6px #e6effa;
+  border: 1px solid white;
+  color: white;
+  font-size: 19px;
+}
+.fft-step-list button > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.fft-step-list b {
+  font-size: 13px;
+  line-height: 15px;
+  color: #0a1a62;
+}
+.fft-step-list small {
+  font-size: 12px;
+  line-height: 15px;
+  color: #5d77ad;
+  font-weight: 400;
+}
+.fft-page .fft-step-list .fft-selected-step {
+  background: #e6f1ff;
+}
+.fft-page .fft-selected-step > span {
+  background: linear-gradient(#1387ff, #0062ff);
+  width: 35px;
+  height: 35px;
+  margin-left: -3px;
+  margin-right: -3px;
+  font-size: 21px;
+  box-shadow: 0 0 0 3px #d8eaff;
+}
+.fft-step-nav {
+  height: 38px;
+  margin: 6px 14px 0;
+  padding: 1px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d1e2fc;
+  border-radius: 8px;
+  color: #2e4a84;
+  font-size: 13px;
+}
+.fft-page .fft-step-nav button {
+  width: 49px;
+  height: 34px;
+  background: #ffffffb0;
+  border: 1px solid #d7e5fa;
+  border-radius: 7px;
+  padding: 5px;
+  color: #122b83;
+}
+.fft-bottom-row {
+  display: grid;
+  grid-template-columns: 536fr 436fr 388fr;
+  gap: 8px;
+}
+.fft-bottom-row > .fft-panel {
+  height: 98px;
+}
+.fft-bottom-row .fft-panel > header {
+  height: 35px;
+  gap: 15px;
+}
+.fft-bottom-row h2 {
+  font-size: 14px;
+}
+.fft-correctness .fft-icon {
+  color: #fff;
+  background: #10b47c;
+  border-radius: 8px;
+}
+.fft-complexity .fft-icon {
+  color: #8042ff;
+  background: #eee7ff;
+  border-radius: 7px;
+}
+.fft-page .fft-bottom-row p {
+  font-size: 12px;
+  line-height: 18px;
+  color: #6079ad;
+  margin: 5px 14px 0 63px;
+}
+.fft-page .fft-complexity p {
+  margin: 0 14px 2px 63px;
+  font-size: 12px;
+  line-height: 17px;
+}
+.fft-complexity p b {
+  color: #314b88;
+}
+.fft-takeaways {
+  border-color: #ffdf99;
+  background: #fffaeb;
+}
+.fft-takeaways .fft-icon {
+  color: #ffa300;
+  background: transparent;
+}
+.fft-takeaways ul {
+  margin: -6px 12px 0 53px;
+  padding-left: 14px;
+  color: #5b78ab;
+  font-size: 12px;
+  line-height: 15px;
+}
+.fft-takeaways li::marker {
+  color: #ffad00;
+}
+.fft-learning,
+.fft-experiments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.fft-learning .fft-panel:last-child {
+  grid-column: 1/-1;
+}
+.fft-page :is(.fft-learning, .fft-experiments, .fft-code, .fft-practice) .fft-panel,
+.fft-page :is(.fft-code, .fft-practice) {
+  padding: 18px;
+}
+.fft-page :is(.fft-learning, .fft-experiments, .fft-code, .fft-practice) header {
+  padding-left: 0;
+  margin-bottom: 14px;
+}
+.fft-page :is(.fft-learning, .fft-experiments, .fft-code, .fft-practice) p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #3c5986;
+}
+.fft-page :is(.fft-learning, .fft-experiments, .fft-code, .fft-practice) button:not(.fft-primary),
+.fft-page .fft-dialog button:not(.fft-close) {
+  border: 1px solid #bdd6fa;
+  color: #125fb7;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background: #eef7ff;
+  margin: 4px;
+}
+.fft-code pre {
+  padding: 20px;
+  background: #edf5ff;
+  color: #1a3863;
+  overflow: auto;
+  border: 1px solid #d2e3f8;
+  border-radius: 9px;
+  font-size: 14px;
+}
+.fft-page .fft-practice button[aria-pressed='true'] {
+  background: #086eff;
+  color: white;
+}
+.fft-experiments label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 15px 0;
+  font-size: 14px;
+}
+.fft-experiments textarea {
+  width: 100%;
+  min-height: 210px;
+  padding: 14px;
+  resize: vertical;
+}
+.fft-presets {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fft-stage-values {
+  overflow: auto;
+}
+.fft-stage-values table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.fft-stage-values :is(th, td) {
+  padding: 10px;
+  border: 1px solid #ccdff8;
+  text-align: left;
+}
+.fft-page .fft-dialog {
+  max-width: min(660px, calc(100vw - 28px));
+  border: 1px solid #bfd8f9;
+  background: #fff;
+  color: #17356a;
+  padding: 26px;
+  border-radius: 16px;
+  box-shadow: 0 18px 70px #18386b55;
+  max-height: 85vh;
+  overflow: auto;
+}
+.fft-dialog::backdrop {
+  background: #0b20495c;
+}
+.fft-dialog h2 {
+  font-size: 22px;
+  margin: 0 36px 20px 0;
+}
+.fft-dialog p {
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.fft-page .fft-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: 0;
+  color: #59759b;
+}
+.fft-page .fft-search input {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  height: auto;
+}
+@media (min-width: 1500px) {
+  .fft-type {
+    transform: translateY(3px);
+  }
+  .fft-controls fieldset {
+    margin-top: 4px;
+  }
+  .fft-page .fft-animate,
+  .fft-page .fft-reset {
+    margin-top: -18px;
+  }
+  .fft-page .fft-spectrum-toggle {
+    margin-top: -20px;
+  }
+}
+.fft-page .fft-step-list button {
+  justify-content: flex-start;
+  box-shadow: none;
+  border: 0;
+}
+.fft-input > header {
+  gap: 10px;
+}
+.fft-details > header {
+  gap: 4px;
+}
+.fft-page .fft-detail-box .fft-signal-formula {
+  font-size: 13px;
+  letter-spacing: -0.4px;
+}
+@media (min-width: 1500px) {
+  .app-shell:has(.fft-page) .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .app-shell:has(.fft-page) .brand strong {
+    font-size: 23px;
+  }
+  .app-shell:has(.fft-page) .brand span {
+    font-size: 12px;
+  }
+  .app-shell:has(.fft-page) .sidebar-home {
+    min-height: 40px;
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .app-shell:has(.fft-page) .sidebar-header {
+    padding: 14px 16px 17px;
+  }
+  .app-shell:has(.fft-page) .sidebar-category-toggle {
+    min-height: 35px;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  .app-shell:has(.fft-page) .sidebar-algorithm {
+    min-height: 26.5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    line-height: 18px;
+    font-size: 13px;
+    padding-left: 40px;
+  }
+  .app-shell:has(.fft-page) .sidebar-submenu {
+    max-height: 431px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .app-shell:has(.fft-page) .sidebar-algorithm {
+    flex-shrink: 0;
+  }
+  .app-shell:has(.fft-page) .sidebar-algorithm.active {
+    order: -1;
+  }
+  .app-shell:has(.fft-page) .sidebar-footer {
+    min-height: 60px;
+    height: 60px;
+    padding: 10px 12px;
+    margin: 7px 13px 35px 15px;
+    font-size: 12px;
+  }
+  .app-shell:has(.fft-page) .sidebar-footer small {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1499px) {
+  .fft-parameters {
+    gap: 8px;
+  }
+  .fft-parameters > label:not(.fft-size) {
+    gap: 6px;
+  }
+  .fft-parameters .fft-size {
+    min-width: 100px;
+    max-width: 130px;
+    padding-left: 10px;
+    margin-left: 0;
+  }
+  .fft-input {
+    height: auto;
+    min-height: 113px;
+  }
+  .fft-controls {
+    flex-wrap: wrap;
+    height: auto;
+    padding-bottom: 16px;
+    gap: 16px;
+  }
+  .fft-controls fieldset {
+    flex: 1;
+    min-width: 450px;
+  }
+  .fft-page .fft-animate,
+  .fft-page .fft-reset,
+  .fft-page .fft-spectrum-toggle {
+    margin-top: 0;
+  }
+  .fft-title h1 {
+    font-size: 27px;
+  }
+  .fft-chart-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fft-chart-row .fft-details {
+    grid-column: 1/-1;
+    height: auto;
+    padding-bottom: 14px;
+  }
+  .fft-detail-box {
+    height: auto;
+  }
+  .fft-computation-row {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+  .fft-computation-row .fft-steps {
+    grid-column: 1/-1;
+  }
+  .fft-bottom-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fft-bottom-row > .fft-panel {
+    height: auto;
+    min-height: 110px;
+    padding-bottom: 12px;
+  }
+  .fft-twiddle h2 {
+    white-space: normal;
+  }
+}
+@media (max-width: 900px) {
+  .app-shell:has(.fft-page):not(.sidebar-collapsed) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-shell .workspace.category-page:has(.fft-page) {
+    padding: 14px;
+  }
+  .fft-toolbar {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .fft-search {
+    width: calc(100% - 50px);
+  }
+  .fft-search kbd {
+    display: none;
+  }
+  .fft-page .fft-toolbar .mom-study {
+    margin-left: 0;
+  }
+  .fft-hero {
+    height: auto;
+    min-height: 125px;
+    padding: 12px 0;
+    gap: 12px;
+  }
+  .fft-title {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .fft-title h1 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .fft-title > span {
+    font-size: 11px;
+    padding: 4px 9px;
+  }
+  .fft-page .fft-hero p {
+    font-size: 12px;
+    line-height: 17px;
+    margin-top: 5px;
+  }
+  .fft-page .mom-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 8px;
+    height: 58px;
+  }
+  .fft-page .mom-tabs button {
+    flex-shrink: 0;
+  }
+  .fft-controls {
+    padding: 10px 14px 16px;
+    gap: 14px;
+  }
+  .fft-type {
+    width: 100%;
+  }
+  .fft-type select {
+    width: 100%;
+  }
+  .fft-controls fieldset {
+    min-width: 100%;
+    height: 160px;
+    margin: 0;
+    padding-top: 24px;
+  }
+  .fft-parameters {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    height: auto;
+  }
+  .fft-parameters > label:not(.fft-size) {
+    width: calc(50% - 5px);
+    gap: 8px;
+  }
+  .fft-parameters input {
+    width: 65px;
+  }
+  .fft-parameters label:nth-child(3) {
+    margin-left: 0;
+  }
+  .fft-parameters .fft-size {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    min-width: 100%;
+    max-width: none;
+  }
+  .fft-size select {
+    width: 90px;
+  }
+  .fft-page .fft-animate {
+    width: 145px;
+    height: 44px;
+    font-size: 13px;
+  }
+  .fft-page .fft-reset {
+    width: 105px;
+    height: 40px;
+  }
+  .fft-custom-samples {
+    margin: 4px 14px 14px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fft-chart-row,
+  .fft-computation-row,
+  .fft-bottom-row,
+  .fft-learning,
+  .fft-experiments {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fft-computation-row .fft-steps,
+  .fft-chart-row .fft-details,
+  .fft-learning .fft-panel:last-child {
+    grid-column: auto;
+  }
+  .fft-chart-row > .fft-panel {
+    height: auto;
+    min-height: 195px;
+  }
+  .fft-chart-row .fft-panel > svg[viewBox] {
+    height: auto;
+  }
+  .fft-panel > header {
+    gap: 10px;
+  }
+  .fft-panel h2 {
+    font-size: 14px;
+  }
+  .fft-math-heading {
+    left: 197px;
+    font-size: 15px;
+  }
+  .fft-spectrum .fft-math-heading {
+    left: 205px;
+  }
+  .fft-computation-row > .fft-panel {
+    height: 289px;
+  }
+  .fft-stage-pills {
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .fft-twiddle h2 {
+    font-size: 12px;
+  }
+  .fft-twiddle-box span {
+    font-size: 14px;
+  }
+  .fft-page .fft-bottom-row p {
+    margin-left: 55px;
+  }
+  .fft-takeaways ul {
+    margin-top: 0;
+  }
+  .fft-bottom-row > .fft-panel {
+    min-height: 115px;
+  }
+}
+[data-theme='dark'] .fft-page {
+  color: #d9e8ff;
+}
+[data-theme='dark'] .fft-page :is(.fft-panel, .fft-hero, .mom-tabs, .fft-dialog, .fft-search-results) {
+  background: #15253f;
+  border-color: #365476;
+}
+[data-theme='dark'] .fft-page :is(h1, h2, .fft-step-list b) {
+  color: #e1eeff;
+}
+[data-theme='dark'] .fft-page :is(p, .fft-step-list small, .fft-math-heading) {
+  color: #b9cfed !important;
+}
+[data-theme='dark'] .fft-page :is(input, select, textarea, .fft-search, .fft-detail-box, .fft-code pre) {
+  background: #203753;
+  color: #dcecff;
+  border-color: #3d5f88;
+}
+[data-theme='dark'] .fft-page :is(.fft-type, .fft-size, legend, .fft-parameters, .fft-spectrum-toggle) {
+  color: #c6dcfc;
+}
+[data-theme='dark'] .fft-page :is(.fft-tick, .fft-axis-label, .fft-network-label) {
+  fill: #c5dafa;
+}
+[data-theme='dark'] .fft-grid {
+  stroke: #344b6a;
+}
+[data-theme='dark'] .fft-axis {
+  stroke: #839bc2;
+}
+[data-theme='dark'] .fft-page :is(.fft-formula, .fft-twiddle-box) {
+  background: #263a46;
+  border-color: #5a725d;
+}
+[data-theme='dark'] .fft-twiddle-box :is(b, span) {
+  color: #d0eedf;
+}
+[data-theme='dark'] .fft-page .fft-even-odd button {
+  background: #1b395c;
+  color: #9ac9ff;
+  border-color: #34618e;
+}
+[data-theme='dark'] .fft-page .fft-even-odd button:nth-child(2) {
+  background: #492c40;
+  color: #ffc3d2;
+  border-color: #79506a;
+}
+[data-theme='dark'] .fft-page .fft-step-list .fft-selected-step {
+  background: #23466f;
+}
+[data-theme='dark'] .fft-page .fft-stage-pills button {
+  background: #244164;
+  color: #c6ddff;
+}
+[data-theme='dark'] .fft-page .fft-stage-pills button[aria-pressed='true'] {
+  background: #245d96;
+}
+[data-theme='dark'] .fft-page .fft-takeaways {
+  background: #373527;
+  border-color: #6b6237;
+}
+[data-theme='dark'] .fft-page .fft-takeaways ul,
+[data-theme='dark'] .fft-complexity p b {
+  color: #c7dafa;
+}
+[data-theme='dark'] .fft-page .fft-error {
+  background: #4c2836;
+  color: #ffd4dd !important;
+  border-color: #975269;
+}
+[data-theme='dark'] .fft-page .fft-step-nav {
+  color: #bdd7ff;
+}
+[data-theme='dark'] .fft-page .fft-parameters i {
+  color: #bad5fb;
+}
+[data-theme='dark'] .fft-page fieldset {
+  border-color: #4a6385;
+}

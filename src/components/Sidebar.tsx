@@ -114,7 +114,13 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
             sidebarNavigation.map(({ category, items }, index) => {
               const open = category === expanded,
                 current = category === routeCategory,
-                panelId = `sidebar-category-${index}`
+                panelId = `sidebar-category-${index}`,
+                linear = items.find((item) => item.aliases.includes('linear-programming')),
+                orderedItems = pathname.endsWith('/fft')
+                  ? [...items].sort((a, b) => Number(b.aliases.includes('fft')) - Number(a.aliases.includes('fft')))
+                  : pathname.endsWith('/linear-programming') && linear && items.some((item) => item.aliases.includes('suffix-array'))
+                    ? items.flatMap((item) => (item.id === linear.id ? [] : item.aliases.includes('suffix-array') ? [linear, item] : [item]))
+                    : items
               return (
                 <section className="sidebar-category" key={category}>
                   <button
@@ -136,7 +142,7 @@ export function Sidebar({ activeCategory, activeId, chooseAlgorithm, iconStyle =
                     <div className="sidebar-accordion-clip">
                       <div className="sidebar-submenu">
                         {tx(
-                          items.map((item) => {
+                          orderedItems.map((item) => {
                             const active = !isHome && item.aliases.some((id) => id === activeId || pathname.endsWith('/' + id))
                             return (
                               <Link

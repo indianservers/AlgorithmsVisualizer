@@ -11,18 +11,16 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "FFT / Discrete Fourier Transform",
-    "Problem Input ",
-    " Butterfly network",
-    "Procedure",
-    " Twiddle factors",
+    "Signal Input",
+    "Time-Domain Signal",
+    "Frequency Spectrum",
+    "Signal Details",
+    "Radix-2 Butterfly Network (N = 8)",
+    "Twiddle Factors & Even-Odd Decomposition",
+    "Step-by-Step FFT Computation",
     "Correctness",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
+    "Key Takeaways",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,15 +108,19 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
-    },
-    {
-      "label": "Language: English (India)",
+      "label": "Return to reliability design",
       "pressed": null
     },
     {
+      "label": "Mark studied",
+      "pressed": "false"
+    },
+    {
       "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Back to DAA extensions",
       "pressed": null
     },
     {
@@ -142,31 +144,11 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Animate FFT",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Show spectrum",
       "pressed": null
     },
     {
@@ -174,39 +156,51 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Stage 1 (m = 2)",
+      "pressed": "false"
+    },
+    {
+      "label": "Stage 2 (m = 4)",
+      "pressed": "false"
+    },
+    {
+      "label": "Stage 3 (m = 8)",
+      "pressed": "false"
+    },
+    {
+      "label": "Even indicesE[k] = FFT(x[0], x[2], x[4], x[6])",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Odd indicesO[k] = FFT(x[1], x[3], x[5], x[7])",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Twiddle factor (N = 8)Wᴷₙ = e⁻²πⁱᵏ/ᴺ = cos(2πk/N) − i sin(2πk/N)",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "1Input & Bit-Reverse OrderReorder input in bit-reversed order.",
+      "pressed": "true"
+    },
+    {
+      "label": "2Stage 1 (m = 2)Compute 2-point DFTs using twiddle factors.",
+      "pressed": "false"
+    },
+    {
+      "label": "3Stage 2 (m = 4)Compute 4-point DFTs using twiddle factors.",
+      "pressed": "false"
+    },
+    {
+      "label": "4Stage 3 (m = 8)Compute final 8-point DFT.",
+      "pressed": "false"
+    },
+    {
+      "label": "Previous FFT step",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 6",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 7",
-      "pressed": null
-    },
-    {
-      "label": "Go to step 8",
-      "pressed": null
-    },
-    {
-      "label": "Reveal answer",
+      "label": "Next FFT step",
       "pressed": null
     }
   ]

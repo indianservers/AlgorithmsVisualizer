@@ -11,18 +11,21 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Bin Packing: First Fit Decreasing",
-    "Problem Input ",
-    " Bin placement",
-    "Procedure",
-    " Capacity audit",
+    "Input & Controls",
+    "Items (sorted decreasing)",
+    "Bins (First Fit Decreasing in action)",
+    "Result Summary",
+    "Bin utilization",
+    "Step-by-Step Placement Timeline",
+    "Place item 9",
+    "Place item 8",
+    "Place item 7",
+    "Place item 6",
+    "Place item 5",
+    "Place item 4",
     "Correctness",
+    "Heuristic Insight",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,15 +113,39 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
-    },
-    {
-      "label": "Language: English (India)",
+      "label": "Return to FFT lesson",
       "pressed": null
     },
     {
+      "label": "Mark studied",
+      "pressed": "false"
+    },
+    {
       "label": "\n    \n        \n        Continue to login\n  ",
+      "pressed": null
+    },
+    {
+      "label": "Back to DAA extensions",
+      "pressed": null
+    },
+    {
+      "label": "Open Code section",
+      "pressed": null
+    },
+    {
+      "label": "Open Practice section",
+      "pressed": null
+    },
+    {
+      "label": "Open Experiments section",
+      "pressed": null
+    },
+    {
+      "label": "Open Notes section",
+      "pressed": null
+    },
+    {
+      "label": "Start Learning",
       "pressed": null
     },
     {
@@ -142,31 +169,15 @@
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Auto Pack",
       "pressed": null
     },
     {
-      "label": "Run algorithm",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Copy input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Animate Step",
       "pressed": null
     },
     {
@@ -174,59 +185,135 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Inspect sorted item 1",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Inspect sorted item 2",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Inspect sorted item 3",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Inspect sorted item 4",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Inspect sorted item 5",
       "pressed": null
     },
     {
-      "label": "Go to step 6",
+      "label": "Inspect sorted item 6",
       "pressed": null
     },
     {
-      "label": "Go to step 7",
+      "label": "Inspect sorted item 7",
       "pressed": null
     },
     {
-      "label": "Go to step 8",
+      "label": "Inspect sorted item 8",
       "pressed": null
     },
     {
-      "label": "Go to step 9",
+      "label": "Inspect sorted item 9",
       "pressed": null
     },
     {
-      "label": "Go to step 10",
+      "label": "Inspect sorted item 10",
       "pressed": null
     },
     {
-      "label": "Go to step 11",
+      "label": "Inspect sorted item 11",
       "pressed": null
     },
     {
-      "label": "Go to step 12",
+      "label": "Inspect sorted item 12",
       "pressed": null
     },
     {
-      "label": "Go to step 13",
+      "label": "Inspect bin 1",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Inspect bin 2",
+      "pressed": null
+    },
+    {
+      "label": "Inspect bin 3",
+      "pressed": null
+    },
+    {
+      "label": "Inspect bin 4",
+      "pressed": null
+    },
+    {
+      "label": "Inspect bin 5",
+      "pressed": null
+    },
+    {
+      "label": "Inspect bin 6",
+      "pressed": null
+    },
+    {
+      "label": "Bins used6out of 6 available",
+      "pressed": null
+    },
+    {
+      "label": "Total items12All items packed!",
+      "pressed": null
+    },
+    {
+      "label": "Bin 110 / 10100%",
+      "pressed": null
+    },
+    {
+      "label": "Bin 210 / 10100%",
+      "pressed": null
+    },
+    {
+      "label": "Bin 310 / 10100%",
+      "pressed": null
+    },
+    {
+      "label": "Bin 410 / 10100%",
+      "pressed": null
+    },
+    {
+      "label": "Bin 59 / 1090%",
+      "pressed": null
+    },
+    {
+      "label": "Bin 65 / 1050%",
+      "pressed": null
+    },
+    {
+      "label": "Show placement 1",
+      "pressed": "false"
+    },
+    {
+      "label": "Show placement 2",
+      "pressed": "false"
+    },
+    {
+      "label": "Show placement 3",
+      "pressed": "false"
+    },
+    {
+      "label": "Show placement 4",
+      "pressed": "false"
+    },
+    {
+      "label": "Show placement 5",
+      "pressed": "false"
+    },
+    {
+      "label": "Show placement 6",
+      "pressed": "false"
+    },
+    {
+      "label": "Continue for remaining items(4, 3, 3, 2, 2, 1)",
       "pressed": null
     }
   ]

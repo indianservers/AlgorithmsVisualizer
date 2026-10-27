@@ -1,0 +1,63 @@
+{
+  "target": 45,
+  "route": "/daa-extensions/expected-analysis",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\045--daa-extensions--expected-and-randomized-analysis.png",
+  "status": "Visual differences remain; full visual-match goal is incomplete",
+  "unitTests": 795,
+  "unitFiles": 64,
+  "regressionBrowserTestsPassed": 46,
+  "regressionScope": "044 and 045, desktop and mobile",
+  "finalPageBrowserTestsPassed": 23,
+  "finalPageBrowserTestsSkipped": 1,
+  "skipReason": "Reference inventory capture is desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 71,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 19.0403,
+  "afterMeanAbsoluteRgbError": 12.6175,
+  "pixelIdenticalPagesInInventory": 0,
+  "inventoryTargets": 45,
+  "referenceCorrections": [
+    "Eight-key diagram uses distinct keys [7,2,9,1,5,8,3,6]; the reference duplicates pivot 5 despite its size-8 control and distinct-key formula",
+    "The root pivot is 5, with less [2,1,3], greater [7,9,8,6] and seven partition comparisons",
+    "Histogram and statistics come from the actual fifty-key, thousand-trial seeded simulation",
+    "For n=50 the theoretical expectation is approximately 258.918945, rather than the inconsistent reference histogram mean 29.8",
+    "Quicksort remains Las Vegas; Monte Carlo sampling estimates its comparison-cost distribution",
+    "Expected randomized bounds fix the input and average over random choices, not a family of inputs",
+    "Indicator pairs use sorted ranks and do not require independence for linearity of expectation"
+  ],
+  "defaultSimulation": {
+    "size": 50,
+    "trials": 1000,
+    "seed": 42,
+    "empiricalMean": 257.788,
+    "minimum": 207,
+    "maximum": 390,
+    "firstTrialComparisons": 264
+  },
+  "interactions": [
+    "Random, sorted, reverse and distinct custom arrays up to 128 keys",
+    "Step-by-step pivot selection, partitioning, recursion and comparison certificates",
+    "Trace playback, pause, restart, event navigation and subproblem selection",
+    "Seeded Monte Carlo simulations with 10 through 5000 trials",
+    "Synchronized histogram controls, explicit pending parameters and atomic seed validation",
+    "Optional automatically generated seed with its realized value retained for reproduction",
+    "Animated first simulation trial uses the same pivot sampler and comparison convention",
+    "Keyboard-accessible histogram intervals and full sampling statistics",
+    "Editable indicator-rank pairs, exact probabilities and realized comparison indicators",
+    "Monte Carlo and Las Vegas guarantee inspectors",
+    "Theory, worked example, pseudocode and prediction challenge with persistent completion",
+    "Persistent notes, language and theme preferences",
+    "Responsive local scrolling and adaptive cells for long signed keys"
+  ],
+  "modelVerification": [
+    "180 seeded traces compared with an independent rank-interval comparison oracle",
+    "Expected comparison formula verified against pivot recurrences and pair-indicator sums through n=128",
+    "First simulated trial matches the animated quicksort count",
+    "Histogram frequencies, fixed-seed reproduction and trial-prefix stability checked",
+    "One- and two-key zero-variance cases, maximum size and invalid custom/seed/trial inputs checked"
+  ],
+  "layoutVerification": "Fourteen desktop bounds within two pixels of the reference; guarantee text containment, long custom-key labels and mobile overflow checked"
+}

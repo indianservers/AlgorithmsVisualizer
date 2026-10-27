@@ -23,6 +23,26 @@ export default defineConfig({
             {
               name(id) {
                 if (
+                  id.includes('/src/daa/LinearProgrammingMockupLesson') ||
+                  id.includes('/src/daa/linearProgrammingLessonModel') ||
+                  id.includes('/src/daa/linear-programming-mockup.css')
+                )
+                  return 'linear-programming-mockup'
+                if (
+                  id.includes('/src/daa/ExpectedAnalysisMockupLesson') ||
+                  id.includes('/src/daa/expectedAnalysisLessonModel') ||
+                  id.includes('/src/daa/expected-analysis-mockup.css')
+                )
+                  return 'expected-analysis-mockup'
+                if (
+                  id.includes('/src/daa/BinPackingMockupLesson') ||
+                  id.includes('/src/daa/binPackingLessonModel') ||
+                  id.includes('/src/daa/bin-packing-mockup.css')
+                )
+                  return 'bin-packing-mockup'
+                if (id.includes('/src/daa/FFTMockupLesson') || id.includes('/src/daa/fftLessonModel') || id.includes('/src/daa/fft-mockup.css'))
+                  return 'fft-mockup'
+                if (
                   id.includes('/src/daa/ReliabilityMockupLesson') ||
                   id.includes('/src/daa/reliabilityLessonModel') ||
                   id.includes('/src/daa/reliability-mockup.css')

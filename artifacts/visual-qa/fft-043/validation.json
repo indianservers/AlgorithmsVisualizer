@@ -1,0 +1,50 @@
+{
+  "target": 43,
+  "route": "/daa-extensions/fft",
+  "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\043--daa-extensions--fft-discrete-fourier-transform.png",
+  "status": "Visual differences remain; full visual-match goal is incomplete",
+  "unitTests": 785,
+  "unitFiles": 62,
+  "regressionBrowserTestsPassed": 44,
+  "regressionScope": "042 and 043, desktop and mobile",
+  "finalPageBrowserTestsPassed": 23,
+  "finalPageBrowserTestsSkipped": 1,
+  "skipReason": "Reference inventory capture is desktop-only",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "localization": "passed",
+  "bundleChunks": 69,
+  "bundleBudget": "passed",
+  "beforeMeanAbsoluteRgbError": 16.779,
+  "afterMeanAbsoluteRgbError": 11.4976,
+  "pixelIdenticalPagesInInventory": 0,
+  "inventoryTargets": 45,
+  "referenceCorrections": [
+    "Samples follow the displayed sine formula; x[0] is 0 and x[1] is approximately 1.35355339",
+    "Full real-signal spectrum includes conjugate bins 5 and 6, with magnitudes 2 and 4",
+    "Network includes actual bit reversal followed by correct radix-2 butterfly pairs",
+    "Spectrum is labeled as a final-result preview during playback"
+  ],
+  "defaultBitReversal": [0, 4, 2, 6, 1, 5, 3, 7],
+  "defaultSignificantBins": [2, 3, 5, 6],
+  "defaultButterflies": 12,
+  "interactions": [
+    "Validated sine, impulse, DC and custom real signals with sizes 2 through 32",
+    "Atomic parameter application and reset of uncommitted drafts",
+    "Stage playback, pause, resume, stage selection and manual navigation",
+    "Keyboard-accessible sample, frequency, network-node and butterfly inspectors",
+    "Even/odd decomposition and exact butterfly certificates",
+    "Spectrum visibility switch, fractional-frequency leakage and edge-case presets",
+    "Theory, worked example, pseudocode and prediction challenge",
+    "Persistent notes, theme and language preferences",
+    "Responsive local network scrolling and dark mode",
+    "Topic search ranks exact lesson names first"
+  ],
+  "modelVerification": [
+    "150 generated real signals checked against an independent direct DFT",
+    "Inverse reconstruction, Parseval energy and real-signal conjugate symmetry",
+    "Every butterfly checked against its twiddle product and stage snapshot",
+    "Zero, DC, impulse, Nyquist, fractional-bin leakage and tiny nonzero inputs"
+  ],
+  "layoutVerification": "Thirteen desktop panel bounds checked within two pixels of the reference; input containment checked at desktop and mobile sizes"
+}

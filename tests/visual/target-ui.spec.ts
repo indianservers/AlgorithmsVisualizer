@@ -31,6 +31,42 @@ test.describe('numbered target UI inventory', () => {
       await page.goto(`/#/${target.category}/${target.id}`)
       const visual = page.locator(`.target-visual[data-target="${target.number}"]`)
       await expect(visual).toBeVisible()
+      if (target.number === 46) {
+        await expect(visual.locator('.lp-vertex-table tbody td:last-child')).toHaveText(['0', '6', '8', '10'])
+        await expect(visual.locator('.lp-relaxation-table tbody tr').last().locator('td').nth(1)).toHaveText('0')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Inspect vertex (2, 2)', exact: true }).click()
+        await expect(visual.getByRole('dialog')).toContainText('Objective value: 10')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 45) {
+        await expect(visual.locator('.ea-array-key')).toHaveCount(8)
+        await expect(visual.locator('.ea-pivot-key text')).toHaveText('5')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Count comparisons', exact: true }).click()
+        await expect(visual.locator('.ea-array-key text')).toHaveText(['1', '2', '3', '5', '6', '7', '8', '9'])
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 44) {
+        await expect(visual.locator('.bp-stat-bins strong')).toHaveText('6')
+        await expect(visual.locator('.bp-packed-item')).toHaveCount(12)
+        await captureReference()
+        await visual.getByRole('button', { name: 'Show placement 6', exact: true }).click()
+        await expect(visual.locator('.bp-stat-items small')).toHaveText('6 of 12 packed')
+        expect(errors).toEqual([])
+        return
+      }
+      if (target.number === 43) {
+        await expect(visual.locator('.fft-butterfly')).toHaveCount(12)
+        await expect(visual.locator('.fft-detail-box')).toContainText('k = 2, 3')
+        await captureReference()
+        await visual.getByRole('button', { name: 'Inspect frequency bin 6', exact: true }).click()
+        await expect(visual.getByRole('dialog')).toContainText('X[6] = 4i')
+        expect(errors).toEqual([])
+        return
+      }
       if (target.number === 42) {
         await expect(visual.locator('.rd-copy-piece strong')).toHaveText(['2', '3', '2', '3'])
         await expect(visual.locator('.rd-final-reliability > strong')).toHaveText('0.8656')

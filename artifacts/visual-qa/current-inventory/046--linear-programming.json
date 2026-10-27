@@ -11,18 +11,16 @@
   },
   "scrollWidth": 1672,
   "headings": [
-    "Linear Programming Introduction",
-    "Problem Input ",
-    " Corner points",
-    "Procedure",
-    " Optimal objective",
+    "2D Linear Programming Visualization",
+    "Linear Program",
+    "Subject to:",
+    "Vertex Evaluation (Simplex Idea)",
+    "Linear Relaxation vs Integer Solution",
+    "Integer points in feasible region",
+    "Key Takeaways",
+    "Applications",
     "Correctness",
     "Complexity",
-    "Key insight & pitfalls",
-    "Theory in plain language",
-    "Worked example",
-    "Invariant and guarantee",
-    "Check your understanding",
     "Welcome to AIMER Society",
     "Check your inbox",
     "\n        Let’s tailoryour learningjourney!\n      ",
@@ -110,12 +108,12 @@
       "pressed": "false"
     },
     {
-      "label": "Mark as studied",
-      "pressed": "false"
+      "label": "Return to randomized analysis",
+      "pressed": null
     },
     {
-      "label": "Language: English (India)",
-      "pressed": null
+      "label": "Mark studied",
+      "pressed": "false"
     },
     {
       "label": "\n    \n        \n        Continue to login\n  ",
@@ -130,31 +128,27 @@
       "pressed": "true"
     },
     {
+      "label": "Code",
+      "pressed": "false"
+    },
+    {
       "label": "Practice",
       "pressed": "false"
     },
     {
-      "label": "Edit input",
+      "label": "Experiments",
+      "pressed": "false"
+    },
+    {
+      "label": "Notes",
+      "pressed": "false"
+    },
+    {
+      "label": "Animate Vertices",
       "pressed": null
     },
     {
-      "label": "Animate concept",
-      "pressed": null
-    },
-    {
-      "label": "Reset input",
-      "pressed": null
-    },
-    {
-      "label": "Step back",
-      "pressed": null
-    },
-    {
-      "label": "Play",
-      "pressed": null
-    },
-    {
-      "label": "Step forward",
+      "label": "Solve Example",
       "pressed": null
     },
     {
@@ -162,27 +156,95 @@
       "pressed": null
     },
     {
-      "label": "Go to step 1",
+      "label": "Reset to example",
       "pressed": null
     },
     {
-      "label": "Go to step 2",
+      "label": "Remove constraint 1",
       "pressed": null
     },
     {
-      "label": "Go to step 3",
+      "label": "Remove constraint 2",
       "pressed": null
     },
     {
-      "label": "Go to step 4",
+      "label": "Remove constraint 3",
       "pressed": null
     },
     {
-      "label": "Go to step 5",
+      "label": "Remove constraint 4",
       "pressed": null
     },
     {
-      "label": "Reveal answer",
+      "label": "Add constraint",
+      "pressed": null
+    },
+    {
+      "label": "Evaluate vertex (0, 0)",
+      "pressed": null
+    },
+    {
+      "label": "Evaluate vertex (2, 0)",
+      "pressed": null
+    },
+    {
+      "label": "Evaluate vertex (0, 4)",
+      "pressed": null
+    },
+    {
+      "label": "Evaluate vertex (2, 2)",
+      "pressed": null
+    },
+    {
+      "label": "Optimal vertex: (2, 2)Maximum value: z = 10",
+      "pressed": null
+    },
+    {
+      "label": "x + y ≤ 4",
+      "pressed": null
+    },
+    {
+      "label": "x ≤ 2",
+      "pressed": null
+    },
+    {
+      "label": "x ≥ 0",
+      "pressed": null
+    },
+    {
+      "label": "y ≥ 0",
+      "pressed": null
+    },
+    {
+      "label": "Optimal solution",
+      "pressed": null
+    },
+    {
+      "label": "Objective contours",
+      "pressed": null
+    },
+    {
+      "label": "LP optimum (2, 2)",
+      "pressed": null
+    },
+    {
+      "label": "Best integer (2, 2)",
+      "pressed": null
+    },
+    {
+      "label": "Resource allocation (production planning, workforce planning)",
+      "pressed": null
+    },
+    {
+      "label": "Scheduling and logistics",
+      "pressed": null
+    },
+    {
+      "label": "Network flow formulations",
+      "pressed": null
+    },
+    {
+      "label": "Portfolio optimization and finance",
       "pressed": null
     }
   ]
