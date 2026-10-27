@@ -1568,3 +1568,117 @@
     gap: 10px;
   }
 }
+/* Reference 021 details; objective values and node states remain model-derived. */
+@media (min-width: 1500px) {
+  .tsp-branch-page {
+    font-family: Arial, sans-serif;
+  }
+  .tsp-branch-page .tp-lesson-header {
+    font-family: system-ui, sans-serif;
+  }
+  .tsp-branch-page .tp-lesson-header > div:first-of-type {
+    transform: translateY(-3px);
+  }
+  .tsp-branch-page #account-trigger {
+    width: 190px;
+  }
+  .tsp-branch-page .mom-study {
+    width: 134px;
+    justify-content: center;
+  }
+  .tsp-branch-page .tp-topbar .aimer-account-controls {
+    margin-left: -10px;
+  }
+  .tsp-branch-page .tp-section-progress {
+    transform: translateY(-4px);
+  }
+  .tsp-branch-page .tp-section-progress i:nth-child(-n + 2) {
+    visibility: hidden;
+  }
+  .tsp-branch-page .tp-section-progress i:nth-child(3) {
+    transform: translateX(8px);
+  }
+  .tsp-branch-page .tp-section-progress i:nth-child(4) {
+    transform: translateX(6px);
+  }
+  .tsp-branch-page .tp-section-progress i:nth-child(5) {
+    transform: translateX(5px);
+  }
+  .tsp-branch-page .tp-section-progress i:nth-child(6) {
+    transform: translateX(4px);
+  }
+  .tsp-branch-page .tp-visual-heading > div:not(.tp-visual-options) {
+    transform: translateY(-3px);
+  }
+  .tsp-branch-page .tp-visual-heading p {
+    font-size: 12.5px;
+    letter-spacing: -0.1px;
+  }
+  .tsp-branch-page .tp-controls button {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tsp-branch-page .tp-best-cost {
+    height: 29px;
+  }
+  .tsp-branch-page .tp-best-cost > b {
+    font-size: 24px;
+    line-height: 29px;
+  }
+  .tsp-branch-page .tp-best-cost output {
+    font-size: 24px;
+  }
+  .tsp-branch-page .tp-best-cost > span {
+    font-size: 10.5px;
+  }
+  .tsp-branch-page .tp-incumbent > p {
+    font-size: 12px;
+  }
+  .tsp-branch-page .tp-tour-cities b {
+    background: radial-gradient(circle at 35% 30%, #fbfffd, #c4f4d9);
+  }
+  .tsp-branch-page .tp-matrix th,
+  .tsp-branch-page .tp-matrix td,
+  .tsp-branch-page .tp-matrix td button {
+    font-size: 12px;
+  }
+  .tsp-branch-page .tp-calculator > header p {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .tsp-branch-page .tp-calculator select {
+    width: 126px;
+  }
+  .tsp-branch-page .tp-calculator table {
+    font-size: 12px;
+  }
+  .tsp-branch-page .tp-calculator td {
+    height: 21px;
+  }
+  .tsp-branch-page .tp-lower-result output {
+    font-size: 13px;
+  }
+  .tsp-branch-page .tp-frontier th,
+  .tsp-branch-page .tp-frontier td,
+  .tsp-branch-page .tp-frontier td button {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1500px) {
+  .tsp-branch-page .tp-switch {
+    font-size: 13px;
+  }
+}
+@media (min-width: 1500px) {
+  .tsp-branch-page .tp-visual-heading {
+    gap: 9px;
+  }
+  .tsp-branch-page .tp-visual-heading > svg {
+    width: 26px;
+    height: 26px;
+  }
+  .tsp-branch-page .tp-tour-cities,
+  .tsp-branch-page .tp-tour-cities > span {
+    gap: 4px;
+  }
+}

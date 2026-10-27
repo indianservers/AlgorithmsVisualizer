@@ -1,0 +1,81 @@
+{
+  "target": 21,
+  "route": "/branch-and-bound/tsp-branch-and-bound",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/021--branch-and-bound--tsp-branch-and-bound.png",
+  "previousGoalTurnClassification": "Progress: target 019 illustration, table typography, controls and worked trace improved; 808 unit tests and 40 production-browser cases passed.",
+  "status": "Improved native presentation; full visual-match objective remains incomplete.",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "beforeMeanAbsoluteRgbError": 12.6975,
+  "afterMeanAbsoluteRgbError": 12.4392,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Aligned header text and four visible progress markers, resized account/study controls, and moved language selection to Notes.",
+    "Added rounded bar-chart icons and matched the graph panel icon more closely.",
+    "Aligned all five city centers and circle sizes, with radial blue/gold shading and unique SVG gradient IDs.",
+    "Improved search-node width and text size without changing actual expansion order or node states.",
+    "Increased control, incumbent-cost, matrix, frontier and lower-bound table typography.",
+    "Matched the compact calculator node selector and full-width calculation table; preserved the complete safe-bound decomposition.",
+    "Reduced tour-circle spacing so all six cities in the default closed tour remain visible.",
+    "Captured desktop/mobile screenshots and panel geometry before layout assertions.",
+    "Made browser keyboard checks wait for the mounted lesson before invoking its shortcut."
+  ],
+  "referenceClarifications": [
+    "The displayed tour 1→2→4→5→3→1 has cost 10+9+6+7+8=40, not 80.",
+    "The implemented safe outgoing-edge bound is 36 at the root. For partial path 1→2 it is 10+9+19=38.",
+    "The reference extra return-to-start term can double-count an outgoing edge. The native calculator explains that returning to start is already an allowed destination for an unvisited city.",
+    "Best-bound expansion follows the computed frontier, so path 1→3 is expanded before 1→2; the search tree and current frontier remain consistent.",
+    "All ten edges of the complete symmetric graph remain visible when weights are enabled. Missing or incorrectly labeled reference edges are not copied.",
+    "A feasible seeded tour is distinguished from a certified optimum until the frontier proves it."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed: lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and budget for 73 chunks.",
+    "finalTestLint": "Passed after adding reference city-center and complete-caption assertions.",
+    "developmentBrowser": {
+      "passed": 19,
+      "skipped": 1,
+      "scope": "021 native lesson plus target/inventory captures."
+    },
+    "productionBrowser": {
+      "passed": 38,
+      "skipped": 2,
+      "scope": "019 and 021 native lessons plus target/inventory captures."
+    },
+    "skipReason": "Reference inventories run once on desktop.",
+    "geometry": "Eleven reference header/panel/grid anchors checked within two pixels. All five city centers are within two pixels of the reference. The full visualization description and final default tour circle are visible; calculator, incumbent and controls contents fit inside their panels.",
+    "interactions": [
+      "Snapshot rewind and reset",
+      "Best-bound autoplay and optimality certification",
+      "Weight and bound-computation switches",
+      "Keyboard tree and city inspection",
+      "Editable symmetric distance matrices with validation",
+      "Two-city tour from a changed source",
+      "Bound arithmetic and pruning predictions",
+      "Unseeded eight-city search, budgeted expansion and pagination",
+      "Review progress and persistent notes",
+      "Language selection dialog",
+      "Search shortcut",
+      "Dark/medium/mobile layout",
+      "FIFO Knapsack regression coverage"
+    ]
+  },
+  "evidence": [
+    "desktop-visualization.png",
+    "mobile-visualization.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../pixel-audit/021--overlay.png",
+    "../pixel-audit/021--difference.png"
+  ],
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures still have nonzero differences. Keep the full original visual-match goal active."
+}

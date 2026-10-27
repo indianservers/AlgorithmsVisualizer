@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -33,6 +36,12 @@ test('019 reference dashboard includes all learning components and coherent defa
   await expect(root.locator('.fk-equation')).toHaveText('UB = 3 + 4 = 7')
   await expect(root.locator('.fk-stats>div').last()).toContainText('Nodes Explored4')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/fifo-knapsack-019', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/fifo-knapsack-019/${info.project.name}-learn.png` })
+  const layout = await root
+    .locator('.fk-panel, .mom-hero, .mom-tabs')
+    .evaluateAll((elements) => elements.map((element) => ({ className: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/fifo-knapsack-019/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop') {
     for (const [selector, expected] of [
       ['.mom-hero', { x: 296, y: 63, width: 1361, height: 120 }],
@@ -158,6 +167,9 @@ test('019 overweight branches never become incumbents or display a numeric upper
 test('019 experiments inspect generated nodes, handle zero capacity, and persist learning notes', async ({ page }) => {
   const root = page.locator('.fifo-knapsack-page')
   await root.getByRole('button', { name: 'Experiments', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await expect(root.locator('.fk-node-table tbody tr')).toHaveCount(7)
   await root.getByRole('button', { name: 'Inspect generated node 4', exact: true }).click()
   await expect(root.locator('.fk-equation')).toContainText('6.75')
@@ -184,5 +196,12 @@ test('019 remains usable at medium width and in dark mode', async ({ page }, inf
   await root.getByRole('button', { name: 'Step Forward', exact: true }).click()
   await expect(root.locator('.fk-live-message')).toContainText('Dequeue node 4')
   await root.getByRole('button', { name: 'Learn', exact: true }).click()
+  const originalViewport = page.viewportSize()!
+  for (const width of info.project.name === 'desktop' ? [1672, 1280, 1024, 768] : [393, 320]) {
+    await page.setViewportSize({ width, height: 941 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    await expect(root.getByRole('button', { name: 'Step Forward', exact: true })).toBeVisible()
+  }
+  await page.setViewportSize(originalViewport)
   await page.screenshot({ path: `artifacts/visual-qa/fifo-knapsack-019/${info.project.name}-dark.png` })
 })

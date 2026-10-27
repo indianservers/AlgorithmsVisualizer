@@ -84,5 +84,13 @@
     "productionBrowserSkipped": 2,
     "afterMeanAbsoluteRgbError": 13.2546,
     "disposition": "Local and uncommitted"
+  },
+  "styleIsolationRegression": {
+    "pairedTarget": 29,
+    "selectorsScoped": 183,
+    "productionBrowserTestsPassed": 45,
+    "productionBrowserTestsSkipped": 3,
+    "scope": "029 and 044 lessons plus target/inventory captures; computed styles remain identical after navigation in both directions.",
+    "meanAbsoluteRgbError": 13.2546
   }
 }

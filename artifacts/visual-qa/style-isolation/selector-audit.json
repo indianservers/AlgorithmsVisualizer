@@ -1,0 +1,26 @@
+{
+  "inspectedFiles": [
+    {
+      "file": "master-theorem-mockup.css",
+      "root": "master-page",
+      "prefix": "mt"
+    },
+    {
+      "file": "metric-tsp-mockup.css",
+      "root": "metric-tsp-page",
+      "prefix": "mt"
+    },
+    {
+      "file": "invariant-mockup.css",
+      "root": "invariant-page",
+      "prefix": "iv"
+    },
+    {
+      "file": "inversions-mockup.css",
+      "root": "inversions-page",
+      "prefix": "iv"
+    }
+  ],
+  "unscopedPrivateSelectors": [],
+  "duplicateKeyframeNames": []
+}

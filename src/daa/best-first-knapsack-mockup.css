@@ -1680,3 +1680,60 @@
     min-height: 39px;
   }
 }
+
+@media (min-width: 1500px) {
+  .best-knapsack-page .mom-badges {
+    margin-top: 11px;
+  }
+  .best-knapsack-page .mom-badges span {
+    font-size: 12px;
+    padding-inline: 14px;
+  }
+  .best-knapsack-page .mom-badges span:nth-child(2) {
+    padding-inline: 16px;
+  }
+  .best-knapsack-page .mom-badges span:nth-child(2) svg {
+    stroke: none;
+  }
+  .best-knapsack-page .bk-overview h2 {
+    font-size: 19px;
+  }
+  .best-knapsack-page .bk-upper-bound h2 {
+    font-size: 16px;
+  }
+  .best-knapsack-page .bk-stage {
+    padding-top: 13px;
+  }
+  .best-knapsack-page .bk-stage-0 > span {
+    background: transparent;
+    color: #0085ff;
+  }
+  .best-knapsack-page .bk-stage-0 svg {
+    width: 34px;
+    height: 34px;
+  }
+  .best-knapsack-page .bk-tree-panel > header {
+    gap: 8px;
+  }
+  .best-knapsack-page .bk-tree-options {
+    font-size: 10px;
+  }
+  .best-knapsack-page .bk-upper-bound .bk-icon svg,
+  .best-knapsack-page .bk-correctness .bk-icon svg {
+    fill: #168fff;
+    stroke: #0875ff;
+  }
+  .best-knapsack-page .bk-worked .bk-table-scroll {
+    margin-inline: -4px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-header {
+    padding-bottom: 13px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-algorithm {
+    padding-left: 41px;
+    margin-left: 15px;
+  }
+  .app-shell:has(.best-knapsack-page) .sidebar-algorithm.active::before {
+    left: 13px;
+  }
+}

@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
   })
   await page.goto('/branch-and-bound/tsp-branch-and-bound')
+  await expect(page.locator('.tsp-branch-page')).toBeVisible()
 })
 
 test('021 default visualization includes every reference component and consistent graph values', async ({ page }, info) => {
@@ -36,7 +40,29 @@ test('021 default visualization includes every reference component and consisten
   await expect(root.locator('.tp-lower-result output')).toHaveText('38')
   await expect(root.locator('.tp-frontier-count')).toHaveText('2')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/tsp-021', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/tsp-021/${info.project.name}-visualization.png` })
+  const layout = await root
+    .locator('.tp-panel, .tp-lesson-header, .mom-tabs, .tp-footer-grid')
+    .evaluateAll((elements) => elements.map((element) => ({ className: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/tsp-021/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop') {
+    expect(await root.locator('.tp-visual-heading p').evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
+    const cities = root.locator('.tp-city-graph [role="button"] circle')
+    for (const [index, [x, y]] of [
+      [494, 356],
+      [358, 429],
+      [629, 429],
+      [399, 560],
+      [577, 560],
+    ].entries()) {
+      const city = await cities.nth(index).boundingBox()
+      expect(Math.abs(city!.x + city!.width / 2 - x)).toBeLessThanOrEqual(2)
+      expect(Math.abs(city!.y + city!.height / 2 - y)).toBeLessThanOrEqual(2)
+    }
+    const tour = await root.locator('.tp-tour-cities').boundingBox(),
+      lastCity = await root.locator('.tp-tour-cities b').last().boundingBox()
+    expect(lastCity!.x + lastCity!.width).toBeLessThanOrEqual(tour!.x + tour!.width + 1)
     for (const [selector, expected] of [
       ['.tp-lesson-header', { x: 277, y: 58, width: 1394, height: 75 }],
       ['.mom-tabs', { x: 285, y: 133, width: 1372, height: 57 }],
@@ -190,6 +216,9 @@ test('021 review progress, notes, search shortcut and dark mode remain usable', 
   await root.getByRole('button', { name: 'Mark Visualization reviewed', exact: true }).click()
   await expect(root.locator('.tp-section-progress')).toContainText('1 of 6 sections')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await root.getByLabel('TSP learning notes', { exact: true }).fill('Each remaining outgoing edge contributes once to a safe bound.')
   await root.getByRole('button', { name: 'Mark Notes reviewed', exact: true }).click()
   await page.reload()

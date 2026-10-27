@@ -1,0 +1,71 @@
+{
+  "target": 29,
+  "route": "/daa-extensions/bipartite-matching",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/029--daa-extensions--bipartite-matching.png",
+  "status": "Improved native render; visual differences remain. Full goal is incomplete.",
+  "previousTurnClassification": "Progress: committed and pushed the accumulated refinements as 86efe7d, with remote main verified.",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "beforeMeanAbsoluteRgbError": 13.7951,
+  "afterMeanAbsoluteRgbError": 11.8321,
+  "metricMeaning": "Mean absolute RGB-channel difference, not a fidelity percentage.",
+  "inventoryTargets": 45,
+  "exactSizeCaptures": 45,
+  "pixelIdenticalPagesInInventory": 0,
+  "refinements": [
+    "Scoped 258 Bipartite Matching selectors and 183 Bin Packing selectors to their respective page roots, preserving specificity with :where().",
+    "Reproduced a real shared CSS regression after SPA navigation: panel backgrounds and footer heights changed. Added computed-style and geometry assertions for both navigation directions.",
+    "Aligned graph node radii and centers, radial node shading, arrowheads, animation instruction spacing, theory explanation, and four stage columns with the reference.",
+    "Corrected inherited button gap so stage descriptions fit within the reference panel.",
+    "Moved language selection to Notes while retaining its dialog; resized study/account controls and refined the blue workspace background.",
+    "Included the actual complete graph edge set in the worked example; refined footer typography and control alignment.",
+    "Fixed the desktop long-matching grid selector and verified five matching pairs do not overlap playback controls at 1672px."
+  ],
+  "referenceCorrections": [
+    "The reference orange path includes 5 to 6 inside V, which is not a graph edge and cannot form a bipartite augmenting path. The native default correctly shows 2 to 5.",
+    "The displayed initial graph has matching {(1,4),(3,6)}. The worked example derives its starting matching from that state instead of claiming it is empty.",
+    "The result panels explicitly identify a final preview before the flip stage; the experiment current matching updates on the actual flip.",
+    "Repeated BFS retains the general O(V(V+E)) bound and explains the usual O(VE) formulation after discarding isolated vertices."
+  ],
+  "validation": {
+    "projectCheck": "passed",
+    "unitTests": 808,
+    "unitFiles": 66,
+    "productionBuild": "passed",
+    "prerenderedPages": 394,
+    "bundleChunks": 73,
+    "bundleLimitBytes": 256000,
+    "developmentBrowser": {
+      "passed": 45,
+      "skipped": 3
+    },
+    "productionBrowser": {
+      "passed": 45,
+      "skipped": 3
+    },
+    "skipReason": "Two mobile reference-inventory captures and the desktop-only cross-navigation geometry test.",
+    "browserScope": "029 and 044 native lesson specifications plus numbered target capture and reference inventory.",
+    "interactions": [
+      "Four replay stages and boundaries",
+      "Rerouting removes an old matched edge",
+      "Editable JSON and invalid input rejection",
+      "Conflicting endpoint rejection",
+      "Blocked-start versus maximum certificate",
+      "Graph label and path toggles",
+      "Theory and source code",
+      "Prediction challenges",
+      "Persistent notes and section reviews",
+      "Language selection dialog",
+      "Dark mode",
+      "Custom 5-by-5 partitions",
+      "320px to 1672px containment",
+      "SPA navigation in both directions"
+    ],
+    "defaultScreenshot": "desktop-default.png",
+    "desktopLayout": "desktop-layout.json",
+    "mobileLayout": "mobile-layout.json"
+  },
+  "remaining": "All 45 target captures still have pixel differences. Preserve the full matching goal; this report does not assert visual completion."
+}

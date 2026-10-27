@@ -1,0 +1,156 @@
+[
+  {
+    "className": "tp-lesson-header",
+    "x": 277,
+    "y": 58,
+    "width": 1394,
+    "height": 75,
+    "top": 58,
+    "right": 1671,
+    "bottom": 133,
+    "left": 277
+  },
+  {
+    "className": "mom-tabs",
+    "x": 285,
+    "y": 133,
+    "width": 1372,
+    "height": 57,
+    "top": 133,
+    "right": 1657,
+    "bottom": 190,
+    "left": 285
+  },
+  {
+    "className": "tp-panel tp-graph",
+    "x": 300,
+    "y": 271,
+    "width": 398,
+    "height": 340,
+    "top": 271,
+    "right": 698,
+    "bottom": 611,
+    "left": 300
+  },
+  {
+    "className": "tp-panel tp-search-tree",
+    "x": 710,
+    "y": 271,
+    "width": 586,
+    "height": 340,
+    "top": 271,
+    "right": 1296,
+    "bottom": 611,
+    "left": 710
+  },
+  {
+    "className": "tp-panel tp-controls",
+    "x": 1308,
+    "y": 271,
+    "width": 334,
+    "height": 144,
+    "top": 271,
+    "right": 1642,
+    "bottom": 415,
+    "left": 1308
+  },
+  {
+    "className": "tp-panel tp-incumbent",
+    "x": 1308,
+    "y": 427,
+    "width": 334,
+    "height": 184,
+    "top": 427,
+    "right": 1642,
+    "bottom": 611,
+    "left": 1308
+  },
+  {
+    "className": "tp-panel tp-matrix",
+    "x": 300,
+    "y": 623,
+    "width": 307,
+    "height": 204,
+    "top": 623,
+    "right": 607,
+    "bottom": 827,
+    "left": 300
+  },
+  {
+    "className": "tp-panel tp-calculator",
+    "x": 619,
+    "y": 623,
+    "width": 511,
+    "height": 204,
+    "top": 623,
+    "right": 1130,
+    "bottom": 827,
+    "left": 619
+  },
+  {
+    "className": "tp-panel tp-frontier",
+    "x": 1142,
+    "y": 623,
+    "width": 500,
+    "height": 204,
+    "top": 623,
+    "right": 1642,
+    "bottom": 827,
+    "left": 1142
+  },
+  {
+    "className": "tp-footer-grid",
+    "x": 300,
+    "y": 839,
+    "width": 1342,
+    "height": 228,
+    "top": 839,
+    "right": 1642,
+    "bottom": 1067,
+    "left": 300
+  },
+  {
+    "className": "tp-panel tp-takeaways",
+    "x": 300,
+    "y": 839,
+    "width": 331.5,
+    "height": 180,
+    "top": 839,
+    "right": 631.5,
+    "bottom": 1019,
+    "left": 300
+  },
+  {
+    "className": "tp-panel tp-worked",
+    "x": 643.5,
+    "y": 839,
+    "width": 374.578125,
+    "height": 188,
+    "top": 839,
+    "right": 1018.078125,
+    "bottom": 1027,
+    "left": 643.5
+  },
+  {
+    "className": "tp-panel tp-correctness",
+    "x": 1030.078125,
+    "y": 839,
+    "width": 307.46875,
+    "height": 228,
+    "top": 839,
+    "right": 1337.546875,
+    "bottom": 1067,
+    "left": 1030.078125
+  },
+  {
+    "className": "tp-panel tp-pitfalls",
+    "x": 1349.546875,
+    "y": 839,
+    "width": 292.4375,
+    "height": 209,
+    "top": 839,
+    "right": 1641.984375,
+    "bottom": 1048,
+    "left": 1349.546875
+  }
+]

@@ -1,0 +1,156 @@
+[
+  {
+    "className": "mom-hero",
+    "x": 296,
+    "y": 63,
+    "width": 1361,
+    "height": 120,
+    "top": 63,
+    "right": 1657,
+    "bottom": 183,
+    "left": 296
+  },
+  {
+    "className": "mom-tabs",
+    "x": 296,
+    "y": 193,
+    "width": 1361,
+    "height": 36,
+    "top": 193,
+    "right": 1657,
+    "bottom": 229,
+    "left": 296
+  },
+  {
+    "className": "mom-panel fk-panel fk-overview",
+    "x": 296,
+    "y": 238,
+    "width": 959,
+    "height": 109,
+    "top": 238,
+    "right": 1255,
+    "bottom": 347,
+    "left": 296
+  },
+  {
+    "className": "mom-panel fk-panel fk-items",
+    "x": 296,
+    "y": 355,
+    "width": 339,
+    "height": 316,
+    "top": 355,
+    "right": 635,
+    "bottom": 671,
+    "left": 296
+  },
+  {
+    "className": "mom-panel fk-panel fk-tree-panel",
+    "x": 643,
+    "y": 355,
+    "width": 612,
+    "height": 316,
+    "top": 355,
+    "right": 1255,
+    "bottom": 671,
+    "left": 643
+  },
+  {
+    "className": "mom-panel fk-panel fk-incumbent",
+    "x": 296,
+    "y": 679,
+    "width": 254.71875,
+    "height": 171,
+    "top": 679,
+    "right": 550.71875,
+    "bottom": 850,
+    "left": 296
+  },
+  {
+    "className": "mom-panel fk-panel fk-details",
+    "x": 558.71875,
+    "y": 679,
+    "width": 304.6875,
+    "height": 171,
+    "top": 679,
+    "right": 863.40625,
+    "bottom": 850,
+    "left": 558.71875
+  },
+  {
+    "className": "mom-panel fk-panel fk-worked",
+    "x": 871.40625,
+    "y": 679,
+    "width": 383.59375,
+    "height": 171,
+    "top": 679,
+    "right": 1255,
+    "bottom": 850,
+    "left": 871.40625
+  },
+  {
+    "className": "mom-panel fk-panel fk-queue",
+    "x": 1263,
+    "y": 238,
+    "width": 394,
+    "height": 174,
+    "top": 238,
+    "right": 1657,
+    "bottom": 412,
+    "left": 1263
+  },
+  {
+    "className": "mom-panel fk-panel fk-bound",
+    "x": 1263,
+    "y": 421,
+    "width": 394,
+    "height": 250,
+    "top": 421,
+    "right": 1657,
+    "bottom": 671,
+    "left": 1263
+  },
+  {
+    "className": "mom-panel fk-panel fk-takeaways",
+    "x": 1263,
+    "y": 680,
+    "width": 394,
+    "height": 171,
+    "top": 680,
+    "right": 1657,
+    "bottom": 851,
+    "left": 1263
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 296,
+    "y": 860,
+    "width": 571.84375,
+    "height": 93.15625,
+    "top": 860,
+    "right": 867.84375,
+    "bottom": 953.15625,
+    "left": 296
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 875.84375,
+    "y": 860,
+    "width": 395.59375,
+    "height": 93.15625,
+    "top": 860,
+    "right": 1271.4375,
+    "bottom": 953.15625,
+    "left": 875.84375
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 1279.4375,
+    "y": 860,
+    "width": 377.546875,
+    "height": 93.15625,
+    "top": 860,
+    "right": 1656.984375,
+    "bottom": 953.15625,
+    "left": 1279.4375
+  }
+]

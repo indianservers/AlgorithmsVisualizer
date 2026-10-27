@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test'
-test.beforeEach(async ({ page }) => {
+import { mkdirSync, writeFileSync } from 'node:fs'
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -25,6 +28,15 @@ test('018 reference dashboard includes every framework, design and example compo
   await expect(root.locator('.dm-example')).toHaveCount(4)
   await expect(root.locator('.dm-recurrence-result output')).toContainText('Θ(n log n)')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/divide-method-018', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/divide-method-018/${info.project.name}-learn.png` })
+  const layout = await root
+    .locator('.dm-panel, .dm-stage, .dm-question, .dm-no-result')
+    .evaluateAll((elements) => elements.map((element) => ({ className: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/divide-method-018/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
+  const finalNode = await root.locator('.dm-stage-2 .dm-framework-svg rect').last().boundingBox(),
+    combineTip = await root.locator('.dm-stage-2 .dm-stage-tip').boundingBox()
+  expect(finalNode!.y + finalNode!.height).toBeLessThanOrEqual(combineTip!.y + 1)
   if (info.project.name === 'desktop') {
     for (const [selector, expected] of [
       ['.mom-hero', { x: 284, y: 66, width: 1374, height: 129 }],
@@ -137,6 +149,9 @@ test('018 checklist, prediction, quiz, notes and canonical routes are usable', a
   await root.getByRole('button', { name: 'Compare the left, right, and best crossing subarray candidates.', exact: true }).click()
   await expect(root.getByRole('status')).toContainText('Correct')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await root
     .getByLabel('Record the split, base cases, recursive contract, combine proof, and cost recurrence.', { exact: true })
     .fill('Prove that the combine rule covers every case.')
@@ -153,5 +168,12 @@ test('018 dark theme remains contained and the header controls stay reachable', 
   await page.getByRole('button', { name: 'Toggle color theme', exact: true }).click()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  const originalViewport = page.viewportSize()!
+  for (const width of info.project.name === 'desktop' ? [1280, 1024, 768] : [393, 320]) {
+    await page.setViewportSize({ width, height: 941 })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    await expect(page.locator('.divide-method-page').getByRole('button', { name: 'Learn', exact: true })).toBeVisible()
+  }
+  await page.setViewportSize(originalViewport)
   await page.screenshot({ path: `artifacts/visual-qa/divide-method-018/${info.project.name}-dark.png` })
 })

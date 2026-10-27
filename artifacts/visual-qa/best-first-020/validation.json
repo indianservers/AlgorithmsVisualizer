@@ -49,5 +49,31 @@
     "../pixel-audit/020--overlay.png",
     "../pixel-audit/020--difference.png"
   ],
-  "disposition": "Local changes only; no new commit or push during this goal continuation."
+  "disposition": "Local changes only; no new commit or push during this goal continuation.",
+  "secondRefinement": {
+    "previousGoalTurnClassification": "Progress: target 029 native layout improved, shared styles isolated from target 044, and interaction regressions verified.",
+    "beforeMeanAbsoluteRgbError": 13.7632,
+    "afterMeanAbsoluteRgbError": 13.5521,
+    "metricMeaning": "Mean absolute RGB-channel error; not a percentage of visual fidelity.",
+    "changes": [
+      "Redrew the native SVG backpack with rounded front, top compartment, front pocket, side panel, seams, handle and back straps; no target raster is used in the application.",
+      "Aligned chart bar bounds against measured reference regions and added faint chart reflections.",
+      "Added native branching and instance icons; used network and target icons for the search tree and progress panels.",
+      "Matched hero badge spacing and introduced colored difficulty bars and the concepts icon.",
+      "Refined heading sizes, stage spacing, tree legend text, worked-table inset, and indented active sidebar rows.",
+      "Set the reference viewport before desktop navigation to avoid retaining layout-dependent scroll state from another size."
+    ],
+    "checks": {
+      "fullProjectCheck": "Passed: lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73 bundle chunks within 256000 bytes.",
+      "finalArtworkCheck": "Formatting and scoped ESLint passed; fresh TypeScript/build/prerender/bundle verification passed after the final SVG-only refinement.",
+      "productionBrowserPassed": 66,
+      "productionBrowserSkipped": 4,
+      "productionScope": "Targets 020, 029 and 044 native lesson specifications plus target captures and reference inventory.",
+      "skips": "Three mobile inventory captures and one desktop-only SPA navigation geometry/style regression.",
+      "interactions": "Replay, exact bounds, stale frontier pruning, editable/custom inputs, predictions, keyboard inspectors, language dialog, notes, maximum-size inputs, pagination, dark mode, narrow layouts and cross-navigation styling.",
+      "geometry": "All ten 020 panel anchors and final panel containment pass."
+    },
+    "remaining": "All 45 captures match reference dimensions; 0 are pixel-identical. The full objective remains active and incomplete. Mathematically inconsistent reference values remain corrected as documented above.",
+    "disposition": "Changes remain local; no new commit or push."
+  }
 }

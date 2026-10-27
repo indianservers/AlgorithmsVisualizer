@@ -4,7 +4,7 @@
   "reference": "C:\\Screenshots\\DAA-Algorithms\\targetUI\\023--complexity-theory--p-np-np-hard-and-np-complete.png",
   "status": "Visual differences remain; full visual-match goal is incomplete",
   "beforeMeanAbsoluteRgbError": 16.0426,
-  "afterMeanAbsoluteRgbError": 13.7423,
+  "afterMeanAbsoluteRgbError": 13.5452,
   "metricMeaning": "Mean absolute RGB-channel difference on the full 1672×941 image; not a fidelity percentage",
   "inventoryTargets": 45,
   "pixelIdenticalInventoryTargets": 0,
@@ -58,5 +58,35 @@
     "disposition": "Local and uncommitted",
     "afterMeanAbsoluteRgbError": 13.7423,
     "finalProductionTestsSkipped": 1
+  },
+  "thirdRefinement": {
+    "previousGoalTurnClassification": "Progress: target 020 illustration, icons, badges and sidebar improved, with 808 unit tests and 66 production-browser checks passed.",
+    "beforeMeanAbsoluteRgbError": 13.7423,
+    "afterMeanAbsoluteRgbError": 13.5452,
+    "changes": [
+      "Neutral dark body text in example cards matches the reference while retaining colored headings and class categories.",
+      "Aligned class-map description baselines and refined the P ellipse to the observed reference envelope.",
+      "Preserved P versus NP uncertainty, NP-hard masking and NP-complete containment; added a boundary regression verifying the full sampled P perimeter lies in NP and outside NP-hard.",
+      "Added native bar-chart icons, a certificate at-sign icon, and reference-like colors for classifier, certificate, takeaway and misconception icons.",
+      "Refined light workspace tones, detail-header position, active sidebar-row indentation and category spacing below the open submenu.",
+      "Set the reference desktop viewport before navigation for consistent capture and sidebar scroll behavior."
+    ],
+    "checks": {
+      "fullProjectCheck": "Passed: lint, localization, 808 tests across 66 files, TypeScript, production build, 394 prerendered pages and bundle budget for 73 chunks.",
+      "extendedGeometryUnitCheck": "7 model tests passed after extending the P-boundary invariant check; scoped ESLint also passed.",
+      "productionBrowserPassed": 85,
+      "productionBrowserSkipped": 5,
+      "productionScope": "Targets 020, 023, 029 and 044 native lessons plus numbered target captures and full reference-inventory cases for those targets.",
+      "skips": "Four mobile reference-inventory captures and one desktop-only SPA navigation geometry/style test.",
+      "geometry": "Hero, tab strip, top/middle grids, decision/optimization comparison and footer origins remain within the existing two-pixel assertions.",
+      "functionality": "Class inspectors, six problem versions, all certificate types and edited-input rejection, exact factor verification, reduction examples, predictions, notes, language selection, keyboard operation, dark mode, long CNFs and narrow viewport containment passed."
+    },
+    "inventory": {
+      "targets": 45,
+      "dimensionsMatch": 45,
+      "pixelIdentical": 0
+    },
+    "remaining": "Pixel differences remain across all 45 references. Target 018 is a useful next broader layout pass after these repeated 020/023 refinements; the original full objective remains unchanged.",
+    "disposition": "Local changes only; no commit or push in this continuation."
   }
 }

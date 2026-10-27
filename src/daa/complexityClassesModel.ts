@@ -4,7 +4,7 @@ export type ComplexityClass = 'P' | 'NP' | 'NP-Hard' | 'NP-Complete'
 export const complexityMapRegions = {
   envelope: { cx: 364, cy: 172, rx: 237, ry: 161 },
   np: { cx: 315, cy: 186, rx: 175, ry: 111 },
-  p: { cx: 264, cy: 214, rx: 87, ry: 46 },
+  p: { cx: 264, cy: 213, rx: 87, ry: 47 },
   complete: { cx: 418, cy: 192, rx: 69, ry: 67 },
 }
 export function complexityMapMembership(x: number, y: number) {

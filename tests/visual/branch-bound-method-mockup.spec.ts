@@ -1,11 +1,38 @@
 import { test, expect } from '@playwright/test'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
   })
   await page.goto('/branch-and-bound/branch-bound-method')
+})
+
+test('022 keeps panel styles after visiting Boyer Moore and returning', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'Desktop reference geometry.')
+  const styles = (selector: string) =>
+    page.locator(selector).evaluateAll((elements) =>
+      elements.map((element) => {
+        const s = getComputedStyle(element)
+        return [s.width, s.height, s.background, s.padding, s.fontSize]
+      }),
+    )
+  const before = await styles('.bound-method-page .bm-panel, .bound-method-page .bm-icon')
+  await page.locator('.sidebar-category-toggle').filter({ hasText: 'DAA Extensions' }).click()
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/boyer-moore"]').click()
+  await expect(page.locator('.boyer-moore-page')).toBeVisible()
+  const boyerBefore = await styles('.boyer-moore-page .bm-panel, .boyer-moore-page .bm-icon')
+  await page.locator('.sidebar-category-toggle').filter({ hasText: 'Branch and Bound' }).click()
+  await page.locator('.sidebar-algorithm[href="/branch-and-bound/branch-bound-method"]').click()
+  await expect(page.locator('.bound-method-page')).toBeVisible()
+  expect(await styles('.bound-method-page .bm-panel, .bound-method-page .bm-icon')).toEqual(before)
+  await page.locator('.sidebar-category-toggle').filter({ hasText: 'DAA Extensions' }).click()
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/boyer-moore"]').click()
+  await expect(page.locator('.boyer-moore-page')).toBeVisible()
+  expect(await styles('.boyer-moore-page .bm-panel, .boyer-moore-page .bm-icon')).toEqual(boyerBefore)
 })
 
 test('022 dashboard includes all reference components and a coherent default tree', async ({ page }, info) => {
@@ -32,7 +59,14 @@ test('022 dashboard includes all reference components and a coherent default tre
   await expect(root.locator('.bm-tree-svg')).toContainText('Prunable')
   await expect(root.locator('.bm-bound-chart')).toHaveAttribute('aria-label', 'Upper bound 16; feasible incumbent 12')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  mkdirSync('artifacts/visual-qa/bound-method-022', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/bound-method-022/${info.project.name}-visualization.png` })
+  const layout = await root
+    .locator('.bm-panel, .bm-lesson-header, .bm-rule-card, .bm-order-grid')
+    .evaluateAll((elements) => elements.map((element) => ({ className: element.className, ...element.getBoundingClientRect().toJSON() })))
+  writeFileSync(`artifacts/visual-qa/bound-method-022/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop') {
+    expect(await root.locator('.bm-visual-heading p').evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
     for (const [selector, expected] of [
       ['.bm-lesson-header', { x: 284, y: 56, width: 1373, height: 78 }],
       ['.mom-tabs', { x: 284, y: 134, width: 1373, height: 55 }],
@@ -181,6 +215,9 @@ test('022 reviewed sections, saved notes, search shortcut and dark mode work res
   await root.getByRole('button', { name: 'Mark Visualization reviewed', exact: true }).click()
   await expect(root.locator('.bm-section-progress')).toContainText('1 of 6 sections')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await root.getByLabel('Branch and bound method notes', { exact: true }).fill('A bound promises; a feasible solution witnesses.')
   await root.getByRole('button', { name: 'Mark Notes reviewed', exact: true }).click()
   await page.reload()

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -16,6 +15,7 @@ import {
   Layers3,
   Lightbulb,
   MapPin,
+  UserRound,
   Moon,
   Pause,
   Pencil,
@@ -35,6 +35,7 @@ import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -53,6 +54,16 @@ import './tsp-branch-mockup.css'
 
 const tr = (s: string) => tx(s, 'studios'),
   tabs: MockupTab[] = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments', 'Notes']
+function TspBars() {
+  return (
+    <svg viewBox="0 0 26 26" fill="currentColor" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <rect x="3" y="13" width="4" height="11" rx="1.5" fillOpacity=".65" />
+      <rect x="11" y="3" width="4" height="21" rx="1.5" fillOpacity=".8" />
+      <rect x="19" y="8" width="4" height="16" rx="1.5" fillOpacity=".65" />
+      <path d="M5 15V22M13 5V22M21 10V22" stroke="white" strokeWidth=".6" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -104,15 +115,16 @@ function Graph({
   city: number | null
   onCity: (city: number | null) => void
 }) {
-  const n = state.matrix.length,
+  const gradient = useId(),
+    n = state.matrix.length,
     points =
       n === 5
         ? [
-            [190, 35],
-            [54, 109],
-            [326, 109],
-            [96, 240],
-            [274, 240],
+            [189, 36],
+            [53, 109],
+            [324, 109],
+            [95, 239],
+            [272, 239],
           ]
         : state.matrix.map((_, i) => [190 + 133 * Math.sin((i * 2 * Math.PI) / n), 139 - 110 * Math.cos((i * 2 * Math.PI) / n)])
   const chosen = (a: number, b: number) => node.path.slice(1).some((to, i) => (node.path[i] === a && to === b) || (node.path[i] === b && to === a))
@@ -120,10 +132,14 @@ function Graph({
     <div className="tp-graph-wrap">
       <svg className="tp-city-graph" viewBox="0 0 380 280" aria-label={tr(`Complete symmetric graph with ${n} cities`)}>
         <defs>
-          <linearGradient id="tp-city-blue" x2="0" y2="1">
-            <stop stopColor="#e7faff" />
+          <radialGradient id={`${gradient}-blue`} cx="35%" cy="30%" r="80%">
+            <stop stopColor="#f9fdff" />
             <stop offset="1" stopColor="#c3e2ff" />
-          </linearGradient>
+          </radialGradient>
+          <radialGradient id={`${gradient}-gold`} cx="35%" cy="30%" r="80%">
+            <stop stopColor="#fff1bd" />
+            <stop offset="1" stopColor="#ffd45d" />
+          </radialGradient>
         </defs>
         {points.flatMap(([x, y], a) =>
           points.slice(a + 1).map(([x2, y2], offset) => {
@@ -161,8 +177,8 @@ function Graph({
             <circle
               cx={x}
               cy={y}
-              r="21"
-              fill={v === state.source ? '#ffd45d' : 'url(#tp-city-blue)'}
+              r="20"
+              fill={`url(#${gradient}-${v === state.source ? 'gold' : 'blue'})`}
               stroke={v === state.source ? '#ffa20a' : city === v ? '#7e34ef' : '#438dff'}
               strokeWidth={city === v ? 3 : 1.2}
             />
@@ -247,22 +263,22 @@ function Tree({ state, selected, onSelect }: { state: TspState; selected: number
             >
               <title>{tourLabel(n.path)}</title>
               <rect
-                x={x - 49}
+                x={x - 51}
                 y={y}
-                width="98"
+                width="102"
                 height={n.path.length > 2 ? 65 : 69}
                 rx="12"
                 fill={pruned ? '#fff2f5' : current ? '#fff7e7' : n.status === 'solution' ? '#e4fbef' : '#f3faff'}
                 stroke={selectedNode ? '#0569ff' : pruned ? '#fa8093' : current ? '#ff9b00' : n.status === 'solution' ? '#19bb7b' : '#83aaff'}
                 strokeWidth={selectedNode ? 2.3 : 1.3}
               />
-              <text x={x} y={y + 20} textAnchor="middle" fontSize="12" fontWeight="650" fill="#133369">
+              <text x={x} y={y + 20} textAnchor="middle" fontSize="13" fontWeight="650" fill="#133369">
                 {n.path.length > 4 ? `${n.path[0] + 1} → … → ${n.path.at(-1)! + 1}` : tourLabel(n.path)}
               </text>
-              <text x={x} y={y + 39} textAnchor="middle" fontSize="12" fill="#133369">
+              <text x={x} y={y + 39} textAnchor="middle" fontSize="13" fill="#133369">
                 {tr(`cost = ${n.lower.cost}`)}
               </text>
-              <text x={x} y={y + 57} textAnchor="middle" fontSize="12" fill="#133369">{`LB = ${n.lower.value}`}</text>
+              <text x={x} y={y + 57} textAnchor="middle" fontSize="13" fill="#133369">{`LB = ${n.lower.value}`}</text>
             </g>
           )
         })}
@@ -465,7 +481,7 @@ export function TspBranchMockupLesson(props: MockupPageProps) {
     <Panel
       title={tr('City Graph (TSP Instance)')}
       subtitle={tr('Complete graph with symmetric distances')}
-      icon={<MapPin />}
+      icon={<UserRound />}
       className="tp-graph"
       action={<b className="tp-city-count">{`n = ${state.matrix.length}`}</b>}
     >
@@ -679,7 +695,7 @@ export function TspBranchMockupLesson(props: MockupPageProps) {
           ))}
         </ol>
       </Panel>
-      <Panel title={tr('Correctness & Complexity')} icon={<BarChart3 />} className="tp-correctness">
+      <Panel title={tr('Correctness & Complexity')} icon={<TspBars />} className="tp-correctness">
         <ul>
           <li>
             <b>{tr('Correctness:')}</b>
@@ -756,7 +772,7 @@ export function TspBranchMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="tp-lesson-header">
         <button className="tp-back" aria-label={tr('Open branch and bound concepts')} onClick={() => navigate('/branch-and-bound/branch-bound-method')}>
@@ -796,7 +812,7 @@ export function TspBranchMockupLesson(props: MockupPageProps) {
       {tab === 'Visualization' ? (
         <section className="tp-visualization">
           <header className="tp-visual-heading">
-            <BarChart3 />
+            <TspBars />
             <div>
               <h2>{tr('Interactive Visualization')}</h2>
               <p>{tr('Explore the branch and bound search tree for the Traveling Salesman Problem using a lower bound on tours.')}</p>
@@ -1091,6 +1107,7 @@ export function TspBranchMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your TSP Learning Notes')} icon={<BookOpen />} className="tp-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain the difference between a partial path, an incumbent tour, and a lower-bound certificate.')}
             <textarea aria-label={tr('TSP learning notes')} rows={8} value={notes} onChange={(e) => setNotes(e.target.value)} />

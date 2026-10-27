@@ -2,7 +2,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  ArrowDown,
   ArrowRight,
   BarChart3,
   BookOpen,
@@ -23,7 +22,6 @@ import {
   Play,
   Plus,
   Search,
-  Target,
   Trophy,
   X,
 } from 'lucide-react'
@@ -32,6 +30,7 @@ import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, type MockupPageProps } from './MockupLessonChrome'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { designCosts, designExamples, designMergeTrace, designRecurrence, designRecommendation, parseDesignArray, type DesignCost } from './divideConquerModel'
 import './divide-conquer-mockup.css'
 
@@ -141,15 +140,15 @@ function HeroArt() {
           <stop offset="1" stopColor="#581bff" />
         </linearGradient>
       </defs>
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i} transform={`translate(0,${-i * 25})`}>
-          <polygon points="73,98 120,73 168,98 120,123" fill={['#914bff', '#848bff', '#7ccfff', '#a7e4ff'][i]} stroke="#b9eaff" />
+      {[0, 1, 2].map((i) => (
+        <g key={i} transform={`translate(0,${-i * 35})`}>
+          <polygon points="73,98 120,73 168,98 120,123" fill={['#914bff', '#7ccfff', '#a7e4ff'][i]} stroke="#b9eaff" />
           <polygon points="73,98 120,123 120,139 73,114" fill={`url(#${id})`} />
           <polygon points="120,123 168,98 168,114 120,139" fill={`url(#${id}-side)`} />
         </g>
       ))}
-      {[18, 45].map((x, i) => (
-        <g key={x} transform={`translate(${x},${i ? 79 : 52})`}>
+      {[27, 27].map((x, i) => (
+        <g key={i} transform={`translate(${x},${i ? 100 : 63})`}>
           <polygon points="0,0 13,-7 26,0 13,8" fill="#b1e9ff" />
           <polygon points="0,0 13,8 13,28 0,20" fill="#82d7ff" />
           <polygon points="13,8 26,0 26,20 13,28" fill="#41b8ff" />
@@ -174,6 +173,22 @@ function DesignIcon() {
     </svg>
   )
 }
+function DesignGoal() {
+  return (
+    <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="14" r="9" />
+      <circle cx="12" cy="14" r="4.5" />
+      <path d="M12 14L24 2M18 2H24V8" />
+    </svg>
+  )
+}
+function DesignArrow({ down = false }: { down?: boolean }) {
+  return (
+    <svg viewBox={down ? '0 0 20 28' : '0 0 40 20'} fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+      <path d={down ? 'M10 1V26M5 19L10 26L15 19' : 'M1 10H38M30 5L38 10L30 15'} />
+    </svg>
+  )
+}
 function formatWork(value: number) {
   const rounded = Number(value.toPrecision(6))
   return `${rounded === value ? '' : '≈ '}${Math.abs(rounded) >= 1e8 ? rounded.toExponential(5) : rounded}`
@@ -184,9 +199,35 @@ function FrameworkDiagram({ phase, a, b }: { phase: number; a: number; b: number
     color = phase === 0 ? '#0679ff' : phase === 1 ? '#7d33ff' : '#08a35a'
   const rect = (x: number, y: number, w: number, h: number, label: string) => (
     <g key={`${x}-${y}`}>
-      <rect x={x} y={y} width={w} height={h} rx="6" fill={phase === 2 ? '#e1faed' : phase === 1 ? '#eee2ff' : '#e4f3ff'} stroke={color} strokeOpacity=".6" />
-      <text x={x + w / 2} y={y + h / 2 + 4} textAnchor="middle" fontSize="11" fill={phase === 2 ? '#006d3b' : phase === 1 ? '#4b11bd' : '#0751aa'}>
-        {label}
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        rx="6"
+        fill={phase === 2 && label === 'Combine' ? '#e1faed' : phase === 1 ? '#eee2ff' : '#e4f3ff'}
+        stroke={phase === 2 && label !== 'Combine' ? '#0679ff' : color}
+        strokeOpacity=".6"
+      />
+      <text
+        x={x + w / 2}
+        y={y + h / 2 + 4}
+        textAnchor="middle"
+        fontSize="11"
+        fill={phase === 2 && label === 'Combine' ? '#006d3b' : phase === 1 ? '#4b11bd' : '#0751aa'}
+      >
+        {phase === 2 && /^(Left|Right) solution$/.test(label) ? (
+          <>
+            <tspan x={x + w / 2} dy="-7">
+              {tr(label.split(' ')[0])}
+            </tspan>
+            <tspan x={x + w / 2} dy="14">
+              {tr('solution')}
+            </tspan>
+          </>
+        ) : (
+          label
+        )}
       </text>
     </g>
   )
@@ -203,10 +244,10 @@ function FrameworkDiagram({ phase, a, b }: { phase: number; a: number; b: number
       </defs>
       {phase < 2 ? (
         <>
-          {rect(45, 0, 90, 33, phase === 0 ? 'Problem (n)' : 'T(n)')}
+          {rect(40, 0, 100, 33, phase === 0 ? 'Problem (n)' : 'T(n)')}
           {Array.from({ length: count }, (_, i) => {
-            const width = count === 3 ? 49 : count === 2 ? 57 : 70,
-              x = 5 + (i * 170) / count + (170 / count - width) / 2
+            const width = count >= 2 ? 49 : 70,
+              x = count >= 2 ? 5 + i * 58 : 55
             return (
               <g key={i}>
                 <path d={`M90 33Q90 47 ${x + width / 2} 59`} fill="none" stroke={color} strokeWidth="1.2" markerEnd={`url(#${marker})`} />
@@ -227,14 +268,14 @@ function FrameworkDiagram({ phase, a, b }: { phase: number; a: number; b: number
               x = 3 + (i * 174) / count + (174 / count - width) / 2
             return (
               <g key={i}>
-                {rect(x, 0, width, 36, a === 2 ? (i === 0 ? 'Left solution' : 'Right solution') : `Solution ${i + 1}`)}
-                <path d={`M${x + width / 2} 36L90 55`} fill="none" stroke={color} markerEnd={`url(#${marker})`} />
+                {rect(x, 0, width, 41, a === 2 ? (i === 0 ? 'Left solution' : 'Right solution') : `Solution ${i + 1}`)}
+                <path d={`M${x + width / 2} 41L90 55`} fill="none" stroke={color} markerEnd={`url(#${marker})`} />
               </g>
             )
           })}
-          {rect(46, 58, 88, 27, 'Combine')}
-          <path d="M90 85V98" stroke={color} markerEnd={`url(#${marker})`} />
-          {rect(37, 101, 106, 18, 'Final solution')}
+          {rect(46, 58, 88, 29, 'Combine')}
+          <path d="M90 87V103" stroke={color} markerEnd={`url(#${marker})`} />
+          {rect(37, 106, 106, 28, 'Final solution')}
           {a > 3 && (
             <text x="163" y="48" fontSize="15" fill={color}>
               ⋯
@@ -375,7 +416,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
     <Panel
       title={tr('When to Use Divide and Conquer?')}
       description="A quick guide to identify if the design method fits."
-      icon={<Target />}
+      icon={<DesignGoal />}
       className="dm-flow"
     >
       <div className="dm-flow-body">
@@ -394,7 +435,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
                 onClick={() => setAnswers((previous) => previous.map((answer, j) => (i === j ? false : answer)))}
               >
                 <span>{tr('No')}</span>
-                <ArrowRight />
+                <DesignArrow />
               </button>
               <div className="dm-no-result">
                 {tr(i === 0 ? 'Not suitable (for Divide and Conquer)' : i === 1 ? 'Consider Dynamic Programming' : 'Redesign or use another paradigm')}
@@ -407,7 +448,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
               disabled={decision.firstNo >= 0 && i > decision.firstNo}
               onClick={() => setAnswers((previous) => previous.map((answer, j) => (i === j ? true : answer)))}
             >
-              <ArrowDown />
+              <DesignArrow down />
               <span>{tr('Yes')}</span>
             </button>
           </div>
@@ -547,7 +588,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
   )
   const bottom = (
     <div className="dm-bottom-grid">
-      <Panel title={tr('Concept and Intuition')} icon={<Target />} className="dm-intuition">
+      <Panel title={tr('Concept and Intuition')} icon={<DesignGoal />} className="dm-intuition">
         <p>
           {tr(
             'Divide and conquer breaks a problem into smaller subproblems of the same type, solves them recursively, and combines their solutions. Direct base cases and decreasing input size ensure termination. Typical examples include merge sort, binary search, and maximum subarray.',
@@ -828,6 +869,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
     <div className="mom-page divide-method-page target-visual" data-target="18">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Divide and Conquer: Design Method')}
         description="Solve smaller instances and prove the combine step to build efficient algorithms."
         concepts={6}
@@ -939,6 +981,7 @@ export function DivideConquerMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <Panel title={tr('Your Design Notes')} icon={<FileText />} className="dm-exercise">
+          <LanguageSelector />
           <label htmlFor="dm-notes">{tr('Record the split, base cases, recursive contract, combine proof, and cost recurrence.')}</label>
           <textarea id="dm-notes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={12} />
           <p>{tr('Saved in this browser.')}</p>

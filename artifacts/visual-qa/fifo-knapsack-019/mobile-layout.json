@@ -1,0 +1,156 @@
+[
+  {
+    "className": "mom-hero",
+    "x": 10,
+    "y": 112,
+    "width": 373,
+    "height": 231,
+    "top": 112,
+    "right": 383,
+    "bottom": 343,
+    "left": 10
+  },
+  {
+    "className": "mom-tabs",
+    "x": 10,
+    "y": 353,
+    "width": 373,
+    "height": 73,
+    "top": 353,
+    "right": 383,
+    "bottom": 426,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-overview",
+    "x": 10,
+    "y": 436,
+    "width": 373,
+    "height": 221,
+    "top": 436,
+    "right": 383,
+    "bottom": 657,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-items",
+    "x": 10,
+    "y": 665,
+    "width": 373,
+    "height": 254,
+    "top": 665,
+    "right": 383,
+    "bottom": 919,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-tree-panel",
+    "x": 10,
+    "y": 927,
+    "width": 373,
+    "height": 365,
+    "top": 927,
+    "right": 383,
+    "bottom": 1292,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-incumbent",
+    "x": 10,
+    "y": 1300,
+    "width": 373,
+    "height": 174,
+    "top": 1300,
+    "right": 383,
+    "bottom": 1474,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-details",
+    "x": 10,
+    "y": 1482,
+    "width": 373,
+    "height": 174,
+    "top": 1482,
+    "right": 383,
+    "bottom": 1656,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-worked",
+    "x": 10,
+    "y": 1664,
+    "width": 373,
+    "height": 179,
+    "top": 1664,
+    "right": 383,
+    "bottom": 1843,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-queue",
+    "x": 10,
+    "y": 1851,
+    "width": 373,
+    "height": 174,
+    "top": 1851,
+    "right": 383,
+    "bottom": 2025,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-bound",
+    "x": 10,
+    "y": 2034,
+    "width": 373,
+    "height": 258.5625,
+    "top": 2034,
+    "right": 383,
+    "bottom": 2292.5625,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel fk-takeaways",
+    "x": 10,
+    "y": 2301.5625,
+    "width": 373,
+    "height": 178,
+    "top": 2301.5625,
+    "right": 383,
+    "bottom": 2479.5625,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 10,
+    "y": 2488.5625,
+    "width": 373,
+    "height": 100,
+    "top": 2488.5625,
+    "right": 383,
+    "bottom": 2588.5625,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 10,
+    "y": 2596.5625,
+    "width": 373,
+    "height": 100,
+    "top": 2596.5625,
+    "right": 383,
+    "bottom": 2696.5625,
+    "left": 10
+  },
+  {
+    "className": "mom-panel fk-panel ",
+    "x": 10,
+    "y": 2704.5625,
+    "width": 373,
+    "height": 100,
+    "top": 2704.5625,
+    "right": 383,
+    "bottom": 2804.5625,
+    "left": 10
+  }
+]

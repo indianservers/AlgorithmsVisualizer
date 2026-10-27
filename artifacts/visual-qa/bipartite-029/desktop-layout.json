@@ -1,0 +1,121 @@
+[
+  {
+    "className": "bp-panel bp-original-panel",
+    "x": 299,
+    "y": 261,
+    "width": 487,
+    "height": 367
+  },
+  {
+    "className": "bp-panel bp-animation-panel",
+    "x": 800,
+    "y": 261,
+    "width": 398,
+    "height": 367
+  },
+  {
+    "className": "bp-path-explanation",
+    "x": 815,
+    "y": 514,
+    "width": 368,
+    "height": 92
+  },
+  {
+    "className": "bp-panel bp-steps-panel",
+    "x": 299,
+    "y": 640,
+    "width": 899,
+    "height": 141
+  },
+  {
+    "className": "",
+    "x": 350,
+    "y": 672,
+    "width": 205,
+    "height": 100
+  },
+  {
+    "className": "",
+    "x": 567,
+    "y": 672,
+    "width": 226,
+    "height": 100
+  },
+  {
+    "className": "",
+    "x": 805,
+    "y": 672,
+    "width": 198,
+    "height": 100
+  },
+  {
+    "className": "",
+    "x": 1015,
+    "y": 672,
+    "width": 142,
+    "height": 100
+  },
+  {
+    "className": "bp-panel bp-result-panel",
+    "x": 1211,
+    "y": 261,
+    "width": 434,
+    "height": 291
+  },
+  {
+    "className": "bp-panel bp-current-panel",
+    "x": 1211,
+    "y": 562,
+    "width": 434,
+    "height": 141
+  },
+  {
+    "className": "bp-panel bp-controls",
+    "x": 1211,
+    "y": 703,
+    "width": 434,
+    "height": 86
+  },
+  {
+    "className": "bp-control-buttons",
+    "x": 1255,
+    "y": 726,
+    "width": 377,
+    "height": 32
+  },
+  {
+    "className": "bp-speed",
+    "x": 1255,
+    "y": 763,
+    "width": 377,
+    "height": 14
+  },
+  {
+    "className": "bp-panel bp-takeaways",
+    "x": 298,
+    "y": 791,
+    "width": 304.53125,
+    "height": 183
+  },
+  {
+    "className": "bp-panel bp-worked",
+    "x": 614.53125,
+    "y": 791,
+    "width": 351.46875,
+    "height": 183
+  },
+  {
+    "className": "bp-panel bp-proof",
+    "x": 978,
+    "y": 791,
+    "width": 330.484375,
+    "height": 183
+  },
+  {
+    "className": "bp-panel bp-pitfalls",
+    "x": 1320.484375,
+    "y": 791,
+    "width": 325.515625,
+    "height": 183
+  }
+]

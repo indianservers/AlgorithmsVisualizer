@@ -1,0 +1,178 @@
+[
+  {
+    "className": "mom-panel dm-panel dm-framework",
+    "x": 12,
+    "y": 476.59375,
+    "width": 369,
+    "height": 1174.03125,
+    "top": 476.59375,
+    "right": 381,
+    "bottom": 1650.625,
+    "left": 12
+  },
+  {
+    "className": "dm-stage dm-stage-0",
+    "x": 27,
+    "y": 562.28125,
+    "width": 339,
+    "height": 346.78125,
+    "top": 562.28125,
+    "right": 366,
+    "bottom": 909.0625,
+    "left": 27
+  },
+  {
+    "className": "dm-stage dm-stage-1",
+    "x": 27,
+    "y": 929.0625,
+    "width": 339,
+    "height": 346.78125,
+    "top": 929.0625,
+    "right": 366,
+    "bottom": 1275.84375,
+    "left": 27
+  },
+  {
+    "className": "dm-stage dm-stage-2",
+    "x": 27,
+    "y": 1295.84375,
+    "width": 339,
+    "height": 339.78125,
+    "top": 1295.84375,
+    "right": 366,
+    "bottom": 1635.625,
+    "left": 27
+  },
+  {
+    "className": "mom-panel dm-panel dm-flow",
+    "x": 12,
+    "y": 1660.125,
+    "width": 369,
+    "height": 398,
+    "top": 1660.125,
+    "right": 381,
+    "bottom": 2058.125,
+    "left": 12
+  },
+  {
+    "className": "dm-question",
+    "x": 28,
+    "y": 1742.625,
+    "width": 199.265625,
+    "height": 57,
+    "top": 1742.625,
+    "right": 227.265625,
+    "bottom": 1799.625,
+    "left": 28
+  },
+  {
+    "className": "dm-no-result",
+    "x": 272.140625,
+    "y": 1736.125,
+    "width": 92.859375,
+    "height": 70,
+    "top": 1736.125,
+    "right": 365,
+    "bottom": 1806.125,
+    "left": 272.140625
+  },
+  {
+    "className": "dm-question",
+    "x": 28,
+    "y": 1828.625,
+    "width": 199.265625,
+    "height": 57,
+    "top": 1828.625,
+    "right": 227.265625,
+    "bottom": 1885.625,
+    "left": 28
+  },
+  {
+    "className": "dm-no-result",
+    "x": 272.140625,
+    "y": 1822.125,
+    "width": 92.859375,
+    "height": 70,
+    "top": 1822.125,
+    "right": 365,
+    "bottom": 1892.125,
+    "left": 272.140625
+  },
+  {
+    "className": "dm-question",
+    "x": 28,
+    "y": 1914.625,
+    "width": 199.265625,
+    "height": 57,
+    "top": 1914.625,
+    "right": 227.265625,
+    "bottom": 1971.625,
+    "left": 28
+  },
+  {
+    "className": "dm-no-result",
+    "x": 272.140625,
+    "y": 1908.125,
+    "width": 92.859375,
+    "height": 70,
+    "top": 1908.125,
+    "right": 365,
+    "bottom": 1978.125,
+    "left": 272.140625
+  },
+  {
+    "className": "mom-panel dm-panel dm-principles",
+    "x": 12,
+    "y": 2067.625,
+    "width": 369,
+    "height": 416.5625,
+    "top": 2067.625,
+    "right": 381,
+    "bottom": 2484.1875,
+    "left": 12
+  },
+  {
+    "className": "mom-panel dm-panel dm-builder",
+    "x": 12,
+    "y": 2496.1875,
+    "width": 369,
+    "height": 380.78125,
+    "top": 2496.1875,
+    "right": 381,
+    "bottom": 2876.96875,
+    "left": 12
+  },
+  {
+    "className": "mom-panel dm-panel dm-examples",
+    "x": 12,
+    "y": 2888.96875,
+    "width": 369,
+    "height": 515.6875,
+    "top": 2888.96875,
+    "right": 381,
+    "bottom": 3404.65625,
+    "left": 12
+  },
+  {
+    "className": "mom-panel dm-panel dm-intuition",
+    "x": 12,
+    "y": 3416.65625,
+    "width": 369,
+    "height": 190.46875,
+    "top": 3416.65625,
+    "right": 381,
+    "bottom": 3607.125,
+    "left": 12
+  },
+  {
+    "className": "mom-panel dm-panel dm-checklist",
+    "x": 12,
+    "y": 3619.125,
+    "width": 369,
+    "height": 212,
+    "top": 3619.125,
+    "right": 381,
+    "bottom": 3831.125,
+    "left": 12
+  }
+]

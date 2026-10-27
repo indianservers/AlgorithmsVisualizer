@@ -1,0 +1,123 @@
+[
+  {
+    "className": "bm-lesson-header",
+    "x": 10,
+    "y": 111,
+    "width": 373,
+    "height": 249.28125,
+    "top": 111,
+    "right": 383,
+    "bottom": 360.28125,
+    "left": 10
+  },
+  {
+    "className": "bm-panel bm-tree-panel",
+    "x": 21,
+    "y": 677.671875,
+    "width": 351,
+    "height": 459,
+    "top": 677.671875,
+    "right": 372,
+    "bottom": 1136.671875,
+    "left": 21
+  },
+  {
+    "className": "bm-panel bm-bound-panel",
+    "x": 21,
+    "y": 1145.671875,
+    "width": 351,
+    "height": 459,
+    "top": 1145.671875,
+    "right": 372,
+    "bottom": 1604.671875,
+    "left": 21
+  },
+  {
+    "className": "bm-panel bm-rules-panel",
+    "x": 21,
+    "y": 1613.671875,
+    "width": 351,
+    "height": 848.171875,
+    "top": 1613.671875,
+    "right": 372,
+    "bottom": 2461.84375,
+    "left": 21
+  },
+  {
+    "className": "bm-rule-card bm-rule-max",
+    "x": 34,
+    "y": 1673.671875,
+    "width": 325,
+    "height": 194,
+    "top": 1673.671875,
+    "right": 359,
+    "bottom": 1867.671875,
+    "left": 34
+  },
+  {
+    "className": "bm-rule-card bm-rule-min",
+    "x": 34,
+    "y": 1879.671875,
+    "width": 325,
+    "height": 194,
+    "top": 1879.671875,
+    "right": 359,
+    "bottom": 2073.671875,
+    "left": 34
+  },
+  {
+    "className": "bm-order-grid",
+    "x": 34,
+    "y": 2148.84375,
+    "width": 325,
+    "height": 302,
+    "top": 2148.84375,
+    "right": 359,
+    "bottom": 2450.84375,
+    "left": 34
+  },
+  {
+    "className": "bm-panel bm-takeaways",
+    "x": 10,
+    "y": 2478.84375,
+    "width": 373,
+    "height": 191.375,
+    "top": 2478.84375,
+    "right": 383,
+    "bottom": 2670.21875,
+    "left": 10
+  },
+  {
+    "className": "bm-panel bm-worked",
+    "x": 10,
+    "y": 2680.21875,
+    "width": 373,
+    "height": 188,
+    "top": 2680.21875,
+    "right": 383,
+    "bottom": 2868.21875,
+    "left": 10
+  },
+  {
+    "className": "bm-panel bm-correctness",
+    "x": 10,
+    "y": 2878.21875,
+    "width": 373,
+    "height": 188,
+    "top": 2878.21875,
+    "right": 383,
+    "bottom": 3066.21875,
+    "left": 10
+  },
+  {
+    "className": "bm-panel bm-pitfalls",
+    "x": 10,
+    "y": 3076.21875,
+    "width": 373,
+    "height": 188,
+    "top": 3076.21875,
+    "right": 383,
+    "bottom": 3264.21875,
+    "left": 10
+  }
+]

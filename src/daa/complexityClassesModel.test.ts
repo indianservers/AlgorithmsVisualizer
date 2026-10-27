@@ -32,6 +32,9 @@ describe('complexity class explorer and real certificate verifiers', () => {
       expect(point.NP).toBe(true)
       expect(point['NP-Hard']).toBe(true)
       expect(point.P).toBe(false)
+      const pRegion = complexityMapRegions.p,
+        pBoundary = complexityMapMembership(pRegion.cx + pRegion.rx * 0.999 * Math.cos(angle), pRegion.cy + pRegion.ry * 0.999 * Math.sin(angle))
+      expect(pBoundary).toEqual({ P: true, NP: true, 'NP-Hard': false, 'NP-Complete': false })
     }
   })
   it('keeps decision and optimization classifications distinct without claiming P ≠ NP', () => {

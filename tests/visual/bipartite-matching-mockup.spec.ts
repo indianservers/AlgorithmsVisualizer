@@ -1,10 +1,12 @@
 import { test, expect, type Page } from '@playwright/test'
 import { matchingGraph } from '../../src/daa/bipartiteMatchingModel'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const root = (p: Page) => p.locator('.bipartite-matching-page'),
   button = (p: Page, name: string) => root(p).getByRole('button', { name, exact: true }),
   tab = (p: Page, name: string) => button(p, name).click(),
   close = (p: Page) => button(p, 'Close matching dialog').click()
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -12,6 +14,41 @@ test.beforeEach(async ({ page }) => {
   })
   await page.goto('/daa-extensions/bipartite-matching')
   await expect(root(page)).toBeVisible()
+})
+
+test('029 preserves panel geometry after visiting bin packing and returning', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'Reference geometry applies to desktop.')
+  const panel = root(page).locator('.bp-original-panel')
+  const before = await panel.boundingBox()
+  const styles = () =>
+    root(page)
+      .locator('.bp-icon, .bp-progress, .bp-panel, .bp-dialog')
+      .evaluateAll((elements) =>
+        elements.map((element) => {
+          const style = getComputedStyle(element)
+          return [style.padding, style.background, style.fontSize, style.width, style.height, style.display]
+        }),
+      )
+  const beforeStyles = await styles()
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/bin-packing"]').click()
+  await expect(page.locator('.bin-packing-page')).toBeVisible()
+  const binStyles = () =>
+    page.locator('.bin-packing-page .bp-panel, .bin-packing-page .bp-progress').evaluateAll((elements) =>
+      elements.map((element) => {
+        const style = getComputedStyle(element)
+        return [style.padding, style.background, style.fontSize, style.width, style.height]
+      }),
+    )
+  const beforeBinStyles = await binStyles()
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/bipartite-matching"]').click()
+  await expect(root(page)).toBeVisible()
+  const after = await panel.boundingBox()
+  for (const key of ['width', 'height'] as const) expect(Math.abs(after![key] - before![key])).toBeLessThanOrEqual(1)
+  expect(await styles()).toEqual(beforeStyles)
+  await expect(root(page).locator('.bp-current-panel pre')).toHaveText('(1, 4)\n(2, 5)\n(3, 6)')
+  await page.locator('.sidebar-algorithm[href="/daa-extensions/bin-packing"]').click()
+  await expect(page.locator('.bin-packing-page')).toBeVisible()
+  expect(await binStyles()).toEqual(beforeBinStyles)
 })
 test('029 includes all reference panels, exact desktop anchors and genuine before/after matchings', async ({ page }, info) => {
   if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
@@ -36,6 +73,17 @@ test('029 includes all reference panels, exact desktop anchors and genuine befor
   await expect(root(page).locator('.bp-before-diagram .bp-path-edge')).toHaveCount(1)
   await expect(root(page).locator('.bp-current-panel pre')).toHaveText('(1, 4)\n(2, 5)\n(3, 6)')
   await expect(root(page).locator('.bp-result-status')).toContainText('Perfect matching found')
+  mkdirSync('artifacts/visual-qa/bipartite-029', { recursive: true })
+  await page.screenshot({ path: `artifacts/visual-qa/bipartite-029/${info.project.name}-default.png`, fullPage: false })
+  const layout = await root(page)
+    .locator('.bp-panel, .bp-stage-track button, .bp-path-explanation, .bp-control-buttons, .bp-speed')
+    .evaluateAll((elements) =>
+      elements.map((element) => {
+        const box = element.getBoundingClientRect()
+        return { className: element.className, x: box.x, y: box.y, width: box.width, height: box.height }
+      }),
+    )
+  writeFileSync(`artifacts/visual-qa/bipartite-029/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop')
     for (const [selector, expected] of [
       ['.bp-lesson-header', { x: 280, y: 55, width: 1380, height: 70 }],
@@ -59,6 +107,8 @@ test('029 includes all reference panels, exact desktop anchors and genuine befor
       .locator('.bp-stage-track button > i')
       .evaluateAll((elements) => elements.map((e) => e.getBoundingClientRect().top))
     expect(Math.max(...tops) - Math.min(...tops)).toBeLessThanOrEqual(1)
+    const firstTitle = await root(page).locator('.bp-stage-track b').first().boundingBox()
+    expect(Math.abs(firstTitle!.y - 706)).toBeLessThanOrEqual(2)
   }
 })
 test('029 replays all four stages, updates current matching on flip and respects boundaries', async ({ page }) => {
@@ -200,6 +250,9 @@ test('029 theory, code, prediction and notes are usable and persistent', async (
   await button(page, 'Search every free vertex in U').click()
   await expect(root(page).getByRole('status')).toContainText('another free vertex')
   await tab(page, 'Notes')
+  await button(page, 'Language: English (India)').click()
+  await expect(page.getByRole('dialog', { name: 'Choose language', exact: true })).toBeVisible()
+  await page.getByRole('dialog', { name: 'Choose language', exact: true }).getByRole('button', { name: 'Close', exact: true }).click()
   await root(page).getByLabel('Bipartite matching notes').fill('Alternate unmatched and matched edges; start and finish free.')
   await button(page, 'Mark section reviewed').click()
   await page.reload()
@@ -229,7 +282,7 @@ test('029 maximum partition sizes, dark mode and narrow screens remain within vi
   await tab(page, 'Notes')
   await button(page, 'Toggle color theme').click()
   await tab(page, 'Visualization')
-  for (const width of info.project.name === 'desktop' ? [1280, 1024, 768] : [393, 320]) {
+  for (const width of info.project.name === 'desktop' ? [1672, 1280, 1024, 768] : [393, 320]) {
     await page.setViewportSize({ width, height: 941 })
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
     await expect(button(page, 'Step Forward')).toBeVisible()

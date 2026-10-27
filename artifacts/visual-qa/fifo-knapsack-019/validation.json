@@ -1,0 +1,80 @@
+{
+  "target": 19,
+  "route": "/branch-and-bound/knapsack-fifo",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/019--branch-and-bound--0-1-knapsack-fifo-branch-and-bound.png",
+  "previousGoalTurnClassification": "Progress: fixed shared-style navigation regressions affecting targets 008, 009, 033 and 039, with 808 unit tests and 78 production-browser cases passed.",
+  "status": "Native visuals improved; full 45-target objective remains incomplete.",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "beforeMeanAbsoluteRgbError": 13.3319,
+  "afterMeanAbsoluteRgbError": 12.7585,
+  "metricMeaning": "Mean absolute RGB-channel difference, not a fidelity percentage.",
+  "refinements": [
+    "Refined the native SVG backpack, pocket, handle, straps and decorative tree; target raster pixels are not used by the application.",
+    "Aligned the hero title, badge scale, study/account controls and tab widths/icons more closely with the reference.",
+    "Moved language selection to the learning-notes area in Experiments and verified its dialog.",
+    "Increased item-table and queue-header typography, bound explanation, worked steps, takeaway text and playback control sizes.",
+    "Added a native stacked queue icon and trophy marker for the actual best feasible node.",
+    "Adjusted node-detail spacing and sidebar indentation; preserved every measured dashboard panel anchor.",
+    "Captured default desktop/mobile screenshots and bounding-box metadata before assertions."
+  ],
+  "referenceClarifications": [
+    "With capacity 5, item 1 has weight 2 and profit 3, and item 2 has weight 3 and profit 4. They fill the capacity exactly, so the root fractional bound is 7; the illustrated 7.5 would add an infeasible extra fraction.",
+    "The queue is derived from actual FIFO operations. A dequeued node is not shown as still queued, and dominated queued entries remain Pending prune until processed.",
+    "Nodes Explored counts processed nodes (4 in the displayed snapshot), while the tree contains 7 generated nodes.",
+    "The worked trace, node details, upper-bound calculation and incumbent all derive from the same snapshot.",
+    "The implementation retains its actual linear bound scan, sorted frontier and stored-decision complexity explanation rather than claiming a heap-based implementation."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed: lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and bundle budget for 73 chunks.",
+    "finalTestLint": "Passed after extending responsive browser assertions.",
+    "developmentBrowser": {
+      "passed": 19,
+      "skipped": 1,
+      "scope": "019 lesson and reference capture/inventory."
+    },
+    "productionBrowser": {
+      "passed": 40,
+      "skipped": 2,
+      "scope": "019 and 020 native lessons plus target captures and reference inventories."
+    },
+    "skipReason": "Reference inventory evidence runs once on desktop.",
+    "geometry": "Eight reference anchors checked within two pixels; node details, all worked steps, takeaway content and footer teaching content fit within their panels.",
+    "responsive": "Document containment and reachable Step Forward control verified at 1672, 1440, 1280, 1024, 768, 393 and 320 pixel widths.",
+    "interactions": [
+      "FIFO-only dequeue order",
+      "Replay, pause, reset and exhaustive certification",
+      "Keyboard node selection",
+      "Fractional-fill recomputation",
+      "Computation and bound explanation dialogs",
+      "Editable item inputs, validation and original IDs after sorting",
+      "Zero-capacity example",
+      "Infeasible-node handling",
+      "Prediction challenges",
+      "Generated-node inspection",
+      "Language selection dialog",
+      "Saved notes",
+      "Dark and medium/narrow layouts",
+      "Best-First Knapsack regression coverage"
+    ]
+  },
+  "evidence": [
+    "desktop-learn.png",
+    "mobile-learn.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../pixel-audit/019--overlay.png",
+    "../pixel-audit/019--difference.png"
+  ],
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "Every target still has nonzero pixel differences. Preserve the full original objective; no 100% completion claim is supported."
+}

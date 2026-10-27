@@ -1,0 +1,82 @@
+{
+  "target": 18,
+  "route": "/divide-and-conquer/divide-conquer-method",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/018--divide-and-conquer--divide-and-conquer-design-method.png",
+  "previousGoalTurnClassification": "Progress: target 023 native colors, diagram labels, icons and sidebar improved; 808 unit tests and 85 production-browser checks passed.",
+  "status": "Visual differences remain; the full 45-target objective is incomplete.",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "beforeMeanAbsoluteRgbError": 13.532,
+  "afterMeanAbsoluteRgbError": 12.6584,
+  "metricMeaning": "Mean absolute RGB-channel difference, not a fidelity percentage.",
+  "refinements": [
+    "Redrew the native hero stack with three layers and aligned the two cubes vertically; enlarged the outline design icon.",
+    "Matched hero title scale, badge sizes, account controls and sidebar dimensions more closely; moved language selection to Notes and verified its dialog.",
+    "Improved dashboard body, stage, principle and example typography without dropping any teaching panel.",
+    "Aligned divide/conquer parent and child boxes, kept the actual recurrence branch count, and split left/right solution labels onto two lines.",
+    "Styled blue subproblem inputs and final output around the green combine operation.",
+    "Moved the decision flow up to reference positions, replaced short letterboxed arrows with native arrows filling the intended bounds, and added target-with-arrow icons.",
+    "Aligned stage captions to the reference bottoms and checked that the combine diagram does not overlap its caption on desktop or mobile.",
+    "Saved current desktop/mobile panel geometry and rendered evidence before layout assertions."
+  ],
+  "referenceClarifications": [
+    "The recurrence input a drives the actual branch count. At a=2, the diagrams show two children; extra branches or ellipses suggesting additional recursive calls are not inserted just to copy the sketch.",
+    "Canonical examples retain mathematically correct recurrence bounds and real parameter changes.",
+    "The flowchart remains design advice, with separate base-case, combine-contract and cost-model explanations."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed: lint, localization, 808 tests / 66 files, TypeScript, production build, 394 prerendered pages and bundle budget for 73 chunks.",
+    "finalArtworkAndCss": "Scoped ESLint passed; fresh Vite build, prerender and bundle verification passed after the final SVG color and CSS spacing changes.",
+    "productionRegression": {
+      "passed": 38,
+      "skipped": 2,
+      "scope": "018 and 023 native lesson specs plus numbered target captures and reference inventories."
+    },
+    "finalProduction": {
+      "passed": 19,
+      "skipped": 1,
+      "scope": "018 native lesson spec plus target capture and inventory, desktop and mobile."
+    },
+    "skipReason": "Reference inventory evidence is captured once on desktop.",
+    "geometry": "Eight reference panel anchors checked within two pixels. The last teaching panel fits within the 941px reference viewport; stage captions stay in their cards and the final solution box stays above its caption.",
+    "responsive": "Document containment and reachable header controls verified at 1672, 1280, 1024, 768, 393 and 320 pixel widths.",
+    "interactions": [
+      "Recurrence inputs and boundary validation",
+      "Design flow yes/no branches",
+      "Stage and principle explanation dialogs",
+      "Canonical examples and parameter loading",
+      "Editable arrays including empty and invalid input",
+      "Real merge playback and comparison counts",
+      "Keyboard subproblem inspection",
+      "Modeled recursion-depth costs distinguished from actual comparisons",
+      "Prediction and quiz feedback",
+      "Persistent checklist and notes",
+      "Language selection",
+      "Canonical route navigation",
+      "Dark theme"
+    ],
+    "resolvedDuringVerification": [
+      "Restored the fixed reference panel height after larger typography caused expansion.",
+      "Removed a mobile final-solution/caption overlap discovered by the new bounding-box assertion."
+    ]
+  },
+  "evidence": [
+    "desktop-learn.png",
+    "mobile-learn.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../pixel-audit/018--overlay.png",
+    "../pixel-audit/018--difference.png"
+  ],
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "No exact-match completion claim is supported. Preserve the full goal across all 45 references."
+}

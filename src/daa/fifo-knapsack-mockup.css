@@ -1280,3 +1280,127 @@
     font-size: 13px;
   }
 }
+/* Reference 019: preserve computed bounds and queue state while refining presentation. */
+@media (min-width: 1500px) {
+  .fifo-knapsack-page {
+    font-family: Arial, sans-serif;
+  }
+  .fifo-knapsack-page .mom-hero {
+    font-family: system-ui, sans-serif;
+  }
+  .fifo-knapsack-page .mom-hero-title {
+    transform: translateY(-4px);
+  }
+  .fifo-knapsack-page .mom-hero h1 {
+    font-size: 31.7px;
+  }
+  .fifo-knapsack-page .mom-badges span {
+    font-size: 12px;
+    padding-inline: 14px;
+  }
+  .fifo-knapsack-page .mom-study {
+    width: 118px;
+    padding-inline: 8px;
+    justify-content: center;
+  }
+  .fifo-knapsack-page #account-trigger {
+    width: 178px;
+    gap: 6px;
+    padding-inline: 9px;
+  }
+  .fifo-knapsack-page #account-label {
+    font-size: 11.5px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+  .fifo-knapsack-page .account-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .fifo-knapsack-page .mom-tabs {
+    gap: 9px;
+  }
+  .fifo-knapsack-page .mom-tabs button {
+    font-size: 13px;
+  }
+  .fifo-knapsack-page .mom-tabs button:first-child {
+    min-width: 118px;
+  }
+  .fifo-knapsack-page .mom-tabs button:nth-child(2) {
+    min-width: 145px;
+  }
+  .fifo-knapsack-page .mom-tabs button:nth-child(3) {
+    min-width: 109px;
+  }
+  .fifo-knapsack-page .mom-tabs button:nth-child(4) {
+    min-width: 126px;
+  }
+  .fifo-knapsack-page .mom-tabs button:nth-child(5) {
+    min-width: 141px;
+  }
+  .fifo-knapsack-page .fk-items th {
+    font-size: 11px;
+  }
+  .fifo-knapsack-page .fk-items td {
+    font-size: 13px;
+  }
+  .fifo-knapsack-page .fk-queue h2 {
+    font-size: 14px;
+  }
+  .fifo-knapsack-page .fk-queue th {
+    font-size: 10px;
+  }
+  .fifo-knapsack-page .fk-queue-status {
+    font-size: 11px;
+  }
+  .fifo-knapsack-page .fk-bound-tabs button {
+    font-size: 11px;
+  }
+  .fifo-knapsack-page .fk-equation {
+    font-size: 20px;
+  }
+  .fifo-knapsack-page .fk-bound-tip {
+    font-size: 13px !important;
+    line-height: 18px !important;
+  }
+  .fifo-knapsack-page .fk-details dl {
+    margin-top: 12px;
+  }
+  .fifo-knapsack-page .fk-details dd:nth-child(2) {
+    font-size: 12px;
+  }
+  .fifo-knapsack-page .fk-worked li {
+    font-size: 13px;
+    line-height: 17px;
+  }
+  .fifo-knapsack-page .fk-takeaways li {
+    font-size: 13px;
+    line-height: 17px;
+  }
+  .fifo-knapsack-page .fk-controls button {
+    font-size: 12px;
+  }
+  .fifo-knapsack-page .fk-controls button:first-child {
+    min-width: 133px;
+  }
+  .fifo-knapsack-page .fk-controls button:nth-child(2) {
+    min-width: 115px;
+  }
+  .fifo-knapsack-page .fk-controls button:nth-child(3) {
+    min-width: 90px;
+  }
+  .fifo-knapsack-page .fk-stats span {
+    font-size: 11px;
+  }
+  .app-shell:has(.fifo-knapsack-page) .sidebar-header {
+    padding-bottom: 17px;
+  }
+  .app-shell:has(.fifo-knapsack-page) .sidebar-algorithm {
+    margin-left: 9px;
+    padding-left: 23px;
+  }
+  .app-shell:has(.fifo-knapsack-page) .sidebar-algorithm.active::before {
+    left: 0;
+  }
+}

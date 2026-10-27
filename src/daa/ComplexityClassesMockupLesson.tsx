@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
-  BarChart3,
+  AtSign,
   Bookmark,
   BookOpen,
   Check,
@@ -14,7 +14,6 @@ import {
   FlaskConical,
   Info,
   Lightbulb,
-  LockKeyhole,
   Moon,
   Network,
   Pencil,
@@ -162,6 +161,16 @@ function ReductionArrow({ vertical = false }: { vertical?: boolean }) {
     </svg>
   )
 }
+function ClassBars() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <rect x="2" y="11" width="4" height="10" rx="1.5" fillOpacity=".65" />
+      <rect x="10" y="3" width="4" height="18" rx="1.5" fillOpacity=".8" />
+      <rect x="18" y="7" width="4" height="14" rx="1.5" fillOpacity=".65" />
+      <path d="M4 13V19M12 5V19M20 9V19" stroke="white" strokeWidth=".6" opacity=".7" />
+    </svg>
+  )
+}
 function ClassMap({
   examples,
   arrows,
@@ -247,13 +256,13 @@ function ClassMap({
           <ellipse className="cx-np-region" {...regions.np} fill={`url(#${clip}-blue)`} stroke="#287cff" />
           <ellipse className="cx-complete-region" {...regions.complete} fill={`url(#${clip}-purple)`} stroke="#ae5cff" strokeDasharray="5 3" />
           <ellipse {...regions.p} fill={`url(#${clip}-green)`} stroke="#66d794" />
-          {classButton('P', 264, 200, 54)}
+          {classButton('P', 264, 199, 54)}
           {classButton('NP', 300, 112, 64)}
           {classButton('NP-Complete', 418, 180, 124)}
           {classButton('NP-Hard', 543, 162, 98)}
           {descriptions && (
             <g fill="#15376a" fontSize="12" textAnchor="middle" pointerEvents="none">
-              <text x="300" y="134">
+              <text x="300" y="132">
                 <tspan x="300">{tr('Solutions verifiable')}</tspan>
                 <tspan x="300" dy="15">
                   {tr('in polynomial time')}
@@ -262,7 +271,7 @@ function ClassMap({
                   {tr('(decision problems)')}
                 </tspan>
               </text>
-              <text x="264" y="218">
+              <text x="264" y="217">
                 <tspan x="264">{tr('Solvable in')}</tspan>
                 <tspan x="264" dy="15">
                   {tr('polynomial time')}
@@ -271,7 +280,7 @@ function ClassMap({
                   {'P ⊆ NP'}
                 </tspan>
               </text>
-              <text x="418" y="198">
+              <text x="418" y="196">
                 <tspan x="418">{tr('In NP and')}</tspan>
                 <tspan x="418" dy="15">
                   {'NP-Hard'}
@@ -283,7 +292,7 @@ function ClassMap({
                   {tr('in NP)')}
                 </tspan>
               </text>
-              <text x="543" y="186">
+              <text x="543" y="185" fontSize="10.5">
                 <tspan x="543">{tr('At least as hard as every')}</tspan>
                 <tspan x="543" dy="15">
                   {tr('problem in NP')}
@@ -729,7 +738,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
       </nav>
       <div className="cx-certificate-body">
         <h3>
-          <LockKeyhole size={15} />
+          <AtSign size={18} />
           {tr(
             certificate === 'sat'
               ? sat.valid
@@ -966,7 +975,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
           ))}
         </ol>
       </Panel>
-      <Panel title={tr('Definitions & Correctness')} icon={<BarChart3 />} className="cx-definitions">
+      <Panel title={tr('Definitions & Correctness')} icon={<ClassBars />} className="cx-definitions">
         <ul>
           {[
             'P: decision problems solvable in polynomial time.',
@@ -1074,7 +1083,7 @@ export function ComplexityClassesMockupLesson(props: MockupPageProps) {
         <>
           <section className="cx-visualization">
             <header className="cx-visual-heading">
-              <BarChart3 />
+              <ClassBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
                 <p>{tr('Explore the relationships between P, NP, NP-Complete and NP-Hard, with examples and reductions.')}</p>

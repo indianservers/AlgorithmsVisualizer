@@ -1,0 +1,77 @@
+{
+  "target": 22,
+  "route": "/branch-and-bound/branch-bound-method",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/022--branch-and-bound--branch-and-bound-method-and-bounds.png",
+  "previousGoalTurnClassification": "Progress: target 018 native layout, typography and framework diagrams improved, a mobile overlap was resolved, and all relevant interaction checks passed.",
+  "status": "Improved native render; full visual-match goal remains incomplete.",
+  "viewport": {
+    "width": 1672,
+    "height": 941
+  },
+  "beforeMeanAbsoluteRgbError": 13.4663,
+  "afterMeanAbsoluteRgbError": 12.9602,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Reproduced shared bm-* style leakage after visiting Boyer–Moore and returning; computed panel styles changed.",
+    "Scoped 215 Branch and Bound selectors and 256 Boyer–Moore selectors to their respective roots using :where() to preserve specificity.",
+    "Added a real SPA-navigation regression that compares computed panel and icon styles after navigating in both directions.",
+    "Aligned header title, account controls, study action and four visible progress rings; kept language selection available in Notes.",
+    "Added native triangle graph and rounded bar icons, radial node shading, clearer node values/bounds and a missing incumbent chart annotation arrow.",
+    "Refined bound bar shading, chart position, tree legend, rule examples, search-order text, footer typography and worked-example cards.",
+    "Fit the complete visualization description into the available heading width and asserted that it is not truncated.",
+    "Saved desktop and mobile screenshots and bounding-box evidence before layout assertions."
+  ],
+  "referenceClarifications": [
+    "The reference best-first sequence selects node 5 before node 4 despite their displayed upper bounds. The native preview preserves computed descending-bound order and explicitly identifies the structural preview with pruning off.",
+    "Descendants of a pruned parent are not claimed to have been processed. Nodes 6 and 7 remain labeled Prunable rather than falsely claiming Pruned.",
+    "The bound chart retains a consistent objective-to-height scale for bound 16 and feasible incumbent 12; source cap shading is approximate.",
+    "Incumbents are actual complete feasible solutions; maximization uses UB <= incumbent and minimization uses LB >= incumbent."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed: lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and bundle budget for 73 chunks.",
+    "developmentBrowser": {
+      "passed": 43,
+      "skipped": 3
+    },
+    "productionBrowser": {
+      "passed": 43,
+      "skipped": 3
+    },
+    "browserScope": "022 and 040 native lesson specifications, target captures and reference inventory.",
+    "skips": "Two mobile reference-inventory captures and one desktop-only cross-navigation geometry/style test.",
+    "geometry": "Nine reference panel/card/grid anchors remain within two pixels; footer content and the search-order grid remain contained in their panels.",
+    "interactions": [
+      "Max/min problem modes and pruning directions",
+      "Tree keyboard inspection",
+      "Bounds and prune-decision toggles",
+      "Independent rule input validation",
+      "FIFO/best-first structural and actual order",
+      "Editable potential-tree input and bound validation",
+      "Prediction challenges",
+      "Notes, section reviews and search shortcut",
+      "Language selection dialog",
+      "Worked algorithm routes",
+      "Boyer–Moore mismatch/shift playback and custom text inputs",
+      "Dark theme and mobile containment",
+      "SPA navigation in both directions"
+    ]
+  },
+  "boyerMooreMeanAbsoluteRgbError": 11.3956,
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "evidence": [
+    "desktop-visualization.png",
+    "mobile-visualization.png",
+    "desktop-dark.png",
+    "mobile-dark.png",
+    "desktop-layout.json",
+    "mobile-layout.json",
+    "../pixel-audit/022--overlay.png",
+    "../pixel-audit/022--difference.png"
+  ],
+  "disposition": "Local and uncommitted; no new commit or push.",
+  "remaining": "All 45 references still contain pixel differences; no full-match completion claim is supported."
+}

@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -34,6 +33,7 @@ import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -55,6 +55,26 @@ import './branch-bound-method-mockup.css'
 
 const tr = (s: string) => tx(s, 'studios'),
   tabs: MockupTab[] = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments', 'Notes']
+function BoundBars() {
+  return (
+    <svg viewBox="0 0 26 26" fill="currentColor" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      <rect x="3" y="13" width="4" height="11" rx="1.5" fillOpacity=".65" />
+      <rect x="11" y="3" width="4" height="21" rx="1.5" fillOpacity=".8" />
+      <rect x="19" y="8" width="4" height="16" rx="1.5" fillOpacity=".65" />
+      <path d="M5 15V22M13 5V22M21 10V22" stroke="white" strokeWidth=".6" />
+    </svg>
+  )
+}
+function MethodIcon() {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 5L4 23H24Z" />
+      <circle cx="14" cy="5" r="3.5" fill="white" />
+      <circle cx="4" cy="23" r="3.5" fill="white" />
+      <circle cx="24" cy="23" r="3.5" fill="white" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -106,7 +126,8 @@ function MethodTree({
   bounds: boolean
   decisions: boolean
 }) {
-  const positions = [
+  const gradient = useId(),
+    positions = [
       [205, 38],
       [91, 130],
       [319, 130],
@@ -175,7 +196,13 @@ function MethodTree({
               }}
             >
               <title>{tr(status === 'unreached' ? unreachedReason(state, id) : `Node ${id}: ${status}. ${best ? 'Known feasible incumbent.' : ''}`)}</title>
-              <circle cx={x} cy={y} r="21" fill={fill} stroke={color} strokeWidth={selected === id ? 1.6 : 1.2} />
+              <defs>
+                <radialGradient id={`${gradient}-${id}`} cx="35%" cy="30%" r="75%">
+                  <stop stopColor="#fff" stopOpacity=".85" />
+                  <stop offset="1" stopColor={fill} />
+                </radialGradient>
+              </defs>
+              <circle cx={x} cy={y} r="21" fill={`url(#${gradient}-${id})`} stroke={color} strokeWidth={selected === id ? 1.6 : 1.2} />
               <text x={x} y={y + 6} textAnchor="middle" fontSize="16" fontWeight="650" fill="#15315c">
                 {id}
               </text>
@@ -191,7 +218,7 @@ function MethodTree({
                 x={lx + (leaf ? 37.5 : 40)}
                 y={ly + 16}
                 textAnchor="middle"
-                fontSize="11"
+                fontSize="12"
                 fill="#17356b"
                 fontWeight="600"
               >{`v = ${state.data.values[i]}`}</text>
@@ -200,7 +227,7 @@ function MethodTree({
                   x={lx + (leaf ? 37.5 : 40)}
                   y={ly + 32}
                   textAnchor="middle"
-                  fontSize="11"
+                  fontSize="12"
                   fill="#17356b"
                   fontWeight="600"
                 >{`${label} = ${state.data.bounds[i]}`}</text>
@@ -243,8 +270,8 @@ function BoundChart({ state, selected, show, onExplain }: { state: MethodState; 
     >
       <defs>
         <linearGradient id={id} x2="0" y2="1">
-          <stop stopColor="#72e8b0" />
-          <stop offset="1" stopColor="#34c990" />
+          <stop stopColor="#84edbf" />
+          <stop offset="1" stopColor="#4dcea1" />
         </linearGradient>
         <linearGradient id={`${id}blue`} x2="0" y2="1">
           <stop stopColor="#60a5ff" />
@@ -267,7 +294,17 @@ function BoundChart({ state, selected, show, onExplain }: { state: MethodState; 
         <rect x="23" y="0" width="290" height="228" fill="transparent" pointerEvents="all" />
         <rect x="57" y={boundY} width="59" height={bound * scale} rx="6" fill={`url(#${id})`} opacity={show ? 1 : 0.25} />
         {maximizing && incumbent !== null && bound > incumbent && (
-          <rect x="57" y={boundY} width="59" height={(bound - incumbent) * scale} rx="6" fill="#e7fff1" stroke="#48cd88" strokeDasharray="4 3" />
+          <rect
+            x="57"
+            y={boundY}
+            width="59"
+            height={(bound - incumbent) * scale}
+            rx="6"
+            fill="#d6fbe4"
+            fillOpacity=".85"
+            stroke="#48cd88"
+            strokeDasharray="4 3"
+          />
         )}
         <text x="86.5" y={boundY - 9} textAnchor="middle" fontSize="16" fontWeight="700" fill="#081c55">
           {show ? bound : '—'}
@@ -286,6 +323,7 @@ function BoundChart({ state, selected, show, onExplain }: { state: MethodState; 
         <text x="230" y="164" fontSize="12" fill="#006dff" stroke="#e1f3ff" strokeWidth="4" paintOrder="stroke">
           {tr('Current incumbent')}
         </text>
+        <path d="M296 147Q295 131 274 125m7-2-7 2 4 6" fill="none" stroke="#4e94ff" />
         <text x="240" y="180" fontSize="12" fill="#006dff" stroke="#e1f3ff" strokeWidth="4" paintOrder="stroke">
           {tr('(best feasible)')}
         </text>
@@ -535,7 +573,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
     )
   }
   const tree = (
-    <Panel title={tr('Branching Search Tree')} subtitle={tr('Each node shows value, bound and status')} icon={<GitFork />} className="bm-tree-panel">
+    <Panel title={tr('Branching Search Tree')} subtitle={tr('Each node shows value, bound and status')} icon={<MethodIcon />} className="bm-tree-panel">
       <MethodTree state={state} selected={selected} select={setSelected} bounds={showBounds} decisions={showDecisions} />
       <div className="bm-tree-legend">
         {['Current node', 'Explored node', 'Pruned node', 'Feasible node'].map((s, i) => (
@@ -551,7 +589,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
     <Panel
       title={tr('Incumbent vs Optimistic Bound')}
       subtitle={tr('Feasible solution (incumbent) vs optimistic bound at a node')}
-      icon={<BarChart3 />}
+      icon={<BoundBars />}
       className="bm-bound-panel"
     >
       <BoundChart state={state} selected={selected} show={showBounds} onExplain={() => setModal('node')} />
@@ -574,7 +612,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
         {ruleCard('min', minBound, setMinBound, minInc, setMinInc)}
       </div>
       <header className="bm-comparison-heading">
-        <GitFork />
+        <MethodIcon />
         <div>
           <h2>{tr('Search Order Comparison')}</h2>
           <p>{tr('Different selection strategies; structural preview with pruning off.')}</p>
@@ -634,7 +672,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
           <ChevronRight />
         </button>
       </Panel>
-      <Panel title={tr('Correctness & Complexity')} icon={<BarChart3 />} className="bm-correctness">
+      <Panel title={tr('Correctness & Complexity')} icon={<BoundBars />} className="bm-correctness">
         <ul>
           {[
             'Correctness: never prune a node that can contain a strictly better solution.',
@@ -707,7 +745,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="bm-lesson-header">
         <button className="bm-back" aria-label={tr('Open TSP worked example')} onClick={() => navigate('/branch-and-bound/tsp-branch-and-bound')}>
@@ -738,10 +776,10 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
         <>
           <section className="bm-visualization">
             <header className="bm-visual-heading">
-              <BarChart3 />
+              <BoundBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
-                <p>{tr('Explore how branch and bound uses bounds to prune search and keep the best incumbent solution.')}</p>
+                <p>{tr('Explore how branch and bound uses bounds to prune the search and keep the best incumbent solution.')}</p>
               </div>
               <div className="bm-visual-options">
                 <label>
@@ -992,6 +1030,7 @@ export function BranchBoundMethodMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Branch-and-Bound Notes')} icon={<BookOpen />} className="bm-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain why the inequality reverses between maximization and minimization.')}
             <textarea aria-label={tr('Branch and bound method notes')} rows={8} value={notes} onChange={(e) => setNotes(e.target.value)} />

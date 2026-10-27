@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import {
   BarChart3,
   BookOpen,
+  BrainCog,
   CheckCircle2,
   ClipboardList,
   Clock3,
@@ -13,12 +14,14 @@ import {
   Layers3,
   Lightbulb,
   ListOrdered,
+  Network,
   Pause,
   Pencil,
   Play,
   RotateCcw,
   Scissors,
   Trophy,
+  Target,
   TrendingUp,
   X,
 } from 'lucide-react'
@@ -54,7 +57,38 @@ const stages = [
       'The incumbent is an actual feasible subset. If a node has upper bound at most this profit, none of its completions can be strictly better. Overweight nodes are infeasible and are discarded immediately.',
     ],
   ],
-  stageIcons = [GitFork, Crown, TrendingUp, Scissors]
+  stageIcons = [BranchIcon, Crown, TrendingUp, Scissors]
+function BranchIcon() {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M14 10V17M14 15L5 22M14 15L23 22" stroke="currentColor" strokeWidth="2" />
+      <circle cx="14" cy="7" r="6" fill="currentColor" />
+      <circle cx="5" cy="23" r="4" fill="currentColor" />
+      <circle cx="23" cy="23" r="4" fill="currentColor" />
+    </svg>
+  )
+}
+function InstanceIcon() {
+  return (
+    <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M8 3V23M18 3V23" />
+      <rect x="4" y="4" width="18" height="5" rx="1.5" />
+      <rect x="4" y="11" width="18" height="5" rx="1.5" />
+      <rect x="4" y="18" width="18" height="5" rx="1.5" />
+      <path d="M8 6.5H17M8 13.5H17M8 20.5H17" strokeWidth="1" />
+    </svg>
+  )
+}
+function DifficultyIcon() {
+  return (
+    <svg viewBox="0 0 18 18" aria-hidden="true">
+      <rect x="1" y="11" width="3" height="6" rx="1" fill="#29bfff" />
+      <rect x="5" y="7" width="3" height="10" rx="1" fill="#078dff" />
+      <rect x="9" y="3" width="3" height="14" rx="1" fill="#ffad1f" />
+      <rect x="13" y="1" width="3" height="16" rx="1" fill="#ffcd5d" />
+    </svg>
+  )
+}
 function Panel({
   title,
   icon,
@@ -82,7 +116,7 @@ function Panel({
 function Bag({ small = false }: { small?: boolean }) {
   const id = useId()
   return (
-    <svg className={small ? 'bk-bag-icon' : 'bk-hero-art'} viewBox={small ? '70 2 120 125' : '0 0 300 126'} aria-hidden="true">
+    <svg className={small ? 'bk-bag-icon' : 'bk-hero-art'} viewBox={small ? '70 0 110 126' : '0 0 300 126'} aria-hidden="true">
       <defs>
         <linearGradient id={id} x2="1" y2="1">
           <stop stopColor="#77d6ff" />
@@ -115,25 +149,46 @@ function Bag({ small = false }: { small?: boolean }) {
             </g>
           ))}
           <g fill="#9fc9ff" stroke="#7faaff" opacity=".75">
-            <rect x="222" y="76" width="15" height="34" rx="2" />
-            <rect x="248" y="55" width="15" height="55" rx="2" />
-            <rect x="274" y="33" width="15" height="77" rx="2" />
+            <rect x="225" y="79" width="18" height="27" rx="2" />
+            <rect x="255" y="57" width="18" height="49" rx="2" />
+            <rect x="284" y="33" width="18" height="73" rx="2" />
           </g>
+          <g fill="#a4cfff" opacity=".2">
+            <rect x="225" y="108" width="18" height="13" rx="2" />
+            <rect x="255" y="108" width="18" height="10" rx="2" />
+            <rect x="284" y="108" width="18" height="6" rx="2" />
+          </g>
+          <path d="M211 107H303" stroke="#fff" strokeWidth="2" />
           <path d="M205 88 217 100 232 96 247 105 269 100" fill="none" stroke="#bfc5ff" />
           <circle cx="217" cy="100" r="3" fill="#aaa6ff" />
           <ellipse cx="123" cy="35" rx="48" ry="28" fill="#fff4ba" opacity=".45" />
         </>
       )}
-      <path d="M120 30Q122 0 145 10Q168 25 168 103" fill="none" stroke="#064fe2" strokeWidth="10" />
-      <path d="M120 30Q124 5 144 13Q161 25 162 100" fill="none" stroke="#56b8ff" strokeWidth="4" />
-      <path d="M102 23Q99 7 114 7Q130 8 129 29" fill="none" stroke="#0573e9" strokeWidth="6" />
-      <path d="M88 112Q76 105 83 61L91 34Q96 21 119 24Q144 28 150 52L156 106Q152 119 139 120Z" fill={`url(#${id})`} stroke="#0c61df" strokeWidth="2" />
-      <path d="M91 36Q80 65 84 106Q88 119 102 119L105 44Z" fill="#0753db" />
-      <path d="M100 40Q116 33 136 42" fill="none" stroke="#a8e5ff" strokeWidth="3" />
-      <path d="M100 64Q99 54 110 54H133Q143 57 144 68L148 108Q146 116 137 117H108Q99 116 99 107Z" fill={`url(#${id}p)`} stroke="#308eff" strokeWidth="2" />
-      <path d="M104 80H139M106 102H140" stroke="#8acaff" strokeWidth="2" />
-      <path d="M115 81V91" stroke="#d8f4ff" strokeWidth="4" strokeLinecap="round" />
-      <path d="M126 103V110" stroke="#cceaff" strokeWidth="3" strokeLinecap="round" />
+      {!small && (
+        <>
+          <path d="M127 35Q127 5 145 14Q163 22 171 99L157 104" fill="none" stroke="#073cce" strokeWidth="9" />
+          <path d="M130 34Q129 9 143 17Q158 26 164 99" fill="none" stroke="#53aaff" strokeWidth="3" />
+          <path d="M128 32Q151 26 160 54L165 106Q164 117 149 121L131 115Z" fill="#0735c7" stroke="#165de7" strokeWidth="2" />
+          <path d="M154 84L165 81V106L154 111Z" fill="#0751ee" stroke="#2d8aff" />
+        </>
+      )}
+      <g transform={small ? 'translate(7 0)' : undefined}>
+        <path d="M100 32V24Q100 12 113 12Q126 12 126 28V31" fill="none" stroke="#0753d3" strokeWidth="6" />
+        <path d="M104 29V25Q104 17 113 17Q122 17 122 29" fill="none" stroke="#54baff" strokeWidth="2" />
+        <path
+          d="M76 101L80 58Q82 31 109 31Q137 29 147 54L154 103Q157 119 139 121L93 120Q74 120 76 101Z"
+          fill={`url(#${id})`}
+          stroke="#0757e2"
+          strokeWidth="2"
+        />
+        <path d="M84 54Q84 34 107 33Q131 31 140 52L139 64Q110 70 84 62Z" fill={`url(#${id}p)`} stroke="#64baff" strokeWidth="1.5" />
+        <path d="M91 49Q112 42 132 51" fill="none" stroke="#a4dcff" strokeWidth="2" strokeLinecap="round" />
+        <path d="M85 81Q86 72 96 72H129Q139 72 141 83L144 106Q144 114 134 115L95 114Q84 114 84 104Z" fill={`url(#${id}p)`} stroke="#3594ff" strokeWidth="2" />
+        <path d="M91 86Q110 88 135 86" fill="none" stroke="#85c7ff" strokeWidth="2" />
+        <path d="M99 87V93" stroke="#c7edff" strokeWidth="3" strokeLinecap="round" />
+        <path d="M86 65L81 99M148 79L151 103" stroke="#56adff" strokeWidth="1.5" opacity=".7" />
+        <path d="M126 113H132" stroke="#61a6ff" strokeWidth="2" strokeLinecap="round" />
+      </g>
     </svg>
   )
 }
@@ -394,7 +449,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
   const instance = (
     <Panel
       title={tr('Problem Instance')}
-      icon={<ClipboardList />}
+      icon={<InstanceIcon />}
       className="bk-instance"
       action={
         <button className="bk-edit" onClick={edit}>
@@ -455,7 +510,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
   const tree = (
     <Panel
       title={tr('Search Tree Explorer')}
-      icon={<GitFork />}
+      icon={<Network />}
       className="bk-tree-panel"
       action={
         <div className="bk-tree-options">
@@ -636,7 +691,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
     </Panel>
   )
   const progress = (
-    <Panel title={tr('Capacity and Profit Progress')} icon={<TrendingUp />} className="bk-progress">
+    <Panel title={tr('Capacity and Profit Progress')} icon={<Target />} className="bk-progress">
       <div className="bk-progress-line">
         <span>{tr('Knapsack capacity')}</span>
         <div>
@@ -718,11 +773,11 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
               {tr('15–20 min')}
             </span>
             <span>
-              <BarChart3 />
+              <DifficultyIcon />
               {tr('Intermediate')}
             </span>
             <span>
-              <Lightbulb />
+              <BrainCog />
               {tr('5 key concepts')}
             </span>
           </>

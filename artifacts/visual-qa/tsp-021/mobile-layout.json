@@ -1,0 +1,156 @@
+[
+  {
+    "className": "tp-lesson-header",
+    "x": 10,
+    "y": 111,
+    "width": 373,
+    "height": 195.5625,
+    "top": 111,
+    "right": 383,
+    "bottom": 306.5625,
+    "left": 10
+  },
+  {
+    "className": "mom-tabs",
+    "x": 10,
+    "y": 315.5625,
+    "width": 373,
+    "height": 89,
+    "top": 315.5625,
+    "right": 383,
+    "bottom": 404.5625,
+    "left": 10
+  },
+  {
+    "className": "tp-panel tp-graph",
+    "x": 21,
+    "y": 590.953125,
+    "width": 351,
+    "height": 340,
+    "top": 590.953125,
+    "right": 372,
+    "bottom": 930.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-search-tree",
+    "x": 21,
+    "y": 942.953125,
+    "width": 351,
+    "height": 340,
+    "top": 942.953125,
+    "right": 372,
+    "bottom": 1282.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-controls",
+    "x": 21,
+    "y": 1294.953125,
+    "width": 351,
+    "height": 144,
+    "top": 1294.953125,
+    "right": 372,
+    "bottom": 1438.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-incumbent",
+    "x": 21,
+    "y": 1450.953125,
+    "width": 351,
+    "height": 184,
+    "top": 1450.953125,
+    "right": 372,
+    "bottom": 1634.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-matrix",
+    "x": 21,
+    "y": 1646.953125,
+    "width": 351,
+    "height": 204,
+    "top": 1646.953125,
+    "right": 372,
+    "bottom": 1850.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-calculator",
+    "x": 21,
+    "y": 1862.953125,
+    "width": 351,
+    "height": 204,
+    "top": 1862.953125,
+    "right": 372,
+    "bottom": 2066.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-frontier",
+    "x": 21,
+    "y": 2078.953125,
+    "width": 351,
+    "height": 170,
+    "top": 2078.953125,
+    "right": 372,
+    "bottom": 2248.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-footer-grid",
+    "x": 21,
+    "y": 2260.953125,
+    "width": 351,
+    "height": 795,
+    "top": 2260.953125,
+    "right": 372,
+    "bottom": 3055.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-takeaways",
+    "x": 21,
+    "y": 2260.953125,
+    "width": 351,
+    "height": 170,
+    "top": 2260.953125,
+    "right": 372,
+    "bottom": 2430.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-worked",
+    "x": 21,
+    "y": 2442.953125,
+    "width": 351,
+    "height": 188,
+    "top": 2442.953125,
+    "right": 372,
+    "bottom": 2630.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-correctness",
+    "x": 21,
+    "y": 2642.953125,
+    "width": 351,
+    "height": 210,
+    "top": 2642.953125,
+    "right": 372,
+    "bottom": 2852.953125,
+    "left": 21
+  },
+  {
+    "className": "tp-panel tp-pitfalls",
+    "x": 21,
+    "y": 2864.953125,
+    "width": 351,
+    "height": 191,
+    "top": 2864.953125,
+    "right": 372,
+    "bottom": 3055.953125,
+    "left": 21
+  }
+]

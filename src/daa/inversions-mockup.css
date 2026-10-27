@@ -13,7 +13,7 @@
   color: #0a194c;
   padding-bottom: 0;
 }
-.iv-topbar {
+:where(.inversions-page) .iv-topbar {
   height: 47px;
   margin-bottom: 12px;
   display: flex;
@@ -30,20 +30,20 @@
   background: #f3f9ff;
   color: #0875ff;
 }
-.iv-title-row {
+:where(.inversions-page) .iv-title-row {
   display: flex;
   align-items: baseline;
   gap: 15px;
   min-width: 0;
 }
-.iv-title-row h1 {
+:where(.inversions-page) .iv-title-row h1 {
   margin: 0;
   font-size: 28px;
   line-height: 35px;
   letter-spacing: -0.6px;
   white-space: nowrap;
 }
-.iv-title-row p {
+:where(.inversions-page) .iv-title-row p {
   font-size: 13px;
   line-height: 18px;
   color: #5a72a3;
@@ -63,7 +63,7 @@
   font-size: 13px;
   width: 190px;
 }
-.iv-topbar .aimer-account-controls {
+:where(.inversions-page) .iv-topbar .aimer-account-controls {
   margin-left: -8px;
 }
 .inversions-page .mom-tabs {
@@ -93,12 +93,12 @@
 .inversions-page .mom-tabs button[aria-pressed='true'] {
   background: linear-gradient(120deg, #0875df, #0094e8);
 }
-.iv-top-grid {
+:where(.inversions-page) .iv-top-grid {
   display: grid;
   grid-template-columns: minmax(0, 887fr) minmax(0, 386fr);
   gap: 14px;
 }
-.iv-visualization {
+:where(.inversions-page) .iv-visualization {
   height: 493px;
   padding: 11px 12px 12px;
   border: 1px solid #dce9fc;
@@ -106,14 +106,14 @@
   background: linear-gradient(120deg, #ffffffed, #f8fcffdd);
   min-width: 0;
 }
-.iv-visual-heading {
+:where(.inversions-page) .iv-visual-heading {
   display: flex;
   align-items: flex-start;
   gap: 16px;
   height: 50px;
   margin-bottom: 13px;
 }
-.iv-main-icon {
+:where(.inversions-page) .iv-main-icon {
   width: 50px;
   height: 50px;
   flex-shrink: 0;
@@ -123,21 +123,21 @@
   background: linear-gradient(130deg, #e1f1ff, #d8ecff);
   border-radius: 12px;
 }
-.iv-main-icon svg {
+:where(.inversions-page) .iv-main-icon svg {
   width: 27px;
   height: 27px;
 }
-.iv-visual-heading > div {
+:where(.inversions-page) .iv-visual-heading > div {
   min-width: 0;
   flex: 1;
   padding-top: 1px;
 }
-.iv-visual-heading h2 {
+:where(.inversions-page) .iv-visual-heading h2 {
   font-size: 20px;
   line-height: 25px;
   margin: 0 0 4px;
 }
-.iv-visual-heading p {
+:where(.inversions-page) .iv-visual-heading p {
   font-size: 13px;
   line-height: 18px;
   color: #607aab;
@@ -154,150 +154,150 @@
   background: #f3f8ff;
   font-size: 13px;
 }
-.iv-graph-canvas {
+:where(.inversions-page) .iv-graph-canvas {
   height: 341px;
   border: 1px solid #dceaff;
   border-radius: 14px;
   background: radial-gradient(ellipse at center, #fff, #f4f9ff);
   min-width: 0;
 }
-.iv-diagram-scroll {
+:where(.inversions-page) .iv-diagram-scroll {
   height: 100%;
   min-width: 0;
 }
-.iv-diagram-scroll:focus-visible {
+:where(.inversions-page) .iv-diagram-scroll:focus-visible {
   outline: 2px solid #83b9ff;
   outline-offset: 2px;
 }
-.iv-diagram {
+:where(.inversions-page) .iv-diagram {
   width: 100%;
   height: 100%;
   display: block;
   overflow: visible;
 }
-.iv-diagram text {
+:where(.inversions-page) .iv-diagram text {
   font-family: Arial, sans-serif;
   fill: #071950;
 }
-.iv-diagram .iv-half-title {
+:where(.inversions-page) .iv-diagram .iv-half-title {
   font-size: 15px;
   font-weight: 700;
 }
-.iv-diagram .iv-list-glyph {
+:where(.inversions-page) .iv-diagram .iv-list-glyph {
   font-size: 23px;
   font-weight: 700;
   fill: #0080ff;
 }
-.iv-diagram .iv-red-text {
+:where(.inversions-page) .iv-diagram .iv-red-text {
   fill: #bb0031;
 }
-.iv-cell {
+:where(.inversions-page) .iv-cell {
   cursor: pointer;
 }
-.iv-cell rect {
+:where(.inversions-page) .iv-cell rect {
   fill: #e1f1ff;
   stroke: #9bc8ff;
 }
-.iv-cell text {
+:where(.inversions-page) .iv-cell text {
   font-size: 18px;
   font-weight: 700;
 }
-.iv-cell.iv-red rect {
+:where(.inversions-page) .iv-cell.iv-red rect {
   fill: #fff2f6;
   stroke: #ffb1c2;
 }
-.iv-cell.iv-red text {
+:where(.inversions-page) .iv-cell.iv-red text {
   fill: #3b1025;
 }
-.iv-cell.iv-selected rect {
+:where(.inversions-page) .iv-cell.iv-selected rect {
   fill: #078aff;
   stroke: #006bdf;
   stroke-width: 2px;
   filter: drop-shadow(0 3px 4px #0875ff36);
 }
-.iv-cell.iv-selected text {
+:where(.inversions-page) .iv-cell.iv-selected text {
   fill: white;
 }
-.iv-cell.iv-red.iv-selected rect {
+:where(.inversions-page) .iv-cell.iv-red.iv-selected rect {
   fill: #ff4c70;
   stroke: #ff315d;
   filter: drop-shadow(0 3px 4px #ff315d33);
 }
-.iv-cell:focus-visible {
+:where(.inversions-page) .iv-cell:focus-visible {
   outline: none;
 }
-.iv-cell:focus-visible rect {
+:where(.inversions-page) .iv-cell:focus-visible rect {
   stroke: #7046e9;
   stroke-width: 3px;
 }
-.iv-pointer text {
+:where(.inversions-page) .iv-pointer text {
   font-size: 14px;
   font-weight: 700;
 }
-.iv-pointer path {
+:where(.inversions-page) .iv-pointer path {
   fill: #123e9c;
 }
-.iv-right-pointer text,
-.iv-right-pointer path {
+:where(.inversions-page) .iv-right-pointer text,
+:where(.inversions-page) .iv-right-pointer path {
   fill: #b4002c;
 }
-.iv-compare,
-.iv-addition {
+:where(.inversions-page) .iv-compare,
+:where(.inversions-page) .iv-addition {
   cursor: pointer;
 }
-.iv-compare rect {
+:where(.inversions-page) .iv-compare rect {
   fill: #edf7ff;
   stroke: #c2ddff;
 }
-.iv-compare text {
+:where(.inversions-page) .iv-compare text {
   font-size: 15px;
   font-weight: 700;
 }
-.iv-compare text:last-child {
+:where(.inversions-page) .iv-compare text:last-child {
   font-size: 17px;
 }
-.iv-addition rect {
+:where(.inversions-page) .iv-addition rect {
   fill: #ffe7ed;
   stroke: #ffa6bc;
 }
-.iv-addition text {
+:where(.inversions-page) .iv-addition text {
   fill: #b90029;
   font-size: 14px;
 }
-.iv-addition text:nth-child(2) {
+:where(.inversions-page) .iv-addition text:nth-child(2) {
   font-weight: 700;
 }
-.iv-addition .iv-pair-preview {
+:where(.inversions-page) .iv-addition .iv-pair-preview {
   font-size: 13px;
 }
-.iv-no-add rect {
+:where(.inversions-page) .iv-no-add rect {
   fill: #edf8ef;
   stroke: #b0ddbf;
 }
-.iv-no-add text {
+:where(.inversions-page) .iv-no-add text {
   fill: #14693e;
 }
-.iv-diagram .iv-output-title {
+:where(.inversions-page) .iv-diagram .iv-output-title {
   fill: #536f9d;
   font-size: 14px;
   font-weight: 600;
 }
-.iv-output-cells rect {
+:where(.inversions-page) .iv-output-cells rect {
   fill: #eaf4fe;
   stroke: #bfdcff;
 }
-.iv-output-cells text {
+:where(.inversions-page) .iv-output-cells text {
   font-size: 19px;
   font-weight: 700;
 }
-.iv-output-cells .iv-latest-right rect {
+:where(.inversions-page) .iv-output-cells .iv-latest-right rect {
   fill: #ffedf3;
   stroke: #ffb3c9;
 }
-.iv-output-cells .iv-latest-right text {
+:where(.inversions-page) .iv-output-cells .iv-latest-right text {
   fill: #6e1433;
 }
-.iv-controls {
+:where(.inversions-page) .iv-controls {
   height: 42px;
   margin-top: 16px;
   display: flex;
@@ -321,26 +321,26 @@
   border-radius: 8px;
   box-shadow: 0 3px 7px #0875ff24;
 }
-.iv-controls .iv-step {
+:where(.inversions-page) .iv-controls .iv-step {
   width: 152px;
 }
-.iv-controls .iv-shuffle {
+:where(.inversions-page) .iv-controls .iv-shuffle {
   width: 154px;
 }
-.iv-shuffle svg {
+:where(.inversions-page) .iv-shuffle svg {
   color: #0875ff;
 }
-.iv-controls .iv-reset {
+:where(.inversions-page) .iv-controls .iv-reset {
   width: 115px;
 }
-.iv-divider {
+:where(.inversions-page) .iv-divider {
   height: 25px;
   width: 1px;
   background: #d2e1f8;
   margin: 0 8px 0 10px;
   flex-shrink: 0;
 }
-.iv-size {
+:where(.inversions-page) .iv-size {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -349,13 +349,13 @@
   color: #536f9d;
   white-space: nowrap;
 }
-.iv-size select {
+:where(.inversions-page) .iv-size select {
   width: 83px;
   height: 40px;
   font-size: 14px;
   background: #fff;
 }
-.iv-switch {
+:where(.inversions-page) .iv-switch {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -366,7 +366,7 @@
   cursor: pointer;
   margin-left: 8px;
 }
-.iv-switch input {
+:where(.inversions-page) .iv-switch input {
   position: absolute;
   opacity: 0;
   width: 48px;
@@ -374,7 +374,7 @@
   margin: 0;
   cursor: pointer;
 }
-.iv-switch i {
+:where(.inversions-page) .iv-switch i {
   width: 48px;
   height: 26px;
   border-radius: 26px;
@@ -383,7 +383,7 @@
   flex-shrink: 0;
   pointer-events: none;
 }
-.iv-switch i::after {
+:where(.inversions-page) .iv-switch i::after {
   content: '';
   position: absolute;
   left: 3px;
@@ -393,41 +393,41 @@
   border-radius: 50%;
   background: #fff;
 }
-.iv-switch input:checked + i {
+:where(.inversions-page) .iv-switch input:checked + i {
   background: #0875ff;
 }
-.iv-switch input:checked + i::after {
+:where(.inversions-page) .iv-switch input:checked + i::after {
   left: 24px;
 }
-.iv-switch input:focus-visible + i {
+:where(.inversions-page) .iv-switch input:focus-visible + i {
   outline: 2px solid #7445ff;
   outline-offset: 3px;
 }
-.iv-explanation-column {
+:where(.inversions-page) .iv-explanation-column {
   display: grid;
   grid-template-rows: 344px 140px;
   gap: 11px;
   min-width: 0;
 }
-.iv-panel {
+:where(.inversions-page) .iv-panel {
   padding: 12px;
   border: 1px solid #dce9fc;
   border-radius: 14px;
   background: linear-gradient(120deg, #ffffffec, #f9fcffdd);
   min-width: 0;
 }
-.iv-panel > header {
+:where(.inversions-page) .iv-panel > header {
   display: flex;
   align-items: center;
   gap: 15px;
   min-width: 0;
 }
-.iv-panel h2 {
+:where(.inversions-page) .iv-panel h2 {
   font-size: 20px;
   line-height: 25px;
   margin: 0;
 }
-.iv-icon {
+:where(.inversions-page) .iv-icon {
   width: 29px;
   height: 29px;
   display: grid;
@@ -437,32 +437,32 @@
   border-radius: 8px;
   flex-shrink: 0;
 }
-.iv-icon svg {
+:where(.inversions-page) .iv-icon svg {
   width: 20px;
   height: 20px;
 }
-.iv-how {
+:where(.inversions-page) .iv-how {
   padding: 12px 13px;
 }
-.iv-how header {
+:where(.inversions-page) .iv-how header {
   gap: 10px;
   height: 30px;
 }
-.iv-how ol {
+:where(.inversions-page) .iv-how ol {
   list-style: none;
   display: grid;
   gap: 14px;
   margin: 10px 3px 0 6px;
   padding: 0;
 }
-.iv-how li {
+:where(.inversions-page) .iv-how li {
   position: relative;
   display: flex;
   align-items: flex-start;
   gap: 21px;
   min-height: 36px;
 }
-.iv-how li > i {
+:where(.inversions-page) .iv-how li > i {
   display: grid;
   place-items: center;
   width: 32px;
@@ -475,7 +475,7 @@
   font-style: normal;
   flex-shrink: 0;
 }
-.iv-how li:not(:last-child)::after {
+:where(.inversions-page) .iv-how li:not(:last-child)::after {
   content: '';
   position: absolute;
   left: 15px;
@@ -483,77 +483,77 @@
   bottom: -10px;
   border-left: 1px dashed #cbdcf5;
 }
-.iv-how p {
+:where(.inversions-page) .iv-how p {
   margin: 0;
   padding-top: 0;
   font-size: 15px;
   line-height: 21px;
   color: #506c9b;
 }
-.iv-insight {
+:where(.inversions-page) .iv-insight {
   padding: 11px 19px;
   background: #fff9e9;
   border-color: #ffe6b5;
 }
-.iv-insight header {
+:where(.inversions-page) .iv-insight header {
   gap: 13px;
   height: 35px;
 }
-.iv-insight .iv-icon {
+:where(.inversions-page) .iv-insight .iv-icon {
   width: 36px;
   height: 36px;
   color: #ffa000;
   background: #fff0c9;
 }
-.iv-insight p {
+:where(.inversions-page) .iv-insight p {
   font-size: 15px;
   line-height: 20px;
   color: #5a729f;
   margin: 8px 0 0;
 }
-.iv-bottom-grid {
+:where(.inversions-page) .iv-bottom-grid {
   display: grid;
   grid-template-columns: minmax(0, 337fr) minmax(0, 525fr) minmax(0, 405fr);
   gap: 10px;
   margin-top: 9px;
 }
-.iv-bottom-grid > .iv-panel {
+:where(.inversions-page) .iv-bottom-grid > .iv-panel {
   height: 193px;
   padding: 9px 12px 10px;
 }
-.iv-bottom-grid .iv-panel > header {
+:where(.inversions-page) .iv-bottom-grid .iv-panel > header {
   height: 29px;
   gap: 14px;
 }
-.iv-bottom-grid h2 {
+:where(.inversions-page) .iv-bottom-grid h2 {
   font-size: 18px;
   line-height: 24px;
 }
-.iv-state dl,
-.iv-merge-state dl {
+:where(.inversions-page) .iv-state dl,
+:where(.inversions-page) .iv-merge-state dl {
   margin: 5px 1px 0;
   display: grid;
   gap: 4px;
 }
-.iv-state dl {
+:where(.inversions-page) .iv-state dl {
   margin-left: 13px;
 }
-.iv-state dl > div,
-.iv-merge-state dl > div {
+:where(.inversions-page) .iv-state dl > div,
+:where(.inversions-page) .iv-merge-state dl > div {
   display: flex;
   align-items: center;
   gap: 10px;
   min-width: 0;
 }
-.iv-state dt,
-.iv-merge-state dt {
+:where(.inversions-page) .iv-state dt,
+:where(.inversions-page) .iv-merge-state dt {
   flex: 1;
   font-size: 14px;
   line-height: 19px;
   color: #526d9e;
 }
-.iv-state dd,
-.iv-merge-state dd {
+:where(.inversions-page) .iv-state dd,
+:where(.inversions-page) .iv-merge-state dd {
   margin: 0;
   min-width: 90px;
   min-height: 29px;
@@ -565,48 +565,48 @@
   border-radius: 6px;
   padding: 3px 6px;
 }
-.iv-state .iv-count {
+:where(.inversions-page) .iv-state .iv-count {
   height: 35px;
   font-size: 22px;
   color: #dd0033;
   background: #ffeaf0;
 }
-.iv-state .iv-comparison {
+:where(.inversions-page) .iv-state .iv-comparison {
   color: #0875ff;
   background: #e4f1ff;
 }
-.iv-state .iv-added {
+:where(.inversions-page) .iv-state .iv-added {
   color: #dd0033;
   background: #ffeaf0;
   font-size: 18px;
 }
-.iv-state .iv-merge-step {
+:where(.inversions-page) .iv-state .iv-merge-step {
   color: #0875ff;
   min-height: 25px;
 }
-.iv-merge-state dl {
+:where(.inversions-page) .iv-merge-state dl {
   gap: 3px;
   margin-top: 7px;
 }
-.iv-merge-state dl > div {
+:where(.inversions-page) .iv-merge-state dl > div {
   border: 1px solid #e2ebf9;
   border-radius: 5px;
   padding: 0 0 0 14px;
 }
-.iv-merge-state dd {
+:where(.inversions-page) .iv-merge-state dd {
   min-width: 79px;
   min-height: 29px;
   border-radius: 4px;
 }
-.iv-merge-state .iv-state-0 {
+:where(.inversions-page) .iv-merge-state .iv-state-0 {
   color: #0875ff;
   background: #e4f1ff;
 }
-.iv-merge-state .iv-state-1 {
+:where(.inversions-page) .iv-merge-state .iv-state-1 {
   color: #dd0033;
   background: #ffeaf0;
 }
-.iv-ledger-scroll {
+:where(.inversions-page) .iv-ledger-scroll {
   margin-top: 5px;
   max-height: 137px;
   overflow: auto;
@@ -614,7 +614,7 @@
   border-radius: 8px;
   scrollbar-width: thin;
 }
-.iv-ledger {
+:where(.inversions-page) .iv-ledger {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -623,32 +623,32 @@
   font-size: 13px;
   background: #fff;
 }
-.iv-ledger :is(th, td) {
+:where(.inversions-page) .iv-ledger :is(th, td) {
   height: 27px;
   padding: 0 5px;
   border-right: 1px solid #dce6f6;
   border-bottom: 1px solid #dce6f6;
 }
-.iv-ledger th {
+:where(.inversions-page) .iv-ledger th {
   height: 26px;
   background: #f1f5fc;
   font-size: 13px;
   font-weight: 600;
 }
-.iv-ledger th:nth-child(1) {
+:where(.inversions-page) .iv-ledger th:nth-child(1) {
   width: 11%;
 }
-.iv-ledger th:nth-child(2) {
+:where(.inversions-page) .iv-ledger th:nth-child(2) {
   width: 28%;
 }
-.iv-ledger th:nth-child(3) {
+:where(.inversions-page) .iv-ledger th:nth-child(3) {
   width: 26%;
 }
-.iv-ledger tr.iv-new-pair {
+:where(.inversions-page) .iv-ledger tr.iv-new-pair {
   background: #ffe4eb;
   color: #bf0030;
 }
-.iv-ledger td button {
+:where(.inversions-page) .iv-ledger td button {
   display: inline-block;
   border: 0;
   padding: 0;
@@ -658,10 +658,10 @@
   min-height: 23px;
   font: inherit;
 }
-.iv-ledger td button:hover {
+:where(.inversions-page) .iv-ledger td button:hover {
   text-decoration: underline;
 }
-.iv-complexity {
+:where(.inversions-page) .iv-complexity {
   display: flex;
   gap: 16px;
   align-items: flex-start;
@@ -672,31 +672,31 @@
   height: 89px;
   margin-top: 11px;
 }
-.iv-complexity > .iv-icon {
+:where(.inversions-page) .iv-complexity > .iv-icon {
   width: 36px;
   height: 40px;
   margin-top: 6px;
 }
-.iv-complexity > .iv-icon svg {
+:where(.inversions-page) .iv-complexity > .iv-icon svg {
   width: 27px;
   height: 27px;
 }
-.iv-complexity > div {
+:where(.inversions-page) .iv-complexity > div {
   flex: 1;
   min-width: 0;
 }
-.iv-complexity h2 {
+:where(.inversions-page) .iv-complexity h2 {
   margin: 0 0 8px;
   font-size: 18px;
   line-height: 22px;
 }
-.iv-complexity strong {
+:where(.inversions-page) .iv-complexity strong {
   display: block;
   font-size: 14px;
   color: #4d6c9e;
   line-height: 19px;
 }
-.iv-complexity p {
+:where(.inversions-page) .iv-complexity p {
   margin: 3px 0 0;
   font-size: 13px;
   color: #5877a6;
@@ -719,7 +719,7 @@
   color: #0875ff;
   text-align: left;
 }
-.iv-example-result > svg {
+:where(.inversions-page) .iv-example-result > svg {
   width: 36px;
   height: 36px;
   flex-shrink: 0;
@@ -728,20 +728,20 @@
   stroke-width: 2.5;
   margin-top: 5px;
 }
-.iv-example-result span {
+:where(.inversions-page) .iv-example-result span {
   flex: 1;
   min-width: 0;
 }
-.iv-example-result b {
+:where(.inversions-page) .iv-example-result b {
   font-size: 14px;
   line-height: 18px;
 }
-.iv-example-result p {
+:where(.inversions-page) .iv-example-result p {
   font-size: 14px;
   color: #25477f;
   margin: 7px 0 2px;
 }
-.iv-example-result small {
+:where(.inversions-page) .iv-example-result small {
   display: block;
   font-size: 13px;
   color: #5676a5;
@@ -768,43 +768,43 @@
 .app-shell:has(.inversions-page) .aimer-site-footer small {
   font-size: 12px;
 }
-.iv-learning,
-.iv-experiments {
+:where(.inversions-page) .iv-learning,
+:where(.inversions-page) .iv-experiments {
   display: grid;
   gap: 14px;
 }
-.iv-learning .iv-panel,
-.iv-code,
-.iv-practice,
-.iv-experiments .iv-panel {
+:where(.inversions-page) .iv-learning .iv-panel,
+:where(.inversions-page) .iv-code,
+:where(.inversions-page) .iv-practice,
+:where(.inversions-page) .iv-experiments .iv-panel {
   padding: 24px;
 }
-.iv-learning p,
-.iv-code p,
-.iv-practice p,
-.iv-experiments p {
+:where(.inversions-page) .iv-learning p,
+:where(.inversions-page) .iv-code p,
+:where(.inversions-page) .iv-practice p,
+:where(.inversions-page) .iv-experiments p {
   font-size: 15px;
   line-height: 1.75;
   color: #526c99;
 }
-.iv-concepts {
+:where(.inversions-page) .iv-concepts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-top: 20px;
 }
-.iv-concepts article {
+:where(.inversions-page) .iv-concepts article {
   padding: 16px;
   border: 1px solid #dce9fc;
   border-radius: 12px;
   background: #f5faff;
 }
-.iv-concepts h3 {
+:where(.inversions-page) .iv-concepts h3 {
   margin: 0;
   color: #1258a9;
   font-size: 17px;
 }
-.iv-code pre {
+:where(.inversions-page) .iv-code pre {
   margin-top: 20px;
   padding: 22px;
   border: 1px solid #d4e3f7;
@@ -816,28 +816,28 @@
     14px/1.8 Consolas,
     monospace;
 }
-.iv-lab-actions,
-.iv-merge-nodes {
+:where(.inversions-page) .iv-lab-actions,
+:where(.inversions-page) .iv-merge-nodes {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin: 18px 0;
 }
-.iv-experiments label {
+:where(.inversions-page) .iv-experiments label {
   display: flex;
   gap: 12px;
   align-items: center;
   margin: 16px 0;
   font-size: 14px;
 }
-.iv-experiments textarea {
+:where(.inversions-page) .iv-experiments textarea {
   width: 100%;
   min-height: 130px;
 }
-.iv-experiments label:has(textarea) {
+:where(.inversions-page) .iv-experiments label:has(textarea) {
   display: block;
 }
-.iv-experiments label textarea {
+:where(.inversions-page) .iv-experiments label textarea {
   margin-top: 10px;
 }
 .inversions-page .iv-run-summary {
@@ -847,15 +847,15 @@
   background: #eafaef;
   color: #17633f;
 }
-.iv-practice input {
+:where(.inversions-page) .iv-practice input {
   width: 100px;
   margin: 10px 14px 10px 0;
 }
-.iv-practice-array {
+:where(.inversions-page) .iv-practice-array {
   font-weight: 700;
   color: #0c438b !important;
 }
-.iv-dialog {
+:where(.inversions-page) .iv-dialog {
   width: min(660px, calc(100vw - 28px));
   max-height: 85vh;
   padding: 28px;
@@ -866,7 +866,7 @@
   box-shadow: 0 20px 80px #17386444;
   overflow: auto;
 }
-.iv-dialog::backdrop {
+:where(.inversions-page) .iv-dialog::backdrop {
   background: #061f4477;
   backdrop-filter: blur(3px);
 }
@@ -880,16 +880,16 @@
   border: 1px solid #c9def7;
   border-radius: 50%;
 }
-.iv-dialog h2 {
+:where(.inversions-page) .iv-dialog h2 {
   margin: 0 34px 16px 0;
   font-size: 23px;
 }
-.iv-dialog p,
-.iv-dialog li {
+:where(.inversions-page) .iv-dialog p,
+:where(.inversions-page) .iv-dialog li {
   font-size: 15px;
   line-height: 1.75;
 }
-.iv-dialog textarea {
+:where(.inversions-page) .iv-dialog textarea {
   width: 100%;
   min-height: 130px;
   margin: 10px 0 16px;
@@ -897,7 +897,7 @@
     15px/1.6 Consolas,
     monospace;
 }
-.iv-dialog [role='alert'] {
+:where(.inversions-page) .iv-dialog [role='alert'] {
   color: #b90033;
 }
 @media (min-width: 1500px) {
@@ -946,52 +946,52 @@
   }
 }
 @media (max-width: 1499px) {
-  .iv-topbar {
+  :where(.inversions-page) .iv-topbar {
     gap: 12px;
   }
-  .iv-title-row {
+  :where(.inversions-page) .iv-title-row {
     flex-wrap: wrap;
     gap: 0;
   }
-  .iv-title-row h1 {
+  :where(.inversions-page) .iv-title-row h1 {
     font-size: 25px;
   }
-  .iv-title-row p {
+  :where(.inversions-page) .iv-title-row p {
     font-size: 12px;
   }
   .inversions-page #account-trigger {
     width: auto;
     min-width: 160px;
   }
-  .iv-top-grid {
+  :where(.inversions-page) .iv-top-grid {
     grid-template-columns: 1fr;
   }
-  .iv-explanation-column {
+  :where(.inversions-page) .iv-explanation-column {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     gap: 12px;
   }
-  .iv-how,
-  .iv-insight {
+  :where(.inversions-page) .iv-how,
+  :where(.inversions-page) .iv-insight {
     min-height: 210px;
   }
-  .iv-bottom-grid {
+  :where(.inversions-page) .iv-bottom-grid {
     margin-top: 12px;
   }
-  .iv-controls {
+  :where(.inversions-page) .iv-controls {
     flex-wrap: wrap;
     height: auto;
     min-height: 42px;
   }
-  .iv-visualization {
+  :where(.inversions-page) .iv-visualization {
     height: auto;
     min-height: 493px;
     padding-bottom: 15px;
   }
-  .iv-visual-heading p {
+  :where(.inversions-page) .iv-visual-heading p {
     white-space: normal;
   }
-  .iv-complexity {
+  :where(.inversions-page) .iv-complexity {
     height: auto;
     min-height: 110px;
   }
@@ -1006,55 +1006,55 @@
   }
 }
 @media (max-width: 1050px) {
-  .iv-topbar {
+  :where(.inversions-page) .iv-topbar {
     flex-wrap: wrap;
     height: auto;
     min-height: 94px;
   }
-  .iv-title-row {
+  :where(.inversions-page) .iv-title-row {
     flex: 1;
   }
-  .iv-topbar .mom-study {
+  :where(.inversions-page) .iv-topbar .mom-study {
     margin-left: 0;
   }
-  .iv-topbar .aimer-account-controls {
+  :where(.inversions-page) .iv-topbar .aimer-account-controls {
     margin-left: auto;
   }
-  .iv-explanation-column {
+  :where(.inversions-page) .iv-explanation-column {
     grid-template-columns: 1fr;
   }
-  .iv-how,
-  .iv-insight {
+  :where(.inversions-page) .iv-how,
+  :where(.inversions-page) .iv-insight {
     min-height: 0;
   }
-  .iv-visual-heading {
+  :where(.inversions-page) .iv-visual-heading {
     height: auto;
     min-height: 64px;
   }
-  .iv-visual-heading h2 {
+  :where(.inversions-page) .iv-visual-heading h2 {
     font-size: 19px;
   }
-  .iv-visual-heading p {
+  :where(.inversions-page) .iv-visual-heading p {
     font-size: 12px;
   }
-  .iv-bottom-grid {
+  :where(.inversions-page) .iv-bottom-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .iv-bottom-grid > .iv-merge-state {
+  :where(.inversions-page) .iv-bottom-grid > .iv-merge-state {
     grid-column: 1/-1;
     height: auto;
   }
-  .iv-merge-state dl {
+  :where(.inversions-page) .iv-merge-state dl {
     grid-template-columns: 1fr 1fr;
   }
-  .iv-complexity {
+  :where(.inversions-page) .iv-complexity {
     flex-wrap: wrap;
   }
   .inversions-page .iv-example-result {
     width: 100%;
     max-width: 100%;
   }
-  .iv-concepts {
+  :where(.inversions-page) .iv-concepts {
     grid-template-columns: 1fr;
   }
 }
@@ -1065,15 +1065,15 @@
   .app-shell .workspace.category-page:has(.inversions-page) {
     padding: 12px 10px 8px;
   }
-  .iv-topbar {
+  :where(.inversions-page) .iv-topbar {
     gap: 10px;
   }
-  .iv-title-row h1 {
+  :where(.inversions-page) .iv-title-row h1 {
     font-size: 23px;
     white-space: normal;
     line-height: 28px;
   }
-  .iv-title-row p {
+  :where(.inversions-page) .iv-title-row p {
     margin-top: 7px;
   }
   .inversions-page .iv-back {
@@ -1096,39 +1096,39 @@
   .inversions-page .mom-tabs button {
     flex-shrink: 0;
   }
-  .iv-visualization {
+  :where(.inversions-page) .iv-visualization {
     padding: 12px 10px;
   }
-  .iv-visual-heading {
+  :where(.inversions-page) .iv-visual-heading {
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 14px;
   }
-  .iv-main-icon {
+  :where(.inversions-page) .iv-main-icon {
     width: 42px;
     height: 42px;
   }
-  .iv-visual-heading > div {
+  :where(.inversions-page) .iv-visual-heading > div {
     flex-basis: calc(100% - 56px);
   }
-  .iv-visual-heading h2 {
+  :where(.inversions-page) .iv-visual-heading h2 {
     font-size: 18px;
   }
   .inversions-page .iv-visual-heading select {
     margin-left: 54px;
     height: 40px;
   }
-  .iv-graph-canvas {
+  :where(.inversions-page) .iv-graph-canvas {
     height: 341px;
   }
-  .iv-diagram-scroll {
+  :where(.inversions-page) .iv-diagram-scroll {
     overflow: auto;
     overscroll-behavior-x: contain;
   }
-  .iv-diagram {
+  :where(.inversions-page) .iv-diagram {
     min-width: 820px;
   }
-  .iv-controls {
+  :where(.inversions-page) .iv-controls {
     gap: 10px;
     margin-top: 14px;
   }
@@ -1139,75 +1139,75 @@
     font-size: 13px;
     gap: 8px;
   }
-  .iv-controls .iv-shuffle {
+  :where(.inversions-page) .iv-controls .iv-shuffle {
     min-width: 130px;
   }
-  .iv-divider {
+  :where(.inversions-page) .iv-divider {
     display: none;
   }
-  .iv-size {
+  :where(.inversions-page) .iv-size {
     gap: 9px;
   }
-  .iv-switch {
+  :where(.inversions-page) .iv-switch {
     margin-left: 0;
     gap: 8px;
     font-size: 12px;
   }
-  .iv-switch i,
-  .iv-switch input {
+  :where(.inversions-page) .iv-switch i,
+  :where(.inversions-page) .iv-switch input {
     width: 43px;
   }
-  .iv-switch input:checked + i::after {
+  :where(.inversions-page) .iv-switch input:checked + i::after {
     left: 19px;
   }
-  .iv-explanation-column {
+  :where(.inversions-page) .iv-explanation-column {
     display: grid;
   }
-  .iv-how p,
-  .iv-insight p {
+  :where(.inversions-page) .iv-how p,
+  :where(.inversions-page) .iv-insight p {
     font-size: 14px;
     line-height: 21px;
   }
-  .iv-how ol {
+  :where(.inversions-page) .iv-how ol {
     gap: 16px;
   }
-  .iv-how li {
+  :where(.inversions-page) .iv-how li {
     gap: 14px;
   }
-  .iv-bottom-grid {
+  :where(.inversions-page) .iv-bottom-grid {
     grid-template-columns: 1fr;
   }
-  .iv-bottom-grid > .iv-panel {
+  :where(.inversions-page) .iv-bottom-grid > .iv-panel {
     height: auto;
     min-height: 193px;
   }
-  .iv-bottom-grid > .iv-merge-state {
+  :where(.inversions-page) .iv-bottom-grid > .iv-merge-state {
     grid-column: auto;
   }
-  .iv-merge-state dl {
+  :where(.inversions-page) .iv-merge-state dl {
     grid-template-columns: 1fr;
   }
-  .iv-ledger-scroll {
+  :where(.inversions-page) .iv-ledger-scroll {
     max-height: 210px;
   }
-  .iv-complexity {
+  :where(.inversions-page) .iv-complexity {
     padding: 14px;
     gap: 12px;
   }
-  .iv-complexity > div {
+  :where(.inversions-page) .iv-complexity > div {
     flex-basis: calc(100% - 50px);
   }
-  .iv-complexity h2 {
+  :where(.inversions-page) .iv-complexity h2 {
     font-size: 18px;
   }
-  .iv-complexity strong {
+  :where(.inversions-page) .iv-complexity strong {
     font-size: 13px;
   }
   .inversions-page .iv-example-result {
     padding: 12px;
     gap: 12px;
   }
-  .iv-example-result p {
+  :where(.inversions-page) .iv-example-result p {
     line-height: 21px;
   }
   .app-shell:has(.inversions-page) .aimer-site-footer {
@@ -1218,22 +1218,22 @@
   .app-shell:has(.inversions-page) .aimer-site-footer :is(p, small) {
     text-align: left;
   }
-  .iv-learning .iv-panel,
-  .iv-code,
-  .iv-practice,
-  .iv-experiments .iv-panel {
+  :where(.inversions-page) .iv-learning .iv-panel,
+  :where(.inversions-page) .iv-code,
+  :where(.inversions-page) .iv-practice,
+  :where(.inversions-page) .iv-experiments .iv-panel {
     padding: 16px;
   }
-  .iv-experiments label {
+  :where(.inversions-page) .iv-experiments label {
     flex-wrap: wrap;
   }
-  .iv-dialog {
+  :where(.inversions-page) .iv-dialog {
     padding: 24px 16px;
   }
-  .iv-dialog h2 {
+  :where(.inversions-page) .iv-dialog h2 {
     font-size: 20px;
   }
-  .iv-panel h2 {
+  :where(.inversions-page) .iv-panel h2 {
     font-size: 19px;
   }
 }
@@ -1280,6 +1280,6 @@
   background: #193b31;
   border-color: #357052;
 }
-[data-theme='dark'] .iv-dialog::backdrop {
+[data-theme='dark'] :where(.inversions-page) .iv-dialog::backdrop {
   background: #000b;
 }

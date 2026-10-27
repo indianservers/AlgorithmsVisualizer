@@ -11,6 +11,7 @@ import {
   Clock3,
   Code2,
   Database,
+  FastForward,
   FlaskConical,
   Info,
   Lightbulb,
@@ -21,9 +22,11 @@ import {
   Settings,
   ShieldCheck,
   Trophy,
+  WandSparkles,
   X,
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -66,6 +69,16 @@ function Panel({
     </section>
   )
 }
+function QueueIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="#eef7ff" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      {[3, 10, 17].map((y) => (
+        <rect key={y} x="3" y={y} width="18" height="4" rx="1.2" />
+      ))}
+      <path d="M6 7V10M18 7V10M6 14V17M18 14V17" />
+    </svg>
+  )
+}
 function BackpackArt() {
   const id = useId()
   return (
@@ -92,14 +105,17 @@ function BackpackArt() {
           <path d="M22 20 44 8V38L22 51Z" fill="#b0e6ff" />
         </g>
       ))}
-      <path d="M112 27Q110 4 128 5Q148 6 144 27" stroke="#6551ff" strokeWidth="5" fill="none" />
-      <path d="M93 107Q81 69 97 30Q105 15 128 18Q153 18 160 44L168 101Q165 117 151 118L106 117Z" fill={`url(#${id})`} stroke="#7367ff" strokeWidth="2" />
-      <path d="M97 33Q82 59 88 100Q89 115 104 117L109 40Z" fill="#4434e4" />
+      <path d="M110 27Q110 12 127 12Q144 12 144 29" stroke="#6551ff" strokeWidth="5" fill="none" />
+      <path d="M99 29Q88 21 84 47L80 93Q78 111 94 116" fill="none" stroke="#4f42e9" strokeWidth="9" />
+      <path d="M85 107Q75 69 91 30Q103 15 128 18Q153 18 160 44L168 101Q165 117 151 118L101 117Z" fill={`url(#${id})`} stroke="#7367ff" strokeWidth="2" />
+      <path d="M91 33Q76 59 82 100Q83 115 100 117L107 40Z" fill="#4434e4" />
       <path d="M110 41Q126 34 143 40" fill="none" stroke="#c4caff" strokeWidth="2" opacity=".6" />
-      <rect x="107" y="67" width="52" height="43" rx="10" fill={`url(#${id}p)`} stroke="#8686ff" />
-      <path d="M112 81H154" stroke="#aca7ff" strokeWidth="3" />
-      <path d="M121 82V91" stroke="#d8d7ff" strokeWidth="4" strokeLinecap="round" />
-      <g fill="none" stroke="#978cff" strokeWidth="2.6" opacity=".7">
+      <circle cx="128" cy="45" r="2" fill="#a7b1ff" />
+      <rect x="103" y="60" width="57" height="49" rx="10" fill={`url(#${id}p)`} stroke="#8686ff" />
+      <path d="M108 74H155" stroke="#aca7ff" strokeWidth="3" />
+      <path d="M116 75V84" stroke="#e1e2ff" strokeWidth="3" strokeLinecap="round" />
+      <path d="M108 104H153" stroke="#8e89ff" strokeWidth="1.5" />
+      <g transform="translate(10 6)" fill="none" stroke="#978cff" strokeWidth="2.6" opacity=".7">
         <path d="M235 29 210 51 188 88M210 51 223 78M235 29 261 51 275 87M261 51 250 78" />
         {[
           [235, 29],
@@ -112,6 +128,17 @@ function BackpackArt() {
         ].map(([x, y]) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r="4" fill="#e7e5ff" />
         ))}
+        <g stroke="#b7b4ff" strokeWidth="2" opacity=".7">
+          <path d="M210 51L201 70M223 78L218 93M250 78L260 93M275 87L279 100" />
+          {[
+            [201, 70],
+            [218, 93],
+            [260, 93],
+            [279, 100],
+          ].map(([x, y]) => (
+            <circle key={x} cx={x} cy={y} r="3" fill="#eeeaff" />
+          ))}
+        </g>
       </g>
     </svg>
   )
@@ -207,11 +234,7 @@ function Tree({ state, selected, onSelect }: { state: FifoState; selected: numbe
                 stroke={best ? '#ffb500' : pruned ? '#8bd4a7' : node.status === 'expanded' ? '#1680ff' : '#badbff'}
                 strokeWidth={node.id === selected ? 2 : 1.2}
               />
-              {best && (
-                <text x={x - 45} y={y + 29} fill="#e9a300" fontSize="18">
-                  {'★'}
-                </text>
-              )}
+              {best && <Trophy x={x - 43} y={y + 12} width="19" height="19" fill="#ffce49" stroke="#eaa000" strokeWidth="1.6" />}
               <text x={x + (best ? 6 : 0)} y={y + 18} textAnchor="middle" fontSize="11" fontWeight="650" fill="#091c4e">
                 {nodeLabel(node)}
               </text>
@@ -380,7 +403,7 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
   const queuePanel = (
     <Panel
       title={tr('FIFO Queue (Frontier Order)')}
-      icon={<Database />}
+      icon={<QueueIcon />}
       className="fk-queue"
       action={
         <span className="fk-count">
@@ -581,6 +604,7 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
     <div className="mom-page target-visual fifo-knapsack-page" data-target="19">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('0/1 Knapsack: FIFO Branch and Bound')}
         description="Use a fractional-knapsack upper bound to prune exact 0/1 knapsack search with a FIFO queue."
         concepts={6}
@@ -608,6 +632,7 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
         }}
       />
       <MockupTabs
+        iconOverrides={{ Visualization: <FastForward />, Practice: <Code2 />, Experiments: <WandSparkles /> }}
         active={tab}
         onChange={(next) => {
           setPlaying(false)
@@ -917,6 +942,7 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
             </div>
           </Panel>
           <Panel title={tr('Your Knapsack Notes')} icon={<BookOpen />}>
+            <LanguageSelector />
             <label>
               {tr('Explain in your own words why the relaxation is an upper bound.')}
               <textarea aria-label={tr('Knapsack learning notes')} rows={5} value={notes} onChange={(e) => setNotes(e.target.value)} />

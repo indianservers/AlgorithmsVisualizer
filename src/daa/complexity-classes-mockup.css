@@ -2090,3 +2090,51 @@
     letter-spacing: -0.15px;
   }
 }
+@media (min-width: 1551px) {
+  :root:not([data-theme='dark']) .app-shell .workspace.category-page:has(.complexity-classes-page) {
+    background: linear-gradient(180deg, #eaf4ff 0, #f5faff 200px, #f9fcfe 100%);
+  }
+  .complexity-classes-page .cx-example-box button {
+    color: #18223e !important;
+  }
+  .complexity-classes-page .cx-details > header {
+    transform: translateY(3px);
+  }
+  .complexity-classes-page .cx-detail-fields > section:nth-child(3) > svg {
+    fill: #ffdc5b;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-submenu {
+    margin-bottom: 11px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-algorithm {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    padding-left: 22px;
+    margin-left: 9px;
+    letter-spacing: -0.15px;
+  }
+  .app-shell:has(.complexity-classes-page) .sidebar-algorithm.active::before {
+    left: 3px;
+  }
+}
+@media (min-width: 1551px) {
+  .complexity-classes-page .cx-classifier .cx-icon svg {
+    fill: #1381ff;
+    stroke: #0874ff;
+  }
+  .complexity-classes-page .cx-certificates > header .cx-icon {
+    color: #4924ff;
+    background: #eeeaff;
+  }
+  .complexity-classes-page .cx-takeaways .cx-icon svg {
+    fill: #ffce54;
+    stroke: #ed9b00;
+  }
+  .complexity-classes-page .cx-misconceptions .cx-icon svg path:first-child {
+    fill: #e31b3a;
+    stroke: #be1430;
+  }
+  .complexity-classes-page .cx-misconceptions .cx-icon svg path:not(:first-child) {
+    stroke: white;
+  }
+}

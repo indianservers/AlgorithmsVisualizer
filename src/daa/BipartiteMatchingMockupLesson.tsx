@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
 import { AccountControl } from '../account/AccountControl'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
 import { persistentString, usePersistentState } from '../hooks/usePersistentState'
@@ -108,11 +109,11 @@ function MatchingDiagram({
   onVertex: (v: number) => void
 }) {
   const id = useId().replace(/:/g, ''),
-    radius = (v: number) => Math.min(after ? 22 : 25, (after ? 151 : 173) / Math.max(1, (v <= graph.left ? graph.left : graph.right) - 1) / 2 - 3),
+    radius = (v: number) => Math.min(after ? 21 : 23, (after ? 151 : 173) / Math.max(1, (v <= graph.left ? graph.left : graph.right) - 1) / 2 - 3),
     point = (v: number) =>
       v <= graph.left
-        ? [after ? 118 : 110, graph.left === 1 ? 130 : (after ? 54 : 58) + ((v - 1) * (after ? 151 : 173)) / (graph.left - 1)]
-        : [after ? 336 : 350, graph.right === 1 ? 130 : (after ? 54 : 58) + ((v - graph.left - 1) * (after ? 151 : 173)) / (graph.right - 1)],
+        ? [after ? 118 : 112, graph.left === 1 ? 130 : (after ? 53 : 57) + ((v - 1) * (after ? 151 : 173)) / (graph.left - 1)]
+        : [after ? 338 : 351, graph.right === 1 ? 130 : (after ? 53 : 57) + ((v - graph.left - 1) * (after ? 151 : 173)) / (graph.right - 1)],
     matched = new Set(matching.map((p) => p.join(':')))
   return (
     <div className="bp-diagram-scroll" role="region" aria-label={tr(after ? 'Scrollable result graph' : 'Scrollable original graph')} tabIndex={0}>
@@ -123,19 +124,19 @@ function MatchingDiagram({
         aria-label={tr(after ? 'Bipartite graph after the selected augmentation' : 'Original bipartite graph')}
       >
         <defs>
-          <linearGradient id={`${id}-left`} x2="0" y2="1">
-            <stop stopColor="#e7f5ff" />
+          <radialGradient id={`${id}-left`} cx="35%" cy="30%" r="75%">
+            <stop stopColor="#f6fbff" />
             <stop offset="1" stopColor="#b6dbff" />
-          </linearGradient>
-          <linearGradient id={`${id}-right`} x2="0" y2="1">
-            <stop stopColor="#fff0f6" />
+          </radialGradient>
+          <radialGradient id={`${id}-right`} cx="35%" cy="30%" r="75%">
+            <stop stopColor="#fff8fb" />
             <stop offset="1" stopColor="#ffbed9" />
-          </linearGradient>
-          <marker id={`${id}-green`} markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-            <path d="M0 0L6 3L0 6Z" fill="#00a348" />
+          </radialGradient>
+          <marker id={`${id}-green`} markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+            <path d="M0 0L9 5L0 10L3 5Z" fill="#00a348" />
           </marker>
-          <marker id={`${id}-orange`} markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-            <path d="M0 0L6 3L0 6Z" fill="#ff5c16" />
+          <marker id={`${id}-orange`} markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+            <path d="M0 0L9 5L0 10L3 5Z" fill="#ff5c16" />
           </marker>
         </defs>
         <text className="bp-partition-label bp-left-label" x="58" y={after ? 10 : 15}>
@@ -443,6 +444,7 @@ export function BipartiteMatchingMockupLesson(props: MockupPageProps) {
             `U = {${Array.from({ length: graph.left }, (_, i) => i + 1).join(', ')}}, V = {${Array.from({ length: graph.right }, (_, i) => graph.left + i + 1).join(', ')}}.`,
           )}
         </p>
+        <p>{tr(`E = {${graph.edges.map((p) => `(${p.join(', ')})`).join(', ')}}.`)}</p>
         <p>{tr(`Start with M = {${base.map((p) => `(${p.join(', ')})`).join(', ')}}. Start vertex: ${start}.`)}</p>
         <p>{tr(`Path: ${searchPlan.path.join(' → ') || 'none'}. Flip its edges to obtain ${after.length} matching edges.`)}</p>
         <p>{tr('A rerouting example demonstrates why a greedy choice may need to be undone.')}</p>
@@ -506,7 +508,7 @@ export function BipartiteMatchingMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="bp-lesson-header">
         <button className="bp-back" aria-label={tr('Open maximum-flow lesson')} onClick={() => navigate('/daa-extensions/edmonds-karp')}>
@@ -745,8 +747,8 @@ export function BipartiteMatchingMockupLesson(props: MockupPageProps) {
                       {playing ? <Pause size={16} /> : <Play size={16} />} {tr(playing ? 'Pause' : 'Play')}
                     </button>
                     <button disabled={stage === 3 || (!searchPlan.path.length && stage >= 1)} onClick={() => move(stage + 1)}>
-                      {tr('Step Forward')}
                       <SkipForward size={16} />
+                      {tr('Step Forward')}
                     </button>
                   </div>
                   <label className="bp-speed">
@@ -942,6 +944,7 @@ export function BipartiteMatchingMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Bipartite Matching Notes')} icon={<BookOpen />} className="bp-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain alternation, free endpoints, symmetric difference and the optimality certificate.')}
             <textarea aria-label={tr('Bipartite matching notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

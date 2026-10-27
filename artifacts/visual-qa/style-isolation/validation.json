@@ -1,0 +1,126 @@
+{
+  "previousGoalTurnClassification": "Progress: target 022 visuals improved and its shared-style conflict with target 040 was reproduced, fixed and verified.",
+  "scope": "Preserve mockup layout and interactions across SPA navigation for targets 008, 009, 033 and 039.",
+  "status": "Navigation style regressions fixed; full visual-reference goal remains incomplete.",
+  "staticAudit": {
+    "stylesheetsInspected": 52,
+    "privatePrefixPairsFound": ["mt: Master Theorem / Metric TSP", "iv: Correctness Proofs / Counting Inversions"],
+    "selectorsScoped": {
+      "master-theorem-mockup.css": 238,
+      "metric-tsp-mockup.css": 205,
+      "invariant-mockup.css": 226,
+      "inversions-mockup.css": 227
+    },
+    "method": "Prefix selectors were isolated under :where(page-root), preserving their original specificity and declarations.",
+    "unscopedSelectorsRemainingInTheseFourFiles": 0,
+    "duplicateKeyframeNamesAcrossAuditedStylesheets": 0,
+    "reviewedSharedReferences": [
+      "median-mockup.css / median-reference.css deliberately share tone classes as base and extension styles.",
+      "BFS uses the shared DFS legend component and scopes its own changes to .bfs-page.",
+      "DFS uses the shared Dijkstra breadcrumb component and scopes its own changes to .dfs-page."
+    ],
+    "limitation": "This selector audit detects naming collisions; rendered and interaction checks remain necessary."
+  },
+  "reproducedBeforeFix": {
+    "masterTheoremExplorer": {
+      "initialWidth": 505,
+      "afterMetricTspWidth": 448.938,
+      "initialPadding": "10px 12px 12px 17px",
+      "afterMetricTspPadding": "11px 13px"
+    },
+    "masterTheoremCases": {
+      "initialHeight": 194.078,
+      "afterMetricTspHeight": 252.484
+    },
+    "invariantIcon": {
+      "initialHeight": 45,
+      "afterInversionsHeight": 29
+    },
+    "evidence": ["mt-navigation-before.json", "iv-navigation-before.json"]
+  },
+  "afterFix": {
+    "computedStyles": "All recorded panel, icon, control and bottom-grid computed properties are identical before/after paired navigation.",
+    "pixelDifference": {
+      "masterTheorem": {
+        "width": 1337,
+        "height": 1080,
+        "changedPixels": 0,
+        "pixelsOverTolerance": 0,
+        "maxChannelDifference": 0,
+        "allowedChannelDifference": 2
+      },
+      "metricTsp": {
+        "width": 1291,
+        "height": 913,
+        "changedPixels": 0,
+        "pixelsOverTolerance": 0,
+        "maxChannelDifference": 0,
+        "allowedChannelDifference": 2
+      },
+      "correctnessProofs": {
+        "width": 1347,
+        "height": 992,
+        "changedPixels": 0,
+        "pixelsOverTolerance": 0,
+        "maxChannelDifference": 0,
+        "allowedChannelDifference": 2
+      },
+      "countingInversions": {
+        "width": 1287,
+        "height": 917,
+        "changedPixels": 0,
+        "pixelsOverTolerance": 0,
+        "maxChannelDifference": 0,
+        "allowedChannelDifference": 2
+      }
+    },
+    "actualObservation": "All four lesson-region screenshots have zero changed pixels in the final production run. The regression permits at most 2/255 channel variation for rendering noise; no tolerance was needed in that run.",
+    "screenshotMethod": "Native lesson-region captures before/after navigation with animations disabled. The optional login invitation is dismissed through Continue as guest to compare unobscured lessons.",
+    "runtimeErrors": []
+  },
+  "checks": {
+    "fullProjectCheck": "Passed: lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and budget for 73 chunks.",
+    "finalTestLint": "Passed after adding screenshot comparison and guest-invitation dismissal.",
+    "productionBrowserPassed": 78,
+    "productionBrowserSkipped": 6,
+    "scope": "Four native lesson specs, four reference inventories and numbered target captures, plus two bidirectional SPA navigation regressions.",
+    "skips": "Four mobile reference-inventory captures and two desktop-only navigation reference tests.",
+    "interactions": [
+      "Master Theorem recurrence parameters, applicability, examples, playback and modeled work",
+      "Correctness induction workflow, invariants and editable binary-search arrays",
+      "Counting inversions custom arrays, merge ledger, pointers, playback and predictions",
+      "Metric TSP points, metric validation, MST, doubled walk, shortcut tour and inspectors",
+      "Keyboard controls, dialog behavior, saved notes, search and dark/narrow layouts",
+      "Before/after lesson-region screenshots and exact computed styles in both directions"
+    ]
+  },
+  "referenceAudit": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0,
+    "metrics": [
+      {
+        "number": 8,
+        "meanAbsoluteRgbError": 11.0266,
+        "exactMatch": false
+      },
+      {
+        "number": 9,
+        "meanAbsoluteRgbError": 11.5237,
+        "exactMatch": false
+      },
+      {
+        "number": 33,
+        "meanAbsoluteRgbError": 9.7328,
+        "exactMatch": false
+      },
+      {
+        "number": 39,
+        "meanAbsoluteRgbError": 11.8959,
+        "exactMatch": false
+      }
+    ]
+  },
+  "remaining": "Zero changed pixels across navigation does not mean these pages match their target rasters. All 45 references still have nonzero differences, so the full objective remains active.",
+  "disposition": "Local changes only; no new commit or push."
+}
