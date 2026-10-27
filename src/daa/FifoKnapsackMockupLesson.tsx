@@ -26,7 +26,6 @@ import {
   X,
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
-import { LanguageSelector } from '../i18n/LanguageSelector'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import {
@@ -604,7 +603,6 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
     <div className="mom-page target-visual fifo-knapsack-page" data-target="19">
       <MockupLessonChrome
         {...props}
-        showLanguage={false}
         title={tr('0/1 Knapsack: FIFO Branch and Bound')}
         description="Use a fractional-knapsack upper bound to prune exact 0/1 knapsack search with a FIFO queue."
         concepts={6}
@@ -942,7 +940,6 @@ export function FifoKnapsackMockupLesson(props: MockupPageProps) {
             </div>
           </Panel>
           <Panel title={tr('Your Knapsack Notes')} icon={<BookOpen />}>
-            <LanguageSelector />
             <label>
               {tr('Explain in your own words why the relaxation is an upper bound.')}
               <textarea aria-label={tr('Knapsack learning notes')} rows={5} value={notes} onChange={(e) => setNotes(e.target.value)} />

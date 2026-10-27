@@ -11,6 +11,43 @@ test.beforeEach(async ({ page }, info) => {
   await page.goto('/branch-and-bound/knapsack-fifo')
 })
 
+test('FIFO language selector stays available and preserves the active tab on desktop and narrow phones', async ({ page }, info) => {
+  test.setTimeout(120000)
+  const root = page.locator('.fifo-knapsack-page')
+  const tabs = root.locator('.mom-tabs button')
+  const widths = info.project.name === 'desktop' ? [1440, 1672] : [320, 393]
+  const choose = async (language: string, code: string) => {
+    const trigger = root.locator('.mom-topbar .language-trigger')
+    await expect(page.locator('.language-trigger')).toHaveCount(1)
+    await expect(trigger).toBeVisible()
+    await trigger.click()
+    await expect(page.locator('.language-search input')).toBeVisible()
+    await page.locator('.language-search input').fill(language)
+    await page.getByRole('option').filter({ hasText: language }).first().click()
+    await expect(page.locator('html')).toHaveAttribute('lang', code)
+    await expect(page.locator('.language-popover')).toHaveCount(0)
+  }
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: 941 })
+    for (let index = 0; index < 5; index++) {
+      await tabs.nth(index).click()
+      const profits = await root.locator('.fk-incumbent output').allTextContents()
+      await choose('Telugu', 'te')
+      await expect(tabs.nth(index)).toHaveAttribute('aria-pressed', 'true')
+      expect(await root.locator('.fk-incumbent output').allTextContents()).toEqual(profits)
+      await choose('English (India)', 'en-IN')
+      await expect(tabs.nth(index)).toHaveAttribute('aria-pressed', 'true')
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    }
+    await choose('Arabic', 'ar')
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+    await expect(tabs.nth(4)).toHaveAttribute('aria-pressed', 'true')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    await choose('English (India)', 'en-IN')
+  }
+  await page.screenshot({ path: info.outputPath('fifo-header-language-selector.png') })
+})
+
 test('019 reference dashboard includes all learning components and coherent default values', async ({ page }, info) => {
   if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   const root = page.locator('.fifo-knapsack-page')
