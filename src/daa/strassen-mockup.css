@@ -1166,3 +1166,96 @@
   color: #ffb8c7;
   border-color: #754255;
 }
+
+/* Reference desktop illustration, algebra and chart geometry. */
+@media (min-width: 1551px) {
+  .strassen-page .sm-hero-art {
+    left: -42px;
+  }
+  .strassen-page .mom-search {
+    flex-basis: 910px;
+  }
+  .strassen-page .mom-study {
+    width: 120px;
+    justify-content: center;
+  }
+  .strassen-page #account-trigger {
+    width: 177px;
+  }
+  .strassen-page .sm-decomposition .sm-block-diagram h3 {
+    transform: translate(14px, -8px);
+  }
+  .strassen-page .sm-decomposition .sm-column-brackets span {
+    padding-top: 0;
+    line-height: 16px;
+  }
+  .strassen-page .sm-decomposition .sm-row-brackets span {
+    text-indent: -28px;
+  }
+  .strassen-page .sm-decomposition-body > .green {
+    transform: translateX(-2px);
+  }
+  .strassen-page .sm-example-top {
+    grid-template-columns: 269px minmax(0, 366px);
+  }
+  .strassen-page .sm-example-inputs {
+    padding-inline: 24px;
+    gap: 28px;
+  }
+  .strassen-page .sm-worked-products > div {
+    grid-template-columns: 162px 194px;
+  }
+  .strassen-page .sm-worked-products .sm-product > span {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+  .strassen-page .sm-worked-products h3,
+  .strassen-page .sm-worked-blocks h3,
+  .strassen-page .sm-final h3 {
+    font-size: 12px;
+  }
+  .strassen-page .sm-chart-legend {
+    font-size: 12px;
+    gap: 35px;
+  }
+  .strassen-page .sm-performance > header {
+    margin-bottom: 4px;
+  }
+  .strassen-page .sm-chart text {
+    font-size: 12px;
+  }
+  .strassen-page .sm-performance header p {
+    font-size: 12px;
+  }
+  .strassen-page .sm-bottom-grid .sm-panel > p,
+  .strassen-page .sm-bottom-grid .sm-panel > ul {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .strassen-page .sm-bottom-grid .sm-icon svg {
+    stroke-width: 2;
+  }
+}
+
+@media (min-width: 1551px) {
+  .strassen-page #account-trigger {
+    gap: 6px;
+    padding-inline: 9px;
+  }
+  .strassen-page #account-label {
+    font-size: 11.5px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+  .strassen-page .account-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .strassen-page .sm-example-inputs {
+    gap: 41px;
+  }
+  .strassen-page .sm-chart svg {
+    margin-top: -3px;
+  }
+}

@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -11,6 +13,8 @@ test('012 reference dashboard contains every learning component and measured lay
   page.on('pageerror', (e) => errors.push(e.message))
   await page.goto('/analysis-correctness/algorithm-foundations')
   const root = page.locator('.pseudocode-page')
+  await expect(root).toBeVisible()
+  await page.screenshot({ path: `artifacts/visual-qa/pseudocode-012/${info.project.name}-learn.png` })
   for (const title of [
     'Pseudocode Editor',
     'Flowchart Visualizer',
@@ -26,6 +30,15 @@ test('012 reference dashboard contains every learning component and measured lay
   await expect(root.locator('.pc-tabs button')).toHaveCount(5)
   await expect(root.locator('.pc-flow-node')).toHaveCount(7)
   await expect(root.locator('.pc-checklist input')).toHaveCount(10)
+  const check = await root.locator('.pc-checklist input').first().boundingBox()
+  expect(check!.width).toBe(16)
+  expect(check!.height).toBe(16)
+  if (info.project.name === 'desktop') {
+    const lines = root.locator('.pc-generated .pc-code-line'),
+      first = await lines.nth(0).boundingBox(),
+      second = await lines.nth(1).boundingBox()
+    expect(second!.y - first!.y).toBe(18)
+  }
   await expect(root.locator('.pc-binary-table tbody tr')).toHaveCount(3)
   await expect(root.locator('.pc-example-cards')).toContainText('Returns index 3')
   for (const selector of ['.pc-takeaways', '.pc-pitfalls', '.pc-pro-tip']) {
@@ -176,6 +189,9 @@ test('012 predictions, quiz answers and persistent notes are interactive', async
   await root.getByRole('button', { name: 'Check answer', exact: true }).click()
   await expect(root.getByRole('status')).toContainText('Correct')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root.getByLabel('Pseudocode notes', { exact: true }).fill('Binary search needs sorted input and a decreasing interval.')
   await page.reload()
   await root.getByRole('button', { name: 'Notes', exact: true }).click()

@@ -1,0 +1,67 @@
+{
+  "target": 16,
+  "route": "/divide-and-conquer/quickselect",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/016--divide-and-conquer--quickselect.png",
+  "previousGoalTurnClassification": "Progress: Algorithm Foundations editor, generated-code spacing, flowchart labels and checklist refined; RGB error 12.7044 to 12.5302, 808 unit tests and 19 production-browser checks passed.",
+  "status": "Controls, recursion trace, bottom panels and growth-chart presentation improved; full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.573,
+  "afterMeanAbsoluteRgbError": 12.0426,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Matched section-tab widths and reference header/account widths; language selection retained in Notes.",
+    "Aligned editable array fields and removed number-spinner gutters so values stay centered.",
+    "Matched pivot selection, Reset and Auto Run widths; added native filled Run Step icon.",
+    "Tightened recursion-card gaps and aligned card edges, markers and text padding.",
+    "Improved partition legend, pitfalls, pro-tip, worked table, proof and growth-chart typography.",
+    "Matched bottom panel columns, worked-table vertical spacing and proof-tab placement.",
+    "Added native rounded bar-chart icon.",
+    "Made growth markers inspectable with mouse, focus, Enter and Space; reported correct illustrative values in an overlay without changing the default layout.",
+    "Set reference viewport before navigation, abort analytics, await visible lesson and capture before assertions.",
+    "Added bottom-panel geometry, side-card text containment and keyboard growth-value assertions."
+  ],
+  "referenceClarifications": [
+    "This teaching implementation materializes lower/equal/upper arrays and uses O(n) auxiliary space. It does not claim the O(1) space of a different in-place partition implementation.",
+    "Right recursion subtracts both lower and equal group sizes, supporting duplicate pivot values.",
+    "Expected linear time requires randomized pivots; deterministic poor choices can take quadratic time.",
+    "The illustrative chart explicitly uses 3n and n\u00b2/125 and is not a measured runtime. At n=1000 inspection reports 3000 and 8000.",
+    "The final frame correctly identifies rank 1 in [7,10] via its lower group, returning 7; one-based ranks are distinguished from zero-based pivot indices."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalSourceChecks": "Scoped ESLint, TypeScript, fresh Vite build, prerender and bundle budget passed after final controls and chart-interaction changes.",
+    "developmentBrowser": {
+      "passed": 13,
+      "skipped": 1
+    },
+    "finalProductionBrowser": {
+      "passed": 13,
+      "skipped": 1
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "geometry": "Five main layout anchors plus all three bottom panels within four pixels of reference; side-card prose fits within its cards; responsive pages do not overflow.",
+    "interactions": [
+      "Step and recursion selection",
+      "Editable array entries and rank validation",
+      "Bulk datasets",
+      "Duplicate-aware partitioning",
+      "Randomized pivot and seed",
+      "Autoplay",
+      "Prediction challenges",
+      "Saved experiments and export",
+      "Source code",
+      "Proof/assumption/interpretation tabs",
+      "Study progress",
+      "Language dialog",
+      "Persistent notes",
+      "Keyboard growth-chart inspection",
+      "Dark theme and narrow layouts"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures have nonzero differences. Continue full visual-match objective."
+}

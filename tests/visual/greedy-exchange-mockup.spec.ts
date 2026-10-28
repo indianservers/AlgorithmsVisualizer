@@ -1,16 +1,20 @@
 import { test, expect } from '@playwright/test'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
   })
   await page.goto('/analysis-correctness/greedy-exchange')
+  await expect(page.locator('.greedy-exchange-page')).toBeVisible()
 })
 
 test('010 reference dashboard contains every component and measured layout anchors', async ({ page }, info) => {
   if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   const root = page.locator('.greedy-exchange-page')
+  await page.screenshot({ path: `artifacts/visual-qa/greedy-exchange-010/${info.project.name}-learn.png` })
   for (const heading of [
     'Activity Selection Visualizer',
     'Local Choice vs Global Outcome',
@@ -23,6 +27,8 @@ test('010 reference dashboard contains every component and measured layout ancho
   await expect(root.locator('.ge-tabs button')).toHaveCount(5)
   await expect(root.locator('.ge-activity-body .ge-schedule g[role="button"]')).toHaveCount(6)
   await expect(root.locator('.ge-steps button')).toHaveCount(3)
+  await expect(root.locator('.ge-before .ge-mini-label')).toHaveText(['A2 [3, 5]', 'A4 [5, 7]', 'A6 [8, 10]'])
+  await expect(root.locator('.ge-after .ge-mini-label')).toHaveText(['A1 [1, 4]', 'A4 [5, 7]', 'A6 [8, 10]'])
   await expect(root.locator('.ge-selected-summary')).toContainText('{A1, A4, A6}')
   await expect(root.locator('.ge-knapsack-result output')).toHaveText('240')
   await expect(root.locator('.ge-item-table tbody tr')).toHaveCount(4)
@@ -102,11 +108,11 @@ test('010 alternative rules and the exchange transform report truthful outcomes'
   await expect(root.locator('.ge-comparison-count')).toHaveText('2')
   await root.getByRole('button', { name: 'Earliest Finish (Greedy)', exact: true }).click()
   await expect(root.locator('.ge-comparison-count')).toHaveText('3')
-  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A1')
+  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A1 [1, 4]')
   await root.getByRole('button', { name: 'Reset exchange argument', exact: true }).click()
-  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A2')
+  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A2 [3, 5]')
   await root.getByRole('button', { name: 'Apply greedy exchange', exact: true }).click()
-  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A1')
+  await expect(root.locator('.ge-after .ge-mini-label').first()).toHaveText('A1 [1, 4]')
   await expect(root.locator('.ge-exchange-note')).toContainText('Since 4 ≤ 5')
   await expect(root.locator('.ge-exchange-note')).toContainText('Both schedules contain 3 activities')
 })
@@ -153,6 +159,9 @@ test('010 coin DP, predictions, proof quiz and persistent notes work', async ({ 
   await root.getByRole('button', { name: 'Check answer', exact: true }).click()
   await expect(root.locator('.ge-quiz-feedback')).toContainText('Correct')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root.getByLabel('Greedy exchange notes', { exact: true }).fill('Preserve the feasible suffix and cardinality.')
   await page.reload()
   await root.getByRole('button', { name: 'Notes', exact: true }).click()

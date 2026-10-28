@@ -1,11 +1,10 @@
 // @localized-render
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
   ArrowLeftRight,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -30,6 +29,7 @@ import {
 import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { AccountControl } from '../account/AccountControl'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
@@ -48,6 +48,30 @@ const steps = [
   ['Conclude', 'Clique size ≥ k ↔ Vertex cover size ≤ n − k'],
 ]
 const setLabel = (vertices: number[]) => `{${vertices.map((v) => v + 1).join(', ')}}`
+function CoverBars() {
+  return (
+    <svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="12" width="5" height="12" rx="2" opacity=".65" />
+      <rect x="10" y="3" width="5" height="21" rx="2" />
+      <rect x="17" y="8" width="5" height="16" rx="2" opacity=".75" />
+    </svg>
+  )
+}
+function ComplementArrow() {
+  const id = useId()
+  return (
+    <svg viewBox="0 0 50 44" aria-hidden="true">
+      <defs>
+        <linearGradient id={id}>
+          <stop stopColor="#a3caff" />
+          <stop offset=".55" stopColor="#438cff" />
+          <stop offset="1" stopColor="#0875ff" />
+        </linearGradient>
+      </defs>
+      <path d="M8 22H40M31 12L41 22L31 32" stroke={`url(#${id})`} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -109,7 +133,8 @@ function Graph({
   onNode: (v: number) => void
   onPair: (a: number, b: number) => void
 }) {
-  const width = side === 'source' ? 385 : 332,
+  const gradientId = useId(),
+    width = side === 'source' ? 385 : 332,
     points =
       graph.n === 6
         ? side === 'source'
@@ -142,6 +167,18 @@ function Graph({
       preserveAspectRatio="xMidYMid meet"
       aria-label={tr(`${side === 'source' ? 'Original' : 'Complement'} graph: ${graph.n} vertices, ${graph.edges.length} edges`)}
     >
+      <defs>
+        {[
+          ['blue', '#ffffff', '#cbdfff'],
+          ['gold', '#fff7b4', '#ffcd68'],
+          ['mint', '#bdffcc', '#70ec91'],
+        ].map(([name, light, dark]) => (
+          <radialGradient key={name} id={`${gradientId}-${name}`} cx="35%" cy="28%" r="80%">
+            <stop stopColor={light} />
+            <stop offset="1" stopColor={dark} />
+          </radialGradient>
+        ))}
+      </defs>
       {visible &&
         showEdges &&
         graph.edges.map(([a, b]) => {
@@ -195,8 +232,8 @@ function Graph({
               <circle
                 cx={x}
                 cy={y}
-                r={picked ? 20 : 19}
-                fill={picked ? (gold ? '#ffdf7d' : '#7df6a2') : '#edf5ff'}
+                r="20"
+                fill={`url(#${gradientId}-${picked ? (gold ? 'gold' : 'mint') : 'blue'})`}
                 stroke={picked ? (gold ? '#ff8100' : '#18b45f') : '#819deb'}
                 strokeWidth="1.5"
               />
@@ -520,7 +557,7 @@ export function CliqueCoverMockupLesson(props: MockupPageProps) {
     <section className="cv-reduction">
       <h2>{tr('Reduction: Take Complement')}</h2>
       <p>{tr('Construct H = G̅ on the same vertices')}</p>
-      <ArrowRight />
+      <ComplementArrow />
       <div>
         <p>{tr('Add an edge in H iff it is not an edge in G.')}</p>
         <p>{tr('A clique of size k in G becomes an independent set of size k in H.')}</p>
@@ -644,7 +681,7 @@ export function CliqueCoverMockupLesson(props: MockupPageProps) {
         <p>{tr('For triangle G (n = 3, k = 3), H has no edges. The empty cover has size 0 = n − k.')}</p>
         <p>{tr('Try the triangle in the graph above.')}</p>
       </Panel>
-      <Panel title={tr('Correctness & Complexity')} icon={<BarChart3 />} className="cv-correctness">
+      <Panel title={tr('Correctness & Complexity')} icon={<CoverBars />} className="cv-correctness">
         <ul>
           {[
             'Clique S in G ⇒ V ∖ S covers H.',
@@ -735,7 +772,7 @@ export function CliqueCoverMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="cv-lesson-header">
         <button className="cv-back" aria-label={tr('Open 3-SAT to Clique lesson')} onClick={() => navigate('/complexity-theory/three-sat-clique-reduction')}>
@@ -766,7 +803,7 @@ export function CliqueCoverMockupLesson(props: MockupPageProps) {
         <>
           <section className="cv-visualization">
             <header className="cv-visual-heading">
-              <BarChart3 />
+              <CoverBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
                 <p>{tr('Explore the reduction from CLIQUE in G to VERTEX COVER in the complement graph H.')}</p>
@@ -978,6 +1015,7 @@ export function CliqueCoverMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Clique-to-Cover Proof Notes')} icon={<BookOpen />} className="cv-notes">
+          <LanguageSelector />
           <label>
             {tr('State the complement rule, threshold mapping, both proof directions and construction time.')}
             <textarea aria-label={tr('Clique to cover proof notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

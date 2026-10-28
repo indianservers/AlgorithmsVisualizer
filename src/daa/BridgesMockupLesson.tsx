@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -31,6 +30,7 @@ import {
   X,
 } from 'lucide-react'
 import { tx, useLocaleRender } from '../i18n/render'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { AccountControl } from '../account/AccountControl'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
@@ -41,6 +41,24 @@ import './bridges-mockup.css'
 const tr = (s: string) => tx(s, 'studios'),
   tabs: MockupTab[] = ['Learn', 'Visualization', 'Code', 'Practice', 'Experiments', 'Notes'],
   value = (v: number) => (v < 0 ? '—' : String(v))
+function BridgeBars() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="15" width="5" height="11" rx="1.5" opacity=".65" />
+      <rect x="10" y="8" width="5" height="18" rx="1.5" opacity=".85" />
+      <rect x="17" y="2" width="5" height="24" rx="1.5" />
+    </svg>
+  )
+}
+function DfsDocument() {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M6 2H17L24 9V24Q24 26 22 26H6Q4 26 4 24V4Q4 2 6 2Z" />
+      <path d="M17 2V9H24" />
+      <path d="M10 12L18 16L10 20Z" fill="#a9d4ff" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -116,10 +134,16 @@ function BridgeDiagram({
     <div className="br-diagram-scroll" role="region" tabIndex={0} aria-label={tr('Scrollable DFS graph')}>
       <svg className="br-diagram" viewBox="0 0 520 300" preserveAspectRatio="none" aria-label={tr('Undirected graph with DFS and bridge classifications')}>
         <defs>
-          <linearGradient id={`${id}-node`} x2="0" y2="1">
-            <stop stopColor="#effbff" />
-            <stop offset="1" stopColor="#c0e7ff" />
-          </linearGradient>
+          {[
+            ['node', '#ffffff', '#b7ddff'],
+            ['gold', '#fff5ad', '#ffce63'],
+            ['rose', '#fff9fb', '#ffdae4'],
+          ].map(([name, light, dark]) => (
+            <radialGradient key={name} id={`${id}-${name}`} cx="34%" cy="25%" r="80%">
+              <stop stopColor={light} />
+              <stop offset="1" stopColor={dark} />
+            </radialGradient>
+          ))}
         </defs>
         {graph.edges.map(([u, v], edge) => {
           const [a, b] = point(u),
@@ -189,7 +213,7 @@ function BridgeDiagram({
                 }
               }}
             >
-              <circle cx={x} cy={y} r={radius} fill={`url(#${id}-node)`} />
+              <circle cx={x} cy={y} r={radius} style={{ fill: `url(#${id}-${selected === v ? 'gold' : incident ? 'rose' : 'node'})` }} />
               {labels && (
                 <text className="br-vertex-label" x={x} y={y + 6} textAnchor="middle">
                   {v}
@@ -481,7 +505,7 @@ export function BridgesMockupLesson(props: MockupPageProps) {
           )}
         </div>
       </Panel>
-      <Panel title={tr('Correctness & Complexity')} icon={<BarChart3 />} className="br-proof">
+      <Panel title={tr('Correctness & Complexity')} icon={<BridgeBars />} className="br-proof">
         <ul>
           <li>
             <b>{tr('Correctness:')}</b> {tr('low[v] is the earliest discovery time reachable from its DFS subtree using tree edges and at most one back edge.')}
@@ -542,7 +566,7 @@ export function BridgesMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="br-lesson-header">
         <button className="br-back" aria-label={tr('Open bipartite matching lesson')} onClick={() => navigate('/daa-extensions/bipartite-matching')}>
@@ -577,7 +601,7 @@ export function BridgesMockupLesson(props: MockupPageProps) {
         <>
           <section className="br-visualization">
             <header className="br-visual-heading">
-              <BarChart3 />
+              <BridgeBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
                 <p>{tr('Run DFS to see discovery times tin[v], low[v] values and identify bridge edges.')}</p>
@@ -638,7 +662,7 @@ export function BridgesMockupLesson(props: MockupPageProps) {
                   </span>
                 </div>
               </Panel>
-              <Panel title={tr('DFS Traversal Order')} icon={<FileText />} className="br-traversal-panel">
+              <Panel title={tr('DFS Traversal Order')} icon={<DfsDocument />} className="br-traversal-panel">
                 <div className="br-playback">
                   <button aria-label={tr('Previous DFS step')} disabled={cursor === 0} onClick={() => move(cursor - 1)}>
                     <SkipBack size={15} />
@@ -976,6 +1000,7 @@ export function BridgesMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Graph Bridges Notes')} icon={<BookOpen />} className="br-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain tin, low, the strict bridge inequality and why parallel parent edges matter.')}
             <textarea aria-label={tr('Graph bridges notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

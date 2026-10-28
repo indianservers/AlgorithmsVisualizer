@@ -1662,3 +1662,56 @@
     font-size: 7px;
   }
 }
+
+/* Reference desktop diagram finish and teaching timeline alignment. */
+@media (min-width: 1500px) {
+  .clique-cover-page .mom-study {
+    width: 137px;
+    justify-content: center;
+  }
+  .clique-cover-page #account-trigger {
+    width: 188px;
+    font-size: 12px;
+  }
+  .clique-cover-page .cv-progress {
+    transform: translateY(-4px);
+  }
+  .clique-cover-page .cv-original-legend,
+  .clique-cover-page .cv-target-legend {
+    font-size: 11px;
+  }
+  .clique-cover-page .cv-original-legend {
+    transform: translateY(-6px);
+  }
+  .clique-cover-page .cv-target-legend {
+    transform: translateY(-8px);
+  }
+  .clique-cover-page .cv-step-track {
+    margin-left: 33px;
+    margin-top: 10px;
+    grid-template-columns: 188px 187px 216px 211px 204px minmax(0, 1fr);
+  }
+  .clique-cover-page .cv-step-track button > span {
+    max-width: 160px;
+  }
+  .clique-cover-page .cv-step-track button:first-child > span {
+    max-width: 125px;
+  }
+  .clique-cover-page .cv-step-track button:nth-child(2) > span {
+    max-width: 155px;
+  }
+  .clique-cover-page .cv-step-track:before {
+    top: 12px;
+  }
+  .clique-cover-page .cv-footer-grid > .cv-panel {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  .clique-cover-page .cv-worked > p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .clique-cover-page .cv-takeaways .cv-icon svg {
+    fill: #ffe17c;
+  }
+}

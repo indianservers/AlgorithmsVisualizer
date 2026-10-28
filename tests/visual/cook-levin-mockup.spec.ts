@@ -4,7 +4,8 @@ const button = (page: Page, name: string) => root(page).getByRole('button', { na
 const tab = (page: Page, name: string) => button(page, name).click()
 const close = (page: Page) => button(page, 'Close Cook-Levin dialog').click()
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -15,7 +16,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('027 contains reference panels at reference positions and a real accepting tableau', async ({ page }, info) => {
-  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.screenshot({ path: `artifacts/visual-qa/cook-levin-027/${info.project.name}-visualization.png`, fullPage: true })
   for (const heading of [
     'Interactive Visualization',
     'Nondeterministic Computation (TM Tableau)',
@@ -206,6 +207,9 @@ test('027 theory, worked example, prediction, notes and review progress work', a
   await button(page, 'Check prediction').click()
   await expect(root(page)).toContainText('1 + 3 + 1 = 5')
   await tab(page, 'Notes')
+  await root(page).getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root(page).getByLabel('Cook-Levin proof notes').fill('Explain acceptance in both directions and enforce all four constraint groups.')
   await button(page, 'Mark section reviewed').click()
   await expect(root(page).locator('.cl-progress')).toContainText('1 of 6 sections')

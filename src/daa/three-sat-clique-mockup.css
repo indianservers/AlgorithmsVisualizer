@@ -1573,3 +1573,53 @@
   stroke: #0068ff;
   stroke-width: 4;
 }
+
+/* Reference dashboard typography and native diagram finish. */
+@media (min-width: 1500px) {
+  .three-sat-page .st-progress {
+    transform: translateY(-4px);
+  }
+  .three-sat-page .mom-study {
+    width: 141px;
+    justify-content: center;
+  }
+  .three-sat-page #account-trigger {
+    width: 213px;
+    font-size: 13px;
+  }
+  .three-sat-page .st-clause h3 {
+    font-size: 15px;
+  }
+  .three-sat-page .st-clause p {
+    font-size: 16px;
+  }
+  .three-sat-page .st-occurrence small {
+    font-size: 12px;
+  }
+  .three-sat-page .st-graph-legend {
+    font-size: 10px;
+    gap: 10px;
+  }
+  .three-sat-page .st-graph-legend > span:first-child {
+    flex: 0 0 163px;
+  }
+  .three-sat-page .st-graph-legend > span:nth-child(2) {
+    flex: 0 0 130px;
+  }
+  .three-sat-page .st-choice-row button {
+    font-weight: 600;
+  }
+  .three-sat-page .st-step-track {
+    grid-template-columns: 202px 198px 198px 205px 216px minmax(0, 1fr);
+  }
+  .three-sat-page .st-step-track button {
+    gap: 2px;
+  }
+  .three-sat-page .st-takeaways .st-icon svg {
+    fill: #ffe17c;
+  }
+  .app-shell:has(.three-sat-page) .sidebar-module {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+  }
+}

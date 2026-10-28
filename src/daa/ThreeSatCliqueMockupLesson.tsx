@@ -1,10 +1,9 @@
 // @localized-render
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowLeft,
   ArrowRight,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -30,6 +29,7 @@ import {
 import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { AccountControl } from '../account/AccountControl'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
@@ -60,6 +60,15 @@ const steps = [
   ['Conclude', '3-SAT ≤ₚ CLIQUE. Graph has 3m vertices and O(m²) candidate edges.'],
 ]
 const referenceChoices = [0, 1, 2]
+function ReductionBars() {
+  return (
+    <svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="12" width="5" height="12" rx="2" opacity=".65" />
+      <rect x="10" y="3" width="5" height="21" rx="2" />
+      <rect x="17" y="8" width="5" height="16" rx="2" opacity=".75" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -125,7 +134,8 @@ Searching for a clique is separate from constructing the graph.`
 
 export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
   useLocaleRender()
-  const navigate = useNavigate(),
+  const graphId = useId(),
+    navigate = useNavigate(),
     [tab, setTab] = useState<MockupTab>('Visualization'),
     [clauses, setClauses] = useState<Cnf>(threeSatReference),
     [example, setExample] = useState('reference'),
@@ -394,8 +404,18 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
           aria-label={tr(`Literal occurrence graph: ${built.graph.n} vertices, ${built.graph.edges.length} compatible edges, target clique size ${built.m}`)}
         >
           <defs>
+            <radialGradient id={`${graphId}-blue`} cx="38%" cy="28%" r="75%">
+              <stop stopColor="#ffffff" />
+              <stop offset=".5" stopColor="#edf9ff" />
+              <stop offset="1" stopColor="#c9e8ff" />
+            </radialGradient>
+            <radialGradient id={`${graphId}-gold`} cx="38%" cy="28%" r="75%">
+              <stop stopColor="#fff49c" />
+              <stop offset=".55" stopColor="#ffe475" />
+              <stop offset="1" stopColor="#ffca55" />
+            </radialGradient>
             {[0, 1, 2].map((i) => (
-              <linearGradient key={i} id={`st-group-${i}`} x2="1" y2="1">
+              <linearGradient key={i} id={`${graphId}-group-${i}`} x2="1" y2="1">
                 <stop stopColor={['#fff7fb', '#f1f9ff', '#f1fff7'][i]} />
                 <stop offset="1" stopColor={['#fbeef8', '#e8f4ff', '#e8fcf1'][i]} />
               </linearGradient>
@@ -403,7 +423,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
           </defs>
           {clauses.map((_, i) => (
             <g key={i}>
-              <rect x={28 + 178 * i} y="0" width="135" height="298" rx="14" fill={`url(#st-group-${i % 3})`} />
+              <rect x={28 + 178 * i} y="0" width="135" height="298" rx="14" fill={`url(#${graphId}-group-${i % 3})`} />
               <text
                 x={97 + 178 * i}
                 y="22"
@@ -487,7 +507,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
                     cx={point.x}
                     cy={point.y}
                     r="25"
-                    fill={chosen ? '#ffe076' : '#eef6ff'}
+                    fill={`url(#${graphId}-${chosen ? 'gold' : 'blue'})`}
                     stroke={chosen ? '#ff7e00' : '#6b83ff'}
                     strokeWidth={chosen ? 1.7 : 1.2}
                   />
@@ -497,9 +517,9 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
                         {o.label}
                       </text>
                       <text
-                        x={o.clause === clauses.length - 1 ? point.x + 36 : point.x - 36}
-                        y={point.y + 7}
-                        textAnchor={o.clause === clauses.length - 1 ? 'start' : 'end'}
+                        x={o.clause === 0 ? point.x - 36 : o.clause === clauses.length - 1 ? point.x + 36 : point.x}
+                        y={o.clause === 0 || o.clause === clauses.length - 1 ? point.y + 7 : point.y + 44}
+                        textAnchor={o.clause === 0 ? 'end' : o.clause === clauses.length - 1 ? 'start' : 'middle'}
                         fontSize="12"
                         fill="#4265a1"
                       >
@@ -657,7 +677,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
           </li>
         </ul>
       </Panel>
-      <Panel title={tr('Correctness & Complexity')} icon={<BarChart3 />} className="st-correctness">
+      <Panel title={tr('Correctness & Complexity')} icon={<ReductionBars />} className="st-correctness">
         <ul>
           {[
             'Forward: a satisfying assignment gives an m-clique with one vertex per clause.',
@@ -728,7 +748,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="st-lesson-header">
         <button
@@ -763,7 +783,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
         <>
           <section className="st-visualization">
             <header className="st-visual-heading">
-              <BarChart3 />
+              <ReductionBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
                 <p>
@@ -1028,6 +1048,7 @@ export function ThreeSatCliqueMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your 3-SAT Reduction Notes')} icon={<BookOpen />} className="st-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain both proof directions and why contradictory literals cannot both be selected.')}
             <textarea aria-label={tr('3-SAT reduction notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

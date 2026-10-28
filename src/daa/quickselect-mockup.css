@@ -1157,3 +1157,176 @@
 [data-theme='dark'] .qs-sidecards .qs-pro-tip > p {
   color: var(--mom-muted);
 }
+
+/* Reference desktop spacing and native diagram legibility. */
+@media (min-width: 1551px) {
+  .quickselect-page .mom-search {
+    flex-basis: 924px;
+  }
+  .quickselect-page .mom-study {
+    width: 118px;
+    justify-content: center;
+  }
+  .quickselect-page #account-trigger {
+    width: 172px;
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .quickselect-page #account-label {
+    font-size: 11.5px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+  .quickselect-page .account-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(1) {
+    min-width: 110px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(2) {
+    min-width: 140px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(3) {
+    min-width: 110px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(4) {
+    min-width: 121px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(5) {
+    min-width: 150px;
+  }
+  .quickselect-page .mom-tabs button:nth-child(6) {
+    min-width: 111px;
+  }
+  .quickselect-page .qs-dataset {
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+  .quickselect-page .qs-input-controls {
+    gap: 10px;
+  }
+  .quickselect-page .qs-partition-legend {
+    font-size: 11px;
+  }
+  .quickselect-page .qs-trace-list {
+    gap: 6px;
+    padding-left: 1px;
+  }
+  .quickselect-page button.qs-trace-node {
+    padding-inline: 16px;
+  }
+  .quickselect-page button.qs-trace-node.current {
+    box-shadow: none;
+  }
+  .quickselect-page .qs-pitfalls > p {
+    font-size: 12px !important;
+    line-height: 16px !important;
+    margin-bottom: 6px !important;
+  }
+  .quickselect-page .qs-sidecards .qs-pro-tip > p {
+    font-size: 12px;
+  }
+  .quickselect-page .qs-bottom-layout {
+    grid-template-columns: minmax(0, 537fr) minmax(0, 388fr) minmax(0, 447fr);
+  }
+  .quickselect-page .qs-worked table {
+    font-size: 11px;
+  }
+  .quickselect-page .qs-chart-legend {
+    font-size: 10px;
+  }
+  .quickselect-page .qs-complexity-chart svg {
+    height: 100px;
+    margin-top: 5px;
+  }
+  .quickselect-page .qs-complexity-chart text {
+    font-size: 11px;
+  }
+  .quickselect-page .qs-proof-content {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .quickselect-page .qs-complexity .qs-panel-icon svg {
+    stroke: none;
+  }
+}
+
+.quickselect-page .qs-dataset input {
+  appearance: textfield;
+}
+.quickselect-page .qs-dataset input::-webkit-inner-spin-button,
+.quickselect-page .qs-dataset input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+@media (min-width: 1551px) {
+  .quickselect-page .qs-run-step > svg:first-child {
+    width: 17px;
+    height: 17px;
+  }
+  .quickselect-page .qs-pivot-controls {
+    padding-left: 10px;
+    padding-right: 4px;
+  }
+  .quickselect-page .qs-pivot-controls > button {
+    flex: 0 0 136px;
+  }
+  .quickselect-page .qs-pivot-controls > button:last-child {
+    flex-basis: 170px;
+  }
+  .quickselect-page .qs-auto-run svg {
+    fill: currentColor;
+  }
+  .quickselect-page .qs-sidecards article.qs-pro-tip {
+    padding-block: 2px;
+  }
+  .quickselect-page .qs-sidecards .qs-pro-tip > p {
+    line-height: 13px;
+  }
+  .quickselect-page .qs-bottom-layout {
+    grid-template-columns: minmax(0, 537fr) minmax(0, 388fr) minmax(0, 437fr);
+  }
+  .quickselect-page .qs-worked > header {
+    margin-bottom: 14px;
+  }
+  .quickselect-page .qs-worked table {
+    line-height: 12px;
+  }
+  .quickselect-page .qs-worked-answer {
+    line-height: 14px;
+    padding-block: 4px;
+  }
+  .quickselect-page .qs-correctness > header {
+    margin-bottom: 1px;
+  }
+}
+
+.qs-complexity-chart {
+  position: relative;
+}
+.qs-complexity-chart g[role='button'] {
+  cursor: pointer;
+}
+.qs-complexity-chart g[role='button']:focus-visible {
+  outline: none;
+}
+.qs-complexity-chart g[role='button']:focus-visible circle:not([fill='transparent']) {
+  stroke: #5a40e0;
+  stroke-width: 3px;
+}
+.qs-growth-inspection {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 28px;
+  padding: 7px;
+  border: 1px solid var(--mom-line);
+  border-radius: 6px;
+  background: var(--mom-surface);
+  color: var(--mom-ink);
+  font-size: 11px;
+  box-shadow: 0 3px 12px #173c6522;
+  pointer-events: none;
+}

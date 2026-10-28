@@ -1,16 +1,20 @@
 import { test, expect } from '@playwright/test'
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
   })
   await page.goto('/analysis-correctness/amortized-analysis')
+  await expect(page.locator('.amortized-page')).toBeVisible()
 })
 
 test('011 reference dashboard has all components and measured layout anchors', async ({ page }, info) => {
   if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   const root = page.locator('.amortized-page')
+  await page.screenshot({ path: `artifacts/visual-qa/amortized-011/${info.project.name}-learn.png` })
   for (const title of [
     'Dynamic Array Resizing Visualizer',
     'Accounting Method (Stack Example)',
@@ -150,6 +154,9 @@ test('011 prediction feedback, conceptual quiz and persisted notes work', async 
   await root.getByRole('button', { name: 'Check answer', exact: true }).click()
   await expect(root.locator('.am-quiz-feedback')).toContainText('Correct')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root.getByLabel('Amortized-analysis notes', { exact: true }).fill('Copies are paid for over the sequence.')
   await page.reload()
   await root.getByRole('button', { name: 'Notes', exact: true }).click()

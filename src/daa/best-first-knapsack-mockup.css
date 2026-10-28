@@ -1737,3 +1737,41 @@
     left: 13px;
   }
 }
+
+/* Reference-size table and diagram legibility. */
+@media (min-width: 1500px) {
+  .best-knapsack-page .bk-frontier th {
+    font-size: 10px;
+  }
+  .best-knapsack-page .bk-frontier td {
+    height: 34px;
+    font-size: 12px;
+  }
+  .best-knapsack-page .bk-frontier .bk-inspect-node {
+    font-size: 12px;
+  }
+  .best-knapsack-page .bk-node-status {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+  .best-knapsack-page .bk-process {
+    font-size: 10px;
+    padding: 5px 6px;
+  }
+  .best-knapsack-page .bk-frontier > header {
+    margin-bottom: 10px;
+  }
+  .best-knapsack-page .bk-upper-bound td {
+    font-size: 11.5px;
+  }
+  .best-knapsack-page .bk-upper-bound th {
+    font-size: 10.5px;
+  }
+  .best-knapsack-page .bk-upper-bound .bk-icon svg,
+  .best-knapsack-page .bk-correctness .bk-icon svg {
+    stroke: none;
+  }
+  .best-knapsack-page .bk-tree-options .bk-legend {
+    gap: 11px;
+  }
+}

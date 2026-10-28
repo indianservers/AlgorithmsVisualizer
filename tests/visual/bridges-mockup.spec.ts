@@ -4,7 +4,8 @@ const root = (p: Page) => p.locator('.bridges-page'),
   button = (p: Page, name: string) => root(p).getByRole('button', { name, exact: true }),
   tab = (p: Page, name: string) => button(p, name).click(),
   close = (p: Page) => button(p, 'Close bridge dialog').click()
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -14,7 +15,7 @@ test.beforeEach(async ({ page }) => {
   await expect(root(page)).toBeVisible()
 })
 test('030 includes all reference components, exact desktop anchors and computed low-link values', async ({ page }, info) => {
-  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.screenshot({ path: `artifacts/visual-qa/bridges-030/${info.project.name}-visualization.png` })
   for (const heading of [
     'Interactive Visualization',
     'Graph G (original)',
@@ -35,6 +36,43 @@ test('030 includes all reference components, exact desktop anchors and computed 
   await expect(root(page).locator('.br-playback')).toContainText('Step 6 / 14')
   await expect(root(page).locator('.br-values-table tbody tr').nth(2).locator('td')).toHaveText(['3', '2', '0', '2'])
   await expect(root(page).locator('.br-details-panel')).toContainText('Yes')
+  if (info.project.name === 'desktop') {
+    const active = page.locator('.sidebar-algorithm.active')
+    expect(
+      await active.evaluate((el) => {
+        const range = document.createRange()
+        range.selectNodeContents(el)
+        const text = range.getBoundingClientRect(),
+          box = el.getBoundingClientRect(),
+          dot = getComputedStyle(el, '::before')
+        return text.left >= box.left + parseFloat(dot.left) + parseFloat(dot.width) + 4 && text.right <= box.right
+      }),
+    ).toBe(true)
+    const centers = await root(page)
+      .locator('.br-vertex > circle')
+      .evaluateAll((circles) =>
+        circles.map((circle) => {
+          const b = circle.getBoundingClientRect()
+          return { x: b.x + b.width / 2, y: b.y + b.height / 2 }
+        }),
+      )
+    for (const [i, [x, y]] of [
+      [484, 373],
+      [406, 450],
+      [578, 450],
+      [401, 548],
+      [578, 547],
+      [716, 545],
+    ].entries()) {
+      expect(Math.abs(centers[i].x - x)).toBeLessThanOrEqual(3)
+      expect(Math.abs(centers[i].y - y)).toBeLessThanOrEqual(3)
+    }
+    for (const selector of ['.br-takeaways', '.br-proof', '.br-mistakes']) {
+      const panel = await root(page).locator(selector).boundingBox(),
+        last = await root(page).locator(`${selector} li`).last().boundingBox()
+      expect(last!.y + last!.height).toBeLessThanOrEqual(panel!.y + panel!.height)
+    }
+  }
   if (info.project.name === 'desktop')
     for (const [selector, expected] of [
       ['.br-lesson-header', { x: 247, y: 52, width: 1412, height: 73 }],
@@ -190,6 +228,9 @@ test('030 theory, worked proof, code, prediction challenges and persistent notes
   await button(page, 'Not a bridge').click()
   await expect(root(page).getByRole('status')).toContainText('equality')
   await tab(page, 'Notes')
+  await root(page).getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root(page).getByLabel('Graph bridges notes').fill('Skip the parent edge ID. Strict low[child] > tin[parent] identifies a bridge.')
   await button(page, 'Mark section reviewed').click()
   await page.reload()

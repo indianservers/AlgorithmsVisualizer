@@ -1520,3 +1520,71 @@
 [data-theme='dark'] .br-dialog::backdrop {
   background: #000b;
 }
+
+/* Reference desktop spacing and native graph finish. */
+@media (min-width: 1500px) {
+  .bridges-page .mom-study {
+    width: 143px;
+    justify-content: center;
+  }
+  .bridges-page #account-trigger {
+    width: 202px;
+    font-size: 13px;
+  }
+  .bridges-page .br-progress {
+    transform: translateY(-5px);
+  }
+  .bridges-page .br-progress i:nth-child(3) {
+    transform: translateX(16px);
+  }
+  .bridges-page .br-progress i:nth-child(4) {
+    transform: translateX(13px);
+  }
+  .bridges-page .br-progress i:nth-child(5) {
+    transform: translateX(10px);
+  }
+  .bridges-page .br-progress i:nth-child(6) {
+    transform: translateX(7px);
+  }
+  .bridges-page .br-details-panel dd {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .bridges-page .br-node-picker select {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .bridges-page .br-values-table th {
+    font-weight: 600;
+  }
+  .bridges-page .br-footer-grid p,
+  .bridges-page .br-footer-grid li {
+    font-size: 13.5px;
+    line-height: 17.5px;
+  }
+  .bridges-page .br-takeaways .br-icon svg {
+    fill: #ffd153;
+  }
+  .bridges-page .br-mistakes .br-icon svg {
+    fill: #f32b55;
+    stroke: white;
+  }
+  .bridges-page .br-classification-panel .br-icon svg {
+    transform: rotate(-35deg);
+  }
+  .app-shell:has(.bridges-page) .sidebar-section-label {
+    padding-top: 9px;
+    padding-bottom: 6px;
+  }
+  .app-shell:has(.bridges-page) .sidebar-category-toggle {
+    min-height: 31px;
+    padding: 4px 10px;
+  }
+  .app-shell:has(.bridges-page) .sidebar-algorithm {
+    min-height: 29px;
+    padding: 5.5px 9px 5.5px 29px;
+  }
+  .app-shell:has(.bridges-page) .sidebar-submenu {
+    max-height: 377px;
+  }
+}

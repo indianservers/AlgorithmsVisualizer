@@ -9,6 +9,7 @@ test.beforeEach(async ({ page }, info) => {
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
   })
   await page.goto('/branch-and-bound/knapsack-best-first')
+  await expect(page.locator('.best-knapsack-page')).toBeVisible()
 })
 
 test('020 dashboard preserves every reference panel and derives consistent values', async ({ page }, info) => {
@@ -31,6 +32,17 @@ test('020 dashboard preserves every reference panel and derives consistent value
   await expect(root.locator('.bk-stage')).toHaveCount(4)
   await expect(root.locator('.bk-instance tbody tr')).toHaveCount(4)
   await expect(root.locator('.bk-tree [role="button"]')).toHaveCount(7)
+  expect(
+    await root.locator('.bk-tree [role="button"]').evaluateAll((nodes) =>
+      nodes.every((node) => {
+        const box = node.querySelector('rect')!.getBBox()
+        return Array.from(node.querySelectorAll('text')).every((text) => {
+          const label = text.getBBox()
+          return label.x >= box.x && label.x + label.width <= box.x + box.width && label.y >= box.y && label.y + label.height <= box.y + box.height
+        })
+      }),
+    ),
+  ).toBe(true)
   await expect(root.locator('.bk-solution-stats output')).toHaveText('11')
   await expect(root.locator('.bk-solution-stats')).toContainText('[1, 2]')
   await expect(root.locator('.bk-bound-result')).toContainText('6 + (3/4) × 8 = 12')
@@ -47,6 +59,9 @@ test('020 dashboard preserves every reference panel and derives consistent value
   mkdirSync('artifacts/visual-qa/best-first-020', { recursive: true })
   writeFileSync(`artifacts/visual-qa/best-first-020/${info.project.name}-layout.json`, JSON.stringify(layout, null, 2))
   if (info.project.name === 'desktop') {
+    const tree = await root.locator('.bk-tree').boundingBox(),
+      treeRoot = await root.locator('.bk-tree [role="button"]').first().boundingBox()
+    expect(Math.abs(treeRoot!.x + treeRoot!.width / 2 - (tree!.x + tree!.width / 2))).toBeLessThanOrEqual(1)
     const footer = await root.locator('.bk-correctness').boundingBox()
     expect(footer!.y + footer!.height, 'The final teaching panel fits the reference viewport').toBeLessThanOrEqual(941)
     for (const [selector, expected] of [

@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Ban,
-  BarChart3,
   Bookmark,
   BookOpen,
   Check,
@@ -34,6 +33,7 @@ import {
 import { tx, useLocaleRender } from '../i18n/render'
 import { allModules } from '../algorithms'
 import { algorithmPath } from '../utils/routing'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { AccountControl } from '../account/AccountControl'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
@@ -70,6 +70,15 @@ const presets = [
   { id: 'branch', name: 'Rejecting branch on abb', word: 'abb', time: 5, mode: 'letters' as CookMode, branch: 'reject' as CookBranch },
   { id: 'short', name: 'Too little time: abb, T = 4', word: 'abb', time: 4, mode: 'letters' as CookMode, branch: 'scan' as CookBranch },
 ]
+function CookBars() {
+  return (
+    <svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="11" width="5" height="13" rx="2" opacity=".7" />
+      <rect x="10" y="3" width="5" height="21" rx="2" />
+      <rect x="17" y="7" width="5" height="17" rx="2" opacity=".55" />
+    </svg>
+  )
+}
 function Panel({
   title,
   subtitle,
@@ -661,7 +670,7 @@ export function CookLevinMockupLesson(props: MockupPageProps) {
           ))}
         </ol>
       </Panel>
-      <Panel title={tr('Correctness & Proof Structure')} icon={<BarChart3 />} className="cl-proof">
+      <Panel title={tr('Correctness & Proof Structure')} icon={<CookBars />} className="cl-proof">
         <ol>
           {[
             'An accepting computation gives a satisfying assignment.',
@@ -741,7 +750,7 @@ export function CookLevinMockupLesson(props: MockupPageProps) {
         <button className="mom-study" aria-pressed={studied} onClick={() => props.toggleCompleted(props.module.id)}>
           {studied ? <Check size={16} /> : <Bookmark size={16} />} {tr(studied ? 'Studied' : 'Mark studied')}
         </button>
-        <AccountControl />
+        <AccountControl showLanguage={false} />
       </div>
       <header className="cl-lesson-header">
         <button
@@ -776,7 +785,7 @@ export function CookLevinMockupLesson(props: MockupPageProps) {
         <>
           <section className="cl-visualization">
             <header className="cl-visual-heading">
-              <BarChart3 />
+              <CookBars />
               <div>
                 <h2>{tr('Interactive Visualization')}</h2>
                 <p>{tr('See how a nondeterministic computation becomes a Boolean formula (SAT) through the Cook–Levin construction.')}</p>
@@ -892,7 +901,7 @@ export function CookLevinMockupLesson(props: MockupPageProps) {
             </button>
             {feedback && <p role="status">{tr(feedback)}</p>}
           </Panel>
-          <Panel title={tr('Predict the Earliest Accepting Time')} icon={<BarChart3 />}>
+          <Panel title={tr('Predict the Earliest Accepting Time')} icon={<CookBars />}>
             <p>{tr('For this machine on a nonempty input of length 3 ending in b, count the start move, three scans and the accepting move on blank.')}</p>
             <label>
               {tr('Predicted T')}
@@ -993,6 +1002,7 @@ export function CookLevinMockupLesson(props: MockupPageProps) {
         </div>
       ) : (
         <Panel title={tr('Your Cook–Levin Notes')} icon={<BookOpen />} className="cl-notes">
+          <LanguageSelector />
           <label>
             {tr('Explain both proof directions, the four constraint groups and the role of the polynomial time bound.')}
             <textarea aria-label={tr('Cook-Levin proof notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

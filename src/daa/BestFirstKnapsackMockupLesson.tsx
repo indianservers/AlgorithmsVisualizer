@@ -1,7 +1,6 @@
 // @localized-render
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import {
-  BarChart3,
   BookOpen,
   BrainCog,
   CheckCircle2,
@@ -13,7 +12,6 @@ import {
   GitFork,
   Layers3,
   Lightbulb,
-  ListOrdered,
   Network,
   Pause,
   Pencil,
@@ -58,6 +56,28 @@ const stages = [
     ],
   ],
   stageIcons = [BranchIcon, Crown, TrendingUp, Scissors]
+function BoundBars() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="16" width="5" height="10" rx="1.5" opacity=".65" />
+      <rect x="10" y="9" width="5" height="17" rx="1.5" opacity=".8" />
+      <rect x="17" y="2" width="5" height="24" rx="1.5" />
+      <rect x="24" y="7" width="2" height="19" rx="1" opacity=".45" />
+    </svg>
+  )
+}
+function FrontierIcon() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      {[6, 14, 22].map((y) => (
+        <g key={y}>
+          <circle cx="5" cy={y} r="2" />
+          <rect x="11" y={y - 1.5} width="13" height="3" rx="1.5" />
+        </g>
+      ))}
+    </svg>
+  )
+}
 function BranchIcon() {
   return (
     <svg viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -228,6 +248,7 @@ function Tree({ state, selected, onSelect, bounds }: { state: BestState; selecte
     return x
   }
   layout(visible[0])
+  points.get(visible[0].id)!.x = width / 2
   return (
     <div className="bk-tree-scroll">
       <svg className="bk-tree" viewBox={`0 0 ${width} ${height}`} style={{ width, height }} aria-label={tr('Best-first knapsack search tree')}>
@@ -235,6 +256,16 @@ function Tree({ state, selected, onSelect, bounds }: { state: BestState; selecte
           <marker id={id} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
             <path d="M0 0 8 4 0 8Z" fill="#2d4380" />
           </marker>
+          {[
+            ['s', '#f5fff8', '#e4f9eb'],
+            ['p', '#f6f7fa', '#e4e7ef'],
+            ['e', '#fffaf1', '#fff0d4'],
+          ].map(([kind, top, bottom]) => (
+            <linearGradient key={kind} id={`${id}${kind}`} x2="0" y2="1">
+              <stop stopColor={top} />
+              <stop offset="1" stopColor={bottom} />
+            </linearGradient>
+          ))}
           <linearGradient id={`${id}b`} x2="0" y2="1">
             <stop stopColor="#effaff" />
             <stop offset="1" stopColor="#dcedff" />
@@ -247,7 +278,7 @@ function Tree({ state, selected, onSelect, bounds }: { state: BestState; selecte
             p && (
               <g key={`e${n.id}`}>
                 <path d={`M${p.x} ${p.y + 34}L${point.x} ${point.y - 2}`} stroke="#5679b5" fill="none" markerEnd={`url(#${id})`} />
-                <text x={(point.x + p.x) / 2} y={(point.y + p.y) / 2 + 21} fontSize="10" textAnchor="middle" fill="#45608f">
+                <text x={(point.x + p.x) / 2} y={(point.y + p.y) / 2 + 21} fontSize="11.5" textAnchor="middle" fill="#45608f">
                   {tr(`${n.take ? 'Include' : 'Exclude'} ${state.items[n.level - 1].id}`)}
                 </text>
               </g>
@@ -257,7 +288,7 @@ function Tree({ state, selected, onSelect, bounds }: { state: BestState; selecte
         {visible.map((n) => {
           const p = points.get(n.id)!,
             s = status(n, state),
-            fill = s === 'Solution' ? '#ddf8e9' : s === 'Pruned' ? '#edf0f7' : s === 'Expanded' ? '#fff3df' : `url(#${id}b)`
+            fill = `url(#${id}${s === 'Solution' ? 's' : s === 'Pruned' ? 'p' : s === 'Expanded' ? 'e' : 'b'})`
           return (
             <g
               key={n.id}
@@ -283,9 +314,9 @@ function Tree({ state, selected, onSelect, bounds }: { state: BestState; selecte
                 stroke={s === 'Solution' ? '#09b568' : s === 'Pruned' ? '#a1abc1' : s === 'Expanded' ? '#efa31b' : '#368dff'}
                 strokeWidth={n.id === selected ? 2 : 1}
               />
-              <text x={p.x} y={p.y + 14} textAnchor="middle" fill="#10295d" fontSize="11">{`(${n.id}) w=${n.weight}, p=${n.profit}`}</text>
+              <text x={p.x} y={p.y + 14} textAnchor="middle" fill="#10295d" fontSize="12">{`(${n.id}) w=${n.weight}, p=${n.profit}`}</text>
               {bounds && (
-                <text x={p.x} y={p.y + 28} textAnchor="middle" fill="#10295d" fontSize="11">
+                <text x={p.x} y={p.y + 28} textAnchor="middle" fill="#10295d" fontSize="12">
                   {n.bound ? `b=${formatFifoBound(n.bound)}` : tr('Infeasible')}
                   {s === 'Solution' ? ' ✓' : s === 'Pruned' ? ' ×' : ''}
                 </text>
@@ -538,7 +569,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
   const frontier = (
     <Panel
       title={tr('Priority Frontier (Best-First Order)')}
-      icon={<ListOrdered />}
+      icon={<FrontierIcon />}
       className="bk-frontier"
       action={
         <span className="bk-frontier-count">
@@ -599,7 +630,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
     </Panel>
   )
   const upperBound = (
-    <Panel title={tr('Fractional Knapsack Upper Bound')} icon={<BarChart3 />} className="bk-upper-bound">
+    <Panel title={tr('Fractional Knapsack Upper Bound')} icon={<BoundBars />} className="bk-upper-bound">
       <p>{tr('Compute an upper bound using fractional remaining items, sorted by value/weight. Earlier decisions stay fixed.')}</p>
       <div className="bk-table-scroll">
         <table>
@@ -744,7 +775,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
     </Panel>
   )
   const correctness = (
-    <Panel title={tr('Complexity and Correctness')} icon={<BarChart3 />} className="bk-correctness">
+    <Panel title={tr('Complexity and Correctness')} icon={<BoundBars />} className="bk-correctness">
       <p>
         <b>{tr('Time:')}</b>
         {tr(' O(n · 2ⁿ) with a heap. ')}
@@ -821,7 +852,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
         <div className="bk-studio">
           <Panel
             title={tr('Best-First Search Laboratory')}
-            icon={<ListOrdered />}
+            icon={<FrontierIcon />}
             action={
               <button onClick={edit}>
                 <Pencil size={14} />
@@ -905,7 +936,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
         </Panel>
       ) : tab === 'Practice' ? (
         <div className="bk-practice">
-          <Panel title={tr('Predict the Root Upper Bound')} icon={<BarChart3 />}>
+          <Panel title={tr('Predict the Root Upper Bound')} icon={<BoundBars />}>
             <p>
               {tr(
                 'Example: capacity 5, weights [2, 3, 4, 5], profits [6, 5, 8, 6]. Sort by density: items 1, 3, 2, 4. Take item 1 and fill the remaining 3 units with a fraction of item 3. What is the bound?',
@@ -929,7 +960,7 @@ export function BestFirstKnapsackMockupLesson(props: MockupPageProps) {
             </button>
             {feedback && <p role="status">{tr(feedback)}</p>}
           </Panel>
-          <Panel title={tr('Which Node Is Next?')} icon={<ListOrdered />}>
+          <Panel title={tr('Which Node Is Next?')} icon={<FrontierIcon />}>
             <p>{tr('After expanding the root and its include-item-1 child, node 2 has bound 29/3 ≈ 9.667 and node 4 has bound 11. Choose the next node.')}</p>
             <button onClick={() => setChoice('Reconsider: best-first chooses the highest bound, even if a lower-bound node was inserted earlier.')}>
               {tr('Node 2: oldest')}

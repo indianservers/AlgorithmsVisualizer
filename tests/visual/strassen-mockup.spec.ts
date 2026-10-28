@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -11,6 +13,8 @@ test('015 reference dashboard contains all visual and mathematical components', 
   page.on('pageerror', (e) => errors.push(e.message))
   await page.goto('/divide-and-conquer/strassen')
   const root = page.locator('.strassen-page')
+  await expect(root).toBeVisible()
+  await page.screenshot({ path: `artifacts/visual-qa/strassen-015/${info.project.name}-learn.png` })
   for (const title of [
     'Matrix Block Decomposition',
     'Seven Recursive Products',
@@ -40,6 +44,12 @@ test('015 reference dashboard contains all visual and mathematical components', 
       expect(box).not.toBeNull()
       for (const [key, value] of Object.entries(expected)) expect(Math.abs(box![key as keyof typeof box] - value), `${selector} ${key}`).toBeLessThanOrEqual(3)
     }
+    const account = page.locator('#account-label')
+    expect(await account.evaluate((el) => el.scrollWidth <= el.clientWidth + 1)).toBe(true)
+    const firstProduct = await root.locator('.sm-worked-products .sm-product').first().boundingBox()
+    expect(Math.abs(firstProduct!.x - 570)).toBeLessThanOrEqual(2)
+    const firstPoint = root.getByRole('button', { name: 'Classical growth at n = 16', exact: true })
+    expect(Number(await firstPoint.getAttribute('cy'))).toBeCloseTo(126 - Math.log10(16 ** 3) * 9.4, 5)
     const worked = await root.locator('.sm-worked').boundingBox(),
       final = await root.locator('.sm-final').boundingBox()
     expect(final!.y + final!.height).toBeLessThanOrEqual(worked!.y + worked!.height)
@@ -114,6 +124,9 @@ test('015 predictions, experiments, export, notes and source work', async ({ pag
   await root.getByRole('button', { name: 'Export JSON', exact: true }).click()
   expect((await download).suggestedFilename()).toBe('strassen-experiment.json')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root.getByLabel('Strassen notes').fill('Seven products cancel cross terms.')
   await page.reload()
   await root.getByRole('button', { name: 'Notes', exact: true }).click()

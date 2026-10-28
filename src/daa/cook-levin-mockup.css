@@ -413,7 +413,8 @@
   color: inherit;
 }
 .cl-tableau .cl-symbol {
-  background: #edfff1;
+  background: #ffffff85;
+  color: #171717;
 }
 .cl-tableau .cl-head {
   font-weight: 700;
@@ -1584,4 +1585,86 @@
 }
 [data-theme='dark'] .cl-dialog::backdrop {
   background: #000b;
+}
+
+/* Reference-size refinements preserve the responsive teaching layout. */
+@media (min-width: 1500px) {
+  .cook-levin-page .cl-lesson-header {
+    font-family: system-ui, sans-serif;
+  }
+  .cook-levin-page .cl-lesson-header h1 {
+    font-size: 30px;
+    letter-spacing: -1px;
+  }
+  .cook-levin-page .mom-study {
+    width: 140px;
+    justify-content: center;
+  }
+  .cook-levin-page #account-trigger {
+    width: 214px;
+    font-size: 13px;
+  }
+  .cook-levin-page .cl-progress {
+    transform: translateY(-4px);
+  }
+  .cook-levin-page .cl-visual-heading h2 {
+    letter-spacing: -0.4px;
+  }
+  .cook-levin-page .cl-visual-heading p {
+    font-size: 12.5px;
+    letter-spacing: 0;
+  }
+  .cook-levin-page .cl-tableau-panel > header {
+    transform: translateY(-3px);
+  }
+  .cook-levin-page .cl-table-scroll {
+    width: calc(100% + 2px);
+  }
+  .cook-levin-page .cl-tableau button {
+    color: #171717;
+  }
+  .cook-levin-page .cl-tableau .cl-head button {
+    color: inherit;
+  }
+  .cook-levin-page .cl-table-legend {
+    gap: 12px 21px;
+  }
+  .cook-levin-page .cl-constraint-card > span > span {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .cook-levin-page .cl-constraint-card em {
+    font-size: 12px;
+  }
+  .cook-levin-page .cl-result-formula {
+    margin-top: 17px;
+  }
+  .cook-levin-page .cl-result-formula p {
+    font-size: 14px;
+  }
+  .cook-levin-page .cl-result-formula > span {
+    font-size: 12px;
+  }
+  .cook-levin-page .cl-footer-grid p,
+  .cook-levin-page .cl-footer-grid li {
+    font-size: 12.5px;
+    line-height: 15.5px;
+  }
+  .cook-levin-page .cl-footer-grid .cl-panel > header {
+    margin-bottom: 7px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-category-toggle {
+    min-height: 39px;
+  }
+  .app-shell:has(.cook-levin-page) .sidebar-module {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+  }
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau .cl-symbol {
+  color: #dce9ff;
+  background: #17302c;
+}
+[data-theme='dark'] .cook-levin-page .cl-tableau button {
+  color: inherit;
 }

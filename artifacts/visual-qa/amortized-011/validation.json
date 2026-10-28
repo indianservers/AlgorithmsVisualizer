@@ -1,0 +1,109 @@
+{
+  "target": 11,
+  "route": "/analysis-correctness/amortized-analysis",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/011--analysis-and-correctness--amortized-analysis.png",
+  "previousGoalTurnClassification": "Progress: Strassen native illustration, matrices, worked-product grid and performance chart refined; RGB error 12.8653 to 12.2325, 808 unit tests and 13 production-browser checks passed.",
+  "status": "Native controls, cards, chart and worked-example presentation refined; full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.783,
+  "afterMeanAbsoluteRgbError": 12.5509,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "regions": {
+    "header": {
+      "bounds": [264, 0, 1672, 257],
+      "before": 8.9772,
+      "after": 8.7432
+    },
+    "array": {
+      "bounds": [279, 257, 1302, 531],
+      "before": 10.4319,
+      "after": 10.2897
+    },
+    "accounting": {
+      "bounds": [279, 540, 625, 797],
+      "before": 12.6382,
+      "after": 12.7713
+    },
+    "potential": {
+      "bounds": [635, 540, 964, 797],
+      "before": 17.2519,
+      "after": 17.2701
+    },
+    "aggregate": {
+      "bounds": [974, 540, 1302, 797],
+      "before": 12.7841,
+      "after": 12.2543
+    },
+    "sideCards": {
+      "bounds": [1315, 257, 1657, 802],
+      "before": 23.3182,
+      "after": 22.7895
+    },
+    "worked": {
+      "bounds": [279, 806, 1058, 941],
+      "before": 15.4981,
+      "after": 14.4444
+    }
+  },
+  "refinements": [
+    "Matched lead-line breaks in takeaway cards and readable text within existing fixed card dimensions.",
+    "Increased timeline, array-control, index, method-note and chart typography.",
+    "Aligned aggregate plot left boundary and tick labels with reference while preserving its 3n bound and actual trace.",
+    "Aligned worked-example table columns, analysis card x/y and first numeric row with reference.",
+    "Added native stacked-array and rounded-bar icons; reused native shaded coins in accounting header.",
+    "Raised the smaller decorative cube and made hero/coin gradient IDs unique with useId.",
+    "Moved language selection to Notes and fitted complete login label and avatar into reference-size header controls.",
+    "Set reference viewport before navigation, wait for mounted lesson, abort analytics and capture before assertions.",
+    "Corrected initial side-card text overflow before final production verification."
+  ],
+  "referenceClarifications": [
+    "Starting at capacity 1, appends 1..5 cost 1,2,3,1,5 and total 12, with growth at appends 2,3,5. The current operation is 5; source values 1/17/2 are not consistent with that trace.",
+    "The implemented nonnegative potential is max(0,2*size-capacity), yielding 2 at size 5/capacity 8. Phi=size alone does not fund arbitrary resize copies.",
+    "The bound for this cost model is 3n, not the reference 2n label; actual trace and chart points stay synchronized.",
+    "The worked eight-append trace totals 15 with capacity doubling 1,2,4,4,8,8,8,8. The reference skips the resize at append 3.",
+    "Stack push/pop credits are kept distinct from dynamic-array potential, and editing a past snapshot forks its planned future."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalBuild": "Scoped ESLint, TypeScript, fresh Vite build, prerender and bundle budget passed; CSS-only table/control refinement rebuilt and budget rechecked.",
+    "initialDevelopmentBrowser": {
+      "passed": 16,
+      "failed": 1,
+      "skipped": 1,
+      "failure": "Enlarged side-card text overflowed; fixed before production."
+    },
+    "combinedProductionRegression": {
+      "passed": 30,
+      "skipped": 2,
+      "scope": "011 and 015 before final table/control CSS refinement."
+    },
+    "finalProductionBrowser": {
+      "passed": 17,
+      "skipped": 1,
+      "scope": "011 final source and reference captures."
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "geometry": "Eight main panels within three pixels of reference anchors; side-card text fits; chart axis label remains within card; responsive layouts do not overflow.",
+    "interactions": [
+      "Append/pop/reset and invalid values",
+      "History snapshots and branch editing",
+      "Aggregate chart selection",
+      "Worked-example selection",
+      "Potential calculation",
+      "Separate stack push/pop credit simulation",
+      "Playback and bounded 32-element examples",
+      "Trace export",
+      "Prediction feedback",
+      "Conceptual quiz",
+      "Language dialog",
+      "Persistent notes",
+      "Dark theme and narrow layouts"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures retain nonzero differences. Continue the full visual-match objective."
+}

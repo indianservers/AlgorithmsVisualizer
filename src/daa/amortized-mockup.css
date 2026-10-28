@@ -1586,3 +1586,98 @@
   border-color: #7c3e59;
   color: #ffc1d7;
 }
+
+/* Reference-size teaching cards and readable chart labels. */
+@media (min-width: 1551px) {
+  .amortized-page .mom-search {
+    flex-basis: 912px;
+  }
+  .amortized-page .mom-study {
+    width: 120px;
+    justify-content: center;
+  }
+  .amortized-page #account-trigger {
+    width: 177px;
+    gap: 6px;
+    padding-inline: 9px;
+  }
+  .amortized-page #account-label {
+    font-size: 11.5px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+  .amortized-page .account-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .amortized-page .am-timeline-list > button {
+    font-size: 12px;
+  }
+  .amortized-page .am-array-controls {
+    transform: translateY(2px);
+  }
+  .amortized-page .am-stack-diagram > button {
+    font-size: 13px;
+  }
+  .amortized-page .am-method-note p {
+    font-size: 11.5px;
+    line-height: 16px;
+  }
+  .amortized-page .am-side-column article > p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .amortized-page .am-takeaways p b {
+    display: block;
+  }
+  .amortized-page .am-side-column article > p {
+    gap: 12px;
+  }
+  .amortized-page .am-side-column p > svg {
+    width: 19px;
+    height: 19px;
+  }
+  .amortized-page .am-pro-tip {
+    padding-block: 11px;
+  }
+  .amortized-page .am-pro-tip p {
+    font-size: 12px;
+    line-height: 14.5px;
+  }
+  .amortized-page .am-chart-legend {
+    font-size: 10px;
+    gap: 12px;
+  }
+  .amortized-page .am-chart svg {
+    margin-top: 2px;
+  }
+  .amortized-page .am-chart svg text {
+    font-size: 11px;
+  }
+  .amortized-page .am-aggregate .am-icon svg {
+    stroke: none;
+  }
+}
+
+@media (min-width: 1551px) {
+  .amortized-page .am-array-controls > button {
+    font-size: 13px;
+  }
+  .amortized-page .am-slot > span {
+    font-size: 12px;
+  }
+  .amortized-page .am-worked-body {
+    grid-template-columns: minmax(0, 1fr) 256px;
+    gap: 36px;
+  }
+  .amortized-page .am-worked th {
+    width: 115px;
+  }
+  .amortized-page .am-worked .am-table-scroll {
+    transform: translateY(-10px);
+  }
+  .amortized-page .am-worked-analysis {
+    transform: translateY(-18px);
+  }
+}

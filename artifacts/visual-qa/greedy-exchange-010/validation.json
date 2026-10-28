@@ -1,0 +1,67 @@
+{
+  "target": 10,
+  "route": "/analysis-correctness/greedy-exchange",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/010--analysis-and-correctness--greedy-choice-and-exchange-arguments.png",
+  "previousGoalTurnClassification": "Progress: Bridges sidebar label overlap, navigation spacing, node shading and dashboard typography refined; RGB error 12.4321 to 12.0595, 808 unit tests and 21 production-browser checks passed.",
+  "status": "Navigation, header, mini-chart geometry and exchange explanation improved; full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.4627,
+  "afterMeanAbsoluteRgbError": 11.8983,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Matched header search/control widths, title typography and description spacing; retained language selection in Notes.",
+    "Aligned sidebar category/algorithm positions, text indentation, active marker and section heading.",
+    "Aligned selected-schedule and exchange-chart axes, row spacing and chart heights.",
+    "Added actual [start,finish] values to before/after activity labels and tested those labels through exchange reset/apply.",
+    "Improved result-card text wrapping so its icon does not reserve a column for the entire paragraph.",
+    "Expanded the exchange note to explain feasibility and objective preservation while retaining actual IDs and finish times.",
+    "Improved editable knapsack table typography.",
+    "Made native bar/wave gradients unique with useId.",
+    "Set reference viewport before navigation, abort analytics, await visible lesson and capture before assertions."
+  ],
+  "referenceClarifications": [
+    "A6 remains [8,10], so the computed schedule A1 [1,4], A4 [5,7], A6 [8,10] is feasible. The reference label [6,10] would overlap A4.",
+    "Activity bars remain proportional to actual numeric endpoints. The reference bar lengths do not consistently match its interval labels.",
+    "The before exchange schedule A2 [3,5], A4 [5,7], A6 [8,10] is genuinely optimal and nonoverlapping. Reference before-diagram intervals B [2,5], C [4,7], D [6,9] overlap and are not copied.",
+    "For knapsack capacity 50, two full items and 2/3 of item 3 give value 240 and use all capacity. The reference value 220 with half item 3 would use only 45 units.",
+    "Alternative activity rules are checked against an actually computed optimum; unsupported greedy claims are not hardcoded.",
+    "Coin counterexample remains 4+1+1 versus optimal 3+3 for coins {1,3,4} and amount 6."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalSourceChecks": "Scoped ESLint, TypeScript, fresh Vite build, prerender and bundle budget passed after final explanation and wrapping refinements.",
+    "initialDevelopmentBrowser": {
+      "passed": 15,
+      "failed": 2,
+      "skipped": 1,
+      "failures": "Desktop/mobile expectations still used old ID-only exchange labels; updated to verify full interval labels."
+    },
+    "finalProductionBrowser": {
+      "passed": 17,
+      "skipped": 1
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "geometry": "Seven panel/grid anchors within three pixels of reference; tested final prose fits each panel and responsive pages do not overflow.",
+    "interactions": [
+      "Greedy playback and decision trace",
+      "Step controls and activity inspection",
+      "Editable interval validation",
+      "Tie endpoints and examples",
+      "Alternative selection rules versus optimum",
+      "Exchange reset/apply with full interval labels",
+      "Fractional item values, exclusions and capacities",
+      "Coin-change comparison with DP",
+      "Predictions and proof quiz",
+      "Language dialog",
+      "Persistent notes",
+      "Study progress",
+      "Dark and narrow layouts with long interval sets"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 captures retain nonzero differences. Continue full visual-match objective."
+}

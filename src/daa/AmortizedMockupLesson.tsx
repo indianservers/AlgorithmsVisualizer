@@ -1,5 +1,5 @@
 // @localized-render
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import {
   AlertTriangle,
   ArrowRight,
@@ -10,7 +10,6 @@ import {
   ClipboardList,
   CodeXml,
   Clock3,
-  Coins,
   Database,
   FileText,
   Lightbulb,
@@ -24,6 +23,7 @@ import {
   Zap,
   XCircle,
 } from 'lucide-react'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { tx, useLocaleRender } from '../i18n/render'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, type MockupPageProps } from './MockupLessonChrome'
@@ -61,14 +61,15 @@ function Panel({
   )
 }
 function HeroArt() {
+  const id = useId()
   return (
     <svg className="am-hero-art" viewBox="0 0 290 125" aria-hidden="true">
       <defs>
-        <linearGradient id="am-cube-blue" x2="0" y2="1">
+        <linearGradient id={`${id}-blue`} x2="0" y2="1">
           <stop stopColor="#a9e7ff" />
           <stop offset="1" stopColor="#8b64ff" />
         </linearGradient>
-        <linearGradient id="am-cube-purple" x2="0" y2="1">
+        <linearGradient id={`${id}-purple`} x2="0" y2="1">
           <stop stopColor="#a985ff" />
           <stop offset="1" stopColor="#5932ee" />
         </linearGradient>
@@ -77,12 +78,12 @@ function HeroArt() {
       {[0, 1, 2, 3].map((i) => (
         <g key={i} transform={`translate(0,${-i * 18})`}>
           <path d="M59 84L100 61L141 84L100 108Z" fill={i === 3 ? '#ceefff' : '#b4a2ff'} stroke="#c3e8ff" />
-          <path d="M59 84L100 108V122L59 99Z" fill={i === 3 ? 'url(#am-cube-blue)' : 'url(#am-cube-purple)'} />
+          <path d="M59 84L100 108V122L59 99Z" fill={i === 3 ? `url(#${id}-blue)` : `url(#${id}-purple)`} />
           <path d="M100 108L141 84V99L100 122Z" fill={i === 3 ? '#86c5ff' : '#6743e9'} />
         </g>
       ))}
-      <path d="M6 79L26 68L46 79V115L26 127L6 115Z" fill="#97dfff" opacity=".85" stroke="white" />
-      <path d="M6 79L26 91L46 79M26 91V127M6 97L26 109L46 97" stroke="white" fill="none" />
+      <path d="M6 72L26 61L46 72V108L26 120L6 108Z" fill="#97dfff" opacity=".85" stroke="white" />
+      <path d="M6 72L26 84L46 72M26 84V120M6 90L26 102L46 90" stroke="white" fill="none" />
       <path d="M166 116L181 97L194 116L208 83L224 93L242 64" fill="none" stroke="#b1bfff" strokeWidth="2" />
       {[
         [166, 116],
@@ -98,23 +99,45 @@ function HeroArt() {
   )
 }
 function Coin({ count = 1 }: { count?: number }) {
+  const id = useId()
   return (
     <span className="am-coins" aria-hidden="true">
       {Array.from({ length: count }, (_, i) => (
         <svg key={i} viewBox="0 0 30 30">
           <defs>
-            <radialGradient id={`am-coin-${count}-${i}`}>
+            <radialGradient id={`${id}-${i}`}>
               <stop stopColor="#fff7aa" />
               <stop offset="1" stopColor="#ffa700" />
             </radialGradient>
           </defs>
           <ellipse cx="15" cy="17" rx="12" ry="11" fill="#ed9700" />
-          <circle cx="15" cy="14" r="12" fill={`url(#am-coin-${count}-${i})`} stroke="#f3b222" />
+          <circle cx="15" cy="14" r="12" fill={`url(#${id}-${i})`} stroke="#f3b222" />
           <circle cx="15" cy="14" r="8" fill="none" stroke="#ffe889" strokeWidth="1.6" />
           <path d="M17 8Q10 8 11 13Q11 16 17 16Q22 21 12 21M15 6V23" fill="none" stroke="#eaa521" strokeWidth="1.5" />
         </svg>
       ))}
     </span>
+  )
+}
+function AmortizedBars() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="15" width="5" height="11" rx="1.5" opacity=".6" />
+      <rect x="10" y="8" width="5" height="18" rx="1.5" opacity=".85" />
+      <rect x="17" y="2" width="5" height="24" rx="1.5" />
+    </svg>
+  )
+}
+function ArrayIcon() {
+  return (
+    <svg viewBox="0 0 28 28" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+      {[18, 12, 6].map((y) => (
+        <g key={y}>
+          <path d={`M4 ${y}V${y + 3}C4 ${y + 9} 24 ${y + 9} 24 ${y + 3}V${y}`} fill="#81c1ff" />
+          <ellipse cx="14" cy={y} rx="10" ry="4" fill="#60b2ff" />
+        </g>
+      ))}
+    </svg>
   )
 }
 function Battery({ value, capacity }: { value: number; capacity: number }) {
@@ -176,8 +199,8 @@ function AggregateChart({ run, cursor, onPick }: { run: ArrayTrace; cursor: numb
     maxY = Math.ceil((3 * len) / yStep) * yStep,
     top = 12,
     bottom = 105,
-    left = 35,
-    right = 308,
+    left = 48,
+    right = 305,
     x = (i: number) => left + (i / len) * (right - left),
     y = (c: number) => bottom - (c / maxY) * (bottom - top),
     mixed = run.operations.some((o) => o.kind === 'pop'),
@@ -202,7 +225,7 @@ function AggregateChart({ run, cursor, onPick }: { run: ArrayTrace; cursor: numb
         {yticks.map((v) => (
           <g key={v}>
             <path d={`M${left} ${y(v)}H${right}`} stroke="#e0e9f4" />
-            <text x="26" y={y(v) + 4} textAnchor="end">
+            <text x="39" y={y(v) + 4} textAnchor="end">
               {v}
             </text>
           </g>
@@ -210,7 +233,7 @@ function AggregateChart({ run, cursor, onPick }: { run: ArrayTrace; cursor: numb
         {ticks.map((i) => (
           <g key={i}>
             <path d={`M${x(i)} ${top}V${bottom}`} stroke="#e6edf6" />
-            <text x={x(i)} y="122" textAnchor="middle">
+            <text x={x(i)} y="119" textAnchor="middle">
               {i}
             </text>
           </g>
@@ -249,10 +272,10 @@ function AggregateChart({ run, cursor, onPick }: { run: ArrayTrace; cursor: numb
             <title>{`${symbol}=${s.step}: actual ${s.totalCost}, bound ${3 * s.step}`}</title>
           </g>
         ))}
-        <text x="176" y="147" textAnchor="middle">
+        <text x="176" y="145" textAnchor="middle">
           {tr(`Number of operations (${symbol})`)}
         </text>
-        <text transform="translate(10 72) rotate(-90)" textAnchor="middle">
+        <text transform="translate(6 72) rotate(-90)" textAnchor="middle">
           {tr('Total cost')}
         </text>
       </svg>
@@ -419,6 +442,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
     <div className={`mom-page amortized-page target-visual ${state.capacity > 8 ? 'am-large' : ''}`} data-target="11">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Amortized Analysis')}
         description={tr('Bound the total cost of a sequence without a probabilistic assumption.')}
         heroIcon={<LayersIcon />}
@@ -527,7 +551,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
               <section className="mom-panel am-visualizer">
                 <header>
                   <span className="am-icon">
-                    <Database />
+                    <ArrayIcon />
                   </span>
                   <div>
                     <h2>{tr('Dynamic Array Resizing Visualizer')}</h2>
@@ -603,7 +627,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
                   className="am-accounting"
                   title={tr('Accounting Method (Stack Example)')}
                   description="Charge 2 credits for push and 0 for pop. One credit pays for the future pop."
-                  icon={<Coins />}
+                  icon={<Coin />}
                 >
                   <div className="am-stack-diagram">
                     <button onClick={() => stackAction('push')} aria-label={tr('Push a stack item')}>
@@ -669,7 +693,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
                   className="am-aggregate"
                   title={tr('Aggregate Analysis Chart')}
                   description="Total actual cost vs amortized bound for the planned sequence (with doubling)."
-                  icon={<BarChart3 />}
+                  icon={<AmortizedBars />}
                 >
                   <AggregateChart run={run} cursor={cursor} onPick={pick} />
                 </Panel>
@@ -722,7 +746,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
                   <h2>{tr('Pro Tip')}</h2>
                   <p>
                     {tr(
-                      'Think of amortized analysis as a bank account: save credits during cheap operations to pay for costly ones later. The total balance should never go negative.',
+                      'Think in terms of a bank account: save credits during cheap operations to pay for costly ones later. The total balance should never go negative.',
                     )}
                   </p>
                 </div>
@@ -925,6 +949,7 @@ export function AmortizedMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <Panel className="am-extra" title={tr('Your amortized-analysis notes')} description="Saved automatically in this browser." icon={<FileText />}>
+          <LanguageSelector />
           <label>
             {tr('Record the cost model, potential and why 3n is a valid bound.')}
             <textarea rows={12} aria-label={tr('Amortized-analysis notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

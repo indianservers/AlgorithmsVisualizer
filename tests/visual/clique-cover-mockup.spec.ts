@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 const root = (page: Page) => page.locator('.clique-cover-page')
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -10,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await expect(root(page)).toBeVisible()
 })
 test('026 includes all reference components, precise panel positions and the actual complement', async ({ page }, info) => {
-  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.screenshot({ path: `artifacts/visual-qa/clique-cover-026/${info.project.name}-visualization.png` })
   for (const heading of [
     'Interactive Visualization',
     'Graph G (original)',
@@ -32,6 +33,27 @@ test('026 includes all reference components, precise panel positions and the act
   await expect(root(page).locator('.cv-step-track button')).toHaveCount(6)
   await expect(root(page).locator('.cv-validation')).toContainText('both certificates verify')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  if (info.project.name === 'desktop') {
+    const centers = await root(page)
+      .locator('.cv-graph-source .cv-vertex')
+      .evaluateAll((vertices) =>
+        vertices.map((vertex) => {
+          const box = vertex.querySelector('circle:last-of-type')!.getBoundingClientRect()
+          return { x: box.x + box.width / 2, y: box.y + box.height / 2 }
+        }),
+      )
+    for (const [i, [x, y]] of [
+      [495, 364],
+      [399, 432],
+      [595, 432],
+      [375, 525],
+      [501, 545],
+      [631, 510],
+    ].entries()) {
+      expect(Math.abs(centers[i].x - x)).toBeLessThanOrEqual(2)
+      expect(Math.abs(centers[i].y - y)).toBeLessThanOrEqual(2)
+    }
+  }
   if (info.project.name === 'desktop')
     for (const [selector, expected] of [
       ['.cv-lesson-header', { x: 278, y: 55, width: 1394, height: 81 }],
@@ -177,6 +199,9 @@ test('026 theory, code, predictions, persistent notes and dark mode work', async
   await root(page).getByRole('button', { name: 'Check prediction', exact: true }).click()
   await expect(root(page).getByRole('status')).toContainText('Correct')
   await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root(page).getByLabel('Clique to cover proof notes', { exact: true }).fill('Complement every distinct pair; use n-k; prove both directions.')
   await root(page).locator('.cv-review').click()
   await root(page).getByRole('button', { name: 'Toggle color theme', exact: true }).click()

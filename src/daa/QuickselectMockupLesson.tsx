@@ -1,6 +1,7 @@
 // @localized-render
 import { useEffect, useState, type ReactNode } from 'react'
-import { AlertTriangle, BarChart3, CheckCircle2, ChevronRight, ClipboardList, Layers3, Lightbulb, Pause, Play, RotateCcw, Sparkles, Target } from 'lucide-react'
+import { AlertTriangle, CheckCircle2, ChevronRight, ClipboardList, Layers3, Lightbulb, Pause, Play, RotateCcw, Sparkles, Target } from 'lucide-react'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { tx, useLocaleRender } from '../i18n/render'
 import { MockupLessonChrome, MockupTabs, SelectionHeroArt, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
 import { quickReferenceValues, quickTrace, type QuickFrame, type QuickPivot } from './quickselectModel'
@@ -10,6 +11,23 @@ import './quickselect-mockup.css'
 
 const tr = (text: string) => tx(text, 'studios')
 const ordinal = (n: number) => `${n}${n % 100 >= 11 && n % 100 <= 13 ? 'th' : n % 10 === 1 ? 'st' : n % 10 === 2 ? 'nd' : n % 10 === 3 ? 'rd' : 'th'}`
+function QuickRunIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <circle cx="10" cy="10" r="9" fill="white" />
+      <path d="M8 5.5L14 10L8 14.5Z" fill="#0875ff" />
+    </svg>
+  )
+}
+function QuickBars() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="15" width="5" height="11" rx="1.5" opacity=".65" />
+      <rect x="10" y="8" width="5" height="18" rx="1.5" opacity=".85" />
+      <rect x="17" y="2" width="5" height="24" rx="1.5" />
+    </svg>
+  )
+}
 function QPanel({
   title,
   description,
@@ -100,6 +118,7 @@ function Partition({ frame }: { frame: QuickFrame }) {
   )
 }
 function GrowthChart() {
+  const [inspected, setInspected] = useState<number>()
   const w = 380,
     h = 155,
     left = 37,
@@ -110,7 +129,7 @@ function GrowthChart() {
     y = (v: number) => bottom - (v / 8000) * (bottom - top),
     curve = (fn: (n: number) => number) => Array.from({ length: 21 }, (_, i) => `${x(i * 50)},${y(fn(i * 50))}`).join(' ')
   return (
-    <div className="qs-complexity-chart">
+    <div className="qs-complexity-chart" onMouseLeave={() => setInspected(undefined)}>
       <div className="qs-chart-legend">
         <span>
           <i />
@@ -143,7 +162,24 @@ function GrowthChart() {
         <polyline className="qs-linear" points={curve((n) => 3 * n)} />
         <polyline className="qs-quadratic" points={curve((n) => (n * n) / 125)} />
         {[0, 200, 400, 600, 800, 1000].map((n) => (
-          <g key={n}>
+          <g
+            key={n}
+            role="button"
+            tabIndex={0}
+            aria-label={tr(`Inspect growth at n = ${n}`)}
+            onFocus={() => setInspected(n)}
+            onMouseEnter={() => setInspected(n)}
+            onClick={() => setInspected(n)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                setInspected(n)
+              }
+            }}
+          >
+            <title>{`n=${n}: expected 3n=${3 * n}; worst-case n²/125=${(n * n) / 125}`}</title>
+            <circle cx={x(n)} cy={y(3 * n)} r="7" fill="transparent" />
+            <circle cx={x(n)} cy={y((n * n) / 125)} r="7" fill="transparent" />
             <circle className="qs-linear-dot" cx={x(n)} cy={y(3 * n)} r="2.5" />
             <circle className="qs-quadratic-dot" cx={x(n)} cy={y((n * n) / 125)} r="2.5" />
           </g>
@@ -156,6 +192,11 @@ function GrowthChart() {
         </text>
       </svg>
       <small>{tr('Illustrative curves: 3n and n²/125, not measured runtimes.')}</small>
+      {inspected !== undefined && (
+        <output role="status" className="qs-growth-inspection">
+          {tr(`n = ${inspected} · Expected: ${3 * inspected} · Worst-case: ${(inspected * inspected) / 125} (illustrative)`)}
+        </output>
+      )}
     </div>
   )
 }
@@ -316,6 +357,7 @@ export function QuickselectMockupLesson(props: MockupPageProps) {
     <div className="mom-page quickselect-page target-visual" data-target="16" data-mockup-page="quickselect">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Quickselect')}
         description="Partition and recurse only into the rank-containing group."
         decoration={
@@ -370,7 +412,7 @@ export function QuickselectMockupLesson(props: MockupPageProps) {
                   />
                 </label>
                 <button className="mom-start qs-run-step" disabled={!dirty && cursor === run.frames.length - 1} onClick={step}>
-                  <Play size={16} />
+                  <QuickRunIcon />
                   {tr('Run Step')}
                   <ChevronRight size={15} />
                 </button>
@@ -571,7 +613,7 @@ export function QuickselectMockupLesson(props: MockupPageProps) {
             <QPanel
               title={tr('Complexity Analysis')}
               description="Time: O(n) expected, O(n²) worst · Space: O(n) teaching arrays"
-              icon={<BarChart3 size={24} />}
+              icon={<QuickBars />}
               className="qs-complexity"
             >
               <GrowthChart />
@@ -682,6 +724,7 @@ export function QuickselectMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <QPanel title={tr('Your Quickselect notes')} description="Notes are stored in this browser.">
+          <LanguageSelector />
           <textarea
             aria-label={tr('Quickselect notes')}
             rows={10}

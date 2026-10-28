@@ -1452,3 +1452,93 @@
 [data-theme='dark'] .ge-schedule path:not([fill]) {
   stroke: #35516b;
 }
+
+/* Reference desktop mini-chart geometry and navigation spacing. */
+@media (min-width: 1551px) {
+  .greedy-exchange-page .mom-search {
+    flex-basis: 471px;
+  }
+  .greedy-exchange-page .mom-study {
+    width: 132px;
+    justify-content: center;
+  }
+  .greedy-exchange-page #account-trigger {
+    width: 197px;
+    font-size: 12px;
+  }
+  .greedy-exchange-page .ge-selected-schedule .ge-schedule {
+    height: 125px;
+  }
+  .greedy-exchange-page .ge-comparison-result p {
+    display: flow-root;
+    line-height: 16px;
+  }
+  .greedy-exchange-page .ge-comparison-result p svg {
+    float: left;
+    margin-right: 8px;
+  }
+  .greedy-exchange-page .ge-exchange-note p {
+    font-size: 11px;
+    line-height: 15px;
+  }
+  .greedy-exchange-page .ge-exchange-pair .ge-schedule .ge-mini-label {
+    font-size: 12px;
+  }
+  .greedy-exchange-page .ge-selected-summary {
+    font-size: 13px;
+  }
+  .greedy-exchange-page .ge-item-table input[type='number'] {
+    font-size: 12px;
+  }
+  .greedy-exchange-page .ge-item-table td {
+    font-size: 12px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-header {
+    padding-bottom: 12px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-home {
+    margin-bottom: 23px;
+    font-size: 14px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-section-label {
+    padding-bottom: 0;
+    margin-bottom: -7px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-algorithm {
+    min-height: 31px;
+    padding-block: 6.5px;
+    padding-left: 38px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-algorithm.active::before {
+    left: 19px;
+  }
+  .app-shell:has(.greedy-exchange-page) .sidebar-category-toggle.current {
+    box-shadow: inset 4px 0 #0875ff;
+  }
+}
+
+@media (min-width: 1551px) {
+  .app-shell:has(.greedy-exchange-page) .sidebar-section-label {
+    transform: translateY(-12px);
+  }
+  .app-shell:has(.greedy-exchange-page) .brand strong {
+    font-size: 24px;
+  }
+  .greedy-exchange-page .mom-hero h1 {
+    font-size: 30px;
+  }
+  .greedy-exchange-page .mom-hero-title > p {
+    font-size: 15px;
+    line-height: 19px;
+  }
+}
+
+@media (min-width: 1551px) {
+  .greedy-exchange-page .ge-comparison-result p {
+    margin-top: 4px;
+    padding-block: 7px;
+  }
+  .greedy-exchange-page .ge-comparison-result p svg {
+    height: 16px;
+  }
+}

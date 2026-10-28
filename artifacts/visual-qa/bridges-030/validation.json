@@ -1,0 +1,70 @@
+{
+  "target": 30,
+  "route": "/daa-extensions/bridges",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/030--daa-extensions--graph-bridges.png",
+  "previousGoalTurnClassification": "Progress: Quickselect controls, trace and panels refined; growth-chart inspection added; RGB error 12.5730 to 12.0426, 808 unit tests and 13 final production-browser checks passed.",
+  "status": "Sidebar spacing and label overlap fixed; native graph and dashboard presentation refined. Full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.4321,
+  "afterMeanAbsoluteRgbError": 12.0595,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Fixed the sidebar padding override that placed the active dot over Graph Bridges; restored text indentation.",
+    "Matched compact sidebar category and algorithm row spacing with the reference.",
+    "Added radial blue/gold/rose node shading using unique SVG IDs.",
+    "Added native rounded-bar icons and the DFS document/play glyph; rotated the classification link icon.",
+    "Matched progress marker positions, account/study control widths and language access in Notes.",
+    "Refined node picker, selected values, low-link header and footer typography.",
+    "Matched filled lightbulb and warning markers.",
+    "Set reference viewport before navigation and captured the default dashboard before assertions.",
+    "Added sidebar text/dot clearance, six node-center positions and footer content-containment regression assertions."
+  ],
+  "referenceClarifications": [
+    "The reference drawing adds a 2-4 edge while claiming 3-4 is a bridge. Together with 2-3 this makes a cycle, contradicting that claim. The native graph keeps vertex 4 attached only through 3-4.",
+    "For the actual default graph and adjacency order, DFS visits 1,2,3,4,5,6. Vertex 3 has parent 2 and low=0 via the 3-1 back edge.",
+    "The 3-5-6 cycle gives low[5]=low[6]=2. Node details, final preview, low-link table and edge classification remain synchronized.",
+    "The actual trace has 14 frames. The default paused playback shows a Play control rather than pretending to autoplay at a frozen reference frame.",
+    "The sidebar footer remains reachable and visible within the viewport rather than deliberately reproducing the partly cropped reference footer.",
+    "Bridge detection skips the parent edge ID, preserving correct behavior for parallel edges and self-loops."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalTestLint": "Passed after adding sidebar clearance, graph positions and text containment assertions.",
+    "developmentBrowser": {
+      "passed": 21,
+      "skipped": 1
+    },
+    "productionBrowser": {
+      "passed": 21,
+      "skipped": 1
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "geometry": "Eight main panel/grid anchors within two pixels of reference; six graph node centers within three pixels; sidebar text clears the active dot; footer prose fits inside cards.",
+    "interactions": [
+      "Timeline selection and evolving DFS values",
+      "Playback",
+      "Graph/table node selection",
+      "Child and previous/next controls",
+      "Annotation switches",
+      "Final preview and selected-step values",
+      "Edge-removal connectivity checks",
+      "Parallel edges and self-loops",
+      "Changed graph rerun",
+      "Graph JSON validation",
+      "Disconnected and singleton graphs",
+      "Theory and worked proof",
+      "Source code",
+      "Predictions",
+      "Language dialog",
+      "Persistent notes and review",
+      "Eight-vertex scrolling table",
+      "Dark and narrow layouts"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures have nonzero differences. Continue full visual-match objective."
+}

@@ -159,7 +159,7 @@
   border-radius: 7px;
   background: linear-gradient(145deg, #fff, #f8fbff);
   font:
-    12px/21px ui-monospace,
+    12px/20px ui-monospace,
     SFMono-Regular,
     Consolas,
     monospace;
@@ -169,7 +169,7 @@
 .pc-code-lines {
   position: absolute;
   inset: 0 auto auto 0;
-  padding: 8px 0;
+  padding: 6px 0;
   min-width: 100%;
   width: max-content;
   transform-origin: 0 0;
@@ -177,8 +177,8 @@
 .pc-code-line {
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr);
-  min-height: 21px;
-  line-height: 21px;
+  min-height: 20px;
+  line-height: 20px;
 }
 .pc-code-line > span {
   color: #6983aa;
@@ -214,8 +214,8 @@
   color: transparent;
   caret-color: #183c78;
   font: inherit;
-  line-height: 21px;
-  padding: 8px 12px 8px 54px;
+  line-height: 20px;
+  padding: 6px 12px 6px 54px;
   white-space: pre;
   overflow: auto;
   border-radius: 7px;
@@ -1450,4 +1450,105 @@
 }
 [data-theme='dark'] .pseudocode-page .pc-executed-path > button[aria-pressed='true'] {
   background: #234972;
+}
+
+/* Reference editor, flowchart and checklist presentation. */
+.pseudocode-page .pc-checklist input {
+  appearance: none;
+  padding: 0;
+  border: 1.5px solid #8fa5c8;
+  border-radius: 4px;
+  background: #fff;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pseudocode-page .pc-checklist input:checked {
+  background: #087aff;
+  border-color: #087aff;
+}
+.pseudocode-page .pc-checklist input:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.pseudocode-page .pc-checklist input:focus-visible {
+  outline: 2px solid #087aff;
+  outline-offset: 3px;
+}
+[data-theme='dark'] .pseudocode-page .pc-checklist input:not(:checked) {
+  background: #172841;
+  border-color: #8ca7cc;
+}
+@media (min-width: 1551px) {
+  .pseudocode-page .mom-search {
+    flex-basis: 914px;
+  }
+  .pseudocode-page .mom-study {
+    width: 120px;
+    justify-content: center;
+  }
+  .pseudocode-page #account-trigger {
+    width: 177px;
+    gap: 6px;
+    padding-inline: 9px;
+  }
+  .pseudocode-page #account-label {
+    font-size: 11.5px;
+    max-width: none;
+    flex-shrink: 0;
+  }
+  .pseudocode-page .account-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .pseudocode-page .pc-flow-node text {
+    font-size: 12px;
+  }
+  .pseudocode-page .pc-edge-label {
+    font-size: 11px;
+  }
+  .pseudocode-page .pc-generated .pc-code-editor.mini .pc-code-line {
+    line-height: 18px;
+    min-height: 18px;
+  }
+  .pseudocode-page .pc-natural > textarea {
+    font-size: 13px;
+  }
+  .pseudocode-page .pc-worked .pc-code-editor.mini {
+    font-size: 10px;
+  }
+  .pseudocode-page .pc-worked .pc-code-lines {
+    padding-top: 3px;
+  }
+  .pseudocode-page .pc-worked-tabs button {
+    font-size: 11px;
+  }
+  .pseudocode-page .pc-binary-table h3 {
+    font-size: 12px;
+  }
+  .pseudocode-page .pc-binary-table th,
+  .pseudocode-page .pc-binary-table td,
+  .pseudocode-page .pc-binary-table td:last-child,
+  .pseudocode-page .pc-binary-table button {
+    font-size: 10px;
+  }
+  .pseudocode-page .pc-example-cards h3 {
+    font-size: 12px;
+  }
+  .pseudocode-page .pc-example-cards p,
+  .pseudocode-page .pc-example-cards small {
+    font-size: 12px;
+  }
+  .pseudocode-page .pc-example-cards > div:first-child h3 svg {
+    fill: #07944c;
+    color: white;
+  }
 }

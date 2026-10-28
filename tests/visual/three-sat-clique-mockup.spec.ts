@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 const root = (page: Page) => page.locator('.three-sat-page')
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
   await page.route('https://www.googletagmanager.com/**', (route) => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
@@ -10,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await expect(root(page)).toBeVisible()
 })
 test('025 reference layout includes every component and an actual 23-edge graph', async ({ page }, info) => {
-  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.screenshot({ path: `artifacts/visual-qa/three-sat-025/${info.project.name}-visualization.png` })
   for (const heading of [
     'Interactive Visualization',
     '3-CNF Formula and Clauses',
@@ -154,6 +155,9 @@ test('025 theory, code, prediction challenges and persistent notes work in dark 
   await root(page).getByRole('button', { name: 'Do not add an edge', exact: true }).click()
   await expect(root(page).getByRole('status').last()).toContainText('Correct: no edge')
   await root(page).locator('.mom-tabs').getByRole('button', { name: 'Notes', exact: true }).click()
+  await root(page).getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root(page).getByLabel('3-SAT reduction notes', { exact: true }).fill('One occurrence per clause; no contradictory pair.')
   await root(page).locator('.st-review').click()
   await root(page).getByRole('button', { name: 'Toggle color theme', exact: true }).click()

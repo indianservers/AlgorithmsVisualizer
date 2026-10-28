@@ -1,0 +1,102 @@
+{
+  "target": 15,
+  "route": "/divide-and-conquer/strassen",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/015--divide-and-conquer--strassen-matrix-multiplication.png",
+  "previousGoalTurnClassification": "Progress: Best-First Knapsack tree root, labels, table and icons refined; RGB error 13.5521 to 13.5127, 808 unit tests and 21 production-browser checks passed.",
+  "status": "Native illustration, worked-product grid, diagram labels and chart presentation improved; full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.8653,
+  "afterMeanAbsoluteRgbError": 12.2325,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "regions": {
+    "header": {
+      "bounds": [264, 0, 1672, 257],
+      "before": 11.1726,
+      "after": 10.1249
+    },
+    "decomposition": {
+      "bounds": [279, 257, 851, 599],
+      "before": 11.6809,
+      "after": 10.527
+    },
+    "products": {
+      "bounds": [863, 257, 1232, 599],
+      "before": 16.1158,
+      "after": 16.1156
+    },
+    "combine": {
+      "bounds": [1244, 257, 1657, 599],
+      "before": 9.2162,
+      "after": 9.216
+    },
+    "worked": {
+      "bounds": [279, 607, 1094, 843],
+      "before": 15.8022,
+      "after": 13.9344
+    },
+    "performance": {
+      "bounds": [1104, 607, 1657, 843],
+      "before": 13.9173,
+      "after": 13.0473
+    },
+    "footer": {
+      "bounds": [279, 850, 1657, 941],
+      "before": 20.9417,
+      "after": 21.6051
+    }
+  },
+  "refinements": [
+    "Replaced three thin decorative cube slabs with a native 2-by-2-by-2 block, layered face gradients and unique SVG IDs.",
+    "Aligned the main cube, resized the smaller split cube and aligned decorative chart nodes with the reference.",
+    "Matched matrix title and dimension-label placement while preserving actual quadrant geometry.",
+    "Constrained worked products to the compact reference columns, aligned editable A/B matrices and increased worked-product typography.",
+    "Aligned performance chart axes, grid, points, labels and legend; added restrained area shading while retaining actual logarithmic operation values.",
+    "Added rounded native chart icons and increased bottom-panel text size.",
+    "Moved language selection to Notes; fitted the complete login label and account avatar.",
+    "Set reference viewport before navigation, abort external analytics in browser checks, and capture the default page before assertions.",
+    "Asserted compact worked-product position, full account label and the actual plotted n=16 classical value."
+  ],
+  "referenceClarifications": [
+    "The plot preserves n^3 and n^log2(7), mapped consistently to a logarithmic axis. For example n=16 classical operations are 4096 and n=32 operations are 32768. The reference curves do not use consistent values on their labeled axis.",
+    "The final computed example result remains [[18,14],[62,66]], and editing inputs recomputes products and result blocks.",
+    "Input constraints describe this actual matrix laboratory, including dimensions 1,2,4,8 and numeric bounds; unrelated graph/string constraints in the reference are not copied.",
+    "The current memory explanation includes live blocks and output rather than asserting recursion depth is the entire memory cost."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalBuild": "Scoped ESLint, TypeScript, fresh Vite build, prerender and bundle budget passed after final illustration and label corrections.",
+    "developmentBrowser": {
+      "passed": 13,
+      "skipped": 1
+    },
+    "finalProductionBrowser": {
+      "passed": 13,
+      "skipped": 1
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "geometry": "Seven reference panel/grid anchors remain within three pixels; final result stays inside worked panel; worked M1 starts within two pixels of reference x=570; login text is untruncated.",
+    "interactions": [
+      "All seven product inspectors",
+      "Result-block inspectors",
+      "Editable matrix entries and recomputation",
+      "Recursive 4-by-4 descent and parent navigation",
+      "Invalid JSON and matrix dimensions",
+      "Playback and reset",
+      "Predictions",
+      "Save/load experiment",
+      "Zero matrix example",
+      "JSON export",
+      "Persistent notes",
+      "Language dialog",
+      "Source code tab",
+      "Keyboard operation-growth inspection",
+      "Dark and narrow layouts"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures have nonzero differences. Continue full visual-match objective."
+}

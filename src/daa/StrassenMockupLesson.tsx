@@ -1,6 +1,7 @@
 // @localized-render
-import { useEffect, useState, type ReactNode } from 'react'
-import { BarChart3, CheckCircle2, ClipboardList, Clock3, Layers3, Play, Pause, RotateCcw, Settings, Sigma, Timer } from 'lucide-react'
+import { useEffect, useId, useState, type ReactNode } from 'react'
+import { CheckCircle2, ClipboardList, Clock3, Layers3, Play, Pause, RotateCcw, Settings, Sigma, Timer } from 'lucide-react'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { tx, useLocaleRender } from '../i18n/render'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, MockupTabs, type MockupPageProps, type MockupTab } from './MockupLessonChrome'
@@ -47,40 +48,60 @@ function Panel({
   )
 }
 function HeroArt() {
+  const id = useId()
   return (
     <svg className="sm-hero-art" viewBox="0 0 290 130" aria-hidden="true">
       <defs>
-        <linearGradient id="sm-cube" x2="0" y2="1">
-          <stop stopColor="#b2ebff" />
-          <stop offset="1" stopColor="#7a39ff" />
+        <linearGradient id={`${id}-left`} x2=".3" y2="1">
+          <stop stopColor="#a2e9ff" />
+          <stop offset=".48" stopColor="#6952ff" />
+          <stop offset="1" stopColor="#4e11e5" />
+        </linearGradient>
+        <linearGradient id={`${id}-right`} x2="0" y2="1">
+          <stop stopColor="#87d6ff" />
+          <stop offset=".5" stopColor="#7541f7" />
+          <stop offset="1" stopColor="#5c20e8" />
+        </linearGradient>
+        <linearGradient id={`${id}-top`} x2=".5" y2="1">
+          <stop stopColor="#e7fbff" />
+          <stop offset="1" stopColor="#9edaff" />
         </linearGradient>
       </defs>
       <path
         d="M5 20H280M5 40H280M5 60H280M5 80H280M5 100H280M30 0V130M55 0V130M80 0V130M105 0V130M130 0V130M155 0V130M180 0V130M205 0V130M230 0V130M255 0V130"
         stroke="#e3efff"
-        opacity=".5"
+        opacity=".35"
       />
-      {[0, 1, 2].map((i) => (
-        <g key={i} transform={`translate(0,${-i * 24})`}>
-          <path d="M90 82L140 55L190 82L140 111Z" fill={i === 2 ? '#c5eeff' : '#aaa0ff'} stroke="#def4ff" />
-          <path d="M90 82L140 111V139L90 110Z" fill="url(#sm-cube)" stroke="#d0eaff" />
-          <path d="M140 111L190 82V110L140 139Z" fill={i === 2 ? '#82caff' : '#6435ee'} stroke="#bcd6ff" />
-          <path d="M115 69L165 96V123M165 69L115 96V123" stroke="#daf4ff" fill="none" opacity=".8" />
-        </g>
-      ))}
-      <path d="M18 66L35 56L52 66V103L35 114L18 103Z" fill="#9ce6ff" opacity=".8" stroke="#fff" />
-      <path d="M18 66L35 77L52 66M35 77V114M18 85L35 95L52 85" stroke="white" fill="none" />
-      <path d="M206 111L220 88L233 111L246 69L260 82L269 45" fill="none" stroke="#b9caff" strokeWidth="2" />
-      {[
-        [206, 111],
-        [220, 88],
-        [233, 111],
-        [246, 69],
-        [260, 82],
-        [269, 45],
-      ].map(([x, y]) => (
-        <circle key={x} cx={x} cy={y} r="4" fill="#9ab9ff" />
-      ))}
+      <g stroke="#ddf4ff" strokeWidth="1">
+        <path d="M90 30L140 59V126L90 97Z" fill={`url(#${id}-left)`} />
+        <path d="M140 59L190 30V97L140 126Z" fill={`url(#${id}-right)`} />
+        <path d="M90 30L140 3L190 30L140 59Z" fill={`url(#${id}-top)`} />
+        <path d="M115 16.5L165 44.5V111.5M165 16.5L115 44.5V111.5M90 63.5L140 92.5L190 63.5" fill="none" />
+      </g>
+      <path d="M16 65L40 51L64 65V104L40 118L16 104Z" fill="#9ce6ff" opacity=".8" stroke="#fff" />
+      <path d="M16 65L40 79L64 65M40 79V118M16 85L40 99L64 85" stroke="white" fill="none" />
+      <g transform="translate(-6 4)">
+        <path d="M206 111L220 91L233 111L246 78L260 92L269 53" fill="none" stroke="#b9caff" strokeWidth="2" />
+        {[
+          [206, 111],
+          [220, 91],
+          [233, 111],
+          [246, 78],
+          [260, 92],
+          [269, 53],
+        ].map(([x, y]) => (
+          <circle key={x} cx={x} cy={y} r="4" fill="#9ab9ff" />
+        ))}
+      </g>
+    </svg>
+  )
+}
+function StrassenBars() {
+  return (
+    <svg viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+      <rect x="3" y="15" width="5" height="11" rx="1.5" opacity=".65" />
+      <rect x="10" y="8" width="5" height="18" rx="1.5" opacity=".85" />
+      <rect x="17" y="2" width="5" height="24" rx="1.5" />
     </svg>
   )
 }
@@ -165,8 +186,8 @@ function BlockDiagram({ name, tone, onSelect, selected }: { name: string; tone: 
 function PerformanceChart() {
   const [inspected, setInspected] = useState<{ n: number; exponent: number }>()
   const sizes = [16, 32, 64, 128, 256, 512, 1024, 2048],
-    x = (i: number) => 76 + i * 65,
-    y = (n: number, p: number) => 132 - Math.log10(n ** p) * 8.2
+    x = (i: number) => 90 + (i * 466) / 7,
+    y = (n: number, p: number) => 126 - Math.log10(n ** p) * 9.4
   return (
     <div className="sm-chart" onMouseLeave={() => setInspected(undefined)}>
       <div className="sm-chart-legend">
@@ -182,22 +203,25 @@ function PerformanceChart() {
       <svg viewBox="0 0 575 175" role="img" aria-label={tr('Theoretical operation growth on a logarithmic scale')} preserveAspectRatio="none">
         {[0, 3, 6, 9, 12].map((k) => (
           <g key={k}>
-            <path d={`M56 ${132 - k * 8.2}H552`} stroke="#e4ebf6" />
-            <text x="47" y={136 - k * 8.2} textAnchor="end">
+            <path d={`M70 ${126 - k * 9.4}H556`} stroke="#e4ebf6" />
+            <text x="61" y={130 - k * 9.4} textAnchor="end">
               {k === 0 ? '10⁰' : `10${['', '', '', '³', '', '', '⁶', '', '', '⁹', '', '', '¹²'][k]}`}
             </text>
           </g>
         ))}
         {sizes.map((n, i) => (
           <g key={n}>
-            <path d={`M${x(i)} 30V132`} stroke="#e9eef7" />
-            <text x={x(i)} y="151" textAnchor="middle">
+            <path d={`M${x(i)} 13V126`} stroke="#e9eef7" />
+            <text x={x(i)} y="143" textAnchor="middle">
               {n === 2048 ? '' : n}
             </text>
           </g>
         ))}
         {[3, Math.log2(7)].map((p, i) => (
           <g key={p}>
+            {i === 1 && (
+              <polygon points={`${x(0)},126 ${sizes.map((n, j) => `${x(j)},${y(n, p)}`).join(' ')} ${x(sizes.length - 1)},126`} fill="#ff4267" opacity=".06" />
+            )}
             <polyline points={sizes.map((n, j) => `${x(j)},${y(n, p)}`).join(' ')} fill="none" stroke={i ? '#ff4267' : '#0878ff'} strokeWidth="1.7" />
             {sizes.map((n, j) => (
               <circle
@@ -224,10 +248,10 @@ function PerformanceChart() {
             ))}
           </g>
         ))}
-        <text x="300" y="171" textAnchor="middle">
+        <text x="300" y="167" textAnchor="middle">
           {tr('Matrix size n')}
         </text>
-        <text transform="translate(17 88) rotate(-90)" textAnchor="middle">
+        <text transform="translate(13 76) rotate(-90)" textAnchor="middle">
           {tr('Operations (log scale)')}
         </text>
       </svg>
@@ -354,6 +378,7 @@ export function StrassenMockupLesson(props: MockupPageProps) {
     <div className="mom-page strassen-page target-visual" data-target="15">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Strassen Matrix Multiplication')}
         description={tr('Multiply blocks with seven recursive products and achieve sub-cubic time complexity.')}
         onStart={() => changeTab('Visualization')}
@@ -629,7 +654,7 @@ export function StrassenMockupLesson(props: MockupPageProps) {
               className="sm-performance"
               title={tr('Performance Comparison')}
               description="Strassen’s algorithm has lower asymptotic complexity than classical multiplication."
-              icon={<BarChart3 />}
+              icon={<StrassenBars />}
             >
               <PerformanceChart />
             </Panel>
@@ -642,7 +667,7 @@ export function StrassenMockupLesson(props: MockupPageProps) {
                 )}
               </p>
             </Panel>
-            <Panel title={tr('Complexity Analysis')} icon={<BarChart3 />}>
+            <Panel title={tr('Complexity Analysis')} icon={<StrassenBars />}>
               <p>
                 <b>{tr('Time: O(n^log₂7) ≈ O(n^2.807)')}</b>
                 <br />
@@ -733,7 +758,7 @@ export function StrassenMockupLesson(props: MockupPageProps) {
           className="sm-extra"
           title={tr('Compare and save experiments')}
           description="Try identity or zero matrices and inspect how products cancel."
-          icon={<BarChart3 />}
+          icon={<StrassenBars />}
         >
           <div className="sm-toolbar">
             <button
@@ -792,6 +817,7 @@ export function StrassenMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <Panel className="sm-extra" title={tr('Your Strassen notes')} description="Saved automatically in this browser." icon={<ClipboardList />}>
+          <LanguageSelector />
           <label>
             {tr('Explain the cancellation in C₁₁ in your own words.')}
             <textarea rows={10} aria-label={tr('Strassen notes')} value={notes} onChange={(e) => setNotes(e.target.value)} />

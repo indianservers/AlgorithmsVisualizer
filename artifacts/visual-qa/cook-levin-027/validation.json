@@ -1,0 +1,59 @@
+{
+  "target": 27,
+  "route": "/complexity-theory/cook-levin",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/027--complexity-theory--cook-levin-theorem-overview.png",
+  "previousGoalTurnClassification": "Progress: committed and pushed accumulated verified lesson refinements at 183e11e; remote main verified equal and working tree clean.",
+  "status": "Native dashboard presentation improved; full 100% visual-match goal remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 12.6899,
+  "afterMeanAbsoluteRgbError": 12.558,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "refinements": [
+    "Matched rounded three-bar visualization and proof icons with native SVG.",
+    "Moved language selection to Notes, preserving access and verifying the dialog.",
+    "Refined reference-size account, study, title and progress spacing.",
+    "Removed uniform green tape fill and restored neutral symbol text while retaining computed state colors and constraint/error highlights.",
+    "Increased constraint descriptions, complexity badges, formula, footer text and legend spacing.",
+    "Set reference viewport before navigation and captured the default desktop/mobile dashboard before assertions."
+  ],
+  "referenceClarifications": [
+    "The reference tape rows change symbols and omit a head at t=4 inconsistently. The implemented teaching machine retains valid transition rules, one head at every time, and its actual states q0,q1,q1,q2,q2,qa.",
+    "Acceptance clauses use the final time T and accepting branches stutter. Under this encoding the acceptance clause has O(1) length, rather than the reference O(S) disjunction across combined state/symbol cell variables.",
+    "The implementation uses separate symbol, head, state and transition-choice variables; its resulting formula includes Ccell. These clauses must remain visible and present in downloaded DIMACS.",
+    "A failed candidate is distinguished from an unsatisfiable formula; time-limited nonacceptance does not prove unrestricted rejection."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests across 66 files, TypeScript, production build, 394 prerendered pages, and 73-chunk bundle budget.",
+    "developmentBrowser": {
+      "passed": 21,
+      "skipped": 1
+    },
+    "productionBrowser": {
+      "passed": 21,
+      "skipped": 1
+    },
+    "skipReason": "Reference inventory is captured once on desktop.",
+    "scope": [
+      "Reference panel geometry",
+      "Six tableau rows and actual state trace",
+      "Constraint switches",
+      "Playback",
+      "CNF pagination/filter/download",
+      "Assignment export",
+      "Candidate edits and failed-clause diagnosis",
+      "Accepting/rejecting/short/zero-time cases",
+      "Custom input validation",
+      "Theory and worked example",
+      "Prediction challenges",
+      "Language dialog",
+      "Persistent notes and review",
+      "Narrow viewport and dark mode"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures have nonzero differences. Continue full visual-match goal."
+}

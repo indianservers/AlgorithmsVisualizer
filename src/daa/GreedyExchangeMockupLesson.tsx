@@ -22,6 +22,7 @@ import {
   Trophy,
   X,
 } from 'lucide-react'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { tx, useLocaleRender } from '../i18n/render'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, type MockupPageProps } from './MockupLessonChrome'
@@ -91,17 +92,18 @@ function Panel({
   )
 }
 function BarsIcon() {
+  const id = useId()
   return (
     <svg viewBox="0 0 40 40" aria-hidden="true">
       <defs>
-        <linearGradient id="ge-bar-blue" x2="0" y2="1">
+        <linearGradient id={id} x2="0" y2="1">
           <stop stopColor="#39acff" />
           <stop offset="1" stopColor="#0064f7" />
         </linearGradient>
       </defs>
       {[13, 23, 32].map((h, i) => (
         <g key={h}>
-          <rect x={4 + i * 11} y={36 - h} width="8" height={h} rx="3" fill="url(#ge-bar-blue)" />
+          <rect x={4 + i * 11} y={36 - h} width="8" height={h} rx="3" fill={`url(#${id})`} />
           <path d={`M${9 + i * 11} ${37 - h}v${h - 3}`} stroke="#88d5ff" strokeWidth="1.4" opacity=".7" />
         </g>
       ))}
@@ -109,16 +111,17 @@ function BarsIcon() {
   )
 }
 function HeroArt() {
+  const id = useId()
   return (
     <svg className="ge-hero-art" viewBox="0 0 270 138" preserveAspectRatio="none" aria-hidden="true">
       <defs>
-        <linearGradient id="ge-wave-fill" x2="0" y2="1">
+        <linearGradient id={id} x2="0" y2="1">
           <stop stopColor="#55b2ff" stopOpacity=".5" />
           <stop offset="1" stopColor="#9ed9ff" stopOpacity=".1" />
         </linearGradient>
       </defs>
-      <path d="M0 130C24 110 28 98 54 47S87 126 124 95S161 24 193 76S232 14 270 33V138H0Z" fill="url(#ge-wave-fill)" />
-      <path d="M0 138C38 131 46 71 74 83S101 138 129 109S169 41 191 61S220 127 241 87S261 66 270 64V138Z" fill="url(#ge-wave-fill)" />
+      <path d="M0 130C24 110 28 98 54 47S87 126 124 95S161 24 193 76S232 14 270 33V138H0Z" fill={`url(#${id})`} />
+      <path d="M0 138C38 131 46 71 74 83S101 138 129 109S169 41 191 61S220 127 241 87S261 66 270 64V138Z" fill={`url(#${id})`} />
       <path d="M0 138C38 131 46 71 74 83S101 138 129 109S169 41 191 61S220 127 241 87S261 66 270 64" fill="none" stroke="#097bff" strokeWidth="1.5" />
       <circle cx="181" cy="59" r="5.5" fill="#007bff" stroke="white" strokeWidth="2" />
       <path d="M184 40V17M184 19Q191 14 196 20L204 19L198 26L204 30Q195 35 184 29" stroke="#007aff" strokeWidth="2" fill="#007aff" />
@@ -129,12 +132,14 @@ function ScheduleChart({
   activities,
   selected,
   mini = false,
+  intervalLabels = false,
   inspected,
   onInspect,
 }: {
   activities: Activity[]
   selected?: string[]
   mini?: boolean
+  intervalLabels?: boolean
   inspected?: string
   onInspect?: (id: string) => void
 }) {
@@ -142,13 +147,13 @@ function ScheduleChart({
   const colorFor = (a: Activity, i: number) => colors[((Number(a.id.match(/\d+$/)?.[0]) || i + 1) - 1) % colors.length]
   const width = mini ? 260 : 480,
     height = mini ? 172 : 228,
-    left = mini ? 18 : 70,
+    left = mini ? 6 : 70,
     right = width - 16,
-    top = mini ? 22 : 32,
+    top = mini ? 26 : 32,
     bottom = height - 37,
     max = Math.max(10, ...activities.map((a) => a.finish)),
     rows = Math.max(1, activities.length),
-    row = mini ? Math.min(22, (bottom - top) / rows) : (bottom - top) / rows,
+    row = mini ? Math.min(28, (bottom - top) / rows) : (bottom - top) / rows,
     axisBottom = mini ? bottom : bottom - row / 2
   const x = (time: number) => left + ((right - left) * time) / max
   return (
@@ -223,7 +228,7 @@ function ScheduleChart({
             />
             {mini ? (
               <text x={(x(a.start) + x(a.finish)) / 2} y={y + 9} textAnchor="middle" fill={color} className="ge-mini-label">
-                {a.id}
+                {intervalLabels ? `${a.id} [${a.start}, ${a.finish}]` : a.id}
               </text>
             ) : (
               <>
@@ -358,6 +363,7 @@ export function GreedyExchangeMockupLesson(props: MockupPageProps) {
     <div className="mom-page greedy-exchange-page target-visual" data-target="10">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Greedy Choice and Exchange Arguments')}
         description={
           'Show why a local choice can belong to an optimal solution using the exchange argument.\nLearn the technique, see examples, visualize, and understand its limitations.'
@@ -672,7 +678,7 @@ export function GreedyExchangeMockupLesson(props: MockupPageProps) {
                     <Flag />
                     {tr('Optimal solution (before)')}
                   </h3>
-                  <ScheduleChart activities={proof.before} mini />
+                  <ScheduleChart activities={proof.before} mini intervalLabels />
                 </div>
                 <button
                   className="ge-exchange-action"
@@ -690,7 +696,7 @@ export function GreedyExchangeMockupLesson(props: MockupPageProps) {
                     {tr('After exchange (include ')}
                     {proof.greedy.id})
                   </h3>
-                  <ScheduleChart activities={exchanged ? proof.after : proof.before} mini />
+                  <ScheduleChart activities={exchanged ? proof.after : proof.before} mini intervalLabels />
                 </div>
               </div>
               <div className="ge-exchange-note">
@@ -698,7 +704,7 @@ export function GreedyExchangeMockupLesson(props: MockupPageProps) {
                 <p>
                   {tr(
                     exchanged
-                      ? `Replace ${proof.oldFirst.id} with ${proof.greedy.id}. Since ${proof.greedy.finish} ≤ ${proof.oldFirst.finish}, the rest of the schedule still fits. Both schedules contain ${proof.after.length} activities. Repeating this argument establishes the greedy algorithm.`
+                      ? `Replace ${proof.oldFirst.id} with ${proof.greedy.id} in an optimal schedule. Since ${proof.greedy.finish} ≤ ${proof.oldFirst.finish}, every later activity remains feasible, so the objective cannot decrease. Both schedules contain ${proof.after.length} activities. Repeating the exchange establishes an optimal schedule containing the greedy choice.`
                       : 'If an optimal schedule does not include the earliest-finishing activity, exchange its first activity with the greedy choice. The replacement ends no later, preserves feasibility and does not decrease the number of activities. Click the arrow to apply the exchange.',
                   )}
                 </p>
@@ -1001,6 +1007,7 @@ export function GreedyExchangeMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <Panel className="ge-lab" title={tr('Your exchange-argument notes')} description="Saved automatically in this browser." icon={<FileText />}>
+          <LanguageSelector />
           <label>
             {tr('Record the greedy choice, exchange, feasibility and objective.')}
             <textarea aria-label={tr('Greedy exchange notes')} rows={12} value={notes} onChange={(e) => setNotes(e.target.value)} />

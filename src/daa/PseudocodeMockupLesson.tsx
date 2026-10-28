@@ -1,5 +1,5 @@
 // @localized-render
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import {
   AlertTriangle,
   ArrowRight,
@@ -11,8 +11,6 @@ import {
   Copy,
   FileText,
   Lightbulb,
-  MessageSquare,
-  Network,
   Pause,
   Play,
   RotateCcw,
@@ -20,6 +18,7 @@ import {
   Trophy,
   XCircle,
 } from 'lucide-react'
+import { LanguageSelector } from '../i18n/LanguageSelector'
 import { tx, useLocaleRender } from '../i18n/render'
 import { usePersistentState, persistentString } from '../hooks/usePersistentState'
 import { MockupLessonChrome, type MockupPageProps } from './MockupLessonChrome'
@@ -88,49 +87,80 @@ function Panel({
   )
 }
 function PaperIcon() {
+  const id = useId()
   return (
     <svg viewBox="0 0 50 56" aria-hidden="true">
       <defs>
-        <linearGradient id="pc-paper-icon" x2="0" y2="1">
+        <linearGradient id={id} x2="0" y2="1">
           <stop stopColor="#66d0ff" />
           <stop offset="1" stopColor="#278cff" />
         </linearGradient>
       </defs>
-      <path d="M7 4H32L44 16V48Q44 52 39 52H7Q3 52 3 47V9Q3 4 7 4Z" fill="url(#pc-paper-icon)" />
+      <path d="M7 4H32L44 16V48Q44 52 39 52H7Q3 52 3 47V9Q3 4 7 4Z" fill={`url(#${id})`} />
       <path d="M31 4V17H44" fill="#a5e9ff" />
       <path d="M12 19H33M12 29H33M12 39H28" stroke="white" strokeWidth="3" />
     </svg>
   )
 }
 function HeroArt() {
+  const id = useId()
   return (
     <svg className="pc-hero-art" viewBox="0 0 300 125" aria-hidden="true">
       <defs>
-        <linearGradient id="pc-hero-paper" x2="0" y2="1">
+        <linearGradient id={`${id}-paper`} x2="0" y2="1">
           <stop stopColor="#dcf5ff" />
           <stop offset="1" stopColor="#d6e4ff" />
         </linearGradient>
-        <linearGradient id="pc-hero-node" x2="0" y2="1">
+        <linearGradient id={`${id}-node`} x2="0" y2="1">
           <stop stopColor="#11c1ff" />
           <stop offset="1" stopColor="#6351ff" />
         </linearGradient>
       </defs>
-      <path d="M88 7H171L196 32V117H88Q83 117 83 110V15Q83 7 88 7Z" fill="url(#pc-hero-paper)" stroke="#93d6ff" />
-      <path d="M171 7V32H196Z" fill="#72d4ff" />
-      <path d="M5 42L77 52V111L5 103Z" fill="#a4adff" stroke="#cfdbff" strokeWidth="2" />
-      <path d="M221 51L287 36V103L221 113Z" fill="#96c7ff" stroke="#d1e7ff" strokeWidth="2" />
+      <path d="M88 7H166L191 32V117H88Q83 117 83 110V15Q83 7 88 7Z" fill={`url(#${id}-paper)`} stroke="#93d6ff" />
+      <path d="M166 7V32H191Z" fill="#72d4ff" />
+      <path d="M5 38L77 48V105L5 99Z" fill="#a4adff" stroke="#cfdbff" strokeWidth="2" />
+      <path d="M218 51L284 36V103L218 113Z" fill="#96c7ff" stroke="#d1e7ff" strokeWidth="2" />
       {[0, 1, 2, 3].map((i) => (
         <g key={i}>
-          <path d={`M15 ${56 + i * 12}L65 ${63 + i * 12}`} stroke="#e9ecff" strokeWidth="2" strokeDasharray="6 4" />
-          <path d={`M230 ${61 + i * 12}L278 ${51 + i * 12}`} stroke="#e9f7ff" strokeWidth="2" strokeDasharray="7 4" />
+          <path d={`M15 ${52 + i * 12}L65 ${59 + i * 12}`} stroke="#e9ecff" strokeWidth="2" strokeDasharray="6 4" />
+          <path d={`M227 ${61 + i * 12}L275 ${51 + i * 12}`} stroke="#e9f7ff" strokeWidth="2" strokeDasharray="7 4" />
         </g>
       ))}
       <rect x="118" y="30" width="27" height="17" rx="3" fill="#00b5f5" stroke="white" strokeWidth="2" />
       <path d="M131 47V59M144 76H154Q165 76 165 91V102H147M132 87V97" fill="none" stroke="#6b68ed" strokeWidth="2" />
-      <path d="M131 58L147 73L131 88L115 73Z" fill="url(#pc-hero-node)" stroke="white" />
-      <rect x="110" y="98" width="35" height="18" rx="3" fill="url(#pc-hero-node)" stroke="white" />
+      <path d="M131 58L147 73L131 88L115 73Z" fill={`url(#${id}-node)`} stroke="white" />
+      <rect x="110" y="98" width="35" height="18" rx="3" fill={`url(#${id}-node)`} stroke="white" />
       <circle cx="165" cy="96" r="7" fill="#7171ff" />
-      <circle cx="229" cy="23" r="12" fill="#b9e6ff" opacity=".65" />
+      <circle cx="222" cy="25" r="12" fill="#b9e6ff" opacity=".65" />
+    </svg>
+  )
+}
+function FlowIcon() {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path d="M14 6V12L6 18M14 12L22 18M6 18V23M22 18V23M14 12V22" />
+      <circle cx="14" cy="5" r="3" fill="#b6ddff" />
+      <circle cx="6" cy="23" r="3" fill="#b6ddff" />
+      <circle cx="22" cy="23" r="3" fill="#b6ddff" />
+      <circle cx="14" cy="22" r="3" fill="#b6ddff" />
+    </svg>
+  )
+}
+function ConversationIcon() {
+  return (
+    <svg viewBox="0 0 28 28" aria-hidden="true">
+      <path d="M5 4H23Q27 4 27 8V18Q27 22 23 22H13L7 26V22H5Q1 22 1 18V8Q1 4 5 4Z" fill="#2d9fff" />
+      {[8, 14, 20].map((x) => (
+        <circle key={x} cx={x} cy="13" r="1.4" fill="white" />
+      ))}
+    </svg>
+  )
+}
+function WorkedIcon() {
+  return (
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="4" y="2" width="20" height="24" rx="2" />
+      <path d="M13 3V25M5 10H23M5 17H23M8 6H9M17 6H20M8 13H9M17 13H20M8 21H9M17 21H20" />
     </svg>
   )
 }
@@ -170,9 +200,9 @@ function CodeView({
   useEffect(() => {
     const editor = editorRef.current
     if (!editable || !line || !editor) return
-    const top = 8 + (line - 1) * 21
-    if (top < editor.scrollTop + 8) editor.scrollTop = Math.max(0, top - 8)
-    else if (top + 21 > editor.scrollTop + editor.clientHeight - 8) editor.scrollTop = top + 21 - editor.clientHeight + 8
+    const top = 6 + (line - 1) * 20
+    if (top < editor.scrollTop + 6) editor.scrollTop = Math.max(0, top - 6)
+    else if (top + 20 > editor.scrollTop + editor.clientHeight - 6) editor.scrollTop = top + 20 - editor.clientHeight + 6
   }, [line, editable])
   return (
     <div className={`pc-code-editor ${editable ? 'editable' : 'readonly'} ${mini ? 'mini' : ''} ${numbers ? '' : 'no-numbers'}`}>
@@ -465,6 +495,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
     <div className="mom-page pseudocode-page target-visual" data-target="12">
       <MockupLessonChrome
         {...props}
+        showLanguage={false}
         title={tr('Algorithms and Pseudocode')}
         description={tr('Specify input, output and termination. Write clear, correct pseudocode.')}
         heroIcon={<PaperIcon />}
@@ -653,7 +684,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
                   className="pc-flow-panel"
                   title={tr('Flowchart Visualizer')}
                   description={canonicalFlow ? 'Visualize the control flow of the algorithm.' : 'Run to inspect this program’s executed path.'}
-                  icon={<Network />}
+                  icon={<FlowIcon />}
                 >
                   {canonicalFlow ? (
                     <LinearFlow active={!dirty ? activeFlow : undefined} onSelect={inspectFlow} />
@@ -685,7 +716,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
                     </div>
                   ) : (
                     <div className="pc-flow-empty">
-                      <Network />
+                      <FlowIcon />
                       <p>{tr('Run the pseudocode to build its execution path.')}</p>
                     </div>
                   )}
@@ -694,7 +725,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
                   className={`pc-natural ${generatedEdited ? 'generated-active' : ''}`}
                   title={tr('Natural Language → Pseudocode')}
                   description="Convert a description to structured pseudocode."
-                  icon={<MessageSquare />}
+                  icon={<ConversationIcon />}
                 >
                   <textarea aria-label={tr('Algorithm description')} value={description} onChange={(e) => setDescription(e.target.value)} rows={3} />
                   <button
@@ -751,7 +782,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
                   className="pc-worked"
                   title={tr('Worked Example: Binary Search')}
                   description="Search a sorted array using divide and conquer."
-                  icon={<BookOpen />}
+                  icon={<WorkedIcon />}
                 >
                   <div className="pc-worked-tabs">
                     {['Pseudocode', 'Explanation', 'Trace Example', 'Analysis'].map((name) => (
@@ -919,15 +950,18 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
                   {tr('Key Takeaways')}
                 </h2>
                 {[
-                  'An algorithm specifies input, output, and a finite sequence of effective steps.',
-                  'Pseudocode is language-independent and uses structured constructs.',
-                  'State preconditions, postconditions and indexing conventions clearly.',
-                  'Use meaningful variables and handle base cases.',
-                  'Partial correctness + termination ⇒ total correctness.',
-                ].map((s) => (
-                  <p key={s}>
+                  ['An algorithm', ' specifies input, output, and a finite sequence of effective steps.'],
+                  ['Pseudocode is language-independent', ' and uses structured constructs.'],
+                  ['State preconditions, postconditions', ' and indexing conventions clearly.'],
+                  ['', 'Use meaningful variables and handle base cases.'],
+                  ['Partial correctness', ' + termination ⇒ total correctness.'],
+                ].map(([lead, text]) => (
+                  <p key={text}>
                     <CheckCircle2 />
-                    <span>{tr(s)}</span>
+                    <span>
+                      {lead && <b>{tr(lead)}</b>}
+                      {tr(text)}
+                    </span>
                   </p>
                 ))}
               </article>
@@ -1071,6 +1105,7 @@ export function PseudocodeMockupLesson(props: MockupPageProps) {
       )}
       {tab === 'Notes' && (
         <Panel className="pc-extra" title={tr('Your pseudocode notes')} description="Saved automatically in this browser." icon={<FileText />}>
+          <LanguageSelector />
           <label>
             {tr('Record a precondition, a postcondition and a termination argument.')}
             <textarea aria-label={tr('Pseudocode notes')} rows={12} value={notes} onChange={(e) => setNotes(e.target.value)} />

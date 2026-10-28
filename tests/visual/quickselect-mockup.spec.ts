@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, info) => {
+  if (info.project.name === 'desktop') await page.setViewportSize({ width: 1672, height: 941 })
+  await page.route('https://www.googletagmanager.com/**', (r) => r.abort())
   await page.addInitScript(() => {
     localStorage.setItem('algodrishti-onboarded', 'true')
     localStorage.setItem('algodrishti-login-invitation-dismissed', 'true')
@@ -11,6 +13,8 @@ test('016 reference dashboard shows every panel and captures same-viewport evide
   page.on('pageerror', (error) => errors.push(error.message))
   await page.goto('/divide-and-conquer/quickselect')
   const root = page.locator('.quickselect-page')
+  await expect(root).toBeVisible()
+  await page.screenshot({ path: `artifacts/visual-qa/quickselect-016/${info.project.name}-learn.png` })
   await expect(root.getByRole('button', { name: 'Learn', exact: true })).toHaveAttribute('aria-pressed', 'true')
   for (const title of [
     'Quickselect Visualizer',
@@ -25,6 +29,11 @@ test('016 reference dashboard shows every panel and captures same-viewport evide
   await expect(root.locator('.qs-partition h3')).toContainText('pivot = 15')
   await expect(root.locator('.qs-band.lower strong')).toHaveText(['7', '10', '4', '3'])
   await expect(root.locator('.qs-worked-answer')).toContainText('3rd smallest element is 7')
+  for (const selector of ['.qs-takeaways', '.qs-pitfalls', '.qs-pro-tip']) {
+    const card = await root.locator(selector).boundingBox(),
+      text = await root.locator(`${selector} p`).last().boundingBox()
+    expect(text!.y + text!.height, `${selector} text fits its card`).toBeLessThanOrEqual(card!.y + card!.height + 1)
+  }
   // Structural anchors from the supplied 1672×941 reference. These are not a pixel-fidelity pass.
   if (info.project.name === 'desktop') {
     for (const [selector, expected] of [
@@ -33,6 +42,9 @@ test('016 reference dashboard shows every panel and captures same-viewport evide
       ['.qs-recursion', { x: 980, y: 249, width: 315, height: 495 }],
       ['.qs-sidecards', { x: 1309, y: 249, width: 349, height: 501 }],
       ['.qs-bottom-layout', { x: 275, y: 754, width: 1383 }],
+      ['.qs-worked', { x: 275, y: 754, width: 537 }],
+      ['.qs-complexity', { x: 822, y: 754, width: 388 }],
+      ['.qs-correctness', { x: 1220, y: 754, width: 438 }],
     ] as const) {
       const box = await root.locator(selector).boundingBox()
       expect(box).not.toBeNull()
@@ -41,6 +53,11 @@ test('016 reference dashboard shows every panel and captures same-viewport evide
   }
   await page.screenshot({ path: `artifacts/visual-qa/quickselect-016/${info.project.name}-learn.png`, fullPage: false })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+  const growthPoint = root.getByRole('button', { name: 'Inspect growth at n = 1000', exact: true })
+  await growthPoint.focus()
+  await page.keyboard.press('Enter')
+  await expect(root.locator('.qs-growth-inspection')).toContainText('Expected: 3000')
+  await expect(root.locator('.qs-growth-inspection')).toContainText('Worst-case: 8000')
   expect(errors).toEqual([])
 })
 test('016 step, recursion selection, edited cells and invalid ranks keep truthful state', async ({ page }) => {
@@ -97,6 +114,9 @@ test('016 saved experiments, notes, code, proof tabs and study status persist', 
   await root.getByRole('button', { name: 'Assumptions', exact: true }).click()
   await expect(root.locator('.qs-proof-content')).toContainText('one-based')
   await root.getByRole('button', { name: 'Notes', exact: true }).click()
+  await root.getByRole('button', { name: 'Language: English (India)', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
   await root.getByLabel('Quickselect notes').fill('Only the rank-containing side recurses.')
   await root.getByRole('button', { name: 'Experiments', exact: true }).click()
   await root.getByRole('button', { name: 'Save current run', exact: true }).click()

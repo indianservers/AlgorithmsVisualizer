@@ -1,0 +1,107 @@
+{
+  "target": 26,
+  "route": "/complexity-theory/clique-vertex-cover-reduction",
+  "reference": "C:/Screenshots/DAA-Algorithms/targetUI/026--complexity-theory--worked-reduction-clique-to-vertex-cover.png",
+  "previousGoalTurnClassification": "Progress: native 3-SAT to Clique dashboard refined; RGB error 12.5456 to 12.2752, 808 unit tests and 19 final production-browser checks passed.",
+  "status": "Native graph shading, reduction arrow, legend and teaching timeline refined; full visual-match objective remains incomplete.",
+  "beforeMeanAbsoluteRgbError": 11.567,
+  "afterMeanAbsoluteRgbError": 11.2574,
+  "metricMeaning": "Mean absolute RGB-channel error, not a fidelity percentage.",
+  "regions": {
+    "header": {
+      "bounds": [266, 0, 1672, 203],
+      "before": 10.5134,
+      "after": 10.2857
+    },
+    "originalGraph": {
+      "bounds": [298, 279, 709, 646],
+      "before": 8.2162,
+      "after": 7.97
+    },
+    "reduction": {
+      "bounds": [710, 279, 968, 646],
+      "before": 11.3188,
+      "after": 11.0162
+    },
+    "complementGraph": {
+      "bounds": [968, 279, 1326, 646],
+      "before": 10.8691,
+      "after": 11.108
+    },
+    "controls": {
+      "bounds": [1340, 279, 1644, 654],
+      "before": 15.0115,
+      "after": 15.0115
+    },
+    "steps": {
+      "bounds": [292, 665, 1644, 798],
+      "before": 11.1391,
+      "after": 8.4792
+    },
+    "footer": {
+      "bounds": [292, 809, 1644, 939],
+      "before": 19.768,
+      "after": 20.3193
+    }
+  },
+  "refinements": [
+    "Added native rounded bar-chart icons and gradient complement arrow.",
+    "Added useId-scoped radial blue, gold and mint node shading; aligned unselected radii with the reference.",
+    "Raised graph legends and improved their typography.",
+    "Matched six timeline horizontal positions, row height and narrower explanation wrapping.",
+    "Refined footer text and worked-example line spacing, then restored exact 130-pixel panel height after initial four-pixel overflow.",
+    "Matched account/study control widths and progress vertical alignment; moved language selection to Notes.",
+    "Set the reference viewport before navigation and captured the initial dashboard before geometry assertions.",
+    "Added assertions that all six original-graph node centers stay within two pixels of the reference."
+  ],
+  "referenceClarifications": [
+    "The default G has 11 edges on six vertices. Its simple complement H has exactly 15-11=4 edges, rather than the inconsistent extra dashed edges in the reference.",
+    "Complement vertex 3 is isolated; no incident edges are invented to imitate the reference.",
+    "Selecting S={1,2,3} yields C={4,5,6}, and both certificates are verified from the same graph.",
+    "Complement edges are visible initially so the actual construction is inspectable; both switches reflect that true state.",
+    "The theorem uses clique size at least k and cover size at most n-k. A rejected selected subset alone does not establish a NO instance.",
+    "NP-completeness additionally requires NP membership; the reduction alone establishes hardness."
+  ],
+  "checks": {
+    "fullProjectCheck": "Passed lint, localization, 808 unit tests / 66 files, TypeScript, production build, 394 prerendered pages and 73-chunk bundle budget.",
+    "finalBuild": "Fresh Vite build, prerender and bundle budget passed after final CSS correction; modified test ESLint passed.",
+    "initialDevelopmentBrowser": {
+      "passed": 20,
+      "failed": 1,
+      "skipped": 1,
+      "failure": "Reference footer height increased four pixels; corrected before final production run."
+    },
+    "finalProductionBrowser": {
+      "passed": 40,
+      "skipped": 2,
+      "scope": "025 and 026 native lessons plus target and inventory captures."
+    },
+    "skipReason": "Reference inventory captured once on desktop.",
+    "interactions": [
+      "Selected clique and mapped cover",
+      "Rejected cliques and uncovered edges",
+      "Keyboard graph controls",
+      "Pair inspectors edit G and H together",
+      "Graph and threshold editor",
+      "Malformed certificates",
+      "Zero thresholds and empty covers",
+      "Complement-edge and cover switches",
+      "Six-stage reduction playback",
+      "Reverse certificates",
+      "Bounded YES/NO search",
+      "Proof directions and theory",
+      "Prediction challenges",
+      "Language dialog",
+      "Persistent notes and review",
+      "Eight-vertex custom graphs",
+      "Narrow viewport and dark mode"
+    ]
+  },
+  "inventory": {
+    "targets": 45,
+    "dimensionsMatch": 45,
+    "pixelIdentical": 0
+  },
+  "disposition": "Local changes only; no new commit or push.",
+  "remaining": "All 45 target captures have nonzero differences. Continue full visual-match goal."
+}
